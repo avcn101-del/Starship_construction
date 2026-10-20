@@ -39,7 +39,17 @@ async function loadAll() {
 function select(all, sel) {
   const list = all.filter((s) => s.id === sel || s.level === sel);
   if (!list.length) throw new Error(`no scenario matches ${sel}`);
-  return list;
+  // Dependencies first, so a level runs in one pass.
+  const byId = new Map(list.map((s) => [s.id, s]));
+  const done = new Set(), out = [];
+  const visit = (s) => {
+    if (done.has(s.id)) return;
+    done.add(s.id);
+    for (const d of s.dependsOn || []) if (byId.has(d)) visit(byId.get(d));
+    out.push(s);
+  };
+  list.forEach(visit);
+  return out;
 }
 
 // ---------- locking ----------
