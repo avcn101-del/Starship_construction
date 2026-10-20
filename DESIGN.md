@@ -439,17 +439,20 @@ channel, room, crew aboard).
 Every row is in `MISSION0.md` with the command that reproduces it.
 
 **L0 materials** (2026-10-20; seven scenarios, 66 cases, all PASS on their
-first canonical run, locked before it; verified by an independent re-run):
+first canonical run, locked before it; the first independent re-run was
+the reviewer's on PR #1. Re-run on 2026-10-20 after #171 and #175, all
+PASS. "AP" in L0 is the plain steel round: round types (#96) are not
+modelled yet (#173)):
 
 | Scenario | What the numbers say |
 |---|---|
 | `L0.kinetic.penetration` | S, M, L AP rounds pass 1, 2, 3 armour cells **at every tier T1–T6**: sectional momentum makes same-tier rounds and armour balance by themselves (#165) |
 | `L0.kinetic.overpen` | An AP M round through an ordinary room 1–4 cells deep wastes 90–61% of its momentum leaving the ship: AP is poor against thin rooms (#96) |
-| `L0.blast.surface` | A 2 MJ HE warhead damages 4 armour cells, destroying 2 (provisional 1 MJ per cell); energy is conserved and excess vents only when the plate is full |
+| `L0.blast.surface` | A 2 MJ HE warhead bursting on an edge cell destroys 1 armour cell and damages 4: the burst cell saturates at 1 MJ (provisional) and its three neighbours take 0.33 MJ each (3 MJ: still 1 destroyed, 4 damaged; 5 MJ: 4 destroyed, 9 damaged). Energy is conserved and excess vents only when the plate is full. The criterion checks the energy books, a lower bound on damaged cells, connectivity and the burst cell; **it does not pin the spreading law** (wall-length proportionality, #18): any connected spread that conserves energy passes |
 | `L0.beam.falloff` | The Gaussian beam delivers 98% at 0 m, 86% at the focus range (600 m), 55% at 1.2 km; flat within the focus range (0.995 at a quarter of it) and 1/d² beyond (d²f within 2.2% between 10 and 20 focus ranges) |
 | `L0.beam.burn` | An M beam burns through an armour cell in 6.1 s at contact, 6.9 s at 600 m, 14.1 s at 1.5 km, putting 30 MJ of heat into the target room per cell (provisional burn energy) |
-| `L0.shield.point` | An M shield (10 MW) absorbs an M beam (5 MW) completely anywhere within its radius (40 m, half strength) and only 0.59 MW at 160 m |
-| `L0.shield.kinetic` | An M shield stops an S round at the generator and slows an M round from 800 to 266 m/s, paying 47–374 kJ per round |
+| `L0.shield.point` | An M shield (10 MW) absorbs at most 10 MW at the generator, 8 MW at 20 m, 5 MW at its radius (40 m, half strength), 2 MW at 80 m and 0.59 MW at 160 m (beams of 2, 10 and 30 MW run). No 5 MW (M) beam was run: that it absorbs an M beam completely within its radius is **an inference from the formula** (budget × g(40 m) = 5 MW), not a measurement |
+| `L0.shield.kinetic` | An M shield stops an S round at the generator (exactly: `shield.kineticStop` is one S round's sectional momentum, #171) and slows an M round from 800 to 267 m/s, paying 47–373 kJ per round |
 
 Honest reading: L0 proves the materials behave as their formulas say and
 that the books balance; it says nothing yet about balance between ships.
@@ -460,9 +463,10 @@ blast). `L0.kinetic.overpen` and `L0.shield.kinetic` are close restatements
 of their formulas: their value is locking the rule against later changes.
 Two signals for later levels: a single round costs the shield's impulse
 buffer 0.05–0.4 MJ of a 10 MJ buffer, so **the buffer has no measured effect
-yet** (E4: it must show one under rapid fire at L2, or be cut); and an M
-shield fully stops an M beam inside its radius, which L2 (overlap) and L5
-(ship vs ship) must show is not a dominant defence.
+yet** (E4: it must show one under rapid fire at L2, or be cut); and, by
+the formula, an M shield fully stops an M beam inside its radius, which L2
+(overlap) and L5 (ship vs ship) must show is not a dominant defence. Heat
+invariants that hold by construction do not count towards E3 (#174).
 
 ## 17. Open questions
 
@@ -481,6 +485,7 @@ shield fully stops an M beam inside its radius, which L2 (overlap) and L5
    - Fixed constants: steel density 7850 kg/m³ (real); rounds are
      cylinders 4 diameters long; S and L are 2/3 and 3/2 of M in linear
      size; the beam waist is 1/√2 of half a cell; the shield field falls
-     off as 1 / (1 + (r / radius)²).
+     off as 1 / (1 + (r / radius)²); the simulation step is 1/60 s and a
+     beam burn gives up after 3600 s (#175).
    - A provisional rule: **continuous beams meet the shield's rate; its
      buffer catches impulses** (rounds, blasts).
