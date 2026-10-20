@@ -371,6 +371,25 @@ hash), `tunable`. Folders `mission0/scenarios/` and `mission0/results/`;
 `MISSION0.md` is the ledger generated from the results. Tunable constants
 carry approved `min`–`max` ranges (#145).
 
+**Units**: SI throughout the simulation (#163).
+
+**Exit criteria** (#164), all eight required:
+
+| | Criterion |
+|---|---|
+| E1 | Every L0–L6 scenario PASSes its locked criterion |
+| E2 | Invariants on every sweep: same seed → same log hash; momentum conserved at splits; heat generated = radiated + stored; no NaN |
+| E3 | Every kept physics law has at least one passing proof scenario |
+| E4 | Every schema attribute has a measured effect, or it is cut |
+| E5 | No build wins more than 75% against the reference set; every degenerate build loses ≥ 3 of 4 against the reference ship on the same budget |
+| E6 | Each underdog path: a 60%-budget ship beats a 100% one with the intended tactic and loses without it |
+| E7 | The median reference battle lasts 3–6 minutes |
+| E8 | T1 and T6 1v1 battles cost at most a quarter of the phone's frame budget per step in Node (milliseconds set at L3, approved, then locked) |
+
+**L0** (#165, #166): seven material scenarios; kinetic penetration by
+sectional momentum (p/A) so same-tier rounds and armour balance; beams as a
+Gaussian beam (flat within the focus range, then 1/d²).
+
 **Agentic operation** (#131–#136): parallel within a level, gated between
 levels; runner, verifier (independent, re-runs from the command line only),
 analyst, integrator (the only writer of `data.js` and the ledger); criteria
@@ -413,11 +432,10 @@ Nothing yet. Results go to `MISSION0.md`, generated from
 
 ## 17. Open questions
 
-1. **Mission 0 exit criteria**: to be stated and locked before L0 starts.
-2. **Approved ranges** for each level's constants: proposed by Claude,
-   approved once by the owner (#145).
-3. **Chapter design** waits for Mission 0 (#125).
-4. Player-facing names of factions and named ships (current names are
+1. **Chapter design** waits for Mission 0 (#125).
+2. Player-facing names of factions and named ships (current names are
    working names).
-5. Economy prices: measured with `tools/campaign.js`.
-6. A store and trademark check of the title before any public release.
+3. Economy prices: measured with `tools/campaign.js`.
+4. A store and trademark check of the title before any public release.
+5. Approved ranges for each level after L0, proposed before that level
+   starts (#145).

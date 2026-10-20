@@ -309,6 +309,15 @@ room behind it); Decoy launcher (#149).
 | 151 | **Git flow**: when the base docs are written, create `main` and make it the default branch; **one branch and one PR per Mission 0 level**; the owner reviews and merges |
 | 152 | **No rendering code until Mission 0 exits** (enforces text-only; agents drift towards visuals) |
 
+## 9c. Mission 0 exit criteria and L0 (agreed before L0 started)
+
+| # | Decision |
+|---|---|
+| 163 | **SI units** in the simulation (kg, m, s, J, W, K): expected formulas are textbook physics, and the decided numbers (#54) are already SI. Constants are tuned within ranges; units stay real |
+| 164 | **Mission 0 exits only when all eight hold** (locked like any criterion): **E1** every L0–L6 scenario PASSes its locked criterion; **E2** invariants hold on every sweep (same seed → same log hash; momentum conserved at splits; heat generated = heat radiated + heat stored; no NaN); **E3** every kept physics law has at least one passing proof scenario; **E4** every schema attribute has a measured effect, or it is cut before exit; **E5** no dominant build: no build, fuzzer-made included, wins more than **75%** against the reference set, and every degenerate build loses ≥ 3 of 4 against the reference ship on the same budget; **E6** all six underdog paths work: for each, a ship on **60%** of the budget beats one on 100% with the intended tactic and loses without it; **E7** the median reference battle lasts 3–6 minutes; **E8** a T1 and a T6 1v1 battle cost at most **a quarter of the phone's frame budget** per step in Node; the exact milliseconds are set at L3 when first measured, approved by the owner, then locked |
+| 165 | **L0 scenarios (materials)**: `L0.kinetic.penetration`, `L0.kinetic.overpen`, `L0.blast.surface`, `L0.beam.falloff`, `L0.beam.burn`, `L0.shield.point`, `L0.shield.kinetic`. Kinetic penetration uses **sectional momentum** (momentum per cross-section, p/A), as real armour penetration does: calibre and armour both scale with the cell edge (k = 1), so rounds and armour **of the same tier balance by themselves** (raw momentum would scale k = 3 and big guns would overwhelm big armour). Beams follow a **Gaussian beam**: nearly flat within the focus range, then 1/d², as real lasers fall off |
+| 166 | **L0 approved ranges (T1, size M)**: round mass 0.5 kg (0.2–2, k=3); muzzle velocity 800 m/s (500–1000, k=0); armour kinetic resistance per cell set so an AP M round penetrates 2–3 cells (0.5×–2×, k=1); HE blast energy 2 MJ (0.5–5 MJ, k=3); beam power 5 MW (1–20 MW, k=2); beam focus range 600 m (300–1500 m, k=1); shield budget 10 MW absorbed (2–40 MW, k=2); shield field radius 40 m (20–80 m, k=1); momentum a shield stops per round equal to one S round's (0.5×–2×, k=1) |
+
 ## 10. Presentation and crew
 
 | # | Decision |
