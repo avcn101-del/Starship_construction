@@ -390,6 +390,15 @@ carry approved `min`–`max` ranges (#145).
 sectional momentum (p/A) so same-tier rounds and armour balance; beams as a
 Gaussian beam (flat within the focus range, then 1/d²).
 
+**After the L0 review** (#169–#175): blast spreads as a wave front, with
+damaged and destroyed reported apart and a provisional open-face coupling;
+the shield's per-point cap can double-count its budget, to be resolved
+before L2; `shield.kineticStop` is computed exactly from the S round;
+`shield.radius` is the half-strength radius; L0's "AP" is the plain steel
+round; locked L0 criteria stay and stronger v2 scenarios follow; heat
+invariants that hold by construction do not count towards E3; records hash
+`run()` too; the step and burn limit live in `data.js`.
+
 **Agentic operation** (#131–#136): parallel within a level, gated between
 levels; runner, verifier (independent, re-runs from the command line only),
 analyst, integrator (the only writer of `data.js` and the ledger); criteria
