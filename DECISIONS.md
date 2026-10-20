@@ -330,6 +330,15 @@ room behind it); Decoy launcher (#149).
 | 156 | **Simulation events carry what sound needs** (energy, distance, damage channel, room, crew aboard), fixed from Mission 0 so the kernel need not change later |
 | 157 | **No music in battle**, only hull sound and silence; music in the hangar and the memorial |
 
+## 10c. Setting, captain and tone
+
+| # | Decision |
+|---|---|
+| 158 | **Setting: a privateer** under a letter of marque, living on prize money (fits capture, prize money, factions, salvage). Rejected: salvager (hard to justify constant fighting), naval officer (navies do not pay their own repairs) |
+| 159 | **The captain** (the owner's words): fights for the underdogs; practical, cynical, with a moral code that is a little funny; knows what is right and will do right, but that does not mean they cannot fight dirty. The mechanics already say this: the six underdog paths, the dirty tricks (cold approach, decoys, shooting down a firing barrel, power cuts, EMP, capture for loot), and a moral code that is the player's choice, never paid for (#79) |
+| 160 | **Tone rule, Firefly-style**: the captain's voice is dry, cynical and funny; **death stays heavy** (#49, #50). A joke is how the captain carries a loss, never the game making light of it. **Dark comedy** in comms and crew lines |
+| 161 | **Narrative direction**: dark comedy with **plot twists**. Story is content, written after Mission 0 like the chapters; it adds no mechanics. Firefly is a reference for tone only: no names, terms or phrases taken from it |
+
 ## 11. Scale
 
 | # | Decision |
