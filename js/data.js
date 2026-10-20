@@ -26,13 +26,27 @@ export const FIXED = {
   sizeLinear: { value: { S: 2 / 3, M: 1, L: 3 / 2 }, unit: '', note: 'linear size of S and L relative to M (mass scales with its cube)' },
   beamWaistPerHalfCell: { value: 1 / Math.SQRT2, unit: '', note: 'beam waist radius as a fraction of the target aperture radius (half a cell edge)' },
   shieldFalloffExponent: { value: 2, unit: '', note: 'shield field strength g(r) = 1 / (1 + (r / radius)^n)' },
+  simStep: { value: 1 / 60, unit: 's', note: 'simulation time step (#175)' },
+  burnTimeLimit: { value: 3600, unit: 's', note: 'a beam burn gives up after this long (#175)' },
 };
 
+const KINETIC = {
+  roundMass: P(0.5, 0.2, 2, 3, 'kg', true, 'size M round at T1 (#166)'),
+  muzzleVelocity: P(800, 500, 1000, 0, 'm/s', true, '#166'),
+};
+
+// One S round's sectional momentum at T1 (#171), with the same arithmetic as
+// roundGeometry and sectionalMomentum in projectile.js, so the field stops an
+// S round at full strength exactly.
+const S_ROUND_STOP = (() => {
+  const mass = KINETIC.roundMass.value * FIXED.sizeLinear.value.S ** 3;
+  const D = Math.cbrt((4 * mass) / (Math.PI * FIXED.steelDensity.value * FIXED.roundLengthToDiameter.value));
+  const A = (Math.PI * D * D) / 4;
+  return (mass * KINETIC.muzzleVelocity.value) / A;
+})();
+
 export const PARAMS = {
-  kinetic: {
-    roundMass: P(0.5, 0.2, 2, 3, 'kg', true, 'size M round at T1 (#166)'),
-    muzzleVelocity: P(800, 500, 1000, 0, 'm/s', true, '#166'),
-  },
+  kinetic: KINETIC,
   armour: {
     // An AP M round carries 6.85e5 kg/(m*s) of sectional momentum; 2.7e5 per
     // cell lets it pass 2 cells and stop in the 3rd (#166: 2-3 cells).
@@ -53,9 +67,7 @@ export const PARAMS = {
   shield: {
     budget: P(1e7, 2e6, 4e7, 2, 'W', true, 'size M absorption rate (#166)'),
     radius: P(40, 20, 80, 1, 'm', true, 'radius where the field is at half strength (#166)'),
-    // One S round's sectional momentum: 6.85e5 * 2/3 = 4.567e5, rounded up to 4.57e5 so the field stops an S round completely (#166 says
-    // "momentum of an S round" with k = 1, which holds for sectional momentum).
-    kineticStop: P(4.57e5, 2.285e5, 9.14e5, 1, 'kg/(m*s)', true, 'sectional momentum the field stops per round at full strength (#166)'),
+    kineticStop: P(S_ROUND_STOP, 0.5 * S_ROUND_STOP, 2 * S_ROUND_STOP, 1, 'kg/(m*s)', true, 'sectional momentum the field stops per round at full strength: one S round at T1, computed (#166, #171)'),
     bufferSeconds: P(1, 0.2, 5, 0, 's', false, 'buffer for impulses (rounds, blasts) = budget x this (provisional)'),
   },
 };

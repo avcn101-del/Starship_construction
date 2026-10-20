@@ -74,9 +74,10 @@ export function blast(w, h, origin, E, capacity) {
 /**
  * Beam burn-through (#138): a beam delivers `power` (W) to a cell; the cell
  * burns through when it has received `energy` (J). Every joule delivered
- * becomes heat in the target room. Stepped at dt until burnt or maxTime.
+ * becomes heat in the target room. Stepped at dt until burnt or maxTime
+ * (the caller passes FIXED.burnTimeLimit).
  */
-export function burnThrough(power, energy, dt, maxTime = 3600) {
+export function burnThrough(power, energy, dt, maxTime) {
   let delivered = 0;
   let steps = 0;
   while (delivered < energy && steps * dt < maxTime) {
