@@ -169,6 +169,18 @@ reuses a model the kernel already has.
 | 40 | Helm conflict resolution, fixed order: **position, then facing, then dodging**. The report records which order yielded |
 | 41 | **Report**: the **KIA list first**; the **cascade tree** (each damage event carries its cause); timeline of scans and targets; what the enemy scanned of you; heat graph; salvage and unlocks; kill-cam replay (deterministic re-simulation from seed + player inputs) |
 
+## 8b. Enemy AI
+
+| # | Decision |
+|---|---|
+| 111 | **Symmetry**: the enemy plays by the player's rules. Four layers: automatic (same), standing orders and presets (same 12 slots; each puzzle ship has its own presets), **verbs** (the enemy script chooses among the same three: scan a zone, target a room, switch preset), puzzle mechanics (designer-only actions: charge a superweapon, call reinforcements, strike colours). Scripts use bridge-sim's when → do engine and hold only what the automatic layer cannot do: mechanics, personality, conditional reactions (bridge-sim lesson: the Brawler) |
+| 112 | **No information cheating**: the enemy knows only what it has scanned; it never reads your true layout or your standing orders. One knowledge model per side |
+| 113 | Same physics, same delays (scan time, target switch delay, heat limits) |
+| 114 | **Tell rule**: every special mechanic has a **physical precursor visible to passive sensors** at least a few seconds before it happens (a charging superweapon glows on EM and heats up; hangar doors open) |
+| 115 | Deterministic: the same state gives the same decision. Variety comes from layout variants |
+| 116 | **No learning across battles** (bridge-sim measured and cut it); reactions within a battle are fine (e.g. switching ammunition after seeing your armour). The player keeps an **intel journal** per ship class: tells seen, presets used, personality; never the layout (it varies) |
+| 117 | **Personality is data, four parameters**: aggression, patience, caution, resolve. They only tune existing thresholds and presets. Resolve ties to capture: low resolve is easy to capture, possibly with less loot |
+
 ## 9. Architecture
 
 | # | Decision |
