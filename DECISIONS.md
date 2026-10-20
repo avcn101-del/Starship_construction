@@ -180,6 +180,10 @@ reuses a model the kernel already has.
 | 115 | Deterministic: the same state gives the same decision. Variety comes from layout variants |
 | 116 | **No learning across battles** (bridge-sim measured and cut it); reactions within a battle are fine (e.g. switching ammunition after seeing your armour). The player keeps an **intel journal** per ship class: tells seen, presets used, personality; never the layout (it varies) |
 | 117 | **Personality is data, four parameters**: aggression, patience, caution, resolve. They only tune existing thresholds and presets. Resolve ties to capture: low resolve is easy to capture, possibly with less loot |
+| 118 | **Factions are bundles of defaults** over existing systems, not new systems: a personality range, preferred technology, **one signature mechanic** (through a core law), a surrender culture, visuals and voice (hull colours, crew naming, comms tone). A ladder chapter is a faction; the roguelite varies by faction; the intel journal is per faction |
+| 119 | **Three factions to start**, one per core law: a throughput faction (heat and beams), a dependency faction (armour and kinetics), an information faction (stealth and missiles). The five puzzle ships are split among them |
+| 120 | **Wildcard** (the occasional curve ball) is **drawn once at battle start from the battle's seed**; nothing random happens during the battle (replay and harness still work). It can change the magazine (e.g. radar seekers instead of IR), shift personality within the faction's range, pick a rare preset, or add one unusual room. Rules: **never on the first ladder encounter**; on in replays and the roguelite; **detectable** (the tell rule and scanning apply, so scanning first is rewarded); **the harness measures wildcard variants** and the intended answer, after adapting by scanning and switching presets, must still win |
+| 121 | Terms: "puzzle ship" is the internal design term (an enemy built around an answer), not a quest. The player-facing English term is still open (candidates: named ship, adversary, contract, engagement) |
 
 ## 9. Architecture
 
