@@ -303,6 +303,9 @@ room behind it); Decoy launcher (#149).
 | 144 | **Scenario spec** (one data file per scenario): `id` (e.g. `L1.reactor.steady-heat`), `level`, `laws`, `dependsOn` (the gate between levels), `setup` (from data, never hand-coded), `run`, `measure`, `expected` (a formula over `data.js` constants), `tolerance`, `criterion` (within tolerance, inequality, or win rate), `locked` (date and a hash of the criterion, checked by the verifier), `tunable` (constants an agent may tune and their range). Folders: `mission0/scenarios/`, `mission0/results/` (JSON with the command line); `MISSION0.md` is the ledger generated from the results |
 | 145 | **Approved ranges**: every tunable constant in `data.js` carries `min`–`max`. Claude proposes the initial ranges per level; the owner approves them once; agents then tune freely inside them |
 | 146 | Remaining topics before writing the docs, in order: working rules for the new repo's `CLAUDE.md`, sound, game title |
+| 150 | **`CLAUDE.md` of the new repo**, built on bridge-sim's. **Kept**: every balance number in `data.js`; one responsibility per file; events for presentation; docs and `CHANGELOG.md` updated in the same commit; honest reporting; short imperative commit subjects with a why-body; no build tooling, `package.json`, linters or test frameworks unless asked. **Dropped**: `file://` and classic scripts, LCARS, bridge calls, bridge-sim's balance targets, the visual-quality rule (returns after Mission 0). **Added**: `DECISIONS.md` is the source until `DESIGN.md` is written from it; changing a law needs the owner; new ideas pass the four gates and the coverage table; ES modules, no build, no npm; **the kernel never touches the DOM**; **no `Math.random` in the simulation** (seeded RNG only; effects have their own stream); the renderer and the enemy read only their knowledge model; every attribute follows §4b with `min`–`max` and a scaling exponent; no hidden stat multipliers; Mission 0 discipline (#133); the autonomy line (#134); before finishing, run every passed Mission 0 scenario (after Mission 0, also the phone-viewport smoke test); docs and code in English, discussion with the owner in Vietnamese mixed with English |
+| 151 | **Git flow**: when the base docs are written, create `main` and make it the default branch; **one branch and one PR per Mission 0 level**; the owner reviews and merges |
+| 152 | **No rendering code until Mission 0 exits** (enforces text-only; agents drift towards visuals) |
 
 ## 10. Presentation and crew
 
@@ -364,7 +367,7 @@ fragments moved to #88.)
 ## 13. Still open (discuss before writing the design docs)
 
 1. ~~Fill the schema~~ (done qualitatively, §4d)
-2. Working rules for the new repo's `CLAUDE.md`
+2. ~~Working rules for `CLAUDE.md`~~ (#150–#152)
 3. Sound
 4. Game title (the repository is `Starship_construction`)
 
