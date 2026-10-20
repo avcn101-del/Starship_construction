@@ -106,6 +106,44 @@ measured effect in Mission 0; an attribute with none is cut.
 | 142 | **No separate EMP room**: the EMP warhead (#97) does that job. One fewer room to balance; reversible |
 | 143 | **Radiators follow Stefan–Boltzmann**: radiated power ∝ area × emissivity × T⁴, and IR brightness follows the same law. Running hot dumps heat far faster but is far more visible; the emission posture gains a physical basis |
 
+## 4d. Block profiles (qualitative; numbers come from Mission 0)
+
+| Room | Produces | Consumes | Stores | Field, signature | On control loss or destruction |
+|---|---|---|---|---|---|
+| Bridge | control | little power (has its own **backup supply**, #147) | — | low | destroyed: every reactor SCRAMs, the ship goes dark |
+| Reactor | **power, much heat** | — | — | IR only once heat reaches the hull | control loss: SCRAM then decay heat; heavy damage: containment breach; critical: meltdown |
+| Engine | thrust, heat | power | — | **exhaust very IR-bright** | no power or control: zero thrust |
+| Magazine | ammunition feed through walls | — | **ammunition by contents** | — | destroyed or critical heat: **explodes by the ammunition left** |
+| Shield generator | **shield field** | power by budget | — | **EM-bright while absorbing** | no power: field off; absorbing makes heat |
+| Crew quarters | **repair field** by surviving cells | little power | **crew** | — | destroyed: many crew die, repair lost |
+| Beam bay | beam, **very much heat** | **much power** | — | bright while firing; firing window stays open | no power: ceases fire |
+| Kinetic turret | rounds, **recoil** | ammunition, some power | — | muzzle flash | no ammunition or power: ceases fire |
+| Spinal railgun | very fast rounds, axial recoil | **very much power**, ammunition | — | very bright when firing | no power: ceases fire; a long target |
+| Missile bay | missiles | missiles from the magazine | **a small ready store** (#148) | tube opens on launch | destroyed: the missiles inside explode |
+| Empty hold | — | — | — | — | structure only; **poor heat conduction, absorbs blast** |
+
+Later rooms: Hangar (craft, fuel and ammunition: the biggest bomb), Jammer
+(jamming field, very EM-bright, jams its own sensors), Auxiliary bridge
+(weaker control).
+
+| Fitting | Job | Consumes | Resistance, hp | Signature |
+|---|---|---|---|---|
+| Armour | stops | — | **high kinetic**, medium blast and thermal; heavy | — |
+| Radiator | dumps its room's heat (T⁴) | — | **low hp** (thin panel) | **IR-bright, T⁴** |
+| RCS | torque = distance × force | power | low | small puffs |
+| Point defence kinetic | flak against munitions | its own small ammo store | low | — |
+| Point defence laser | against munitions | power, heat | low | bright when firing |
+| Sensor antenna | active scan and passive sensing; needs a control path to the bridge | power | low | **EM-bright when scanning** |
+
+Later fittings: Scan-proof plating (lowers the radar reflectivity of the
+room behind it); Decoy launcher (#149).
+
+| # | Decision |
+|---|---|
+| 147 | **The bridge has its own backup supply**: it keeps control when its power is cut. Decapitation happens only when the bridge is destroyed, so "cut the power" and "decapitate" stay distinct routes (#82) |
+| 148 | **The missile bay holds a small ready store**, refilled from the magazine through the shared wall; it explodes by the missiles inside it |
+| 149 | **Heat decoys are munitions** fired from a later **decoy launcher** fitting: an IR signature imitating a radiator, no warhead. Munition schema, no new rule |
+
 ## 5. Weapons and defence
 
 | # | Decision |
@@ -325,7 +363,7 @@ fragments moved to #88.)
 
 ## 13. Still open (discuss before writing the design docs)
 
-1. Fill the schema (§4b) for every room and fitting
+1. ~~Fill the schema~~ (done qualitatively, §4d)
 2. Working rules for the new repo's `CLAUDE.md`
 3. Sound
 4. Game title (the repository is `Starship_construction`)
