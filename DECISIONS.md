@@ -183,7 +183,15 @@ reuses a model the kernel already has.
 | 118 | **Factions are bundles of defaults** over existing systems, not new systems: a personality range, preferred technology, **one signature mechanic** (through a core law), a surrender culture, visuals and voice (hull colours, crew naming, comms tone). A ladder chapter is a faction; the roguelite varies by faction; the intel journal is per faction |
 | 119 | **Three factions to start**, one per core law: a throughput faction (heat and beams), a dependency faction (armour and kinetics), an information faction (stealth and missiles). The five puzzle ships are split among them |
 | 120 | **Wildcard** (the occasional curve ball) is **drawn once at battle start from the battle's seed**; nothing random happens during the battle (replay and harness still work). It can change the magazine (e.g. radar seekers instead of IR), shift personality within the faction's range, pick a rare preset, or add one unusual room. Rules: **never on the first ladder encounter**; on in replays and the roguelite; **detectable** (the tell rule and scanning apply, so scanning first is rewarded); **the harness measures wildcard variants** and the intended answer, after adapting by scanning and switching presets, must still win |
-| 121 | Terms: "puzzle ship" is the internal design term (an enemy built around an answer), not a quest. The player-facing English term is still open (candidates: named ship, adversary, contract, engagement) |
+| 121 | Terms: "puzzle ship" is the internal design term (an enemy built around an answer), not a quest. **Player-facing term: "named ship"** (each has its own name and personality, e.g. *the Furnace*) |
+
+## 8c. Difficulty
+
+| # | Decision |
+|---|---|
+| 122 | **Difficulty comes only from mechanics; no hidden stat multipliers** (bridge-sim: +4% a win compounded fourfold in 4v4; damage checks never forced a role). Seven levers, all visible and learnable: laws tested per ship (one, then two combined); concealment (none → jammer, scan-proof plating); physical clock (wide → tight); wildcard (off → on); enemy tier relative to yours; environment (roguelite); personality |
+| 123 | The difficulty curve is **measured**: the harness per named ship (intended vs naive), `tools/campaign.js` across the ladder. A chapter is harder than the last only when the numbers say so |
+| 124 | **One standard difficulty plus assist options** that change the player's side, never the enemy's stats: game speed (e.g. 0.75×, useful on a phone), longer tells, extended clock; and **Ironman** (no pause, one save) for a harder game. The harness measures the standard difficulty |
 
 ## 9. Architecture
 
