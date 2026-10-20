@@ -75,7 +75,7 @@ reuses a model the kernel already has.
 | # | Decision |
 |---|---|
 | 99 | **One rule for every field** (shield, repair, jamming): each source has a **finite budget** spread over its coverage with falloff; where fields overlap they **add**, each source paying from its own budget. Shield overlap is therefore **depth vs breadth** (a hit in the overlap is shared by both generators, each heating by its share; deep and redundant but smaller coverage and more gaps), not waste. Supersedes "two emitters too close waste power" |
-| 100 | **Firing window**: a weapon firing through its own shield opens a small hole in that direction for an instant. A time window: hit the enemy while it fires |
+| 100 | **Firing window**, local only: the shield opens a small hole **only at the point where your own round crosses its coverage**, the size of the round plus a margin, **only while the round passes**. Kinetic: an instant flash. Missiles and craft: at the tube or hangar door as they leave (and as craft return). **Beams keep their hole open for as long as they fire.** Only enemy rounds travelling back along your line of fire get in: a precise target ("shoot down the barrel of a firing gun"), hardest on beams |
 | 101 | **Your jammer also jams your own sensors**: you cannot jam and scan actively at once. **Burn-through**: active scan falls off with distance⁴, jamming with distance²; close enough, the scan burns through (the Ghost is revealed only by closing in) |
 | 102 | **Infrared sees only the surface.** Deep reactors are invisible until their heat conducts to the hull. **IR seekers hunt radiators and engine exhaust**, not reactors (corrects an earlier statement). Radiators are your own IR beacons; heat decoys work by imitating one |
 | 103 | **Shields do not block scans**, but a shield that is absorbing is **EM-bright**; the cold posture turns shields off for a reason |
@@ -94,6 +94,18 @@ reuses a model the kernel already has.
 | 96 | **Kinetic rounds**: Standard; AP (dense core, deep, almost no blast; wasted through thin rooms); HE (surface blast, poor penetration; best against exposed fittings, the corvette's answer to a capital); Sabot (lighter, faster, **less recoil** for the same launch energy, less damage); Flak (proximity fragmentation, anti-missile). No kinetic EMP round (too small a payload) |
 | 97 | **Missiles = seeker + warhead.** Seekers: IR (default; countered by running cold, heat decoys); radar (active; countered by jammers, scan-proof plating); anti-radiation (homes on emitters: jammers, scanning sensors, shield generators; countered by going silent); designated (flies to the room you target; needs your scan and antenna; the capture tool). Warheads: HE (default), penetrator (deep and narrow, reactor killer), **EMP** (forces a SCRAM, no hull damage, capture) |
 | 98 | **Starter ammunition**: kinetic Standard, AP, HE; missile IR + HE. Sabot, flak, the other seekers and warheads unlock by salvaging them from puzzle ships that use them (e.g. the Ghost gives anti-radiation). 4 seekers × 3 warheads = 12 missiles from 7 unlocks |
+
+## 5c. Carriers
+
+| # | Decision |
+|---|---|
+| 104 | **A craft is a reusable missile**: at a carrier's scale a fighter is the size of a missile, so craft use the **projectile model** with guidance (the same seekers), plus an hp pool, fuel, payload and a **named pilot**, and they fly home. Craft size scales with the carrier's tier, like rooms. No grid per craft (light on a phone) |
+| 105 | Reused unchanged: weapons and payloads (kinetic, missiles, torpedoes), ammunition from the **carrier's magazines** through the shared wall with the hangar, point defence and flak against craft, crew rules (a lost craft is a dead pilot) |
+| 106 | **Four new rules only**: **launch and recovery cycle** (the hangar door launches so many craft a minute; returning craft must rearm and refuel; throughput); **datalink** (a field from the carrier; jammed craft fall back to a weaker autonomous mode; information, burn-through); **fuel** (a delta-v budget, the rocket equation at its simplest; out of fuel = cannot return; throughput); **Air wing orders** |
+| 107 | **Hangar bay**: a room that must touch the hull (launch door). Craft rearming and refuelling inside make it **the biggest bomb aboard**: the **Midway window** (hit the carrier as its strike returns) emerges from the launch cycle and the explosion-by-contents rule |
+| 108 | **No new verbs**: scan a zone → a **recon drone** flies there and scans at close range (burn-through without bringing the carrier close); target a room → **bombers** strike it; switch preset → the air wing changes mission. **Air wing orders (4 slots)**: mission (CAP / strike / recon / escort), recall threshold (fuel or ammunition), wave size (all at once / small waves), on datalink loss (autonomous / return) |
+| 109 | Risks and limits: a cap of ~24 craft per side, measured with `--perf` under phone emulation; at fit view craft are dots with trails (slow-mo zoom brings them close) |
+| 110 | **Order of work: after 0.6.** First an **enemy carrier** as a puzzle boss; the player's carrier at drydock T5 |
 
 ## 6. Information
 
