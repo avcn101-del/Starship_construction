@@ -57,7 +57,9 @@ reuses a model the kernel already has.
 | 15 | **Fittings (5)**, **one per hull edge segment**: Armour (tiers), Radiator, RCS (better far from CoM), Point defence, Sensor antenna. A fitting takes power and control from the room it is mounted on. The hull surface is the scarcest resource |
 | 16 | Rooms take damage **per cell**; function scales with surviving cells |
 | 17 | **Firing arcs are blocked by the ship's own rooms** |
-| 18 | Combos go through shared walls; a room's perimeter caps how many it can have. Combo data shape: room pair, bonus, shared flow, weak point it creates |
+| 18 | **No combo table: every synergy is a flow or a field.** Four flows through shared walls, each proportional to wall length: power, ammunition feed, heat, blast. Fields: shield, repair, reactor blast, jamming. Good and bad adjacencies emerge (reactor beside a beam bay: full power; reactor beside a magazine: heat conducts in and the rounds **cook off**; an empty hold as a blast buffer). A room's perimeter caps its neighbours, so diminishing returns are geometric. Hand-made combos are added only if the harness shows builds are too alike. The reactor wants to be deep inside but its heat only leaves through radiators on the hull, so it needs a chain of rooms to the hull: real spacecraft thermal design |
+| 18b | **Three heat thresholds for every room**: hot (function degrades), overheated (the room shuts itself down; heat discipline normally acts first), critical (cells take damage and **the crew in the room die**; magazines cook off, reactors melt down). People can die because a room is cooked, not only because it is holed |
+| 18c | **Empty holds conduct heat poorly**: an insulator and a blast buffer, so isolating for safety and cooling well are a real trade-off |
 
 ## 5. Weapons and defence
 
