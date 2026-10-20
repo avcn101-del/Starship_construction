@@ -70,6 +70,16 @@ reuses a model the kernel already has.
 | 21 | **Shield = energy screen**: an absorption **rate** set by its power, plus a small buffer for spikes. Absorbed energy becomes **heat**. Kinetic rounds lose a fixed amount of momentum (small rounds stopped, railgun passes reduced). Generators project a falloff field; gaps where coverage does not overlap are layout weak points. No four-facing shields |
 | 22 | Attack/defence matrix: beam stopped by shield, weak at range; kinetic stopped by armour, dodged at range; missile stopped by point defence, misled by decoys or running cold. No defence stops everything. This is static physics for puzzle design, not bridge-sim's learning counter table |
 
+## 5a. Fields and their interactions
+
+| # | Decision |
+|---|---|
+| 99 | **One rule for every field** (shield, repair, jamming): each source has a **finite budget** spread over its coverage with falloff; where fields overlap they **add**, each source paying from its own budget. Shield overlap is therefore **depth vs breadth** (a hit in the overlap is shared by both generators, each heating by its share; deep and redundant but smaller coverage and more gaps), not waste. Supersedes "two emitters too close waste power" |
+| 100 | **Firing window**: a weapon firing through its own shield opens a small hole in that direction for an instant. A time window: hit the enemy while it fires |
+| 101 | **Your jammer also jams your own sensors**: you cannot jam and scan actively at once. **Burn-through**: active scan falls off with distance⁴, jamming with distance²; close enough, the scan burns through (the Ghost is revealed only by closing in) |
+| 102 | **Infrared sees only the surface.** Deep reactors are invisible until their heat conducts to the hull. **IR seekers hunt radiators and engine exhaust**, not reactors (corrects an earlier statement). Radiators are your own IR beacons; heat decoys work by imitating one |
+| 103 | **Shields do not block scans**, but a shield that is absorbing is **EM-bright**; the cold posture turns shields off for a reason |
+
 ## 5b. Ammunition
 
 | # | Decision |
