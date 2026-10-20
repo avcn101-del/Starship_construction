@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1 — 2026-10-20 — review roles
+
+- Decisions #167–#168: four roles (lead designer, engineer, reviewer,
+  physics checker), each its own session, handing over through pull
+  requests; a retroactive review of L0.
+- Role definitions in `.claude/agents/`; `CLAUDE.md` gains a Roles section.
+
 ## 0.1.0 — 2026-10-20 — Mission 0, L0 materials
 
 - Decisions #163–#166: SI units, the eight Mission 0 exit criteria, the L0

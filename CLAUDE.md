@@ -83,6 +83,15 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
 - A multi-agent wave runs only with the owner's explicit go-ahead, with a
   cap on the number of agents.
 
+## Roles
+
+- **No AI checks its own work.** Four roles, each its own session, defined
+  in `.claude/agents/`: lead designer, engineer, reviewer, physics checker
+  (`DESIGN.md` §13b). Work is handed over through pull requests.
+- Give a reviewer the pull request and the documents, never your own
+  summary or conclusions.
+- An engineer never changes the design: questions go in the pull request.
+
 ## Workflow rules
 
 - When a feature changes, update `DESIGN.md` (and `DECISIONS.md` for a

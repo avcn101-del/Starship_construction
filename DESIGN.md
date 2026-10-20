@@ -400,6 +400,19 @@ constants and law changes; the feel and phone playtests are never
 delegated; the kernel and scenario framework are written first by one
 agent; nightly regression.
 
+## 13b. Roles
+
+| Role | Does | Never |
+|---|---|---|
+| Lead designer | discusses with the owner; keeps `DESIGN.md`, `DECISIONS.md` | reviews its own code |
+| Engineer | builds a level as designed; one branch, one PR | changes the design (asks in the PR) |
+| Reviewer | reviews a PR against `DESIGN.md` and `CLAUDE.md`; re-runs; comments | edits, approves, merges |
+| Physics checker | derives expected results blind, posts them, then compares | sees the answer first |
+
+Each role is its own session, defined in `.claude/agents/`; work is handed
+over through pull requests; reviewers get artifacts, not conclusions; the
+owner merges (#167).
+
 ## 14. Architecture
 
 | Layer | Files (planned) |

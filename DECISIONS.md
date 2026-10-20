@@ -318,6 +318,13 @@ room behind it); Decoy launcher (#149).
 | 165 | **L0 scenarios (materials)**: `L0.kinetic.penetration`, `L0.kinetic.overpen`, `L0.blast.surface`, `L0.beam.falloff`, `L0.beam.burn`, `L0.shield.point`, `L0.shield.kinetic`. Kinetic penetration uses **sectional momentum** (momentum per cross-section, p/A), as real armour penetration does: calibre and armour both scale with the cell edge (k = 1), so rounds and armour **of the same tier balance by themselves** (raw momentum would scale k = 3 and big guns would overwhelm big armour). Beams follow a **Gaussian beam**: nearly flat within the focus range, then 1/d², as real lasers fall off |
 | 166 | **L0 approved ranges (T1, size M)**: round mass 0.5 kg (0.2–2, k=3); muzzle velocity 800 m/s (500–1000, k=0); armour kinetic resistance per cell set so an AP M round penetrates 2–3 cells (0.5×–2×, k=1); HE blast energy 2 MJ (0.5–5 MJ, k=3); beam power 5 MW (1–20 MW, k=2); beam focus range 600 m (300–1500 m, k=1); shield budget 10 MW absorbed (2–40 MW, k=2); shield field radius 40 m (20–80 m, k=1); momentum a shield stops per round equal to one S round's (0.5×–2×, k=1) |
 
+## 9d. Review roles (decided after L0)
+
+| # | Decision |
+|---|---|
+| 167 | **No AI checks its own work.** Until L0 one session wrote every decision, document and line of code and also checked them (self-confirmation, shared blind spots, context loss). **Four roles, each its own session, handing over through GitHub**: **lead designer** (discusses with the owner, keeps `DESIGN.md` and `DECISIONS.md`, never reviews its own code), **engineer** (builds a level as designed, one branch and PR; never changes the design, asks instead), **reviewer** (read-only, reviews a PR against `DESIGN.md` and `CLAUDE.md`, re-runs, comments on the PR), **physics checker** (derives each scenario's expected result **blind**, before reading the code, posts it on the PR, then compares). Reviewers receive artifacts, never the author's conclusions. Roles are defined in `.claude/agents/`. The owner decides and merges, and keeps the playtests. A reviewer may run on a different model to reduce shared blind spots |
+| 168 | **Retroactive review of L0**: a reviewer reviews PR #1 and a physics checker re-derives the seven L0 formulas |
+
 ## 10. Presentation and crew
 
 | # | Decision |
