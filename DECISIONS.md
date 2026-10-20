@@ -39,7 +39,7 @@ reuses a model the kernel already has.
 | # | Decision |
 |---|---|
 | 4 | Principle: **borrow the shape of the real law, tune the constant** |
-| 5 | **Kept**: inertia and moment of inertia; recoil (Newton 3: kinetic recoils hard, beams barely, off-axis guns spin the ship); centre-of-mass shift when rooms are lost; heat and radiators (heat leaves only by radiation, radiators on the outer hull); infrared signature (hot ships are easier to scan); inverse-square falloff (beams, passive sensing, jamming); projectile time of flight; **square–cube law** (bigger ships have less hull surface per volume) |
+| 5 | **Kept**: inertia and moment of inertia; recoil (Newton 3: kinetic recoils hard, beams barely, off-axis guns spin the ship); centre-of-mass shift when rooms are lost; heat and radiators (heat leaves only by radiation, radiators on the outer hull); infrared signature (hot ships are easier to **detect passively**; active scanning does not depend on heat); inverse-square falloff (beams, passive sensing, jamming); projectile time of flight; **square–cube law** (bigger ships have less hull surface per volume) |
 | 6 | **Cut**: kinetic energy ½mv² (overlaps falloff); decompression thrust (duplicates CoM shift, needs an atmosphere system); I²R resistance (wall capacity covers it). **Deferred**: sloped armour (needs player-controlled facing) |
 | 7 | **No dice.** Hit or miss is decided by trajectories. A "seed" is a layout variant |
 | 8 | **Four kernel models**: 2D rigid body; heat **per room**, conducting through shared walls; falloff field; projectiles |
@@ -53,20 +53,65 @@ reuses a model the kernel already has.
 | 11 | **Three placement layers**: rooms (cells); shared walls (where rooms touch); hull edge (each outer edge segment) |
 | 12 | **Three graphs** on shared walls: structure, power, control. Capacity is proportional to the **length of the shared wall**. No conduit rooms, no relay rooms (supersedes the earlier "implicit + conduit/relay rooms" option). Fittings do not carry power or control |
 | 13 | Fragments: a ship split by the structure graph becomes several rigid bodies, momentum conserved. **Superseded by #81 (SCRAM)**: a reactor that loses control shuts down instead of breaching, so a fragment without the bridge goes dark and drifts (no power, so no thrust either). An auxiliary bridge is a later module |
-| 14 | **Rooms (11)**: Bridge 2×2; Reactor 2×2, 3×3; Engine 2×3 (exhaust on the aft hull, thrust through CoM); Magazine 2×2 (feeds through shared walls, chain explosion); Shield generator 2×2, 3×3; Crew quarters 3×2 (repair radius); Beam bay 2×2, 3×3; Kinetic turret 2×2, 3×3; **Spinal railgun 2×N** along the axis (longer barrel = faster round; recoil through CoM pushes back, does not spin; fires forward only); Missile bay 3×2; Empty hold 2×2 (cheap, light, structure, buffer) |
-| 15 | **Fittings (5)**, **one per hull edge segment**: Armour (tiers), Radiator, RCS (better far from CoM), Point defence, Sensor antenna. A fitting takes power and control from the room it is mounted on. The hull surface is the scarcest resource |
+| 14 | **Rooms (11)**: Bridge 2×2; Reactor 2×2, 3×3; Engine 2×3 (exhaust on the aft hull; thrust through the CoM is **recommended, not validated**: off-axis thrust simply spins the ship); Magazine 2×2 (feeds through shared walls, chain explosion); Shield generator 2×2, 3×3; Crew quarters 3×2 (repair radius); Beam bay 2×2, 3×3; Kinetic turret 2×2, 3×3; **Spinal railgun 2×N** along the axis (longer barrel = faster round; recoil through CoM pushes back, does not spin; fires forward only); Missile bay 3×2; Empty hold 2×2 (cheap, light, structure, buffer). **Later rooms** (decided elsewhere): Hangar bay (#107), Jammer (#27), Auxiliary bridge (#13). No separate EMP room (#142) |
+| 15 | **Fittings (6 at start)**, **one per hull edge segment**: Armour (tiers), Radiator, RCS (better far from CoM), Point defence kinetic, Point defence laser (#93), Sensor antenna. Later: Scan-proof plating (#27). A fitting takes power and control from the room it is mounted on. The hull surface is the scarcest resource |
 | 16 | Rooms take damage **per cell**; function scales with surviving cells |
 | 17 | **Firing arcs are blocked by the ship's own rooms** |
-| 18 | **No combo table: every synergy is a flow or a field.** Four flows through shared walls, each proportional to wall length: power, ammunition feed, heat, blast. Fields: shield, repair, reactor blast, jamming. Good and bad adjacencies emerge (reactor beside a beam bay: full power; reactor beside a magazine: heat conducts in and the rounds **cook off**; an empty hold as a blast buffer). A room's perimeter caps its neighbours, so diminishing returns are geometric. Hand-made combos are added only if the harness shows builds are too alike. The reactor wants to be deep inside but its heat only leaves through radiators on the hull, so it needs a chain of rooms to the hull: real spacecraft thermal design |
+| 18 | **No combo table: every synergy is a flow or a field.** Four flows through shared walls, each proportional to wall length: power, ammunition feed, heat, blast. Fields: shield, repair, jamming, datalink. (An explosion travels through walls inside the ship and as a radial field outside it, #141.) Good and bad adjacencies emerge (reactor beside a beam bay: full power; reactor beside a magazine: heat conducts in and the rounds **cook off**; an empty hold as a blast buffer). A room's perimeter caps its neighbours, so diminishing returns are geometric. Hand-made combos are added only if the harness shows builds are too alike. The reactor wants to be deep inside but its heat only leaves through radiators on the hull, so it needs a chain of rooms to the hull: real spacecraft thermal design |
 | 18b | **Three heat thresholds for every room**: hot (function degrades), overheated (the room shuts itself down; heat discipline normally acts first), critical (cells take damage and **the crew in the room die**; magazines cook off, reactors melt down). People can die because a room is cooked, not only because it is holed |
 | 18c | **Empty holds conduct heat poorly**: an insulator and a blast buffer, so isolating for safety and cooling well are a real trade-off |
+
+## 4b. Data model (the schema every decision maps to)
+
+Three kinds of entity. **Blocks** (rooms and fittings) have stored
+attributes. **Munitions** (rounds, missiles, craft) have their own. **Ships
+have only derived values** (CoM, moment of inertia, acceleration, turn rate,
+heat and power balance, signatures, firing arcs, coverage). Every numeric
+attribute is a **base value plus a scaling exponent k** on the cell edge
+(mass k=3, area k=2, length k=1), which is how #61–#64 live in the data.
+
+| # | Block group | Attributes |
+|---|---|---|
+| 1 | Geometry | type, size, tier, placement rule, orientation |
+| 2 | Mass and structure | density, hp per cell, price, scaling exponents |
+| 3 | **Resistances** | one per damage channel: **kinetic** (momentum), **thermal** (beam energy), **blast**, **EMP** |
+| 4 | **Wall channels** (6) | structure and control: **connectivity only**; power, ammunition, heat, blast: **capacity coefficient** × shared wall length |
+| 5 | Power | produced, consumed per state |
+| 6 | Ammunition | capacity, contents, feed rate |
+| 7 | **Thermal** | heat generated per state, **heat capacity** (temperature = heat / capacity), conductivity, three temperature thresholds, radiator **area and emissivity** (T⁴, #143) |
+| 8 | Fields | type, budget, radius, **falloff exponent** (2 passive and jamming, 4 active scan) |
+| 9 | Signatures | EM when active, radar reflectivity; IR is derived from surface temperature |
+| 10 | Control, crew, failure | provides or requires control; crew required and housed; behaviour on power loss, control loss (SCRAM for reactors), destruction (explosive energy), overheating |
+| + | Action | weapon (calibre, launch energy, barrel length, fire rate, traverse), engine (thrust, exhaust direction), sensor (scan strength), hangar (launch rate, capacity) |
+
+**Munition**: mass, launch velocity, seeker, warhead (damage channel and
+energy), signature, hp (for point defence), fuel (delta-v), reusable, pilot.
+
+Physics check: inertia, MoI and CoM (group 2 plus position); recoil
+(munition mass × velocity); heat, radiators, T⁴ (group 7); surface IR (group
+9 from 7); inverse-square and distance⁴ (group 8 exponent); time of flight
+(munition); square–cube (scaling exponents); SCRAM and fail-safe (group 10).
+Every kept law has a home. Each attribute must earn its place with a
+measured effect in Mission 0; an attribute with none is cut.
+
+## 4c. Physics answers found by the schema cross-check
+
+| # | Decision |
+|---|---|
+| 137 | **Kinetic damage is momentum**: each cell takes part of the round's momentum (by its kinetic resistance) and the round stops when none is left. The ships' relative velocity is **not** counted (consistent with cutting ½mv², #6) |
+| 138 | **Beams heat what they hit**: absorbed beam energy becomes heat in the target room (how the Furnace cooks a crew without penetrating) |
+| 139 | **Stopping kinetic rounds costs the shield** budget and becomes heat, like everything a shield stops (consistent with #21) |
+| 140 | **Ships have no propellant limit** (reactor-powered drives), a deliberate simplification; only craft have a delta-v budget (#106) |
+| 141 | **Explosions**: inside a ship they travel through shared walls (blast channel); outside it they are a radial field acting on fragments, craft and nearby ships |
+| 142 | **No separate EMP room**: the EMP warhead (#97) does that job. One fewer room to balance; reversible |
+| 143 | **Radiators follow Stefan–Boltzmann**: radiated power ∝ area × emissivity × T⁴, and IR brightness follows the same law. Running hot dumps heat far faster but is far more visible; the emission posture gains a physical basis |
 
 ## 5. Weapons and defence
 
 | # | Decision |
 |---|---|
-| 19 | **Starter weapons**: Beam (instant, falloff, heavy power and heat, precise when scanned); Kinetic (time of flight, strongest recoil, penetrates along its path); Missile/torpedo (slow, self-propelled, **seeks the hottest IR spot**, surface splash, chain risk in its bay); Point defence (shoots missiles). Weapons come in **sizes** (small/medium/large: damage, recoil, slower traverse when large, heat concentration, hp, target size) |
-| 20 | Later: **EMP** first (attacks the power and control graphs: disable without destroying). Tractor beam and mines deferred. Ramming and boarding cut |
+| 19 | **Starter weapons**: Beam (instant, falloff, heavy power and heat, precise when scanned); Kinetic (time of flight, strongest recoil, penetrates along its path); Missile/torpedo (slow, self-propelled, guided by its seeker, by default IR which hunts radiators and engine exhaust (#102); surface splash, chain risk in its bay); Point defence (shoots missiles). Weapons come in **sizes** (small/medium/large: damage, recoil, slower traverse when large, heat concentration, hp, target size) |
+| 20 | **EMP** is a missile warhead (#97), not a separate room (#142): it forces a SCRAM, disabling without destroying. Tractor beam and mines deferred. Ramming and boarding cut |
 | 21 | **Shield = energy screen**: an absorption **rate** set by its power, plus a small buffer for spikes. Absorbed energy becomes **heat**. Kinetic rounds lose a fixed amount of momentum (small rounds stopped, railgun passes reduced). Generators project a falloff field; gaps where coverage does not overlap are layout weak points. No four-facing shields |
 | 22 | Attack/defence matrix: beam stopped by shield, weak at range; kinetic stopped by armour, dodged at range; missile stopped by point defence, misled by decoys or running cold. No defence stops everything. This is static physics for puzzle design, not bridge-sim's learning counter table |
 
@@ -105,7 +150,7 @@ reuses a model the kernel already has.
 | 107 | **Hangar bay**: a room that must touch the hull (launch door). Craft rearming and refuelling inside make it **the biggest bomb aboard**: the **Midway window** (hit the carrier as its strike returns) emerges from the launch cycle and the explosion-by-contents rule |
 | 108 | **No new verbs**: scan a zone → a **recon drone** flies there and scans at close range (burn-through without bringing the carrier close); target a room → **bombers** strike it; switch preset → the air wing changes mission. **Air wing orders (4 slots)**: mission (CAP / strike / recon / escort), recall threshold (fuel or ammunition), wave size (all at once / small waves), on datalink loss (autonomous / return) |
 | 109 | Risks and limits: a cap of ~24 craft per side, measured with `--perf` under phone emulation; at fit view craft are dots with trails (slow-mo zoom brings them close) |
-| 110 | **Order of work: after 0.6.** First an **enemy carrier** as a puzzle boss; the player's carrier at drydock T5 |
+| 110 | **Order of work: after Mission 0.** First an **enemy carrier** as a puzzle boss; the player's carrier at drydock T5 |
 
 ## 6. Information
 
@@ -126,7 +171,7 @@ reuses a model the kernel already has.
 | 30 | **Every battle has a physical clock** (a superweapon charging, reinforcements arriving, an overloading reactor), so attrition does not always win |
 | 31 | Measurement: the intended answer wins ≥ 3 of 4 layout variants; the naive answer (more hp, more guns) loses ≥ 3 of 4 |
 | 32 | **Modes: ladder + roguelite.** Ladder: puzzle ships in a fixed order, by chapter, unlocks rooms. Roguelite: random variants of ships already beaten, only rooms unlocked in the ladder, **score only** (separate economy) |
-| 33 | **Intact salvage**: destroying gives scrap (credits); disabling (power cut, decapitation, mission kill) recovers intact rooms; the first intact room of a new type **unlocks** it |
+| 33 | **Intact salvage** (detailed by #83, the loot is whatever is left): destroying gives scrap (credits); disabling recovers intact rooms; the first intact room of a new type **unlocks** it |
 | 34 | Hull size opens in tiers; the square–cube law keeps bigger from being strictly better. Repairs per cell cost credits. **Ships are never lost permanently** |
 | 35 | Roguelite environments each change **one constant of one law**: nebula (scan weaker), near a star (radiators worse, IR background noise), asteroid belt (trajectories blocked, cover), gravity well (background pull) |
 
@@ -217,6 +262,9 @@ reuses a model the kernel already has.
 | 134 | **Autonomy line**. Agents alone: run, re-run, report, tune constants **within ranges the owner approved**, flag anomalies, hunt exploits. Owner approval: new criteria, constants outside the approved ranges, **changing a law**, anything that touches `DECISIONS.md`. Never delegated: the feel of play, playtests on the owner's phone, design decisions when a law fails |
 | 135 | **The kernel and the scenario framework are written first, coherently, by one agent**; parallel agents come in afterwards to fill and run scenarios |
 | 136 | **Nightly regression**: a scheduled task re-runs every passed scenario each night, so a change that breaks a proven law is caught the next morning (bridge-sim: a frozen fight the smoke test never reached) |
+| 144 | **Scenario spec** (one data file per scenario): `id` (e.g. `L1.reactor.steady-heat`), `level`, `laws`, `dependsOn` (the gate between levels), `setup` (from data, never hand-coded), `run`, `measure`, `expected` (a formula over `data.js` constants), `tolerance`, `criterion` (within tolerance, inequality, or win rate), `locked` (date and a hash of the criterion, checked by the verifier), `tunable` (constants an agent may tune and their range). Folders: `mission0/scenarios/`, `mission0/results/` (JSON with the command line); `MISSION0.md` is the ledger generated from the results |
+| 145 | **Approved ranges**: every tunable constant in `data.js` carries `min`–`max`. Claude proposes the initial ranges per level; the owner approves them once; agents then tune freely inside them |
+| 146 | Remaining topics before writing the docs, in order: working rules for the new repo's `CLAUDE.md`, sound, game title |
 
 ## 10. Presentation and crew
 
@@ -269,16 +317,20 @@ reuses a model the kernel already has.
 Named crew with veterancy; escape pods; sound carried through the hull
 (only your own ship is heard, enemy explosions are silent); **surrendered
 enemy crew joining yours** as replacements; **beam modes** (focused: narrow,
-intense, short, deep; wide: weaker, covers more). (Rescuing crew on dark
+intense, short, deep; wide: weaker, covers more); **battery / capacitor**
+room (store power for a burst: a time window); **heat sink** room (store
+heat for a while, then it must be vented: a time window). The last two were
+proposed in an early room list the owner rejected and were never approved. (Rescuing crew on dark
 fragments moved to #88.)
 
 ## 13. Still open (discuss before writing the design docs)
 
-1. ~~Shipyard and hull tiers~~ (decided, §11b)
-2. Economy numbers (structure decided in §7b; the actual prices are set by measuring runs with `tools/campaign.js`)
-3. Chapter 1 (puzzle order, how each law is taught)
-4. Concrete combo list for the 11 rooms and 5 fittings
-5. Enemy AI (assumed: same helm and standing orders, plus the puzzle script)
-6. Difficulty (bridge-sim lesson: mechanics, not stat scaling per win)
-7. Sound
-8. Game title (the repository is `Starship_construction`)
+1. Fill the schema (§4b) for every room and fitting
+2. Working rules for the new repo's `CLAUDE.md`
+3. Sound
+4. Game title (the repository is `Starship_construction`)
+
+Decided or moved since the first list: shipyard and tiers (§11b); combos
+(#18); enemy AI (§8b); difficulty (§8c); economy structure (§7b, prices
+are measured with `tools/campaign.js`); chapter 1 waits for Mission 0
+(#125).
