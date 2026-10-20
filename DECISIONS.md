@@ -1,9 +1,11 @@
-# DECISIONS — working log (draft)
+# DECISIONS — working log
 
-This is the memory of the design discussion that started 2026-10-20, not the
-design document. Every row was agreed with the owner in that discussion.
-`DESIGN.md`, `CLAUDE.md`, `IDEAS.md` and `CHANGELOG.md` are written from this
-log once the discussion is finished. Until then nothing here is code.
+This is the memory of the design discussion that started 2026-10-20. Every
+row was agreed with the owner. On 2026-10-20 the base documents were written
+from rows #1–#162: **`DESIGN.md` is now the current design** and the source
+of truth; this file stays the dated, append-only log of what was decided and
+why. A new decision is appended here **and** reflected in `DESIGN.md` in the
+same commit.
 
 Background: the previous project, `avcn101-del/bridge-sim`, closed as an MVP
 with `HANDOFF.md` (on its `main`). Its lessons are referenced as "HANDOFF".
@@ -338,6 +340,7 @@ room behind it); Decoy launcher (#149).
 | 159 | **The captain** (the owner's words): fights for the underdogs; practical, cynical, with a moral code that is a little funny; knows what is right and will do right, but that does not mean they cannot fight dirty. The mechanics already say this: the six underdog paths, the dirty tricks (cold approach, decoys, shooting down a firing barrel, power cuts, EMP, capture for loot), and a moral code that is the player's choice, never paid for (#79) |
 | 160 | **Tone rule, Firefly-style**: the captain's voice is dry, cynical and funny; **death stays heavy** (#49, #50). A joke is how the captain carries a loss, never the game making light of it. **Dark comedy** in comms and crew lines |
 | 161 | **Narrative direction**: dark comedy with **plot twists**. Story is content, written after Mission 0 like the chapters; it adds no mechanics. Firefly is a reference for tone only: no names, terms or phrases taken from it |
+| 162 | **Title: Duct Tape Navy: Mostly in One Piece.** A battered navy patched with tape, whose ships are *mostly* still whole: the joke names the signature mechanic (ships breaking into fragments) and hints at the cost (the missing piece had people in it). Quick web searches found no game with this name; a store and trademark check is needed before any public release |
 
 ## 11. Scale
 
@@ -383,14 +386,10 @@ heat for a while, then it must be vented: a time window). The last two were
 proposed in an early room list the owner rejected and were never approved. (Rescuing crew on dark
 fragments moved to #88.)
 
-## 13. Still open (discuss before writing the design docs)
+## 13. Still open
 
-1. ~~Fill the schema~~ (done qualitatively, §4d)
-2. ~~Working rules for `CLAUDE.md`~~ (#150–#152)
-3. ~~Sound~~ (§10b)
-4. Game title (the repository is `Starship_construction`)
-
-Decided or moved since the first list: shipyard and tiers (§11b); combos
-(#18); enemy AI (§8b); difficulty (§8c); economy structure (§7b, prices
-are measured with `tools/campaign.js`); chapter 1 waits for Mission 0
-(#125).
+Moved to `DESIGN.md` §17 (open questions) when the base documents were
+written. Every topic of the original list is decided: shipyard and tiers
+(§11b), schema (§4b, §4d), combos (#18), enemy AI (§8b), difficulty (§8c),
+economy structure (§7b), working rules (#150–#152), sound (§10b), setting,
+tone and title (§10c, #162); chapter 1 waits for Mission 0 (#125).
