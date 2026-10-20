@@ -11,7 +11,7 @@ export default {
   tolerance: 'exact (a whole number of cells)',
   criterion: 'passed = ceil(s0 / R) - 1, where s0 = m v / (pi D^2 / 4) and R is the armour resistance per cell; the same size passes the same number of cells at every tier (#165); sectional momentum in = absorbed + residual',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'armour.kineticResistance'],
-  locked: null,
+  locked: { date: '2026-10-20', hash: '8228497c' },
   cases(ctx) {
     const out = [];
     for (const tier of Object.keys(ctx.tiers)) for (const size of ['S', 'M', 'L']) out.push({ tier, size });

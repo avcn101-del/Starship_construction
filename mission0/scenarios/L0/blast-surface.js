@@ -10,7 +10,7 @@ export default {
   tolerance: 'energy relative 1e-9; cell counts as inequalities',
   criterion: 'absorbed = min(E, N B); escaped = max(0, E - N B); at least ceil(min(E, N B) / B) cells damaged; the damaged region is connected and contains the burst; the burst cell is destroyed whenever E >= B (#18, #141)',
   tunable: ['he.blastEnergy', 'armour.blastResistance'],
-  locked: null,
+  locked: { date: '2026-10-20', hash: 'f9738b67' },
   cases() {
     return [
       { w: 10, h: 10, x: 0, y: 5, times: 0.25 },

@@ -10,7 +10,7 @@ export default {
   tolerance: 'relative 1e-9',
   criterion: 'absorbed = min(P, B g(r)) t with g(r) = 1 / (1 + (r / radius)^2); passed = P t - absorbed; heat = absorbed (#21, #99)',
   tunable: ['shield.budget', 'shield.radius'],
-  locked: null,
+  locked: { date: '2026-10-20', hash: 'd83b6f9a' },
   cases() {
     const out = [];
     for (const r of [0, 20, 40, 80, 160]) for (const P of [2e6, 1e7, 3e7]) out.push({ r, P });

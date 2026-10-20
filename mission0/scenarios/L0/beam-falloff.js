@@ -10,7 +10,7 @@ export default {
   tolerance: 'relative 1e-6 against the closed form',
   criterion: 'f(d) = 1 - exp(-2 a^2 / w(d)^2), w(d) = w0 sqrt(1 + (d / zR)^2); nearly flat within the focus range (f(zR/4) >= 0.98 f(0)); 1/d^2 beyond it (d^2 f(d) at 10 zR within 3% of 20 zR) (#165)',
   tunable: ['beam.focusRange'],
-  locked: null,
+  locked: { date: '2026-10-20', hash: 'b45fa911' },
   cases() {
     return [0, 0.25, 0.5, 1, 2, 5, 10, 20].map((x) => ({ x }));
   },

@@ -11,7 +11,7 @@ export default {
   tolerance: 'relative 1e-9',
   criterion: 'ds = min(s0, stop g(r)); v1 = v0 (s0 - ds) / s0; energy = m (v0^2 - v1^2) / 2, limited by the buffer (budget x bufferSeconds); heat = energy; an S round is stopped completely at full strength (#21, #139, #166)',
   tunable: ['shield.kineticStop', 'shield.radius', 'shield.budget', 'shield.bufferSeconds'],
-  locked: null,
+  locked: { date: '2026-10-20', hash: '908651e6' },
   cases() {
     const out = [];
     for (const size of ['S', 'M', 'L']) for (const r of [0, 40, 120]) out.push({ size, r });

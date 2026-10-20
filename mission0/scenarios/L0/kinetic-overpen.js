@@ -11,7 +11,7 @@ export default {
   tolerance: 'relative 1e-9',
   criterion: 'wasted = max(0, 1 - n * Rroom / s0) (#9: over-penetration loses the remaining momentum)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'room.kineticResistance'],
-  locked: null,
+  locked: { date: '2026-10-20', hash: '810e8a2c' },
   cases() {
     return [1, 2, 4, 8, 12].map((n) => ({ cells: n }));
   },

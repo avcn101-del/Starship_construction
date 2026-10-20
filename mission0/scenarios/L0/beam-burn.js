@@ -11,7 +11,7 @@ export default {
   tolerance: 'time within one step (1/60 s); heat relative 1e-9',
   criterion: 't = Q / (P f(d)) with the closed-form f(d); every joule delivered becomes heat in the target room (#138)',
   tunable: ['beam.power', 'beam.focusRange', 'armour.burnEnergy'],
-  locked: null,
+  locked: { date: '2026-10-20', hash: '908664be' },
   cases() {
     return [0, 300, 600, 1000, 1500].map((d) => ({ d }));
   },
