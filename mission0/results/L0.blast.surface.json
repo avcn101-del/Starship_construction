@@ -1,0 +1,177 @@
+{
+  "id": "L0.blast.surface",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.blast.surface",
+  "code": "bfe7439",
+  "criterionHash": "f9738b67",
+  "lockedHash": "f9738b67",
+  "dataHash": "5fe97661",
+  "rowsHash": "ab1f8aa0",
+  "rows": [
+    {
+      "case": {
+        "w": 10,
+        "h": 10,
+        "x": 0,
+        "y": 5,
+        "times": 0.25
+      },
+      "expected": {
+        "absorbed": 500000,
+        "escaped": 0,
+        "minDamaged": 1,
+        "originDestroyed": false
+      },
+      "actual": {
+        "absorbed": 500000,
+        "escaped": 0,
+        "damaged": 1,
+        "connected": true,
+        "originDestroyed": false,
+        "input": 500000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 10,
+        "h": 10,
+        "x": 0,
+        "y": 5,
+        "times": 0.5
+      },
+      "expected": {
+        "absorbed": 1000000,
+        "escaped": 0,
+        "minDamaged": 1,
+        "originDestroyed": true
+      },
+      "actual": {
+        "absorbed": 1000000,
+        "escaped": 0,
+        "damaged": 1,
+        "connected": true,
+        "originDestroyed": true,
+        "input": 1000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 10,
+        "h": 10,
+        "x": 0,
+        "y": 5,
+        "times": 1
+      },
+      "expected": {
+        "absorbed": 2000000,
+        "escaped": 0,
+        "minDamaged": 2,
+        "originDestroyed": true
+      },
+      "actual": {
+        "absorbed": 1999999.9999999998,
+        "escaped": 0,
+        "damaged": 4,
+        "connected": true,
+        "originDestroyed": true,
+        "input": 2000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 10,
+        "h": 10,
+        "x": 0,
+        "y": 5,
+        "times": 1.5
+      },
+      "expected": {
+        "absorbed": 3000000,
+        "escaped": 0,
+        "minDamaged": 3,
+        "originDestroyed": true
+      },
+      "actual": {
+        "absorbed": 2999999.9999999995,
+        "escaped": 0,
+        "damaged": 4,
+        "connected": true,
+        "originDestroyed": true,
+        "input": 3000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 10,
+        "h": 10,
+        "x": 0,
+        "y": 5,
+        "times": 2.5
+      },
+      "expected": {
+        "absorbed": 5000000,
+        "escaped": 0,
+        "minDamaged": 5,
+        "originDestroyed": true
+      },
+      "actual": {
+        "absorbed": 4999999.999999999,
+        "escaped": 0,
+        "damaged": 9,
+        "connected": true,
+        "originDestroyed": true,
+        "input": 5000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 2,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "times": 2.5
+      },
+      "expected": {
+        "absorbed": 4000000,
+        "escaped": 1000000,
+        "minDamaged": 4,
+        "originDestroyed": true
+      },
+      "actual": {
+        "absorbed": 4000000,
+        "escaped": 1000000,
+        "damaged": 4,
+        "connected": true,
+        "originDestroyed": true,
+        "input": 5000000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "energy in = absorbed + escaped",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

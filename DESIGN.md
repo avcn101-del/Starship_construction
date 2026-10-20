@@ -1,6 +1,6 @@
 # Duct Tape Navy: Mostly in One Piece — Design
 
-Status: designed 2026-10-20, **nothing built yet**. Mission 0 (§13) comes
+Status: designed 2026-10-20; **Mission 0 L0 (materials) passed**, no game yet. Mission 0 (§13) comes
 before any content or rendering. Numbers in brackets (#n) point to the row
 in `DECISIONS.md` that records the decision and why. This file is the
 current design and the source of truth; `DECISIONS.md` is the dated log.
@@ -427,8 +427,33 @@ channel, room, crew aboard).
 
 ## 16. Measured
 
-Nothing yet. Results go to `MISSION0.md`, generated from
-`mission0/results/`.
+Every row is in `MISSION0.md` with the command that reproduces it.
+
+**L0 materials** (2026-10-20; seven scenarios, 66 cases, all PASS on their
+first canonical run, locked before it; verified by an independent re-run):
+
+| Scenario | What the numbers say |
+|---|---|
+| `L0.kinetic.penetration` | S, M, L AP rounds pass 1, 2, 3 armour cells **at every tier T1–T6**: sectional momentum makes same-tier rounds and armour balance by themselves (#165) |
+| `L0.kinetic.overpen` | An AP M round through an ordinary room 1–4 cells deep wastes 90–61% of its momentum leaving the ship: AP is poor against thin rooms (#96) |
+| `L0.blast.surface` | A 2 MJ HE warhead damages 4 armour cells, destroying 2 (provisional 1 MJ per cell); energy is conserved and excess vents only when the plate is full |
+| `L0.beam.falloff` | The Gaussian beam delivers 98% at 0 m, 86% at the focus range (600 m), 55% at 1.2 km; flat within the focus range (0.995 at a quarter of it) and 1/d² beyond (d²f within 2.2% between 10 and 20 focus ranges) |
+| `L0.beam.burn` | An M beam burns through an armour cell in 6.1 s at contact, 6.9 s at 600 m, 14.1 s at 1.5 km, putting 30 MJ of heat into the target room per cell (provisional burn energy) |
+| `L0.shield.point` | An M shield (10 MW) absorbs an M beam (5 MW) completely anywhere within its radius (40 m, half strength) and only 0.59 MW at 160 m |
+| `L0.shield.kinetic` | An M shield stops an S round at the generator and slows an M round from 800 to 266 m/s, paying 47–374 kJ per round |
+
+Honest reading: L0 proves the materials behave as their formulas say and
+that the books balance; it says nothing yet about balance between ships.
+The strong checks are where the simulation computes differently from the
+formula (numerical integration in the beam falloff, time stepping in the
+burn and the shield, tier invariance in penetration, conservation in the
+blast). `L0.kinetic.overpen` and `L0.shield.kinetic` are close restatements
+of their formulas: their value is locking the rule against later changes.
+Two signals for later levels: a single round costs the shield's impulse
+buffer 0.05–0.4 MJ of a 10 MJ buffer, so **the buffer has no measured effect
+yet** (E4: it must show one under rapid fire at L2, or be cut); and an M
+shield fully stops an M beam inside its radius, which L2 (overlap) and L5
+(ship vs ship) must show is not a dominant defence.
 
 ## 17. Open questions
 
@@ -439,3 +464,14 @@ Nothing yet. Results go to `MISSION0.md`, generated from
 4. A store and trademark check of the title before any public release.
 5. Approved ranges for each level after L0, proposed before that level
    starts (#145).
+6. **Awaiting the owner's approval** (introduced while building L0; agents
+   may not tune them until approved):
+   - Provisional ranges: `armour.blastResistance` (1 MJ, 0.3–3 MJ),
+     `armour.burnEnergy` (30 MJ, 10–100 MJ), `room.kineticResistance`
+     (6.75e4, a quarter of armour), `shield.bufferSeconds` (1 s, 0.2–5 s).
+   - Fixed constants: steel density 7850 kg/m³ (real); rounds are
+     cylinders 4 diameters long; S and L are 2/3 and 3/2 of M in linear
+     size; the beam waist is 1/√2 of half a cell; the shield field falls
+     off as 1 / (1 + (r / radius)²).
+   - A provisional rule: **continuous beams meet the shield's rate; its
+     buffer catches impulses** (rounds, blasts).

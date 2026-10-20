@@ -1,0 +1,301 @@
+{
+  "id": "L0.shield.point",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.shield.point",
+  "code": "bfe7439",
+  "criterionHash": "d83b6f9a",
+  "lockedHash": "d83b6f9a",
+  "dataHash": "5fe97661",
+  "rowsHash": "ac41d8fc",
+  "rows": [
+    {
+      "case": {
+        "r": 0,
+        "P": 2000000
+      },
+      "expected": {
+        "absorbed": 20000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 20000000.000000004,
+        "passed": 0,
+        "heat": 20000000.000000004,
+        "input": 20000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 0,
+        "P": 10000000
+      },
+      "expected": {
+        "absorbed": 100000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 100000000.00000058,
+        "passed": 0,
+        "heat": 100000000.00000058,
+        "input": 100000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 0,
+        "P": 30000000
+      },
+      "expected": {
+        "absorbed": 100000000,
+        "passed": 200000000
+      },
+      "actual": {
+        "absorbed": 100000000.00000058,
+        "passed": 200000000.00000116,
+        "heat": 100000000.00000058,
+        "input": 300000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 20,
+        "P": 2000000
+      },
+      "expected": {
+        "absorbed": 20000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 20000000.000000004,
+        "passed": 0,
+        "heat": 20000000.000000004,
+        "input": 20000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 20,
+        "P": 10000000
+      },
+      "expected": {
+        "absorbed": 80000000,
+        "passed": 20000000
+      },
+      "actual": {
+        "absorbed": 80000000.00000001,
+        "passed": 20000000.000000004,
+        "heat": 80000000.00000001,
+        "input": 100000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 20,
+        "P": 30000000
+      },
+      "expected": {
+        "absorbed": 80000000,
+        "passed": 220000000
+      },
+      "actual": {
+        "absorbed": 80000000.00000001,
+        "passed": 219999999.99999842,
+        "heat": 80000000.00000001,
+        "input": 300000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 40,
+        "P": 2000000
+      },
+      "expected": {
+        "absorbed": 20000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 20000000.000000004,
+        "passed": 0,
+        "heat": 20000000.000000004,
+        "input": 20000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 40,
+        "P": 10000000
+      },
+      "expected": {
+        "absorbed": 50000000,
+        "passed": 50000000
+      },
+      "actual": {
+        "absorbed": 50000000.00000029,
+        "passed": 50000000.00000029,
+        "heat": 50000000.00000029,
+        "input": 100000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 40,
+        "P": 30000000
+      },
+      "expected": {
+        "absorbed": 50000000,
+        "passed": 250000000
+      },
+      "actual": {
+        "absorbed": 50000000.00000029,
+        "passed": 249999999.99999788,
+        "heat": 50000000.00000029,
+        "input": 300000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 80,
+        "P": 2000000
+      },
+      "expected": {
+        "absorbed": 20000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 20000000.000000004,
+        "passed": 0,
+        "heat": 20000000.000000004,
+        "input": 20000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 80,
+        "P": 10000000
+      },
+      "expected": {
+        "absorbed": 20000000,
+        "passed": 80000000
+      },
+      "actual": {
+        "absorbed": 20000000.000000004,
+        "passed": 80000000.00000001,
+        "heat": 20000000.000000004,
+        "input": 100000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 80,
+        "P": 30000000
+      },
+      "expected": {
+        "absorbed": 20000000,
+        "passed": 280000000
+      },
+      "actual": {
+        "absorbed": 20000000.000000004,
+        "passed": 279999999.9999982,
+        "heat": 20000000.000000004,
+        "input": 300000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 160,
+        "P": 2000000
+      },
+      "expected": {
+        "absorbed": 5882352.941176471,
+        "passed": 14117647.05882353
+      },
+      "actual": {
+        "absorbed": 5882352.941176481,
+        "passed": 14117647.0588234,
+        "heat": 5882352.941176481,
+        "input": 20000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 160,
+        "P": 10000000
+      },
+      "expected": {
+        "absorbed": 5882352.941176471,
+        "passed": 94117647.05882353
+      },
+      "actual": {
+        "absorbed": 5882352.941176481,
+        "passed": 94117647.05882369,
+        "heat": 5882352.941176481,
+        "input": 100000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 160,
+        "P": 30000000
+      },
+      "expected": {
+        "absorbed": 5882352.941176471,
+        "passed": 294117647.0588235
+      },
+      "actual": {
+        "absorbed": 5882352.941176481,
+        "passed": 294117647.0588215,
+        "heat": 5882352.941176481,
+        "input": 300000000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "energy in = absorbed + passed",
+      "ok": true
+    },
+    {
+      "name": "heat = absorbed",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

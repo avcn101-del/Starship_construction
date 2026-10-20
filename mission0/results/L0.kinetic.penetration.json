@@ -1,0 +1,338 @@
+{
+  "id": "L0.kinetic.penetration",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.kinetic.penetration",
+  "code": "bfe7439",
+  "criterionHash": "8228497c",
+  "lockedHash": "8228497c",
+  "dataHash": "5fe97661",
+  "rowsHash": "68f32189",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "size": "S"
+      },
+      "expected": {
+        "passed": 1
+      },
+      "actual": {
+        "passed": 1,
+        "s0": 456644.8186993429,
+        "absorbedSum": 456644.8186993429,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M"
+      },
+      "expected": {
+        "passed": 2
+      },
+      "actual": {
+        "passed": 2,
+        "s0": 684967.2280490143,
+        "absorbedSum": 684967.2280490143,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "L"
+      },
+      "expected": {
+        "passed": 3
+      },
+      "actual": {
+        "passed": 3,
+        "s0": 1027450.8420735216,
+        "absorbedSum": 1027450.8420735216,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "size": "S"
+      },
+      "expected": {
+        "passed": 1
+      },
+      "actual": {
+        "passed": 1,
+        "s0": 684967.2280490143,
+        "absorbedSum": 684967.2280490143,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "size": "M"
+      },
+      "expected": {
+        "passed": 2
+      },
+      "actual": {
+        "passed": 2,
+        "s0": 1027450.8420735216,
+        "absorbedSum": 1027450.8420735216,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "size": "L"
+      },
+      "expected": {
+        "passed": 3
+      },
+      "actual": {
+        "passed": 3,
+        "s0": 1541176.2631102826,
+        "absorbedSum": 1541176.2631102826,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "S"
+      },
+      "expected": {
+        "passed": 1
+      },
+      "actual": {
+        "passed": 1,
+        "s0": 913289.6373986858,
+        "absorbedSum": 913289.6373986858,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "M"
+      },
+      "expected": {
+        "passed": 2
+      },
+      "actual": {
+        "passed": 2,
+        "s0": 1369934.4560980287,
+        "absorbedSum": 1369934.4560980287,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "L"
+      },
+      "expected": {
+        "passed": 3
+      },
+      "actual": {
+        "passed": 3,
+        "s0": 2054901.6841470432,
+        "absorbedSum": 2054901.6841470432,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "size": "S"
+      },
+      "expected": {
+        "passed": 1
+      },
+      "actual": {
+        "passed": 1,
+        "s0": 1369934.4560980287,
+        "absorbedSum": 1369934.4560980287,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "size": "M"
+      },
+      "expected": {
+        "passed": 2
+      },
+      "actual": {
+        "passed": 2,
+        "s0": 2054901.6841470432,
+        "absorbedSum": 2054901.6841470432,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "size": "L"
+      },
+      "expected": {
+        "passed": 3
+      },
+      "actual": {
+        "passed": 3,
+        "s0": 3082352.526220565,
+        "absorbedSum": 3082352.526220565,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "size": "S"
+      },
+      "expected": {
+        "passed": 1
+      },
+      "actual": {
+        "passed": 1,
+        "s0": 1826579.2747973716,
+        "absorbedSum": 1826579.2747973716,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "size": "M"
+      },
+      "expected": {
+        "passed": 2
+      },
+      "actual": {
+        "passed": 2,
+        "s0": 2739868.9121960574,
+        "absorbedSum": 2739868.9121960574,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "size": "L"
+      },
+      "expected": {
+        "passed": 3
+      },
+      "actual": {
+        "passed": 3,
+        "s0": 4109803.3682940863,
+        "absorbedSum": 4109803.3682940863,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "S"
+      },
+      "expected": {
+        "passed": 1
+      },
+      "actual": {
+        "passed": 1,
+        "s0": 2739868.9121960574,
+        "absorbedSum": 2739868.9121960574,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "M"
+      },
+      "expected": {
+        "passed": 2
+      },
+      "actual": {
+        "passed": 2,
+        "s0": 4109803.3682940863,
+        "absorbedSum": 4109803.3682940863,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "L"
+      },
+      "expected": {
+        "passed": 3
+      },
+      "actual": {
+        "passed": 3,
+        "s0": 6164705.05244113,
+        "absorbedSum": 6164705.05244113,
+        "residual": 0
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "sectional momentum in = absorbed + residual",
+      "ok": true
+    },
+    {
+      "name": "same size, same penetration at every tier",
+      "ok": true,
+      "detail": "S: 1, M: 2, L: 3"
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

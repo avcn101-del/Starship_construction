@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.0 — 2026-10-20 — Mission 0, L0 materials
+
+- Decisions #163–#166: SI units, the eight Mission 0 exit criteria, the L0
+  plan (sectional-momentum penetration, Gaussian beams) and its ranges.
+- `tools/m0.js`: the Mission 0 runner (run, lock, verify, regress, ledger).
+  Criteria are hashed and locked; overrides are exploratory and refused
+  outside approved ranges; records carry the command that reproduces them.
+- Kernel for L0: `js/util.js`, `js/data.js`, `js/projectile.js`,
+  `js/damage.js`, `js/field.js`.
+- Seven L0 scenarios, locked before their first run; all PASS and verify.
+- Measured in `DESIGN.md` §16; constants awaiting approval in §17.
+
 ## 0.0.0 — 2026-10-20 — the design
 
 - The design discussion is recorded in `DECISIONS.md` (#1–#162).

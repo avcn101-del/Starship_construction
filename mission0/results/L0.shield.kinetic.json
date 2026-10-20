@@ -1,0 +1,206 @@
+{
+  "id": "L0.shield.kinetic",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.shield.kinetic",
+  "code": "bfe7439",
+  "criterionHash": "908651e6",
+  "lockedHash": "908651e6",
+  "dataHash": "5fe97661",
+  "rowsHash": "578e99bd",
+  "rows": [
+    {
+      "case": {
+        "size": "S",
+        "r": 0
+      },
+      "expected": {
+        "velocity": 0,
+        "energy": 47407.407407407394
+      },
+      "actual": {
+        "velocity": 0,
+        "energy": 47407.407407407394,
+        "heat": 47407.407407407394,
+        "mass": 0.1481481481481481,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "S",
+        "r": 40
+      },
+      "expected": {
+        "velocity": 399.68887740658596,
+        "energy": 35573.98527981207
+      },
+      "actual": {
+        "velocity": 399.68887740658596,
+        "energy": 35573.98527981207,
+        "heat": 35573.98527981207,
+        "mass": 0.1481481481481481,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "S",
+        "r": 120
+      },
+      "expected": {
+        "velocity": 719.9377754813172,
+        "energy": 9014.044402593516
+      },
+      "actual": {
+        "velocity": 719.9377754813172,
+        "energy": 9014.044402593516,
+        "heat": 9014.044402593516,
+        "mass": 0.1481481481481481,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "r": 0
+      },
+      "expected": {
+        "velocity": 266.2518365421146,
+        "energy": 142277.48988448776
+      },
+      "actual": {
+        "velocity": 266.2518365421146,
+        "energy": 142277.48988448776,
+        "heat": 142277.48988448776,
+        "mass": 0.5,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "r": 40
+      },
+      "expected": {
+        "velocity": 533.1259182710573,
+        "energy": 88944.18881691046
+      },
+      "actual": {
+        "velocity": 533.1259182710573,
+        "energy": 88944.18881691046,
+        "heat": 88944.18881691046,
+        "mass": 0.5,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "r": 120
+      },
+      "expected": {
+        "velocity": 746.6251836542115,
+        "energy": 20637.708783328737
+      },
+      "actual": {
+        "velocity": 746.6251836542115,
+        "energy": 20637.708783328737,
+        "heat": 20637.708783328737,
+        "mass": 0.5,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "r": 0
+      },
+      "expected": {
+        "velocity": 444.16789102807644,
+        "energy": 373540.6838640973
+      },
+      "actual": {
+        "velocity": 444.16789102807644,
+        "energy": 373540.6838640973,
+        "heat": 373540.6838640973,
+        "mass": 1.6875,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "r": 40
+      },
+      "expected": {
+        "velocity": 622.0839455140382,
+        "energy": 213478.50774404852
+      },
+      "actual": {
+        "velocity": 622.0839455140382,
+        "energy": 213478.50774404852,
+        "heat": 213478.50774404852,
+        "mass": 1.6875,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "r": 120
+      },
+      "expected": {
+        "velocity": 764.4167891028077,
+        "energy": 46969.00807872963
+      },
+      "actual": {
+        "velocity": 764.4167891028077,
+        "energy": 46969.00807872963,
+        "heat": 46969.00807872963,
+        "mass": 1.6875,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "energy paid = kinetic energy removed",
+      "ok": true
+    },
+    {
+      "name": "heat = energy paid",
+      "ok": true
+    },
+    {
+      "name": "an S round is stopped at full strength",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

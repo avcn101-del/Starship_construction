@@ -1,0 +1,145 @@
+{
+  "id": "L0.beam.falloff",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.beam.falloff",
+  "code": "bfe7439",
+  "criterionHash": "b45fa911",
+  "lockedHash": "b45fa911",
+  "dataHash": "5fe97661",
+  "rowsHash": "cd535177",
+  "rows": [
+    {
+      "case": {
+        "x": 0
+      },
+      "expected": {
+        "fraction": 0.9816843611112658
+      },
+      "actual": {
+        "fraction": 0.9816843611113261,
+        "distance": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "x": 0.25
+      },
+      "expected": {
+        "fraction": 0.9768255727589388
+      },
+      "actual": {
+        "fraction": 0.9768255727589948,
+        "distance": 150
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "x": 0.5
+      },
+      "expected": {
+        "fraction": 0.9592377960216338
+      },
+      "actual": {
+        "fraction": 0.9592377960216699,
+        "distance": 300
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "x": 1
+      },
+      "expected": {
+        "fraction": 0.8646647167633874
+      },
+      "actual": {
+        "fraction": 0.8646647167634071,
+        "distance": 600
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "x": 2
+      },
+      "expected": {
+        "fraction": 0.5506710358827784
+      },
+      "actual": {
+        "fraction": 0.5506710358827843,
+        "distance": 1200
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "x": 5
+      },
+      "expected": {
+        "fraction": 0.14259608083955877
+      },
+      "actual": {
+        "fraction": 0.14259608083955896,
+        "distance": 3000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "x": 10
+      },
+      "expected": {
+        "fraction": 0.0388299748201103
+      },
+      "actual": {
+        "fraction": 0.03882997482011029,
+        "distance": 6000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "x": 20
+      },
+      "expected": {
+        "fraction": 0.009925476420941326
+      },
+      "actual": {
+        "fraction": 0.009925476420941368,
+        "distance": 12000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "flat within the focus range",
+      "ok": true,
+      "detail": "f(zR/4) / f(0) = 0.9951"
+    },
+    {
+      "name": "inverse-square beyond it",
+      "ok": true,
+      "detail": "d^2 f at 10 zR / at 20 zR = 0.9780"
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
