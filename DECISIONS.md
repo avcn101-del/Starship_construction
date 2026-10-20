@@ -320,6 +320,16 @@ room behind it); Decoy launcher (#149).
 | 51 | Repair: crew quarters repair rooms within a radius, scaled by its surviving cells |
 | 52 | Building is now a moral choice too: a magazine next to a 20-person compartment, armour around the quarters |
 
+## 10b. Sound (after Mission 0; principles fixed now)
+
+| # | Decision |
+|---|---|
+| 153 | **No sound travels in vacuum.** Four sources only: **your own ship through the hull** (dull impacts, the hull groaning before it splits, machinery hum, the reactor beating like a heart); **comms** (crew voices, reports, last words); **alarms** (escalating with the three heat thresholds, breach alarms); **sensor sonification** (the bridge computer turns what the sensors detect into sound, like a sonar operator), which **obeys the information law**: an explosion nobody detects is silent. Silence is the strongest sound (last words, the signal cut, then nothing); SCRAM is the heartbeat slowing to a stop |
+| 154 | **Android haptics**: the phone vibrates with the force of each hit on your ship (felt through the hull, consistent with hearing through it); can be turned off |
+| 155 | **Synthesised sound** (Web Audio API, no sample files): lighter for the offline PWA, and sounds follow physical parameters (calibre, energy, distance) |
+| 156 | **Simulation events carry what sound needs** (energy, distance, damage channel, room, crew aboard), fixed from Mission 0 so the kernel need not change later |
+| 157 | **No music in battle**, only hull sound and silence; music in the hangar and the memorial |
+
 ## 11. Scale
 
 | # | Decision |
@@ -368,7 +378,7 @@ fragments moved to #88.)
 
 1. ~~Fill the schema~~ (done qualitatively, §4d)
 2. ~~Working rules for `CLAUDE.md`~~ (#150–#152)
-3. Sound
+3. ~~Sound~~ (§10b)
 4. Game title (the repository is `Starship_construction`)
 
 Decided or moved since the first list: shipyard and tiers (§11b); combos
