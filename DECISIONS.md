@@ -68,6 +68,21 @@ reuses a model the kernel already has.
 | 21 | **Shield = energy screen**: an absorption **rate** set by its power, plus a small buffer for spikes. Absorbed energy becomes **heat**. Kinetic rounds lose a fixed amount of momentum (small rounds stopped, railgun passes reduced). Generators project a falloff field; gaps where coverage does not overlap are layout weak points. No four-facing shields |
 | 22 | Attack/defence matrix: beam stopped by shield, weak at range; kinetic stopped by armour, dodged at range; missile stopped by point defence, misled by decoys or running cold. No defence stops everything. This is static physics for puzzle design, not bridge-sim's learning counter table |
 
+## 5b. Ammunition
+
+| # | Decision |
+|---|---|
+| 89 | **Ammunition is finite** for kinetic weapons and missiles; beams need none (limited by power and heat). Sustain becomes a new row of the attack/defence matrix: beam sustainable but hot, kinetic a stock, missiles few and precious |
+| 90 | **Reloading between battles is free**: ammunition is an in-battle resource, not a credit sink |
+| 91 | Out of ammunition counts toward **Disabled** (attrition becomes a capture route). A magazine's explosion scales with the ammunition left in it, and with its contents (HE far more than AP). A bigger magazine holds more and is a bigger bomb |
+| 92 | The "open fire" order now also saves ammunition. Harness check: default magazines last a disciplined 3–6 minute battle and run dry around minute 4 when firing freely |
+| 93 | **Point defence comes as two fittings**: kinetic (flak, a small ammo store that can be exhausted) and laser (power and heat, competes with shields and beams) |
+| 94 | **Rule for an ammunition type**: it changes one physical parameter and pays with another; it has a best and a worst target; it has one counter; it serves a core law. No type is strictly better |
+| 95 | **Who chooses ammunition**: the player sets the magazine's contents in the shipyard; each shot's type is chosen **automatically** against a scanned target (armour → AP, exposed fitting → HE), the default against an unscanned one. Switching type costs a reload time |
+| 96 | **Kinetic rounds**: Standard; AP (dense core, deep, almost no blast; wasted through thin rooms); HE (surface blast, poor penetration; best against exposed fittings, the corvette's answer to a capital); Sabot (lighter, faster, **less recoil** for the same launch energy, less damage); Flak (proximity fragmentation, anti-missile). No kinetic EMP round (too small a payload) |
+| 97 | **Missiles = seeker + warhead.** Seekers: IR (default; countered by running cold, heat decoys); radar (active; countered by jammers, scan-proof plating); anti-radiation (homes on emitters: jammers, scanning sensors, shield generators; countered by going silent); designated (flies to the room you target; needs your scan and antenna; the capture tool). Warheads: HE (default), penetrator (deep and narrow, reactor killer), **EMP** (forces a SCRAM, no hull damage, capture) |
+| 98 | **Starter ammunition**: kinetic Standard, AP, HE; missile IR + HE. Sabot, flak, the other seekers and warheads unlock by salvaging them from puzzle ships that use them (e.g. the Ghost gives anti-radiation). 4 seekers × 3 warheads = 12 missiles from 7 unlocks |
+
 ## 6. Information
 
 | # | Decision |
@@ -188,8 +203,9 @@ reuses a model the kernel already has.
 
 Named crew with veterancy; escape pods; sound carried through the hull
 (only your own ship is heard, enemy explosions are silent); **surrendered
-enemy crew joining yours** as replacements. (Rescuing crew on dark fragments
-moved to #88.)
+enemy crew joining yours** as replacements; **beam modes** (focused: narrow,
+intense, short, deep; wide: weaker, covers more). (Rescuing crew on dark
+fragments moved to #88.)
 
 ## 13. Still open (discuss before writing the design docs)
 
