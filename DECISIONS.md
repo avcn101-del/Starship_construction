@@ -128,8 +128,33 @@ reuses a model the kernel already has.
 | # | Decision |
 |---|---|
 | 53 | **Game scale**: sim and drawing share one scale; ships fight 4–8 ship lengths apart (rejected: magnifying ships only when drawn, which makes shots hit empty space; FTL-style split view) |
-| 54 | Starting numbers: cell 5 m (one deck); starter hull 30×14 cells (≈150×70 m, ~15 rooms); engagement 0.6–1.5 km; kinetic 0.5–1 km/s (1–3 s flight); spinal railgun 1.5–2.5 km/s; missiles accelerate, 8–15 s flight; dodging 1–2 g; **battle 3–6 minutes** |
-| 55 | Camera fits both ships (each ~10–15% of the screen width) |
+| 54 | Starting numbers (T1): cell 5 m (one deck); starter hull 30×14 cells (≈150×70 m, ~15 rooms); engagement 0.6–1.5 km; kinetic 0.5–1 km/s (1–3 s flight); spinal railgun 1.5–2.5 km/s; missiles accelerate, 8–15 s flight; dodging 1–2 g; **battle 3–6 minutes**. Engagement range stays 4–8 ship lengths at every tier; bigger weapons have longer range and faster rounds |
+| 55 | Camera fits both ships (each ~10–15% of the screen width on desktop, ~150–200 px on a phone) |
+
+## 11b. Shipyard and hull tiers
+
+| # | Decision |
+|---|---|
+| 56 | **Free-form inside a drydock** (the tier's bounding box), plus a few **templates** as starting points. No fixed hull masks. The core laws must punish degenerate shapes themselves; the harness checks a snake ship against a compact one on the same budget, and if the snake wins the laws are incomplete |
+| 57 | **Validation** (an invalid ship never undocks): every room connects to the bridge through shared walls; hull-required rooms touch the hull; the spinal railgun lies on the axis; **engine exhaust must be clear** (no room behind it) |
+| 58 | **Live physics readout** while building: CoM and thrust line, acceleration in g and turn rate, heat balance at full fire vs radiator capacity, power balance and wall bottlenecks, hull segments used, shield coverage and firing arcs, crew per room. **Dry run** in the shipyard (deterministic headless battle vs a dummy or a known enemy variant) |
+| 59 | Controls: room palette, drag and drop, **rotate 90°** (some rooms have a fixed direction: engines face aft, the spinal railgun faces forward), tap a hull segment to choose its fitting, undo, mirror tool, blueprints saved and exported as a string |
+| 60 | **Crew capacity**: crew quarters set the total crew; each room needs its crew to be placed. A build-time constraint (crew quarters become a real dependency), never in-battle micro |
+| 61 | **Cells scale with the tier; the cell count stays roughly constant.** Bigger ships get bigger rooms, not more of them (a battleship mounts one 15-inch gun, not ten 30 mm). Starting table: T1 Corvette 5 m, 30×14; T2 Frigate 7.5 m, 34×15; T3 Destroyer 10 m, 38×16; T4 Cruiser 15 m, 42×18; T5 Battleship 20 m, 46×20; T6 Capital 30 m, 50×22. No hard cap at T3 |
+| 62 | Every tier still offers **S/M/L** sizes, so a capital mounts a main battery and secondaries (its S is bigger than a corvette's L) |
+| 63 | **Room stats come from scaling formulas, not hand tables** (shell mass ∝ calibre³, round speed from barrel length, recoil from momentum, traverse from moment of inertia). Cell mass ∝ edge³, hull segment area ∝ edge², so the square–cube law emerges by itself |
+| 64 | Each ship has its own local grid and cell size; a round resolves against the target's grid. **Armour thickness scales with the cell**, so small rounds cannot penetrate capital armour; a corvette beats a capital with torpedoes, EMP, or by shooting exposed fittings (radiators, RCS, antennas). Enemy capitals are natural bosses early in the ladder |
+| 65 | Casualties scale: the report names officers and groups the rest ("Lt. Mara Okafor and 37 crew of Deck 4"); the memorial wall lists everyone |
+
+## 11c. Platform
+
+| # | Decision |
+|---|---|
+| 66 | **Primary device: an Android phone.** Battle is **landscape**; hangar and report work in portrait too |
+| 67 | Touch: no hover, touch targets ≥ 44–48 px; the 3 verbs are taps (zone, room, preset buttons); pinch zoom; crew are visible only when zoomed (slow-mo zoom and pinch are therefore required) |
+| 68 | Performance budget is the phone's (slower CPU, thermal throttling): constant cell count per tier, lower particle cap, automatic quality |
+| 69 | **PWA**: installable to the home screen, full screen, offline after the first load (a manifest and a service worker, no build) |
+| 70 | Tests: Playwright phone viewport and CPU throttling for smoke and `--perf`; **every playtest gate is also run on the owner's Android phone** |
 
 ## 12. Idea registry (not built; each must pass the four gates)
 
@@ -139,7 +164,7 @@ enemy explosions are silent).
 
 ## 13. Still open (discuss before writing the design docs)
 
-1. Shipyard and hull tiers (free grid or masks, how hulls grow, mass limits)
+1. ~~Shipyard and hull tiers~~ (decided, §11b)
 2. Economy numbers (room and fitting prices, per-cell repair, crew replacement, salvage)
 3. Chapter 1 (puzzle order, how each law is taught)
 4. Concrete combo list for the 11 rooms and 5 fittings
