@@ -52,7 +52,7 @@ reuses a model the kernel already has.
 | 10 | **Scale rule**: anything smaller than a compartment never occupies a cell. It is a property of a wall or of the hull |
 | 11 | **Three placement layers**: rooms (cells); shared walls (where rooms touch); hull edge (each outer edge segment) |
 | 12 | **Three graphs** on shared walls: structure, power, control. Capacity is proportional to the **length of the shared wall**. No conduit rooms, no relay rooms (supersedes the earlier "implicit + conduit/relay rooms" option). Fittings do not carry power or control |
-| 13 | Fragments: a ship split by the structure graph becomes several rigid bodies, momentum conserved. A fragment without the bridge loses control: weapons stop, shields drop, engines stick at the last throttle. A reactor without control **breaches after a few seconds**. An auxiliary bridge is a later module |
+| 13 | Fragments: a ship split by the structure graph becomes several rigid bodies, momentum conserved. **Superseded by #81 (SCRAM)**: a reactor that loses control shuts down instead of breaching, so a fragment without the bridge goes dark and drifts (no power, so no thrust either). An auxiliary bridge is a later module |
 | 14 | **Rooms (11)**: Bridge 2×2; Reactor 2×2, 3×3; Engine 2×3 (exhaust on the aft hull, thrust through CoM); Magazine 2×2 (feeds through shared walls, chain explosion); Shield generator 2×2, 3×3; Crew quarters 3×2 (repair radius); Beam bay 2×2, 3×3; Kinetic turret 2×2, 3×3; **Spinal railgun 2×N** along the axis (longer barrel = faster round; recoil through CoM pushes back, does not spin; fires forward only); Missile bay 3×2; Empty hold 2×2 (cheap, light, structure, buffer) |
 | 15 | **Fittings (5)**, **one per hull edge segment**: Armour (tiers), Radiator, RCS (better far from CoM), Point defence, Sensor antenna. A fitting takes power and control from the room it is mounted on. The hull surface is the scarcest resource |
 | 16 | Rooms take damage **per cell**; function scales with surviving cells |
@@ -90,6 +90,34 @@ reuses a model the kernel already has.
 | 33 | **Intact salvage**: destroying gives scrap (credits); disabling (power cut, decapitation, mission kill) recovers intact rooms; the first intact room of a new type **unlocks** it |
 | 34 | Hull size opens in tiers; the square–cube law keeps bigger from being strictly better. Repairs per cell cost credits. **Ships are never lost permanently** |
 | 35 | Roguelite environments each change **one constant of one law**: nebula (scan weaker), near a star (radiators worse, IR background noise), asteroid belt (trajectories blocked, cover), gravity well (background pull) |
+
+## 7b. Economy
+
+| # | Decision |
+|---|---|
+| 71 | Three rules (bridge-sim lessons: one loss emptied the purse; credits piled up once everything was bought): the economy **rewards the core skill** (precise disabling pays more than wrecking); the player is **never stuck**; there is **always something to spend on** |
+| 72 | Sources: puzzle reward; scrap from destroyed enemy rooms (little); intact rooms (much); prize money for a captured ship. Sinks: rooms and fittings of unlocked types; per-cell repair; crew replacements; **drydock tier upgrades** (the biggest sink, lasting to the end) |
+| 73 | **Rooms are owned items**, counted by type, size and tier (three M reactors at T1 = up to three on the hull). Rearranging is free; a removed room returns to the inventory; intact salvage goes straight to it. **A room destroyed in battle is not lost**: it is repaired per cell |
+| 74 | Prices come from a formula (cells × tier factor × type factor) in `data.js` |
+| 75 | **Rooms belong to a tier** (cell sizes differ). Moving up a tier means buying rooms at the new size; old-tier rooms can be **traded in** for part of their value |
+| 76 | **Emergency repair is free after a loss**: bridge, one reactor, enough engines to move, one weapon. Everything else is paid |
+| 77 | **A beginner corvette is always free**: T1 template, cannot be sold, always repaired for free, kept beside the main ship |
+| 78 | **Beaten ladder ships can be fought again for half the reward** (the farm; the roguelite pays score only) |
+| 79 | **No bonus for sparing enemy crew**: intact salvage already rewards disabling, and paying per life spared would price death and break the sober tone |
+
+## 7c. Capture and reactors
+
+| # | Decision |
+|---|---|
+| 80 | Ships are fail-safe, as real ones are: losing the bridge does not blow up the ship |
+| 81 | **SCRAM**: a reactor that loses control shuts down automatically (power to zero, the ship goes dark). It keeps producing **decay heat** for a while: with radiators it cools safely; with none left it overheats, melts down, then explodes. A reactor **damaged** heavily breaches its containment (short countdown, explosion). **Big explosions come only from damage** (reactor, magazine) or from overheating, never from losing control. Aiming away from reactors and magazines is part of capture play |
+| 82 | **One condition, many routes. Disabled** = the enemy has no weapon able to fire **and** no thrust for ~10 s, or it strikes its colours. The battle then ends with the ship captured. Routes: cut the power walls; decapitate (bridge lost, every reactor SCRAMs); split it at a choke point (the bridge half with no reactor dies); mission kill (all weapons and engines); EMP (forces a SCRAM, the enemy must restart); heat it until it must cease everything; surrender |
+| 83 | **The loot is whatever is left**: a disabled ship is always captured, yielding its intact rooms (to the inventory), its blueprint and prize money. Precise fighting captures a ship; sloppy fighting captures a wreck. **Destroyed** happens only when a reactor or magazine explodes or the ship breaks into too many pieces: scrap plus any dark fragments that did not explode, recovered after the battle |
+| 84 | The same condition applies to the player: your ship disabled is a loss |
+| 85 | Puzzle ships have **two answers**: a kill route and a harder capture route. Capturing is slower while the battle's physical clock keeps running |
+| 86 | Puzzle scripts may **strike colours** when hopeless (no weapons and no engines); some ships fight to the end. Personality per ship |
+| 87 | A captured ship can be **commissioned only if your drydock has its tier**; otherwise it is broken up into the inventory (its rooms wait for that tier) or sold for prize money |
+| 88 | **Your crew on a dark fragment survive and are recovered after a win** ("Recovered: 14 crew of Section 4") |
 
 ## 8. Standing orders and battle
 
@@ -158,14 +186,15 @@ reuses a model the kernel already has.
 
 ## 12. Idea registry (not built; each must pass the four gates)
 
-Named crew with veterancy; escape pods; rescuing crew on drifting fragments
-after battle; sound carried through the hull (only your own ship is heard,
-enemy explosions are silent).
+Named crew with veterancy; escape pods; sound carried through the hull
+(only your own ship is heard, enemy explosions are silent); **surrendered
+enemy crew joining yours** as replacements. (Rescuing crew on dark fragments
+moved to #88.)
 
 ## 13. Still open (discuss before writing the design docs)
 
 1. ~~Shipyard and hull tiers~~ (decided, §11b)
-2. Economy numbers (room and fitting prices, per-cell repair, crew replacement, salvage)
+2. Economy numbers (structure decided in §7b; the actual prices are set by measuring runs with `tools/campaign.js`)
 3. Chapter 1 (puzzle order, how each law is taught)
 4. Concrete combo list for the 11 rooms and 5 fittings
 5. Enemy AI (assumed: same helm and standing orders, plus the puzzle script)
