@@ -6,7 +6,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#203, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#204, current design in `DESIGN.md`.
 - **Sense check closed (#203, the owner)**: engines are self-fuelled
   torches, beams are millimetre-wave masers, recoil is kept but expected to
   matter only for the spinal railgun, kinetic damage and repair get the D
@@ -50,7 +50,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 | PR | Branch | State |
 |---|---|---|
-| #15 Mission 0, L2: pairs and clusters | `m0/l2-clusters` → `main` | rows 1–12 built (10 PASS, 2 FAIL: spec errors); fixes of #200/#201 and the heat sink (rows 13, 14) next, then the physics checker and the reviewer |
+| #15 Mission 0, L2: pairs and clusters | `m0/l2-clusters` → `main` | head `e40d1af`: #200/#201 and the heat sink landed; `regress` 42 VERIFIED + 5 WITHDRAWN (verified by the lead designer); answers in #204; physics checker `session_01KdLbYYddDJgStcfriEdqsv` running; reviewer after it |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -88,12 +88,9 @@ Nothing. The owner approved the four sense-check proposals (#203 A–D).
 
 ## Next steps
 
-1. The engineer session `session_011dfRdXfFAYsLmAY2C9a6Qg` on
-   `m0/l2-clusters` lands #200/#201: the coolant-loop rule, life support,
-   the v2 scenarios (rows 1b, 2b, 3b, 12b, 16) and the heat sink (rows 13,
-   14), withdrawals under #188/#200.
-2. Physics checker blind on the pull request, then the reviewer; fixes;
-   the lead designer merges when no blocking finding remains (#180).
+1. The physics checker (blind) on PR #15, then the reviewer on the final
+   head; fixes; the lead designer merges when no blocking finding remains
+   (#180).
 3. **The D pass** (#203 D), its own branch after L2 merges: realistic round
    sizes and re-approved L0 ranges, partial kinetic damage per hit, repair
    of damaged cells only; superseded L0/L1 scenarios withdrawn with
@@ -134,6 +131,8 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Engineer, L1 review fixes (#189) | session_014jtbGrQdvSycQU8E6stAeY | opus-5-5 | 4.97 |
 | Reviewer, L1 re-review | session_01GsfMyFUqaSXRsVGQhELH2U | sonnet-5-5 | 0.53 |
 | Engineer, L2 rows 1–12 (PR #15) | session_0111ENvC2XXCj4tA5T9zTZQ7 | opus-5-5 | 11.48 |
+| Engineer, L2 heat v2 and heat sink | session_011dfRdXfFAYsLmAY2C9a6Qg | opus-5-5 | 8.25 |
+| Physics checker, L2 | session_01KdLbYYddDJgStcfriEdqsv | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 
