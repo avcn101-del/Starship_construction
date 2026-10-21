@@ -3,7 +3,7 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.kinetic.hole",
-  "code": "7b0f40f",
+  "code": "74493af",
   "criterionHash": "f9f796a5",
   "lockedHash": "f9f796a5",
   "runHash": "525f54eb",

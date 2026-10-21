@@ -1,9 +1,9 @@
 {
   "id": "L3.split.momentum",
   "level": "L3",
-  "verdict": "BLOCKED",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L3.split.momentum",
-  "code": "7b0f40f",
+  "code": "74493af",
   "criterionHash": "35d9b858",
   "lockedHash": "35d9b858",
   "runHash": "7e399e39",

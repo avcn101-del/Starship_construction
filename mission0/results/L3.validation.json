@@ -3,7 +3,7 @@
   "level": "L3",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L3.validation",
-  "code": "7b0f40f",
+  "code": "74493af",
   "criterionHash": "dc386731",
   "lockedHash": "dc386731",
   "runHash": "51e87ff4",

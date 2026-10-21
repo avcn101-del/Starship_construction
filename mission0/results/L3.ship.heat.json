@@ -1,9 +1,9 @@
 {
   "id": "L3.ship.heat",
   "level": "L3",
-  "verdict": "BLOCKED",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L3.ship.heat",
-  "code": "7b0f40f",
+  "code": "74493af",
   "criterionHash": "384c519b",
   "lockedHash": "384c519b",
   "runHash": "ca80d3ad",

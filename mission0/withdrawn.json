@@ -88,5 +88,35 @@
     "successor": "L3.ship.heat.v2",
     "decision": "#219",
     "reason": "Specification error of the lead designer (#219 (3)): the crewed rooms' bound of 295.01 K ignored the plan's own estimate (the bridge beside a reactor at 740-800 K reaches 295.3 K in cruise and 295.7 K in battle; the reference integrator agrees to 1 mK); and of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on cruise, battle and that invariant. The successor checks the crewed rooms' peaks against the reference (0.01 K) and that none reaches crewed hot, with the rescaled books. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.mass.props.v2",
+    "successor": "L3.mass.props.v3",
+    "decision": "#221",
+    "reason": "Superseded by the owner's design decision #221 (ships of real density): its expected values compute a cell's mass as thermal.heatCapacityPerCell / thermal.specificHeat (#208), the rule #221 replaces with structure.cellMass (10 t per M cell at T1) and removes thermal.specificHeat. Under the mass-pass data its expected() cannot be computed (the constant is gone), so every case fails. The successor is identical except the mass rule. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.thrust.v2",
+    "successor": "L3.thrust.v3",
+    "decision": "#221",
+    "reason": "Superseded by the owner's design decision #221 (ships of real density): its expected values compute a cell's mass as thermal.heatCapacityPerCell / thermal.specificHeat (#208), the rule #221 replaces with structure.cellMass (10 t per M cell at T1) and removes thermal.specificHeat. Under the mass-pass data its expected() cannot be computed (the constant is gone), so every case fails; recorded BLOCKED behind L3.mass.props.v2 on the re-record, re-run once its successor passed (#188). The successor is identical except the mass rule. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.rcs.turn.v2",
+    "successor": "L3.rcs.turn.v3",
+    "decision": "#221",
+    "reason": "Superseded by the owner's design decision #221 (ships of real density): its expected values compute a cell's mass as thermal.heatCapacityPerCell / thermal.specificHeat (#208), the rule #221 replaces with structure.cellMass (10 t per M cell at T1) and removes thermal.specificHeat. Under the mass-pass data its expected() cannot be computed (the constant is gone), so every case fails; recorded BLOCKED behind L3.mass.props.v2 on the re-record, re-run once its successor passed (#188). The successor is identical except the mass rule. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.recoil.v2",
+    "successor": "L3.recoil.v3",
+    "decision": "#221",
+    "reason": "Superseded by the owner's design decision #221 (ships of real density): its expected values compute a cell's mass as thermal.heatCapacityPerCell / thermal.specificHeat (#208), the rule #221 replaces with structure.cellMass (10 t per M cell at T1) and removes thermal.specificHeat. Under the mass-pass data its expected() cannot be computed (the constant is gone), so every case fails; recorded BLOCKED behind L3.mass.props.v2 on the re-record, re-run once its successor passed (#188). The successor is identical except the mass rule. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.split.momentum.v2",
+    "successor": "L3.split.momentum.v3",
+    "decision": "#221",
+    "reason": "Superseded by the owner's design decision #221 (ships of real density): its expected values compute a cell's mass as thermal.heatCapacityPerCell / thermal.specificHeat (#208), the rule #221 replaces with structure.cellMass (10 t per M cell at T1) and removes thermal.specificHeat. Under the mass-pass data its expected() cannot be computed (the constant is gone), so every case fails; recorded BLOCKED behind L3.mass.props.v2 on the re-record, re-run once its successor passed (#188). The successor is identical except the mass rule. Locked and recorded with that FAIL."
   }
 ]

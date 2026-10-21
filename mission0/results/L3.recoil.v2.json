@@ -1,9 +1,9 @@
 {
   "id": "L3.recoil.v2",
   "level": "L3",
-  "verdict": "BLOCKED",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L3.recoil.v2",
-  "code": "7b0f40f",
+  "code": "74493af",
   "criterionHash": "83c88b71",
   "lockedHash": "83c88b71",
   "runHash": "2ff8c992",

@@ -1,9 +1,9 @@
 {
   "id": "L3.thrust",
   "level": "L3",
-  "verdict": "BLOCKED",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L3.thrust",
-  "code": "7b0f40f",
+  "code": "74493af",
   "criterionHash": "f8844599",
   "lockedHash": "f8844599",
   "runHash": "d68c014c",

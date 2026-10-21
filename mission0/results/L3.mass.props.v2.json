@@ -3,7 +3,7 @@
   "level": "L3",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L3.mass.props.v2",
-  "code": "7b0f40f",
+  "code": "74493af",
   "criterionHash": "e622ae23",
   "lockedHash": "e622ae23",
   "runHash": "dab24409",

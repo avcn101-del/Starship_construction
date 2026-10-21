@@ -27,6 +27,13 @@
   BLOCKED until their v3 successors pass), their v1 predecessors, and
   `L3.fragment.scram` (thrust and momentum residues; still PASS).
   `L3.validation.v2` and `L3.kinetic.hole` unchanged.
+- `mission0/scenarios/L3/`: five v3 successors (`L3.mass.props.v3`,
+  `L3.thrust.v3`, `L3.rcs.turn.v3`, `L3.recoil.v3`,
+  `L3.split.momentum.v3`), each its v2 with only the mass rule changed, and
+  the new `L3.fragment.rules` (#222 (1)); locked before their first
+  canonical run: all six PASS. The five v2s are withdrawn as superseded by
+  #221 (`mission0/withdrawn.json`); every L3 scenario re-run canonically
+  through the new successors. `MISSION0.md` regenerated.
 
 ## 0.5.1 — 2026-10-21 — L3 merged; reviewer answers (#222)
 

@@ -1,9 +1,9 @@
 {
   "id": "L3.fragment.scram",
   "level": "L3",
-  "verdict": "BLOCKED",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L3.fragment.scram",
-  "code": "7b0f40f",
+  "code": "74493af",
   "criterionHash": "48ea595c",
   "lockedHash": "48ea595c",
   "runHash": "a74d2034",
