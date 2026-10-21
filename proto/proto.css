@@ -1,0 +1,51 @@
+/* proto/proto.css: the feel prototype's page. High contrast for a phone in sunlight; touch targets >= 44 px. */
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #000; color: #fff; font: 14px/1.25 ui-monospace, Menlo, Consolas, "Roboto Mono", monospace; overflow: hidden; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+#app { display: flex; flex-direction: column; height: 100%; }
+#bar { display: flex; align-items: center; gap: 10px; padding: 4px 6px; border-bottom: 2px solid #fff; flex: none; flex-wrap: nowrap; }
+.group { display: flex; gap: 4px; }
+button { min-width: 48px; min-height: 44px; padding: 0 10px; background: #000; color: #fff; border: 2px solid #fff; border-radius: 6px; font: bold 15px ui-monospace, Menlo, Consolas, monospace; }
+button.on { background: #ffff00; color: #000; border-color: #ffff00; }
+button:active { background: #fff; color: #000; }
+#lo-tag { margin-left: auto; font-size: 10px; line-height: 1.25; color: #a8a8a8; text-align: right; white-space: nowrap; overflow: hidden; min-width: 0; }
+#clock { font-size: 20px; font-weight: bold; min-width: 64px; text-align: right; }
+#main { display: flex; flex: 1; min-height: 0; }
+#stage { position: relative; flex: 1; min-width: 0; }
+#view { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+#hint { position: absolute; left: 6px; bottom: 4px; color: #ffff00; font-weight: bold; pointer-events: none; }
+#end { position: absolute; left: 8px; right: 8px; bottom: 8px; max-height: 72%; background: rgba(0, 0, 0, 0.9); border: 3px solid #ffff00; padding: 10px; overflow: auto; }
+#end h2 { margin: 0 0 4px; font-size: 18px; color: #ffff00; }
+#end button { float: right; margin-left: 8px; }
+#end table { border-collapse: collapse; margin: 4px 0 0; font-size: 12px; }
+#end td, #end th { border: 1px solid #fff; padding: 2px 6px; text-align: left; vertical-align: top; }
+#side { width: 250px; flex: none; display: flex; flex-direction: column; border-left: 2px solid #fff; min-height: 0; }
+#log { flex: 1; overflow-y: auto; padding: 4px; font-size: 11px; line-height: 1.3; min-height: 0; }
+#log div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#log .P { color: #38e8ff; }
+#log .E { color: #ff8a70; }
+#log .big { color: #ffff00; font-weight: bold; }
+#standins { flex: none; max-height: 42%; overflow-y: auto; border-top: 2px solid #fff; padding: 4px 6px; font-size: 10.5px; }
+#standins summary { min-height: 28px; font-weight: bold; color: #ffff00; cursor: pointer; }
+#standins ul { margin: 0; padding-left: 14px; }
+#standins li { margin-bottom: 3px; }
+#rotate { display: none; }
+@media (orientation: portrait) and (max-width: 700px) {
+  #rotate { display: block; padding: 8px; background: #ffff00; color: #000; font-weight: bold; text-align: center; }
+}
+#loadout { position: fixed; inset: 0; z-index: 10; background: rgba(0, 0, 0, 0.94); overflow-y: auto; padding: 6px 8px; }
+#loadout-box { max-width: 840px; margin: 0 auto; }
+#loadout-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+#loadout-head h2 { margin: 0 auto 0 0; font-size: 18px; color: #ffff00; }
+#loadout-head h2 span { font-size: 12px; color: #a8a8a8; font-weight: normal; }
+#loadout-start { background: #ffff00; color: #000; border-color: #ffff00; min-width: 96px; }
+#loadout-groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 4px 14px; }
+.lo-label { font-size: 12px; color: #a8a8a8; margin: 2px 0 1px; }
+.lo-group .group { flex-wrap: wrap; }
+#loadout-note { margin-top: 6px; font-size: 11px; color: #a8a8a8; }
+#export-panel { position: fixed; inset: 0; z-index: 20; background: rgba(0, 0, 0, 0.96); display: flex; flex-direction: column; padding: 6px 8px; gap: 4px; }
+#export-head { display: flex; align-items: center; gap: 8px; }
+#export-head h2 { margin: 0; font-size: 18px; color: #ffff00; }
+#export-status { margin-right: auto; font-weight: bold; color: #ffff00; }
+#export-note { font-size: 11px; color: #a8a8a8; }
+#export-text { flex: 1; min-height: 0; width: 100%; background: #000; color: #fff; border: 2px solid #fff; font: 11px/1.3 ui-monospace, Menlo, Consolas, monospace; -webkit-user-select: text; user-select: text; resize: none; }
+#export-panel[hidden] { display: none; }
