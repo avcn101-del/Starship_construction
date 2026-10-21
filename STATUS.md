@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#222, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#224, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -19,6 +19,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   life support under routing. `regress` on `main`: **46 VERIFIED + 8
   WITHDRAWN**. Cost 14.11 USD (engineers 10.76, physics checker 2.26,
   reviewer 1.09).
+- **If play is not fun** (#223, the owner): tune constants, then combine
+  the existing physics, only then change a law.
 - **Ships get real density (#221, the owner)**: 10 t per cell instead of
   1 t, heat unchanged; built as the mass pass after L3.
 - **L3, the minimal ship, is done and merged** (`DESIGN.md` §13f;
@@ -50,7 +52,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| (to come) The mass pass | `m0/mass` → `main` | engineer to start |
+| (to come) The mass pass | `m0/mass` → `main` | engineer `session_019smwJw2FbuFFrWfmYWTDmz` building it since 12:33 UTC |
 
 L3 merged through the lead designer's branch (PR #35 closes with it).
 
@@ -66,6 +68,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #224: the feel prototype's plan (§13h).
 - #222: answers to the L3 reviewer (three untested rules get a scenario in
   the mass pass; control needs a working bridge); L3 merged.
 - #220: answers to the L3 physics checker and Q13 (angular books
@@ -107,10 +110,10 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
    RCS 1 MN, `L3.fragment.rules`; the L3 scenarios encoding the old mass rule withdrawn as
    superseded with v3 successors; then a physics checker and the reviewer
    (or the reviewer only if no physics a checker has not seen, #218).
-2. **The feel prototype** (#217, the owner): after the mass pass, write its
-   plan as an *LD* row (scope, stand-ins for what L4–L5 have not built,
-   what the owner judges on the phone, cost estimate), then one engineer
-   session builds it in `proto/`.
+2. **The feel prototype** (`DESIGN.md` §13h, #217, #224): after the mass
+   pass merges, one engineer session on `proto/feel`; a light review; the
+   owner plays it on the phone from a private hosted page and notes what
+   is not fun by #223's ladder.
 
 ## Scheduled tasks
 
@@ -118,7 +121,7 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
 |---|---|---|---|
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
-| Check-in on the L3 engineer | `trig_018PsQLPx5GvJkFKCPVJkWs5` | once, 2026-10-21 10:46 UTC | wakes the lead designer chat `session_013PTXKzyTQkpVaKYQyBhRP8` |
+| Check-in on the mass pass engineer | `trig_0116kSDfLYPakYsQQuAQqr4j` | once, 2026-10-21 13:14 UTC | wakes the lead designer chat `session_013PTXKzyTQkpVaKYQyBhRP8` |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
@@ -157,6 +160,7 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, L3 fixes 1 (#219, stopped on Q13) | session_016VbwLzzv4YyZZL383cPXbx | opus-5-5 | 2.94 |
 | Engineer, L3 fixes 2 (#219, #220) | session_01AQ4WNuYgQLBevpeWC2HZku | opus-5-5 | 3.12 |
 | Reviewer, L3 | session_01WR2QvB555iEiVuoLRBQS7A | sonnet-5-5 | 1.45 |
+| Engineer, mass pass | session_019smwJw2FbuFFrWfmYWTDmz | opus-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
