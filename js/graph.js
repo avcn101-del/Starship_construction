@@ -2,6 +2,12 @@
 // #193): power by priority-ordered max flow through any room (#12), and
 // ammunition fed from a magazine only to rooms sharing a live wall with it
 // (#18). A shared edge is live while both of its cells survive (#192).
+// From L3 (DESIGN.md 13f.1, #208) also the structure graph (surviving cells
+// joined through every edge they share, inside a room and across walls: its
+// connected sets are the fragments) and the control graph (live walls to a
+// bridge that gives control). In a ship a wall pair counts only while each
+// cell is in its room's working fragment (a split room's other cells are dead
+// weight and carry nothing).
 // Reads room objects (id, cells) and the layout; behaviour stays in rooms.js.
 // No DOM, no Math.random.
 import { sharedWalls, byId } from './layout.js';
@@ -13,9 +19,11 @@ import { sharedWalls, byId } from './layout.js';
 export function liveWalls(world) {
   if (!world.layout) return [];
   const byRoom = new Map(world.rooms.map((r) => [r.id, r]));
+  // A cell carries flows while it survives and, in a ship, lies in its room's working fragment (13f.1).
+  const alive = (room, k) => !room.cells[k].destroyed && (room.body === undefined || room.cells[k].fragment === room.body);
   return sharedWalls(world.layout).map((w) => {
     const a = byRoom.get(w.a), b = byRoom.get(w.b);
-    const live = w.pairs.filter(([ka, kb]) => !a.cells[ka].destroyed && !b.cells[kb].destroyed).length;
+    const live = w.pairs.filter(([ka, kb]) => alive(a, ka) && alive(b, kb)).length;
     return { a, b, pairs: w.pairs, length: w.length, live: live * world.layout.edge };
   });
 }
@@ -96,4 +104,55 @@ export function feedAmmo(world, { feedPerMetre, store, take, give, has }) {
       world.feedCredit.set(k, credit);
     }
   }
+}
+
+/**
+ * The structure graph (13f.1, #208): surviving cells of placed rooms joined
+ * through every edge they share, inside a room or across a wall. Returns its
+ * connected sets, each a list of { room, k } in (room id, cell index) order,
+ * the sets ordered by their first cell.
+ */
+export function cellComponents(world) {
+  const byRoom = new Map(world.rooms.map((r) => [r.id, r])), occ = world.layout.occupied;
+  const seen = new Set(), out = [];
+  const name = (id, k) => `${id}:${k}`;
+  const rooms = world.rooms.filter((r) => r.placed).sort((a, b) => byId(a.id, b.id));
+  for (const room of rooms) {
+    room.cells.forEach((cell, k) => {
+      if (cell.destroyed || seen.has(name(room.id, k))) return;
+      const comp = [], queue = [[room, k]];
+      seen.add(name(room.id, k));
+      for (let i = 0; i < queue.length; i++) {
+        const [r, j] = queue[i];
+        comp.push({ room: r, k: j });
+        const [x, y] = world.layout.rooms.get(r.id).cells[j];
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const n = occ.get(`${x + dx},${y + dy}`);
+          if (!n) continue;
+          const nr = byRoom.get(n.id);
+          if (!nr || !nr.placed || nr.cells[n.k].destroyed || seen.has(name(n.id, n.k))) continue;
+          seen.add(name(n.id, n.k));
+          queue.push([nr, n.k]);
+        }
+      }
+      comp.sort((p, q) => byId(p.room.id, q.room.id) || p.k - q.k);
+      out.push(comp);
+    });
+  }
+  return out;
+}
+
+/**
+ * The control graph (13f.1, #12, #81, #147): the rooms joined through live
+ * walls (through any rooms) to one of `sources` (bridges that give control).
+ */
+export function reachedThrough(walls, sources) {
+  const reached = new Set(sources), queue = [...sources];
+  for (let i = 0; i < queue.length; i++) {
+    for (const w of walls) {
+      const other = w.a === queue[i] ? w.b : w.b === queue[i] ? w.a : null;
+      if (other && !reached.has(other)) { reached.add(other); queue.push(other); }
+    }
+  }
+  return reached;
 }
