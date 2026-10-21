@@ -27,19 +27,19 @@ depends on (it holds only once the owner approves them), and the command that re
 
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
-| `L1.beambay.heat` | 503836e4 | PASS | 36707521 | a5915f2 | none | `node tools/m0.js run L1.beambay.heat` |
-| `L1.bridge.control` | afe034f9 | PASS | 71a858eb | a5915f2 | none | `node tools/m0.js run L1.bridge.control` |
-| `L1.engine.thrust` | 9be928bb | PASS | 62d00ad7 | a5915f2 | none | `node tools/m0.js run L1.engine.thrust` |
-| `L1.magazine.cookoff` | dac098d6 | PASS | ce8eb1a8 | a5915f2 | none | `node tools/m0.js run L1.magazine.cookoff` |
-| `L1.quarters.repair` | 2ad503bc | FAIL | 60099027 | a5915f2 | none | `node tools/m0.js run L1.quarters.repair` |
-| `L1.radiator.cooling` | d33a4cfc | PASS | c524d7c4 | a5915f2 | none | `node tools/m0.js run L1.radiator.cooling` |
-| `L1.radiator.steady` | 9b5a31a3 | FAIL | a584cd21 | a5915f2 | none | `node tools/m0.js run L1.radiator.steady` |
-| `L1.reactor.breach` | 3c6f9aa0 | PASS | 2aef6bad | a5915f2 | none | `node tools/m0.js run L1.reactor.breach` |
-| `L1.reactor.power` | 9b8cc517 | PASS | a9209af6 | a5915f2 | none | `node tools/m0.js run L1.reactor.power` |
-| `L1.reactor.scram` | a9f1c96a | PASS | 673931c3 | a5915f2 | none | `node tools/m0.js run L1.reactor.scram` |
-| `L1.room.thresholds` | 44b1338a | PASS | 71457c3f | a5915f2 | none | `node tools/m0.js run L1.room.thresholds` |
-| `L1.shield.generator` | cf7ea187 | PASS | 014441cf | a5915f2 | none | `node tools/m0.js run L1.shield.generator` |
-| `L1.turret.fire` | 6687eaa4 | PASS | e498ae2f | a5915f2 | none | `node tools/m0.js run L1.turret.fire` |
+| `L1.beambay.heat` | 503836e4 | PASS | 36707521 | b3e8f75 | none | `node tools/m0.js run L1.beambay.heat` |
+| `L1.bridge.control` | afe034f9 | PASS | 71a858eb | b3e8f75 | none | `node tools/m0.js run L1.bridge.control` |
+| `L1.engine.thrust` | 9be928bb | PASS | 62d00ad7 | b3e8f75 | none | `node tools/m0.js run L1.engine.thrust` |
+| `L1.magazine.cookoff` | dac098d6 | PASS | ce8eb1a8 | b3e8f75 | none | `node tools/m0.js run L1.magazine.cookoff` |
+| `L1.quarters.repair` | 2ad503bc | PASS | 60099027 | b3e8f75 | none | `node tools/m0.js run L1.quarters.repair` |
+| `L1.radiator.cooling` | d33a4cfc | PASS | c524d7c4 | b3e8f75 | none | `node tools/m0.js run L1.radiator.cooling` |
+| `L1.radiator.steady` | 9b5a31a3 | FAIL | a584cd21 | b3e8f75 | none | `node tools/m0.js run L1.radiator.steady` |
+| `L1.reactor.breach` | 3c6f9aa0 | PASS | 2aef6bad | b3e8f75 | none | `node tools/m0.js run L1.reactor.breach` |
+| `L1.reactor.power` | 9b8cc517 | PASS | a9209af6 | b3e8f75 | none | `node tools/m0.js run L1.reactor.power` |
+| `L1.reactor.scram` | a9f1c96a | PASS | 673931c3 | b3e8f75 | none | `node tools/m0.js run L1.reactor.scram` |
+| `L1.room.thresholds` | 44b1338a | PASS | 71457c3f | b3e8f75 | none | `node tools/m0.js run L1.room.thresholds` |
+| `L1.shield.generator` | cf7ea187 | PASS | 014441cf | b3e8f75 | none | `node tools/m0.js run L1.shield.generator` |
+| `L1.turret.fire` | 6687eaa4 | PASS | e498ae2f | b3e8f75 | none | `node tools/m0.js run L1.turret.fire` |
 
 ## L2
 

@@ -1,14 +1,14 @@
 {
   "id": "L1.quarters.repair",
   "level": "L1",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L1.quarters.repair",
-  "code": "a5915f2",
+  "code": "b3e8f75",
   "criterionHash": "2ad503bc",
   "lockedHash": "2ad503bc",
   "runHash": "60099027",
   "dataHash": "6a6ff9ca",
-  "rowsHash": "750818be",
+  "rowsHash": "32a874fb",
   "rows": [
     {
       "case": {
@@ -27,7 +27,7 @@
         "housed": 18,
         "deaths": [],
         "rate": 0.02,
-        "repaired": 50,
+        "repaired": 50.016666666666666,
         "integrity": 1,
         "books": {
           "generated": 2500833.33333333,
@@ -57,7 +57,7 @@
         "housed": 18,
         "deaths": [],
         "rate": 0.016,
-        "repaired": 62.5,
+        "repaired": 62.516666666666666,
         "integrity": 1,
         "books": {
           "generated": 3125833.3333334466,
@@ -87,7 +87,7 @@
         "housed": 18,
         "deaths": [],
         "rate": 0.01,
-        "repaired": 100,
+        "repaired": 100.01666666666667,
         "integrity": 1,
         "books": {
           "generated": 5000833.333333345,
@@ -117,7 +117,7 @@
         "housed": 18,
         "deaths": [],
         "rate": 0.004,
-        "repaired": 250,
+        "repaired": 250.01666666666665,
         "integrity": 1,
         "books": {
           "generated": 12500833.333335146,
@@ -147,7 +147,7 @@
         "housed": 18,
         "deaths": [],
         "rate": 0.0011764705882352942,
-        "repaired": 849.9833333333333,
+        "repaired": 850,
         "integrity": 1,
         "books": {
           "generated": 42500000.00000666,
@@ -157,8 +157,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "repaired"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -181,7 +181,7 @@
           3
         ],
         "rate": 0.01,
-        "repaired": 100,
+        "repaired": 100.01666666666667,
         "integrity": 1,
         "books": {
           "generated": 2500416.6666666726,
@@ -215,7 +215,7 @@
           3
         ],
         "rate": 0.008,
-        "repaired": 125,
+        "repaired": 125.01666666666667,
         "integrity": 1,
         "books": {
           "generated": 3125416.6666664397,
@@ -249,7 +249,7 @@
           3
         ],
         "rate": 0.005,
-        "repaired": 200,
+        "repaired": 200.01666666666665,
         "integrity": 1,
         "books": {
           "generated": 5000416.666666642,
@@ -283,7 +283,7 @@
           3
         ],
         "rate": 0.002,
-        "repaired": 500,
+        "repaired": 500.01666666666665,
         "integrity": 1,
         "books": {
           "generated": 12500416.66666304,
@@ -317,7 +317,7 @@
           3
         ],
         "rate": 0.0005882352941176471,
-        "repaired": 1700,
+        "repaired": 1700.0166666666667,
         "integrity": 1,
         "books": {
           "generated": 42500416.66665334,
@@ -353,7 +353,7 @@
           3
         ],
         "rate": 0.003333333333333333,
-        "repaired": 299.98333333333335,
+        "repaired": 300,
         "integrity": 1,
         "books": {
           "generated": 2500000.000000997,
@@ -363,8 +363,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "repaired"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -389,7 +389,7 @@
           3
         ],
         "rate": 0.0026666666666666666,
-        "repaired": 375,
+        "repaired": 375.01666666666665,
         "integrity": 1,
         "books": {
           "generated": 3125138.8888903516,
@@ -425,7 +425,7 @@
           3
         ],
         "rate": 0.0016666666666666666,
-        "repaired": 600,
+        "repaired": 600.0166666666667,
         "integrity": 1,
         "books": {
           "generated": 5000138.888891748,
@@ -461,7 +461,7 @@
           3
         ],
         "rate": 0.0006666666666666666,
-        "repaired": 1500,
+        "repaired": 1500.0166666666667,
         "integrity": 1,
         "books": {
           "generated": 12500138.888869766,
@@ -497,7 +497,7 @@
           3
         ],
         "rate": 0.000196078431372549,
-        "repaired": 5100,
+        "repaired": 5100.016666666666,
         "integrity": 1,
         "books": {
           "generated": 42500138.888690956,
