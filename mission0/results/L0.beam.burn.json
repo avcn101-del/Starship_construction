@@ -1,0 +1,108 @@
+{
+  "id": "L0.beam.burn",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.beam.burn",
+  "code": "de8576b",
+  "criterionHash": "908664be",
+  "lockedHash": "908664be",
+  "runHash": "231d1090",
+  "dataHash": "e4fa91ea",
+  "rowsHash": "13d061a2",
+  "rows": [
+    {
+      "case": {
+        "d": 0
+      },
+      "expected": {
+        "time": 6.1119441621826445
+      },
+      "actual": {
+        "time": 6.116666666666666,
+        "delivered": 30023180.043988213,
+        "heat": 30023180.043988213,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 300
+      },
+      "expected": {
+        "time": 6.254966208467334
+      },
+      "actual": {
+        "time": 6.266666666666667,
+        "delivered": 30056117.608678993,
+        "heat": 30056117.608678993,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 600
+      },
+      "expected": {
+        "time": 6.939105856497993
+      },
+      "actual": {
+        "time": 6.95,
+        "delivered": 30047098.90752822,
+        "heat": 30047098.90752822,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 1000
+      },
+      "expected": {
+        "time": 9.186443162178481
+      },
+      "actual": {
+        "time": 9.2,
+        "delivered": 30044272.31818309,
+        "heat": 30044272.31818309,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 1500
+      },
+      "expected": {
+        "time": 14.149472597623543
+      },
+      "actual": {
+        "time": 14.15,
+        "delivered": 30001118.209261496,
+        "heat": 30001118.209261496,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat in the target room = energy delivered",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

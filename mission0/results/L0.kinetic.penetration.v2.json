@@ -1,0 +1,276 @@
+{
+  "id": "L0.kinetic.penetration.v2",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.kinetic.penetration.v2",
+  "code": "de8576b",
+  "criterionHash": "de60d649",
+  "lockedHash": "de60d649",
+  "runHash": "cedce90a",
+  "dataHash": "e4fa91ea",
+  "rowsHash": "3e491f6f",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.6912771062938625
+      },
+      "actual": {
+        "depth": 1.6912771062938625
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.536915659440794
+      },
+      "actual": {
+        "depth": 2.536915659440794
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.805373489161191
+      },
+      "actual": {
+        "depth": 3.805373489161191
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.6912771062938625
+      },
+      "actual": {
+        "depth": 1.6912771062938625
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.536915659440794
+      },
+      "actual": {
+        "depth": 2.536915659440794
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.8053734891611914
+      },
+      "actual": {
+        "depth": 3.8053734891611914
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.6912771062938625
+      },
+      "actual": {
+        "depth": 1.6912771062938625
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.536915659440794
+      },
+      "actual": {
+        "depth": 2.536915659440794
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.805373489161191
+      },
+      "actual": {
+        "depth": 3.805373489161191
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.6912771062938625
+      },
+      "actual": {
+        "depth": 1.6912771062938625
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.536915659440794
+      },
+      "actual": {
+        "depth": 2.536915659440794
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.8053734891611914
+      },
+      "actual": {
+        "depth": 3.8053734891611914
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.6912771062938625
+      },
+      "actual": {
+        "depth": 1.6912771062938625
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.536915659440794
+      },
+      "actual": {
+        "depth": 2.536915659440794
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.805373489161191
+      },
+      "actual": {
+        "depth": 3.805373489161191
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.6912771062938625
+      },
+      "actual": {
+        "depth": 1.6912771062938625
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.536915659440794
+      },
+      "actual": {
+        "depth": 2.536915659440794
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.8053734891611914
+      },
+      "actual": {
+        "depth": 3.8053734891611914
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

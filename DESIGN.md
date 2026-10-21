@@ -1,6 +1,6 @@
 # Duct Tape Navy: Mostly in One Piece — Design
 
-Status: designed 2026-10-20, **nothing built yet**. Mission 0 (§13) comes
+Status: designed 2026-10-20; **Mission 0 L0 (materials) passed**, no game yet. Mission 0 (§13) comes
 before any content or rendering. Numbers in brackets (#n) point to the row
 in `DECISIONS.md` that records the decision and why. This file is the
 current design and the source of truth; `DECISIONS.md` is the dated log.
@@ -371,6 +371,39 @@ hash), `tunable`. Folders `mission0/scenarios/` and `mission0/results/`;
 `MISSION0.md` is the ledger generated from the results. Tunable constants
 carry approved `min`–`max` ranges (#145).
 
+**Units**: SI throughout the simulation (#163).
+
+**Exit criteria** (#164), all eight required:
+
+| | Criterion |
+|---|---|
+| E1 | Every L0–L6 scenario PASSes its locked criterion |
+| E2 | Invariants on every sweep: same seed → same log hash; momentum conserved at splits; heat generated = radiated + stored; no NaN |
+| E3 | Every kept physics law has at least one passing proof scenario |
+| E4 | Every schema attribute has a measured effect, or it is cut |
+| E5 | No build wins more than 75% against the reference set; every degenerate build loses ≥ 3 of 4 against the reference ship on the same budget |
+| E6 | Each underdog path: a 60%-budget ship beats a 100% one with the intended tactic and loses without it |
+| E7 | The median reference battle lasts 3–6 minutes |
+| E8 | T1 and T6 1v1 battles cost at most a quarter of the phone's frame budget per step in Node (milliseconds set at L3, approved, then locked) |
+
+**L0** (#165, #166): seven material scenarios; kinetic penetration by
+sectional momentum (p/A) so same-tier rounds and armour balance; beams as a
+Gaussian beam (flat within the focus range, then 1/d²).
+
+**After the L0 review** (#169–#175): blast spreads as a wave front, with
+damaged and destroyed reported apart and a provisional open-face coupling;
+the shield's per-point cap can double-count its budget, to be resolved
+before L2; `shield.kineticStop` is computed exactly from the S round;
+`shield.radius` is the half-strength radius; L0's "AP" is the plain steel
+round; locked L0 criteria stay and stronger v2 scenarios follow; heat
+invariants that hold by construction do not count towards E3; records hash
+`run()` too; the step and burn limit live in `data.js`.
+The five **v2 scenarios** and `he.coupling` (0.5, 0.2–0.8) are approved
+(#176): vented energy at the open face, damage falling with distance,
+one-sided burn time with a heat floor, continuous penetration depth, the M
+beam itself against the shield, and an S round stopped exactly with
+`kineticStop` swept over its range.
+
 **Agentic operation** (#131–#136): parallel within a level, gated between
 levels; runner, verifier (independent, re-runs from the command line only),
 analyst, integrator (the only writer of `data.js` and the ledger); criteria
@@ -408,16 +441,83 @@ channel, room, crew aboard).
 
 ## 16. Measured
 
-Nothing yet. Results go to `MISSION0.md`, generated from
-`mission0/results/`.
+Every row is in `MISSION0.md` with the command that reproduces it.
+
+**L0 materials** (2026-10-20; seven scenarios, 66 cases, all PASS on their
+first canonical run, locked before it; the first independent re-run was
+the reviewer's on PR #1. Re-run on 2026-10-20 after #171 and #175, all
+PASS. "AP" in L0 is the plain steel round: round types (#96) are not
+modelled yet (#173)):
+
+| Scenario | What the numbers say |
+|---|---|
+| `L0.kinetic.penetration` | S, M, L AP rounds pass 1, 2, 3 armour cells **at every tier T1–T6**: sectional momentum makes same-tier rounds and armour balance by themselves (#165) |
+| `L0.kinetic.overpen` | An AP M round through an ordinary room 1–4 cells deep wastes 90–61% of its momentum leaving the ship: AP is poor against thin rooms (#96) |
+| `L0.blast.surface` | A 2 MJ HE warhead bursting on an edge cell destroys 1 armour cell and damages 4: the burst cell saturates at 1 MJ (provisional) and its three neighbours take 0.33 MJ each (3 MJ: still 1 destroyed, 4 damaged; 5 MJ: 4 destroyed, 9 damaged). Energy is conserved and excess vents only when the plate is full. The criterion checks the energy books, a lower bound on damaged cells, connectivity and the burst cell; **it does not pin the spreading law** (wall-length proportionality, #18): any connected spread that conserves energy passes |
+| `L0.beam.falloff` | The Gaussian beam delivers 98% at 0 m, 86% at the focus range (600 m), 55% at 1.2 km; flat within the focus range (0.995 at a quarter of it) and 1/d² beyond (d²f within 2.2% between 10 and 20 focus ranges) |
+| `L0.beam.burn` | An M beam burns through an armour cell in 6.1 s at contact, 6.9 s at 600 m, 14.1 s at 1.5 km, putting 30 MJ of heat into the target room per cell (provisional burn energy) |
+| `L0.shield.point` | An M shield (10 MW) absorbs at most 10 MW at the generator, 8 MW at 20 m, 5 MW at its radius (40 m, half strength), 2 MW at 80 m and 0.59 MW at 160 m (beams of 2, 10 and 30 MW run). No 5 MW (M) beam was run: that it absorbs an M beam completely within its radius is **an inference from the formula** (budget × g(40 m) = 5 MW), not a measurement |
+| `L0.shield.kinetic` | An M shield stops an S round at the generator (exactly: `shield.kineticStop` is one S round's sectional momentum, #171) and slows an M round from 800 to 267 m/s, paying 47–373 kJ per round |
+
+Honest reading: L0 proves the materials behave as their formulas say and
+that the books balance; it says nothing yet about balance between ships.
+The strong checks are where the simulation computes differently from the
+formula (numerical integration in the beam falloff, time stepping in the
+burn and the shield, tier invariance in penetration, conservation in the
+blast). `L0.kinetic.overpen` and `L0.shield.kinetic` are close restatements
+of their formulas: their value is locking the rule against later changes.
+Two signals for later levels: a single round costs the shield's impulse
+buffer 0.05–0.4 MJ of a 10 MJ buffer, so **the buffer has no measured effect
+yet** (E4: it must show one under rapid fire at L2, or be cut); and, by
+the formula, an M shield fully stops an M beam inside its radius, which L2
+(overlap) and L5 (ship vs ship) must show is not a dominant defence. Heat
+invariants that hold by construction do not count towards E3 (#174).
+
+**L0 v2** (2026-10-21; five scenarios beside the seven, 81 cases, locked
+before their first canonical run, all PASS on it; inputs from `data.js`;
+`he.coupling` 0.5, approved 0.2–0.8 (#176)):
+
+| Scenario | What the numbers say |
+|---|---|
+| `L0.blast.surface.v2` | A contact burst vents exactly (1 − coupling) of its energy at the open face, and absorbed + escaped + vented = E in every case. At coupling 0.5 the M warhead (2 MJ) puts exactly 1 MJ (= one cell's provisional blast resistance) into the plate: **1 cell destroyed, 1 damaged** (v1 without venting: 1 destroyed, 4 damaged). At 0.2 it destroys none; at 0.8, 1 destroyed and 4 damaged. 10 MJ at 0.5: 4 destroyed, 9 damaged; 20 MJ at 0.8: 13 destroyed, 22 damaged. On every 11×11 case, damage is non-increasing with grid distance (no cell further out holds more than any cell nearer) and symmetric about the burst row; a 3×3 plate filled to capacity lets 1 MJ escape |
+| `L0.beam.burn.v2` | The stepped burn time lies in [t, t + dt) of the formula at 0 to 2.5 focus ranges (6.12 s at contact, 6.95 s at 600 m, 14.15 s at 1.5 km), and the heat in the target room exceeds the 30 MJ burn energy by less than one step's energy (1–56 kJ) |
+| `L0.kinetic.penetration.v2` | The continuous depth matches s0 / R within 1e-9 at every tier and size: S 1.691, M 2.537, L 3.805 cells, identical T1–T6 |
+| `L0.shield.point.v2` | The M beam itself (5 MW) is now run: **fully absorbed out to the radius** (40 m), 2 of 5 MW absorbed at 80 m, 0.59 MW at 160 m; at the generator the shield takes all of 10 MW and 10 of 30 MW (beams of 0.5×, 1×, 2×, 6× the M beam) |
+| `L0.shield.kinetic.v2` | With the computed `kineticStop` an S round stops exactly (0 m/s); swept 0.5×–2×, S is stopped only at ≥ 1× (400 m/s left at 0.5×); M is stopped at ≥ 1.5×, L slowed to 89 m/s at 2×; exit velocity never rises with `kineticStop` |
+
+Honest reading: v2 replaces the weak points named above with measurements.
+The blast's spreading is now constrained (falling with distance,
+symmetric), though both hold here by the plate's geometry and the wave
+front's equal shares; they are not a test of the wall-length law on an
+irregular room (L2). The burn is now one-sided. That the M shield absorbs
+an M beam completely inside its radius is now measured, so the dominance
+question for L2 and L5 stands on data. Two cautions: the default coupling
+puts the M warhead **exactly** on one cell's blast resistance, so the
+"1 destroyed" result sits on a knife edge (any lower coupling or higher
+resistance gives 0 destroyed); and `armour.blastResistance`,
+`armour.burnEnergy` and `shield.bufferSeconds` are still unapproved, so the
+blast, burn and shield-kinetic v2 verdicts hold only once the owner
+approves them. The shield buffer still never binds (a round costs at most
+0.53 MJ of 10 MJ).
 
 ## 17. Open questions
 
-1. **Mission 0 exit criteria**: to be stated and locked before L0 starts.
-2. **Approved ranges** for each level's constants: proposed by Claude,
-   approved once by the owner (#145).
-3. **Chapter design** waits for Mission 0 (#125).
-4. Player-facing names of factions and named ships (current names are
+1. **Chapter design** waits for Mission 0 (#125).
+2. Player-facing names of factions and named ships (current names are
    working names).
-5. Economy prices: measured with `tools/campaign.js`.
-6. A store and trademark check of the title before any public release.
+3. Economy prices: measured with `tools/campaign.js`.
+4. A store and trademark check of the title before any public release.
+5. Approved ranges for each level after L0, proposed before that level
+   starts (#145).
+6. **Awaiting the owner's approval** (introduced while building L0; agents
+   may not tune them until approved):
+   - Provisional ranges: `armour.blastResistance` (1 MJ, 0.3–3 MJ),
+     `armour.burnEnergy` (30 MJ, 10–100 MJ), `room.kineticResistance`
+     (6.75e4, a quarter of armour), `shield.bufferSeconds` (1 s, 0.2–5 s).
+   - Fixed constants: steel density 7850 kg/m³ (real); rounds are
+     cylinders 4 diameters long; S and L are 2/3 and 3/2 of M in linear
+     size; the beam waist is 1/√2 of half a cell; the shield field falls
+     off as 1 / (1 + (r / radius)²); the simulation step is 1/60 s and a
+     beam burn gives up after 3600 s (#175).
+   - A provisional rule: **continuous beams meet the shield's rate; its
+     buffer catches impulses** (rounds, blasts).

@@ -1,0 +1,393 @@
+{
+  "id": "L0.shield.kinetic.v2",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.shield.kinetic.v2",
+  "code": "de8576b",
+  "criterionHash": "e27d5251",
+  "lockedHash": "e27d5251",
+  "runHash": "ad19da8b",
+  "dataHash": "e4fa91ea",
+  "rowsHash": "da86de82",
+  "rows": [
+    {
+      "case": {
+        "size": "S",
+        "times": 0.5
+      },
+      "expected": {
+        "velocity": 400,
+        "energy": 35555.55555555555
+      },
+      "actual": {
+        "velocity": 400,
+        "energy": 35555.55555555555,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "S",
+        "times": 0.75
+      },
+      "expected": {
+        "velocity": 200,
+        "energy": 44444.44444444443
+      },
+      "actual": {
+        "velocity": 200,
+        "energy": 44444.44444444443,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "S",
+        "times": 0.9
+      },
+      "expected": {
+        "velocity": 80.00000000000003,
+        "energy": 46933.33333333332
+      },
+      "actual": {
+        "velocity": 80.00000000000003,
+        "energy": 46933.33333333332,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "S",
+        "times": 1
+      },
+      "expected": {
+        "velocity": 0,
+        "energy": 47407.407407407394
+      },
+      "actual": {
+        "velocity": 0,
+        "energy": 47407.407407407394,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "S",
+        "times": 1.1
+      },
+      "expected": {
+        "velocity": 0,
+        "energy": 47407.407407407394
+      },
+      "actual": {
+        "velocity": 0,
+        "energy": 47407.407407407394,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "S",
+        "times": 1.5
+      },
+      "expected": {
+        "velocity": 0,
+        "energy": 47407.407407407394
+      },
+      "actual": {
+        "velocity": 0,
+        "energy": 47407.407407407394,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "S",
+        "times": 2
+      },
+      "expected": {
+        "velocity": 0,
+        "energy": 47407.407407407394
+      },
+      "actual": {
+        "velocity": 0,
+        "energy": 47407.407407407394,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "times": 0.5
+      },
+      "expected": {
+        "velocity": 533.3333333333334,
+        "energy": 88888.88888888888
+      },
+      "actual": {
+        "velocity": 533.3333333333334,
+        "energy": 88888.88888888888,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "times": 0.75
+      },
+      "expected": {
+        "velocity": 400,
+        "energy": 120000
+      },
+      "actual": {
+        "velocity": 400,
+        "energy": 120000,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "times": 0.9
+      },
+      "expected": {
+        "velocity": 320.00000000000006,
+        "energy": 134400
+      },
+      "actual": {
+        "velocity": 320.00000000000006,
+        "energy": 134400,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "times": 1
+      },
+      "expected": {
+        "velocity": 266.6666666666667,
+        "energy": 142222.22222222222
+      },
+      "actual": {
+        "velocity": 266.6666666666667,
+        "energy": 142222.22222222222,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "times": 1.1
+      },
+      "expected": {
+        "velocity": 213.33333333333331,
+        "energy": 148622.22222222222
+      },
+      "actual": {
+        "velocity": 213.33333333333331,
+        "energy": 148622.22222222222,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "times": 1.5
+      },
+      "expected": {
+        "velocity": 0,
+        "energy": 160000
+      },
+      "actual": {
+        "velocity": 0,
+        "energy": 160000,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "times": 2
+      },
+      "expected": {
+        "velocity": 0,
+        "energy": 160000
+      },
+      "actual": {
+        "velocity": 0,
+        "energy": 160000,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "times": 0.5
+      },
+      "expected": {
+        "velocity": 622.2222222222223,
+        "energy": 213333.33333333328
+      },
+      "actual": {
+        "velocity": 622.2222222222223,
+        "energy": 213333.33333333328,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "times": 0.75
+      },
+      "expected": {
+        "velocity": 533.3333333333335,
+        "energy": 299999.9999999999
+      },
+      "actual": {
+        "velocity": 533.3333333333335,
+        "energy": 299999.9999999999,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "times": 0.9
+      },
+      "expected": {
+        "velocity": 480.0000000000001,
+        "energy": 345599.9999999999
+      },
+      "actual": {
+        "velocity": 480.0000000000001,
+        "energy": 345599.9999999999,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "times": 1
+      },
+      "expected": {
+        "velocity": 444.4444444444445,
+        "energy": 373333.3333333333
+      },
+      "actual": {
+        "velocity": 444.4444444444445,
+        "energy": 373333.3333333333,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "times": 1.1
+      },
+      "expected": {
+        "velocity": 408.88888888888886,
+        "energy": 398933.3333333334
+      },
+      "actual": {
+        "velocity": 408.88888888888886,
+        "energy": 398933.3333333334,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "times": 1.5
+      },
+      "expected": {
+        "velocity": 266.66666666666674,
+        "energy": 480000
+      },
+      "actual": {
+        "velocity": 266.66666666666674,
+        "energy": 480000,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "times": 2
+      },
+      "expected": {
+        "velocity": 88.88888888888893,
+        "energy": 533333.3333333334
+      },
+      "actual": {
+        "velocity": 88.88888888888893,
+        "energy": 533333.3333333334,
+        "v0": 800
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "an S round is stopped exactly with the computed kineticStop (1x)",
+      "ok": true
+    },
+    {
+      "name": "an S round is stopped only at >= 1x",
+      "ok": true
+    },
+    {
+      "name": "exit velocity non-increasing as kineticStop rises (each size)",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

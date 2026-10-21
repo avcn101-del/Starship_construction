@@ -1,0 +1,98 @@
+{
+  "id": "L0.kinetic.overpen",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.kinetic.overpen",
+  "code": "de8576b",
+  "criterionHash": "810e8a2c",
+  "lockedHash": "810e8a2c",
+  "runHash": "f75b211e",
+  "dataHash": "e4fa91ea",
+  "rowsHash": "c8e06d5a",
+  "rows": [
+    {
+      "case": {
+        "cells": 1
+      },
+      "expected": {
+        "wasted": 0.9014551394053412
+      },
+      "actual": {
+        "wasted": 0.9014551394053412,
+        "exited": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "cells": 2
+      },
+      "expected": {
+        "wasted": 0.8029102788106823
+      },
+      "actual": {
+        "wasted": 0.8029102788106823,
+        "exited": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "cells": 4
+      },
+      "expected": {
+        "wasted": 0.6058205576213647
+      },
+      "actual": {
+        "wasted": 0.6058205576213647,
+        "exited": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "cells": 8
+      },
+      "expected": {
+        "wasted": 0.21164111524272944
+      },
+      "actual": {
+        "wasted": 0.21164111524272938,
+        "exited": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "cells": 12
+      },
+      "expected": {
+        "wasted": 0
+      },
+      "actual": {
+        "wasted": 0,
+        "exited": false
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "momentum is wasted exactly when the round leaves the ship",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
