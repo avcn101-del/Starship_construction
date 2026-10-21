@@ -10,6 +10,10 @@
   kernel's own numbers (R1 850 t at 1.80 g; 5 / 11 / 31 m of dodge over
   the time of flight at 600 / 900 / 1500 m; R1's magazine open from three
   sides). Documentation only.
+- `DESIGN.md` §13b, #238: independent read-only audits (documents,
+  process, physics as one system, scenario quality) at fixed milestones;
+  the first three started today on `audit/docs`, `audit/physics`,
+  `audit/scenarios`.
 
 ## 0.7.1 — 2026-10-21 — The path model merged (PR #48, #236)
 

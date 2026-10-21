@@ -470,6 +470,25 @@ finding; the owner can veto any row afterwards. Documentation-only commits
 by the lead designer go straight to `main`; code always goes through a pull
 request. The current state for a new chat is in `STATUS.md` (#179).
 
+**Audits** (#238, the owner): besides the per-pull-request roles, an
+**independent, read-only audit** that reads the whole, not one pass, at
+fixed milestones, each a session that decides nothing and reports with a
+location and a quote for every finding: (a) **documents** (`data.js`
+against `DESIGN.md` and `DECISIONS.md`; decisions against each other;
+rules living in one place only; sense), (b) **process** (where errors
+were caught against where money went; the plan gate; what to streamline),
+(c) **physics as one system** (models resting on different assumptions,
+one law or several, exponents against the new masses, the shield's
+exchanges, real-world anchors), (d) **scenario quality** (tautologies,
+outside anchors, tolerances against the method's error, lock discipline,
+withdrawals, coverage by mutation). The lead designer answers each finding
+in a consolidation pass recorded as a decision. **Milestones**: now
+(2026-10-21, before the L4 plan); before each level's plan from L4 on
+(a–d, light: only what the level touches); at Mission 0 exit (all four,
+full); before the first rendering commit and before the first public
+build (a, b, d full; c light); and whenever a law changes (c full). An
+audit found nothing is recorded too.
+
 ## 13c. L1 plan (approved 2026-10-21, #181–#184)
 
 L0 proved the materials. L1 proves that **each room alone** behaves as its

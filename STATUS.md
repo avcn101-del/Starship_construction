@@ -81,6 +81,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #238: audits at fixed milestones (the owner's direction; the milestones
+  and the four audits' scope are the lead designer's wording, §13b).
 - #237: prototype v2's plan (§13j): kernel numbers first (R1 850 t, 1.80
   g; 5 / 11 / 31 m of dodge over the time of flight at 600 / 900 / 1500 m;
   R1's magazine open from three sides); the helm as standing orders, the
@@ -140,13 +142,14 @@ Nothing (the owner chose the spinal beam bay and low-end masses, #234).
    check-in `trig_01Nq4Vw8Y6EqYrxahdj2yMYE` at 23:10 UTC). Then the
    reviewer (§13j.5), the lead designer merges the v2 block with PR #50
    and publishes the page (#226); the owner plays it with a changing seed.
-2. **Docs audit** (the owner, 2026-10-21): an independent read-only
-   session checks `data.js` against DESIGN and DECISIONS, decisions
-   against each other, rules living in one place only, and sense
-   (`audit/docs`); then the lead designer's consolidation pass (DESIGN
-   keeps the current design and a table of decisions in force; plans and
-   measured history move to their own file; DECISIONS untouched) recorded
-   as a decision. Repeat before the L4 plan and at Mission 0 exit.
+2. **Audits (#238, §13b)**: documents (`audit/docs`), physics as one
+   system (`audit/physics`) and scenario quality (`audit/scenarios`) run
+   now; the process audit is the lead designer's own, from this file's
+   ledger, once the docs audit is in. Then one consolidation pass answering
+   every finding, recorded as a decision (DESIGN keeps the current design
+   and a table of decisions in force; plans and measured history move to
+   their own file; DECISIONS untouched), before the L4 plan. Milestones for
+   the next audits are in §13b.
 3. **Next kernel pass** (with L4): the findings of #236 (the `beamPaths`
    cache, withdrawal reason texts, a PSTAR water anchor for `csdaRange`,
    §13f.1's dead-weight flows), #227 Q9, the chord rule of §13j.2 and
@@ -210,6 +213,8 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, prototype v2, created on the wrong model and archived after 35 s (the lead designer's error) | session_01Tf9UpKXmBCZJZbj4Rj2s8M | fable-5-1 | 1.12 |
 | Engineer, prototype v2 | session_013XH7jici9kFqQf6EJYqURu | opus-5-5 | running |
 | Docs audit (read-only; report on `audit/docs`, `audit/2026-10-21-docs.md`) | session_01RwaxZTmMVcMs2QbrF8KohP | sonnet-5-5 | running |
+| Physics system audit (read-only; `audit/physics`, `audit/2026-10-21-physics.md`) | session_01VxycQ6zZQf69yMEK5QXyJr | opus-5-5 | running |
+| Scenario quality audit (read-only; `audit/scenarios`, `audit/2026-10-21-scenarios.md`) | session_01Pr1RKAyvUNZpe8ticEBuyF | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
