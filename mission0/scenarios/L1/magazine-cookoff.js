@@ -32,7 +32,7 @@ export default {
   tolerance: 'counts exact; energy relative 1e-9; cook-off time one-sided (expected <= actual < expected + dt); hit time relative 1e-9',
   criterion: 'counts = floor(mass / round mass of the size) (full: 150 M, 506 S, 44 L at T1); explosion energy = n_AP x charge + n_HE x (charge + he.blastEnergy), with kinetic.chargeEnergy and he.blastEnergy scaled by (2/3)^3 and (3/2)^3 for S and L, exact; cook-off at t = C (T_crit - T_rest) / P one-sided with cause \'heat\'; a hit that destroys a cell sets it off at once, cause the hit; one explosion (#91, #181, #183)',
   tunable: ['magazine.capacity', 'kinetic.chargeEnergy', 'he.blastEnergy', 'kinetic.roundMass', 'thermal.heatCapacityPerCell', 'thermal.magazineCritical'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'dac098d6' },
   cases() {
     const out = [];
     for (const [size, ap, he] of [['M', 1, 0], ['M', 0, 1], ['M', 0.5, 0.5], ['M', 0, 0.5], ['S', 1, 0], ['S', 0, 1], ['L', 1, 0], ['L', 0, 1]]) out.push({ tier: 'T1', size, ap, he, by: 'heat' });

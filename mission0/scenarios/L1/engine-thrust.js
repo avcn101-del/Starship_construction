@@ -28,7 +28,7 @@ export default {
   tolerance: 'relative 1e-9; time one-sided (expected <= actual < expected + dt)',
   criterion: 'thrust = u F; draw = u D; heat rate = u D h; a = u F / m, exact; no power or no control: thrust 0 and draw 0 (#4d); time to hot at full throttle t = C (T_hot - T_rest) / (D h) one-sided (#140, #181, #183)',
   tunable: ['engine.thrust', 'engine.powerDraw', 'engine.heatFraction', 'thermal.heatCapacityPerCell', 'thermal.plantHot'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '9be928bb' },
   cases() {
     const out = [];
     for (const u of [0, 0.5, 1]) for (const m of [1e6, 1.5e6]) out.push({ tier: 'T1', u, m, powered: true, controlled: true });

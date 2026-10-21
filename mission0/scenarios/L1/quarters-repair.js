@@ -28,7 +28,7 @@ export default {
   tolerance: 'counts exact; rate relative 1e-9; time one-sided (expected <= actual < expected + dt)',
   criterion: 'housed crew = crewPerCell x c, deaths per destroyed cell = crewPerCell; repair rate = repair.rate x (c / 6) x g(r), g(r) = 1 / (1 + (r / radius)^2) (#99, as the shield); time to integrity 1 = 1 / rate one-sided; c = 0: no repair (#49, #51, #60, #181, #183)',
   tunable: ['quarters.crewPerCell', 'repair.rate', 'repair.radius'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '2ad503bc' },
   cases() {
     const out = [];
     for (const c of [6, 3, 1, 0]) for (const x of [0, 0.5, 1, 2, 4]) out.push({ c, x });

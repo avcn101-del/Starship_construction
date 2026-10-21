@@ -34,7 +34,7 @@ export default {
   tolerance: 'times one-sided (expected <= actual < expected + dt); counts exact; energies relative 1e-9',
   criterion: 't_x = C (T_x - T_rest) / P for hot, overheated and critical of the room\'s class, one-sided; events in that order; the room shuts down at overheated; at critical the room\'s crew die (deaths = crew housed or required); the magazine cooks off (explosion of its contents) and the reactor melts down (explosion of reactor.explosionEnergy) at critical, with cause \'heat\'; no other room explodes (#18b, #181, #182)',
   tunable: ['thermal.heatCapacityPerCell', 'thermal.plantHot', 'thermal.plantOverheated', 'thermal.plantCritical', 'thermal.crewedHot', 'thermal.crewedOverheated', 'thermal.crewedCritical', 'thermal.magazineHot', 'thermal.magazineOverheated', 'thermal.magazineCritical'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '44b1338a' },
   cases() {
     return TYPES.map((type) => ({ type }));
   },

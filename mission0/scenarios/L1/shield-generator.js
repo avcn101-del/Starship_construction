@@ -28,7 +28,7 @@ export default {
   tolerance: 'relative 1e-9; time one-sided (expected <= actual < expected + dt)',
   criterion: 'absorbed = min(P_in, shield.budget) (L0); heat rate = shield.powerDraw + absorbed; t_over = C (T_overheated - T_rest) / (draw + absorbed) one-sided; after the shutdown passed = P_in and heat rate 0, shield-down with cause \'heat\'; unpowered: field off from the start (absorbed 0, passed P_in, heat 0, shield-down with cause \'no-power\' at 0); EM signature = absorbed power (#21, #139, #181, #183)',
   tunable: ['shield.budget', 'shield.powerDraw', 'beam.power', 'thermal.heatCapacityPerCell', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'cf7ea187' },
   cases() {
     const out = [];
     for (const powered of [true, false]) for (const x of [0.4, 1, 2, 6]) out.push({ tier: 'T1', x, powered });

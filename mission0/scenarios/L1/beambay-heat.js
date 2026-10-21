@@ -28,7 +28,7 @@ export default {
   tolerance: 'relative 1e-9; times one-sided (expected <= actual < expected + dt)',
   criterion: 'draw = beam.power / beambay.efficiency; heat rate = draw - beam.power; t_hot and t_over = C (T_x - T_rest) / heat rate, one-sided; at overheated the beam stops (power 0, draw 0, event beam-stopped with cause \'heat\'); unpowered: no beam, no draw, beam-stopped with cause \'no-power\' at 0 (#181, #183)',
   tunable: ['beam.power', 'beambay.efficiency', 'thermal.heatCapacityPerCell', 'thermal.plantHot', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '503836e4' },
   cases() {
     return [...['T1', 'T2', 'T3', 'T4', 'T5', 'T6'].map((tier) => ({ tier, powered: true })), { tier: 'T1', powered: false }];
   },

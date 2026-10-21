@@ -28,7 +28,7 @@ export default {
   tolerance: 'counts exact; hit times relative 1e-9; countdown explosion one-sided (expected <= actual < expected + dt); energy relative 1e-9',
   criterion: 'the countdown starts at the hit that makes destroyed / total >= reactor.breachFraction, the k-th with k = ceil(f N) (this is the threshold test: 2 of 4, 5 of 9); "breach": one explosion at t_k + reactor.breachCountdown, one-sided, with reactor.explosionEnergy, cause hit-k; "entire": a reactor destroyed entirely explodes at once, at the hit that destroys its last cell (t = N s, before the countdown ends), with reactor.explosionEnergy, cause hit-N; one explosion only (#81, #181, #183)',
   tunable: ['reactor.breachFraction', 'reactor.breachCountdown', 'reactor.explosionEnergy'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '3c6f9aa0' },
   cases() {
     const out = [];
     for (const size of ['M', 'L']) for (const mode of ['breach', 'entire']) out.push({ size, mode });

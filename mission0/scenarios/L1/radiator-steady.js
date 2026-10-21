@@ -27,7 +27,7 @@ export default {
   tolerance: 'relative 1e-3',
   criterion: 'T_ss = (P / (n eps sigma A))^(1/4); |T(3600 s) - T_ss| / T_ss <= 1e-3; radiated power at the end and IR brightness each equal P within 1e-3 relative (#102, #143, #181)',
   tunable: ['radiator.area', 'thermal.heatCapacityPerCell', 'thermal.crewedCritical'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '9b5a31a3' },
   cases(ctx) {
     const k1 = ctx.fixed.radiatorEmissivity.value * ctx.fixed.stefanBoltzmann.value * ctx.params.radiator.area.value;
     const critical = ctx.params.thermal.crewedCritical.value;

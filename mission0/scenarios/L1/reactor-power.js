@@ -28,7 +28,7 @@ export default {
   tolerance: 'relative 1e-9; time one-sided (expected <= actual < expected + dt)',
   criterion: 'delivered = d P exactly (demand-driven); heat rate = h d P; t_over = C (T_overheated - T_rest) / (h d P) one-sided (d = 0: never, the room stays at T_rest); in the step after overheated delivered = 0 and the decay heat has begun: f h d P tau (1 - e^(-dt/tau)) over that step, relative 1e-9 (#81, #181, #183)',
   tunable: ['reactor.power', 'reactor.heatPerPower', 'reactor.decayFraction', 'reactor.decayTime', 'thermal.heatCapacityPerCell', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '9b8cc517' },
   cases() {
     const out = [0, 0.25, 0.5, 1].map((d) => ({ tier: 'T1', d }));
     for (const tier of ['T2', 'T3', 'T4', 'T5', 'T6']) out.push({ tier, d: 1 });

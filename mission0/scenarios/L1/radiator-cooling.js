@@ -28,7 +28,7 @@ export default {
   tolerance: 'temperature relative 1e-3 (explicit Euler); books relative 1e-9',
   criterion: 'T(t) = (T0^-3 + 3 n eps sigma A t / C)^(-1/3), A = radiator.area and C = cells x thermal.heatCapacityPerCell scaled by tier; |T - T(60 s)| / T(60 s) <= 1e-3; radiated + heat left = initial heat C T0 to 1e-9 relative (#143, #181, #182)',
   tunable: ['radiator.area', 'thermal.heatCapacityPerCell'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'd33a4cfc' },
   cases(ctx) {
     const out = [];
     for (const T0 of [400, 600, 800, 1000, 1200]) for (const n of [1, 2]) out.push({ tier: 'T1', T0, n });

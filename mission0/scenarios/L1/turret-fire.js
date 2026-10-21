@@ -29,7 +29,7 @@ export default {
   tolerance: 'shots exact; impulse, heat and energy relative 1e-9',
   criterion: 'shots = min(n, 1 + floor(rate x t)); recoil impulse = shots x m v (m = kinetic.roundMass, v = kinetic.muzzleVelocity, scaled), exact; heat = shots x turret.heatPerShot; energy drawn = turret.powerDraw x the time the turret is able to fire (from 0 until t or until its last round is fired at (n - 1) / rate); dry: cease-fire event with cause \'dry\' at the last shot; unpowered: no shot, no draw, cease-fire with cause \'no-power\' at 0 (#183, #181)',
   tunable: ['turret.fireRate', 'turret.powerDraw', 'turret.heatPerShot', 'kinetic.roundMass', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '6687eaa4' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T2', 'T3', 'T4', 'T5', 'T6']) for (const n of [5, 150]) for (const t of TIMES) out.push({ tier, n, t, powered: true });
