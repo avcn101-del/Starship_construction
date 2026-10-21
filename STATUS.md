@@ -6,7 +6,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#189, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#190, current design in `DESIGN.md`.
 - **E1 amended by the owner (#188)**: a scenario withdrawn for a
   specification error, with a passing successor, does not block E1.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
@@ -45,6 +45,9 @@ Updated 2026-10-21 by the lead designer chat (session
 - #189: answers to the reviewer (two kernel and tool fixes that block the
   merge, two new scenarios `L1.repair.breach` and `L1.room.restart`, and
   five small fixes).
+- #190: the engineer's three readings of #189 accepted (a cell stays
+  destroyed until fully repaired; the bridge's radiators in the restart
+  test are a fixture; turret rate sweeps must avoid shot times).
 
 ## Awaiting the owner
 
@@ -90,6 +93,7 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Physics checker, L1 | session_01GmQGV34nzAo394dCthy28J | sonnet-5-5 | 1.22 |
 | Engineer, L1 fixes (#185, #187) | session_01TQvnSvo7qZzJ4HBuas89nY | opus-5-5 | 2.65 |
 | Reviewer, L1 | session_01RYgtwmNTAS4VRWxefHDetg | sonnet-5-5 | 1.19 |
+| Engineer, L1 review fixes (#189) | session_014jtbGrQdvSycQU8E6stAeY | opus-5-5 | 4.97 |
 
 Sessions have reported a **seven-day usage limit warning**.
 
