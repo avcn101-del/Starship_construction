@@ -1,5 +1,62 @@
 # Changelog
 
+## 0.3.1 — 2026-10-21 — Heat along the coolant loop, life support, the heat sink (#198, #200, #201; in review)
+
+- Data: `conduction.passive` (25 W/(K·m), 5–100, k=1),
+  `lifeSupport.capacityPerCell` (50 kW, 10–200 kW, k=2),
+  `FIXED.lifeSupportSetpoint` (295 K), `heatsink.capacityFactor` (5,
+  2–10) and `heatsink.conductivityFactor` (3, 1–5), all approved; the
+  heat sink room (2×2 M, 3×3 L, anywhere, plant class, no crew, no power);
+  every room type is `coolant` (reactor, beam bay, shield generator,
+  engine, railgun, heat sink) or `passive`, and crewed rooms and magazines
+  carry life support; the hold's 0.1 factor applies on passive walls. No
+  cofferdam (deferred, #201 (4)). L0 and L1 re-recorded for the new data
+  hash: only `dataHash` and `code` moved.
+- `js/heat.js`, `js/rooms.js`: coolant walls (two coolant rooms) keep
+  `conduction.wall` with the harmonic mean of coolant factors; every other
+  wall is passive. Life support pumps a powered crewed room's or magazine's
+  heat above 295 K into its coolant neighbours by live wall length, at most
+  the capacity per surviving cell, never below the setpoint within a step;
+  the bridge runs it on its backup. Books: `pumped` (part of `conducted`)
+  and `vented`; generated + conducted = radiated + vented + stored. A
+  destroyed heat sink cell vents (C / n)(T − T_rest) to space (a
+  `heat-vented` event), its capacity falls by one cell and T stays; an
+  emptied heat sink reads as the rest temperature.
+- `tools/m0.js`: a dependency listed in `withdrawn.json` counts through
+  its successor (#188), so `L2.reactor.cooled` is not blocked by the
+  withdrawn `L2.heat.pair`.
+- Seven new L2 scenarios (§13d.2 rows 1b, 2b, 3b, 12b, 13, 14, 16), locked
+  before their first canonical run, all PASS. Withdrawn: `L2.heat.chain`
+  and `L2.heat.neighbour` (specification errors, #201 (2)), `L2.heat.pair`
+  and `L2.bridge.conduction` (superseded by #200).
+- `regress`: 42 VERIFIED + 5 WITHDRAWN.
+
+## 0.3.0 — 2026-10-21 — Mission 0 L2: pairs and clusters (in review)
+
+- Data (#195): `conduction.wall`, `conduction.holdFactor`,
+  `power.wallCapacity`, `ammo.wallFeed`, `turret.readyRounds`,
+  `room.blastResistance`, `hold.blastFactor`, all approved; the hold names
+  its conductivity and blast factors in `ROOMS`; an L magazine (3×3) for
+  `L2.size.rule`. Every L0 and L1 record re-recorded for the new data
+  hash: only `dataHash` and `code` moved.
+- New `js/layout.js` (grid at the tier's edge, placement and rotation,
+  shared walls, open edges, centres) and `js/graph.js` (priority-ordered
+  max flow over live walls, ammunition feed into turret ready stores).
+- `js/heat.js`: conduction through live walls (harmonic mean of the
+  conductivity factors, flows from the start of the step); books carry
+  `conducted` for rooms in a cluster.
+- `js/rooms.js`: `createWorld({ grid })` makes a cluster; rooms placed with
+  `cell` and `rotation`; power routing (`enablePowerRouting`), consumers at
+  the fraction they receive; blast between rooms (wave front by wall
+  length, `world.blasts`); shield beams at points without double counting
+  (`setBeams`, #170) and the impulse buffer with refill (`shieldRound`);
+  repair asks scaled to each quarters' budget; the size rule in a cluster.
+  A room without a layout behaves exactly as at L1.
+- 12 L2 scenarios (§13d.2), locked before their first canonical run:
+  10 PASS, `L2.heat.chain` and `L2.heat.neighbour` FAIL on the plan's own
+  claims (see `DESIGN.md` §16 and the pull request).
+- `regress`: 37 VERIFIED + 1 WITHDRAWN.
+
 ## 0.2.2 — 2026-10-21 — L1 reviewer answers #189 landed
 
 - Kernel (`js/rooms.js`, #189 (1)): a room's destroyed count is the cells

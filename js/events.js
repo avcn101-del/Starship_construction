@@ -24,6 +24,7 @@ export const EVENT_FIELDS = {
   'shield-down': [],
   'control-lost': [],
   'control-restored': [], // the bridge gives control again after a restart (#189 (3))
+  'heat-vented': ['energy'], // a destroyed heat sink cell let its heat above rest out to space (J, #198)
 };
 
 export function createLog() {
