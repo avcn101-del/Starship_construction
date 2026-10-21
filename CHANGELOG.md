@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.6.1 — 2026-10-21 — The feel prototype (#217, #224), throwaway
+
+- `proto/` (new, DESIGN.md §13h): a canvas page of two R1s at 900 m on the
+  unchanged L3 kernel and the mass pass's masses: tap an enemy room to
+  target it, presets Fire / Cool / Evade, time ×1/×2/×4, a seeded scripted
+  enemy, the end at Disabled (#82) or destruction. Every kernel import uses
+  `../js/`; prototype settings live in `proto/config.js`; every stand-in is
+  marked `STAND-IN` in code and listed on screen. Never a Mission 0 result.
+- `proto/measure.mjs`: one R1-versus-R1 battle headless, both sides
+  scripted. `proto/smoke.mjs`: Playwright at 844 × 390, zero console errors.
+- No change to `js/`, `tools/`, `mission0/` or `data.js`.
+
 ## 0.6.0 — 2026-10-21 — Mission 0: the mass pass, ships of real density (#221, #222)
 
 - Data (#221, the owner; ranges by the lead designer): new
