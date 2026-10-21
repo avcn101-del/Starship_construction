@@ -18,16 +18,21 @@
 // hole whose mass leaves as debris and which resists no round (#212 (5));
 // the structure graph splits it into fragments with the parent's velocity
 // field; control runs over live walls from the bridge, and a room that
-// loses it stops (a reactor SCRAMs, #81). No DOM, no Math.random.
+// loses it stops (a reactor SCRAMs, #81). The path model (DESIGN.md 13i):
+// each room type's cells have their real mass (#232, #234); a cell on a path
+// is its mass over its face and resists a round in proportion to it; a round
+// is damaged by what it meets and flattens (#230); a neutral particle beam
+// from a spinal beam bay leaves its energy along its path as heat and
+// integrity loss (#229, #234). No DOM, no Math.random.
 import { ROOMS, FIXED, BASE_EDGE } from './data.js';
-import { createHeat, temperature, radiatorPower, heatStep, crossings, wallConductance, conductionFlows, ventCell } from './heat.js';
+import { createHeat, temperature, radiatorPower, heatStep, crossings, wallConductance, conductionFlows, ventCell, depositHeat } from './heat.js';
 import { createLog, emit } from './events.js';
 import { absorbBeamStep, shieldStrength, stopRound } from './field.js';
 import { stepsAtLeast } from './util.js';
-import { createLayout, placeRoom, openEdges, roomCentre, sharedWalls, byId, fittingProblem, edgeMidpoint, exhaustFace } from './layout.js';
+import { createLayout, roomFootprint, placeRoom, openEdges, roomCentre, sharedWalls, byId, fittingProblem, edgeMidpoint, exhaustFace } from './layout.js';
 import { liveWalls, priorityMaxFlow, feedAmmo, cellComponents, reachedThrough } from './graph.js';
 import { massProperties, createBody, worldPoint, pointVelocity, applyImpulse, integrate, reshape, fragmentOf, redistribute, rotate, momentumOf } from './body.js';
-import { penetrate } from './damage.js';
+import { penetrateRound, beamDeposit } from './damage.js';
 import { sectionalMomentum } from './projectile.js';
 
 // A time within 1e-9 of a step boundary counts as that boundary (as stepsAtLeast).
@@ -57,13 +62,13 @@ const supply = (world, room) => (world.power ? room.powerFraction : 1);
 /**
  * Add a room. In a cluster, `cell` ([x, y]) and `rotation` (0 or 90) place
  * it on the grid and its position is its centre; without `cell` it stands
- * alone at `position` (m), a cluster of one.
+ * alone at `position` (m), a cluster of one. A spinal room (the beam bay,
+ * #234) takes its `length` N, else its footprint's (layout.js).
  */
-export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, size = 'M', position = [0, 0], temperature: T0 = FIXED.restTemperature.value, cell = null, rotation = 0 } = {}) {
+export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, size = 'M', position = [0, 0], temperature: T0 = FIXED.restTemperature.value, cell = null, rotation = 0, length = null } = {}) {
   const def = ROOMS[type];
   if (!def) throw new Error(`unknown room type ${type}`);
-  const fp = def.footprint[size];
-  if (!fp || typeof fp[1] !== 'number') throw new Error(`${type} has no buildable size ${size}`);
+  const fp = roomFootprint(def, type, size, length); // a spinal room is N cells long (#234)
   if (world.rooms.some((r) => r.id === id)) throw new Error(`room id ${id} is taken`);
   const n = fp[0] * fp[1];
   if (cell) {
@@ -76,6 +81,7 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
   const cls = def.thermalClass, th = world.params.thermal;
   const room = {
     id, type, size, def, position,
+    length: def.spinal ? fp[0] : null, // N of a spinal room, its cells along x (#234)
     footprintFactor: sizeLinear * sizeLinear, // rate-like constants: L = 9/4 of M (#183)
     cells: Array.from({ length: n }, () => ({ integrity: 1, destroyed: false })),
     thresholds: { hot: th[`${cls}Hot`].value, overheated: th[`${cls}Overheated`].value, critical: th[`${cls}Critical`].value },
@@ -195,23 +201,88 @@ function killByIntegrity(world, room, cause) {
   killCrew(world, room, due - before, cause); // never more than are aboard
 }
 /**
+ * Mass of one surviving cell of `room` (#221, #232, #234, 13i.2): its type's
+ * cellMass constant (ROOMS), a heat sink cell plus the water of its extra
+ * heat capacity.
+ */
+function cellMassOf(world, room) {
+  const p = world.params, C = tierScaled(world, p.thermal.heatCapacityPerCell), m0 = tierScaled(world, param(world, room.def.cellMass));
+  return m0 + (room.def.capacityFactor ? ((param(world, room.def.capacityFactor).value - 1) * C) / FIXED.waterSpecificHeat.value : 0);
+}
+/**
+ * Cell matter on a path (13i.1): the cell's mass spread over its face,
+ * sigma = cell mass / edge^2 (kg/m^2, iron-equivalent by mass); a destroyed
+ * cell is a hole, sigma = 0 (#212 (5)).
+ */
+export function cellArealDensity(world, room, index) {
+  return room.cells[index].destroyed ? 0 : cellMassOf(world, room) / (world.edge * world.edge);
+}
+/**
+ * A round's strength (13i.1, #230): per kilogram of steel as strong as armour,
+ * S = matter.kineticResistance x rho_steel L, with rho L = m / A0 the round's
+ * own areal density along its axis (a steel cylinder of length L).
+ */
+export function roundStrength(world, mass, area) {
+  return world.params.matter.kineticResistance.value * (mass / area);
+}
+/**
  * A kinetic round { mass, velocity, area } along `path`, the room cells it
- * meets in order ([{ room, cell }]) (#137, #206, 13e.1). Kinetic damage stays
- * momentum: each cell resists room.kineticResistance of sectional momentum
- * (L0's penetrate); a destroyed cell is a hole and resists nothing (#212 (5),
- * 13f.1); a cell the round passes loses 1 / kinetic.hitsToWreck of its
- * integrity, the cell it stops in (sectional momentum left / R) /
- * hitsToWreck, a hole nothing. Returns the penetration and the loss applied
- * to each cell reached.
+ * meets in order ([{ room, cell }]) (#137, #206, 13e.1, 13i.1). Each cell
+ * resists r = matter.kineticResistance x sigma of sectional momentum (#232)
+ * and the round takes the same against its own strength (penetrateRound,
+ * #230): it flattens, and is wrecked at f = 1. A destroyed cell is a hole and
+ * resists nothing (#212 (5)); a cell the round passes loses 1 /
+ * kinetic.hitsToWreck of its integrity, the cell it stops in (sectional
+ * momentum taken / r) / hitsToWreck, a hole nothing. Returns the penetration
+ * (per cell: r, the sectional momentum taken as `absorbed`, the momentum
+ * taken as `impulse`; the sectional momentum on exit as `residual`, the
+ * momentum on exit, the momentum left at the stop) and the loss applied to
+ * each cell reached.
  */
 export function fireRound(world, { mass, velocity, area }, path, cause) {
-  const R = tierScaled(world, world.params.room.kineticResistance), hits = world.params.kinetic.hitsToWreck.value;
-  const s0 = sectionalMomentum(mass, velocity, area);
-  const hole = path.map((x) => x.room.cells[x.cell].destroyed);
-  const res = penetrate(s0, path.map((x, i) => (hole[i] ? 0 : R)));
-  const losses = res.absorbed.map((a, i) => (hole[i] ? 0 : (i < res.passed ? 1 : a / R) / hits));
+  const c = world.params.matter.kineticResistance.value, hits = world.params.kinetic.hitsToWreck.value;
+  const s0 = sectionalMomentum(mass, velocity, area), strength = roundStrength(world, mass, area);
+  const r = path.map((x) => c * cellArealDensity(world, x.room, x.cell));
+  const res = penetrateRound({ momentum: mass * velocity, area, strength }, r);
+  const losses = res.taken.map((a, i) => (r[i] === 0 ? 0 : (i < res.passed ? 1 : a / r[i]) / hits));
   losses.forEach((loss, i) => damageCell(world, path[i].room, path[i].cell, loss, cause, 'kinetic'));
-  return { s0, R, passed: res.passed, stoppedIn: res.stoppedIn, residual: res.residual, absorbed: res.absorbed, losses };
+  return {
+    s0, r, strength, p0: mass * velocity, passed: res.passed, stoppedIn: res.stoppedIn, wrecked: res.wrecked, f: res.f, area: res.area,
+    residual: res.residual, momentum: res.momentum, stopMomentum: res.stopMomentum, absorbed: res.taken, impulse: res.impulse, losses,
+  };
+}
+/** Kinetic energy (J) of each atom a beam bay fires (#234): beam.gradient x its length N x edge. */
+export function beamEnergy(world, room) {
+  return world.params.beam.gradient.value * room.length * world.edge;
+}
+/**
+ * One step of a neutral particle beam (#229, 13i.1) along `path` ([{ room,
+ * cell }], the cells it meets in order): `power` (W) is what reaches the hull
+ * (the shield absorbs first, at the entry point, as at L2: the caller passes
+ * what it let through); `energy` (J) is each atom's kinetic energy (the
+ * firing bay's beamEnergy); `range` (m) is the distance from the emitter,
+ * which changes nothing: no falloff at battle range (#230). Cell i receives
+ * P F_i (beamDeposit) as heat in its room and loses P F_i dt /
+ * armour.burnEnergy of its integrity (channel 'thermal'); the fractions are
+ * recomputed whenever a cell on the path has become a hole. What is left
+ * after the path leaves the ship. Returns the fractions and the energies of
+ * the step.
+ */
+export function fireBeam(world, { power, energy, range = 0 }, path, cause) {
+  const sigmas = path.map((x) => cellArealDensity(world, x.room, x.cell));
+  const key = `${energy}|${sigmas.join(',')}`;
+  world.beamPaths ??= new Map();
+  let dep = world.beamPaths.get(key);
+  if (!dep) {
+    const f = FIXED;
+    dep = beamDeposit(energy, sigmas, { protonRest: f.protonRestEnergy.value, electronRest: f.electronRestEnergy.value, K: f.betheK.value, ZA: f.ironZOverA.value, I: f.ironMeanExcitation.value, lambda: f.ironInteractionLength.value });
+    world.beamPaths.set(key, dep);
+  }
+  const dt = world.dt, Q = tierScaled(world, world.params.armour.burnEnergy);
+  const energies = dep.fractions.map((F) => power * F * dt);
+  path.forEach((x, i) => { if (energies[i] > 0) depositHeat(x.room.heat, energies[i]); });
+  path.forEach((x, i) => { if (energies[i] > 0) damageCell(world, x.room, x.cell, energies[i] / Q, cause, 'thermal'); });
+  return { power, range, energy, delivered: power, fractions: dep.fractions, exit: dep.exit, energies, escaped: power * dep.exit * dt };
 }
 export const destroyCell = (world, room, index, cause, channel = 'kinetic') => damageCell(world, room, index, 1, cause, channel);
 
@@ -914,17 +985,17 @@ export function contentsMass(world, room) {
   return 0;
 }
 /**
- * Every mass of the ship (13g.1, #221): surviving cells (structure.cellMass,
- * a heat sink cell plus the water of its extra capacity) as squares at their
+ * Every mass of the ship (13g.1, #221, 13i.2): surviving cells (their type's
+ * cellMass, a heat sink cell plus the water of its extra capacity) as squares at their
  * centres, contents at their room's centre, fittings on surviving cells at
  * their edge's midpoint; each with the body it belongs to.
  */
 function shipItems(world) {
-  const p = world.params, e = world.edge, C = tierScaled(world, p.thermal.heatCapacityPerCell), m0 = tierScaled(world, p.structure.cellMass);
+  const e = world.edge;
   const items = new Map();
   for (const room of world.rooms) {
     if (!room.placed) continue;
-    const m = m0 + (room.def.capacityFactor ? ((param(world, room.def.capacityFactor).value - 1) * C) / FIXED.waterSpecificHeat.value : 0);
+    const m = cellMassOf(world, room);
     const grid = world.layout.rooms.get(room.id).cells;
     room.cells.forEach((c, k) => { if (!c.destroyed) items.set(`${room.id}:${k}`, { m, p: [(grid[k][0] + 0.5) * e, (grid[k][1] + 0.5) * e], a: e, body: c.fragment }); });
     const cm = contentsMass(world, room);

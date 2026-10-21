@@ -21,9 +21,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SCEN = path.join(ROOT, 'mission0', 'scenarios');
 const RESULTS = path.join(ROOT, 'mission0', 'results');
 const LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
-// Scenarios withdrawn for a specification error (#187 (8)): each stays locked
-// with its recorded FAIL; verify and regress report it as WITHDRAWN while it
-// still fails exactly as recorded.
+// Scenarios withdrawn for a specification error (#187 (8)) or as superseded
+// (#188, #200): each stays locked with its record; verify and regress report
+// it as WITHDRAWN while it keeps the verdict it was recorded with.
 const WITHDRAWN_FILE = path.join(ROOT, 'mission0', 'withdrawn.json');
 const WITHDRAWN = new Map((fs.existsSync(WITHDRAWN_FILE) ? JSON.parse(fs.readFileSync(WITHDRAWN_FILE, 'utf8')) : []).map((w) => [w.id, w]));
 /** The scenario that stands for `id`: itself, or the end of its chain of successors when it was withdrawn and its successor withdrawn in turn (#188, #221). */
@@ -300,7 +300,9 @@ async function main() {
         ['same results as recorded', res.rowsHash === rec.rowsHash],
         ['same data as recorded', res.dataHash === rec.dataHash],
         ...(rec.runHash ? [['run() unchanged since record', runHash(s) === rec.runHash]] : []),
-        w ? ['still fails as recorded', verdict === 'FAIL' && rec.verdict === 'FAIL'] : ['still passes', verdict === 'PASS'],
+        // A withdrawn scenario keeps the verdict it was recorded with: FAIL, or PASS when it tests a superseded pure
+        // function the kernel keeps for the prototype (13i.1) while the game rule moved to its successor.
+        w ? ['same verdict as recorded', (verdict === 'FAIL' || verdict === 'PASS') && verdict === rec.verdict] : ['still passes', verdict === 'PASS'],
       ];
       const ok = checks.every(([, v]) => v);
       if (!ok) bad++;

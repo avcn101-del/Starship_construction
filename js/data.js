@@ -18,13 +18,16 @@ export const TIERS = {
 };
 
 const P = (value, min, max, k, unit, approved, note) => ({ value, min, max, k, unit, approved, note });
+// One MeV in joules (exact since the 2019 SI): the path model quotes particle
+// energies in MeV and stores them in J (DESIGN.md 13i.2, #163).
+const MEV = 1.602176634e-13;
 
 // Fixed constants: real physical values or geometric choices, not tunable.
 export const FIXED = {
   steelDensity: { value: 7850, unit: 'kg/m^3', note: 'real density of steel; kinetic rounds are steel' },
   roundLengthToDiameter: { value: 4, unit: '', note: 'shape of a kinetic round (a cylinder 4 diameters long)' },
   sizeLinear: { value: { S: 2 / 3, M: 1, L: 3 / 2 }, unit: '', note: 'linear size of S and L relative to M (mass scales with its cube)' },
-  beamWaistPerHalfCell: { value: 1 / Math.SQRT2, unit: '', note: 'beam waist radius as a fraction of the target aperture radius (half a cell edge)' },
+  beamWaistPerHalfCell: { value: 1 / Math.SQRT2, unit: '', note: 'SUPERSEDED (#230/#232): kept only for proto/ and withdrawn scenarios until prototype v2; no kernel use. Was: the Gaussian maser\'s waist radius as a fraction of half a cell edge' },
   shieldFalloffExponent: { value: 2, unit: '', note: 'shield field strength g(r) = 1 / (1 + (r / radius)^n)' },
   simStep: { value: 1 / 60, unit: 's', note: 'simulation time step (#175)' },
   burnTimeLimit: { value: 3600, unit: 's', note: 'a beam burn gives up after this long (#175)' },
@@ -35,6 +38,15 @@ export const FIXED = {
   lifeSupportSetpoint: { value: 295, unit: 'K', note: 'the air temperature life support holds in crewed rooms and magazines (#201)' },
   waterSpecificHeat: { value: 4186, unit: 'J/(kg*K)', note: 'real; a heat sink cell carries the water of its extra heat capacity (#208, #210)' },
   standardGravity: { value: 9.80665, unit: 'm/s^2', note: 'standard gravity, for the readout\'s acceleration in g (#58, #210)' },
+  // The path model's beam (DESIGN.md 13i.1, 13i.2, #229, #235): a proton in
+  // iron-equivalent matter by the Bethe formula and the nuclear interaction
+  // length. Real values, stored in SI; the notes give the usual units.
+  protonRestEnergy: { value: 938.272 * MEV, unit: 'J', note: '938.272 MeV (CODATA)' },
+  electronRestEnergy: { value: 0.51099895 * MEV, unit: 'J', note: '0.51099895 MeV (CODATA)' },
+  betheK: { value: 0.307075 * MEV * 1e-4, unit: 'J*m^2/mol', note: 'K = 4 pi N_A r_e^2 m_e c^2 = 0.307075 MeV cm^2/mol (PDG); K x ironZOverA is in J m^2/kg' },
+  ironZOverA: { value: 0.46557 * 1e3, unit: 'mol/kg', note: 'Z/A of iron, 0.46557 mol/g (PDG); cell matter is iron-equivalent by mass (13i.1)' },
+  ironMeanExcitation: { value: 286e-6 * MEV, unit: 'J', note: 'mean excitation energy I of iron, 286 eV (PDG)' },
+  ironInteractionLength: { value: 1321, unit: 'kg/m^2', note: 'nuclear interaction length lambda_I of iron, 132.1 g/cm^2 = 16.77 cm at 7.874 g/cm^3 (PDG)' },
 };
 
 const KINETIC = {
@@ -63,13 +75,19 @@ export const PARAMS = {
     // 12^(1/3) per cell lets it pass 2 cells and stop in the 3rd (#166: 2-3
     // cells). The factor keeps every depth of the 0.5 kg round with the 6 kg
     // one: sectional momentum grows as m^(1/3) at fixed shape and speed (#206).
-    kineticResistance: P(2.7e5 * Math.cbrt(12), 3e5, 1.25e6, 1, 'kg/(m*s)', true, 'sectional momentum one armour cell absorbs (#165, #166, #206)'),
+    kineticResistance: P(2.7e5 * Math.cbrt(12), 3e5, 1.25e6, 1, 'kg/(m*s)', true, 'SUPERSEDED (#230/#232): kept only for proto/ and withdrawn scenarios until prototype v2; no kernel use. Was: sectional momentum one armour cell absorbs, replaced by matter.kineticResistance x sigma (#165, #166, #206, #235)'),
     blastResistance: P(1e6, 3e5, 3e6, 3, 'J', true, 'blast energy one armour cell absorbs before it is destroyed (#177)'),
-    burnEnergy: P(3e7, 1e7, 1e8, 3, 'J', true, 'beam energy that burns through one armour cell (#177)'),
+    burnEnergy: P(3e7, 1e7, 1e8, 3, 'J', true, 'beam energy that ruins any cell along the beam\'s channel: a cell loses P F_i dt / this of its integrity per step (#177, #235; 30 MJ melts about 25 kg of steel, 13i.1)'),
+    cellMass: P(1e4, 3e3, 3e4, 3, 'kg', true, 'one armour cell at T1: 5 cm of steel over 25 m^2, sigma 400 kg/m^2 (L0\'s armour cell; armour fittings come later, #15, #235)'),
   },
   room: {
-    kineticResistance: P(6.75e4 * Math.cbrt(12), 7e4, 3.2e5, 1, 'kg/(m*s)', true, 'sectional momentum one ordinary room cell absorbs, a quarter of armour; 6.75e4 x 12^(1/3) (#177, #206)'),
     blastResistance: P(5e5, 2e5, 2e6, 3, 'J', true, 'blast energy one ordinary room cell absorbs before it is destroyed, half an armour cell; a room fills up to surviving cells x this before passing the excess on (#193, #195)'),
+  },
+  // Protection is the mass on the path (#232): a cell resists c x sigma of
+  // sectional momentum, sigma = cell mass / edge^2. c is armour steel's, from
+  // L0's calibration: 2.7e5 x 12^(1/3) kg/(m s) over 400 kg/m^2 (#166, #206).
+  matter: {
+    kineticResistance: P((2.7e5 * Math.cbrt(12)) / 400, 750, 3125, 0, 'm/s', true, 'c: sectional momentum a cell resists per kg/m^2 of its matter, 1545.4 m/s; a round is as strong per kg of steel (S = c rho L) (#232, #235)'),
   },
   he: {
     blastEnergy: P(2e6, 5e5, 5e6, 3, 'J', true, 'size M HE warhead (#166)'),
@@ -77,7 +95,10 @@ export const PARAMS = {
   },
   beam: {
     power: P(5e6, 1e6, 2e7, 2, 'W', true, 'size M beam (#166)'),
-    focusRange: P(600, 300, 1500, 1, 'm', true, 'Rayleigh range of the Gaussian beam (#165, #166)'),
+    focusRange: P(600, 300, 1500, 1, 'm', true, 'SUPERSEDED (#230/#232): kept only for proto/ and withdrawn scenarios until prototype v2; no kernel use. Was: the Rayleigh range of the Gaussian maser; no falloff at battle range (#165, #166, #235)'),
+    // A neutral particle beam from a spinal accelerator (#229, #234): each
+    // atom's kinetic energy is gradient x the bay's length (N cells x edge).
+    gradient: P(10 * MEV, 5 * MEV, 20 * MEV, 0, 'J/m', true, '10 MeV/m (1.6022e-12 J/m), range 5-20 MeV/m: a 10 m bay gives 100 MeV, a 40 m bay 400 MeV (ESS: about 6 MeV/m, cavities 16.7-20 MV/m; #234, #235)'),
   },
   shield: {
     budget: P(1e7, 2e6, 4e7, 2, 'W', true, 'size M absorption rate (#166)'),
@@ -100,9 +121,19 @@ export const PARAMS = {
     magazineOverheated: P(350, 340, 380, 0, 'K', true, 'magazine (#182, #183)'),
     magazineCritical: P(450, 400, 500, 0, 'K', true, 'magazine cook-off (#91, #182, #183)'),
   },
-  // Structural mass (#221): a cell's mass no longer follows its heat capacity.
+  // Cell masses by room type (#221, #232, #234, #235): the low end of each
+  // type's real range; ROOMS names each type's constant. Contents and a heat
+  // sink's water are added as before.
   structure: {
-    cellMass: P(1e4, 3e3, 3e4, 3, 'kg', true, 'one M cell at T1: 80 kg/m^3 over a 5 m cube, a light warship (a 250-cell corvette is about 2500 t); a heat sink cell adds the water of its extra capacity (#221)'),
+    cellMass: P(3e3, 2e3, 6e3, 3, 'kg', true, 'structure only (frames, decks, bulkheads): hold, magazine and heat sink before contents; 24 kg/m^3 at T1, an estimate without a found source (#221, #235)'),
+  },
+  cellMass: {
+    crewed: P(1.48e4, 1.1e4, 1.65e4, 3, 'kg', true, 'bridge, quarters, turret, missile bay: 118 kg/m^3, ISS Destiny (14.5 t in 8.5 m x 4.3 m), low end; ISS Harmony about 131 kg/m^3 (#234, #235)'),
+    reactor: P(1.25e5, 1e5, 2e5, 3, 'kg', true, '1000 kg/m^3: US submarine reactor compartments, 1130-1680 t in about 10 m x 12 m, low end (#234, #235)'),
+    engine: P(6.1e3, 4e3, 1.2e4, 3, 'kg', true, 'structure 3 t + a 15 MN engine at the Saturn F-1\'s thrust per tonne (8.4 t for 6.8 MN) over 6 cells, an estimate (#235)'),
+    beamBay: P(5.5e3, 4e3, 1.2e4, 3, 'kg', true, 'structure 3 t + about 1 t of accelerator per metre over a 2-cell slice, an estimate (#235)'),
+    shieldGenerator: P(1e4, 5e3, 2e4, 3, 'kg', true, 'no real analogue (the shield is the premise, #202): the old average (#235)'),
+    railgun: P(1e4, 5e3, 2e4, 3, 'kg', true, 'no real analogue yet: the old average (#235)'),
   },
   radiator: {
     area: P(25, 10, 100, 2, 'm^2', true, 'one panel per hull segment; radiates emissivity x sigma x area x T^4 of its room (#143, #183)'),
@@ -198,20 +229,24 @@ export const PARAMS = {
 // room is 'passive'. coolantFactor and passiveFactor name their PARAMS
 // constant (default 1); capacityFactor multiplies the heat capacity per cell.
 // lifeSupport marks the rooms whose air life support keeps cool (#201).
+// A spinal room (the beam bay, #234) is N cells long along the ship's axis (x
+// at rotation 0): N >= spinal.min, given when it is placed; its footprint
+// below is its default length (the beam bay: M 2 x 2, L 3 x 3, its sizes
+// before #234). cellMass names the PARAMS constant of one cell's mass (#235).
 export const ROOMS = {
-  bridge: { footprint: { M: [2, 2] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.bridge', draw: 'bridge.powerDraw' },
-  reactor: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.reactor', power: 'reactor.power' },
-  engine: { footprint: { M: [2, 3] }, placement: 'aft hull, exhaust clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.engine', draw: 'engine.powerDraw' },
-  magazine: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'magazine', loop: 'passive', lifeSupport: true, crew: 'crewRequired.magazine' },
+  bridge: { footprint: { M: [2, 2] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.bridge', draw: 'bridge.powerDraw', cellMass: 'cellMass.crewed' },
+  reactor: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.reactor', power: 'reactor.power', cellMass: 'cellMass.reactor' },
+  engine: { footprint: { M: [2, 3] }, placement: 'aft hull, exhaust clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.engine', draw: 'engine.powerDraw', cellMass: 'cellMass.engine' },
+  magazine: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'magazine', loop: 'passive', lifeSupport: true, crew: 'crewRequired.magazine', cellMass: 'structure.cellMass' },
   // A plant room that may carry fittings, placed anywhere (#219 (1), #222 (2)).
-  shieldGenerator: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.shieldGenerator', draw: 'shield.powerDraw' },
-  quarters: { footprint: { M: [3, 2] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'housed', draw: 'quarters.powerDraw' },
-  beamBay: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.beamBay', draw: 'beam.power / beambay.efficiency' },
-  turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.turret', draw: 'turret.powerDraw' },
-  railgun: { footprint: { M: [2, 'N'] }, placement: 'axis', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.railgun' },
-  missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.missileBay' },
-  hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'crewed', loop: 'passive', crew: null, passiveFactor: 'conduction.holdFactor', blastFactor: 'hold.blastFactor' },
-  heatSink: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: null, capacityFactor: 'heatsink.capacityFactor', coolantFactor: 'heatsink.conductivityFactor' },
+  shieldGenerator: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.shieldGenerator', draw: 'shield.powerDraw', cellMass: 'cellMass.shieldGenerator' },
+  quarters: { footprint: { M: [3, 2] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'housed', draw: 'quarters.powerDraw', cellMass: 'cellMass.crewed' },
+  beamBay: { footprint: { M: [2, 2], L: [3, 3] }, spinal: { min: 2 }, placement: 'hull, axis, bow clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.beamBay', draw: 'beam.power / beambay.efficiency', cellMass: 'cellMass.beamBay' },
+  turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.turret', draw: 'turret.powerDraw', cellMass: 'cellMass.crewed' },
+  railgun: { footprint: { M: [2, 'N'] }, placement: 'axis', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.railgun', cellMass: 'cellMass.railgun' },
+  missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.missileBay', cellMass: 'cellMass.crewed' },
+  hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'crewed', loop: 'passive', crew: null, passiveFactor: 'conduction.holdFactor', blastFactor: 'hold.blastFactor', cellMass: 'structure.cellMass' },
+  heatSink: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: null, capacityFactor: 'heatsink.capacityFactor', coolantFactor: 'heatsink.conductivityFactor', cellMass: 'structure.cellMass' },
 };
 
 /** Value of a tunable constant at a cell edge. */

@@ -1693,6 +1693,81 @@ matter for debris and collisions (L4). Not tested here: masses at L or S
 size, and a split room's heat capacity (which share the dead cells keep),
 which no document states.
 
+**The path model: protection is mass, the round is damaged, the beam is
+a spinal accelerator** (2026-10-21; #228–#235; data `c2981a5` and
+`f220524`, kernel `bcd0544`, P1–P10 written at `7e8dd84` and locked at
+`aa186d9` before their first canonical run; T1–T6, SI; constants of
+§13i.2). **All 15 new scenarios PASS** (P1–P9 and the six P10 successors).
+`regress`: **57 VERIFIED + 34 WITHDRAWN**. The re-record moved results
+only where the new rules reach them: every L0–L2 row is unchanged except
+the withdrawn ones; `L3.fragment.scram` and `L3.ship.heat.v2` re-record
+with new momentum rows (masses) and still PASS; `L3.validation.v2` is
+unchanged (the `axis` rule reads the centroid of the ship's cells). Withdrawn
+as superseded (14): by #230 `L0.kinetic.penetration`, `.v2`,
+`L0.kinetic.overpen`, `L0.beam.falloff`, `L0.beam.burn`, `.v2`; by #232
+`L1.kinetic.damage`, `L3.kinetic.hole`; by #234 `L3.mass.props.v3`,
+`L3.thrust.v3`, `L3.rcs.turn.v3`, `L3.recoil.v3`, `L3.split.momentum.v3`,
+`L3.fragment.rules`. Five of them still PASS on the superseded pure
+functions and constants kept for `proto/` v1 (the kernel's rules moved to
+their successors); the runner checks that a withdrawn scenario keeps the
+verdict it was recorded with. Margins before the lock: the kernel's Bethe
+integration (RK4, 2 kg/m² and 1 % of the energy per step) differs from a 10×
+finer one by at most 3e-14 against P6's 1e-3; P8's crossings lie 0.10–0.47
+of a step from the grid for N = 8, while N = 2 lands on whole steps (6, 12,
+18, 24 s: all the energy is in one cell, 30 MJ / 5 MW) and passes on the
+1e-9 float slack of #185 (2).
+
+| Scenario | What the numbers say |
+|---|---|
+| `L0.kinetic.penetration.v3` (P1) | Armour depths **1.479686 / 2.166049 / 3.162261** cells for S / M / L, identical T1–T6 to 1e-9; they pass 1, 2, 3 cells and end 45 / 44 / 43 % flattened; momentum books exact. PASS |
+| `L0.kinetic.overpen.v2` (P2) | An M round leaving 1–4 hold cells keeps **0.8817 / 0.7558 / 0.6210 / 0.4762** of its momentum (f 0.06–0.24). PASS |
+| `L0.kinetic.wreck` (P3) | At 0.3 S (a function test) S is wrecked in cell 1 and M in cell 2 (f = 1); L stops in cell 3 at f 0.948, not wrecked; the stopping cell takes min(s, r); T1 = T6. PASS |
+| `L1.kinetic.damage.v2` (P4) | Crew quarters (σ 592 kg/m²): S and M stop in the **2nd cell** (depths 1.078, 1.498), L in the 3rd (2.191); a hold (120 kg/m²): every size exits keeping 0.627 / 0.756 / 0.839; three M rounds destroy the first quarters cell and kill 4 of 18 crew; T1–T6 identical. PASS |
+| `L3.kinetic.hole.v2` (P5) | D1's line of six quarters: the M round stops in **cell 2**, and in cell 3 with the 2nd cell destroyed, with the same stopping loss 0.166153 and f 0.4525; the hole takes nothing and does nothing to the round; T6 the same. PASS |
+| `L0.beam.depth` (P6) | 100 and 200 MeV (10 and 20 m bays) leave everything in the first armour cell; 400 MeV **0.43124 / 0.29949 / 0.26927**; in crew cells **0.58744 / 0.41256**; at T6 all in cell 1; a hole shifts the profile one cell exactly; Σ F + exit = 1 to the last bit; CSDA range of 200 MeV in iron **372.54 kg/m²** (373 ± 1 %). PASS |
+| `L0.beam.range` (P7) | 5 MW delivered at 0, 600 and 1500 m, the same fractions. PASS |
+| `L0.beam.burn.v3` (P8) | Armour column at contact and at 1.5 km, the same: N = 8 (400 MeV) cells destroyed at **13.917, 18.167, 20.450, 30.133 s** (own t 13.913, 18.165, 20.439, 30.124); N = 2 (100 MeV) at 6, 12, 18, 24 s; T3: N = 8 (800 MeV) 21.88–56.48 s, N = 2 12–48 s; heat in each room = energy left there; 30.6 MJ leaves behind the column once N = 8 has holed it. PASS |
+| `L1.beambay.length` (P9) | E = 100 / 200 / 400 MeV for N = 2 / 4 / 8 at T1 (×2 at T3) exactly; beam, draw and heat 5 / 12.5 / 7.5 MW (M) and 11.25 / 28.125 / 16.875 MW (L) at T1 for every N; R1 valid; the bay at rows 0–1 rejected by `axis` alone (centre line 3.09), a hold ahead by `bow` alone. PASS |
+| `L3.mass.props.v4` (P10) | **R1 full is 850.067 t** (cells 844.1 t; 448 t before), centre of mass (24.589, 16.290) m, I = 1.1171e8 kg·m²; a reactor alone 500 t, quarters 88.8 t, a hold 12 t; ×216 / ×7776 at T6. PASS |
+| `L3.thrust.v4` (P10) | R1 at 15 MN: **1.799 g**, α = 0.1735 rad/s² (the thrust line 1.29 m below the centre of mass); the symmetric ship 2.567 g. PASS |
+| `L3.rcs.turn.v4` (P10) | α = 0.4476 rad/s²; 113 + 112 firing steps, a 90° turn in **3.75 s** (3.747 s continuous). PASS |
+| `L3.recoil.v4` (P10) | One M shot broadside: 0.0056 m/s and **0.050 °/s**; 20 shots 1.005 °/s; forward 0.021 °/s; the railgun-sized fixture 0.029 m/s and 0.064 °/s 5 m off axis. PASS |
+| `L3.split.momentum.v4` (P10) | The cut leaves a 587.4 t stern and a 225.7 t bow, 37.0 t of debris; (10.100, −0.269) and (9.746, 0.685) m/s; books to 1e-9. PASS |
+| `L3.fragment.rules.v2` (P10) | Stern RCS Δv 0.0196 m/s, Δω 3.30e-3 rad/s per step; the uncontrolled stern does not fire; tie fragments 77.07 t and 17.87 t. PASS |
+
+`node tools/perf.js` (E8, #213), now with each R1's beam on the other's
+middle row every step: **0.06–0.07 ms without power routing and 0.10–0.14
+ms with it**, at T1 and T6 (beam fractions are cached per hole pattern),
+far under the 1 ms budget. `proto/` v1 still runs its smoke test (0
+console errors, replay MATCH) on the kept superseded functions; with the
+new masses its default battle now ends at 31.07 s (the kernel's `fireRound`
+moved), which v2 replaces anyway.
+
+Honest reading. The kinetic scenarios prove the round rule and the mass
+law are built as written, against the scenario's own loop; the beam
+scenarios prove the Bethe deposit against an independent integration and
+the burn against a stepped re-implementation; they do not prove that the
+real numbers feel right. What the path model changes: **light structure
+no longer lets a round through like a needle** where it is heavy: an M
+round stops in the 2nd cell of crew quarters (about eight in the first
+version, ten before it) and, by the estimate of 13i.3, in R1's first bridge cell from the
+bow, so the reactor behind is safe from a single round; but **holds and
+light machinery are thin**: an M round crosses two hold cells keeping 76 %
+of its momentum, and a reactor cell (5000 kg/m²) stops any round in a fifth
+of a cell. Rounds do flatten (41–52 %), never enough to wreck in the
+approved ranges. The beam is now **a surface weapon at R1's 10 m bay**
+(100 MeV: all in the first cell, as armour or as a crew room) and reaches
+behind armour only with a long spinal bay (40 m for three armour cells),
+which costs length and mass, as #234 intended; at T6 a 400 MeV beam stays
+in the first cell (the square–cube law, #63, for L6). R1 is almost twice as
+heavy (850 t) and dodges at 1.8 g; recoil per shot is a quarter larger in
+turn rate than the mass pass's (the centre of mass moved aft, nearer the
+reactor). Not tested here: a round or beam in a full ship battle (L4), L or
+S rooms' masses, an off-axis beam path through mixed rooms, a heat sink on
+a round's path (its σ holds water, while the round's own strength uses
+steel's c alone), and the crew of a long beam bay (its crew scales with its
+cells under the size rule).
+
 ## 17. Open questions
 
 1. **Chapter design** waits for Mission 0 (#125).

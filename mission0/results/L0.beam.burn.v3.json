@@ -1,0 +1,540 @@
+{
+  "id": "L0.beam.burn.v3",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.beam.burn.v3",
+  "code": "f220524",
+  "criterionHash": "6e50b68a",
+  "lockedHash": "6e50b68a",
+  "runHash": "31977c16",
+  "dataHash": "70b16e4c",
+  "rowsHash": "c8017f89",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "N": 2,
+        "range": 0
+      },
+      "expected": {
+        "times": [
+          6.000000000000019,
+          12.000000000000018,
+          18.000000000000018,
+          24.000000000000018
+        ],
+        "dt": 0.016666666666666666,
+        "P": 5000000
+      },
+      "actual": {
+        "times": [
+          6,
+          12,
+          18,
+          24
+        ],
+        "channels": [
+          "thermal",
+          "thermal",
+          "thermal",
+          "thermal"
+        ],
+        "causes": [
+          "beam-1",
+          "beam-1",
+          "beam-1",
+          "beam-1"
+        ],
+        "t": 24,
+        "energy": 1.602176634e-11,
+        "rooms": [
+          {
+            "id": "gen-1",
+            "left": 60000000.00000059,
+            "books": {
+              "generated": 60000000.00000059,
+              "radiated": 0,
+              "stored": 60000000.00002861,
+              "initial": 696000000
+            }
+          },
+          {
+            "id": "gen-2",
+            "left": 60000000.00000059,
+            "books": {
+              "generated": 60000000.00000059,
+              "radiated": 0,
+              "stored": 60000000.00002861,
+              "initial": 696000000
+            }
+          }
+        ],
+        "escaped": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "N": 2,
+        "range": 1500
+      },
+      "expected": {
+        "times": [
+          6.000000000000019,
+          12.000000000000018,
+          18.000000000000018,
+          24.000000000000018
+        ],
+        "dt": 0.016666666666666666,
+        "P": 5000000
+      },
+      "actual": {
+        "times": [
+          6,
+          12,
+          18,
+          24
+        ],
+        "channels": [
+          "thermal",
+          "thermal",
+          "thermal",
+          "thermal"
+        ],
+        "causes": [
+          "beam-1",
+          "beam-1",
+          "beam-1",
+          "beam-1"
+        ],
+        "t": 24,
+        "energy": 1.602176634e-11,
+        "rooms": [
+          {
+            "id": "gen-1",
+            "left": 60000000.00000059,
+            "books": {
+              "generated": 60000000.00000059,
+              "radiated": 0,
+              "stored": 60000000.00002861,
+              "initial": 696000000
+            }
+          },
+          {
+            "id": "gen-2",
+            "left": 60000000.00000059,
+            "books": {
+              "generated": 60000000.00000059,
+              "radiated": 0,
+              "stored": 60000000.00002861,
+              "initial": 696000000
+            }
+          }
+        ],
+        "escaped": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "N": 8,
+        "range": 0
+      },
+      "expected": {
+        "times": [
+          13.913410923941695,
+          18.165047645659836,
+          20.43879456020243,
+          30.1239147532201
+        ],
+        "dt": 0.016666666666666666,
+        "P": 5000000
+      },
+      "actual": {
+        "times": [
+          13.916666666666668,
+          18.166666666666664,
+          20.45,
+          30.133333333333333
+        ],
+        "channels": [
+          "thermal",
+          "thermal",
+          "thermal",
+          "thermal"
+        ],
+        "causes": [
+          "beam-1",
+          "beam-1",
+          "beam-1",
+          "beam-1"
+        ],
+        "t": 30.133333333333333,
+        "energy": 6.408706536e-11,
+        "rooms": [
+          {
+            "id": "gen-1",
+            "left": 60010510.93170534,
+            "books": {
+              "generated": 60010510.93170534,
+              "radiated": 0,
+              "stored": 60010510.93172729,
+              "initial": 696000000
+            }
+          },
+          {
+            "id": "gen-2",
+            "left": 60044469.36848859,
+            "books": {
+              "generated": 60044469.36848859,
+              "radiated": 0,
+              "stored": 60044469.36850786,
+              "initial": 696000000
+            }
+          }
+        ],
+        "escaped": 30611686.366475876
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "N": 8,
+        "range": 1500
+      },
+      "expected": {
+        "times": [
+          13.913410923941695,
+          18.165047645659836,
+          20.43879456020243,
+          30.1239147532201
+        ],
+        "dt": 0.016666666666666666,
+        "P": 5000000
+      },
+      "actual": {
+        "times": [
+          13.916666666666668,
+          18.166666666666664,
+          20.45,
+          30.133333333333333
+        ],
+        "channels": [
+          "thermal",
+          "thermal",
+          "thermal",
+          "thermal"
+        ],
+        "causes": [
+          "beam-1",
+          "beam-1",
+          "beam-1",
+          "beam-1"
+        ],
+        "t": 30.133333333333333,
+        "energy": 6.408706536e-11,
+        "rooms": [
+          {
+            "id": "gen-1",
+            "left": 60010510.93170534,
+            "books": {
+              "generated": 60010510.93170534,
+              "radiated": 0,
+              "stored": 60010510.93172729,
+              "initial": 696000000
+            }
+          },
+          {
+            "id": "gen-2",
+            "left": 60044469.36848859,
+            "books": {
+              "generated": 60044469.36848859,
+              "radiated": 0,
+              "stored": 60044469.36850786,
+              "initial": 696000000
+            }
+          }
+        ],
+        "escaped": 30611686.366475876
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "N": 2,
+        "range": 0
+      },
+      "expected": {
+        "times": [
+          12.000000000000039,
+          24.00000000000004,
+          36.00000000000004,
+          48.00000000000004
+        ],
+        "dt": 0.016666666666666666,
+        "P": 20000000
+      },
+      "actual": {
+        "times": [
+          12,
+          24,
+          36,
+          48
+        ],
+        "channels": [
+          "thermal",
+          "thermal",
+          "thermal",
+          "thermal"
+        ],
+        "causes": [
+          "beam-1",
+          "beam-1",
+          "beam-1",
+          "beam-1"
+        ],
+        "t": 48,
+        "energy": 3.204353268e-11,
+        "rooms": [
+          {
+            "id": "gen-1",
+            "left": 479999999.9999906,
+            "books": {
+              "generated": 479999999.9999906,
+              "radiated": 0,
+              "stored": 479999999.99954224,
+              "initial": 5568000000
+            }
+          },
+          {
+            "id": "gen-2",
+            "left": 479999999.9999906,
+            "books": {
+              "generated": 479999999.9999906,
+              "radiated": 0,
+              "stored": 479999999.99954224,
+              "initial": 5568000000
+            }
+          }
+        ],
+        "escaped": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "N": 2,
+        "range": 1500
+      },
+      "expected": {
+        "times": [
+          12.000000000000039,
+          24.00000000000004,
+          36.00000000000004,
+          48.00000000000004
+        ],
+        "dt": 0.016666666666666666,
+        "P": 20000000
+      },
+      "actual": {
+        "times": [
+          12,
+          24,
+          36,
+          48
+        ],
+        "channels": [
+          "thermal",
+          "thermal",
+          "thermal",
+          "thermal"
+        ],
+        "causes": [
+          "beam-1",
+          "beam-1",
+          "beam-1",
+          "beam-1"
+        ],
+        "t": 48,
+        "energy": 3.204353268e-11,
+        "rooms": [
+          {
+            "id": "gen-1",
+            "left": 479999999.9999906,
+            "books": {
+              "generated": 479999999.9999906,
+              "radiated": 0,
+              "stored": 479999999.99954224,
+              "initial": 5568000000
+            }
+          },
+          {
+            "id": "gen-2",
+            "left": 479999999.9999906,
+            "books": {
+              "generated": 479999999.9999906,
+              "radiated": 0,
+              "stored": 479999999.99954224,
+              "initial": 5568000000
+            }
+          }
+        ],
+        "escaped": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "N": 8,
+        "range": 0
+      },
+      "expected": {
+        "times": [
+          21.87207032694999,
+          33.374095023197256,
+          44.97227500445252,
+          56.47545863073144
+        ],
+        "dt": 0.016666666666666666,
+        "P": 20000000
+      },
+      "actual": {
+        "times": [
+          21.883333333333333,
+          33.38333333333333,
+          44.983333333333334,
+          56.483333333333334
+        ],
+        "channels": [
+          "thermal",
+          "thermal",
+          "thermal",
+          "thermal"
+        ],
+        "causes": [
+          "beam-1",
+          "beam-1",
+          "beam-1",
+          "beam-1"
+        ],
+        "t": 56.483333333333334,
+        "energy": 1.2817413072e-10,
+        "rooms": [
+          {
+            "id": "gen-1",
+            "left": 480224958.858102,
+            "books": {
+              "generated": 480224958.858102,
+              "radiated": 0,
+              "stored": 480224958.85788727,
+              "initial": 5568000000
+            }
+          },
+          {
+            "id": "gen-2",
+            "left": 480207750.2261941,
+            "books": {
+              "generated": 480207750.2261941,
+              "radiated": 0,
+              "stored": 480207750.2263756,
+              "initial": 5568000000
+            }
+          }
+        ],
+        "escaped": 169233957.58241022
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "N": 8,
+        "range": 1500
+      },
+      "expected": {
+        "times": [
+          21.87207032694999,
+          33.374095023197256,
+          44.97227500445252,
+          56.47545863073144
+        ],
+        "dt": 0.016666666666666666,
+        "P": 20000000
+      },
+      "actual": {
+        "times": [
+          21.883333333333333,
+          33.38333333333333,
+          44.983333333333334,
+          56.483333333333334
+        ],
+        "channels": [
+          "thermal",
+          "thermal",
+          "thermal",
+          "thermal"
+        ],
+        "causes": [
+          "beam-1",
+          "beam-1",
+          "beam-1",
+          "beam-1"
+        ],
+        "t": 56.483333333333334,
+        "energy": 1.2817413072e-10,
+        "rooms": [
+          {
+            "id": "gen-1",
+            "left": 480224958.858102,
+            "books": {
+              "generated": 480224958.858102,
+              "radiated": 0,
+              "stored": 480224958.85788727,
+              "initial": 5568000000
+            }
+          },
+          {
+            "id": "gen-2",
+            "left": 480207750.2261941,
+            "books": {
+              "generated": 480207750.2261941,
+              "radiated": 0,
+              "stored": 480207750.2263756,
+              "initial": 5568000000
+            }
+          }
+        ],
+        "escaped": 169233957.58241022
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "the same destruction times at 0 and 1500 m (exact), every tier and length",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

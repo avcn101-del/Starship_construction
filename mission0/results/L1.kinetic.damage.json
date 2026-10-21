@@ -1,14 +1,14 @@
 {
   "id": "L1.kinetic.damage",
   "level": "L1",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L1.kinetic.damage",
-  "code": "7b0f40f",
+  "code": "f220524",
   "criterionHash": "51057432",
   "lockedHash": "51057432",
   "runHash": "871769fb",
-  "dataHash": "62e2f8d9",
-  "rowsHash": "5ca862e3",
+  "dataHash": "70b16e4c",
+  "rowsHash": "21286a8e",
   "rows": [
     {
       "case": {
@@ -18,54 +18,34 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 1045455.6555066435,
-        "R": 154536.4227446998,
-        "depth": 6.765108425175448,
-        "passed": 3,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 581846.387272544,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "deaths": 3
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 581846.3872725442,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.026028567922210977
             ],
-            "depth": 3
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
+          0.973971432077789,
+          1
         ],
         "rooms": [
           {
             "crew": 18,
-            "aboard": 15,
-            "deaths": 3
+            "aboard": 17,
+            "deaths": 1
           }
         ],
-        "damaged": 3,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -77,8 +57,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -88,54 +68,34 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 1568183.483259966,
-        "R": 154536.4227446998,
-        "depth": 10.147662637763176,
-        "passed": 3,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 1104574.2150258664,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "deaths": 3
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 1104574.2150258666,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
+          0.8338465445586989,
+          1
         ],
         "rooms": [
           {
             "crew": 18,
-            "aboard": 15,
-            "deaths": 3
+            "aboard": 17,
+            "deaths": 1
           }
         ],
-        "damaged": 3,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -147,8 +107,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -158,51 +118,32 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 2352275.224889949,
-        "R": 154536.4227446998,
-        "depth": 15.221493956644766,
-        "passed": 3,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 1888665.9566558495,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "deaths": 3
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 1888665.9566558497,
+            "passed": 2,
+            "stoppedIn": 2,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
               0.3333333333333333,
-              0.3333333333333333
+              0.06353672741892301
             ],
-            "depth": 3
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
           0.6666666666666667,
-          0.6666666666666667
+          0.936463272581077
         ],
         "rooms": [
           {
             "crew": 18,
-            "aboard": 15,
-            "deaths": 3
+            "aboard": 16,
+            "deaths": 2
           }
         ],
         "damaged": 3,
@@ -217,8 +158,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -228,65 +169,44 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 1568183.483259966,
-        "R": 154536.4227446998,
-        "depth": 10.147662637763176,
-        "passed": 3,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 1104574.2150258664,
-        "line": [
-          0.33333333333333337,
-          0.33333333333333337,
-          0.33333333333333337
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "deaths": 6
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 1104574.2150258666,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           },
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 1104574.2150258666,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           }
         ],
         "line": [
           0.3333333333333334,
-          0.3333333333333334,
-          0.3333333333333334
+          0.6676930891173978,
+          1
         ],
         "rooms": [
           {
             "crew": 18,
-            "aboard": 12,
-            "deaths": 6
+            "aboard": 16,
+            "deaths": 2
           }
         ],
-        "damaged": 6,
+        "damaged": 4,
         "destroyed": 0,
         "books": [
           {
@@ -298,8 +218,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -309,77 +229,55 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 1568183.483259966,
-        "R": 154536.4227446998,
-        "depth": 10.147662637763176,
-        "passed": 3,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 1104574.2150258664,
-        "line": [
-          0,
-          0,
-          0
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "deaths": 9
-          }
-        ],
-        "destroyed": 3
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 1104574.2150258666,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           },
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 1104574.2150258666,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           },
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 1104574.2150258666,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           }
         ],
         "line": [
           0,
-          0,
-          0
+          0.5015396336760967,
+          1
         ],
         "rooms": [
           {
             "crew": 18,
-            "aboard": 9,
-            "deaths": 9
+            "aboard": 14,
+            "deaths": 4
           }
         ],
-        "damaged": 6,
-        "destroyed": 3,
+        "damaged": 5,
+        "destroyed": 1,
         "books": [
           {
             "generated": 0,
@@ -390,8 +288,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -401,54 +299,34 @@
         "tier": "T2"
       },
       "expected": {
-        "s0": 2352275.224889949,
-        "R": 231804.63411704972,
-        "depth": 10.147662637763178,
-        "passed": 3,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 1656861.3225387998,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 42,
-            "deaths": 7
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 1656861.3225388,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
+          0.8338465445586989,
+          1
         ],
         "rooms": [
           {
             "crew": 42,
-            "aboard": 35,
-            "deaths": 7
+            "aboard": 39,
+            "deaths": 3
           }
         ],
-        "damaged": 3,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -460,8 +338,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -471,54 +349,34 @@
         "tier": "T3"
       },
       "expected": {
-        "s0": 3136366.966519932,
-        "R": 309072.8454893996,
-        "depth": 10.147662637763176,
-        "passed": 3,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 2209148.430051733,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 72,
-            "deaths": 12
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 2209148.4300517333,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
+          0.8338465445586989,
+          1
         ],
         "rooms": [
           {
             "crew": 72,
-            "aboard": 60,
-            "deaths": 12
+            "aboard": 67,
+            "deaths": 5
           }
         ],
-        "damaged": 3,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -530,8 +388,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -541,54 +399,34 @@
         "tier": "T4"
       },
       "expected": {
-        "s0": 4704550.449779898,
-        "R": 463609.26823409944,
-        "depth": 10.147662637763178,
-        "passed": 3,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 3313722.6450775997,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 162,
-            "deaths": 27
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 3313722.6450776,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
+          0.8338465445586989,
+          1
         ],
         "rooms": [
           {
             "crew": 162,
-            "aboard": 135,
-            "deaths": 27
+            "aboard": 149,
+            "deaths": 13
           }
         ],
-        "damaged": 3,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -600,8 +438,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -611,54 +449,34 @@
         "tier": "T5"
       },
       "expected": {
-        "s0": 6272733.933039864,
-        "R": 618145.6909787992,
-        "depth": 10.147662637763176,
-        "passed": 3,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 4418296.860103466,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 288,
-            "deaths": 48
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 4418296.860103467,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
+          0.8338465445586989,
+          1
         ],
         "rooms": [
           {
             "crew": 288,
-            "aboard": 240,
-            "deaths": 48
+            "aboard": 265,
+            "deaths": 23
           }
         ],
-        "damaged": 3,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -670,8 +488,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -681,54 +499,34 @@
         "tier": "T6"
       },
       "expected": {
-        "s0": 9409100.899559796,
-        "R": 927218.5364681989,
-        "depth": 10.147662637763178,
-        "passed": 3,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 6627445.290155199,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 648,
-            "deaths": 108
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 3,
-            "stoppedIn": -1,
-            "residual": 6627445.2901552,
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333
+              0.16615345544130106
             ],
-            "depth": 3
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667
+          0.8338465445586989,
+          1
         ],
         "rooms": [
           {
             "crew": 648,
-            "aboard": 540,
-            "deaths": 108
+            "aboard": 595,
+            "deaths": 53
           }
         ],
-        "damaged": 3,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -740,8 +538,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -751,37 +549,19 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 1045455.6555066435,
-        "R": 154536.4227446998,
-        "depth": 6.765108425175448,
-        "passed": 2,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 736382.8100172438,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 0,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 736382.810017244,
+            "residual": 535375.6631964459,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           }
         ],
         "line": [
@@ -807,8 +587,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -818,37 +598,19 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 1568183.483259966,
-        "R": 154536.4227446998,
-        "depth": 10.147662637763176,
-        "passed": 2,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 1259110.6377705662,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 0,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 1259110.6377705664,
+            "residual": 1040093.4520413361,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           }
         ],
         "line": [
@@ -874,8 +636,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -885,37 +647,19 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 2352275.224889949,
-        "R": 154536.4227446998,
-        "depth": 15.221493956644766,
-        "passed": 2,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 2043202.3794005495,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 0,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 2043202.3794005495,
+            "residual": 1812414.5598902411,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           }
         ],
         "line": [
@@ -941,8 +685,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -952,47 +696,29 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 1568183.483259966,
-        "R": 154536.4227446998,
-        "depth": 10.147662637763176,
-        "passed": 2,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 1259110.6377705662,
-        "line": [
-          0.33333333333333337,
-          0.33333333333333337
-        ],
-        "rooms": [
-          {
-            "crew": 0,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 1259110.6377705664,
+            "residual": 1040093.4520413361,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           },
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 1259110.6377705664,
+            "residual": 1040093.4520413361,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           }
         ],
         "line": [
@@ -1018,8 +744,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1029,57 +755,39 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 1568183.483259966,
-        "R": 154536.4227446998,
-        "depth": 10.147662637763176,
-        "passed": 2,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 1259110.6377705662,
-        "line": [
-          0,
-          0
-        ],
-        "rooms": [
-          {
-            "crew": 0,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 2
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 1259110.6377705664,
+            "residual": 1040093.4520413361,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           },
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 1259110.6377705664,
+            "residual": 1040093.4520413361,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           },
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 1259110.6377705664,
+            "residual": 1040093.4520413361,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           }
         ],
         "line": [
@@ -1105,8 +813,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1116,37 +824,19 @@
         "tier": "T2"
       },
       "expected": {
-        "s0": 2352275.224889949,
-        "R": 231804.63411704972,
-        "depth": 10.147662637763178,
-        "passed": 2,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 1888665.9566558495,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 0,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 1888665.9566558497,
+            "residual": 1560140.1780620043,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           }
         ],
         "line": [
@@ -1172,8 +862,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1183,37 +873,19 @@
         "tier": "T3"
       },
       "expected": {
-        "s0": 3136366.966519932,
-        "R": 309072.8454893996,
-        "depth": 10.147662637763176,
-        "passed": 2,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 2518221.2755411323,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 0,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 2518221.275541133,
+            "residual": 2080186.9040826722,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           }
         ],
         "line": [
@@ -1239,8 +911,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1250,37 +922,19 @@
         "tier": "T4"
       },
       "expected": {
-        "s0": 4704550.449779898,
-        "R": 463609.26823409944,
-        "depth": 10.147662637763178,
-        "passed": 2,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 3777331.913311699,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 0,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 3777331.9133116994,
+            "residual": 3120280.3561240085,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           }
         ],
         "line": [
@@ -1306,8 +960,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1317,37 +971,19 @@
         "tier": "T5"
       },
       "expected": {
-        "s0": 6272733.933039864,
-        "R": 618145.6909787992,
-        "depth": 10.147662637763176,
-        "passed": 2,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 5036442.551082265,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 0,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 5036442.551082266,
+            "residual": 4160373.8081653444,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           }
         ],
         "line": [
@@ -1373,8 +1009,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1384,37 +1020,19 @@
         "tier": "T6"
       },
       "expected": {
-        "s0": 9409100.899559796,
-        "R": 927218.5364681989,
-        "depth": 10.147662637763178,
-        "passed": 2,
-        "stoppedIn": -1,
-        "stopLoss": 0,
-        "passLoss": 0.3333333333333333,
-        "exit": 7554663.826623398,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667
-        ],
-        "rooms": [
-          {
-            "crew": 0,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
             "passed": 2,
             "stoppedIn": -1,
-            "residual": 7554663.826623399,
+            "residual": 6240560.712248017,
             "losses": [
               0.3333333333333333,
               0.3333333333333333
             ],
-            "depth": 2
+            "depth": null
           }
         ],
         "line": [
@@ -1440,8 +1058,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1451,88 +1069,29 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 1045455.6555066435,
-        "R": 154536.4227446998,
-        "depth": 6.765108425175448,
-        "passed": 6,
-        "stoppedIn": 6,
-        "stopLoss": 0.25503614172514943,
-        "passLoss": 0.3333333333333333,
-        "exit": 0,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.7449638582748506,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 6,
-            "stoppedIn": 6,
+            "passed": 1,
+            "stoppedIn": 1,
             "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.2550361417251498
+              0.026028567922210977
             ],
-            "depth": 6.765108425175449
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.7449638582748501,
+          0.973971432077789,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -1546,204 +1105,6 @@
           1
         ],
         "rooms": [
-          {
-            "crew": 18,
-            "aboard": 15,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "aboard": 15,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "aboard": 18,
-            "deaths": 0
-          },
-          {
-            "crew": 18,
-            "aboard": 18,
-            "deaths": 0
-          },
-          {
-            "crew": 18,
-            "aboard": 18,
-            "deaths": 0
-          },
-          {
-            "crew": 18,
-            "aboard": 18,
-            "deaths": 0
-          }
-        ],
-        "damaged": 7,
-        "destroyed": 0,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          }
-        ],
-        "eventsOk": true
-      },
-      "pass": true,
-      "note": ""
-    },
-    {
-      "case": {
-        "target": "line",
-        "size": "M",
-        "rounds": 1,
-        "tier": "T1"
-      },
-      "expected": {
-        "s0": 1568183.483259966,
-        "R": 154536.4227446998,
-        "depth": 10.147662637763176,
-        "passed": 10,
-        "stoppedIn": 10,
-        "stopLoss": 0.049220879254392,
-        "passLoss": 0.3333333333333333,
-        "exit": 0,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.950779120745608,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 1
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
-      },
-      "actual": {
-        "shots": [
-          {
-            "passed": 10,
-            "stoppedIn": 10,
-            "residual": 0,
-            "losses": [
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.04922087925439305
-            ],
-            "depth": 10.14766263776318
-          }
-        ],
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.950779120745607,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "aboard": 15,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "aboard": 15,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "aboard": 15,
-            "deaths": 3
-          },
           {
             "crew": 18,
             "aboard": 17,
@@ -1758,9 +1119,24 @@
             "crew": 18,
             "aboard": 18,
             "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
           }
         ],
-        "damaged": 11,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -1802,8 +1178,128 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+    },
+    {
+      "case": {
+        "target": "line",
+        "size": "M",
+        "rounds": 1,
+        "tier": "T1"
+      },
+      "expected": {
+        "error": "Cannot read properties of undefined (reading 'value')"
+      },
+      "actual": {
+        "shots": [
+          {
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
+            "losses": [
+              0.3333333333333333,
+              0.16615345544130106
+            ],
+            "depth": null
+          }
+        ],
+        "line": [
+          0.6666666666666667,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "rooms": [
+          {
+            "crew": 18,
+            "aboard": 17,
+            "deaths": 1
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          }
+        ],
+        "damaged": 2,
+        "destroyed": 0,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1813,214 +1309,34 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 2352275.224889949,
-        "R": 154536.4227446998,
-        "depth": 15.221493956644766,
-        "passed": 15,
-        "stoppedIn": 15,
-        "stopLoss": 0.0738313188815886,
-        "passLoss": 0.3333333333333333,
-        "exit": 0,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.9261686811184114,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 15,
-            "stoppedIn": 15,
+            "passed": 2,
+            "stoppedIn": 2,
             "residual": 0,
             "losses": [
               0.3333333333333333,
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.07383131888159007
+              0.06353672741892301
             ],
-            "depth": 15.221493956644771
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.9261686811184099,
+          0.936463272581077,
           1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "aboard": 15,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "aboard": 15,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "aboard": 15,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "aboard": 15,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "aboard": 15,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "aboard": 18,
-            "deaths": 0
-          }
-        ],
-        "damaged": 16,
-        "destroyed": 0,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000
-          }
-        ],
-        "eventsOk": true
-      },
-      "pass": true,
-      "note": ""
-    },
-    {
-      "case": {
-        "target": "line",
-        "size": "M",
-        "rounds": 2,
-        "tier": "T1"
-      },
-      "expected": {
-        "s0": 1568183.483259966,
-        "R": 154536.4227446998,
-        "depth": 10.147662637763176,
-        "passed": 10,
-        "stoppedIn": 10,
-        "stopLoss": 0.049220879254392,
-        "passLoss": 0.3333333333333333,
-        "exit": 0,
-        "line": [
-          0.33333333333333337,
-          0.33333333333333337,
-          0.33333333333333337,
-          0.33333333333333337,
-          0.33333333333333337,
-          0.33333333333333337,
-          0.33333333333333337,
-          0.33333333333333337,
-          0.33333333333333337,
-          0.33333333333333337,
-          0.901558241491216,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -2030,110 +1346,6 @@
           1
         ],
         "rooms": [
-          {
-            "crew": 18,
-            "deaths": 6
-          },
-          {
-            "crew": 18,
-            "deaths": 6
-          },
-          {
-            "crew": 18,
-            "deaths": 6
-          },
-          {
-            "crew": 18,
-            "deaths": 2
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
-      },
-      "actual": {
-        "shots": [
-          {
-            "passed": 10,
-            "stoppedIn": 10,
-            "residual": 0,
-            "losses": [
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.04922087925439305
-            ],
-            "depth": 10.14766263776318
-          },
-          {
-            "passed": 10,
-            "stoppedIn": 10,
-            "residual": 0,
-            "losses": [
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.04922087925439305
-            ],
-            "depth": 10.14766263776318
-          }
-        ],
-        "line": [
-          0.3333333333333334,
-          0.3333333333333334,
-          0.3333333333333334,
-          0.3333333333333334,
-          0.3333333333333334,
-          0.3333333333333334,
-          0.3333333333333334,
-          0.3333333333333334,
-          0.3333333333333334,
-          0.3333333333333334,
-          0.901558241491214,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "aboard": 12,
-            "deaths": 6
-          },
-          {
-            "crew": 18,
-            "aboard": 12,
-            "deaths": 6
-          },
-          {
-            "crew": 18,
-            "aboard": 12,
-            "deaths": 6
-          },
           {
             "crew": 18,
             "aboard": 16,
@@ -2148,9 +1360,24 @@
             "crew": 18,
             "aboard": 18,
             "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
           }
         ],
-        "damaged": 22,
+        "damaged": 3,
         "destroyed": 0,
         "books": [
           {
@@ -2192,8 +1419,138 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+    },
+    {
+      "case": {
+        "target": "line",
+        "size": "M",
+        "rounds": 2,
+        "tier": "T1"
+      },
+      "expected": {
+        "error": "Cannot read properties of undefined (reading 'value')"
+      },
+      "actual": {
+        "shots": [
+          {
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
+            "losses": [
+              0.3333333333333333,
+              0.16615345544130106
+            ],
+            "depth": null
+          },
+          {
+            "passed": 1,
+            "stoppedIn": 1,
+            "residual": 0,
+            "losses": [
+              0.3333333333333333,
+              0.16615345544130106
+            ],
+            "depth": null
+          }
+        ],
+        "line": [
+          0.3333333333333334,
+          0.6676930891173978,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "rooms": [
+          {
+            "crew": 18,
+            "aboard": 16,
+            "deaths": 2
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          }
+        ],
+        "damaged": 4,
+        "destroyed": 0,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -2203,134 +1560,53 @@
         "tier": "T1"
       },
       "expected": {
-        "s0": 1568183.483259966,
-        "R": 154536.4227446998,
-        "depth": 10.147662637763176,
-        "passed": 10,
-        "stoppedIn": 10,
-        "stopLoss": 0.049220879254392,
-        "passLoss": 0.3333333333333333,
-        "exit": 0,
-        "line": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0.852337362236824,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 18,
-            "deaths": 9
-          },
-          {
-            "crew": 18,
-            "deaths": 9
-          },
-          {
-            "crew": 18,
-            "deaths": 9
-          },
-          {
-            "crew": 18,
-            "deaths": 3
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          },
-          {
-            "crew": 18,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 10
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 10,
-            "stoppedIn": 10,
+            "passed": 1,
+            "stoppedIn": 1,
             "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.04922087925439305
+              0.16615345544130106
             ],
-            "depth": 10.14766263776318
+            "depth": null
           },
           {
-            "passed": 10,
-            "stoppedIn": 10,
+            "passed": 1,
+            "stoppedIn": 1,
             "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.04922087925439305
+              0.16615345544130106
             ],
-            "depth": 10.14766263776318
+            "depth": null
           },
           {
-            "passed": 10,
-            "stoppedIn": 10,
+            "passed": 1,
+            "stoppedIn": 1,
             "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.04922087925439305
+              0.16615345544130106
             ],
-            "depth": 10.14766263776318
+            "depth": null
           }
         ],
         "line": [
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0.852337362236821,
+          0.5015396336760967,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -2342,23 +1618,23 @@
         "rooms": [
           {
             "crew": 18,
-            "aboard": 9,
-            "deaths": 9
+            "aboard": 14,
+            "deaths": 4
           },
           {
             "crew": 18,
-            "aboard": 9,
-            "deaths": 9
+            "aboard": 18,
+            "deaths": 0
           },
           {
             "crew": 18,
-            "aboard": 9,
-            "deaths": 9
+            "aboard": 18,
+            "deaths": 0
           },
           {
             "crew": 18,
-            "aboard": 15,
-            "deaths": 3
+            "aboard": 18,
+            "deaths": 0
           },
           {
             "crew": 18,
@@ -2371,8 +1647,8 @@
             "deaths": 0
           }
         ],
-        "damaged": 23,
-        "destroyed": 10,
+        "damaged": 5,
+        "destroyed": 1,
         "books": [
           {
             "generated": 0,
@@ -2413,8 +1689,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -2424,96 +1700,33 @@
         "tier": "T2"
       },
       "expected": {
-        "s0": 2352275.224889949,
-        "R": 231804.63411704972,
-        "depth": 10.147662637763178,
-        "passed": 10,
-        "stoppedIn": 10,
-        "stopLoss": 0.04922087925439259,
-        "passLoss": 0.3333333333333333,
-        "exit": 0,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.9507791207456074,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 42,
-            "deaths": 7
-          },
-          {
-            "crew": 42,
-            "deaths": 7
-          },
-          {
-            "crew": 42,
-            "deaths": 7
-          },
-          {
-            "crew": 42,
-            "deaths": 2
-          },
-          {
-            "crew": 42,
-            "deaths": 0
-          },
-          {
-            "crew": 42,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 10,
-            "stoppedIn": 10,
+            "passed": 1,
+            "stoppedIn": 1,
             "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.049220879254392925
+              0.16615345544130106
             ],
-            "depth": 10.14766263776318
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.9507791207456071,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -2525,23 +1738,23 @@
         "rooms": [
           {
             "crew": 42,
-            "aboard": 35,
-            "deaths": 7
+            "aboard": 39,
+            "deaths": 3
           },
           {
             "crew": 42,
-            "aboard": 35,
-            "deaths": 7
+            "aboard": 42,
+            "deaths": 0
           },
           {
             "crew": 42,
-            "aboard": 35,
-            "deaths": 7
+            "aboard": 42,
+            "deaths": 0
           },
           {
             "crew": 42,
-            "aboard": 40,
-            "deaths": 2
+            "aboard": 42,
+            "deaths": 0
           },
           {
             "crew": 42,
@@ -2554,7 +1767,7 @@
             "deaths": 0
           }
         ],
-        "damaged": 11,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -2596,8 +1809,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -2607,96 +1820,33 @@
         "tier": "T3"
       },
       "expected": {
-        "s0": 3136366.966519932,
-        "R": 309072.8454893996,
-        "depth": 10.147662637763176,
-        "passed": 10,
-        "stoppedIn": 10,
-        "stopLoss": 0.049220879254392,
-        "passLoss": 0.3333333333333333,
-        "exit": 0,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.950779120745608,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 72,
-            "deaths": 12
-          },
-          {
-            "crew": 72,
-            "deaths": 12
-          },
-          {
-            "crew": 72,
-            "deaths": 12
-          },
-          {
-            "crew": 72,
-            "deaths": 4
-          },
-          {
-            "crew": 72,
-            "deaths": 0
-          },
-          {
-            "crew": 72,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 10,
-            "stoppedIn": 10,
+            "passed": 1,
+            "stoppedIn": 1,
             "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.04922087925439305
+              0.16615345544130106
             ],
-            "depth": 10.14766263776318
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.950779120745607,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -2708,23 +1858,23 @@
         "rooms": [
           {
             "crew": 72,
-            "aboard": 60,
-            "deaths": 12
+            "aboard": 67,
+            "deaths": 5
           },
           {
             "crew": 72,
-            "aboard": 60,
-            "deaths": 12
+            "aboard": 72,
+            "deaths": 0
           },
           {
             "crew": 72,
-            "aboard": 60,
-            "deaths": 12
+            "aboard": 72,
+            "deaths": 0
           },
           {
             "crew": 72,
-            "aboard": 68,
-            "deaths": 4
+            "aboard": 72,
+            "deaths": 0
           },
           {
             "crew": 72,
@@ -2737,7 +1887,7 @@
             "deaths": 0
           }
         ],
-        "damaged": 11,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -2779,8 +1929,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -2790,96 +1940,33 @@
         "tier": "T4"
       },
       "expected": {
-        "s0": 4704550.449779898,
-        "R": 463609.26823409944,
-        "depth": 10.147662637763178,
-        "passed": 10,
-        "stoppedIn": 10,
-        "stopLoss": 0.04922087925439259,
-        "passLoss": 0.3333333333333333,
-        "exit": 0,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.9507791207456074,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 162,
-            "deaths": 27
-          },
-          {
-            "crew": 162,
-            "deaths": 27
-          },
-          {
-            "crew": 162,
-            "deaths": 27
-          },
-          {
-            "crew": 162,
-            "deaths": 10
-          },
-          {
-            "crew": 162,
-            "deaths": 0
-          },
-          {
-            "crew": 162,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 10,
-            "stoppedIn": 10,
+            "passed": 1,
+            "stoppedIn": 1,
             "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.049220879254392925
+              0.16615345544130106
             ],
-            "depth": 10.14766263776318
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.9507791207456071,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -2891,23 +1978,23 @@
         "rooms": [
           {
             "crew": 162,
-            "aboard": 135,
-            "deaths": 27
+            "aboard": 149,
+            "deaths": 13
           },
           {
             "crew": 162,
-            "aboard": 135,
-            "deaths": 27
+            "aboard": 162,
+            "deaths": 0
           },
           {
             "crew": 162,
-            "aboard": 135,
-            "deaths": 27
+            "aboard": 162,
+            "deaths": 0
           },
           {
             "crew": 162,
-            "aboard": 152,
-            "deaths": 10
+            "aboard": 162,
+            "deaths": 0
           },
           {
             "crew": 162,
@@ -2920,7 +2007,7 @@
             "deaths": 0
           }
         ],
-        "damaged": 11,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -2962,8 +2049,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -2973,96 +2060,33 @@
         "tier": "T5"
       },
       "expected": {
-        "s0": 6272733.933039864,
-        "R": 618145.6909787992,
-        "depth": 10.147662637763176,
-        "passed": 10,
-        "stoppedIn": 10,
-        "stopLoss": 0.049220879254392,
-        "passLoss": 0.3333333333333333,
-        "exit": 0,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.950779120745608,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 288,
-            "deaths": 48
-          },
-          {
-            "crew": 288,
-            "deaths": 48
-          },
-          {
-            "crew": 288,
-            "deaths": 48
-          },
-          {
-            "crew": 288,
-            "deaths": 18
-          },
-          {
-            "crew": 288,
-            "deaths": 0
-          },
-          {
-            "crew": 288,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 10,
-            "stoppedIn": 10,
+            "passed": 1,
+            "stoppedIn": 1,
             "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.04922087925439305
+              0.16615345544130106
             ],
-            "depth": 10.14766263776318
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.950779120745607,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -3074,23 +2098,23 @@
         "rooms": [
           {
             "crew": 288,
-            "aboard": 240,
-            "deaths": 48
+            "aboard": 265,
+            "deaths": 23
           },
           {
             "crew": 288,
-            "aboard": 240,
-            "deaths": 48
+            "aboard": 288,
+            "deaths": 0
           },
           {
             "crew": 288,
-            "aboard": 240,
-            "deaths": 48
+            "aboard": 288,
+            "deaths": 0
           },
           {
             "crew": 288,
-            "aboard": 270,
-            "deaths": 18
+            "aboard": 288,
+            "deaths": 0
           },
           {
             "crew": 288,
@@ -3103,7 +2127,7 @@
             "deaths": 0
           }
         ],
-        "damaged": 11,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -3145,8 +2169,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -3156,96 +2180,33 @@
         "tier": "T6"
       },
       "expected": {
-        "s0": 9409100.899559796,
-        "R": 927218.5364681989,
-        "depth": 10.147662637763178,
-        "passed": 10,
-        "stoppedIn": 10,
-        "stopLoss": 0.04922087925439259,
-        "passLoss": 0.3333333333333333,
-        "exit": 0,
-        "line": [
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.9507791207456074,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "rooms": [
-          {
-            "crew": 648,
-            "deaths": 108
-          },
-          {
-            "crew": 648,
-            "deaths": 108
-          },
-          {
-            "crew": 648,
-            "deaths": 108
-          },
-          {
-            "crew": 648,
-            "deaths": 41
-          },
-          {
-            "crew": 648,
-            "deaths": 0
-          },
-          {
-            "crew": 648,
-            "deaths": 0
-          }
-        ],
-        "destroyed": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "shots": [
           {
-            "passed": 10,
-            "stoppedIn": 10,
+            "passed": 1,
+            "stoppedIn": 1,
             "residual": 0,
             "losses": [
               0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.3333333333333333,
-              0.049220879254392925
+              0.16615345544130106
             ],
-            "depth": 10.14766263776318
+            "depth": null
           }
         ],
         "line": [
           0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.6666666666666667,
-          0.9507791207456071,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -3257,23 +2218,23 @@
         "rooms": [
           {
             "crew": 648,
-            "aboard": 540,
-            "deaths": 108
+            "aboard": 595,
+            "deaths": 53
           },
           {
             "crew": 648,
-            "aboard": 540,
-            "deaths": 108
+            "aboard": 648,
+            "deaths": 0
           },
           {
             "crew": 648,
-            "aboard": 540,
-            "deaths": 108
+            "aboard": 648,
+            "deaths": 0
           },
           {
             "crew": 648,
-            "aboard": 607,
-            "deaths": 41
+            "aboard": 648,
+            "deaths": 0
           },
           {
             "crew": 648,
@@ -3286,7 +2247,7 @@
             "deaths": 0
           }
         ],
-        "damaged": 11,
+        "damaged": 2,
         "destroyed": 0,
         "books": [
           {
@@ -3328,8 +2289,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
@@ -3350,8 +2311,13 @@
       "ok": true
     },
     {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "30 case(s) threw"
+    },
+    {
       "name": "no NaN or infinity",
-      "ok": true
+      "ok": false
     },
     {
       "name": "deterministic (two runs, same hash)",

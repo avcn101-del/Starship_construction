@@ -1,14 +1,14 @@
 {
   "id": "L3.fragment.rules",
   "level": "L3",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L3.fragment.rules",
-  "code": "74493af",
+  "code": "f220524",
   "criterionHash": "0691b010",
   "lockedHash": "0691b010",
   "runHash": "31fc5af6",
-  "dataHash": "62e2f8d9",
-  "rowsHash": "b67df20c",
+  "dataHash": "70b16e4c",
+  "rowsHash": "89539cdc",
   "rows": [
     {
       "case": {
@@ -18,9 +18,9 @@
         "stern": {
           "dv": [
             0,
-            -0.03718019244301337
+            -0.1188207064527169
           ],
-          "domega": 0.004158046954839638
+          "domega": 0.013024734963489859
         },
         "heat": 1000
       },
@@ -28,9 +28,9 @@
         "stern": {
           "dv": [
             0,
-            -0.03718019244301337
+            -0.01960628942381484
           ],
-          "domega": 0.004158046954839638
+          "domega": 0.0032954964156698403
         },
         "heat": 1000,
         "controlled": true,
@@ -131,14 +131,14 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 0,
+          "dP": 3.637978807091713e-12,
           "dL": 3.637978807091713e-11,
-          "net": 940025.9115600302,
+          "net": 777967.2897701323,
           "gross": 41666.666666666664
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "delta v = F dt / M, delta omega = (r x F) dt / I"
     },
     {
       "case": {
@@ -148,25 +148,25 @@
         "bow": {
           "dv": [
             0,
-            -0.06884947027217574
+            -0.22500022500022498
           ],
-          "domega": -0.007757111453742259
+          "domega": -0.025081893391191663
         },
-        "bowM": 242074,
-        "sternM": 164796.67940754897,
+        "bowM": 74074,
+        "sternM": 52796.679407548974,
         "sternHeat": 0,
         "bowHeat": 60000
       },
       "actual": {
         "bodies": 2,
-        "bowM": 242074,
-        "sternM": 164796.67940754897,
+        "bowM": 225674,
+        "sternM": 587396.6794075489,
         "bow": {
           "dv": [
             0,
-            -0.06884947027217574
+            -0.0738528437776025
           ],
-          "domega": -0.007757111453742259
+          "domega": -0.010541393494544932
         },
         "sternDv": [
           0,
@@ -274,14 +274,14 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 2.346425826049686e-10,
-          "dL": 3.725290298461914e-8,
-          "net": 51013563.56677235,
-          "gross": 51013563.56677235
+          "dP": 3.504565270498946e-10,
+          "dL": 1.4901161193847656e-8,
+          "net": 50034023.775585406,
+          "gross": 50034023.775585406
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "fragment masses from the cell sums, bow RCS fires: delta v, delta omega"
     },
     {
       "case": {
@@ -289,8 +289,8 @@
       },
       "expected": {
         "masses": [
-          92866.69851887244,
-          52866.698518872436
+          29866.698518872436,
+          17866.698518872432
         ],
         "worksIn": 0,
         "deadIn": 1,
@@ -300,8 +300,8 @@
       },
       "actual": {
         "masses": [
-          92866.69851887244,
-          52866.698518872436
+          77066.69851887244,
+          17866.698518872432
         ],
         "worksIn": 0,
         "deadIn": 1,
@@ -360,8 +360,8 @@
           "gross": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "fragment masses from the cell sums, dead weight where it lies"
     },
     {
       "case": {
@@ -369,8 +369,8 @@
       },
       "expected": {
         "masses": [
-          92866.69851887244,
-          52866.698518872436
+          29866.698518872436,
+          17866.698518872432
         ],
         "worksIn": 1,
         "deadIn": 0,
@@ -381,8 +381,8 @@
       },
       "actual": {
         "masses": [
-          92866.69851887244,
-          52866.698518872436
+          77066.69851887244,
+          17866.698518872432
         ],
         "worksIn": 1,
         "deadIn": 0,
@@ -441,8 +441,8 @@
           "gross": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "fragment masses from the cell sums, dead weight where it lies"
     }
   ],
   "invariants": [
