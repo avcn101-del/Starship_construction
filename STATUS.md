@@ -224,10 +224,10 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Reviewer, path model | session_01D2L2Kyg1bin1QGk1UZQvfW | sonnet-5-5 | 0.59 |
 | Engineer, prototype v2, created on the wrong model and archived after 35 s (the lead designer's error) | session_01Tf9UpKXmBCZJZbj4Rj2s8M | fable-5-1 | 1.12 |
 | Engineer, prototype v2 (PR #51) | session_013XH7jici9kFqQf6EJYqURu | opus-5-5 | 11.73 |
-| Reviewer, prototype v2 (PR #51) | session_01EjFiN5BcJedtsbn1K6ucc6 | sonnet-5-5 | running |
+| Reviewer, prototype v2 (PR #51; no blocking finding, 4 non-blocking) | session_01EjFiN5BcJedtsbn1K6ucc6 | sonnet-5-5 | 1.00 |
 | Docs audit (read-only; report on `audit/docs`, `audit/2026-10-21-docs.md`: 72 findings) | session_01RwaxZTmMVcMs2QbrF8KohP | sonnet-5-5 | 6.59 |
-| Physics system audit (read-only; `audit/physics`, `audit/2026-10-21-physics.md`) | session_01VxycQ6zZQf69yMEK5QXyJr | opus-5-5 | running |
-| Scenario quality audit (read-only; `audit/scenarios`, `audit/2026-10-21-scenarios.md`) | session_01Pr1RKAyvUNZpe8ticEBuyF | sonnet-5-5 | running |
+| Physics system audit (read-only; `audit/physics`, `audit/2026-10-21-physics.md`: 29 findings) | session_01VxycQ6zZQf69yMEK5QXyJr | opus-5-5 | 3.78 |
+| Scenario quality audit (read-only; `audit/scenarios`; it spawned sub-agents) | session_01Pr1RKAyvUNZpe8ticEBuyF | sonnet-5-5 | running, 12.42 at 23:41 UTC |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
