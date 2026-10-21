@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.3 — 2026-10-21 — Answers to the L3 engineer (#219)
+
+- `DESIGN.md` §5.2, §13f.1: the shield generator may carry fittings.
+- `DESIGN.md` §13f.3: v2 successors for seven L3 scenarios (two criteria of
+  the lead designer, the engineer's invariant scales).
+
 ## 0.4.2 — 2026-10-21 — A feel prototype after L3; fewer docs PRs (#217, #218)
 
 - `CLAUDE.md`, `DESIGN.md` §15: after L3, a rough throwaway feel prototype
