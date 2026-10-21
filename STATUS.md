@@ -140,11 +140,18 @@ Nothing (the owner chose the spinal beam bay and low-end masses, #234).
    check-in `trig_01Nq4Vw8Y6EqYrxahdj2yMYE` at 23:10 UTC). Then the
    reviewer (§13j.5), the lead designer merges the v2 block with PR #50
    and publishes the page (#226); the owner plays it with a changing seed.
-2. **Next kernel pass** (with L4): the findings of #236 (the `beamPaths`
+2. **Docs audit** (the owner, 2026-10-21): an independent read-only
+   session checks `data.js` against DESIGN and DECISIONS, decisions
+   against each other, rules living in one place only, and sense
+   (`audit/docs`); then the lead designer's consolidation pass (DESIGN
+   keeps the current design and a table of decisions in force; plans and
+   measured history move to their own file; DECISIONS untouched) recorded
+   as a decision. Repeat before the L4 plan and at Mission 0 exit.
+3. **Next kernel pass** (with L4): the findings of #236 (the `beamPaths`
    cache, withdrawal reason texts, a PSTAR water anchor for `csdaRange`,
    §13f.1's dead-weight flows), #227 Q9, the chord rule of §13j.2 and
    whatever v2's autopilot teaches `helm.js`.
-3. Then the L4 plan (ship versus static target). Physics is frozen unless a
+4. Then the L4 plan (ship versus static target). Physics is frozen unless a
    playtest of prototype v2 points at it.
 
 ## Scheduled tasks
@@ -202,6 +209,7 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Reviewer, path model | session_01D2L2Kyg1bin1QGk1UZQvfW | sonnet-5-5 | 0.59 |
 | Engineer, prototype v2, created on the wrong model and archived after 35 s (the lead designer's error) | session_01Tf9UpKXmBCZJZbj4Rj2s8M | fable-5-1 | 1.12 |
 | Engineer, prototype v2 | session_013XH7jici9kFqQf6EJYqURu | opus-5-5 | running |
+| Docs audit (read-only; report on `audit/docs`, `audit/2026-10-21-docs.md`) | session_01RwaxZTmMVcMs2QbrF8KohP | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
