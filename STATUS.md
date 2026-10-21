@@ -6,7 +6,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#205, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#206, current design in `DESIGN.md`.
 - **Sense check closed (#203, the owner)**: engines are self-fuelled
   torches, beams are millimetre-wave masers, recoil is kept but expected to
   matter only for the spinal railgun, kinetic damage and repair get the D
@@ -90,10 +90,10 @@ Nothing. The owner approved the four sense-check proposals (#203 A–D).
 
 1. The reviewer on PR #15's final head; fixes if blocking; the lead
    designer merges when no blocking finding remains (#180).
-3. **The D pass** (#203 D), its own branch after L2 merges: realistic round
-   sizes and re-approved L0 ranges, partial kinetic damage per hit, repair
-   of damaged cells only; superseded L0/L1 scenarios withdrawn with
-   successors. The lead designer specifies it with whole-run estimates.
+3. **The D pass** (#203 D), specified in `DESIGN.md` §13e and #206: 6 kg M
+   rounds with every tied quantity scaled so L0–L2 ratios hold, partial
+   kinetic damage (three hits wreck a cell), repair of damaged cells only;
+   scenarios D1–D4; an engineer on `m0/d-damage` after L2 merges.
 4. Then the L3 plan (minimal ship: rigid body, cell mass = heat capacity /
    c_p (#202 E), engine thrust re-tuned for torches (#203 A), CoM, MoI,
    recoil measured (#203 C), split momentum, control graph, SCRAM in a
