@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#220, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#221, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -19,6 +19,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   life support under routing. `regress` on `main`: **46 VERIFIED + 8
   WITHDRAWN**. Cost 14.11 USD (engineers 10.76, physics checker 2.26,
   reviewer 1.09).
+- **Ships get real density (#221, the owner)**: 10 t per cell instead of
+  1 t, heat unchanged; built as the mass pass after L3.
 - **L3, the minimal ship** (`DESIGN.md` §13f, #208–#213, #216, #219): PR
   #35, head `1ba258b`: 65 of 68 cases PASS; seven scenarios withdrawn as
   specification errors with v2 successors (#219, #220). Physics checker:
@@ -101,10 +103,11 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
    §13f as its task; scenarios locked in their own commit; the engineer
    reproduces the estimates of #209 independently before the lock; then
    the physics checker (blind, §13f.1, §13f.2, §13f.4) and the reviewer.
-2. **Ship density** (#220 (7)), before the prototype: 1 t per cell is
-   about 8 kg/m³ (real spacecraft 100–460). Estimate decoupling structural
-   mass from heat capacity, with thrust and RCS re-tuned for 1–2 g, and put
-   the choice to the owner.
+2. **The mass pass** (`DESIGN.md` §13g, #221, the owner): after L3
+   merges, one engineer session on `m0/mass`: 10 t per cell, thrust 15 MN,
+   RCS 1 MN; the L3 scenarios encoding the old mass rule withdrawn as
+   superseded with v3 successors; then a physics checker and the reviewer
+   (or the reviewer only if no physics a checker has not seen, #218).
 3. **The feel prototype** (#217, the owner): after L3 merges, write its
    plan as an *LD* row (scope, stand-ins for what L4–L5 have not built,
    what the owner judges on the phone, cost estimate), then one engineer

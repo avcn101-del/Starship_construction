@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.5 — 2026-10-21 — Ships of real density (#221)
+
+- `DESIGN.md` §13g: the mass pass: 10 t per cell (the owner), heat
+  capacity unchanged, thrust 15 MN and RCS 1 MN, estimates and the
+  scenarios it supersedes.
+
 ## 0.4.4 — 2026-10-21 — Answers to the L3 physics checker (#220)
 
 - `DESIGN.md` §13f: angular books 1e-9 × net + 1e-12 × gross; two v2
