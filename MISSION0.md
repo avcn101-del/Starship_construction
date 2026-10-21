@@ -10,13 +10,18 @@ depends on (it holds only once the owner approves them), and the command that re
 
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
-| `L0.beam.burn` | 908664be | PASS | 231d1090 | 5bece70 | `armour.burnEnergy` | `node tools/m0.js run L0.beam.burn` |
-| `L0.beam.falloff` | b45fa911 | PASS | 0c7856c4 | 5bece70 | none | `node tools/m0.js run L0.beam.falloff` |
-| `L0.blast.surface` | f9738b67 | PASS | 9df5680d | 5bece70 | `armour.blastResistance` | `node tools/m0.js run L0.blast.surface` |
-| `L0.kinetic.overpen` | 810e8a2c | PASS | f75b211e | 5bece70 | `room.kineticResistance` | `node tools/m0.js run L0.kinetic.overpen` |
-| `L0.kinetic.penetration` | 8228497c | PASS | 665a79b8 | 5bece70 | none | `node tools/m0.js run L0.kinetic.penetration` |
-| `L0.shield.kinetic` | 908651e6 | PASS | 9707317d | 5bece70 | `shield.bufferSeconds` | `node tools/m0.js run L0.shield.kinetic` |
-| `L0.shield.point` | d83b6f9a | PASS | 4812ede3 | 5bece70 | none | `node tools/m0.js run L0.shield.point` |
+| `L0.beam.burn.v2` | 2f23b6ac | PASS | d0b53db6 | de8576b | `armour.burnEnergy` | `node tools/m0.js run L0.beam.burn.v2` |
+| `L0.beam.burn` | 908664be | PASS | 231d1090 | de8576b | `armour.burnEnergy` | `node tools/m0.js run L0.beam.burn` |
+| `L0.beam.falloff` | b45fa911 | PASS | 0c7856c4 | de8576b | none | `node tools/m0.js run L0.beam.falloff` |
+| `L0.blast.surface.v2` | 188c60ea | PASS | 943c8b42 | de8576b | `armour.blastResistance` | `node tools/m0.js run L0.blast.surface.v2` |
+| `L0.blast.surface` | f9738b67 | PASS | 9df5680d | de8576b | `armour.blastResistance` | `node tools/m0.js run L0.blast.surface` |
+| `L0.kinetic.overpen` | 810e8a2c | PASS | f75b211e | de8576b | `room.kineticResistance` | `node tools/m0.js run L0.kinetic.overpen` |
+| `L0.kinetic.penetration.v2` | de60d649 | PASS | cedce90a | de8576b | none | `node tools/m0.js run L0.kinetic.penetration.v2` |
+| `L0.kinetic.penetration` | 8228497c | PASS | 665a79b8 | de8576b | none | `node tools/m0.js run L0.kinetic.penetration` |
+| `L0.shield.kinetic.v2` | e27d5251 | PASS | ad19da8b | de8576b | `shield.bufferSeconds` | `node tools/m0.js run L0.shield.kinetic.v2` |
+| `L0.shield.kinetic` | 908651e6 | PASS | 9707317d | de8576b | `shield.bufferSeconds` | `node tools/m0.js run L0.shield.kinetic` |
+| `L0.shield.point.v2` | 48511feb | PASS | a82d6757 | de8576b | none | `node tools/m0.js run L0.shield.point.v2` |
+| `L0.shield.point` | d83b6f9a | PASS | 4812ede3 | de8576b | none | `node tools/m0.js run L0.shield.point` |
 
 ## L1
 
