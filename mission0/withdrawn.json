@@ -123,13 +123,19 @@
     "id": "L0.kinetic.penetration",
     "successor": "L0.kinetic.penetration.v3",
     "decision": "#230",
-    "reason": "Superseded by the owner's design decision #230 (round damage): it tests penetration by sectional momentum alone (depth = s0 / R) with a round that is never damaged; under #230 the round takes what each cell takes and flattens (13i.1). It tests the pure function penetrate, which stays for proto/ v1, so it keeps the verdict recorded on the path-model kernel. Locked and recorded."
+    "reason": "Superseded by the owner's design decision #230 (round damage): it tests penetration by sectional momentum alone (depth = s0 / R) with a round that is never damaged; under #230 the round takes what each cell takes and flattens (13i.1). It tests the pure function penetrate, which stays for proto/ v1, so it keeps the verdict recorded on the path-model kernel. Locked and recorded.",
+    "retired": true,
+    "retiredDecision": "#237",
+    "retiredReason": "Retired by #237 (DESIGN.md 13j.2, #236 (1)): js/data.js no longer holds armour.kineticResistance, which it reads; prototype v2 no longer uses the superseded pure function it tests, so it cannot keep its recorded verdict. Listed by regress as RETIRED, not run, counted apart; the file, its lock and its last record stay unchanged."
   },
   {
     "id": "L0.kinetic.penetration.v2",
     "successor": "L0.kinetic.penetration.v3",
     "decision": "#230",
-    "reason": "Superseded by the owner's design decision #230 (round damage): its continuous depth s0 / R assumes a round that is never damaged; under #230 the round flattens (13i.1). It tests the pure function penetrate, which stays for proto/ v1, so it keeps the verdict recorded on the path-model kernel. Locked and recorded."
+    "reason": "Superseded by the owner's design decision #230 (round damage): its continuous depth s0 / R assumes a round that is never damaged; under #230 the round flattens (13i.1). It tests the pure function penetrate, which stays for proto/ v1, so it keeps the verdict recorded on the path-model kernel. Locked and recorded.",
+    "retired": true,
+    "retiredDecision": "#237",
+    "retiredReason": "Retired by #237 (DESIGN.md 13j.2, #236 (1)): js/data.js no longer holds armour.kineticResistance, which it reads; prototype v2 no longer uses the superseded pure function it tests, so it cannot keep its recorded verdict. Listed by regress as RETIRED, not run, counted apart; the file, its lock and its last record stay unchanged."
   },
   {
     "id": "L0.kinetic.overpen",
@@ -141,19 +147,28 @@
     "id": "L0.beam.falloff",
     "successor": "L0.beam.range",
     "decision": "#230",
-    "reason": "Superseded by the owner's design decision #230 (3): a neutral particle beam does not fall off at battle range; it tests the Gaussian maser's falloff (beamDeliveredFraction with beam.focusRange), kept only for proto/ v1, so it keeps the verdict recorded on the path-model kernel. Locked and recorded."
+    "reason": "Superseded by the owner's design decision #230 (3): a neutral particle beam does not fall off at battle range; it tests the Gaussian maser's falloff (beamDeliveredFraction with beam.focusRange), kept only for proto/ v1, so it keeps the verdict recorded on the path-model kernel. Locked and recorded.",
+    "retired": true,
+    "retiredDecision": "#237",
+    "retiredReason": "Retired by #237 (DESIGN.md 13j.2, #236 (1)): js/data.js no longer holds beam.focusRange and FIXED.beamWaistPerHalfCell, which it reads; prototype v2 no longer uses the superseded pure function it tests, so it cannot keep its recorded verdict. Listed by regress as RETIRED, not run, counted apart; the file, its lock and its last record stay unchanged."
   },
   {
     "id": "L0.beam.burn",
     "successor": "L0.beam.burn.v3",
     "decision": "#230",
-    "reason": "Superseded by the owner's design decision #230: it burns one armour cell with the maser's delivered fraction (burnThrough, beamDeliveredFraction), while the beam now leaves its energy along its path by the Bethe formula with no falloff (13i.1); the superseded functions stay for proto/ v1, so it keeps the verdict recorded on the path-model kernel. Locked and recorded."
+    "reason": "Superseded by the owner's design decision #230: it burns one armour cell with the maser's delivered fraction (burnThrough, beamDeliveredFraction), while the beam now leaves its energy along its path by the Bethe formula with no falloff (13i.1); the superseded functions stay for proto/ v1, so it keeps the verdict recorded on the path-model kernel. Locked and recorded.",
+    "retired": true,
+    "retiredDecision": "#237",
+    "retiredReason": "Retired by #237 (DESIGN.md 13j.2, #236 (1)): js/data.js no longer holds beam.focusRange and FIXED.beamWaistPerHalfCell, which it reads; prototype v2 no longer uses the superseded pure function it tests, so it cannot keep its recorded verdict. Listed by regress as RETIRED, not run, counted apart; the file, its lock and its last record stay unchanged."
   },
   {
     "id": "L0.beam.burn.v2",
     "successor": "L0.beam.burn.v3",
     "decision": "#230",
-    "reason": "Superseded by the owner's design decision #230: as L0.beam.burn, with the burn stepped at the simulation step; the beam now leaves its energy along its path with no falloff (13i.1); the superseded functions stay for proto/ v1, so it keeps the verdict recorded on the path-model kernel. Locked and recorded."
+    "reason": "Superseded by the owner's design decision #230: as L0.beam.burn, with the burn stepped at the simulation step; the beam now leaves its energy along its path with no falloff (13i.1); the superseded functions stay for proto/ v1, so it keeps the verdict recorded on the path-model kernel. Locked and recorded.",
+    "retired": true,
+    "retiredDecision": "#237",
+    "retiredReason": "Retired by #237 (DESIGN.md 13j.2, #236 (1)): js/data.js no longer holds beam.focusRange and FIXED.beamWaistPerHalfCell, which it reads; prototype v2 no longer uses the superseded pure function it tests, so it cannot keep its recorded verdict. Listed by regress as RETIRED, not run, counted apart; the file, its lock and its last record stay unchanged."
   },
   {
     "id": "L1.kinetic.damage",

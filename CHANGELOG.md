@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.8.0 — 2026-10-21 — Prototype v2: a helm and physical misses (#237)
+
+- Data (`DESIGN.md` §13j.2, #236 (1)): `armour.kineticResistance`,
+  `beam.focusRange` and `FIXED.beamWaistPerHalfCell` removed from
+  `js/data.js`; the superseded pure functions (`penetrate`, `burnThrough`,
+  `beamDeliveredFraction`) stay. No other kernel change.
+- Mission 0: the five withdrawn L0 scenarios that read them
+  (`L0.kinetic.penetration`, `.v2`, `L0.beam.falloff`, `L0.beam.burn`,
+  `.v2`) are **retired** in `mission0/withdrawn.json` (`retired: true`,
+  `retiredDecision` #237, `retiredReason` naming the removed constant);
+  their files, locks and last records are unchanged. `tools/m0.js`:
+  `regress` and `verify` list a retired scenario as RETIRED without running
+  it and print the counts (VERIFIED + WITHDRAWN + RETIRED); `run` skips it
+  so its record stays; the ledger marks it.
+
 ## 0.7.2 — 2026-10-21 — Prototype v2 planned (#237)
 
 - `DESIGN.md` §13j: the plan for prototype v2 (a helm as three standing

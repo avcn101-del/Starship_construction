@@ -27,7 +27,6 @@ export const FIXED = {
   steelDensity: { value: 7850, unit: 'kg/m^3', note: 'real density of steel; kinetic rounds are steel' },
   roundLengthToDiameter: { value: 4, unit: '', note: 'shape of a kinetic round (a cylinder 4 diameters long)' },
   sizeLinear: { value: { S: 2 / 3, M: 1, L: 3 / 2 }, unit: '', note: 'linear size of S and L relative to M (mass scales with its cube)' },
-  beamWaistPerHalfCell: { value: 1 / Math.SQRT2, unit: '', note: 'SUPERSEDED (#230/#232): kept only for proto/ and withdrawn scenarios until prototype v2; no kernel use. Was: the Gaussian maser\'s waist radius as a fraction of half a cell edge' },
   shieldFalloffExponent: { value: 2, unit: '', note: 'shield field strength g(r) = 1 / (1 + (r / radius)^n)' },
   simStep: { value: 1 / 60, unit: 's', note: 'simulation time step (#175)' },
   burnTimeLimit: { value: 3600, unit: 's', note: 'a beam burn gives up after this long (#175)' },
@@ -71,11 +70,6 @@ const S_ROUND_STOP = sRoundStop(KINETIC);
 export const PARAMS = {
   kinetic: KINETIC,
   armour: {
-    // An AP M round carries 1.568e6 kg/(m*s) of sectional momentum; 2.7e5 x
-    // 12^(1/3) per cell lets it pass 2 cells and stop in the 3rd (#166: 2-3
-    // cells). The factor keeps every depth of the 0.5 kg round with the 6 kg
-    // one: sectional momentum grows as m^(1/3) at fixed shape and speed (#206).
-    kineticResistance: P(2.7e5 * Math.cbrt(12), 3e5, 1.25e6, 1, 'kg/(m*s)', true, 'SUPERSEDED (#230/#232): kept only for proto/ and withdrawn scenarios until prototype v2; no kernel use. Was: sectional momentum one armour cell absorbs, replaced by matter.kineticResistance x sigma (#165, #166, #206, #235)'),
     blastResistance: P(1e6, 3e5, 3e6, 3, 'J', true, 'blast energy one armour cell absorbs before it is destroyed (#177)'),
     burnEnergy: P(3e7, 1e7, 1e8, 3, 'J', true, 'beam energy that ruins any cell along the beam\'s channel: a cell loses P F_i dt / this of its integrity per step (#177, #235; 30 MJ melts about 25 kg of steel, 13i.1)'),
     cellMass: P(1e4, 3e3, 3e4, 3, 'kg', true, 'one armour cell at T1: 5 cm of steel over 25 m^2, sigma 400 kg/m^2 (L0\'s armour cell; armour fittings come later, #15, #235)'),
@@ -95,7 +89,6 @@ export const PARAMS = {
   },
   beam: {
     power: P(5e6, 1e6, 2e7, 2, 'W', true, 'size M beam (#166)'),
-    focusRange: P(600, 300, 1500, 1, 'm', true, 'SUPERSEDED (#230/#232): kept only for proto/ and withdrawn scenarios until prototype v2; no kernel use. Was: the Rayleigh range of the Gaussian maser; no falloff at battle range (#165, #166, #235)'),
     // A neutral particle beam from a spinal accelerator (#229, #234): each
     // atom's kinetic energy is gradient x the bay's length (N cells x edge).
     gradient: P(10 * MEV, 5 * MEV, 20 * MEV, 0, 'J/m', true, '10 MeV/m (1.6022e-12 J/m), range 5-20 MeV/m: a 10 m bay gives 100 MeV, a 40 m bay 400 MeV (ESS: about 6 MeV/m, cavities 16.7-20 MV/m; #234, #235)'),
