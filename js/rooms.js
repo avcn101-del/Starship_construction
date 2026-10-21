@@ -20,6 +20,8 @@ import { absorbBeamStep, shieldStrength, stopRound } from './field.js';
 import { stepsAtLeast } from './util.js';
 import { createLayout, placeRoom, openEdges, roomCentre, sharedWalls, byId } from './layout.js';
 import { liveWalls, priorityMaxFlow, feedAmmo } from './graph.js';
+import { penetrate } from './damage.js';
+import { sectionalMomentum } from './projectile.js';
 
 // A time within 1e-9 of a step boundary counts as that boundary (as stepsAtLeast).
 const onStep = (time, dt) => Math.abs(time / dt - Math.round(time / dt)) <= 1e-9 * Math.max(1, Math.abs(time / dt));
@@ -101,11 +103,12 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
 }
 
 // ---------- shared state ----------
-// A cell is destroyed when its integrity reaches 0 and stays destroyed until
-// repair brings it back to integrity 1 (#189 (1), DESIGN.md 13c.2 row 14).
+// A cell is destroyed when its integrity reaches 0 and stays destroyed for the
+// rest of the battle: repair restores damaged cells only (#206, DESIGN.md
+// 13e.1; replaces #190 (1)).
 export const survivingCells = (room) => room.cells.filter((c) => !c.destroyed).length;
 export const survivingFraction = (room) => survivingCells(room) / room.cells.length;
-/** Cells destroyed now: a repaired cell no longer counts (#189 (1)). */
+/** Cells destroyed now (#189 (1)); a destroyed cell is never repaired in battle (#206). */
 export const destroyedCells = (room) => room.cells.length - survivingCells(room);
 export const isDestroyed = (room) => room.exploded || survivingCells(room) === 0;
 export const roomTemperature = (room) => temperature(room.heat);
@@ -143,23 +146,62 @@ export function setControl(world, room, on, cause) {
 }
 
 /**
- * Damage a cell: integrity drops by `loss` (a round passing: 1; a blast:
- * absorbed / resistance, #182). Reaching 0 destroys it: crew die per
- * destroyed cell, and the room reacts (breach, detonation, control lost).
+ * Damage a cell: integrity drops by `loss` (a round passing: 1 /
+ * kinetic.hitsToWreck, #206; a blast: absorbed / resistance, #182). A cell
+ * left with integrity above 0 is damaged ('cell-damaged'); reaching 0
+ * destroys it and the room reacts (breach, detonation, control lost). Crew
+ * die in proportion to the integrity the room has lost (#206).
  */
 export function damageCell(world, room, index, loss, cause, channel) {
   const cell = room.cells[index];
   if (cell.destroyed || room.exploded) return;
-  cell.integrity = Math.max(0, cell.integrity - loss);
-  if (cell.integrity > 0) return;
+  // A float residue of 1e-12 or less counts as 0, so hitsToWreck hits of
+  // 1 / hitsToWreck wreck a cell (1 - 3 x (1/3) leaves 5.6e-17 in floats).
+  const left = cell.integrity - loss;
+  cell.integrity = left > 1e-12 ? left : 0;
+  if (cell.integrity > 0) {
+    event(world, room, 'cell-damaged', cause, { channel, cell: index, integrity: cell.integrity });
+    killByIntegrity(world, room, cause);
+    return;
+  }
   cell.destroyed = true;
-  // k = cells currently destroyed (#189 (1)); crew do not come back, and
-  // killCrew never takes more than are aboard, so deaths never exceed the crew.
-  const k = destroyedCells(room), N = room.cells.length;
-  const deaths = room.crewPerCell !== undefined ? room.crewPerCell : Math.floor((k * room.crewTotal) / N) - Math.floor(((k - 1) * room.crewTotal) / N);
   event(world, room, 'cell-destroyed', cause, { channel, cell: index });
-  killCrew(world, room, deaths, cause);
+  killByIntegrity(world, room, cause);
   ON_CELL_DESTROYED[room.type]?.(world, room, cause);
+}
+/**
+ * Crew die in proportion to the integrity lost (#206, 13e.1): the room's
+ * cumulative deaths by damage are floor(crew x (cells - sum of integrity) /
+ * cells), never more than its crew. Repair brings nobody back, so the count
+ * only rises. A quotient within 1e-9 of a whole number counts as that number
+ * (three losses of 1/3 sum to 0.9999999999999991 in floats). With whole
+ * cells destroyed this is L1's floor(k crew / N) (#185 (5)).
+ */
+function killByIntegrity(world, room, cause) {
+  const N = room.cells.length, lost = N - room.cells.reduce((x, c) => x + c.integrity, 0);
+  const share = (room.crewTotal * lost) / N, whole = Math.round(share);
+  const due = Math.min(room.crewTotal, Math.abs(share - whole) <= 1e-9 * Math.max(1, share) ? whole : Math.floor(share));
+  const before = room.damageDeaths || 0;
+  if (due <= before) return;
+  room.damageDeaths = due;
+  killCrew(world, room, due - before, cause); // never more than are aboard
+}
+/**
+ * A kinetic round { mass, velocity, area } along `path`, the room cells it
+ * meets in order ([{ room, cell }]) (#137, #206, 13e.1). Kinetic damage stays
+ * momentum: each cell resists room.kineticResistance of sectional momentum
+ * (L0's penetrate, a destroyed cell included); a cell the round passes loses
+ * 1 / kinetic.hitsToWreck of its integrity, the cell it stops in (sectional
+ * momentum left / R) / hitsToWreck. Returns the penetration and the loss
+ * applied to each cell reached.
+ */
+export function fireRound(world, { mass, velocity, area }, path, cause) {
+  const R = tierScaled(world, world.params.room.kineticResistance), hits = world.params.kinetic.hitsToWreck.value;
+  const s0 = sectionalMomentum(mass, velocity, area);
+  const res = penetrate(s0, path.map(() => R));
+  const losses = res.absorbed.map((a, i) => (i < res.passed ? 1 : a / R) / hits);
+  losses.forEach((loss, i) => damageCell(world, path[i].room, path[i].cell, loss, cause, 'kinetic'));
+  return { s0, R, passed: res.passed, stoppedIn: res.stoppedIn, residual: res.residual, absorbed: res.absorbed, losses };
 }
 export const destroyCell = (world, room, index, cause, channel = 'kinetic') => damageCell(world, room, index, 1, cause, channel);
 
@@ -385,9 +427,8 @@ const BEHAVIOUR = {
     // Repair field (#51, #99): the grants repairGrants computed at the start of the step.
     for (const { room: other, cell: i, rate } of q.grants) {
       const c = other.cells[i];
-      if (c.integrity >= 1 || rate <= 0) continue;
+      if (c.destroyed || c.integrity >= 1 || rate <= 0) continue; // damaged cells only (#206)
       c.integrity = Math.min(1, c.integrity + rate * dt);
-      if (c.integrity >= 1) c.destroyed = false;
       if (c.integrity >= 1) world.repaired.push({ room: other, cell: i, cause: room.id }); // reported at the end of the step
     }
     const draw = tierScaled(world, p.quarters.powerDraw) * survivingFraction(room) * supply(world, room);
@@ -697,7 +738,8 @@ export function shieldRound(world, round) {
 // ---------- repair sharing (#99, #185 (6), 13d.1) ----------
 /**
  * Each quarters' budget R = repair.rate x surviving fraction (x its power
- * fraction); a damaged cell j in range asks q_j = R g(r_j); if the asks
+ * fraction); a damaged cell j in range (0 < integrity < 1: a destroyed cell
+ * waits for the drydock, #206) asks q_j = R g(r_j); if the asks
  * exceed R, each is scaled by R / sum q_j. Computed at the start of the step.
  */
 function repairGrants(world) {
@@ -712,7 +754,7 @@ function repairGrants(world) {
       if (other === room || other.exploded) continue;
       const r = Math.hypot(other.position[0] - room.position[0], other.position[1] - room.position[1]);
       const rate = base * shieldStrength(r, radius, FIXED.repairFalloffExponent.value);
-      other.cells.forEach((c, i) => { if (c.integrity < 1 && rate > 0) q.grants.push({ room: other, cell: i, rate }); });
+      other.cells.forEach((c, i) => { if (!c.destroyed && c.integrity < 1 && rate > 0) q.grants.push({ room: other, cell: i, rate }); });
     }
     const sum = q.grants.reduce((x, g) => x + g.rate, 0);
     if (sum > base) for (const g of q.grants) g.rate *= base / sum;

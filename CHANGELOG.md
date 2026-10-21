@@ -9,6 +9,17 @@
   `ammo.wallFeed` 0.72 kg/(s·m) (0.24–3.6), `kinetic.chargeEnergy` 6 MJ
   (2–20 MJ); new `kinetic.hitsToWreck` 3 (1–8, k=0).
   `shield.kineticStop` stays derived from the S round (#171).
+- `js/rooms.js`, `js/events.js`: partial kinetic damage (#206). `fireRound`
+  sends a round along a path of room cells: each cell resists
+  `room.kineticResistance` (L0's `penetrate`), a passed cell loses
+  1 / `hitsToWreck` of its integrity, the cell it stops in (s_left / R) /
+  `hitsToWreck`; a cell is destroyed at 0 (a residue of 1e-12 or less
+  counts as 0). A damaged cell raises `cell-damaged` (channel, cell,
+  integrity). Crew die in proportion to integrity lost: cumulative deaths
+  floor(crew × (cells − Σ integrity) / cells), never more than the crew,
+  never undone (a quotient within 1e-9 of a whole number counts as it);
+  with whole cells destroyed this is L1's rule. Repair restores damaged
+  cells only; a destroyed cell stays destroyed (replaces #190 (1)).
 
 ## 0.3.2 — 2026-10-21 — Mission 0 L2 merged; reviewer answers (#207)
 
