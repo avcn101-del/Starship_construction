@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.6 — 2026-10-21 — Answers to the D-pass physics checker (#214)
+
+- `DESIGN.md` §13e.1: the shield buffer binds at the 6th round within one
+  step; E4 for it stays open until L5.
+
 ## 0.3.5 — 2026-10-21 — E8's budget (#213)
 
 - `DESIGN.md` §13: E8 is 1 ms per simulation step in Node for a T1 and a

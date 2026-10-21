@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#213, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#214, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` on `main`: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -20,7 +20,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   kernel's Euler error (#212): withdrawn, successor D5b, plus a new
   `L2.blast.split` (D6). Fixes landed at head `4b754b1`: `regress` 46
   VERIFIED + 8 WITHDRAWN, `verify L2` exit 0 (verified by the lead
-  designer). Physics checker (blind) running; then the reviewer. **The L3 plan is written** (`DESIGN.md` §13f, #208–#211);
+  designer). Physics checker: no blocking finding (#214). Reviewer
+  `session_01TVQqxMbuhGDobwni8xCnqq` running. **The L3 plan is written** (`DESIGN.md` §13f, #208–#211);
   L3 starts after the D pass merges.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
@@ -46,7 +47,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| #24 Mission 0 D pass | `m0/d-damage` → `main` | head `4b754b1`; #212 fixes in; physics checker `session_01UFe2RUu58iTgEttPPf5dZ4` running; reviewer next |
+| #24 Mission 0 D pass | `m0/d-damage` → `main` | head `4b754b1`; physics checker done (#214); reviewer `session_01TVQqxMbuhGDobwni8xCnqq` running |
 
 L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
@@ -58,6 +59,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #214: answers to the D-pass physics checker (crew round per cell; the
+  shield buffer's E4 stays open until L5; magazine size put to the owner).
 - #212: answers to the D-pass engineer (D5 withdrawn for the lead
   designer's tolerance error, successor D5b; new `L2.blast.split`; blast
   kills crew in proportion; a destroyed cell resists no round, built at
@@ -75,7 +78,11 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-Nothing (E8's budget decided by the owner: 1 ms per step, #213).
+- **Magazine explosion size** (#214 (6), changes the wording of #91): with
+  the 6 kg round the propellant dominates: a full AP magazine 900 MJ, a
+  full HE one 1.2 GJ (HE only 1.33× AP per round). Recommended: keep the
+  physics, reword #91 to "propellant dominates, HE adds a third". Not
+  blocking; default if no answer: keep as built.
 
 ## Next steps
 
@@ -99,7 +106,7 @@ Nothing (E8's budget decided by the owner: 1 ms per step, #213).
 |---|---|---|---|
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
-| Check-in on the D-pass physics checker | `trig_016BqHVtDWQ6dF96FVR5MPxq` | once, 2026-10-21 09:44 UTC | wakes the lead designer chat `session_013PTXKzyTQkpVaKYQyBhRP8` |
+| Check-in on the D-pass reviewer | `trig_015GvrFCeR8yKwvxLfTg97bC` | once, 2026-10-21 09:56 UTC | wakes the lead designer chat `session_013PTXKzyTQkpVaKYQyBhRP8` |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
@@ -131,7 +138,8 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Reviewer, L2 | session_01AKKABP9PxiAjtEkN1wcowa | sonnet-5-5 | 1.34 |
 | Engineer, D pass (PR #24) | session_012PgbFfMKtgaDjSpVz451eZ | opus-5-5 | 7.83 |
 | Engineer, D-pass fixes (#212) | session_01VgbfDLKbvp1rTyfbnxLcNd | opus-5-5 | 2.93 |
-| Physics checker, D pass | session_01UFe2RUu58iTgEttPPf5dZ4 | sonnet-5-5 | running |
+| Physics checker, D pass | session_01UFe2RUu58iTgEttPPf5dZ4 | sonnet-5-5 | 2.26 |
+| Reviewer, D pass | session_01TVQqxMbuhGDobwni8xCnqq | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
