@@ -1,13 +1,12 @@
 # STATUS — hand-over between chats (#179)
 
 Updated 2026-10-21 by the lead designer chat (session
-`session_01LozzrLAfpzaSd7wTt1AUec`); open PR and sessions rows updated by
-the L1 engineer (session `session_01NEZ3dFYvXRDcUQJWexkacC`). Read this first, then `CLAUDE.md`,
+`session_01LozzrLAfpzaSd7wTt1AUec`). Read this first, then `CLAUDE.md`,
 `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#184, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#186, current design in `DESIGN.md`.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
   before their first run, all PASS, VERIFIED by independent reviewer and
   physics-checker sessions; 12/12 VERIFIED on `main` (`node tools/m0.js
@@ -26,12 +25,17 @@ the L1 engineer (session `session_01NEZ3dFYvXRDcUQJWexkacC`). Read this first, t
 
 | PR | Branch | State |
 |---|---|---|
-| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened by the engineer 2026-10-21; 12 of 13 L1 scenarios PASS, `L1.radiator.steady` FAILs (design question in the PR); waits for the reviewer and the physics checker |
+| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened 2026-10-21 03:33 UTC: 12 PASS, 1 recorded FAIL (`L1.radiator.steady`, a spec error, #185), 24/24 VERIFIED; physics checker running; engineer fixes of #185 running on the same branch; reviewer after the fixes |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
 - #181–#184: the L1 plan as proposed in the chat and approved in principle
   by the owner ("duyệt theo đề xuất").
+- #185: answers to the engineer's nine questions on PR #5 (a v2 for the
+  failed radiator scenario, the float slack kept, the hold as ninth room,
+  the size rule, crew rounding, the kernel interpretations, the data hash
+  covering `FIXED` and `ROOMS`).
+- #186: order of checks on L1 and the cost so far (6.65 USD engineer).
 
 ## Awaiting the owner
 
@@ -40,12 +44,9 @@ message in the chat.
 
 ## Next steps
 
-1. ~~Engineer finishes L1 on `m0/l1-rooms` and opens the pull request.~~
-   Done; the PR lists questions for the designer (`L1.radiator.steady`
-   cannot settle in 3600 s; one-sided times on exact steps; the ninth
-   room; size-L rules; draws by surviving cells).
-2. Lead designer starts the **reviewer** and the **physics checker** on it
-   (artifacts only; blind derivation posted first).
+1. Physics checker posts its blind derivation and comparison on PR #5;
+   the engineer-fixes session lands #185 on `m0/l1-rooms`.
+2. Lead designer starts the **reviewer** on the final head.
 3. Engineer fixes blocking findings; lead designer merges when none remain
    (#180); `STATUS.md` and `DESIGN.md` §16 updated.
 4. Before L2: resolve **shield budget double counting** (#170); add the
@@ -76,7 +77,9 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Nightly regression, test 1 (no repo) | session_01ApfJTLNkjCfepi7fVjyFW8 | sonnet-5-5 | 0.09 |
 | Nightly regression, test 2 (no `add_repo`) | session_01Md1GQ7LftRREZ1w6sZyMpb | sonnet-5-5 | 0.09 |
 | Nightly regression, test 3 (works) | session_01RQvwmFsoF6vu1G5wzQJsnP | sonnet-5-5 | 0.09 |
-| Engineer, L1 | session_01NEZ3dFYvXRDcUQJWexkacC | opus-5-5 | not visible to the session |
+| Engineer, L1 (PR #5) | session_01NEZ3dFYvXRDcUQJWexkacC | opus-5-5 | 6.65 |
+| Physics checker, L1 | session_01GmQGV34nzAo394dCthy28J | sonnet-5-5 | running |
+| Engineer, L1 fixes (#185) | see below | opus-5-5 | running |
 
 Sessions have reported a **seven-day usage limit warning**.
 
