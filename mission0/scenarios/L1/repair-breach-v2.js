@@ -30,7 +30,7 @@ export default {
   tolerance: 'counts exact; repair and explosion times one-sided (expected <= actual < expected + dt); energy and end temperature relative 1e-9',
   criterion: 'A is repaired at 1 + 0.7123 / (repair.rate x g(r)), g(r) = 1 / (1 + (r / radius)^2), one-sided, and the destroyed count after it is 0; no breach after hit-2 (1 of 4 destroyed < reactor.breachFraction); breach at hit-3 (2 of 4 >= reactor.breachFraction), cause hit-3; one explosion at breach + reactor.breachCountdown, one-sided, with reactor.explosionEnergy, cause hit-3; exactly one explosion and no meltdown in the whole run, although the heated wreck passes its critical temperature (T_end = T_rest + 1.1 MW x 2000 s / C); reactor crew deaths at each hit = the rise of floor(crew x (cells - sum of integrity) / cells) (hit-1: floor(0.7123) = 0; hit-2: 1; hit-3: 1 for crew 4 in 4 cells); cumulative reactor deaths <= crewRequired.reactor; D stays at integrity 0 and never raises cell-repaired (#81, #189, #203 D, #206)',
   tunable: ['repair.rate', 'repair.radius', 'reactor.breachFraction', 'reactor.breachCountdown', 'reactor.explosionEnergy', 'crewRequired.reactor', 'thermal.heatCapacityPerCell'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '36bc0f9d' },
   cases() {
     return [{ x: 0.25, P: 1.1e6, heatFor: 2000 }];
   },

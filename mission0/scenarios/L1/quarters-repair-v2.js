@@ -34,7 +34,7 @@ export default {
   tolerance: 'counts exact; rate relative 1e-9; time one-sided (expected <= actual < expected + dt)',
   criterion: 'housed crew = crewPerCell x c, deaths per destroyed quarters cell = crewPerCell (floor(crew x integrity lost / cells) with whole cells); repair rate of the damaged cell = repair.rate x (c / 6) x g(r), g(r) = 1 / (1 + (r / radius)^2); time to integrity 1 = 0.7123 / rate, one-sided; c = 0: no repair; the destroyed cell stays at integrity 0 through the run and never raises cell-repaired (#51 as amended by #203 D, #99, #206)',
   tunable: ['quarters.crewPerCell', 'repair.rate', 'repair.radius'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '2c289dd3' },
   cases() {
     const out = [];
     for (const c of [6, 3, 1, 0]) for (const x of [0, 0.5, 1, 2, 4]) if (!ON_GRID.some(([cc, xx]) => cc === c && xx === x)) out.push({ c, x });

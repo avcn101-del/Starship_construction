@@ -35,7 +35,7 @@ export default {
   tolerance: 'integrity and exit momentum relative 1e-9 (1e-12 absolute at 0); counts exact; depth across tiers relative 1e-9',
   criterion: 'each cell resists R = room.kineticResistance (k = 1) of the sectional momentum s0 = m v / (pi D^2 / 4); with depth d = s0 / R the round passes min(cells, floor(d)) cells, each losing 1 / kinetic.hitsToWreck of its integrity per round; the cell it stops in loses (d - floor(d)) / hitsToWreck; after k rounds a passed cell holds 1 - k / hitsToWreck (destroyed at 0: after 3 M rounds every passed cell); cumulative crew deaths per room = floor(crew x (cells - sum of integrity) / cells), never more than its crew; the exit momentum is s0 - cells x R when the round passes the whole line; depth and every loss identical T1-T6 (#137, #165, #203 D, #206)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'kinetic.hitsToWreck', 'room.kineticResistance', 'quarters.crewPerCell'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '51057432' },
   cases() {
     const out = [];
     for (const target of ['quarters', 'hold', 'line']) {
