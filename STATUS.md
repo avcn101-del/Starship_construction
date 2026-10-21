@@ -130,7 +130,11 @@ Nothing (the owner chose the spinal beam bay and low-end masses, #234).
 2. **The path model** (§13i revised, #235): the paused engineer resumes; then
    a blind physics checker and the reviewer; merge; then prototype v2 (a
    helm, physical misses, the path model, a seed per Restart).
-3. Then the L4 plan (ship versus static target).
+3. **When the path model merges, remind the owner to start a new chat**
+   (the owner asked, 2026-10-21; this chat's context was compressed once).
+   Hand over through this file; delete this chat's pending check-ins.
+4. Then the L4 plan (ship versus static target). Physics is frozen after
+   the path model unless a playtest of prototype v2 points at it.
 
 ## Scheduled tasks
 
