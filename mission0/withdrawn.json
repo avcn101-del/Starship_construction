@@ -4,5 +4,29 @@
     "successor": "L1.radiator.steady.v2",
     "decision": "#185",
     "reason": "Specification error: 3600 s is under two time constants of the room, so T cannot settle to 1e-3 of T_ss, and the below-critical filter on a crewed room leaves one case. The lock and the recorded FAIL stay (#185 (1), #187 (8))."
+  },
+  {
+    "id": "L2.heat.chain",
+    "successor": "L2.heat.chain.v2",
+    "decision": "#201",
+    "reason": "Specification error of the lead designer (#201 (2)): a 1e-3 K tolerance tighter than the kernel's own Euler error with a hold in the middle, and a < 15 % claim that the closed form itself puts at 43 %. Under the coolant-loop rule of #200 it fails differently; it was re-recorded canonically on the #200 kernel, so its record shows that kernel's FAIL (the replaced rule's FAIL is in the git history of its record)."
+  },
+  {
+    "id": "L2.heat.neighbour",
+    "successor": "L2.heat.neighbour.v2",
+    "decision": "#201",
+    "reason": "Specification error of the lead designer (#201 (2)): case (c) 'below critical through 900 s' was estimated only until the reactor overheated, while decay heat kept flowing. Under #200 it fails differently (passive walls and life support keep every neighbour cool); it was re-recorded canonically on the #200 kernel, so its record shows that kernel's FAIL (the replaced rule's FAIL is in the git history of its record)."
+  },
+  {
+    "id": "L2.heat.pair",
+    "successor": "L2.heat.pair.v2",
+    "decision": "#200",
+    "reason": "Superseded by the owner's design decision #200 (#201 (3)): its hold cases test one conductance for every wall; under the coolant-loop rule a beam bay | hold wall is passive and the hold cases fail. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.bridge.conduction",
+    "successor": "L2.bridge.conduction.v2",
+    "decision": "#200",
+    "reason": "Superseded by the owner's design decision #200 (#201 (3)): it expects the bridge to cool through a coolant-strength wall; under #200 the wall is passive and life support cools the bridge, so the overheat and restart times move and it fails. Locked and recorded with that FAIL."
   }
 ]

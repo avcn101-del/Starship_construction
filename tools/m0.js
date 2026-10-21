@@ -159,8 +159,12 @@ function recorded(id) {
   const f = path.join(RESULTS, `${id}.json`);
   return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null;
 }
+/** Dependencies not recorded PASS; a withdrawn dependency counts through its successor (#188, #200). */
 function unmetDeps(s) {
-  return (s.dependsOn || []).filter((d) => (recorded(d) || {}).verdict !== 'PASS');
+  return (s.dependsOn || []).filter((d) => {
+    const w = WITHDRAWN.get(d);
+    return (recorded(w ? w.successor : d) || {}).verdict !== 'PASS';
+  });
 }
 function gitState() {
   try {

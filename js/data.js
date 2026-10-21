@@ -32,6 +32,7 @@ export const FIXED = {
   restTemperature: { value: 290, unit: 'K', note: 'rooms start here; space (3 K) is taken as 0 (#182, #183)' },
   radiatorEmissivity: { value: 0.9, unit: '', note: 'radiator.emissivity in DESIGN.md 13c.3: real, a dark panel (#182, #183)' },
   repairFalloffExponent: { value: 2, unit: '', note: 'repair field strength g(r) = 1 / (1 + (r / radius)^n), like the shield (#99, #183)' },
+  lifeSupportSetpoint: { value: 295, unit: 'K', note: 'the air temperature life support holds in crewed rooms and magazines (#201)' },
 };
 
 const KINETIC = {
@@ -63,6 +64,7 @@ export const PARAMS = {
   },
   room: {
     kineticResistance: P(6.75e4, 3e4, 1.4e5, 1, 'kg/(m*s)', true, 'sectional momentum one ordinary room cell absorbs, a quarter of armour (#177)'),
+    blastResistance: P(5e5, 2e5, 2e6, 3, 'J', true, 'blast energy one ordinary room cell absorbs before it is destroyed, half an armour cell; a room fills up to surviving cells x this before passing the excess on (#193, #195)'),
   },
   he: {
     blastEnergy: P(2e6, 5e5, 5e6, 3, 'J', true, 'size M HE warhead (#166)'),
@@ -117,6 +119,7 @@ export const PARAMS = {
     fireRate: P(0.5, 0.2, 2, -1, '1/s', true, 'size M; big guns fire slower (#183)'),
     powerDraw: P(2e5, 5e4, 1e6, 2, 'W', true, 'size M, while able to fire (#183)'),
     heatPerShot: P(3e5, 1e5, 1e6, 3, 'J', true, 'size M (#183)'),
+    readyRounds: P(4, 2, 10, 0, 'rounds', true, 'rounds held in the turret, of its own size; it fires from this store and the magazine feed refills it (#193, #195)'),
   },
   magazine: {
     capacity: P(75, 25, 250, 3, 'kg', true, 'ammunition mass a magazine holds: 150 M rounds (#91, #183)'),
@@ -131,6 +134,28 @@ export const PARAMS = {
   },
   bridge: {
     powerDraw: P(1e5, 2e4, 5e5, 2, 'W', true, 'from the backup supply when the reactor is cut; the backup has no limit (#147, #183)'),
+  },
+  // Flows through shared walls (L2, DESIGN.md 13d.1, #192, #193, #195).
+  conduction: {
+    wall: P(4e3, 1e3, 2e4, 1, 'W/(K*m)', true, 'coolant wall (between two coolant rooms, the machinery\'s coolant loop) per metre of live wall: G = this x L x harmonic mean of the two rooms\' coolant factors; two M rooms over 10 m relax with tau = 30 s (#193, #195, #200, #201)'),
+    passive: P(25, 5, 100, 1, 'W/(K*m)', true, 'passive wall (every wall with a crewed room, a magazine or a hold on either side) per metre of live wall: G = this x L x harmonic mean of the passive factors; a steel bulkhead with air on both sides, about 250 W/K for 10 m x 5 m (#200, #201)'),
+    holdFactor: P(0.1, 0.02, 0.3, 0, '', true, 'passive factor of an empty hold (every other room 1), on passive walls since #201; a hold-room passive wall conducts 0.18 of an ordinary one (#18c, #193, #195, #201)'),
+  },
+  lifeSupport: {
+    capacityPerCell: P(5e4, 1e4, 2e5, 2, 'W', true, 'heat a powered crewed room or magazine above the setpoint pumps into its coolant neighbours, per surviving cell: bridge 200 kW, quarters 300 kW, magazine 200 kW (#201)'),
+  },
+  heatsink: {
+    capacityFactor: P(5, 2, 10, 0, '', true, 'a heat sink\'s heat capacity per cell is thermal.heatCapacityPerCell x this; a water or phase-change store (#198, #201)'),
+    conductivityFactor: P(3, 1, 5, 0, '', true, 'a heat sink\'s coolant factor in the harmonic mean of coolant walls (#198, #201)'),
+  },
+  power: {
+    wallCapacity: P(2e6, 5e5, 5e6, 1, 'W/m', true, 'power a live shared wall carries per metre: 10 m carries 20 MW, a whole M reactor (#12, #193, #195)'),
+  },
+  ammo: {
+    wallFeed: P(0.06, 0.02, 0.3, 1, 'kg/(s*m)', true, 'rounds a live wall between a magazine and a room it feeds carries per second per metre: 5 m feeds 0.3 kg/s (#18, #193, #195)'),
+  },
+  hold: {
+    blastFactor: P(4, 2, 10, 0, '', true, 'an empty hold absorbs this many times the blast of an ordinary room cell (#18c, #193, #195)'),
   },
   // Crew a room needs to be placed (#60, #183): measured at L3. Range 1-3x.
   crewRequired: {
@@ -149,19 +174,28 @@ export const PARAMS = {
 // Rooms (DESIGN.md 5.2, 13c). Footprints in cells per size (rate-like
 // constants of an L room are sizeLinear.L^2 = 9/4 of M, #183); placement;
 // threshold class (#182); crew: the crewRequired constant, or 'housed' for
-// the quarters; draws and powers name their PARAMS constant.
+// the quarters; draws and powers name their PARAMS constant. A room's
+// conductivity and blast factors name their PARAMS constant; a room without
+// one has factor 1 (#193). The L magazine (3x3) is the one L2.size.rule
+// needs (DESIGN.md 13d.2 row 11): 9/4 of the M cells, as every other L room.
+// loop (#200, #201): 'coolant' rooms (plant rooms and the heat sink) share
+// the machinery's coolant loop through walls with each other; every other
+// room is 'passive'. coolantFactor and passiveFactor name their PARAMS
+// constant (default 1); capacityFactor multiplies the heat capacity per cell.
+// lifeSupport marks the rooms whose air life support keeps cool (#201).
 export const ROOMS = {
-  bridge: { footprint: { M: [2, 2] }, placement: 'inside', thermalClass: 'crewed', crew: 'crewRequired.bridge', draw: 'bridge.powerDraw' },
-  reactor: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'plant', crew: 'crewRequired.reactor', power: 'reactor.power' },
-  engine: { footprint: { M: [2, 3] }, placement: 'aft hull, exhaust clear', thermalClass: 'plant', crew: 'crewRequired.engine', draw: 'engine.powerDraw' },
-  magazine: { footprint: { M: [2, 2] }, placement: 'inside', thermalClass: 'magazine', crew: 'crewRequired.magazine' },
-  shieldGenerator: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'plant', crew: 'crewRequired.shieldGenerator', draw: 'shield.powerDraw' },
-  quarters: { footprint: { M: [3, 2] }, placement: 'inside', thermalClass: 'crewed', crew: 'housed', draw: 'quarters.powerDraw' },
-  beamBay: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'plant', crew: 'crewRequired.beamBay', draw: 'beam.power / beambay.efficiency' },
-  turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed', crew: 'crewRequired.turret', draw: 'turret.powerDraw' },
-  railgun: { footprint: { M: [2, 'N'] }, placement: 'axis', thermalClass: 'plant', crew: 'crewRequired.railgun' },
-  missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'crewed', crew: 'crewRequired.missileBay' },
-  hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'crewed', crew: null },
+  bridge: { footprint: { M: [2, 2] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.bridge', draw: 'bridge.powerDraw' },
+  reactor: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.reactor', power: 'reactor.power' },
+  engine: { footprint: { M: [2, 3] }, placement: 'aft hull, exhaust clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.engine', draw: 'engine.powerDraw' },
+  magazine: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'magazine', loop: 'passive', lifeSupport: true, crew: 'crewRequired.magazine' },
+  shieldGenerator: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.shieldGenerator', draw: 'shield.powerDraw' },
+  quarters: { footprint: { M: [3, 2] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'housed', draw: 'quarters.powerDraw' },
+  beamBay: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.beamBay', draw: 'beam.power / beambay.efficiency' },
+  turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.turret', draw: 'turret.powerDraw' },
+  railgun: { footprint: { M: [2, 'N'] }, placement: 'axis', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.railgun' },
+  missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.missileBay' },
+  hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'crewed', loop: 'passive', crew: null, passiveFactor: 'conduction.holdFactor', blastFactor: 'hold.blastFactor' },
+  heatSink: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: null, capacityFactor: 'heatsink.capacityFactor', coolantFactor: 'heatsink.conductivityFactor' },
 };
 
 /** Value of a tunable constant at a cell edge. */
