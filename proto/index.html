@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
-<title>Duct Tape Navy feel prototype</title>
+<title>Duct Tape Navy feel prototype v2</title>
 <link rel="stylesheet" href="proto.css">
 </head>
 <body>
-<!-- Throwaway feel prototype (DESIGN.md 13h, #217, #224). Never a Mission 0 result. -->
+<!-- Throwaway feel prototype v2 (DESIGN.md 13j, #217, #237). Never a Mission 0 result. -->
 <div id="rotate">Turn the phone sideways: the battle is landscape.</div>
 <div id="app">
   <header id="bar">
@@ -40,12 +40,14 @@
 <div id="loadout" hidden>
   <div id="loadout-box">
     <div id="loadout-head">
-      <h2>Loadout <span>both ships alike</span></h2>
+      <h2>Loadout <span>fit: both ships · orders: yours</span></h2>
+      <label id="seed-label" for="seed">Seed</label>
+      <input id="seed" type="number" min="0" step="1" inputmode="numeric" aria-label="Seed">
       <button id="loadout-default" type="button">Defaults</button>
       <button id="loadout-start" type="button">Start</button>
     </div>
     <div id="loadout-groups"></div>
-    <div id="loadout-note">Shield budget and hits to wreck are run-time overrides of js/data.js within their approved ranges. Bow armour is a STAND-IN (see the list). Turrets off: the beam-only probe.</div>
+    <div id="loadout-note">Magazine, layout, shield budget, hits to wreck and turrets fit both ships; shield budget and hits to wreck are run-time overrides of js/data.js within their approved ranges. Turrets off: the beam-only probe. The range, facing and dodge orders are yours (Fire flies them; Evade flies broadside and dodge); the enemy holds 900 m, bow-on, dodging. The seed times each ship's dodge; Restart adds 1.</div>
   </div>
 </div>
 <div id="export-panel" hidden>

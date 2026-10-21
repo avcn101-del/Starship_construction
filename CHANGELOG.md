@@ -32,6 +32,13 @@
   same `Math.sin` and `Math.cos` in every engine (Node's V8 and Chromium
   141 differ in the last bit for about 3 % of arguments), so a phone export
   replays MATCH. `proto/measure.mjs` runs seeds 1–10 at each range order.
+- The page: a world strip above v1's head-up grids (both ships to scale
+  with heading and velocity, rounds in flight, beams landing or missing,
+  the range, hits and misses); on each grid an arrow where rounds entered
+  and the beam where it lands; the loadout panel loses bow armour and gains
+  the range, facing and dodge orders and the seed (shown, +1 at every
+  Restart, editable, in the battle's corner and the export); the stand-ins
+  list names the enemy's script and every preset's throttle (#233).
 
 ## 0.7.2 — 2026-10-21 — Prototype v2 planned (#237)
 
