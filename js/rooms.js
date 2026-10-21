@@ -4,7 +4,9 @@
 // cook-off), turret (firing), shield generator, engine, crew quarters
 // (housing, repair field), bridge (control, backup supply), beam bay.
 // A world given a grid is a cluster (L2, DESIGN.md 13d): rooms placed on the
-// grid (layout.js) share walls; heat conducts through them, power and
+// grid (layout.js) share walls; heat conducts through them (fast along the
+// coolant loop, slowly through passive walls, #200), life support pumps the
+// heat of crewed rooms and magazines into the loop (#201), power and
 // ammunition flow over them (graph.js), blast crosses them; shields overlap
 // without paying more than their budgets (#170); quarters share their repair
 // budget; and the size rule applies (#185 (4), #187 (4)). A room added
@@ -12,7 +14,7 @@
 // Everything a step needs from other rooms is computed from the state at the
 // start of the step. No DOM, no Math.random. Control paths are L3.
 import { ROOMS, FIXED, BASE_EDGE } from './data.js';
-import { createHeat, temperature, radiatorPower, heatStep, crossings, wallConductance, conductionFlows } from './heat.js';
+import { createHeat, temperature, radiatorPower, heatStep, crossings, wallConductance, conductionFlows, ventCell } from './heat.js';
 import { createLog, emit } from './events.js';
 import { absorbBeamStep, shieldStrength, stopRound } from './field.js';
 import { stepsAtLeast } from './util.js';
@@ -61,7 +63,7 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
     position = roomCentre(world.layout, id);
   }
   const sizeLinear = FIXED.sizeLinear.value[size];
-  const C = n * tierScaled(world, world.params.thermal.heatCapacityPerCell);
+  const C = n * tierScaled(world, world.params.thermal.heatCapacityPerCell) * (def.capacityFactor ? param(world, def.capacityFactor).value : 1); // heat sink x capacityFactor (#198)
   const cls = def.thermalClass, th = world.params.thermal;
   const room = {
     id, type, size, def, position,
@@ -79,9 +81,11 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
   // count, L = 9/4 of M. Only in a cluster: a room alone keeps L1's values.
   room.cellRatio = world.sizeRule ? n / (def.footprint.M[0] * def.footprint.M[1]) : 1;
   if (world.layout) {
-    room.heat.conducted = 0;
+    Object.assign(room.heat, { conducted: 0, pumped: 0, vented: 0 });
     room.placed = !!cell;
-    room.conductivity = def.passiveFactor ? param(world, def.passiveFactor).value : 1; // the coolant-loop rule of #201 lands in the next commit
+    // Wall factors (#200, #201): a coolant room's factor on coolant walls, every room's factor on passive walls.
+    room.coolantFactor = def.coolantFactor ? param(world, def.coolantFactor).value : 1;
+    room.passiveFactor = def.passiveFactor ? param(world, def.passiveFactor).value : 1;
     room.blastFactor = def.blastFactor ? param(world, def.blastFactor).value : 1;
     room.powerFraction = 0;
   }
@@ -170,12 +174,13 @@ export function step(world) {
   const dt = world.dt;
   const conducted = world.layout ? conduction(world) : null;
   if (world.layout && world.power) routePower(world);
+  const pumped = world.layout ? lifeSupport(world) : null; // after routing: a room's power this step decides it
   if (world.layout && world.beams.length) shieldPayments(world);
   repairGrants(world);
   for (const room of world.rooms) {
     const own = room.exploded || !room.active ? 0 : (BEHAVIOUR[room.type]?.(world, room) || 0);
     const external = room.externalPower * dt;
-    if (conducted) heatStep(room.heat, own + external, irBrightness(world, room), dt, conducted.get(room) || 0);
+    if (conducted) heatStep(room.heat, own + external, irBrightness(world, room), dt, conducted.get(room) || 0, pumped.get(room) || 0);
     else heatStep(room.heat, own + external, irBrightness(world, room), dt);
   }
   if (world.layout) feedTurrets(world);
@@ -446,6 +451,11 @@ const ON_CELL_DESTROYED = {
   bridge(world, room, cause) {
     if (survivingCells(room) === 0 && room.bridge.control) { room.bridge.control = false; event(world, room, 'control-lost', cause); }
   },
+  heatSink(world, room, cause) {
+    // A destroyed cell vents its share of the heat above rest; the buffer shrinks, T is unchanged (#198).
+    const energy = ventCell(room.heat, survivingCells(room) + 1, FIXED.restTemperature.value);
+    event(world, room, 'heat-vented', cause, { energy });
+  },
 };
 
 const TIMERS = {
@@ -508,17 +518,63 @@ export function detonateMagazine(world, room, cause) {
 // ---------- cluster (L2, DESIGN.md 13d.1) ----------
 const roomById = (world, id) => world.rooms.find((r) => r.id === id);
 
-/** Net heat (J) each room takes through live walls this step, from the temperatures at its start (#193). */
+const isCoolant = (room) => room.def.loop === 'coolant';
+/**
+ * Net heat (J) each room takes through live walls this step, from the
+ * temperatures at its start (#193). A wall between two coolant rooms is a
+ * coolant wall (conduction.wall, coolant factors); every other wall is
+ * passive (conduction.passive, passive factors) (#200, #201).
+ */
 function conduction(world) {
-  const perMetre = tierScaled(world, world.params.conduction.wall);
-  const walls = liveWalls(world).filter((w) => w.live > 0)
-    .map((w) => ({ ra: w.a, rb: w.b, a: w.a.heat, b: w.b.heat, G: wallConductance(perMetre, w.live, w.a.conductivity, w.b.conductivity) }));
+  const coolant = tierScaled(world, world.params.conduction.wall), passive = tierScaled(world, world.params.conduction.passive);
+  const walls = liveWalls(world).filter((w) => w.live > 0).map((w) => ({
+    ra: w.a, rb: w.b, a: w.a.heat, b: w.b.heat,
+    G: isCoolant(w.a) && isCoolant(w.b)
+      ? wallConductance(coolant, w.live, w.a.coolantFactor, w.b.coolantFactor)
+      : wallConductance(passive, w.live, w.a.passiveFactor, w.b.passiveFactor),
+  }));
   const flows = conductionFlows(walls, world.dt);
   const net = new Map();
   walls.forEach((w, i) => {
     net.set(w.ra, (net.get(w.ra) || 0) - flows[i]);
     net.set(w.rb, (net.get(w.rb) || 0) + flows[i]);
   });
+  return net;
+}
+
+/**
+ * Life support (#201, 13d.1): each crewed room and magazine (ROOMS
+ * lifeSupport) that is powered (the bridge always, on its backup, #147),
+ * has a surviving cell and is above FIXED.lifeSupportSetpoint pumps heat
+ * into the coolant rooms sharing a live wall with it, split by live wall
+ * length: min(lifeSupport.capacityPerCell x surviving cells x dt, the heat
+ * above the setpoint at the start of the step), so the pump alone never
+ * takes it below the setpoint within a step. A heat pump works against the
+ * gradient. With no coolant neighbour it does nothing. Returns the net heat
+ * (J) each room takes by it this step (Σ = 0).
+ */
+function lifeSupport(world) {
+  const net = new Map(), setpoint = FIXED.lifeSupportSetpoint.value, perCell = tierScaled(world, world.params.lifeSupport.capacityPerCell);
+  const walls = liveWalls(world).filter((w) => w.live > 0);
+  for (const room of world.rooms) {
+    if (!room.def.lifeSupport || !room.placed || room.exploded || isDestroyed(room)) continue;
+    if (room.type !== 'bridge' && !room.powered) continue;
+    const excess = room.heat.Q - room.heat.C * setpoint;
+    if (!(excess > 0)) continue;
+    const sinks = [];
+    for (const w of walls) {
+      const other = w.a === room ? w.b : w.b === room ? w.a : null;
+      if (other && isCoolant(other)) sinks.push({ other, live: w.live });
+    }
+    if (!sinks.length) continue;
+    const E = Math.min(perCell * survivingCells(room) * world.dt, excess);
+    const total = sinks.reduce((x, k) => x + k.live, 0);
+    for (const k of sinks) {
+      const e = (E * k.live) / total;
+      net.set(room, (net.get(room) || 0) - e);
+      net.set(k.other, (net.get(k.other) || 0) + e);
+    }
+  }
   return net;
 }
 
