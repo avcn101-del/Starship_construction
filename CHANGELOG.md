@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.2 — 2026-10-21 — The prototype published; the symmetric principle (#227, #228)
+
+- `DESIGN.md` §2: every interaction is symmetric (the owner, #228).
+- `DESIGN.md` §13h.4: what the first prototype build showed; loadout panel
+  and Export / replay.
+
 ## 0.6.1 — 2026-10-21 — The mass pass merged; answers (#225, #226)
 
 - The mass pass (PR #40, head `24435a7`) merged into `main` after review
