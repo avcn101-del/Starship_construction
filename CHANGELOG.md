@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.1 — 2026-10-21 — Prototype v2 merged (PR #51, #239)
+
+- PR #51 merged through the lead designer's branch after the reviewer
+  found no blocking finding; `DESIGN.md` §13j corrected (the 0.24 g unit
+  error, the enemy's bow-on dodge) and §13j.6 added with the measure
+  (bow-on hold 900: 7.1 s; broadside: 9–108 s) and the sin/cos finding;
+  answers to the engineer and reviewer in #239.
+
 ## 0.8.0 — 2026-10-21 — Prototype v2: a helm and physical misses (#237)
 
 - Data (`DESIGN.md` §13j.2, #236 (1)): `armour.kineticResistance`,

@@ -1248,11 +1248,11 @@ scripts; re-runnable from `proto/measure.mjs` once v2 exists).
 | Kernel | `js/` unchanged except `data.js`: `armour.kineticResistance`, `beam.focusRange` and `FIXED.beamWaistPerHalfCell` **removed** (#236 (1)); the superseded pure functions stay. The five withdrawn L0 scenarios that read them (`beam-burn`, `beam-burn-v2`, `beam-falloff`, `kinetic-penetration`, `kinetic-penetration-v2`) become **retired** in `mission0/withdrawn.json` (`retired: true`, reason): `regress` lists them and does not run them, counted apart (expected 57 VERIFIED + 29 WITHDRAWN + 5 RETIRED). A locked scenario is never edited |
 | Paths | the path model's kernel: `shieldRound` at the hull entry point, `fireRound` along the **cells the round's line crosses** in the target's grid (entry to exit, in order; holes stay on the path); `fireBeam` the same along the beam's line; cell masses as the kernel has them. The Gaussian beam, `burnThrough` and the bow-armour belt stand-ins of v1 go |
 | Helm | three **standing orders** (§8), executed by an autopilot STAND-IN for L4's `helm.js`: **range** close 600 / hold 900 / open 1500 m (the #54 band; thrust along the line of sight into a dead band); **facing** bow-on / broadside; **dodge** off / on (the throttle's sign flipped at seeded random intervals across the line of sight). Conflicts resolve as #40: range, then facing, then dodging; the autopilot holds heading with the RCS against the thrust torque and turns with the couple. Interval, dead band and gains are prototype settings in `proto/config.js`, never game numbers |
-| Facing's physics | the beam bay is spinal (#234): the beam leaves along the ship's axis and hits whatever that line crosses, so only a bow-on ship beams its target; the main engine pushes along the axis, so only a broadside ship dodges at 1.8 g (bow-on it has the RCS: 2 MN / 850 t = 0.24 m/s², nothing), and a broadside shows 11 columns instead of 6 rows. No constant |
+| Facing's physics | the beam bay is spinal (#234): the beam leaves along the ship's axis and hits whatever that line crosses, so only a bow-on ship beams its target; the main engine pushes along the axis, so only a broadside ship dodges at 1.8 g (bow-on it has the RCS: 2 MN / 850 t = 2.35 m/s², 0.24 g, about 1.5 m over a 900 m flight: nothing; the first version wrote 0.24 m/s², a unit error, #239), and a broadside shows 11 columns instead of 6 rows. No constant |
 | Rounds | a kernel `shot` launches a round at the shooter's velocity plus 800 m/s along the turret's aim; the turret aims at the **lead point** (the target room's position extrapolated at its ship's velocity over the time of flight; a quadratic) in any direction (STAND-IN: no traverse arc, no slew); each step the round's segment is tested against the target's hull; a round that crosses nothing flies on and is culled 3 km from the midpoint (a prototype setting; #222 (7)). **No dispersion**: misses come from motion only |
 | Player | targets a room by tap (as v1); presets: **Fire** (weapons on the target, shield on, the standing orders as set), **Cool** (weapons off, shield off, engine off: the ship coasts, the RCS holds heading, no dodging), **Evade** (weapons hold, shield on, broadside and dodge on at full thrust); time ×1, ×2, ×4 |
 | Loadout | v1's magazine, layout, shield budget, hits to wreck, turrets; **bow armour removed** (its stand-in read the removed constants; armour fittings come with #15); new **range** and **facing** orders; the **seed**, shown, changed at every Restart (+1, editable), written in the export; `PROTO_VERSION` 'feel-3' |
-| Enemy | the script of v1 (Fire 60 s, Cool 30 s; beam bay, turret, engine) with orders hold 900, bow-on, dodge on; the script and every preset's throttle listed in the on-screen stand-ins (#233) |
+| Enemy | the script of v1 (Fire 60 s, Cool 30 s; beam bay, turret, engine) with orders hold 900, bow-on, dodge on (which, bow-on, is the RCS only: the enemy does not dodge in effect, a contradiction of this plan with its own facing row, found by the docs audit and the measure, #239); the script and every preset's throttle listed in the on-screen stand-ins (#233) |
 | View | v1's two head-up grids (enemy tappable) plus a **world strip**: both ships to scale with heading and velocity, rounds in flight, the range in metres, hits and misses counted; on each grid an arrow where rounds enter; the beam drawn where it lands (or misses). The camera of #55 waits |
 | Export / replay | as v1 (`proto/export.js`, `proto/replay.mjs`, MATCH on the event hash), now with seed and orders; `proto/measure.mjs` runs the duel headless for the seeds 1–10 at each range and prints its length, hits, misses and the end |
 
@@ -1272,6 +1272,10 @@ fresh shield: a heat race of **minutes**, decided by who cools when. At
 600 m nothing misses: about v1. Uncertain by a factor of two; v2 measures
 it over ten seeds.
 
+**Not reached (#239).** The estimate assumed a bow-on ship dodges at 1.8 g,
+which the facing row above denies it: bow-on the dodge is the RCS alone.
+§13j.6 has the measure.
+
 ### 13j.4 What the owner judges (on the Android phone)
 
 v1's four (pace, heat, readability, choices; §13h.1) and: (5) **range**:
@@ -1289,6 +1293,33 @@ One engineer session (opus) on `proto/v2`; no scenarios; the reviewer
 console errors; no physics checker (the kernel's physics is unchanged;
 the helm is a stand-in). The lead designer publishes the page (#226).
 Estimated cost 12–18 USD (v1's three sessions cost 12.05).
+
+### 13j.6 What the build measured (#239)
+
+`node proto/measure.mjs` (both ships on the enemy script, seeds 1–10 per
+range order, default loadout; head `4fba090`):
+
+| Orders (both ships) | close 600 m | hold 900 m | open 1500 m |
+|---|---|---|---|
+| bow-on, dodge on | 20.8 s, 91 % hits, all seeds alike | **7.1 s, 100 % hits**, all seeds alike | 33.7–37.8 s, 94 % |
+| broadside, dodge on | 20.9 / 33.9 / 46.9 s, 6 % misses | 9.1 / 37.2 / 45.4 s, 12 % | 37.8 / 49.0 / 107.9 s, 13 % |
+
+(min / median / max over seeds; every duel ends in a magazine explosion.)
+Bow-on the lead-aimed gun lands on the aimed beam bay and the round runs
+down the axis rows into the magazine, as §13j.1 predicted: four hits on one
+row. The reviewer found that the close and open rows mostly measure the
+stand-in autopilot settling (the ships start 900 m apart and, while
+ranging, fly by velocity error rather than bow-on, so hits scatter across
+rooms for about 18 s), not the range order itself: read them so. The
+**levers act** (#233's question): broadside and dodge move the duel from
+7 s to 9–108 s, at the cost of the beam and a longer silhouette.
+Kernel finding: `Math.sin` / `Math.cos` differ between V8 versions
+(Chromium 141 against Node 22), so a battle in which ships turn cannot
+replay across engines; `proto/detmath.js` installs fdlibm's sin and cos
+(within 1 ulp of native, bit-identical across the two engines) as a
+stand-in; the kernel gets its own in the next kernel pass. Reviewer: no
+blocking finding; the replay MATCHes across engines; the smoke test runs
+with zero console errors.
 
 ## 14. Architecture
 

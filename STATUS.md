@@ -70,7 +70,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 | PR | Branch | State |
 |---|---|---|
 | #50 | `ccr-4f9cd066-gv15es` | docs: §13j, #237, #238, CHANGELOG 0.7.2, STATUS; the lead designer merges with the v2 block (#218) |
-| #51 | `proto/v2` (head `4fba090`) | prototype v2 built; reviewer running; nine questions for the lead designer (answered at merge) |
+| #51 | `proto/v2` (head `4fba090`) | merged into the lead designer's branch (closes with PR #50); answers in #239 |
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
@@ -82,6 +82,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #239: prototype v2 merged; answers to its engineer and reviewer; the
+  lead designer's §13j.3 estimate was wrong by its own facing rule.
 - #238: audits at fixed milestones (the owner's direction; the milestones
   and the four audits' scope are the lead designer's wording, §13b).
 - #237: prototype v2's plan (§13j): kernel numbers first (R1 850 t, 1.80
@@ -138,18 +140,10 @@ Nothing (the owner chose the spinal beam bay and low-end masses, #234).
 
 ## Next steps
 
-1. **Prototype v2 is built (PR #51)** and published for the owner on the
-   v1 page (https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d, head
-   `4fba090`); the reviewer runs (`session_01EjFiN5BcJedtsbn1K6ucc6`).
-   **The measure contradicts §13j.3**: bow-on at hold 900 the duel ends
-   in 7.1 s with 100 % hits (the lead designer's estimate assumed 1.8 g
-   of dodge that its own facing rule denies a bow-on ship); broadside
-   9–45 s at hold, 38–108 s at open, 12–13 % misses. The engineer found
-   that `Math.sin` / `Math.cos` differ between V8 versions (replay
-   MISMATCH across engines) and patched them in `proto/detmath.js`
-   (fdlibm); the kernel's own sin/cos is a next-kernel-pass item. Its nine
-   questions are answered at merge (a decision row). Then the lead designer
-   merges the v2 block with PR #50; the owner plays with a changing seed.
+1. **Prototype v2 is merged (#239)** and published for the owner
+   (https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d, head `4fba090`):
+   the owner plays it with a changing seed and the player's orders
+   (range, facing, dodge) and writes down what is not fun (§13j.4).
 2. **Audits (#238, §13b)**: documents done (`audit/docs`, 72 findings:
    9 contradictions, 28 stale, 4 unsupported, 22 single-place, 9
    questions; six questions are the owner's: no dice vs seeded stand-ins,
@@ -235,6 +229,7 @@ D pass total: 14.11 USD (engineers 7.83 + 2.93, physics checker 2.26, reviewer 1
 L3 total: 23.82 USD (engineers 13.09 + 2.94 + 3.12, physics checker 3.22, reviewer 1.45).
 Mass pass total: 8.90 USD (engineer 8.07, reviewer 0.83).
 Feel prototype total: 12.36 USD (engineers 5.41 + 3.71 + 2.93, reviewer 0.31).
+Prototype v2 total: 13.85 USD (engineer 11.73, reviewer 1.00, mis-created session 1.12).
 Path model total: 18.24 USD (engineer 13.57, physics checker 4.08, reviewer 0.59).
 
 Sessions have reported a **seven-day usage limit warning**.
