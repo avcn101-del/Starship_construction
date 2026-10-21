@@ -71,7 +71,9 @@ export function applyImpulse(body, J, p) {
  * point } summed into a world force and a torque about the centre of mass;
  * v and omega first, then x and theta. The external impulse of the step
  * (J += F dt, H += q × F dt with q the point at the start of the step) is
- * added to `books`, which keeps the angular momentum books exact.
+ * added to `books`, which keeps the angular momentum books exact; `Hgross`
+ * sums |q × F dt| over every booking, the scale of the books' float
+ * residue when opposite impulses cancel (#219).
  */
 export function integrate(body, forces, dt, books) {
   let Fx = 0, Fy = 0, tau = 0;
@@ -79,7 +81,7 @@ export function integrate(body, forces, dt, books) {
     const Fw = rotate(f.F, body.theta), q = worldPoint(body, f.p);
     Fx += Fw[0]; Fy += Fw[1];
     tau += cross([q[0] - body.x[0], q[1] - body.x[1]], Fw);
-    if (books) { books.J[0] += Fw[0] * dt; books.J[1] += Fw[1] * dt; books.H += cross(q, Fw) * dt; }
+    if (books) { books.J[0] += Fw[0] * dt; books.J[1] += Fw[1] * dt; const h = cross(q, Fw) * dt; books.H += h; books.Hgross += Math.abs(h); }
   }
   body.v[0] += (Fx / body.M) * dt;
   body.v[1] += (Fy / body.M) * dt;

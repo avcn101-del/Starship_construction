@@ -32,6 +32,12 @@
   6 BLOCKED (see §16 and the pull request: two predicted specification
   differences and two float-scale flaws in the engineer's invariants).
   `DESIGN.md` §16 gets the measured L3 block; `MISSION0.md` regenerated.
+- Fixes of #219 (in progress): `js/body.js` and `fixtureImpulse` also book
+  the gross angular impulse (`external.Hgross`, Σ |q × F dt|) for the v2
+  angular books; no record moved. Seven v2 scenarios written in
+  `mission0/scenarios/L3/*-v2.js`, **not locked**: the literal angular scale
+  of #219 fails float resolution in `L3.mass.props` (question in the pull
+  request).
 
 ## 0.4.3 — 2026-10-21 — Answers to the L3 engineer (#219)
 

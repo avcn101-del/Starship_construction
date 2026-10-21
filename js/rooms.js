@@ -952,7 +952,7 @@ function countRadiators(world) {
  */
 export function enableShip(world, { origin = [0, 0], heading = 0, velocity = [0, 0], omega = 0 } = {}) {
   if (!world.layout) throw new Error('a ship needs a cluster (createWorld with a grid)');
-  world.ship = { bodies: [], debris: [], rounds: [], external: { J: [0, 0], H: 0 }, items: new Map(), next: 1, moved: false };
+  world.ship = { bodies: [], debris: [], rounds: [], external: { J: [0, 0], H: 0, Hgross: 0 }, items: new Map(), next: 1, moved: false };
   for (const room of world.rooms) {
     if (!room.placed) continue;
     room.body = 'body-0';
@@ -1108,12 +1108,14 @@ export function fixtureImpulse(world, J, p, bodyId = world.ship.bodies[0].id) {
   const b = world.ship.bodies.find((x) => x.id === bodyId), q = worldPoint(b, p);
   applyImpulse(b, J, p);
   world.ship.external.J[0] += J[0]; world.ship.external.J[1] += J[1];
-  world.ship.external.H += q[0] * J[1] - q[1] * J[0];
+  const h = q[0] * J[1] - q[1] * J[0];
+  world.ship.external.H += h;
+  world.ship.external.Hgross += Math.abs(h);
 }
 
 /** Momentum, angular momentum about the origin and kinetic energy of bodies, debris and rounds, and the external impulse booked. */
 export function shipMomentum(world) {
-  return { ...momentumOf(world.ship), external: { J: [...world.ship.external.J], H: world.ship.external.H } };
+  return { ...momentumOf(world.ship), external: { J: [...world.ship.external.J], H: world.ship.external.H, Hgross: world.ship.external.Hgross } };
 }
 
 /** Steady heat (W) a room generates in its current settings, as its behaviour would (the readout's load, #58). */
