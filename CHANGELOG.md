@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.2 — 2026-10-21 — The prototype plan and the not-fun ladder (#223, #224)
+
+- `DESIGN.md` §2: when play is not fun, tune constants, then combine the
+  existing physics, only then change a law (the owner).
+- `DESIGN.md` §13h: the feel prototype's scope, stand-ins and estimate.
+
 ## 0.5.1 — 2026-10-21 — L3 merged; reviewer answers (#222)
 
 - L3 (PR #35, head `f8d31c6`) merged into `main` after the physics checker
