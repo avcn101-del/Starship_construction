@@ -164,7 +164,7 @@ export default {
   tolerance: 'alpha 1e-9 relative; the turn time one-sided on the step grid (T <= t < T + dt, 1e-9 relative float slack); the firing step counts exact and the end time (n1 + n2) dt 1e-9 relative; the heading against the discrete sum 1e-9 relative; |omega| <= alpha dt (1e-9 relative slack); readout 1e-12 relative',
   criterion: 'alpha = sum r x F / I (estimate 0.381 rad/s^2, arms 50 m); the turn takes T = 2 sqrt(theta / alpha) (estimate 4.06 s), one-sided on the step grid; the discrete turn: n1 = ceil((T / 2) / dt) turning and n2 = ceil(T / dt) - n1 braking firing steps (122 + 122, the last firing step ending at 244 / 60 s) and the heading at that time equal to the semi-implicit scheme\'s discrete sum (omega += alpha dt, then theta += omega dt, each step; 122^2 alpha dt^2 = 1.576373 rad) to 1e-9; final |omega| <= alpha dt; the readout\'s angular acceleration and turn time exact (#15, #58, #208, #209, #210, #219, #220)',
   tunable: ['rcs.force', 'thermal.heatCapacityPerCell', 'thermal.specificHeat', 'radiator.mass', 'rcs.mass'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'cc344c95' },
   cases() {
     return [{ turn: 'ccw' }, { turn: 'cw' }];
   },

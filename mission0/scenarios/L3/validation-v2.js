@@ -172,7 +172,7 @@ export default {
   tolerance: 'exact',
   criterion: 'R1 valid; every variant rejected with exactly one reason, its rule\'s (connected, hull, exhaust, fitting-inside, fitting-per-edge, overlap, grid); inside rooms (bridge, reactor, magazine, quarters; not the shield generator, a plant room that may carry fittings, #219) carry no fitting and may touch the hull (#15, #57, #208, #219)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '66c78555' },
   cases() {
     return Object.keys(VARIANTS).map((variant) => ({ variant }));
   },

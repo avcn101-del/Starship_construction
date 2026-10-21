@@ -183,7 +183,7 @@ export default {
   tolerance: '(a) acceleration 1e-9 relative, omega 1e-12 rad/s absolute, the discrete position 1e-9 relative at every sample; (b) omega 1e-9 relative at every step, position (relative to the reference displacement) and heading (relative to the reference heading) 1e-2 at t = 5 s and t = 10 s; readout 1e-12 relative',
   criterion: '(a) a = F / M to 1e-9 and omega = 0 to 1e-12 (thrust through the centre of mass), and the centre of mass\'s discrete position x_n = a dt^2 n (n + 1) / 2 of the semi-implicit scheme (v += a dt, then x += v dt) to 1e-9 relative at the end of each whole second and of the run; (b) omega(t) = alpha t with alpha = F d / I (d: the thrust line, the centre of the exhaust face, below the centre of mass; estimate 0.224 rad/s^2, 12.9 deg/s^2) to 1e-9, position and heading against the reference integrator within 1e-2 relative at t = 5 s and t = 10 s (the kernel\'s semi-implicit Euler differs by about dt / t: 3.3e-3 and 1.7e-3; a thrust that does not turn with the ship is off by order 1); the readout\'s acceleration = F / (M g) exact (estimate 3.90 g for R1 at 2 MN) (#14, #203 A, #208, #209, #210, #219, #220)',
   tunable: ['engine.thrust', 'thermal.heatCapacityPerCell', 'thermal.specificHeat', 'radiator.mass', 'rcs.mass'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'ca2ffe38' },
   cases() {
     return [{ ship: 'symmetric' }, { ship: 'R1' }];
   },
