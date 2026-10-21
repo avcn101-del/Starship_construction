@@ -1,0 +1,100 @@
+{
+  "id": "L0.kinetic.overpen.v2",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.kinetic.overpen.v2",
+  "code": "f220524",
+  "criterionHash": "8d466bea",
+  "lockedHash": "8d466bea",
+  "runHash": "7319a1a7",
+  "dataHash": "70b16e4c",
+  "rowsHash": "bbd05441",
+  "rows": [
+    {
+      "case": {
+        "cells": 1
+      },
+      "expected": {
+        "kept": 0.8817461672864094,
+        "exits": true
+      },
+      "actual": {
+        "kept": 0.8817461672864094,
+        "exits": true,
+        "f": 0.061217326304466364,
+        "p0": 4800,
+        "booked": 4800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "cells": 2
+      },
+      "expected": {
+        "kept": 0.7557810892901545,
+        "exits": true
+      },
+      "actual": {
+        "kept": 0.7557810892901545,
+        "exits": true,
+        "f": 0.12243465260893273,
+        "p0": 4800,
+        "booked": 4800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "cells": 3
+      },
+      "expected": {
+        "kept": 0.6210289217562496,
+        "exits": true
+      },
+      "actual": {
+        "kept": 0.6210289217562496,
+        "exits": true,
+        "f": 0.1836519789133991,
+        "p0": 4800,
+        "booked": 4800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "cells": 4
+      },
+      "expected": {
+        "kept": 0.476171790166479,
+        "exits": true
+      },
+      "actual": {
+        "kept": 0.476171790166479,
+        "exits": true,
+        "f": 0.24486930521786546,
+        "p0": 4800,
+        "booked": 4800
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "the momentum kept falls with every cell crossed",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

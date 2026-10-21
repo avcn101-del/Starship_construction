@@ -1,0 +1,758 @@
+{
+  "id": "L3.kinetic.hole.v2",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.kinetic.hole.v2",
+  "code": "f220524",
+  "criterionHash": "69d0af68",
+  "lockedHash": "69d0af68",
+  "runHash": "1c8bd105",
+  "dataHash": "70b16e4c",
+  "rowsHash": "db58828d",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "line": "intact"
+      },
+      "expected": {
+        "r": 914855.6226486228,
+        "stoppedIn": 1,
+        "depth": 1.4984603663239031,
+        "stopLoss": 0.16615345544130106,
+        "taken": [
+          914855.6226486228,
+          456019.2687989151
+        ],
+        "fAfter": [
+          0.30200547643536746,
+          0.45254323685116565
+        ],
+        "line": [
+          0.6666666666666667,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "rooms": [
+          {
+            "crew": 18,
+            "deaths": 1
+          },
+          {
+            "crew": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "deaths": 0
+          }
+        ]
+      },
+      "actual": {
+        "p0": 4800,
+        "absorbed": [
+          914855.6226486228,
+          456019.2687989151
+        ],
+        "impulse": [
+          2800.2507586578245,
+          1999.7492413421755
+        ],
+        "momentum": 0,
+        "f": 0.45254323685116554,
+        "passed": 1,
+        "stoppedIn": 1,
+        "losses": [
+          0.3333333333333333,
+          0.16615345544130106
+        ],
+        "line": [
+          0.6666666666666667,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "rooms": [
+          {
+            "crew": 18,
+            "aboard": 17,
+            "deaths": 1
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          }
+        ],
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "line": "hole"
+      },
+      "expected": {
+        "r": 914855.6226486228,
+        "stoppedIn": 2,
+        "depth": 2.4984603663239033,
+        "stopLoss": 0.16615345544130106,
+        "taken": [
+          914855.6226486228,
+          0,
+          456019.2687989151
+        ],
+        "fAfter": [
+          0.30200547643536746,
+          0.30200547643536746,
+          0.45254323685116565
+        ],
+        "line": [
+          0.6666666666666667,
+          0,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "rooms": [
+          {
+            "crew": 18,
+            "deaths": 4
+          },
+          {
+            "crew": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "deaths": 0
+          }
+        ]
+      },
+      "actual": {
+        "p0": 4800,
+        "absorbed": [
+          914855.6226486228,
+          0,
+          456019.2687989151
+        ],
+        "impulse": [
+          2800.2507586578245,
+          0,
+          1999.7492413421755
+        ],
+        "momentum": 0,
+        "f": 0.45254323685116554,
+        "passed": 2,
+        "stoppedIn": 2,
+        "losses": [
+          0.3333333333333333,
+          0,
+          0.16615345544130106
+        ],
+        "line": [
+          0.6666666666666667,
+          0,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "rooms": [
+          {
+            "crew": 18,
+            "aboard": 14,
+            "deaths": 4
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          },
+          {
+            "crew": 18,
+            "aboard": 18,
+            "deaths": 0
+          }
+        ],
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "line": "intact"
+      },
+      "expected": {
+        "r": 5489133.735891737,
+        "stoppedIn": 1,
+        "depth": 1.4984603663239031,
+        "stopLoss": 0.16615345544130106,
+        "taken": [
+          5489133.735891737,
+          2736115.6127934903
+        ],
+        "fAfter": [
+          0.30200547643536746,
+          0.4525432368511656
+        ],
+        "line": [
+          0.6666666666666667,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "rooms": [
+          {
+            "crew": 648,
+            "deaths": 53
+          },
+          {
+            "crew": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "deaths": 0
+          }
+        ]
+      },
+      "actual": {
+        "p0": 1036800,
+        "absorbed": [
+          5489133.735891737,
+          2736115.6127934903
+        ],
+        "impulse": [
+          604854.1638700902,
+          431945.83612990985
+        ],
+        "momentum": 0,
+        "f": 0.45254323685116554,
+        "passed": 1,
+        "stoppedIn": 1,
+        "losses": [
+          0.3333333333333333,
+          0.16615345544130106
+        ],
+        "line": [
+          0.6666666666666667,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "rooms": [
+          {
+            "crew": 648,
+            "aboard": 595,
+            "deaths": 53
+          },
+          {
+            "crew": 648,
+            "aboard": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "aboard": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "aboard": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "aboard": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "aboard": 648,
+            "deaths": 0
+          }
+        ],
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "line": "hole"
+      },
+      "expected": {
+        "r": 5489133.735891737,
+        "stoppedIn": 2,
+        "depth": 2.4984603663239033,
+        "stopLoss": 0.16615345544130106,
+        "taken": [
+          5489133.735891737,
+          0,
+          2736115.6127934903
+        ],
+        "fAfter": [
+          0.30200547643536746,
+          0.30200547643536746,
+          0.4525432368511656
+        ],
+        "line": [
+          0.6666666666666667,
+          0,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "rooms": [
+          {
+            "crew": 648,
+            "deaths": 161
+          },
+          {
+            "crew": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "deaths": 0
+          }
+        ]
+      },
+      "actual": {
+        "p0": 1036800,
+        "absorbed": [
+          5489133.735891737,
+          0,
+          2736115.6127934903
+        ],
+        "impulse": [
+          604854.1638700902,
+          0,
+          431945.83612990985
+        ],
+        "momentum": 0,
+        "f": 0.45254323685116554,
+        "passed": 2,
+        "stoppedIn": 2,
+        "losses": [
+          0.3333333333333333,
+          0,
+          0.16615345544130106
+        ],
+        "line": [
+          0.6666666666666667,
+          0,
+          0.8338465445586989,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "rooms": [
+          {
+            "crew": 648,
+            "aboard": 487,
+            "deaths": 161
+          },
+          {
+            "crew": 648,
+            "aboard": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "aboard": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "aboard": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "aboard": 648,
+            "deaths": 0
+          },
+          {
+            "crew": 648,
+            "aboard": 648,
+            "deaths": 0
+          }
+        ],
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "with the hole the round stops one cell deeper, with the same stopping loss, at each tier",
+      "ok": true
+    },
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

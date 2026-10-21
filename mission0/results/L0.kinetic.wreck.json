@@ -1,0 +1,166 @@
+{
+  "id": "L0.kinetic.wreck",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.kinetic.wreck",
+  "code": "f220524",
+  "criterionHash": "23f3723a",
+  "lockedHash": "23f3723a",
+  "runHash": "351c9e8e",
+  "dataHash": "70b16e4c",
+  "rowsHash": "60c1c36a",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "size": "S"
+      },
+      "expected": {
+        "stoppedIn": 0,
+        "wrecked": true,
+        "f": 1,
+        "taken": 618145.6909787992,
+        "claim": 0
+      },
+      "actual": {
+        "stoppedIn": 0,
+        "wrecked": true,
+        "f": 1,
+        "taken": 618145.6909787992,
+        "p0": 1422.2222222222217,
+        "booked": 1422.2222222222217
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M"
+      },
+      "expected": {
+        "stoppedIn": 1,
+        "wrecked": true,
+        "f": 1,
+        "taken": 303829.1974850441,
+        "claim": 1
+      },
+      "actual": {
+        "stoppedIn": 1,
+        "wrecked": true,
+        "f": 1,
+        "taken": 303829.19748504437,
+        "p0": 4800,
+        "booked": 4800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "L"
+      },
+      "expected": {
+        "stoppedIn": 2,
+        "wrecked": false,
+        "f": 0.9481033940430892,
+        "taken": 56135.42767737901,
+        "claim": 2
+      },
+      "actual": {
+        "stoppedIn": 2,
+        "wrecked": false,
+        "f": 0.9481033940430892,
+        "taken": 56135.42767737901,
+        "p0": 16200,
+        "booked": 16200
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "S"
+      },
+      "expected": {
+        "stoppedIn": 0,
+        "wrecked": true,
+        "f": 1,
+        "taken": 3708874.1458727955,
+        "claim": 0
+      },
+      "actual": {
+        "stoppedIn": 0,
+        "wrecked": true,
+        "f": 1,
+        "taken": 3708874.1458727955,
+        "p0": 307199.9999999999,
+        "booked": 307199.9999999999
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "M"
+      },
+      "expected": {
+        "stoppedIn": 1,
+        "wrecked": true,
+        "f": 1,
+        "taken": 1822975.184910265,
+        "claim": 1
+      },
+      "actual": {
+        "stoppedIn": 1,
+        "wrecked": true,
+        "f": 1,
+        "taken": 1822975.184910265,
+        "p0": 1036800,
+        "booked": 1036800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "L"
+      },
+      "expected": {
+        "stoppedIn": 2,
+        "wrecked": false,
+        "f": 0.9481033940430892,
+        "taken": 336812.5660642737,
+        "claim": 2
+      },
+      "actual": {
+        "stoppedIn": 2,
+        "wrecked": false,
+        "f": 0.9481033940430891,
+        "taken": 336812.56606427464,
+        "p0": 3499200,
+        "booked": 3499200
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "identical at T1 and T6 (stopping cell and wreck)",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

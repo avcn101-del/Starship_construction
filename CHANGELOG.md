@@ -42,6 +42,16 @@
   `L1.beambay.length`, P10 `L3.mass.props.v4`, `L3.thrust.v4`,
   `L3.rcs.turn.v4`, `L3.recoil.v4`, `L3.split.momentum.v4` and
   `L3.fragment.rules.v2` (v3 / v1 identical except the masses of §13i.2).
+- Locked at `aa186d9` before the first canonical run; all 15 PASS. Every
+  record re-recorded on the new data (the first canonical run was stopped
+  and repeated after three notes in `data.js` were reworded, which moves the
+  data hash; criteria and locks unchanged). Withdrawn as superseded (14):
+  by #230 `L0.kinetic.penetration`, `.v2`, `L0.kinetic.overpen`,
+  `L0.beam.falloff`, `L0.beam.burn`, `.v2`; by #232 `L1.kinetic.damage`,
+  `L3.kinetic.hole`; by #234 the five L3 v3 mass scenarios and
+  `L3.fragment.rules`. `regress`: 57 VERIFIED + 34 WITHDRAWN.
+- `DESIGN.md` §16: the path model's measured block. `MISSION0.md`
+  regenerated.
 
 ## 0.6.6 — 2026-10-21 — The path model revised (#234, #235)
 

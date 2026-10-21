@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.ship.heat.v2",
-  "code": "74493af",
+  "code": "f220524",
   "criterionHash": "0667f5ed",
   "lockedHash": "0667f5ed",
   "runHash": "ca80d3ad",
-  "dataHash": "62e2f8d9",
-  "rowsHash": "ea1c7c77",
+  "dataHash": "70b16e4c",
+  "rowsHash": "77d6b22b",
   "rows": [
     {
       "case": {
@@ -407,10 +407,10 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 8.741344271325e-7,
-          "dL": 0.015478134155273438,
-          "net": 14028977509.680506,
-          "gross": 130797761783656.12
+          "dP": 2.800912966830193e-7,
+          "dL": 0.0069103240966796875,
+          "net": 9711585217.109941,
+          "gross": 72458866693404.56
         }
       },
       "pass": true,
@@ -656,10 +656,10 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 6.915908883121042e-7,
-          "dL": 0.006500244140625,
-          "net": 6846953823.053314,
-          "gross": 58046092443400.086
+          "dP": 5.567533282121839e-7,
+          "dL": 0.004924774169921875,
+          "net": 9150604868.673128,
+          "gross": 32155981582069.71
         }
       },
       "pass": true,
