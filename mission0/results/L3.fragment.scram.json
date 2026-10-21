@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.fragment.scram",
-  "code": "a3a8e6c",
+  "code": "74493af",
   "criterionHash": "48ea595c",
   "lockedHash": "48ea595c",
   "runHash": "a74d2034",
-  "dataHash": "3d66afdf",
-  "rowsHash": "10031fe0",
+  "dataHash": "62e2f8d9",
+  "rowsHash": "77c6714a",
   "rows": [
     {
       "case": {
@@ -165,8 +165,8 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 2.329443027495599e-10,
-          "dL": 6.388872861862183e-7
+          "dP": 2.7977547186229516e-9,
+          "dL": 0.000008717179298400879
         }
       },
       "pass": true,
@@ -207,8 +207,8 @@
         "scrams": [],
         "decay": 0,
         "delivered": 7250000,
-        "thrustAfter": 1000000,
-        "thrustEnd": 1000000,
+        "thrustAfter": 7500000,
+        "thrustEnd": 7500000,
         "shieldDown": false,
         "bridgeControl": true,
         "lifeSupport": {
@@ -320,8 +320,8 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 7.679882693323606e-9,
-          "dL": 0.000008702278137207031
+          "dP": 1.006518012740187e-7,
+          "dL": 0.000049591064453125
         }
       },
       "pass": true,
@@ -482,8 +482,8 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 2.3285906362878826e-10,
-          "dL": 0.000002639368176460266
+          "dP": 9.636181133766254e-10,
+          "dL": 0.000008612871170043945
         }
       },
       "pass": true,
@@ -617,8 +617,8 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 1.193583534842012e-8,
-          "dL": 0.000008196569979190826
+          "dP": 3.09557950653765e-7,
+          "dL": 0.00028967857360839844
         }
       },
       "pass": true,

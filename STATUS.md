@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#224, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#226, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -27,7 +27,14 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   #208–#213, #216, #219, #220, #222): rigid body, thrust, RCS, recoil,
   debris and fragments, control and SCRAM, validation. `regress` on
   `main`: **55 VERIFIED + 15 WITHDRAWN**. Cost 23.82 USD.
-- **Next: the mass pass** (`DESIGN.md` §13g, #221, #222) on `m0/mass`.
+- **The mass pass is done and merged** (`DESIGN.md` §13g; #221, #222,
+  #225): 10 t per cell, thrust 15 MN, RCS 1 MN; R1 448 t, 3.41 g, a 90°
+  turn in 3.68 s, 0.04 °/s per M shot. `regress` on `main`: **56 VERIFIED
+  + 20 WITHDRAWN**. Cost 8.90 USD.
+- **Next: the feel prototype** (`DESIGN.md` §13h, #224, #226): engineer
+  `session_011PcMxJ4ydx4kZctZb2Gefn` (opus) building it on `proto/feel`
+  since 13:29 UTC; then a light review; the lead designer publishes it as
+  a private claude.ai page for the owner's phone.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -52,7 +59,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| (to come) The mass pass | `m0/mass` → `main` | engineer `session_019smwJw2FbuFFrWfmYWTDmz` building it since 12:33 UTC |
+| (to come) Feel prototype | `proto/feel` → `main` | engineer building it |
+
+The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
 L3 merged through the lead designer's branch (PR #35 closes with it).
 
@@ -68,6 +77,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #225: answers to the mass-pass engineer and reviewer; a split room
+  keeps one heat store; the mass pass merged.
 - #224: the feel prototype's plan (§13h).
 - #222: answers to the L3 reviewer (three untested rules get a scenario in
   the mass pass; control needs a working bridge); L3 merged.
@@ -105,15 +116,13 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
 
 ## Next steps
 
-1. **The mass pass** (`DESIGN.md` §13g, #221, #222, the owner): one
-   engineer session on `m0/mass`: 10 t per cell, thrust 15 MN,
-   RCS 1 MN, `L3.fragment.rules`; the L3 scenarios encoding the old mass rule withdrawn as
-   superseded with v3 successors; then a physics checker and the reviewer
-   (or the reviewer only if no physics a checker has not seen, #218).
-2. **The feel prototype** (`DESIGN.md` §13h, #217, #224): after the mass
-   pass merges, one engineer session on `proto/feel`; a light review; the
-   owner plays it on the phone from a private hosted page and notes what
-   is not fun by #223's ladder.
+1. **The feel prototype** (`DESIGN.md` §13h, #217, #224, #226): engineer
+   running on `proto/feel`; a light review (reviewer only: #217's rules
+   and the smoke test); the lead designer publishes it as a private
+   claude.ai page (kernel beside it, `../js/` rewritten); the owner plays
+   it on the phone and notes what is not fun by #223's ladder.
+2. **Then L4** (ship versus static target), its plan written with the
+   prototype's findings.
 
 ## Scheduled tasks
 
@@ -121,7 +130,7 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
 |---|---|---|---|
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
-| Check-in on the mass pass engineer | `trig_0116kSDfLYPakYsQQuAQqr4j` | once, 2026-10-21 13:14 UTC | wakes the lead designer chat `session_013PTXKzyTQkpVaKYQyBhRP8` |
+| Check-in on the prototype engineer | `trig_01TFnJh2yzVq439ahrg72efZ` | once, 2026-10-21 14:30 UTC | wakes the lead designer chat `session_013PTXKzyTQkpVaKYQyBhRP8` |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
@@ -160,12 +169,15 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, L3 fixes 1 (#219, stopped on Q13) | session_016VbwLzzv4YyZZL383cPXbx | opus-5-5 | 2.94 |
 | Engineer, L3 fixes 2 (#219, #220) | session_01AQ4WNuYgQLBevpeWC2HZku | opus-5-5 | 3.12 |
 | Reviewer, L3 | session_01WR2QvB555iEiVuoLRBQS7A | sonnet-5-5 | 1.45 |
-| Engineer, mass pass | session_019smwJw2FbuFFrWfmYWTDmz | opus-5-5 | running |
+| Engineer, mass pass (PR #40) | session_019smwJw2FbuFFrWfmYWTDmz | opus-5-5 | 8.07 |
+| Reviewer, mass pass | session_012AUgxm8yu3YHzVQ5gLjGC9 | sonnet-5-5 | 0.83 |
+| Engineer, feel prototype | session_011PcMxJ4ydx4kZctZb2Gefn | opus-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
 D pass total: 14.11 USD (engineers 7.83 + 2.93, physics checker 2.26, reviewer 1.09).
 L3 total: 23.82 USD (engineers 13.09 + 2.94 + 3.12, physics checker 3.22, reviewer 1.45).
+Mass pass total: 8.90 USD (engineer 8.07, reviewer 0.83).
 
 Sessions have reported a **seven-day usage limit warning**.
 

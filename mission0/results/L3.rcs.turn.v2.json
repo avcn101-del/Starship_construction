@@ -1,284 +1,40 @@
 {
   "id": "L3.rcs.turn.v2",
   "level": "L3",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L3.rcs.turn.v2",
-  "code": "a3a8e6c",
+  "code": "74493af",
   "criterionHash": "cc344c95",
   "lockedHash": "cc344c95",
   "runHash": "16750328",
-  "dataHash": "3d66afdf",
-  "rowsHash": "ed1e11f7",
+  "dataHash": "62e2f8d9",
+  "rowsHash": "beec08f9",
   "rows": [
     {
       "case": {
         "turn": "ccw"
       },
       "expected": {
-        "alpha": 0.3812781375722535,
-        "sign": 1,
-        "T": 4.05946669211019,
-        "dt": 0.016666666666666666,
-        "brake": -0.3812781375722535,
-        "n1": 122,
-        "n2": 122,
-        "end": 4.066666666666666,
-        "theta": 1.5763732776737247
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": 0.3812781375722535,
-        "end": 4.066666666666666,
-        "omega": -1.1102230246251565e-16,
-        "theta": 1.5763732776737256,
-        "readout": {
-          "ccw": 0.3812781375722535,
-          "cw": 0.3812781375722535,
-          "turn90ccw": 4.05946669211019,
-          "turn90cw": 4.05946669211019
-        },
-        "steps": 244,
-        "n1": 122,
-        "n2": 122,
-        "books": [
-          {
-            "generated": 244000,
-            "radiated": 164867.51707539769,
-            "stored": 84229.8610521555,
-            "initial": 1044000000,
-            "conducted": 5097.378127668097,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 302191.9182984829,
-            "initial": 696000000,
-            "conducted": 302191.91829879786,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 456666.6666666683,
-            "radiated": 0,
-            "stored": 456427.15143442154,
-            "initial": 696000000,
-            "conducted": -239.51523190665168,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 161.0033322572708,
-            "initial": 696000000,
-            "conducted": 161.00333145421803,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 244000,
-            "radiated": 123677.21845632434,
-            "stored": 120270.51560509205,
-            "initial": 696000000,
-            "conducted": -52.26593916022489,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 164818.63445827135,
-            "stored": -151238.2480816841,
-            "initial": 3480000000,
-            "conducted": 13580.386378694944,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 228333.33333333416,
-            "radiated": 0,
-            "stored": 228307.8154361248,
-            "initial": 1044000000,
-            "conducted": -25.517897339944522,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 53.498459339141846,
-            "initial": 696000000,
-            "conducted": 53.498459186468864,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 9133333.333333315,
-            "radiated": 253461.33382335093,
-            "stored": 8559105.10935378,
-            "initial": 696000000,
-            "conducted": -320766.89015547023,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0.00462794303894043,
-            "initial": 696000000,
-            "conducted": 0.004628075429886366,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true,
-        "momentum": {
-          "mass": true,
-          "momentum": true,
-          "angular": true,
-          "dP": 0,
-          "dL": 6.156191362844253e-9,
-          "net": 4.700268618762493e-9,
-          "gross": 22687047.382320877
-        }
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "turn": "cw"
       },
       "expected": {
-        "alpha": 0.3812781375722535,
-        "sign": -1,
-        "T": 4.05946669211019,
-        "dt": 0.016666666666666666,
-        "brake": 0.3812781375722535,
-        "n1": 122,
-        "n2": 122,
-        "end": 4.066666666666666,
-        "theta": -1.5763732776737247
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": -0.3812781375722535,
-        "end": 4.066666666666666,
-        "omega": 1.1102230246251565e-16,
-        "theta": -1.5763732776737254,
-        "readout": {
-          "ccw": 0.3812781375722535,
-          "cw": 0.3812781375722535,
-          "turn90ccw": 4.05946669211019,
-          "turn90cw": 4.05946669211019
-        },
-        "steps": 244,
-        "n1": 122,
-        "n2": 122,
-        "books": [
-          {
-            "generated": 244000,
-            "radiated": 164867.51707539769,
-            "stored": 84229.8610521555,
-            "initial": 1044000000,
-            "conducted": 5097.378127668097,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 302191.9182984829,
-            "initial": 696000000,
-            "conducted": 302191.91829879786,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 456666.6666666683,
-            "radiated": 0,
-            "stored": 456427.15143442154,
-            "initial": 696000000,
-            "conducted": -239.51523190665168,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 161.0033322572708,
-            "initial": 696000000,
-            "conducted": 161.00333145421803,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 244000,
-            "radiated": 123677.21845632434,
-            "stored": 120270.51560509205,
-            "initial": 696000000,
-            "conducted": -52.26593916022489,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 164818.63445827135,
-            "stored": -151238.2480816841,
-            "initial": 3480000000,
-            "conducted": 13580.386378694944,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 228333.33333333416,
-            "radiated": 0,
-            "stored": 228307.8154361248,
-            "initial": 1044000000,
-            "conducted": -25.517897339944522,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 53.498459339141846,
-            "initial": 696000000,
-            "conducted": 53.498459186468864,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 9133333.333333315,
-            "radiated": 253461.33382335093,
-            "stored": 8559105.10935378,
-            "initial": 696000000,
-            "conducted": -320766.89015547023,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0.00462794303894043,
-            "initial": 696000000,
-            "conducted": 0.004628075429886366,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true,
-        "momentum": {
-          "mass": true,
-          "momentum": true,
-          "angular": true,
-          "dP": 0,
-          "dL": 1.3449643904654632e-9,
-          "net": 1.4559227440817605e-9,
-          "gross": 20620740.591398027
-        }
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
@@ -297,6 +53,11 @@
     {
       "name": "momentum books: mass, momentum (1e-9) and angular momentum (1e-9 x net + 1e-12 x gross angular impulse booked, #219, #220) of ship + rounds + debris kept (with the external impulse), every case",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "2 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

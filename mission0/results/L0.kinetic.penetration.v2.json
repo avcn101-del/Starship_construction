@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.kinetic.penetration.v2",
-  "code": "208955b",
+  "code": "7b0f40f",
   "criterionHash": "de60d649",
   "lockedHash": "de60d649",
   "runHash": "cedce90a",
-  "dataHash": "3d66afdf",
+  "dataHash": "62e2f8d9",
   "rowsHash": "c61f6ed8",
   "rows": [
     {

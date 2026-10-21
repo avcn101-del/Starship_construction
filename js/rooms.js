@@ -136,7 +136,7 @@ function killCrew(world, room, deaths, cause) {
 
 /** Radiators on the room's hull segments; in a cluster at most one per open edge (#15, #192). */
 export function setRadiators(room, n, world = null) {
-  if (n > 0 && room.def.placement === 'inside' && !room.def.fittings) throw new Error(`${room.type} is placed inside: no hull segment for a radiator (L2 reaches it through walls)`);
+  if (n > 0 && room.def.placement === 'inside') throw new Error(`${room.type} is placed inside: no hull segment for a radiator (L2 reaches it through walls)`);
   if (world && world.layout && room.placed && n > openEdges(world.layout, room.id)) throw new Error(`${room.id}: ${n} radiators but only ${openEdges(world.layout, room.id)} open edges (one radiator per open edge, #15)`);
   room.radiators = n;
 }
@@ -914,13 +914,13 @@ export function contentsMass(world, room) {
   return 0;
 }
 /**
- * Every mass of the ship (13f.1): surviving cells (C / thermal.specificHeat,
+ * Every mass of the ship (13g.1, #221): surviving cells (structure.cellMass,
  * a heat sink cell plus the water of its extra capacity) as squares at their
  * centres, contents at their room's centre, fittings on surviving cells at
  * their edge's midpoint; each with the body it belongs to.
  */
 function shipItems(world) {
-  const p = world.params, e = world.edge, C = tierScaled(world, p.thermal.heatCapacityPerCell), m0 = C / p.thermal.specificHeat.value;
+  const p = world.params, e = world.edge, C = tierScaled(world, p.thermal.heatCapacityPerCell), m0 = tierScaled(world, p.structure.cellMass);
   const items = new Map();
   for (const room of world.rooms) {
     if (!room.placed) continue;
@@ -1143,8 +1143,8 @@ function heatRate(world, room) {
  * in their current settings against the radiators' capacity at plant hot.
  */
 export function readout(world) {
-  const p = world.params, items = world.ship ? world.ship.items : null;
-  const props = massProperties([...(items || new Map()).values()]);
+  const p = world.params, items = world.ship ? world.ship.items : shipItems(world); // a blueprint before enableShip too (#222 (4))
+  const props = massProperties([...items.values()]);
   let thrust = 0;
   for (const room of world.rooms) if (room.type === 'engine' && !isDestroyed(room)) thrust += tierScaled(world, p.engine.thrust) * room.footprintFactor * survivingFraction(room);
   let ccw = 0, cw = 0;

@@ -88,8 +88,8 @@ export function roomCentre(layout, id) {
 // ---------- ships: fittings and validation (L3, DESIGN.md 13f.1, #57, #208) ----------
 // A fitting sits on one cell edge: grid cell [x, y] and side [dx, dy], the
 // outward direction of that edge. Its position is the edge's midpoint.
-// Placement classes come from ROOMS: 'inside' rooms carry no fitting unless
-// their ROOMS entry has fittings: true; a placement naming 'hull' needs an
+// Placement classes come from ROOMS: 'inside' rooms carry no fitting (the
+// shield generator is placed anywhere, #219 (1)); a placement naming 'hull' needs an
 // open edge; 'exhaust clear' marks the engine, whose exhaust face is the
 // room's aft face (smallest x: the ship's forward axis is +x).
 
@@ -115,7 +115,7 @@ export function fittingProblem(layout, defs, fitting, placed = []) {
   if (!room) return { rule: 'fitting-open-edge', detail: `no room ${fitting.room}` };
   if (!room.cells.some((c) => c[0] === fitting.cell[0] && c[1] === fitting.cell[1])) return { rule: 'fitting-open-edge', detail: `cell (${fitting.cell}) is not in ${room.id}` };
   const def = defs[layout.types.get(room.id)];
-  if (def.placement === 'inside' && !def.fittings) return { rule: 'fitting-inside', detail: `${room.id} is placed inside and carries no fitting` };
+  if (def.placement === 'inside') return { rule: 'fitting-inside', detail: `${room.id} is placed inside and carries no fitting` };
   if (!isOpen(layout, fitting.cell, fitting.side)) return { rule: 'fitting-open-edge', detail: `the edge (${fitting.cell}) side (${fitting.side}) of ${room.id} is not open` };
   if (def.placement.includes('exhaust clear') && fitting.side[0] === -1 && fitting.cell[0] === exhaustFace(layout, room.id).x) return { rule: 'fitting-exhaust', detail: `${room.id}: no fitting on an exhaust face` };
   if (placed.some((f) => edgeKey(f.cell, f.side) === edgeKey(fitting.cell, fitting.side))) return { rule: 'fitting-per-edge', detail: `two fittings on the edge (${fitting.cell}) side (${fitting.side})` };
