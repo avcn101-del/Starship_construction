@@ -34,6 +34,15 @@
   for a `cell-repaired` event that never comes); it must stay recorded
   with a FAIL to be withdrawn (#188). Scenarios that do not throw record
   exactly as before.
+- Scenarios D1–D5 (`DESIGN.md` §13e.3), written and run for crashes only
+  before the lock: `L1.kinetic.damage`, `L1.quarters.repair.v2`,
+  `L1.repair.breach.v2`, `L2.shield.salvo`, `L2.lifesupport.routed`, each
+  with its expected values from `data.js`, closed forms or its own RK4
+  reference integrator (D5). Added beyond the rows: D1 also fires along a
+  line of six quarters (18 cells) so every size stops inside it and the
+  stopping cell is measured; D2 leaves out the two (c, r) pairs whose repair
+  time is a whole number of steps (#185 (2)); D3 adds the v1 heating of the
+  wreck; D5 (a) also checks the heat pumped into each neighbour.
 
 ## 0.3.2 — 2026-10-21 — Mission 0 L2 merged; reviewer answers (#207)
 
