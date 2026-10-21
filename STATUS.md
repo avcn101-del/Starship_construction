@@ -39,7 +39,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| — | — | none open (L2 merged through the lead designer's branch; PR #15 closes with it) |
+| (to come) D pass | `m0/d-damage` → `main` | engineer `session_012PgbFfMKtgaDjSpVz451eZ` (opus) building it since 07:57 UTC |
+
+L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -85,6 +87,8 @@ Nothing.
 |---|---|---|---|
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
+| Check-in on the D pass engineer | `trig_01Bodx8dpC9NPdRALjYgKsGr` | once, 2026-10-21 08:38 UTC | wakes the lead designer chat `session_013PTXKzyTQkpVaKYQyBhRP8` |
+
 The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
 the old chat's pending check-in was deleted at hand-over; the new chat
@@ -113,6 +117,7 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, L2 heat v2 and heat sink | session_011dfRdXfFAYsLmAY2C9a6Qg | opus-5-5 | 8.25 |
 | Physics checker, L2 | session_01KdLbYYddDJgStcfriEdqsv | sonnet-5-5 | 2.82 |
 | Reviewer, L2 | session_01AKKABP9PxiAjtEkN1wcowa | sonnet-5-5 | 1.34 |
+| Engineer, D pass | session_012PgbFfMKtgaDjSpVz451eZ | opus-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
