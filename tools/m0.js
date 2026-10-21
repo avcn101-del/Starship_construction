@@ -5,7 +5,7 @@
 //   node tools/m0.js run <id|level> [--set group.name=value ...]
 //   node tools/m0.js lock <id|level>       lock criteria BEFORE the first run
 //   node tools/m0.js verify <id|level>     independent re-run from the record
-//   node tools/m0.js regress               re-run every recorded PASS
+//   node tools/m0.js regress               re-run every recorded PASS and every withdrawn scenario
 //   node tools/m0.js ledger                regenerate MISSION0.md
 //
 // A run without --set is canonical and is recorded in mission0/results/.
@@ -21,6 +21,11 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SCEN = path.join(ROOT, 'mission0', 'scenarios');
 const RESULTS = path.join(ROOT, 'mission0', 'results');
 const LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
+// Scenarios withdrawn for a specification error (#187 (8)): each stays locked
+// with its recorded FAIL; verify and regress report it as WITHDRAWN while it
+// still fails exactly as recorded.
+const WITHDRAWN_FILE = path.join(ROOT, 'mission0', 'withdrawn.json');
+const WITHDRAWN = new Map((fs.existsSync(WITHDRAWN_FILE) ? JSON.parse(fs.readFileSync(WITHDRAWN_FILE, 'utf8')) : []).map((w) => [w.id, w]));
 
 // ---------- discovery ----------
 async function loadAll() {
@@ -222,22 +227,28 @@ async function main() {
     return;
   }
   if (cmd === 'verify' || cmd === 'regress') {
-    const list = cmd === 'regress' ? all.filter((s) => (recorded(s.id) || {}).verdict === 'PASS') : select(all, sel);
+    const list = cmd === 'regress'
+      ? all.filter((s) => (recorded(s.id) || {}).verdict === 'PASS' || WITHDRAWN.has(s.id))
+      : select(all, sel);
     let bad = 0;
     for (const s of list) {
       const rec = recorded(s.id);
       if (!rec) { console.log(`${s.id}: no record to verify`); bad++; continue; }
       const res = execute(s, {});
+      const w = WITHDRAWN.get(s.id);
+      const verdict = verdictOf(s, res, unmetDeps(s));
       const checks = [
         ['criterion unchanged since lock', s.locked && criterionHash(s) === s.locked.hash && rec.lockedHash === s.locked.hash],
         ['same results as recorded', res.rowsHash === rec.rowsHash],
         ['same data as recorded', res.dataHash === rec.dataHash],
         ...(rec.runHash ? [['run() unchanged since record', runHash(s) === rec.runHash]] : []),
-        ['still passes', verdictOf(s, res, unmetDeps(s)) === 'PASS'],
+        w ? ['still fails as recorded', verdict === 'FAIL' && rec.verdict === 'FAIL'] : ['still passes', verdict === 'PASS'],
       ];
       const ok = checks.every(([, v]) => v);
       if (!ok) bad++;
-      console.log(`${ok ? 'VERIFIED' : 'MISMATCH'}  ${s.id}  ${checks.map(([n, v]) => `${v ? 'ok' : 'NO'} ${n}`).join('; ')}`);
+      const label = !ok ? 'MISMATCH' : w ? 'WITHDRAWN' : 'VERIFIED';
+      const why = w ? `  (successor ${w.successor}, ${w.decision})` : '';
+      console.log(`${label}  ${s.id}  ${checks.map(([n, v]) => `${v ? 'ok' : 'NO'} ${n}`).join('; ')}${why}`);
     }
     process.exitCode = bad ? 1 : 0;
     return;
@@ -248,7 +259,8 @@ async function main() {
       'Each row: the scenario, its locked criterion hash, the verdict of its last canonical run,',
       'the hash of its run() at that run, the code it ran on, the unapproved constants the verdict',
       'depends on (it holds only once the owner approves them), and the command that reproduces it',
-      '(`DESIGN.md` §13).', ''];
+      '(`DESIGN.md` §13). A WITHDRAWN scenario failed for a specification error; it stays locked',
+      'with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#187 (8)).', ''];
     for (const level of LEVELS) {
       const ss = all.filter((s) => s.level === level);
       lines.push(`## ${level}`, '');
@@ -257,7 +269,9 @@ async function main() {
       for (const s of ss) {
         const r = recorded(s.id);
         const un = unapproved(s).map((k) => `\`${k}\``).join(', ') || 'none';
-        lines.push(`| \`${s.id}\` | ${s.locked ? s.locked.hash : 'unlocked'} | ${r ? r.verdict : 'not run'} | ${r && r.runHash ? r.runHash : '-'} | ${r ? r.code : '-'} | ${un} | \`${r ? r.command : '-'}\` |`);
+        const w = WITHDRAWN.get(s.id);
+        const verdict = !r ? 'not run' : w ? `${r.verdict}, WITHDRAWN (successor \`${w.successor}\`, ${w.decision})` : r.verdict;
+        lines.push(`| \`${s.id}\` | ${s.locked ? s.locked.hash : 'unlocked'} | ${verdict} | ${r && r.runHash ? r.runHash : '-'} | ${r ? r.code : '-'} | ${un} | \`${r ? r.command : '-'}\` |`);
       }
       lines.push('');
     }
