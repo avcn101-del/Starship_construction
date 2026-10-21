@@ -827,7 +827,7 @@ independently before the lock, as at L2.
 
 | Rule | Statement |
 |---|---|
-| Cell mass (#202 E) | A cell's mass and its heat capacity are one number: m = C / `thermal.specificHeat` (600 J/(kg·K), a steel-and-aluminium structure), so an M cell at T1 is **1 t** and the exponent is C's (k = 3). A heat sink cell is a cell plus the water that holds its extra capacity: m + (`heatsink.capacityFactor` − 1) × C / `FIXED.waterSpecificHeat` (4186 J/(kg·K)): 1.57 t. Contents add their real mass: a magazine its rounds (900 kg full, D pass), a turret its ready rounds. Fittings add `radiator.mass` and `rcs.mass` at their edge's midpoint |
+| Cell mass (#202 E; **superseded by #221 from the mass pass, §13g**) | A cell's mass and its heat capacity are one number: m = C / `thermal.specificHeat` (600 J/(kg·K), a steel-and-aluminium structure), so an M cell at T1 is **1 t** and the exponent is C's (k = 3). A heat sink cell is a cell plus the water that holds its extra capacity: m + (`heatsink.capacityFactor` − 1) × C / `FIXED.waterSpecificHeat` (4186 J/(kg·K)): 1.57 t. Contents add their real mass: a magazine its rounds (900 kg full, D pass), a turret its ready rounds. Fittings add `radiator.mass` and `rcs.mass` at their edge's midpoint |
 | Rigid body (`js/body.js`) | A ship is a 2D rigid body: mass M, centre of mass, moment of inertia I = Σ m (a²/6 + d²) over cells (a square cell of edge a about its own centre, plus parallel axis) and Σ m d² over fittings and contents (point masses). State: position, heading θ, velocity v, angular velocity ω. Forces and torques of the step are summed in the body frame, rotated to the world, and integrated by semi-implicit Euler at the step (v and ω first, then position and θ). Impulses (recoil, fixtures) change v and ω at once. Mass properties are recomputed whenever mass changes (a round leaves, a cell is destroyed, a fragment separates); the velocity field is kept (a rigid body that loses a part keeps v at each surviving point and ω), so momentum is booked exactly |
 | Thrust | An engine pushes along the ship's forward axis (+x, its exhaust faces aft) at the centre of its exhaust face, with `engine.thrust` × throttle × footprint factor × surviving fraction × power fraction, only while controlled and not shut down (L1); off the centre of mass it also turns the ship (#14: recommended through the CoM, not required) |
 | RCS (fitting, #15) | An RCS fitting on an open edge pushes the ship along the edge's inward normal at the edge's midpoint, `rcs.force` while fired; it takes its power and control from its host room (its draw joins the host's request; it fires at the host's power fraction and only while the host is controlled); its heat, `rcs.powerDraw` × `engine.heatFraction`, goes to the host room. Not on an inside room (#190 (2)) |
@@ -933,6 +933,35 @@ budget is **1 ms per step in Node** for a T1 and a T6 1v1 (the owner,
 #213); `tools/perf.js` measures the L3 baseline against it, and L5 checks
 it with combat on.
 
+## 13g. The mass pass: ships of real density (#221)
+
+Built after L3 merges and before the feel prototype (#217), on its own
+branch `m0/mass` from `main`. Estimates made with every rule of L0–L3 on
+(#204), by the lead designer's integrator.
+
+### 13g.1 Rules
+
+| Rule | Statement |
+|---|---|
+| Structural mass | A cell's mass is **`structure.cellMass`, 10 t per M cell at T1** (k = 3): 80 kg/m³ over a 5 m cube, a light warship or spacecraft (a real frigate is about 125 kg/m³ over its envelope; a 250-cell T1 corvette is then about 2500 t, the 1500–2500 t of a real corvette, #202). It replaces m = C / `thermal.specificHeat` of #208, which made ships ten times too light (8 kg/m³). A heat sink cell adds the water of its extra capacity, (`heatsink.capacityFactor` − 1) × C / `FIXED.waterSpecificHeat` (0.57 t); contents and fittings add their real mass as at L3 |
+| Heat capacity | Unchanged: `thermal.heatCapacityPerCell` is the heat capacity of the machinery, coolant and air coupled to the room's heat, not of its structure; every heat race of L1–L3 is unchanged. `thermal.specificHeat` is removed (no use left, E4) |
+| Thrust and RCS | Re-tuned for the new masses (#203 A): a 2500 t corvette with two engines reaches about 1.2 g (dodging 1–2 g, #54) and turns 90° in about 10 s on two RCS couples 60 m out |
+
+### 13g.2 Constants and approved ranges (#221)
+
+| Constant | Old | New | Range | k |
+|---|---|---|---|---|
+| `structure.cellMass` | — (C / c_p = 1 t) | 1e4 kg | 3e3–3e4 kg (24–240 kg/m³) | 3 |
+| `thermal.specificHeat` | 600 J/(kg·K) | removed | — | — |
+| `engine.thrust` | 2 MN | 15 MN | 4–60 MN | 2 |
+| `rcs.force` | 100 kN | 1 MN | 0.3–5 MN | 2 |
+
+### 13g.3 Estimates and scenarios
+
+R1 (13f.2) becomes about **448 t**, centre of mass (29.45, 16.38) m, I ≈ 1.08e8 kg·m²; the thrust line passes 1.38 m below the centre of mass; full thrust gives 3.41 g and 10.9 °/s² of spin; an RCS couple turns it 90° in 3.68 s; a broadside M shot turns it by **0.040 °/s** (20 shots: 0.79 °/s) and the 25 000 N·s railgun-sized impulse moves it by 0.056 m/s (0.066 °/s 5 m off axis): recoil now matters only for the railgun, as #203 C expected. The row-5 cut gives fragments of about 161 t and 241 t (cells only) plus 41 t of debris, at (10.13, −0.72) and (9.94, 0.53) m/s.
+
+**Expected effect on locked scenarios**: every L0–L2 and D-pass scenario re-records with the new data and still passes (only `L1.engine.thrust` and `L1.room.restart` hold `engine.thrust`). The L3 scenarios whose expected values compute mass from `thermal.specificHeat` encode the replaced rule: they are **withdrawn as superseded by #221** (#188 as extended by #200) with v3 successors identical except the mass rule (expected: `L3.mass.props.v2`, `L3.thrust.v2`, `L3.rcs.turn.v2`, `L3.recoil.v2`, `L3.split.momentum.v2`; the engineer lists the real set). Every other L3 scenario re-records and must still pass; any other verdict change is a finding. A tolerance of a successor is checked against the kernel's step error and float resolution before its lock (#212, #219, #220).
+
 ## 14. Architecture
 
 | Layer | Files (planned) |
@@ -951,7 +980,7 @@ channel, room, crew aboard).
 ## 15. Roadmap
 
 1. **Mission 0**, L0 to L6, one branch and PR per level (#151). After L3
-   merges, a **rough feel prototype** (#217): a throwaway page in `proto/`
+   merges, the **mass pass** (§13g, #221), then a **rough feel prototype** (#217): a throwaway page in `proto/`
    on the L3 kernel, played by the owner on the Android phone, to judge the
    battle's pace (E7) and how harsh heat is before L4–L5 lock their
    numbers; its plan is written after L3, with estimates, as an *LD* row.
