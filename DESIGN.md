@@ -378,7 +378,7 @@ carry approved `min`–`max` ranges (#145).
 
 | | Criterion |
 |---|---|
-| E1 | Every L0–L6 scenario PASSes its locked criterion |
+| E1 | Every L0–L6 scenario PASSes its locked criterion, or is withdrawn for a specification error: still locked and recorded, listed in `mission0/withdrawn.json` with its decision, and replaced by a successor that PASSes (#188) |
 | E2 | Invariants on every sweep: same seed → same log hash; momentum conserved at splits; heat generated = radiated + stored; no NaN |
 | E3 | Every kept physics law has at least one passing proof scenario |
 | E4 | Every schema attribute has a measured effect, or it is cut |
