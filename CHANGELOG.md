@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.6.3 — 2026-10-21 — The feel prototype's loadout panel (#217, #223), throwaway
+
+- `proto/`: a loadout panel before each battle and from Restart, applied to
+  both ships alike and shown in the corner during the battle: magazine (HE
+  full, AP full, HE half, AP quarter, by mass), bow armour (none, 1, 2
+  cells; a `STAND-IN` by L0's penetration and burn rules), layout (R1 or
+  R1-B, checked with the kernel's `validateShip`), shield budget (10, 5,
+  20 MW) and hits to wreck (3, 5) as run-time overrides within their
+  approved ranges, turrets on or off. Defaults give the same event hash as
+  before.
+- `proto/measure.mjs` takes the loadout as flags and prints the event hash
+  and what destroyed a ship; `proto/smoke.mjs` also drives the panel and
+  saves `proto/screens/loadout.png`.
+- `main` merged in (the mass pass, #225, #226). No change to `js/`,
+  `tools/`, `mission0/` or `data.js`.
+
 ## 0.6.2 — 2026-10-21 — The feel prototype (#217, #224), throwaway
 
 - `proto/` (new, DESIGN.md §13h): a canvas page of two R1s at 900 m on the

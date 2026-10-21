@@ -18,6 +18,7 @@
       <button id="pause" type="button">Pause</button>
       <button id="restart" type="button">Restart</button>
     </div>
+    <div id="lo-tag" aria-label="Loadout"></div>
     <div id="clock">0:00</div>
   </header>
   <main id="main">
@@ -34,6 +35,17 @@
       </details>
     </aside>
   </main>
+</div>
+<div id="loadout" hidden>
+  <div id="loadout-box">
+    <div id="loadout-head">
+      <h2>Loadout <span>both ships alike</span></h2>
+      <button id="loadout-default" type="button">Defaults</button>
+      <button id="loadout-start" type="button">Start</button>
+    </div>
+    <div id="loadout-groups"></div>
+    <div id="loadout-note">Shield budget and hits to wreck are run-time overrides of js/data.js within their approved ranges. Bow armour is a STAND-IN (see the list). Turrets off: the beam-only probe.</div>
+  </div>
 </div>
 <script type="module" src="proto.js"></script>
 </body>

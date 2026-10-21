@@ -1,25 +1,27 @@
 // proto/proto.js — the feel prototype's page (DESIGN.md 13h, #217, #224):
 // draws the battle of proto/battle.js on a 2D canvas and takes the player's
-// three verbs (target a room by tapping it, switch preset, set time). A
+// three verbs (target a room by tapping it, switch preset, set time), after
+// a loadout panel that sets both ships alike before each battle. A
 // throwaway: it only reads the kernel's state and never counts as a Mission 0
 // result. No Math.random: the page draws no random effect.
 import { createBattle, tick, setTarget, setPreset, drainEvents, abilities } from './battle.js';
 import { isDestroyed, roomTemperature, survivingFraction } from '../js/rooms.js';
-import { R1_SIZE, PRESETS, PRESET_ORDER, SPEEDS, MAX_STEPS_PER_FRAME, LOG_LINES, COLOURS, LABELS, STAND_INS, SEPARATION, DISABLED_SECONDS } from './config.js';
+import { PRESETS, PRESET_ORDER, SPEEDS, MAX_STEPS_PER_FRAME, LOG_LINES, COLOURS, LABELS, STAND_INS, SEPARATION, DISABLED_SECONDS, LOADOUT, LOADOUT_ORDER, defaultLoadout } from './config.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view'), ctx = canvas.getContext('2d');
-const [GW, GH] = R1_SIZE;
 const GAP = 4; // cells of screen between the ships (900 m is not drawn to scale)
 
-let battle, speed = 1, paused = false, acc = 0, last = null, geo = null;
+// GW x GH: the drawn grid of a ship (its layout plus the armour belt), set when a battle starts.
+let battle = null, GW = 0, GH = 0, speed = 1, paused = false, choosing = true, acc = 0, last = null, geo = null;
+let loadout = defaultLoadout();
 
 // ---------- controls ----------
 function buttons() {
   $('presets').replaceChildren(...PRESET_ORDER.map((k) => {
     const b = document.createElement('button');
     b.type = 'button'; b.textContent = PRESETS[k].label; b.dataset.preset = k;
-    b.addEventListener('click', () => { setPreset(battle, battle.player, k); refreshButtons(); });
+    b.addEventListener('click', () => { if (!battle || choosing) return; setPreset(battle, battle.player, k); refreshButtons(); });
     return b;
   }));
   $('speeds').replaceChildren(...SPEEDS.map((s) => {
@@ -29,19 +31,53 @@ function buttons() {
     return b;
   }));
   $('pause').addEventListener('click', () => { paused = !paused; refreshButtons(); });
-  $('restart').addEventListener('click', start);
+  $('restart').addEventListener('click', chooseLoadout);
+  $('loadout-groups').replaceChildren(...LOADOUT_ORDER.map((k) => {
+    const g = document.createElement('div'), h = document.createElement('div'), row = document.createElement('div');
+    g.className = 'lo-group'; h.className = 'lo-label'; h.textContent = LOADOUT[k].label; row.className = 'group'; row.setAttribute('role', 'group'); row.setAttribute('aria-label', LOADOUT[k].label);
+    row.replaceChildren(...LOADOUT[k].options.map((o, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.textContent = o.label; b.dataset.lever = k; b.dataset.option = i;
+      b.addEventListener('click', () => { loadout[k] = o.value; refreshLoadout(); });
+      return b;
+    }));
+    g.append(h, row);
+    return g;
+  }));
+  $('loadout-start').addEventListener('click', start);
+  $('loadout-default').addEventListener('click', () => { loadout = defaultLoadout(); refreshLoadout(); });
   $('standin-list').replaceChildren(...STAND_INS.map((text) => { const li = document.createElement('li'); li.textContent = text; return li; }));
 }
 function refreshButtons() {
-  for (const b of $('presets').children) b.classList.toggle('on', b.dataset.preset === battle.player.preset);
+  for (const b of $('presets').children) b.classList.toggle('on', !!battle && b.dataset.preset === battle.player.preset);
   for (const b of $('speeds').children) b.classList.toggle('on', Number(b.dataset.speed) === speed);
   $('pause').textContent = paused ? 'Run' : 'Pause';
   $('pause').classList.toggle('on', paused);
 }
 
+function refreshLoadout() {
+  for (const b of $('loadout-groups').querySelectorAll('button')) b.classList.toggle('on', LOADOUT[b.dataset.lever].options[b.dataset.option].value === loadout[b.dataset.lever]);
+}
+const optionLabel = (k, lo) => LOADOUT[k].options.find((o) => o.value === lo[k]).label;
+/** The loadout in the corner of the battle view (two short lines). */
+function loadoutTag(lo) {
+  return [`${optionLabel('magazine', lo)} · armour ${optionLabel('armour', lo)} · ${optionLabel('layout', lo)}`,
+    `shield ${optionLabel('shieldBudget', lo)} · hits ${optionLabel('hitsToWreck', lo)} · turrets ${optionLabel('turrets', lo)}`];
+}
+/** The loadout panel: shown before the first battle and from Restart; the battle behind it stops. */
+function chooseLoadout() {
+  choosing = true;
+  refreshLoadout();
+  $('end').hidden = true;
+  $('loadout').hidden = false;
+}
+
 function start() {
-  battle = createBattle();
-  acc = 0; last = null; paused = false;
+  battle = createBattle({ loadout });
+  GW = battle.width; GH = battle.player.size[1];
+  choosing = false; acc = 0; last = null; paused = false;
+  $('loadout').hidden = true;
+  $('lo-tag').replaceChildren(...loadoutTag(battle.loadout).map((t) => { const d = document.createElement('div'); d.textContent = t; return d; }));
   $('log').replaceChildren();
   $('end').hidden = true;
   $('hint').hidden = false;
@@ -54,7 +90,7 @@ function layout() {
   if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) { canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); }
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   const line = 15, top = 2 * line + 6, bottom = 4 * line + 4;
-  const cs = Math.floor(Math.min((w - 12) / (2 * GW + GAP), (h - top - bottom) / GH));
+  const cs = battle ? Math.floor(Math.min((w - 12) / (2 * GW + GAP), (h - top - bottom) / GH)) : 1;
   const total = (2 * GW + GAP) * cs, ox = Math.floor((w - total) / 2), oy = top;
   geo = { w, h, cs, line, oy, ox: { player: ox, enemy: ox + (GW + GAP) * cs } };
 }
@@ -123,6 +159,20 @@ function drawShip(ship) {
       ctx.fillText(`${Math.round(roomTemperature(room))}K`, rx + rw / 2, ry + rh / 2 + 9);
     }
   }
+  // STAND-IN bow armour: grey cells in front of each row, darker with lost integrity, a red cross when wrecked.
+  for (const cells of ship.armour.values()) {
+    for (const c of cells) {
+      const [x, y] = cellXY(ship.side, c.x, c.row);
+      if (c.destroyed) {
+        ctx.strokeStyle = COLOURS.cross; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(x + 4, y + 4); ctx.lineTo(x + cs - 4, y + cs - 4); ctx.moveTo(x + cs - 4, y + 4); ctx.lineTo(x + 4, y + cs - 4); ctx.stroke();
+        continue;
+      }
+      ctx.fillStyle = rgb(COLOURS.armour, 0.35 + 0.65 * c.integrity); ctx.fillRect(x + 1, y + 1, cs - 2, cs - 2);
+      const burnt = ship.burn.get(`armour:${c.row}:${c.x}`);
+      if (burnt) { ctx.fillStyle = COLOURS.beam; ctx.fillRect(x, y + cs - 4, (cs * burnt) / battle.burnEnergy, 4); }
+    }
+  }
   // Targets: the player's in yellow on the enemy; the enemy's in its colour on the player.
   const aimedBy = ship.other.target;
   if (aimedBy) {
@@ -179,6 +229,7 @@ function drawShots() {
 function draw() {
   layout();
   ctx.fillStyle = COLOURS.background; ctx.fillRect(0, 0, geo.w, geo.h);
+  if (!battle) return;
   drawShip(battle.player); drawShip(battle.enemy);
   drawShots();
   ctx.fillStyle = COLOURS.dim; ctx.font = '11px ui-monospace, Menlo, Consolas, monospace'; ctx.textAlign = 'center';
@@ -196,9 +247,9 @@ function logEvents() {
   const log = $('log'), stick = log.scrollTop + log.clientHeight >= log.scrollHeight - 4;
   for (const e of evs.slice(-LOG_LINES)) {
     const div = document.createElement('div'), side = e.side === 'player' ? 'P' : 'E';
-    const extra = e.type === 'crew-died' ? ` ${e.deaths} dead` : e.type === 'cell-damaged' ? ` ${Math.round(e.integrity * 100)}%` : e.type === 'explosion' ? ` ${(e.energy / 1e6).toFixed(0)} MJ` : '';
+    const extra = e.type === 'crew-died' ? ` ${e.deaths} dead` : e.type === 'cell-damaged' || e.type === 'armour-damaged' ? ` ${Math.round(e.integrity * 100)}%` : e.type === 'explosion' ? ` ${(e.energy / 1e6).toFixed(0)} MJ` : '';
     div.className = `${side}${BIG.has(e.type) ? ' big' : ''}`;
-    div.textContent = `${e.t.toFixed(1)} ${side} ${LABELS[e.room] || e.room} ${e.type}${extra} ← ${e.cause} · crew ${e.crew}`;
+    div.textContent = `${e.t.toFixed(1)} ${side} ${LABELS[e.room] || e.room} ${e.type}${extra} ← ${e.cause}${e.crew === undefined ? '' : ` · crew ${e.crew}`}`;
     log.appendChild(div);
   }
   while (log.childElementCount > LOG_LINES) log.firstElementChild.remove();
@@ -216,14 +267,14 @@ function showEnd() {
   el.innerHTML = `<h2>${title}</h2><div>Battle time ${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')} (${e.t.toFixed(1)} s)</div>
     <table><tr><th></th><th>Crew lost</th><th>Rooms wrecked</th></tr>${row('player')}${row('enemy')}</table>`;
   const b = document.createElement('button');
-  b.type = 'button'; b.textContent = 'Restart'; b.addEventListener('click', start);
+  b.type = 'button'; b.textContent = 'Restart'; b.addEventListener('click', chooseLoadout);
   el.prepend(b);
   el.hidden = false;
 }
 
 // ---------- input: tap an enemy room ----------
 canvas.addEventListener('pointerdown', (ev) => {
-  if (!geo || battle.ended) return;
+  if (!geo || !battle || choosing || battle.ended) return;
   const r = canvas.getBoundingClientRect(), px = ev.clientX - r.left, py = ev.clientY - r.top;
   const x = GW - 1 - Math.floor((px - geo.ox.enemy) / geo.cs), y = Math.floor((py - geo.oy) / geo.cs);
   if (x < 0 || x >= GW || y < 0 || y >= GH) return;
@@ -238,7 +289,7 @@ function frame(now) {
   if (last === null) last = now;
   const real = Math.min(0.1, (now - last) / 1000);
   last = now;
-  if (!paused && !battle.ended) {
+  if (battle && !choosing && !paused && !battle.ended) {
     acc += real * speed;
     let n = Math.min(MAX_STEPS_PER_FRAME * speed, Math.floor(acc / battle.dt + 1e-9));
     acc -= n * battle.dt;
@@ -254,6 +305,7 @@ function frame(now) {
 // For the smoke test: read-only access and the screen rectangle of a room.
 window.__proto = {
   get battle() { return battle; },
+  get choosing() { return choosing; },
   roomCentre(side, id) {
     const r = canvas.getBoundingClientRect(), [x, y, w, h] = roomRect(battle[side], id);
     return [r.left + x + w / 2, r.top + y + h / 2];
@@ -261,5 +313,5 @@ window.__proto = {
 };
 
 buttons();
-start();
+chooseLoadout();
 requestAnimationFrame(frame);

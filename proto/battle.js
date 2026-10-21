@@ -4,27 +4,43 @@
 // destruction. No DOM: it runs in Node (proto/measure.mjs) and in the page
 // (proto/proto.js). No Math.random: the seeded RNG of js/util.js only.
 // It only reads and drives the kernel through its exported functions; it
-// never changes js/. Every physics number comes from js/data.js; every
-// prototype setting from proto/config.js.
+// never changes js/. Every physics number comes from js/data.js (the
+// loadout's shield budget and hits to wreck as run-time overrides within
+// their approved ranges); every prototype setting from proto/config.js.
 import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, setDemand, enablePowerRouting, setBeams, setRcs, shieldRound, fireRound, destroyCell, step, readout, isDestroyed, survivingCells, magazineContents, cellAt } from '../js/rooms.js';
-import { withOverrides, TIERS, FIXED, scaled } from '../js/data.js';
+import { withOverrides, TIERS, FIXED, PARAMS, ROOMS, scaled } from '../js/data.js';
 import { rng } from '../js/util.js';
 import { beamDeliveredFraction } from '../js/field.js';
-import { roundGeometry } from '../js/projectile.js';
+import { roundGeometry, sectionalMomentum } from '../js/projectile.js';
+import { penetrate } from '../js/damage.js';
+import { validateShip } from '../js/layout.js';
 import { rotate, worldPoint } from '../js/body.js';
-import { R1_ROOMS, R1_FITTINGS, R1_SIZE, SEPARATION, TIER, SEED, PRESETS, SCRIPT, DISABLED_SECONDS } from './config.js';
+import { LAYOUTS, LOADOUT, SEPARATION, TIER, SEED, PRESETS, SCRIPT, DISABLED_SECONDS, defaultLoadout } from './config.js';
 
-const RCS_IDS = [17, 18, 19, 20];
+/** The kernel's validation of a layout of config.js (js/layout.js validateShip); throws with its reasons. */
+export function validateLayout(key) {
+  const tier = TIERS[TIER], L = LAYOUTS[key];
+  const v = validateShip({
+    grid: tier.grid, edge: tier.edge,
+    rooms: L.rooms.map((r) => ({ id: r.id, type: r.type, size: 'M', cell: r.cell, rotation: r.rotation || 0 })),
+    fittings: L.fittings.map(([type, room, cell, side]) => ({ type, room, cell, side })),
+  }, ROOMS);
+  if (!v.valid) throw new Error(`layout ${key} is not valid: ${v.reasons.map((r) => `${r.rule} ${r.room}: ${r.detail}`).join('; ')}`);
+  return v;
+}
 
-/** One R1 at its station: `side` 'player' (centre of mass at the origin, facing +x) or 'enemy' (900 m ahead, facing -x). */
-function buildShip(params, side) {
-  const tier = TIERS[TIER], edge = tier.edge;
+/** One ship of the loadout's layout at its station: `side` 'player' (centre of mass at the origin, facing +x) or 'enemy' (900 m ahead, facing -x). */
+function buildShip(params, side, loadout) {
+  const tier = TIERS[TIER], edge = tier.edge, L = LAYOUTS[loadout.layout];
+  validateLayout(loadout.layout);
   const world = createWorld({ params, edge, grid: tier.grid });
-  for (const r of R1_ROOMS) addRoom(world, r.type, { id: r.id, cell: r.cell, rotation: r.rotation || 0 });
-  for (const [type, room, cell, sideOut] of R1_FITTINGS) addFitting(world, type, room, cell, sideOut);
+  for (const r of L.rooms) addRoom(world, r.type, { id: r.id, cell: r.cell, rotation: r.rotation || 0 });
+  for (const [type, room, cell, sideOut] of L.fittings) addFitting(world, type, room, cell, sideOut);
   const room = (id) => world.rooms.find((r) => r.id === id);
-  // As the L3 scenarios build R1: the magazine full of HE, the turret's ready store full.
-  loadMagazine(world, room('magazine'), { heMass: scaled(params.magazine.capacity, edge) });
+  // As the L3 scenarios build R1: the turret's ready store full; the magazine as the loadout says, by mass
+  // (fractions of magazine.capacity; the kernel's loadMagazine makes whole rounds of it). Default: full of HE.
+  const mag = LOADOUT.magazine.options.find((o) => o.value === loadout.magazine), capacity = scaled(params.magazine.capacity, edge);
+  loadMagazine(world, room('magazine'), { apMass: mag.ap * capacity, heMass: mag.he * capacity });
   loadTurret(room('turret'), params.turret.readyRounds.value);
   room('turret').turret.hold = true;
   room('turret').turret.aim = [1, 0]; // the gun points forward, at the other ship
@@ -38,17 +54,52 @@ function buildShip(params, side) {
   const b = world.ship.bodies[0];
   const stationBody = { x: [...b.x], c: [...b.c], theta: b.theta };
   const crewTotal = world.rooms.reduce((x, rm) => x + rm.crewTotal, 0);
-  return { side, world, room, station: stationBody, preset: 'fire', target: null, crewTotal, crewLost: 0, logIndex: 0,
-    beam: { power: 0, absorbed: 0, passed: 0, onCell: 0, aimed: null }, burn: new Map(), disabledSince: null, disabled: false, destroyed: false, firstFailure: null };
+  return { side, world, room, station: stationBody, preset: 'fire', target: null, crewTotal, crewLost: 0, logIndex: 0, size: L.size,
+    rcsIds: world.fittings.filter((f) => f.type === 'rcs').map((f) => f.id), armour: armourBelt(world, L.size, loadout.armour),
+    beam: { power: 0, absorbed: 0, passed: 0, onCell: 0, aimed: null }, burn: new Map(), disabledSince: null, disabled: false, destroyed: false, destroyedBy: null, firstFailure: null };
+}
+/**
+ * STAND-IN bow armour (loadout; armour fittings, #15, are not built in the kernel): n armour cells in front of each
+ * bow-facing row, at x = front + 1 .. front + n beyond the row's foremost room cell. Per row, outermost first.
+ */
+function armourBelt(world, size, n) {
+  const rows = new Map();
+  if (!n) return rows;
+  for (let y = 0; y < size[1]; y++) {
+    let front = -1;
+    for (let x = 0; x < size[0]; x++) if (cellAt(world, [x, y])) front = x;
+    if (front < 0) continue;
+    const cells = [];
+    for (let i = n; i >= 1; i--) cells.push({ row: y, x: front + i, integrity: 1, destroyed: false });
+    rows.set(y, cells);
+  }
+  return rows;
 }
 
 /** World point (m) of grid point p of a ship at its station. */
 export const stationPoint = (ship, p) => worldPoint(ship.station, p);
 
-/** Create a battle. `scripted`: which sides follow the enemy's script ({ enemy: true } by default; the headless measure scripts both). */
-export function createBattle({ seed = SEED, overrides = {}, scripted = { player: false, enemy: true }, beamOnly = false } = {}) {
-  const params = withOverrides(overrides);
-  const player = buildShip(params, 'player'), enemy = buildShip(params, 'enemy');
+/** The run-time overrides a loadout asks for; throws on a value outside the constant's approved range. */
+export function loadoutOverrides(loadout) {
+  const out = {};
+  for (const [key, lever] of Object.entries(LOADOUT)) {
+    if (!lever.override || loadout[key] === null) continue;
+    const [g, n] = lever.override.split('.'), p = PARAMS[g][n], v = loadout[key];
+    if (!p.approved || v < p.min || v > p.max) throw new Error(`${lever.override} = ${v} is outside its approved range ${p.min}-${p.max}`);
+    out[lever.override] = v;
+  }
+  return out;
+}
+
+/**
+ * Create a battle. `scripted`: which sides follow the enemy's script ({ enemy: true } by default; the headless
+ * measure scripts both). `loadout` (config.js LOADOUT; missing levers take their default) applies to both ships.
+ */
+export function createBattle({ seed = SEED, overrides = {}, scripted = { player: false, enemy: true }, beamOnly = false, loadout = {} } = {}) {
+  const lo = { ...defaultLoadout(), ...loadout };
+  for (const [k, v] of Object.entries(lo)) if (!LOADOUT[k] || !LOADOUT[k].options.some((o) => o.value === v)) throw new Error(`unknown loadout ${k} = ${v}`);
+  const params = withOverrides({ ...loadoutOverrides(lo), ...overrides });
+  const player = buildShip(params, 'player', lo), enemy = buildShip(params, 'enemy', lo);
   player.other = enemy; enemy.other = player;
   player.name = 'P'; enemy.name = 'E';
   player.rng = rng(seed); enemy.rng = rng(seed + 1);
@@ -57,11 +108,14 @@ export function createBattle({ seed = SEED, overrides = {}, scripted = { player:
   const { A } = roundGeometry(mass, FIXED.steelDensity.value, FIXED.roundLengthToDiameter.value);
   const aperture = edge / 2;
   const battle = {
-    params, player, enemy, ships: [player, enemy], scripted, beamOnly, dt: player.world.dt, t: 0, steps: 0,
+    params, loadout: lo, player, enemy, ships: [player, enemy], scripted, beamOnly: beamOnly || lo.turrets === false, dt: player.world.dt, t: 0, steps: 0,
     round: { mass, velocity, area: A },
     // STAND-IN beam geometry: the fraction of the beam's power that lands on one cell at the stations' distance (L0's Gaussian beam).
     beamFraction: beamDeliveredFraction(SEPARATION, scaled(params.beam.focusRange, edge), aperture, FIXED.beamWaistPerHalfCell.value * aperture),
     burnEnergy: scaled(params.armour.burnEnergy, edge),
+    armourResistance: scaled(params.armour.kineticResistance, edge),
+    // Drawn width (cells): the layout, plus the armour belt beyond the foremost row.
+    width: Math.max(player.size[0], ...[...player.armour.values()].map((cells) => cells[0].x + 1)),
     rounds: [], hits: [], events: [], inputs: [], ended: null,
   };
   for (const s of battle.ships) if (scripted[s.side]) scriptUpdate(battle, s);
@@ -97,10 +151,10 @@ const targetAlive = (ship) => ship.target !== null && !isDestroyed(ship.other.ro
 function applyPreset(battle, ship) {
   const p = PRESETS[ship.preset], w = ship.world, aim = targetAlive(ship);
   ship.room('beamBay').beamBay.firing = p.beam && aim;
-  ship.room('turret').turret.hold = !(p.turret && aim && !battle.beamOnly); // beamOnly: a headless probe (measure.mjs), never the page
+  ship.room('turret').turret.hold = !(p.turret && aim && !battle.beamOnly); // beamOnly: the loadout's turrets off (the beam-only probe)
   ship.room('shield').shield.on = p.shield;
   ship.room('engine').engine.throttle = p.throttle;
-  setRcs(w, RCS_IDS, false);
+  setRcs(w, ship.rcsIds, false);
   if (p.rcs.length) setRcs(w, p.rcs, true);
 }
 
@@ -116,7 +170,7 @@ function rowsOf(ship, id) {
  */
 function rowPath(ship, y) {
   const path = [];
-  for (let x = R1_SIZE[0] - 1; x >= 0; x--) {
+  for (let x = ship.size[0] - 1; x >= 0; x--) {
     const c = cellAt(ship.world, [x, y]);
     if (c) path.push({ room: c.room, cell: c.index });
   }
@@ -147,9 +201,16 @@ function beamsIn(battle, shooter) {
   shooter.beam.onCell = 0;
   if (id && !isDestroyed(target.room(id)) && onCell > 0) {
     const room = target.room(id), k = burnCell(target, id);
-    room.externalPower = onCell; // every joule delivered becomes heat in the target room (#137)
     shooter.beam.onCell = onCell;
-    if (k >= 0) {
+    // STAND-IN bow armour: the beam first burns the surviving armour cells of the burning cell's row, outermost first;
+    // that energy stays in the armour (its heat is not modelled) and does not heat the room behind.
+    const plate = k >= 0 ? (target.armour.get(target.world.layout.rooms.get(id).cells[k][1]) || []).find((c) => !c.destroyed) : null;
+    if (plate) {
+      const key = `armour:${plate.row}:${plate.x}`, got = (target.burn.get(key) || 0) + onCell * battle.dt;
+      target.burn.set(key, got);
+      shooter.beam.burning = { armour: plate, key, got };
+    } else room.externalPower = onCell; // every joule delivered becomes heat in the target room (#137)
+    if (k >= 0 && !plate) {
       const key = `${id}:${k}`, got = (target.burn.get(key) || 0) + onCell * battle.dt;
       target.burn.set(key, got);
       shooter.beam.burning = { room: id, cell: k, got };
@@ -168,7 +229,10 @@ function beamsOut(battle, shooter) {
   shooter.beam.passed = res ? res.passed : 0;
   const burning = shooter.beam.burning;
   shooter.beam.burning = null;
-  if (burning && burning.got >= battle.burnEnergy) {
+  if (burning && burning.armour && burning.got >= battle.burnEnergy) {
+    target.burn.delete(burning.key);
+    damageArmour(battle, target, burning.armour, 1, `${shooter.name}:beam`, 'thermal');
+  } else if (burning && !burning.armour && burning.got >= battle.burnEnergy) {
     target.burn.delete(`${burning.room}:${burning.cell}`);
     destroyCell(w, target.room(burning.room), burning.cell, `${shooter.name}:beam`, 'thermal');
   }
@@ -183,13 +247,36 @@ function launch(battle, shooter, e) {
   const flight = Math.hypot(to[0] - from[0], to[1] - from[1]) / battle.round.velocity;
   battle.rounds.push({ shooter, target, room: shooter.target, row, from, to, t0: e.t, t1: e.t + flight, cause: `${shooter.name}:${e.cause}` });
 }
-/** A round arriving: the shield field at the aimed room slows it (kernel shieldRound), then the kernel's fireRound resolves it along its row. */
+/** STAND-IN bow armour: an armour cell loses `loss` of its integrity (a float residue of 1e-12 or less counts as 0, as in the kernel). */
+function damageArmour(battle, ship, c, loss, cause, channel) {
+  if (c.destroyed) return;
+  const left = c.integrity - loss;
+  c.integrity = left > 1e-12 ? left : 0;
+  if (c.integrity === 0) c.destroyed = true;
+  battle.events.push({ side: ship.side, t: battle.t, type: c.destroyed ? 'armour-destroyed' : 'armour-damaged', room: 'armour', cause, channel, row: c.row, integrity: c.integrity, standIn: true });
+}
+/**
+ * STAND-IN bow armour: a round entering row `row` first meets that row's armour cells, outermost first, by L0's rule
+ * (kernel penetrate, armour.kineticResistance per cell; a wrecked armour cell is a hole that resists nothing). A
+ * passed cell loses 1 / kinetic.hitsToWreck, the cell it stops in (absorbed / R) / hitsToWreck, as fireRound does
+ * for room cells. Returns the velocity it leaves the belt with (sectional momentum left x area / mass; 0: stopped).
+ */
+function throughArmour(battle, ship, row, velocity, cause) {
+  const cells = ship.armour.get(row);
+  if (!cells || velocity <= 0) return velocity;
+  const { mass, area } = battle.round, R = battle.armourResistance, hits = battle.params.kinetic.hitsToWreck.value;
+  const res = penetrate(sectionalMomentum(mass, velocity, area), cells.map((c) => (c.destroyed ? 0 : R)));
+  res.absorbed.forEach((a, i) => { if (!cells[i].destroyed) damageArmour(battle, ship, cells[i], (i < res.passed ? 1 : a / R) / hits, cause, 'kinetic'); });
+  return res.stoppedIn >= 0 ? 0 : (res.residual * area) / mass;
+}
+/** A round arriving: the shield field at the aimed room slows it (kernel shieldRound), the bow armour (if any) next, then the kernel's fireRound resolves it along its row. */
 function arrive(battle, r) {
   const w = r.target.world, room = r.target.room(r.room);
   const sh = shieldRound(w, { position: room.position, ...battle.round });
+  const v = throughArmour(battle, r.target, r.row, sh.velocity, r.cause);
   let res = null;
-  if (sh.velocity > 0) res = fireRound(w, { ...battle.round, velocity: sh.velocity }, rowPath(r.target, r.row), r.cause);
-  battle.hits.push({ t: battle.t, shooter: r.shooter.side, target: r.target.side, row: r.row, room: r.room, slowed: battle.round.velocity - sh.velocity, passed: res ? res.passed : 0, stoppedIn: res ? res.stoppedIn : -1, path: res ? rowPath(r.target, r.row).map((p) => p.room.id) : [] });
+  if (v > 0) res = fireRound(w, { ...battle.round, velocity: v }, rowPath(r.target, r.row), r.cause);
+  battle.hits.push({ t: battle.t, shooter: r.shooter.side, target: r.target.side, row: r.row, room: r.room, slowed: battle.round.velocity - sh.velocity, armourLeft: v, passed: res ? res.passed : 0, stoppedIn: res ? res.stoppedIn : -1, path: res ? rowPath(r.target, r.row).map((p) => p.room.id) : [] });
   if (battle.hits.length > 50) battle.hits.shift();
 }
 
@@ -223,7 +310,7 @@ export function summary(ship) {
     crewLost: ship.crewLost, crewTotal: ship.crewTotal,
     wrecked: ship.world.rooms.filter((r) => isDestroyed(r)).map((r) => r.id),
     cellsLost: ship.world.rooms.reduce((x, r) => x + r.cells.length - survivingCells(r), 0),
-    firstFailure: ship.firstFailure,
+    firstFailure: ship.firstFailure, destroyedBy: ship.destroyedBy,
   };
 }
 
@@ -235,7 +322,7 @@ function readEvents(battle, ship) {
     battle.events.push({ side: ship.side, ...e });
     if (e.type === 'shot') launch(battle, ship, e);
     if (e.type === 'crew-died') ship.crewLost += e.deaths;
-    if (e.type === 'explosion' && (e.room === 'reactor' || e.room === 'magazine')) ship.destroyed = true;
+    if (e.type === 'explosion' && (e.room === 'reactor' || e.room === 'magazine')) { if (!ship.destroyed) ship.destroyedBy = { t: e.t, room: e.room, energy: e.energy, cause: e.cause }; ship.destroyed = true; }
     if (!ship.firstFailure && (e.type === 'overheated' || e.type === 'shutdown' || e.type === 'cell-destroyed' || e.type === 'scram')) ship.firstFailure = { t: e.t, type: e.type, room: e.room, cause: e.cause };
     if (!ship.firstHot && e.type === 'hot') ship.firstHot = { t: e.t, room: e.room };
   }
