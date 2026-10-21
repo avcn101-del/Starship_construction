@@ -1,5 +1,75 @@
 # Changelog
 
+## 0.2.2 — 2026-10-21 — L1 reviewer answers #189 landed
+
+- Kernel (`js/rooms.js`, #189 (1)): a room's destroyed count is the cells
+  destroyed **now**; a cell stays destroyed from integrity 0 until repair
+  brings it back to 1, so a repaired cell no longer counts towards the
+  breach test, and crew deaths per destroyed cell use k = cells destroyed
+  now, capped by the crew aboard.
+- Kernel (#189 (4)): a room that has exploded never melts down or
+  explodes again on reaching critical.
+- Kernel (#189 (5)): the turret fires on accumulated time, each shot
+  inside the step that holds its due time, at that time; the last
+  round's draw stops at its due time. `1 + floor(rate t)` holds at e.g.
+  `turret.fireRate=1.3`; canonical results unchanged.
+- Kernel (#189 (3)): the bridge raises `control-restored` when it gives
+  control again; `control-lost` from heat carries the cause `overheat`.
+- `tools/m0.js` (#189 (2)): for L1 and later the stripped `locked:` line
+  may hold only `locked: null` or the lock object, with an optional
+  trailing comma, otherwise the command fails; the lock rule is chosen by
+  the scenario's folder, and a `level` that differs from the folder is an
+  error. Valid files keep their lock hashes.
+- `tools/m0.js` (#189 (6)): `verify`, `regress` and `ledger` check every
+  `withdrawn.json` entry (successor exists, locked, recorded PASS;
+  decision `#n`). (#189 (7)): the data hash also covers `TIERS` and
+  `BASE_EDGE`; every record re-recorded, only `dataHash` and `code` moved.
+- New `L1.repair.breach` and `L1.room.restart` (§13c.2 rows 14, 15),
+  locked before their first canonical run, both PASS.
+- Results: L0 12/12 VERIFIED; L1 15 VERIFIED + 1 WITHDRAWN.
+
+## 0.2.1 — 2026-10-21 — L1 answers #185 and #187 landed
+
+- `tools/m0.js`: the data hash of a record covers `PARAMS`, `FIXED` and
+  `ROOMS` (#185 (9)); every L0 and L1 record re-recorded, only `dataHash`
+  and `code` moved (criterion, results and run() hashes unchanged).
+- `ROOMS.railgun.thermalClass` is `'plant'` (#185 (3)).
+- Withdrawn scenarios (#187 (8)): `mission0/withdrawn.json` lists a
+  scenario withdrawn for a specification error with its successor and
+  decision; `verify` and `regress` report it as WITHDRAWN while it still
+  fails exactly as recorded (any other difference is a MISMATCH);
+  `regress` includes it; the ledger names the successor. First entry:
+  `L1.radiator.steady` → `L1.radiator.steady.v2` (#185).
+- New `L1.radiator.steady.v2` (#185 (1)), locked before its first
+  canonical run: 22 cases, PASS. No kernel change (`addRoom` already takes
+  a start temperature).
+- Results: L0 12/12 VERIFIED; L1 13 VERIFIED + 1 WITHDRAWN.
+- `DESIGN.md` §16: the v2 numbers, the withdrawal, the 19 one-sided times
+  that pass only through the 1e-9 slack, named (the earlier count of
+  18 + 5 was wrong), and the #187 (5) signal for L2.
+
+## 0.2.0 — 2026-10-21 — Mission 0 L1: one room alone
+
+- Process items of #184: from L1 the lock hash covers the whole scenario
+  file except its `locked:` line (L0 keeps its rule, chosen by level);
+  `shield.kineticStop` derived inside `withOverrides`; `blast()` requires
+  its coupling (the locked `L0.blast.surface` run now passes 1); the
+  `approved` flags of #177 flipped to true.
+- `data.js`: the L1 constants of `DESIGN.md` §13c.3 with approved ranges
+  (#183), new `FIXED` values (Stefan–Boltzmann, rest temperature,
+  radiator emissivity, repair falloff exponent) and a `ROOMS` table.
+- Kernel: `js/events.js` (event list, #156 fields), `js/heat.js`
+  (per-room heat, radiators by T⁴, thresholds, books), `js/rooms.js` (the
+  nine rooms' behaviours); `util.stepsAtLeast` for whole-step timers.
+- Thirteen L1 scenarios, locked before their first canonical run: 12 PASS,
+  `L1.radiator.steady` FAILs (the room has not settled after 3600 s; a
+  design question). The first run also caught a kernel bug (a repaired
+  cell reported one step early), fixed and re-run.
+- L0 re-run canonically: 12/12 PASS, same criterion and result hashes
+  (data hash moved with the new constants).
+- `DESIGN.md` §16: the L1 numbers and an honest reading; `README.md`
+  constants table regenerated from `data.js`; ledger regenerated.
+
 ## 0.1.4 — 2026-10-21 — approval tiers and the L1 plan
 
 - Decision #180: the owner decides direction; the lead designer decides and

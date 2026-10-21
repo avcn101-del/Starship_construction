@@ -30,7 +30,7 @@ export default {
   run(ctx, c) {
     const E = ctx.scaled(ctx.params.he.blastEnergy) * c.times;
     const B = ctx.scaled(ctx.params.armour.blastResistance);
-    const r = blast(c.w, c.h, [c.x, c.y], E, B);
+    const r = blast(c.w, c.h, [c.x, c.y], E, B, 1);
     const damaged = r.absorbed.map((a, i) => (a > 0 ? i : -1)).filter((i) => i >= 0);
     // connectivity of the damaged cells, from the burst cell
     const set = new Set(damaged), seen = new Set([c.y * c.w + c.x]), stack = [c.y * c.w + c.x];

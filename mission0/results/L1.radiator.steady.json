@@ -1,0 +1,60 @@
+{
+  "id": "L1.radiator.steady",
+  "level": "L1",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L1.radiator.steady",
+  "code": "12f2aaa",
+  "criterionHash": "9b5a31a3",
+  "lockedHash": "9b5a31a3",
+  "runHash": "a584cd21",
+  "dataHash": "e7b13ff5",
+  "rowsHash": "9802158f",
+  "rows": [
+    {
+      "case": {
+        "P": 100000,
+        "n": 4
+      },
+      "expected": {
+        "T": 374.1419853928043,
+        "P": 100000
+      },
+      "actual": {
+        "T": 351.76223647219604,
+        "radiatedPower": 78135.84612401007,
+        "ir": 78135.98103016018,
+        "books": {
+          "generated": 360000000.0004515,
+          "radiated": 211770632.46672392,
+          "stored": 148229367.53327048,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "temperature, radiated power, IR brightness"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "at least one case runs",
+      "ok": true
+    },
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
