@@ -1,5 +1,48 @@
 # Changelog
 
+## 0.6.1 — 2026-10-21 — The mass pass merged; answers (#225, #226)
+
+- The mass pass (PR #40, head `24435a7`) merged into `main` after review
+  (#225); `regress`: 56 VERIFIED + 20 WITHDRAWN.
+- `DESIGN.md` §13f: L3's mass-dependent numbers marked superseded by §13g.
+- The prototype is hosted as a private claude.ai page (#226, the owner).
+
+## 0.6.0 — 2026-10-21 — Mission 0: the mass pass, ships of real density (#221, #222)
+
+- Data (#221, the owner; ranges by the lead designer): new
+  `structure.cellMass` 1e4 kg per M cell at T1 (3e3–3e4 kg, k=3);
+  `thermal.specificHeat` removed; `engine.thrust` 2 → 15 MN (4–60 MN, k=2);
+  `rcs.force` 100 kN → 1 MN (0.3–5 MN, k=2); all approved.
+  `ROOMS.shieldGenerator` is placed `anywhere` instead of carrying the
+  `fittings` override (#219 (1), #222 (2)).
+- Kernel (§13g.1): a cell's mass is `structure.cellMass` (scaled, k=3); a
+  heat sink cell adds (`heatsink.capacityFactor` − 1) × C /
+  `FIXED.waterSpecificHeat`; heat capacity unchanged. `readout` works on a
+  blueprint before `enableShip` (#222 (4)); the `fittings` override is gone
+  from `js/layout.js` and `js/rooms.js`. `tools/perf.js` takes the
+  magazine's and the turret's loads from `data.js` (#222 (3)).
+- `tools/m0.js`: a dependency on a withdrawn scenario, and the check of
+  `mission0/withdrawn.json`, follow a chain of successors to the one that
+  stands (v1 → v2 → v3, #188, #221).
+- `tools/m0.js`: a case whose `expected()` throws is recorded as a FAIL
+  with the error, like a `run()` that throws (#212 (7)): the superseded L3
+  formulas name the removed `thermal.specificHeat`.
+- Every L0–L3 record re-recorded for the new data. Results moved only in
+  `L1.engine.thrust` and `L1.room.restart` (`engine.thrust` 2 → 15 MN, both
+  still PASS) and in L3: the five v2 scenarios whose formulas compute mass
+  from `thermal.specificHeat` (`L3.mass.props.v2` FAIL, its four dependants
+  BLOCKED until their v3 successors pass), their v1 predecessors, and
+  `L3.fragment.scram` (thrust and momentum residues; still PASS).
+  `L3.validation.v2` and `L3.kinetic.hole` unchanged.
+- `mission0/scenarios/L3/`: five v3 successors (`L3.mass.props.v3`,
+  `L3.thrust.v3`, `L3.rcs.turn.v3`, `L3.recoil.v3`,
+  `L3.split.momentum.v3`), each its v2 with only the mass rule changed, and
+  the new `L3.fragment.rules` (#222 (1)); locked before their first
+  canonical run: all six PASS. The five v2s are withdrawn as superseded by
+  #221 (`mission0/withdrawn.json`); every L3 scenario re-run canonically
+  through the new successors. `MISSION0.md` regenerated.
+- `DESIGN.md` §16: the measured mass-pass block. `regress`: 56 VERIFIED +
+  20 WITHDRAWN; `tools/perf.js` 0.05–0.16 ms per step.
 ## 0.5.2 — 2026-10-21 — The prototype plan and the not-fun ladder (#223, #224)
 
 - `DESIGN.md` §2: when play is not fun, tune constants, then combine the

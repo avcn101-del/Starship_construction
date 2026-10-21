@@ -1,0 +1,2632 @@
+{
+  "id": "L3.mass.props.v3",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.mass.props.v3",
+  "code": "74493af",
+  "criterionHash": "d1e46d8e",
+  "lockedHash": "d1e46d8e",
+  "runHash": "dab24409",
+  "dataHash": "62e2f8d9",
+  "rowsHash": "51500c5f",
+  "rows": [
+    {
+      "case": {
+        "what": "cell",
+        "tier": "T1"
+      },
+      "expected": {
+        "cell": 10000,
+        "sinkCell": 10573.339703774487
+      },
+      "actual": {
+        "cell": 10000,
+        "sinkCell": 10573.339703774487,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 3480000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "bridge",
+        "contents": "empty",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "reactor",
+        "contents": "empty",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "engine",
+        "contents": "empty",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 60000,
+            "c": [
+              5,
+              7.5
+            ],
+            "I": 1625000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 60000,
+            "c": [
+              5,
+              7.5
+            ],
+            "I": 1625000
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "magazine",
+        "contents": "empty",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ],
+        "rounds": 0,
+        "magazine": 0,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "magazine",
+        "contents": "full",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 40900,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 40900,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ],
+        "rounds": 0,
+        "magazine": 150,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "shieldGenerator",
+        "contents": "empty",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "quarters",
+        "contents": "empty",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 60000,
+            "c": [
+              7.5,
+              5
+            ],
+            "I": 1625000.0000000002
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 60000,
+            "c": [
+              7.5,
+              5
+            ],
+            "I": 1625000.0000000002
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "beamBay",
+        "contents": "empty",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "turret",
+        "contents": "empty",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "turret",
+        "contents": "full",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 40024,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 40024,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "hold",
+        "contents": "empty",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "heatSink",
+        "contents": "empty",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 42293.35881509795,
+            "c": [
+              5,
+              5
+            ],
+            "I": 704889.3135849659
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 42293.35881509795,
+            "c": [
+              5,
+              5
+            ],
+            "I": 704889.3135849659
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 3480000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "R1",
+        "state": "full",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 448267.35881509795,
+            "c": [
+              29.450777346800905,
+              16.376240263805265
+            ],
+            "I": 108026587.31976852
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 448267.35881509795,
+            "c": [
+              29.450777346800905,
+              16.376240263805265
+            ],
+            "I": 108026587.31976852
+          }
+        ],
+        "rounds": 0,
+        "magazine": 150,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 3480000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "R1",
+        "state": "fired",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 448147.35881509795,
+            "c": [
+              29.44795259129698,
+              16.376608778376216
+            ],
+            "I": 108013002.06672972
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 448147.35881509795,
+            "c": [
+              29.44795259129698,
+              16.376608778376216
+            ],
+            "I": 108013002.06672972
+          }
+        ],
+        "rounds": 20,
+        "magazine": 130,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 1432482.1521852338,
+            "stored": 1445610.5499145985,
+            "initial": 1044000000,
+            "conducted": 2878092.702098375,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 10972383.611302853,
+            "initial": 696000000,
+            "conducted": 10972383.611302225,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 3966666.6666665315,
+            "radiated": 0,
+            "stored": 3963225.5613172054,
+            "initial": 696000000,
+            "conducted": -3441.105348183606,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 13729.417702794075,
+            "initial": 696000000,
+            "conducted": 13729.417702509674,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 1070544.2205615,
+            "stored": -1060789.920993328,
+            "initial": 696000000,
+            "conducted": 9754.299572422096,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 1432613.8700931412,
+            "stored": 2870821.9566497803,
+            "initial": 3480000000,
+            "conducted": 4303435.826739352,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 1983333.3333332657,
+            "radiated": 0,
+            "stored": 1995228.5575796366,
+            "initial": 1044000000,
+            "conducted": 11895.224246293137,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 6000000,
+            "radiated": 0,
+            "stored": 5975906.926738262,
+            "initial": 696000000,
+            "conducted": -24093.073260344656,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 79333333.3333335,
+            "radiated": 2577665.6249896926,
+            "stored": 58593907.327638984,
+            "initial": 696000000,
+            "conducted": -18161760.380704608,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 3.477652430534363,
+            "initial": 696000000,
+            "conducted": 3.4776519716998706,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 1.2005674564028674e-11,
+          "dL": 1.4458782970905304e-7,
+          "net": 8344724.475712715,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "R1",
+        "state": "four destroyed",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 408267.35881509795,
+            "c": [
+              28.90709218232394,
+              16.51107742225942
+            ],
+            "I": 98924300.3460641
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 408267.35881509795,
+            "c": [
+              28.90709218232394,
+              16.51107742225942
+            ],
+            "I": 98924300.3460641
+          }
+        ],
+        "rounds": 0,
+        "magazine": 150,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 3480000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 348000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "R1",
+        "state": "split",
+        "tier": "T1"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 242074,
+            "c": [
+              40.059878384295715,
+              17.474408651899832
+            ],
+            "I": 26728423.524418153
+          },
+          {
+            "M": 164796.67940754897,
+            "c": [
+              15.006017709352141,
+              13.802869046671622
+            ],
+            "I": 15088328.630743176
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 242074,
+            "c": [
+              40.059878384295715,
+              17.474408651899832
+            ],
+            "I": 26728423.524418153
+          },
+          {
+            "M": 164796.67940754897,
+            "c": [
+              15.006017709352141,
+              13.802869046671622
+            ],
+            "I": 15088328.630743176
+          }
+        ],
+        "rounds": 0,
+        "magazine": 150,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 348000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1740000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "cell",
+        "tier": "T6"
+      },
+      "expected": {
+        "cell": 2160000,
+        "sinkCell": 2283841.376015289
+      },
+      "actual": {
+        "cell": 2160000,
+        "sinkCell": 2283841.376015289,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 751680000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "bridge",
+        "contents": "empty",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "reactor",
+        "contents": "empty",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "engine",
+        "contents": "empty",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 12960000,
+            "c": [
+              30,
+              45
+            ],
+            "I": 12636000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 12960000,
+            "c": [
+              30,
+              45
+            ],
+            "I": 12636000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "magazine",
+        "contents": "empty",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": 0,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "magazine",
+        "contents": "full",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 8834400,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 8834400,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": 150,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "shieldGenerator",
+        "contents": "empty",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "quarters",
+        "contents": "empty",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 12960000,
+            "c": [
+              45,
+              30
+            ],
+            "I": 12636000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 12960000,
+            "c": [
+              45,
+              30
+            ],
+            "I": 12636000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "beamBay",
+        "contents": "empty",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "turret",
+        "contents": "empty",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "turret",
+        "contents": "full",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 8645184,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 8645184,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "hold",
+        "contents": "empty",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "room",
+        "type": "heatSink",
+        "contents": "empty",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 9135365.504061157,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5481219302.436694
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 9135365.504061157,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5481219302.436694
+          }
+        ],
+        "rounds": 0,
+        "magazine": null,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 751680000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "R1",
+        "state": "full",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 96060749.50406116,
+            "c": [
+              177.02273434550312,
+              98.39346949098686
+            ],
+            "I": 829954664094.8661
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 96060749.50406116,
+            "c": [
+              177.02273434550312,
+              98.39346949098686
+            ],
+            "I": 829954664094.8661
+          }
+        ],
+        "rounds": 0,
+        "magazine": 150,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 751680000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "R1",
+        "state": "fired",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 96034829.50406116,
+            "c": [
+              177.00573665066474,
+              98.3957349058403
+            ],
+            "I": 829850007538.0668
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 96034829.50406116,
+            "c": [
+              177.00573665066474,
+              98.3957349058403
+            ],
+            "I": 829850007538.0668
+          }
+        ],
+        "rounds": 20,
+        "magazine": 130,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 309417219.8276187,
+            "stored": 312527766.80422974,
+            "initial": 225504000000,
+            "conducted": 621944986.6325402,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 2370037750.8903503,
+            "initial": 150336000000,
+            "conducted": 2370037750.8908353,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 856800000,
+            "radiated": 0,
+            "stored": 856057346.9597473,
+            "initial": 150336000000,
+            "conducted": -742653.0390208092,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 2967031.7710266113,
+            "initial": 150336000000,
+            "conducted": 2967031.7717963704,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 231237309.162093,
+            "stored": -229129199.3616333,
+            "initial": 150336000000,
+            "conducted": 2108109.801976006,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 309445148.7896962,
+            "stored": 620575181.461792,
+            "initial": 751680000000,
+            "conducted": 930020330.2491039,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 428400000,
+            "radiated": 0,
+            "stored": 430971394.97262573,
+            "initial": 225504000000,
+            "conducted": 2571394.972792052,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 1296000000,
+            "radiated": 0,
+            "stored": 1290792301.0942383,
+            "initial": 150336000000,
+            "conducted": -5207698.9059166275,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 17136000000,
+            "radiated": 556799254.9949739,
+            "stored": 12655500740.497498,
+            "initial": 150336000000,
+            "conducted": -3923700004.507801,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 752.1336364746094,
+            "initial": 150336000000,
+            "conducted": 752.1336876523403,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 1.2458615232779926e-8,
+          "dL": 0.003046393394470215,
+          "net": 10810770236.821194,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "R1",
+        "state": "four destroyed",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 87420749.50406116,
+            "c": [
+              173.7635129721881,
+              99.22301598668189
+            ],
+            "I": 759345185443.7217
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 87420749.50406116,
+            "c": [
+              173.7635129721881,
+              99.22301598668189
+            ],
+            "I": 759345185443.7217
+          }
+        ],
+        "rounds": 0,
+        "magazine": 150,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 751680000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 75168000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "what": "R1",
+        "state": "split",
+        "tier": "T6"
+      },
+      "expected": {
+        "bodies": [
+          {
+            "M": 52152984,
+            "c": [
+              240.1660599132736,
+              104.91076790543758
+            ],
+            "I": 206894599773.6168
+          },
+          {
+            "M": 35011082.75203058,
+            "c": [
+              89.94031150837743,
+              82.96711168226054
+            ],
+            "I": 114505426521.09969
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 52152984,
+            "c": [
+              240.1660599132736,
+              104.91076790543758
+            ],
+            "I": 206894599773.6168
+          },
+          {
+            "M": 35011082.75203058,
+            "c": [
+              89.94031150837743,
+              82.96711168226054
+            ],
+            "I": 114505426521.09969
+          }
+        ],
+        "rounds": 0,
+        "magazine": 150,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 75168000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 375840000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 225504000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + vented + stored, within max(1e-9 x the largest flow, 1e-10 x the room's heat at the start), every room, every case (#219)",
+      "ok": true
+    },
+    {
+      "name": "conduction and life-support flows each sum to 0 over the ship, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "momentum books: mass, momentum (1e-9) and angular momentum (1e-9 x net + 1e-12 x gross angular impulse booked, #219, #220) of ship + rounds + debris kept (with the external impulse), every case",
+      "ok": true
+    },
+    {
+      "name": "mass x 6^3 and moment of inertia x 6^5 from T1 to T6: one cell, each room alone, each full room",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

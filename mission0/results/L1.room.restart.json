@@ -3,12 +3,12 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.room.restart",
-  "code": "208955b",
+  "code": "7b0f40f",
   "criterionHash": "a9cf26b9",
   "lockedHash": "a9cf26b9",
   "runHash": "ea075c7d",
-  "dataHash": "3d66afdf",
-  "rowsHash": "88b29590",
+  "dataHash": "62e2f8d9",
+  "rowsHash": "2a8b0ba4",
   "rows": [
     {
       "case": {
@@ -24,7 +24,7 @@
         "area": 25,
         "C": 3600000,
         "tolerance": 0.0001,
-        "thrust": 2000000,
+        "thrust": 15000000,
         "minShutdowns": 2
       },
       "actual": {
@@ -67,9 +67,9 @@
         ],
         "offAfter": true,
         "onAfter": [
-          2000000,
-          2000000,
-          2000000
+          15000000,
+          15000000,
+          15000000
         ],
         "books": {
           "generated": 4851950000,
