@@ -13,7 +13,8 @@
   axis and bow clear), its footprint its default length.
   `armour.kineticResistance`, `beam.focusRange` and
   `FIXED.beamWaistPerHalfCell` are marked superseded and kept only because
-  `proto/` v1 reads them (a question for the lead designer in the PR).
+  `proto/` v1 and the withdrawn scenarios read them, until prototype v2
+  (the lead designer's decision on this pass; no kernel use).
 - Kernel (§13i.1): `js/damage.js` gains the pure functions
   `penetrateRound` (the round rule: the round takes what each cell takes,
   flattens at constant volume, is wrecked at f = 1; exact momentum books),
