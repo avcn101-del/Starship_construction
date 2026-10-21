@@ -2,12 +2,15 @@
 // tools/perf.js — the E8 baseline (DESIGN.md 13f.5, #211, #213): milliseconds
 // per simulation step for two reference ships R1 (13f.2) stepping together,
 // at T1 and at T6, in a battle load (shield on, engine at half throttle, beam
-// firing, the reactor at full demand), with and without power routing. Not a
-// scenario: timing is not deterministic. E8's budget is 1 ms per step (#213).
+// firing, the reactor at full demand), with and without power routing. From
+// the path model (13i) each R1's beam also hits the other along its middle row
+// from the bow (fireBeam every step, the target's cells taking heat and
+// damage). Not a scenario: timing is not deterministic. E8's budget is 1 ms
+// per step (#213).
 //
 //   node tools/perf.js [steps]
 import { performance } from 'node:perf_hooks';
-import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, setDemand, enablePowerRouting, step } from '../js/rooms.js';
+import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, setDemand, enablePowerRouting, step, fireBeam, beamEnergy, cellAt } from '../js/rooms.js';
 import { withOverrides, TIERS, scaled } from '../js/data.js';
 
 // R1, the reference ship (13f.2): x forward, the T1 drydock grid; cells [x0, x1) x [y0, y1); the engine (2 x 3)
@@ -54,9 +57,17 @@ const out = [];
 for (const routing of [false, true]) {
   for (const tier of ['T1', 'T6']) {
     const pair = [r1(tier, routing), r1(tier, routing)];
-    for (let i = 0; i < 300; i++) for (const w of pair) step(w); // warm up
+    // Each ship's beam on the other's middle row (y = 2) from the bow (x = 10 down to 0).
+    const shots = pair.map((w, k) => {
+      const target = pair[1 - k], bay = w.rooms.find((r) => r.id === 'beamBay');
+      const path = [];
+      for (let x = 10; x >= 0; x--) { const c = cellAt(target, [x, 2]); if (c) path.push({ room: c.room, cell: c.index }); }
+      return { target, path, beam: { power: scaled(w.params.beam.power, w.edge), energy: beamEnergy(w, bay), range: 900 } };
+    });
+    const battleStep = () => { for (const s of shots) fireBeam(s.target, s.beam, s.path, 'beam'); for (const w of pair) step(w); };
+    for (let i = 0; i < 300; i++) battleStep(); // warm up
     const t0 = performance.now();
-    for (let i = 0; i < steps; i++) for (const w of pair) step(w);
+    for (let i = 0; i < steps; i++) battleStep();
     const ms = (performance.now() - t0) / steps;
     out.push(`${tier} two R1s, power routing ${routing ? 'on ' : 'off'}: ${ms.toFixed(4)} ms per step (${steps} steps; E8 budget 1 ms, #213)`);
   }

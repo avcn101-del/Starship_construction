@@ -1,5 +1,64 @@
 # Changelog
 
+## 0.7.1 — 2026-10-21 — The path model merged (PR #48, #236)
+
+- PR #48 merged after the physics checker and the reviewer found no
+  blocking finding; `DESIGN.md` §13i text corrected (axis rule, the armour
+  sentence, N = 2 burn times); findings for the next kernel pass in #236.
+
+## 0.7.0 — 2026-10-21 — Mission 0: the path model (#228–#235)
+
+- Data (§13i.2, #235): new `matter.kineticResistance` 1545.4 m/s
+  (750–3125, k=0); cell masses by room type (`structure.cellMass` 3 t,
+  structure only; new `cellMass.crewed` 14.8 t, `.reactor` 125 t, `.engine`
+  6.1 t, `.beamBay` 5.5 t, `.shieldGenerator` and `.railgun` 10 t,
+  `armour.cellMass` 10 t; k=3) named by each room in `ROOMS`;
+  `beam.gradient` 10 MeV/m in J/m (5–20 MeV/m, k=0); real FIXED constants
+  for a proton in iron (CODATA, PDG) in SI; `room.kineticResistance`
+  removed. The beam bay is a spinal room (`spinal: { min: 2 }`, placement
+  axis and bow clear), its footprint its default length.
+  `armour.kineticResistance`, `beam.focusRange` and
+  `FIXED.beamWaistPerHalfCell` are marked superseded and kept only because
+  `proto/` v1 and the withdrawn scenarios read them, until prototype v2
+  (the lead designer's decision on this pass; no kernel use).
+- Kernel (§13i.1): `js/damage.js` gains the pure functions
+  `penetrateRound` (the round rule: the round takes what each cell takes,
+  flattens at constant volume, is wrecked at f = 1; exact momentum books),
+  `betheStopping`, `csdaRange` and `beamDeposit` (Bethe without shell or
+  density correction, nuclear interactions leaving their energy in place;
+  RK4 in areal density); `penetrate`, `burnThrough` and
+  `beamDeliveredFraction` stay for the withdrawn scenarios and `proto/`.
+  `js/rooms.js`: a cell's mass by its type, `cellArealDensity` (σ, 0 for a
+  hole), `roundStrength`, `fireRound` on the round rule with r = c σ,
+  `beamEnergy` (gradient × N × edge) and `fireBeam` (per step: P·F_i as heat
+  in each cell's room, P·F_i·dt / `armour.burnEnergy` as integrity loss,
+  channel `thermal`; fractions recomputed when a path cell becomes a hole);
+  `addRoom` takes a spinal room's `length`. `js/heat.js`: `depositHeat`.
+  `js/layout.js`: `roomFootprint`; validation rules `axis` (a spinal room
+  lies along x and its rows hold the ship's centre line, the mean row of the
+  cells of rooms joined to a bridge) and `bow` (no cell ahead of its bow
+  face).
+- Tools: `tools/m0.js` checks that a withdrawn scenario keeps the verdict it
+  was recorded with (a withdrawn scenario on a kept superseded function can
+  still pass); `tools/perf.js` adds each R1's beam on the other's middle row.
+- Scenarios P1–P10 (§13i.4), written and committed unlocked: P1
+  `L0.kinetic.penetration.v3`, P2 `L0.kinetic.overpen.v2`, P3
+  `L0.kinetic.wreck`, P4 `L1.kinetic.damage.v2`, P5 `L3.kinetic.hole.v2`, P6
+  `L0.beam.depth`, P7 `L0.beam.range`, P8 `L0.beam.burn.v3`, P9
+  `L1.beambay.length`, P10 `L3.mass.props.v4`, `L3.thrust.v4`,
+  `L3.rcs.turn.v4`, `L3.recoil.v4`, `L3.split.momentum.v4` and
+  `L3.fragment.rules.v2` (v3 / v1 identical except the masses of §13i.2).
+- Locked at `aa186d9` before the first canonical run; all 15 PASS. Every
+  record re-recorded on the new data (the first canonical run was stopped
+  and repeated after three notes in `data.js` were reworded, which moves the
+  data hash; criteria and locks unchanged). Withdrawn as superseded (14):
+  by #230 `L0.kinetic.penetration`, `.v2`, `L0.kinetic.overpen`,
+  `L0.beam.falloff`, `L0.beam.burn`, `.v2`; by #232 `L1.kinetic.damage`,
+  `L3.kinetic.hole`; by #234 the five L3 v3 mass scenarios and
+  `L3.fragment.rules`. `regress`: 57 VERIFIED + 34 WITHDRAWN.
+- `DESIGN.md` §16: the path model's measured block. `MISSION0.md`
+  regenerated.
+
 ## 0.6.6 — 2026-10-21 — The path model revised (#234, #235)
 
 - The beam bay becomes a spinal accelerator whose length sets its particle

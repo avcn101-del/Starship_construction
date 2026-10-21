@@ -8,7 +8,9 @@
 // border included); a room carries at most one radiator per open edge (#15).
 // Positions in metres: the grid's corner is the origin, cell (x, y) spans
 // [x e, (x + 1) e] x [y e, (y + 1) e]. From L3 (13f.1, #57, #208): fittings on
-// open edges and the validation of a ship's blueprint. No DOM, no Math.random.
+// open edges and the validation of a ship's blueprint. The path model (13i.1,
+// #234): a spinal room (the beam bay) is N cells long along the ship's axis,
+// on its axis rows, its bow face clear. No DOM, no Math.random.
 
 const SIDES = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 const key = (x, y) => `${x},${y}`;
@@ -17,6 +19,22 @@ export const byId = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 
 export function createLayout({ edge, grid }) {
   return { edge, grid, rooms: new Map(), occupied: new Map(), walls: null, types: new Map() };
+}
+
+/**
+ * A room's footprint [w, h] at `size`. A spinal room (ROOMS spinal, #234)
+ * given a `length` N is N cells along x: [N, h], N a whole number of at least
+ * spinal.min; without one it keeps its footprint. Throws for a size the type
+ * does not have, a length on a room that is not spinal, or a footprint still
+ * holding 'N' (the railgun stays data only, #185 (3)).
+ */
+export function roomFootprint(def, type, size = 'M', length = null) {
+  const fp = def.footprint[size];
+  if (!fp || typeof fp[0] !== 'number' || typeof fp[1] !== 'number') throw new Error(`${type} has no buildable size ${size}`);
+  if (length === null) return fp;
+  if (!def.spinal) throw new Error(`${type} is not a spinal room and has no length (#234)`);
+  if (!Number.isInteger(length) || length < def.spinal.min) throw new Error(`${type}: length ${length} must be a whole number of at least ${def.spinal.min} cells (#234)`);
+  return [length, fp[1]];
 }
 
 /** Grid cell of local cell (i, j) of a w x h footprint placed at `at` with `rotation` (0 or 90). */
@@ -129,15 +147,20 @@ export function fittingProblem(layout, defs, fitting, placed = []) {
  * detail }] }; each failure names its rule: 'grid' (a room leaves the
  * drydock grid), 'overlap', 'connected' (a room not joined to a bridge
  * through shared walls), 'hull' (a hull room with no open edge), 'exhaust'
- * (an engine's exhaust face not open, or a cell aft of it in its rows), and
- * the fitting rules of fittingProblem. A room that leaves the grid or
- * overlaps is not placed, so it is judged by that rule alone.
+ * (an engine's exhaust face not open, or a cell aft of it in its rows),
+ * 'axis' (a spinal room, placement 'axis', not lying along x on the ship's
+ * axis rows: its rows must hold the ship's centre line, the mean row of the
+ * cells of the rooms joined to a bridge, strictly inside them), 'bow' (a room placed 'bow
+ * clear' with a cell ahead of it in its rows, #234), and the fitting rules
+ * of fittingProblem. A room's `length` is its N if it is spinal. A room that
+ * leaves the grid or overlaps is not placed, so it is judged by that rule
+ * alone.
  */
 export function validateShip(blueprint, defs) {
   const layout = createLayout({ edge: blueprint.edge || 1, grid: blueprint.grid });
   const reasons = [];
   for (const r of blueprint.rooms) {
-    const fp = defs[r.type].footprint[r.size || 'M'], rot = r.rotation || 0, cells = [];
+    const fp = roomFootprint(defs[r.type], r.type, r.size || 'M', r.length ?? null), rot = r.rotation || 0, cells = [];
     for (let j = 0; j < fp[1]; j++) for (let i = 0; i < fp[0]; i++) cells.push(cellAt(fp[0], fp[1], i, j, r.cell, rot));
     const out = cells.find(([x, y]) => x < 0 || y < 0 || x >= layout.grid[0] || y >= layout.grid[1]);
     if (out) { reasons.push({ rule: 'grid', room: r.id, detail: `cell (${out}) is outside the ${layout.grid[0]} x ${layout.grid[1]} grid` }); continue; }
@@ -155,8 +178,22 @@ export function validateShip(blueprint, defs) {
     }
   }
   for (const id of ids) if (!reached.has(id)) reasons.push({ rule: 'connected', room: id, detail: `${id} is not joined to a bridge through shared walls` });
+  // The ship's centre line (#234): the mean row of the cells of the rooms joined to a bridge (a cut-off room is rejected by 'connected').
+  const rows = ids.filter((id) => reached.has(id)).flatMap((id) => layout.rooms.get(id).cells.map((c) => c[1] + 0.5));
+  const centreLine = rows.length ? rows.reduce((x, y) => x + y, 0) / rows.length : 0;
   for (const id of ids) {
     const def = defs[layout.types.get(id)];
+    if (def.placement.includes('axis')) {
+      const room = layout.rooms.get(id), ys = room.cells.map((c) => c[1]), xs = room.cells.map((c) => c[0]);
+      const spanX = Math.max(...xs) - Math.min(...xs) + 1, spanY = Math.max(...ys) - Math.min(...ys) + 1;
+      if (spanX < spanY) reasons.push({ rule: 'axis', room: id, detail: `${id} does not lie along the ship's axis (x)` });
+      else if (!(Math.min(...ys) < centreLine && centreLine < Math.max(...ys) + 1)) reasons.push({ rule: 'axis', room: id, detail: `${id}: rows ${Math.min(...ys)}-${Math.max(...ys)} do not hold the ship's centre line (y = ${centreLine})` });
+    }
+    if (def.placement.includes('bow clear')) {
+      const cells = layout.rooms.get(id).cells, x1 = Math.max(...cells.map((c) => c[0]));
+      const ahead = cells.filter((c) => c[0] === x1).find(([, y]) => [...layout.occupied.keys()].some((k) => { const [cx, cy] = k.split(',').map(Number); return cy === y && cx > x1; }));
+      if (ahead) reasons.push({ rule: 'bow', room: id, detail: `${id}: a cell lies ahead of its bow face in row ${ahead[1]}` });
+    }
     if (def.placement.includes('hull') && openEdges(layout, id) === 0) reasons.push({ rule: 'hull', room: id, detail: `${id} is a hull room with no open edge` });
     if (def.placement.includes('exhaust clear')) {
       const ex = exhaustFace(layout, id);

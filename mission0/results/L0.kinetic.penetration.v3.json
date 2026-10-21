@@ -1,0 +1,442 @@
+{
+  "id": "L0.kinetic.penetration.v3",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.kinetic.penetration.v3",
+  "code": "f220524",
+  "criterionHash": "5104a287",
+  "lockedHash": "5104a287",
+  "runHash": "44fc1b3e",
+  "dataHash": "70b16e4c",
+  "rowsHash": "c46c5ed5",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.479686425379869,
+        "passed": 1,
+        "f": 0.45291223365384436,
+        "claim": 1
+      },
+      "actual": {
+        "depth": 1.479686425379869,
+        "passed": 1,
+        "stoppedIn": 1,
+        "f": 0.45291223365384436,
+        "wrecked": false,
+        "p0": 1422.2222222222217,
+        "booked": 1422.2222222222217
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "f": 0.44199911664524033,
+        "claim": 2
+      },
+      "actual": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "stoppedIn": 2,
+        "f": 0.4419991166452403,
+        "wrecked": false,
+        "p0": 4800,
+        "booked": 4800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.1622608799746654,
+        "passed": 3,
+        "f": 0.4301892358872403,
+        "claim": 3
+      },
+      "actual": {
+        "depth": 3.1622608799746654,
+        "passed": 3,
+        "stoppedIn": 3,
+        "f": 0.43018923588724023,
+        "wrecked": false,
+        "p0": 16200,
+        "booked": 16200
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.4796864253798692,
+        "passed": 1,
+        "f": 0.4529122336538445,
+        "claim": 1
+      },
+      "actual": {
+        "depth": 1.4796864253798692,
+        "passed": 1,
+        "stoppedIn": 1,
+        "f": 0.4529122336538444,
+        "wrecked": false,
+        "p0": 4799.999999999998,
+        "booked": 4799.999999999998
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "f": 0.4419991166452404,
+        "claim": 2
+      },
+      "actual": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "stoppedIn": 2,
+        "f": 0.4419991166452403,
+        "wrecked": false,
+        "p0": 16200,
+        "booked": 16200
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.1622608799746654,
+        "passed": 3,
+        "f": 0.43018923588724023,
+        "claim": 3
+      },
+      "actual": {
+        "depth": 3.162260879974666,
+        "passed": 3,
+        "stoppedIn": 3,
+        "f": 0.4301892358872401,
+        "wrecked": false,
+        "p0": 54675,
+        "booked": 54675
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.479686425379869,
+        "passed": 1,
+        "f": 0.45291223365384436,
+        "claim": 1
+      },
+      "actual": {
+        "depth": 1.479686425379869,
+        "passed": 1,
+        "stoppedIn": 1,
+        "f": 0.45291223365384436,
+        "wrecked": false,
+        "p0": 11377.777777777774,
+        "booked": 11377.777777777774
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "f": 0.44199911664524033,
+        "claim": 2
+      },
+      "actual": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "stoppedIn": 2,
+        "f": 0.4419991166452403,
+        "wrecked": false,
+        "p0": 38400,
+        "booked": 38400
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.1622608799746654,
+        "passed": 3,
+        "f": 0.4301892358872403,
+        "claim": 3
+      },
+      "actual": {
+        "depth": 3.1622608799746654,
+        "passed": 3,
+        "stoppedIn": 3,
+        "f": 0.43018923588724023,
+        "wrecked": false,
+        "p0": 129600,
+        "booked": 129600
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.4796864253798692,
+        "passed": 1,
+        "f": 0.4529122336538445,
+        "claim": 1
+      },
+      "actual": {
+        "depth": 1.4796864253798692,
+        "passed": 1,
+        "stoppedIn": 1,
+        "f": 0.4529122336538444,
+        "wrecked": false,
+        "p0": 38399.999999999985,
+        "booked": 38399.999999999985
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "f": 0.4419991166452404,
+        "claim": 2
+      },
+      "actual": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "stoppedIn": 2,
+        "f": 0.4419991166452403,
+        "wrecked": false,
+        "p0": 129600,
+        "booked": 129600
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.1622608799746654,
+        "passed": 3,
+        "f": 0.43018923588724023,
+        "claim": 3
+      },
+      "actual": {
+        "depth": 3.162260879974666,
+        "passed": 3,
+        "stoppedIn": 3,
+        "f": 0.4301892358872401,
+        "wrecked": false,
+        "p0": 437400,
+        "booked": 437400
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.479686425379869,
+        "passed": 1,
+        "f": 0.45291223365384436,
+        "claim": 1
+      },
+      "actual": {
+        "depth": 1.479686425379869,
+        "passed": 1,
+        "stoppedIn": 1,
+        "f": 0.45291223365384436,
+        "wrecked": false,
+        "p0": 91022.22222222219,
+        "booked": 91022.22222222219
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "f": 0.44199911664524033,
+        "claim": 2
+      },
+      "actual": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "stoppedIn": 2,
+        "f": 0.4419991166452403,
+        "wrecked": false,
+        "p0": 307200,
+        "booked": 307200
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.1622608799746654,
+        "passed": 3,
+        "f": 0.4301892358872403,
+        "claim": 3
+      },
+      "actual": {
+        "depth": 3.1622608799746654,
+        "passed": 3,
+        "stoppedIn": 3,
+        "f": 0.43018923588724023,
+        "wrecked": false,
+        "p0": 1036800,
+        "booked": 1036800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "S"
+      },
+      "expected": {
+        "depth": 1.4796864253798692,
+        "passed": 1,
+        "f": 0.4529122336538445,
+        "claim": 1
+      },
+      "actual": {
+        "depth": 1.4796864253798692,
+        "passed": 1,
+        "stoppedIn": 1,
+        "f": 0.4529122336538444,
+        "wrecked": false,
+        "p0": 307199.9999999999,
+        "booked": 307199.9999999999
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "M"
+      },
+      "expected": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "f": 0.4419991166452404,
+        "claim": 2
+      },
+      "actual": {
+        "depth": 2.1660491073080026,
+        "passed": 2,
+        "stoppedIn": 2,
+        "f": 0.4419991166452403,
+        "wrecked": false,
+        "p0": 1036800,
+        "booked": 1036800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "L"
+      },
+      "expected": {
+        "depth": 3.1622608799746654,
+        "passed": 3,
+        "f": 0.43018923588724023,
+        "claim": 3
+      },
+      "actual": {
+        "depth": 3.162260879974666,
+        "passed": 3,
+        "stoppedIn": 3,
+        "f": 0.4301892358872401,
+        "wrecked": false,
+        "p0": 3499200,
+        "booked": 3499200
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "depth of each size identical T1-T6 (1e-9)",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

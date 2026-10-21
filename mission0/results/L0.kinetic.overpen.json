@@ -1,90 +1,90 @@
 {
   "id": "L0.kinetic.overpen",
   "level": "L0",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L0.kinetic.overpen",
-  "code": "7b0f40f",
+  "code": "f220524",
   "criterionHash": "810e8a2c",
   "lockedHash": "810e8a2c",
   "runHash": "f75b211e",
-  "dataHash": "62e2f8d9",
-  "rowsHash": "ba41e224",
+  "dataHash": "70b16e4c",
+  "rowsHash": "eff06508",
   "rows": [
     {
       "case": {
         "cells": 1
       },
       "expected": {
-        "wasted": 0.9014551394053412
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "wasted": 0.9014551394053413,
-        "exited": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "cells": 2
       },
       "expected": {
-        "wasted": 0.8029102788106823
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "wasted": 0.8029102788106824,
-        "exited": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "cells": 4
       },
       "expected": {
-        "wasted": 0.6058205576213648
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "wasted": 0.6058205576213649,
-        "exited": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "cells": 8
       },
       "expected": {
-        "wasted": 0.21164111524272955
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "wasted": 0.21164111524272972,
-        "exited": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "cells": 12
       },
       "expected": {
-        "wasted": 0
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "wasted": 0,
-        "exited": false
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
     {
       "name": "momentum is wasted exactly when the round leaves the ship",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "5 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

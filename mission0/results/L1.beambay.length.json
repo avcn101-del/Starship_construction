@@ -1,0 +1,438 @@
+{
+  "id": "L1.beambay.length",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.beambay.length",
+  "code": "f220524",
+  "criterionHash": "37d3386a",
+  "lockedHash": "37d3386a",
+  "runHash": "cc120232",
+  "dataHash": "70b16e4c",
+  "rowsHash": "79bc9aaf",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M",
+        "N": 2
+      },
+      "expected": {
+        "E": 1.602176634e-11,
+        "beam": 5000000,
+        "draw": 12500000,
+        "heatRate": 7500000
+      },
+      "actual": {
+        "cells": 4,
+        "E": 1.602176634e-11,
+        "beam": 5000000,
+        "draw": 12500000,
+        "heatRate": 7500000,
+        "books": {
+          "generated": 125000,
+          "radiated": 0,
+          "stored": 125000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M",
+        "N": 4
+      },
+      "expected": {
+        "E": 3.204353268e-11,
+        "beam": 5000000,
+        "draw": 12500000,
+        "heatRate": 7500000
+      },
+      "actual": {
+        "cells": 8,
+        "E": 3.204353268e-11,
+        "beam": 5000000,
+        "draw": 12500000,
+        "heatRate": 7500000,
+        "books": {
+          "generated": 125000,
+          "radiated": 0,
+          "stored": 125000,
+          "initial": 1392000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M",
+        "N": 8
+      },
+      "expected": {
+        "E": 6.408706536e-11,
+        "beam": 5000000,
+        "draw": 12500000,
+        "heatRate": 7500000
+      },
+      "actual": {
+        "cells": 16,
+        "E": 6.408706536e-11,
+        "beam": 5000000,
+        "draw": 12500000,
+        "heatRate": 7500000,
+        "books": {
+          "generated": 125000,
+          "radiated": 0,
+          "stored": 125000,
+          "initial": 2784000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "L",
+        "N": 2
+      },
+      "expected": {
+        "E": 1.602176634e-11,
+        "beam": 11250000,
+        "draw": 28125000,
+        "heatRate": 16875000
+      },
+      "actual": {
+        "cells": 6,
+        "E": 1.602176634e-11,
+        "beam": 11250000,
+        "draw": 28125000,
+        "heatRate": 16875000,
+        "books": {
+          "generated": 281250,
+          "radiated": 0,
+          "stored": 281250,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "L",
+        "N": 4
+      },
+      "expected": {
+        "E": 3.204353268e-11,
+        "beam": 11250000,
+        "draw": 28125000,
+        "heatRate": 16875000
+      },
+      "actual": {
+        "cells": 12,
+        "E": 3.204353268e-11,
+        "beam": 11250000,
+        "draw": 28125000,
+        "heatRate": 16875000,
+        "books": {
+          "generated": 281250,
+          "radiated": 0,
+          "stored": 281250,
+          "initial": 2088000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "L",
+        "N": 8
+      },
+      "expected": {
+        "E": 6.408706536e-11,
+        "beam": 11250000,
+        "draw": 28125000,
+        "heatRate": 16875000
+      },
+      "actual": {
+        "cells": 24,
+        "E": 6.408706536e-11,
+        "beam": 11250000,
+        "draw": 28125000,
+        "heatRate": 16875000,
+        "books": {
+          "generated": 281250,
+          "radiated": 0,
+          "stored": 281250,
+          "initial": 4176000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "M",
+        "N": 2
+      },
+      "expected": {
+        "E": 3.204353268e-11,
+        "beam": 20000000,
+        "draw": 50000000,
+        "heatRate": 30000000
+      },
+      "actual": {
+        "cells": 4,
+        "E": 3.204353268e-11,
+        "beam": 20000000,
+        "draw": 50000000,
+        "heatRate": 30000000,
+        "books": {
+          "generated": 500000,
+          "radiated": 0,
+          "stored": 500000,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "M",
+        "N": 4
+      },
+      "expected": {
+        "E": 6.408706536e-11,
+        "beam": 20000000,
+        "draw": 50000000,
+        "heatRate": 30000000
+      },
+      "actual": {
+        "cells": 8,
+        "E": 6.408706536e-11,
+        "beam": 20000000,
+        "draw": 50000000,
+        "heatRate": 30000000,
+        "books": {
+          "generated": 500000,
+          "radiated": 0,
+          "stored": 500000,
+          "initial": 11136000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "M",
+        "N": 8
+      },
+      "expected": {
+        "E": 1.2817413072e-10,
+        "beam": 20000000,
+        "draw": 50000000,
+        "heatRate": 30000000
+      },
+      "actual": {
+        "cells": 16,
+        "E": 1.2817413072e-10,
+        "beam": 20000000,
+        "draw": 50000000,
+        "heatRate": 30000000,
+        "books": {
+          "generated": 500000,
+          "radiated": 0,
+          "stored": 500000,
+          "initial": 22272000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "L",
+        "N": 2
+      },
+      "expected": {
+        "E": 3.204353268e-11,
+        "beam": 45000000,
+        "draw": 112500000,
+        "heatRate": 67500000
+      },
+      "actual": {
+        "cells": 6,
+        "E": 3.204353268e-11,
+        "beam": 45000000,
+        "draw": 112500000,
+        "heatRate": 67500000,
+        "books": {
+          "generated": 1125000,
+          "radiated": 0,
+          "stored": 1125000,
+          "initial": 8352000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "L",
+        "N": 4
+      },
+      "expected": {
+        "E": 6.408706536e-11,
+        "beam": 45000000,
+        "draw": 112500000,
+        "heatRate": 67500000
+      },
+      "actual": {
+        "cells": 12,
+        "E": 6.408706536e-11,
+        "beam": 45000000,
+        "draw": 112500000,
+        "heatRate": 67500000,
+        "books": {
+          "generated": 1125000,
+          "radiated": 0,
+          "stored": 1125000,
+          "initial": 16704000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "L",
+        "N": 8
+      },
+      "expected": {
+        "E": 1.2817413072e-10,
+        "beam": 45000000,
+        "draw": 112500000,
+        "heatRate": 67500000
+      },
+      "actual": {
+        "cells": 24,
+        "E": 1.2817413072e-10,
+        "beam": 45000000,
+        "draw": 112500000,
+        "heatRate": 67500000,
+        "books": {
+          "generated": 1125000,
+          "radiated": 0,
+          "stored": 1125000,
+          "initial": 33408000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "variant": "R1"
+      },
+      "expected": {
+        "rule": null
+      },
+      "actual": {
+        "valid": true,
+        "reasons": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "variant": "off axis"
+      },
+      "expected": {
+        "rule": "axis"
+      },
+      "actual": {
+        "valid": false,
+        "reasons": [
+          {
+            "rule": "axis",
+            "room": "beamBay",
+            "detail": "beamBay: rows 0-1 do not hold the ship's centre line (y = 3.090909090909091)"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "variant": "bow closed"
+      },
+      "expected": {
+        "rule": "bow"
+      },
+      "actual": {
+        "valid": false,
+        "reasons": [
+          {
+            "rule": "bow",
+            "room": "beamBay",
+            "detail": "beamBay: a cell lies ahead of its bow face in row 2"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "beam, draw and heat rate identical for every N (exact), each tier and size",
+      "ok": true
+    },
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

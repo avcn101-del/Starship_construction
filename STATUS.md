@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#235, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#236, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -67,7 +67,6 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| (to come) Path model | `m0/path` → `main` | engineer `session_01GVBq5ohYZDDfg15HAkHm71` (opus) **paused** (#232): §13i is revised (mass per room type) before it resumes |
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
@@ -125,12 +124,20 @@ Nothing (the owner chose the spinal beam bay and low-end masses, #234).
 
 ## Next steps
 
-1. **Prototype v1 play is paused** (#233: fixed seed, no lever acts before
-   11 s).
-2. **The path model** (§13i revised, #235): the paused engineer resumes; then
-   a blind physics checker and the reviewer; merge; then prototype v2 (a
-   helm, physical misses, the path model, a seed per Restart).
-3. Then the L4 plan (ship versus static target).
+1. **Start a new chat now** (the owner asked to be reminded when the path
+   model merged; this chat's context was compressed once). Hand over
+   through this file; this chat has no pending check-in.
+2. **Prototype v2** (plan first, #224's process): a helm (thrust, RCS; R1's
+   thrust line is 1.29 m off its centre of mass, #236), physical misses
+   (time of flight, lead, dodging), the path model's kernel (`fireRound`,
+   `fireBeam`, cell masses), a seed per Restart shown and exported, the
+   enemy script and preset throttles added to the stand-ins list (#233),
+   and the three SUPERSEDED constants then removed from `data.js`.
+3. **Next kernel pass** (with L4): the findings of #236 (the `beamPaths`
+   cache, withdrawal reason texts, a PSTAR water anchor for `csdaRange`,
+   §13f.1's dead-weight flows) and #227 Q9.
+4. Then the L4 plan (ship versus static target). Physics is frozen unless a
+   playtest of prototype v2 points at it.
 
 ## Scheduled tasks
 
@@ -182,7 +189,9 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, prototype loadout | session_013115n9cwYfUvYMg8ij5ed4 | opus-5-5 | 3.71 |
 | Engineer, prototype export and replay | session_01D3M6QwPL2KWFkX1Scsi4fd | opus-5-5 | 2.93 |
 | Reviewer, feel prototype (PR #42) | session_01FHeYxhXNqrCLrjyT1kpwia | sonnet-5-5 | 0.31 |
-| Engineer, path model (paused, #232) | session_01GVBq5ohYZDDfg15HAkHm71 | opus-5-5 | 2.56 so far |
+| Engineer, path model (PR #48) | session_01GVBq5ohYZDDfg15HAkHm71 | opus-5-5 | 13.57 |
+| Physics checker, path model | session_01PsqTHfLh2EPTgKeY3KroeR | sonnet-5-5 | 4.08 |
+| Reviewer, path model | session_01D2L2Kyg1bin1QGk1UZQvfW | sonnet-5-5 | 0.59 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -190,7 +199,7 @@ D pass total: 14.11 USD (engineers 7.83 + 2.93, physics checker 2.26, reviewer 1
 L3 total: 23.82 USD (engineers 13.09 + 2.94 + 3.12, physics checker 3.22, reviewer 1.45).
 Mass pass total: 8.90 USD (engineer 8.07, reviewer 0.83).
 Feel prototype total: 12.36 USD (engineers 5.41 + 3.71 + 2.93, reviewer 0.31).
-Path model so far: 2.56 USD (engineer, paused).
+Path model total: 18.24 USD (engineer 13.57, physics checker 4.08, reviewer 0.59).
 
 Sessions have reported a **seven-day usage limit warning**.
 
@@ -243,3 +252,9 @@ Sessions have reported a **seven-day usage limit warning**.
   branch).
 - A check-in made with `send_later` fires into the chat that made it, not
   into a new chat: re-create check-ins after a hand-over.
+- Before locking a mechanic, sense-check the **hardware it implies**, not
+  only its effect: #229 chose 400 MeV without checking that a real linac
+  needs 20–100 m for it (#234). When one constant changes scale (the mass
+  pass), re-derive every constant calibrated on the old scale (#232).
+- When the owner plays a build, first check that a lever can act before
+  the battle ends; a fixed seed decided every battle of v1 (#233).

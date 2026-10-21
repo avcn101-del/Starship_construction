@@ -1,0 +1,94 @@
+{
+  "id": "L0.beam.range",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.beam.range",
+  "code": "f220524",
+  "criterionHash": "d12ff666",
+  "lockedHash": "d12ff666",
+  "runHash": "b6989c7d",
+  "dataHash": "70b16e4c",
+  "rowsHash": "807e1a62",
+  "rows": [
+    {
+      "case": {
+        "range": 0
+      },
+      "expected": {
+        "delivered": 5000000,
+        "stepEnergy": 83333.33333333333
+      },
+      "actual": {
+        "delivered": 5000000,
+        "booked": 83333.33333333333,
+        "fractions": [
+          0.4312386109200207,
+          0.2994922697935648,
+          0.2692691192864145,
+          0
+        ],
+        "range": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "range": 600
+      },
+      "expected": {
+        "delivered": 5000000,
+        "stepEnergy": 83333.33333333333
+      },
+      "actual": {
+        "delivered": 5000000,
+        "booked": 83333.33333333333,
+        "fractions": [
+          0.4312386109200207,
+          0.2994922697935648,
+          0.2692691192864145,
+          0
+        ],
+        "range": 600
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "range": 1500
+      },
+      "expected": {
+        "delivered": 5000000,
+        "stepEnergy": 83333.33333333333
+      },
+      "actual": {
+        "delivered": 5000000,
+        "booked": 83333.33333333333,
+        "fractions": [
+          0.4312386109200207,
+          0.2994922697935648,
+          0.2692691192864145,
+          0
+        ],
+        "range": 1500
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "the fractions are identical at every range",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -30,6 +30,12 @@ export function radiatorPower(T, n, area, emissivity, sigma) {
   return n * emissivity * sigma * area * T * T * T * T;
 }
 
+/** Energy (J) put into the room from outside between steps (a beam's deposit, 13i.1): generated and stored at once. */
+export function depositHeat(h, energy) {
+  h.generated += energy;
+  h.Q += energy;
+}
+
 /**
  * One Euler step: add `generated` (J), radiate at `radiated` (W) for dt and,
  * in a cluster, take `conducted` (J, net heat in through walls).
