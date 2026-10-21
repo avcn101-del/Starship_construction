@@ -31,7 +31,7 @@ export default {
   tolerance: 'restart time relative 1e-4; thrust relative 1e-9; events and control exact',
   criterion: 'restart time after a shutdown at T_s (the temperature recorded at the shutdown step, the initial condition) t = (T_hot^-3 - T_s^-3) / (3 n emissivity sigma A / C) within 1e-4 relative (about 1259 s from 800 K for the engine, 1412 s from 350 K for the bridge); (a) at overheated the engine shuts down: thrust 0 and draw 0 from the next step; it restarts at the first step with T < hot (T at the step before >= hot) and has full thrust engine.thrust in the next step; shutdown and restart events alternate, at least 2 shutdowns; (b) control false from the overheated step with control-lost cause overheat at that step, false in every step until the restart, true again at the restart step with control-restored, true at the end; no crew deaths (#185 (6), #189 (3))',
   tunable: ['thermal.heatCapacityPerCell', 'thermal.plantHot', 'thermal.plantOverheated', 'thermal.crewedHot', 'thermal.crewedOverheated', 'radiator.area', 'engine.powerDraw', 'engine.heatFraction'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'a9cf26b9' },
   cases() {
     return [{ part: 'engine', n: 2, duration: 6000 }, { part: 'bridge', n: 2, P: 1.1e6, after: 10 }];
   },
