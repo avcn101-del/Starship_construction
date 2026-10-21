@@ -84,7 +84,7 @@ export default {
   tolerance: 'vented energy, capacity and heat 1e-12 relative; temperature unchanged 1e-12 relative; overheat time 1e-3 relative',
   criterion: 'each destroyed cell vents exactly (C / n)(T - T_rest) to space (heat-vented event and vented books), T unchanged while a cell survives, C and Q each fall by one cell\'s share (C / n, Q / n); the heat books include the vented energy; the reactor\'s overheat time from its start matches the reference integrator (RK4 at dt / 10) within 1e-3 relative, and it is shorter for every additional cell lost (#198, DESIGN.md 13d.2 row 14)',
   tunable: ['heatsink.capacityFactor', 'heatsink.conductivityFactor', 'conduction.wall', 'thermal.heatCapacityPerCell', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '8f98a73b' },
   cases() {
     return [0, 1, 2, 3, 4].map((k) => ({ k }));
   },

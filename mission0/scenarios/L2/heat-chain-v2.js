@@ -87,7 +87,7 @@ export default {
   tolerance: 'temperatures 3e-3 K absolute at 300 s; the hold ratio strict',
   criterion: 'the 3 x 3 linear system C dT/dt = -K T with the walls of 13d.1 (coolant or passive), solved in the scenario by eigen-decomposition (closed form), gives every temperature within 3e-3 K at 300 s; the heat reaching the third room through a hold is < 1e-3 of that through a coolant room (#200, #201, DESIGN.md 13d.2 row 2b)',
   tunable: ['conduction.wall', 'conduction.passive', 'conduction.holdFactor', 'thermal.heatCapacityPerCell'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '407c65f5' },
   cases() {
     return [{ middle: 'beamBay', T0: 600 }, { middle: 'hold', T0: 600 }];
   },

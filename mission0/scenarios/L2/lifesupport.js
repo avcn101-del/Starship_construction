@@ -100,7 +100,7 @@ export default {
   tolerance: 'crossing times one-sided: reference <= kernel < reference + dt (1e-9 relative float slack); powered at 0.2 MW: peak <= setpoint + 0.01 K; unpowered at 0.2 MW: peak 1e-3 K absolute',
   criterion: 'times to the setpoint (powered) and to critical one-sided against the reference integrator (RK4 at dt / 10, the walls and life support of 13d.1, the shutdown and restart of L1 on the step grid); at 0.2 MW powered the crew never die and the peak stays <= FIXED.lifeSupportSetpoint + 0.01 K; unpowered at 0.2 MW they never die within 900 s and the peak matches the reference within 1e-3 K; all the crew die at critical; the heat pumped out of the quarters arrives in the beam bay (pumped books opposite, > 0 when powered, 0 when unpowered). The row\'s piecewise closed form (setpoint at C 5 K / (P + draw), then P + draw - capacity) is shown beside the reference, not checked: it leaves out the passive wall and the draw stopping at overheated (#138, #201, DESIGN.md 13d.2 row 16)',
   tunable: ['lifeSupport.capacityPerCell', 'conduction.passive', 'thermal.heatCapacityPerCell', 'thermal.crewedCritical', 'thermal.crewedOverheated', 'quarters.powerDraw', 'radiator.area'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '84909130' },
   cases() {
     const out = [];
     for (const powered of [true, false]) for (const P of [2e5, 1e6, 5e6]) out.push({ P, powered });

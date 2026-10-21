@@ -92,7 +92,7 @@ export default {
   tolerance: 'life support on: setpoint + 0.01 K; life support off: highest temperature 1e-3 K absolute',
   criterion: 'life support on: the neighbour never exceeds FIXED.lifeSupportSetpoint + 0.01 K; life support off: the neighbour\'s highest temperature over 900 s matches the reference integrator (RK4 at dt / 10, passive wall of 13d.1, the shutdown, decay heat and restart of L1 on the step grid) within 1e-3 K, and it stays below its critical through 900 s (no cook-off, no crew deaths) (#200, #201, DESIGN.md 13d.2 row 3b)',
   tunable: ['conduction.passive', 'lifeSupport.capacityPerCell', 'thermal.heatCapacityPerCell', 'reactor.power', 'reactor.heatPerPower', 'thermal.magazineCritical', 'thermal.crewedCritical', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'd195cc05' },
   cases() {
     const out = [];
     for (const neighbour of ['magazine', 'quarters']) for (const d of [0.25, 0.5]) for (const lifeSupport of ['on', 'off']) out.push({ neighbour, d, lifeSupport });
