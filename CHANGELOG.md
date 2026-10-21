@@ -20,6 +20,13 @@
   never undone (a quotient within 1e-9 of a whole number counts as it);
   with whole cells destroyed this is L1's rule. Repair restores damaged
   cells only; a destroyed cell stays destroyed (replaces #190 (1)).
+- `js/rooms.js`: life support under power routing (#207). With routing on,
+  a crewed room or magazine counts as powered for life support while it is
+  joined through live walls (through any rooms) to a reactor able to
+  produce (switched on, not shut down, SCRAMmed or destroyed, demand above
+  0), whatever its own request; it draws nothing for it. Without routing
+  the `powered` flag stays; the bridge keeps its backup. A switched-off
+  reactor now routes no power (it already generated none).
 
 ## 0.3.2 — 2026-10-21 — Mission 0 L2 merged; reviewer answers (#207)
 

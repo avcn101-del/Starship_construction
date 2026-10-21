@@ -585,7 +585,8 @@ function conduction(world) {
 
 /**
  * Life support (#201, 13d.1): each crewed room and magazine (ROOMS
- * lifeSupport) that is powered (the bridge always, on its backup, #147),
+ * lifeSupport) that is powered (the bridge always, on its backup, #147;
+ * under power routing, joined to a reactor able to produce, #207),
  * has a surviving cell and is above FIXED.lifeSupportSetpoint pumps heat
  * into the coolant rooms sharing a live wall with it, split by live wall
  * length: min(lifeSupport.capacityPerCell x surviving cells x dt, the heat
@@ -597,9 +598,10 @@ function conduction(world) {
 function lifeSupport(world) {
   const net = new Map(), setpoint = FIXED.lifeSupportSetpoint.value, perCell = tierScaled(world, world.params.lifeSupport.capacityPerCell);
   const walls = liveWalls(world).filter((w) => w.live > 0);
+  const supplied = world.power ? suppliedRooms(world, walls) : null;
   for (const room of world.rooms) {
     if (!room.def.lifeSupport || !room.placed || room.exploded || isDestroyed(room)) continue;
-    if (room.type !== 'bridge' && !room.powered) continue;
+    if (room.type !== 'bridge' && !(supplied ? supplied.has(room) : room.powered)) continue;
     const excess = room.heat.Q - room.heat.C * setpoint;
     if (!(excess > 0)) continue;
     const sinks = [];
@@ -617,6 +619,24 @@ function lifeSupport(world) {
     }
   }
   return net;
+}
+
+/** A reactor able to produce (#207): switched on, not shut down, SCRAMmed or destroyed, demand above 0. */
+const producing = (room) => room.type === 'reactor' && room.placed && room.active && reactorAble(room) && room.reactor.demand > 0;
+/**
+ * Under power routing, the rooms joined through live walls (through any
+ * rooms) to a reactor able to produce (#207): they count as powered for life
+ * support whatever their own request, and draw nothing for it yet (#205 (3)).
+ */
+function suppliedRooms(world, walls) {
+  const reached = new Set(world.rooms.filter(producing)), queue = [...reached];
+  for (let i = 0; i < queue.length; i++) {
+    for (const w of walls) {
+      const other = w.a === queue[i] ? w.b : w.b === queue[i] ? w.a : null;
+      if (other && !reached.has(other)) { reached.add(other); queue.push(other); }
+    }
+  }
+  return reached;
 }
 
 /**
@@ -647,7 +667,7 @@ function routePower(world) {
   const wall = tierScaled(world, world.params.power.wallCapacity);
   const edges = liveWalls(world).map((w) => ({ a: w.a.id, b: w.b.id, capacity: wall * w.live }));
   const placed = world.rooms.filter((r) => r.placed);
-  const sources = placed.filter((r) => r.type === 'reactor').map((r) => ({ id: r.id, capacity: reactorAble(r) ? r.reactor.demand * reactorPower(world, r) * survivingFraction(r) : 0 }));
+  const sources = placed.filter((r) => r.type === 'reactor').map((r) => ({ id: r.id, capacity: r.active && reactorAble(r) ? r.reactor.demand * reactorPower(world, r) * survivingFraction(r) : 0 }));
   const listed = world.power.priority;
   const rank = (r) => (listed.includes(r.id) ? listed.indexOf(r.id) : listed.length);
   const consumers = placed.filter((r) => REQUEST[r.type]).sort((a, b) => rank(a) - rank(b) || byId(a.id, b.id));
