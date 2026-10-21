@@ -25,8 +25,9 @@ const notes = (checks) => Object.entries(checks).filter(([, ok]) => !ok).map(([k
  * Momentum books (13f.3), summed here from the ship's state: mass, momentum, angular momentum about the world
  * origin and kinetic energy of every body, debris piece and round, with the external impulse booked (thrust, RCS,
  * fixtures). Between two snapshots, mass is kept, P - J is kept to 1e-9 of the largest magnitude that enters it
- * (1e-12 absolute floor for a ship at rest), and L - H to 1e-12 of (net + gross): the largest net magnitude that
- * enters it plus the gross angular impulse booked, sum |q x F dt|, which a couple fired both ways cancels (#219).
+ * (1e-12 absolute floor for a ship at rest), and L - H to 1e-9 of the largest net magnitude that enters it plus
+ * 1e-12 of the gross angular impulse booked, sum |q x F dt|, which a couple fired both ways cancels (#219, #220),
+ * with the same 1e-12 absolute floor.
  */
 function snapshot(world) {
   const s = world.ship;
@@ -48,7 +49,7 @@ function momentumOk(a, b) {
   return {
     mass: Math.abs(b.M - a.M) <= 1e-12 * a.M,
     momentum: dP <= 1e-9 * Math.max(a.sp, b.sp, Math.hypot(dJ[0], dJ[1])) + 1e-12,
-    angular: dL <= 1e-12 * (net + gross) + 1e-12,
+    angular: dL <= 1e-9 * net + 1e-12 * gross + 1e-12,
     dP, dL, net, gross,
   };
 }
@@ -56,7 +57,7 @@ const common = (rows) => [
   { name: 'heat books: generated + conducted = radiated + vented + stored, within max(1e-9 x the largest flow, 1e-10 x the room\'s heat at the start), every room, every case (#219)', ok: rows.every((r) => r.actual.books.every(booksOk)) },
   { name: 'conduction and life-support flows each sum to 0 over the ship, every case', ok: rows.every((r) => sumsToZero(r.actual.books, 'conducted') && sumsToZero(r.actual.books, 'pumped')) },
   { name: 'every event carries t, type, room, cause, crew and its #156 fields, every case', ok: rows.every((r) => r.actual.eventsOk) },
-  { name: 'momentum books: mass, momentum (1e-9) and angular momentum (1e-12 x (net + gross angular impulse booked), #219) of ship + rounds + debris kept (with the external impulse), every case', ok: rows.every((r) => r.actual.momentum.mass && r.actual.momentum.momentum && r.actual.momentum.angular) },
+  { name: 'momentum books: mass, momentum (1e-9) and angular momentum (1e-9 x net + 1e-12 x gross angular impulse booked, #219, #220) of ship + rounds + debris kept (with the external impulse), every case', ok: rows.every((r) => r.actual.momentum.mass && r.actual.momentum.momentum && r.actual.momentum.angular) },
 ];
 
 // R1, the reference ship (13f.2): x forward, the T1 drydock grid; cells [x0, x1) x [y0, y1); the engine (2 x 3)

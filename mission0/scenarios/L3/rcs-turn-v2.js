@@ -25,8 +25,9 @@ const notes = (checks) => Object.entries(checks).filter(([, ok]) => !ok).map(([k
  * Momentum books (13f.3), summed here from the ship's state: mass, momentum, angular momentum about the world
  * origin and kinetic energy of every body, debris piece and round, with the external impulse booked (thrust, RCS,
  * fixtures). Between two snapshots, mass is kept, P - J is kept to 1e-9 of the largest magnitude that enters it
- * (1e-12 absolute floor for a ship at rest), and L - H to 1e-12 of (net + gross): the largest net magnitude that
- * enters it plus the gross angular impulse booked, sum |q x F dt|, which a couple fired both ways cancels (#219).
+ * (1e-12 absolute floor for a ship at rest), and L - H to 1e-9 of the largest net magnitude that enters it plus
+ * 1e-12 of the gross angular impulse booked, sum |q x F dt|, which a couple fired both ways cancels (#219, #220),
+ * with the same 1e-12 absolute floor.
  */
 function snapshot(world) {
   const s = world.ship;
@@ -48,7 +49,7 @@ function momentumOk(a, b) {
   return {
     mass: Math.abs(b.M - a.M) <= 1e-12 * a.M,
     momentum: dP <= 1e-9 * Math.max(a.sp, b.sp, Math.hypot(dJ[0], dJ[1])) + 1e-12,
-    angular: dL <= 1e-12 * (net + gross) + 1e-12,
+    angular: dL <= 1e-9 * net + 1e-12 * gross + 1e-12,
     dP, dL, net, gross,
   };
 }
@@ -56,7 +57,7 @@ const common = (rows) => [
   { name: 'heat books: generated + conducted = radiated + vented + stored, within max(1e-9 x the largest flow, 1e-10 x the room\'s heat at the start), every room, every case (#219)', ok: rows.every((r) => r.actual.books.every(booksOk)) },
   { name: 'conduction and life-support flows each sum to 0 over the ship, every case', ok: rows.every((r) => sumsToZero(r.actual.books, 'conducted') && sumsToZero(r.actual.books, 'pumped')) },
   { name: 'every event carries t, type, room, cause, crew and its #156 fields, every case', ok: rows.every((r) => r.actual.eventsOk) },
-  { name: 'momentum books: mass, momentum (1e-9) and angular momentum (1e-12 x (net + gross angular impulse booked), #219) of ship + rounds + debris kept (with the external impulse), every case', ok: rows.every((r) => r.actual.momentum.mass && r.actual.momentum.momentum && r.actual.momentum.angular) },
+  { name: 'momentum books: mass, momentum (1e-9) and angular momentum (1e-9 x net + 1e-12 x gross angular impulse booked, #219, #220) of ship + rounds + debris kept (with the external impulse), every case', ok: rows.every((r) => r.actual.momentum.mass && r.actual.momentum.momentum && r.actual.momentum.angular) },
 ];
 
 // R1, the reference ship (13f.2): x forward, the T1 drydock grid; cells [x0, x1) x [y0, y1); the engine (2 x 3)
@@ -159,9 +160,9 @@ export default {
   laws: ['RCS: torque = distance x force (#15)', 'moment of inertia', 'rigid body, semi-implicit Euler'],
   dependsOn: ['L3.mass.props.v2'],
   setup: 'R1 at T1 (13f.2), magazine full, turret holding fire, engine off, no power routing (every room powered), at rest; a bow-stern RCS couple fired bang-bang to turn 90 degrees and stop, counter-clockwise (bow RCS on the beam bay\'s bottom edge at x = 10, stern RCS on the engine\'s top edge at x = 0) and clockwise (the other two): the turning couple for the steps that start before T / 2, then the braking couple for the steps that start before T, T = 2 sqrt((pi / 2) / alpha)',
-  measure: 'angular acceleration in the first step (omega / dt); the time the last firing step ends; omega and heading at that time; the readout\'s angular accelerations and 90 degree turn times',
-  tolerance: 'alpha 1e-9 relative; the turn time one-sided on the step grid (T <= t < T + dt, 1e-9 relative float slack); |omega| <= alpha dt (1e-9 relative slack); readout 1e-12 relative',
-  criterion: 'alpha = sum r x F / I (estimate 0.381 rad/s^2, arms 50 m); the turn takes T = 2 sqrt(theta / alpha) (estimate 4.06 s), one-sided on the step grid; final |omega| <= alpha dt; the readout\'s angular acceleration and turn time exact (#15, #58, #208, #209, #210, #219)',
+  measure: 'angular acceleration in the first step (omega / dt); the number of turning and braking firing steps and the time the last firing step ends; omega and heading at that time; the readout\'s angular accelerations and 90 degree turn times',
+  tolerance: 'alpha 1e-9 relative; the turn time one-sided on the step grid (T <= t < T + dt, 1e-9 relative float slack); the firing step counts exact and the end time (n1 + n2) dt 1e-9 relative; the heading against the discrete sum 1e-9 relative; |omega| <= alpha dt (1e-9 relative slack); readout 1e-12 relative',
+  criterion: 'alpha = sum r x F / I (estimate 0.381 rad/s^2, arms 50 m); the turn takes T = 2 sqrt(theta / alpha) (estimate 4.06 s), one-sided on the step grid; the discrete turn: n1 = ceil((T / 2) / dt) turning and n2 = ceil(T / dt) - n1 braking firing steps (122 + 122, the last firing step ending at 244 / 60 s) and the heading at that time equal to the semi-implicit scheme\'s discrete sum (omega += alpha dt, then theta += omega dt, each step; 122^2 alpha dt^2 = 1.576373 rad) to 1e-9; final |omega| <= alpha dt; the readout\'s angular acceleration and turn time exact (#15, #58, #208, #209, #210, #219, #220)',
   tunable: ['rcs.force', 'thermal.heatCapacityPerCell', 'thermal.specificHeat', 'radiator.mass', 'rcs.mass'],
   locked: null,
   cases() {
@@ -170,18 +171,25 @@ export default {
   expected(ctx, c) {
     const pr = props(massItems(ctx, ctx.baseEdge, R1_ROOMS, R1_FITTINGS, fullContents(ctx, ctx.baseEdge)));
     const tau = torque(ctx, COUPLES[c.turn][0], pr.c), alpha = Math.abs(tau) / pr.I, T = 2 * Math.sqrt(TURN / alpha);
-    return { alpha, sign: Math.sign(tau), T, dt: ctx.dt, brake: torque(ctx, COUPLES[c.turn][1], pr.c) / pr.I };
+    const brake = torque(ctx, COUPLES[c.turn][1], pr.c) / pr.I, dt = ctx.dt;
+    // The discrete turn (#220): the firing steps the controller's rule gives on the step grid, and the semi-implicit
+    // scheme's heading summed over them (omega first, then theta), from data.js and the scheme, not the kernel.
+    const n1 = Math.ceil(T / 2 / dt - 1e-9), n2 = Math.ceil(T / dt - 1e-9) - n1;
+    let omega = 0, theta = 0;
+    for (let k = 0; k < n1 + n2; k++) { omega += (k < n1 ? Math.sign(tau) * alpha : brake) * dt; theta += omega * dt; }
+    return { alpha, sign: Math.sign(tau), T, dt, brake, n1, n2, end: (n1 + n2) * dt, theta };
   },
   run(ctx, c) {
     const { world } = buildR1(ctx);
     const b = world.ship.bodies[0], [turn, brake] = COUPLES[c.turn], start = snapshot(world), r0 = readout(world);
     const pr = props(massItems(ctx, ctx.baseEdge, R1_ROOMS, R1_FITTINGS, fullContents(ctx, ctx.baseEdge)));
     const T = 2 * Math.sqrt(TURN / (Math.abs(torque(ctx, turn, pr.c)) / pr.I)); // the controller's switching times (an input, not a check)
-    let first = null, end = null;
+    let first = null, end = null, n1 = 0, n2 = 0;
     while (world.t < T - 1e-12) {
       const accelerate = world.t < T / 2;
       setRcs(world, turn, accelerate); setRcs(world, brake, !accelerate);
       step(world);
+      if (accelerate) n1++; else n2++;
       if (first === null) first = b.omega / ctx.dt;
       end = world.t;
     }
@@ -189,7 +197,7 @@ export default {
     const omega = b.omega, theta = b.theta;
     for (let i = 0; i < 30; i++) step(world); // half a second coasting: the books hold with nothing firing
     return {
-      first, end, omega, theta, readout: r0.rcs, steps: Math.round(end / ctx.dt),
+      first, end, omega, theta, readout: r0.rcs, steps: Math.round(end / ctx.dt), n1, n2,
       books: world.rooms.map((r) => heatBooks(r.heat)), eventsOk: eventsOk(world.log.events), momentum: momentumOk(start, snapshot(world)),
     };
   },
@@ -198,6 +206,9 @@ export default {
       'alpha = sum r x F / I': close(e.sign * e.alpha, a.first, 1e-9),
       'braking couple equal and opposite': close(-e.sign * e.alpha, e.brake, 1e-12),
       'turn time one-sided on the step grid': oneSided(e.T, a.end, ctx.dt),
+      'firing steps: n1 turning + n2 braking': a.n1 === e.n1 && a.n2 === e.n2,
+      'last firing step ends at (n1 + n2) dt': close(e.end, a.end, 1e-9),
+      'heading = the discrete sum of the scheme, 1e-9': close(e.theta, a.theta, 1e-9),
       'final |omega| <= alpha dt': Math.abs(a.omega) <= e.alpha * ctx.dt * (1 + 1e-9),
       'readout angular acceleration': close(e.alpha, a.readout[c.turn], 1e-12),
       'readout 90 degree turn time': close(e.T, a.readout[c.turn === 'ccw' ? 'turn90ccw' : 'turn90cw'], 1e-12),
@@ -210,8 +221,8 @@ export default {
   display(r) {
     const e = r.expected, a = r.actual, deg = (x) => (x * 180 / Math.PI).toFixed(4);
     return {
-      expected: `alpha ${e.alpha.toFixed(6)} rad/s2, turn ${e.T.toFixed(5)} s (one-sided), |omega| <= ${(e.alpha / 60).toFixed(6)} rad/s`,
-      actual: `alpha ${Math.abs(a.first).toFixed(6)} rad/s2, firing ends at ${a.end.toFixed(5)} s (${a.steps} steps), omega ${a.omega.toExponential(3)} rad/s, heading ${deg(a.theta)} deg; readout ${a.readout[r.case.turn].toFixed(6)} rad/s2, ${a.readout[r.case.turn === 'ccw' ? 'turn90ccw' : 'turn90cw'].toFixed(5)} s`,
+      expected: `alpha ${e.alpha.toFixed(6)} rad/s2, turn ${e.T.toFixed(5)} s (one-sided), ${e.n1} + ${e.n2} firing steps ending at ${e.end.toFixed(5)} s, heading ${e.theta.toFixed(6)} rad, |omega| <= ${(e.alpha / 60).toFixed(6)} rad/s`,
+      actual: `alpha ${Math.abs(a.first).toFixed(6)} rad/s2, firing ends at ${a.end.toFixed(5)} s (${a.n1} + ${a.n2} steps), omega ${a.omega.toExponential(3)} rad/s, heading ${a.theta.toFixed(6)} rad (${deg(a.theta)} deg); readout ${a.readout[r.case.turn].toFixed(6)} rad/s2, ${a.readout[r.case.turn === 'ccw' ? 'turn90ccw' : 'turn90cw'].toFixed(5)} s`,
     };
   },
 };

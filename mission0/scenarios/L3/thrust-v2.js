@@ -25,8 +25,9 @@ const notes = (checks) => Object.entries(checks).filter(([, ok]) => !ok).map(([k
  * Momentum books (13f.3), summed here from the ship's state: mass, momentum, angular momentum about the world
  * origin and kinetic energy of every body, debris piece and round, with the external impulse booked (thrust, RCS,
  * fixtures). Between two snapshots, mass is kept, P - J is kept to 1e-9 of the largest magnitude that enters it
- * (1e-12 absolute floor for a ship at rest), and L - H to 1e-12 of (net + gross): the largest net magnitude that
- * enters it plus the gross angular impulse booked, sum |q x F dt|, which a couple fired both ways cancels (#219).
+ * (1e-12 absolute floor for a ship at rest), and L - H to 1e-9 of the largest net magnitude that enters it plus
+ * 1e-12 of the gross angular impulse booked, sum |q x F dt|, which a couple fired both ways cancels (#219, #220),
+ * with the same 1e-12 absolute floor.
  */
 function snapshot(world) {
   const s = world.ship;
@@ -48,7 +49,7 @@ function momentumOk(a, b) {
   return {
     mass: Math.abs(b.M - a.M) <= 1e-12 * a.M,
     momentum: dP <= 1e-9 * Math.max(a.sp, b.sp, Math.hypot(dJ[0], dJ[1])) + 1e-12,
-    angular: dL <= 1e-12 * (net + gross) + 1e-12,
+    angular: dL <= 1e-9 * net + 1e-12 * gross + 1e-12,
     dP, dL, net, gross,
   };
 }
@@ -56,7 +57,7 @@ const common = (rows) => [
   { name: 'heat books: generated + conducted = radiated + vented + stored, within max(1e-9 x the largest flow, 1e-10 x the room\'s heat at the start), every room, every case (#219)', ok: rows.every((r) => r.actual.books.every(booksOk)) },
   { name: 'conduction and life-support flows each sum to 0 over the ship, every case', ok: rows.every((r) => sumsToZero(r.actual.books, 'conducted') && sumsToZero(r.actual.books, 'pumped')) },
   { name: 'every event carries t, type, room, cause, crew and its #156 fields, every case', ok: rows.every((r) => r.actual.eventsOk) },
-  { name: 'momentum books: mass, momentum (1e-9) and angular momentum (1e-12 x (net + gross angular impulse booked), #219) of ship + rounds + debris kept (with the external impulse), every case', ok: rows.every((r) => r.actual.momentum.mass && r.actual.momentum.momentum && r.actual.momentum.angular) },
+  { name: 'momentum books: mass, momentum (1e-9) and angular momentum (1e-9 x net + 1e-12 x gross angular impulse booked, #219, #220) of ship + rounds + debris kept (with the external impulse), every case', ok: rows.every((r) => r.actual.momentum.mass && r.actual.momentum.momentum && r.actual.momentum.angular) },
 ];
 
 // R1, the reference ship (13f.2): x forward, the T1 drydock grid; cells [x0, x1) x [y0, y1); the engine (2 x 3)
@@ -179,8 +180,8 @@ export default {
   dependsOn: ['L3.mass.props.v2', 'L1.engine.thrust'],
   setup: 'T1, no power routing (every room powered), controlled from the bridge. (a) a symmetric test ship: an M engine rotated 90 degrees at (0, 0) (exhaust at x = 0), an M reactor at (3, 0), an M bridge at (5, 0), every room two cells tall, no fittings; (b) R1 (13f.2) with the magazine full and the turret holding fire, no RCS fired. Both from rest at the origin, heading 0, the engine at full throttle for 10.01 s (601 steps)',
   measure: 'every step: velocity and angular velocity; at the end of each whole second and of the run: the centre of mass\'s position and the heading; the readout\'s acceleration in g',
-  tolerance: '(a) acceleration 1e-9 relative, omega 1e-12 rad/s absolute; (b) omega 1e-9 relative at every step, position (relative to the reference displacement) and heading (relative to the reference heading) 1e-2 at t = 5 s and t = 10 s; readout 1e-12 relative',
-  criterion: '(a) a = F / M to 1e-9 and omega = 0 to 1e-12 (thrust through the centre of mass); (b) omega(t) = alpha t with alpha = F d / I (d: the thrust line, the centre of the exhaust face, below the centre of mass; estimate 0.224 rad/s^2, 12.9 deg/s^2) to 1e-9, position and heading against the reference integrator within 1e-2 relative at t = 5 s and t = 10 s (the kernel\'s semi-implicit Euler differs by about dt / t: 3.3e-3 and 1.7e-3; a thrust that does not turn with the ship is off by order 1); the readout\'s acceleration = F / (M g) exact (estimate 3.90 g for R1 at 2 MN) (#14, #203 A, #208, #209, #210, #219)',
+  tolerance: '(a) acceleration 1e-9 relative, omega 1e-12 rad/s absolute, the discrete position 1e-9 relative at every sample; (b) omega 1e-9 relative at every step, position (relative to the reference displacement) and heading (relative to the reference heading) 1e-2 at t = 5 s and t = 10 s; readout 1e-12 relative',
+  criterion: '(a) a = F / M to 1e-9 and omega = 0 to 1e-12 (thrust through the centre of mass), and the centre of mass\'s discrete position x_n = a dt^2 n (n + 1) / 2 of the semi-implicit scheme (v += a dt, then x += v dt) to 1e-9 relative at the end of each whole second and of the run; (b) omega(t) = alpha t with alpha = F d / I (d: the thrust line, the centre of the exhaust face, below the centre of mass; estimate 0.224 rad/s^2, 12.9 deg/s^2) to 1e-9, position and heading against the reference integrator within 1e-2 relative at t = 5 s and t = 10 s (the kernel\'s semi-implicit Euler differs by about dt / t: 3.3e-3 and 1.7e-3; a thrust that does not turn with the ship is off by order 1); the readout\'s acceleration = F / (M g) exact (estimate 3.90 g for R1 at 2 MN) (#14, #203 A, #208, #209, #210, #219, #220)',
   tunable: ['engine.thrust', 'thermal.heatCapacityPerCell', 'thermal.specificHeat', 'radiator.mass', 'rcs.mass'],
   locked: null,
   cases() {
@@ -191,7 +192,11 @@ export default {
     const rooms = c.ship === 'R1' ? R1_ROOMS : SYM_ROOMS, fittings = c.ship === 'R1' ? R1_FITTINGS : [];
     const pr = props(massItems(ctx, edge, rooms, fittings, c.ship === 'R1' ? fullContents(ctx, edge) : {}));
     const ex = exhaustPoint(rooms[0], edge), d = pr.c[1] - ex[1], alpha = (F * d) / pr.I;
-    return { M: pr.M, F, a: F / pr.M, d, alpha, g: F / (pr.M * ctx.fixed.standardGravity.value), samples: c.ship === 'R1' ? reference(F, pr.M, alpha, pr.c, dt, steps, Math.round(1 / dt)) : null, steps };
+    // (a) the semi-implicit scheme's discrete position (#220): x_n - x_0 = a dt^2 n (n + 1) / 2 at the sampled steps.
+    const every = Math.round(1 / dt), at = [...Array(Math.floor(steps / every)).keys()].map((k) => (k + 1) * every);
+    if (at[at.length - 1] !== steps) at.push(steps);
+    const discrete = c.ship === 'R1' ? null : at.map((n) => ({ n, x: (F / pr.M) * dt * dt * n * (n + 1) / 2 }));
+    return { M: pr.M, F, a: F / pr.M, d, alpha, g: F / (pr.M * ctx.fixed.standardGravity.value), samples: c.ship === 'R1' ? reference(F, pr.M, alpha, pr.c, dt, steps, every) : null, discrete, steps };
   },
   run(ctx, c) {
     const p = ctx.params;
@@ -209,9 +214,9 @@ export default {
     while (world.t < RUN - 1e-9) {
       step(world);
       omegas.push({ t: world.t, omega: b.omega });
-      if (world.step % every === 0) samples.push({ t: world.t, x: [...b.x], theta: b.theta });
+      if (world.step % every === 0) samples.push({ n: world.step, t: world.t, x: [...b.x], theta: b.theta });
     }
-    samples.push({ t: world.t, x: [...b.x], theta: b.theta });
+    if (world.step % every !== 0) samples.push({ n: world.step, t: world.t, x: [...b.x], theta: b.theta });
     return {
       bodies: world.ship.bodies.length, steps: world.step, t: world.t, v: [...b.v], omega: b.omega, omegas, samples, x0, readoutG: r0.accelerationG,
       books: world.rooms.map((r) => heatBooks(r.heat)), eventsOk: eventsOk(world.log.events), momentum: momentumOk(start, snapshot(world)),
@@ -222,6 +227,7 @@ export default {
     if (c.ship === 'symmetric') {
       checks['a = F / M'] = close(e.a, Math.hypot(a.v[0], a.v[1]) / a.t, 1e-9);
       checks['omega = 0'] = a.omegas.every((o) => Math.abs(o.omega) <= 1e-12);
+      checks['discrete position x_n = a dt^2 n (n + 1) / 2, 1e-9'] = e.discrete.length === a.samples.length && e.discrete.every((d, i) => a.samples[i].n === d.n && close(d.x, a.samples[i].x[0] - a.x0[0], 1e-9));
     } else {
       checks['omega = alpha t, every step'] = a.omegas.every((o) => close(e.alpha * o.t, o.omega, 1e-9));
       const n = e.samples.length === a.samples.length, at = [5, 10].map((T) => e.samples.findIndex((s) => Math.abs(s.t - T) < 0.5 * ctx.dt));
@@ -236,7 +242,10 @@ export default {
   },
   display(r) {
     const e = r.expected, a = r.actual;
-    if (r.case.ship === 'symmetric') return { expected: `a ${e.a.toFixed(6)} m/s2, omega 0, readout ${e.g.toFixed(6)} g`, actual: `a ${(Math.hypot(...a.v) / a.t).toFixed(6)} m/s2, max |omega| ${Math.max(...a.omegas.map((o) => Math.abs(o.omega))).toExponential(2)} rad/s, readout ${a.readoutG.toFixed(6)} g` };
+    if (r.case.ship === 'symmetric') {
+      const xe = e.discrete[e.discrete.length - 1], gap = Math.max(...e.discrete.map((d, i) => Math.abs(a.samples[i].x[0] - a.x0[0] - d.x) / d.x));
+      return { expected: `a ${e.a.toFixed(6)} m/s2, omega 0, readout ${e.g.toFixed(6)} g; discrete x at step ${xe.n} ${xe.x.toFixed(6)} m`, actual: `a ${(Math.hypot(...a.v) / a.t).toFixed(6)} m/s2, max |omega| ${Math.max(...a.omegas.map((o) => Math.abs(o.omega))).toExponential(2)} rad/s, readout ${a.readoutG.toFixed(6)} g; x at step ${a.samples[a.samples.length - 1].n} ${(a.samples[a.samples.length - 1].x[0] - a.x0[0]).toFixed(6)} m, largest relative gap to the discrete position ${gap.toExponential(3)}` };
+    }
     const last = e.samples[e.samples.length - 1], al = a.samples[a.samples.length - 1];
     const dx = Math.max(...e.samples.map((s, i) => Math.hypot(a.samples[i].x[0] - s.x[0], a.samples[i].x[1] - s.x[1]) / Math.hypot(s.x[0] - a.x0[0], s.x[1] - a.x0[1])));
     const dth = Math.max(...e.samples.map((s, i) => Math.abs(a.samples[i].theta - s.theta) / Math.abs(s.theta)));
