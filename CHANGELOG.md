@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.0 — unreleased — Mission 0 L3: the minimal ship (#208–#216)
+
+- Data (#210, approved by the lead designer): `thermal.specificHeat`
+  600 J/(kg·K) (400–900, k=0); `FIXED.waterSpecificHeat` 4186 J/(kg·K) and
+  `FIXED.standardGravity` 9.80665 m/s²; `engine.thrust` re-tuned 8 → 2 MN
+  (range re-approved 0.5–8 MN, k=2; #203 A); new `rcs.force` 100 kN
+  (30–500 kN, k=2), `rcs.powerDraw` 200 kW (50 kW–1 MW, k=2), `rcs.mass`
+  200 kg (50–1000 kg, k=3) and `radiator.mass` 250 kg (100–1000 kg, k=2).
+  `ROOMS.shieldGenerator.fittings: true`: the engineer's reading of R1
+  (§13f.2 puts six radiators on it, §13f.1 lists it as inside); a question
+  in the L3 pull request. Every earlier record re-recorded for the new data
+  hash (see the pull request for what moved).
+
 ## 0.4.1 — 2026-10-21 — The D pass merged; reviewer answers (#216)
 
 - The D pass (PR #24, head `4b754b1`) merged into `main` after the physics
