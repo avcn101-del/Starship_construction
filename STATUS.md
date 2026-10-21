@@ -26,7 +26,7 @@ the L1 engineer (session `session_01NEZ3dFYvXRDcUQJWexkacC`). Read this first, t
 
 | PR | Branch | State |
 |---|---|---|
-| Mission 0, L1: one room alone (number on GitHub) | `m0/l1-rooms` → `main` | opened by the engineer 2026-10-21; 12 of 13 L1 scenarios PASS, `L1.radiator.steady` FAILs (design question in the PR); waits for the reviewer and the physics checker |
+| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened by the engineer 2026-10-21; 12 of 13 L1 scenarios PASS, `L1.radiator.steady` FAILs (design question in the PR); waits for the reviewer and the physics checker |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
