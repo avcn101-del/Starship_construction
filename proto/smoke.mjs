@@ -1,16 +1,18 @@
 #!/usr/bin/env node
-// proto/smoke.mjs — Playwright smoke test of the feel prototype (DESIGN.md
-// 13h.4): serves the repository root with python3 -m http.server, opens
-// /proto/ at a phone landscape viewport, chooses a non-default loadout on
-// the loadout panel and starts, taps an enemy room, cycles the presets, runs
+// proto/smoke.mjs — Playwright smoke test of the feel prototype v2 (DESIGN.md
+// 13h.4, 13j): serves the repository root with python3 -m http.server, opens
+// /proto/ at a phone landscape viewport, chooses a non-default loadout (fit,
+// standing orders) and seed on the loadout panel and starts, taps an enemy
+// room, cycles the presets, runs
 // time x4 until the battle ends or 6 simulated minutes pass (on the way:
 // a target change to the turret at 8 s, Cool at 12 s, Fire at 16 s, an
 // Export from the top bar at 20 s), exports again at the end, runs
-// proto/replay.mjs on both exports (each must print MATCH), then checks that
-// Restart brings the panel back; fails on any console error (a blocked font
+// proto/replay.mjs on both exports (each must print MATCH; each carries the
+// seed), then checks that Restart brings the panel back with the seed plus
+// one; fails on any console error (a blocked font
 // request is not a game error; the page loads no font), a touch target under
 // 44 px or a replay MISMATCH. Saves proto/screens/loadout.png, start.png,
-// end.png and export.png.
+// end.png, export.png and restart.png.
 //
 //   NODE_PATH=/opt/node-tools/node_modules node proto/smoke.mjs
 import { createRequire } from 'node:module';
@@ -42,9 +44,14 @@ try {
   await page.waitForFunction(() => window.__proto && window.__proto.choosing);
 
   // The loadout panel: choose a non-default loadout (every button >= 44 px), then Start.
-  const CHOICE = { Magazine: 'AP full', 'Bow armour': '1 cell', Layout: 'R1-B', 'Shield budget': '20 MW', 'Hits to wreck': '5', Turrets: 'on' };
-  const WANT = { magazine: 'apFull', armour: 1, layout: 'R1B', shieldBudget: 2e7, hitsToWreck: 5, turrets: true };
+  const CHOICE = { Magazine: 'AP full', Layout: 'R1-B', 'Shield budget': '20 MW', 'Hits to wreck': '5', Turrets: 'on', 'Range order': 'close 600', 'Facing order': 'broadside', 'Dodge order': 'on' };
+  const WANT = { magazine: 'apFull', layout: 'R1B', shieldBudget: 2e7, hitsToWreck: 5, turrets: true, range: 'close', facing: 'broadside', dodge: true };
+  const SEED = 41;
+  const shownSeed = await page.inputValue('#seed');
+  if (shownSeed !== '1') errors.push(`the panel shows seed ${shownSeed}, not 1`);
   for (const [group, label] of Object.entries(CHOICE)) await page.getByRole('group', { name: group }).getByRole('button', { name: label, exact: true }).tap();
+  await page.fill('#seed', String(SEED));
+  await page.locator('#seed').dispatchEvent('change');
   const small = await page.evaluate(() => [...document.querySelectorAll('button')].filter((b) => b.offsetParent).map((b) => b.getBoundingClientRect()).filter((r) => r.height < 44 || r.width < 44).length);
   if (small) errors.push(`${small} visible buttons under 44 px`);
   await wait(300);
@@ -53,6 +60,10 @@ try {
   await page.waitForFunction(() => window.__proto.battle && !window.__proto.choosing);
   const got = await page.evaluate(() => window.__proto.battle.loadout);
   if (JSON.stringify(got) !== JSON.stringify(WANT)) errors.push(`loadout did not take: ${JSON.stringify(got)}`);
+  const battleSeed = await page.evaluate(() => window.__proto.battle.seed);
+  if (battleSeed !== SEED) errors.push(`seed did not take: ${battleSeed}`);
+  const tag = await page.evaluate(() => document.getElementById('lo-tag').textContent);
+  if (!tag.includes(`seed ${SEED}`)) errors.push(`the battle view does not show the seed: ${tag}`);
 
   // Tap the enemy's beam bay, then check the target took.
   const [x, y] = await page.evaluate(() => window.__proto.roomCentre('enemy', 'beamBay'));
@@ -82,6 +93,7 @@ try {
     if (!got.paused) errors.push(`${label}: the battle did not pause`);
     const tiny = await page.evaluate(() => [...document.querySelectorAll('#export-panel button')].map((b) => b.getBoundingClientRect()).filter((r) => r.height < 44 || r.width < 44).length);
     if (tiny) errors.push(`${label}: ${tiny} export buttons under 44 px`);
+    if (JSON.parse(got.text).seed !== SEED) errors.push(`${label}: the export does not carry seed ${SEED}`);
     exports.push({ label, text: got.text, status: got.status });
     return got;
   };
@@ -133,9 +145,12 @@ try {
   await wait(300);
   const again = await page.evaluate(() => window.__proto.choosing && !document.getElementById('loadout').hidden);
   if (!again) errors.push('Restart did not show the loadout panel');
+  const nextSeed = await page.inputValue('#seed');
+  if (nextSeed !== String(SEED + 1)) errors.push(`after Restart the panel shows seed ${nextSeed}, not ${SEED + 1}`);
+  await page.screenshot({ path: path.join(here, 'screens', 'restart.png') });
   await browser.close();
 
-  console.log(`loadout ${JSON.stringify(got)}`);
+  console.log(`loadout ${JSON.stringify(got)}; seed ${battleSeed}, after Restart ${nextSeed}`);
   console.log(`viewport ${VIEWPORT.width} x ${VIEWPORT.height}, touch; simulated ${state.t.toFixed(2)} s in ${((Date.now() - t0) / 1000).toFixed(1)} s real at x4`);
   console.log(`inputs ${inputs}`);
   for (const r of replays) console.log(r);

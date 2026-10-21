@@ -39,6 +39,11 @@
   the range, facing and dodge orders and the seed (shown, +1 at every
   Restart, editable, in the battle's corner and the export); the stand-ins
   list names the enemy's script and every preset's throttle (#233).
+- Export and replay as v1 with the seed and the orders (and each side's
+  shots, hits and misses in the end); `replay.mjs --every` prints the helm;
+  `smoke.mjs` checks the seed on the panel, in the battle and in both
+  exports, and seed + 1 after Restart; `proto/README.md` rewritten (run,
+  loadout, play, the physics of the orders, the view, stand-ins, measure).
 
 ## 0.7.2 — 2026-10-21 — Prototype v2 planned (#237)
 

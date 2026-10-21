@@ -1,10 +1,12 @@
-# Feel prototype (throwaway)
+# Feel prototype v2 (throwaway)
 
 A rough page to judge how a battle feels on the phone (`DESIGN.md` §13h,
-decisions #217, #223, #224): two reference ships R1 (§13f.2, at the mass
-pass's masses, #221) 900 m apart on the unchanged L3 kernel. It only reads
-and drives the kernel through its exported functions, adds no game number
-outside `js/data.js`, and **never counts as a Mission 0 result**.
+§13j; decisions #217, #224, #233, #237): two reference ships R1 (§13f.2)
+on the path model's kernel (§13i), flown by a stand-in autopilot from three
+standing orders (§8: range, facing, dodge), with rounds that hit or miss for
+physical reasons only. It only reads and drives the kernel through its
+exported functions, adds no game number outside `js/data.js`, and **never
+counts as a Mission 0 result**.
 
 ## Run it
 
@@ -23,148 +25,194 @@ the page elsewhere, copy `js/` beside `proto/` or rewrite that one prefix.
 
 ## Loadout panel
 
-Shown before each battle and from **Restart**; one loadout applies to
-**both ships alike**; the current loadout stays in the top-right corner
-during the battle. **Defaults** gives the battle without the panel (the
-same event hash for the same seed). The levers (#223's ladder: constants
-within their approved ranges, then layout and combinations of existing
-physics):
+Shown before each battle and from **Restart**; the current loadout stays in
+the top-right corner during the battle. **Defaults** resets every lever.
+
+The **fit** applies to both ships alike (#223's ladder: constants within
+their approved ranges, then layout and combinations of existing physics):
 
 - **Magazine**: HE full (default), AP full, HE half, AP quarter, by mass
   (fractions of `magazine.capacity`), loaded as whole rounds by the
   kernel's `loadMagazine`. A magazine explodes when a cell of it is
   wrecked, with the charge energy of its rounds, plus the warhead for HE.
-- **Bow armour**: none, 1 or 2 armour cells in front of each bow-facing
-  row. A `STAND-IN` (stand-in 7 below): armour fittings (#15) are not built
-  in the kernel.
 - **Layout**: R1 (§13f.2) or **R1-B**: the hold moved to [9,11)×[2,4) and
   the beam bay to [11,13)×[2,4), so the hold stands between the beam bay
-  and the magazine; 17 radiators (the beam bay's on its free edges) and the
-  same 4 RCS. Both layouts pass the kernel's `validateShip` every time a
-  ship is built.
+  and the magazine. Both pass the kernel's `validateShip` at every build.
 - **Shield budget**: 10 MW (default, `js/data.js`), 5 or 20 MW: a run-time
   override of `shield.budget` (approved 2–40 MW).
 - **Hits to wreck**: 3 (default) or 5: a run-time override of
   `kinetic.hitsToWreck` (approved 1–8).
 - **Turrets**: on, or off (both turrets hold: the beam-only probe).
 
-`battle.js` refuses an override outside its constant's approved range.
+The **orders** are yours (the enemy keeps its script's):
+
+- **Range order**: hold 900 (default), close 600, open 1500 m, centre of
+  mass to centre of mass (#54's band).
+- **Facing order**: bow-on (default) or broadside.
+- **Dodge order**: off (default) or on.
+
+The **seed** (first battle: 1) times each ship's dodge through the seeded
+RNG of `js/util.js`. It is shown on the panel and in the battle's corner;
+Restart adds 1; type another to replay a battle. `battle.js` refuses an
+override outside its constant's approved range. `PROTO_VERSION` is
+`feel-3`.
 
 ## Play
 
-- **Tap an enemy room** to target it (yellow dashed outline). Your beam and
-  turret fire at it while the preset says so. A wrecked target is dropped.
-- **Fire**: beam and turret on the target, shield on, engine half.
-  **Cool**: weapons off, shield off, engine off. **Evade**: engine full, RCS
-  turning, weapons hold (the shield stays on: §13h.2 does not say).
-- **×1 ×2 ×4**: time. **Pause**, **Restart** (back to the loadout panel).
+- **Tap an enemy room** to target it (yellow dashed outline). Your turret
+  aims at it and your beam fires while the preset says so. A wrecked target
+  is dropped.
+- **Fire**: weapons on the target, shield on, your standing orders as set,
+  engine up to 50 %. **Cool**: weapons off, shield off, engine off: the
+  ship coasts, the RCS holds the facing order's heading, no dodging.
+  **Evade**: weapons hold, shield on, broadside and dodge, engine up to
+  100 %. The range order still comes first in Evade (#40).
+- **×1 ×2 ×4**: time. **Pause**, **Restart** (back to the loadout panel,
+  seed + 1).
 - The enemy runs a fixed script: Fire 60 s, Cool 30 s, repeat; it aims at
-  your beam bay, then your turret, then your engine, each until wrecked.
+  your beam bay, then your turret, then your engine, each until wrecked;
+  its orders are hold 900 m, bow-on, dodge on.
 - The battle ends when a ship is Disabled (no weapon able to fire and no
   thrust for 10 s, #82) or destroyed (its reactor or magazine explodes), and
   shows the time, crew lost and rooms wrecked.
 
-## Export and replay
+### What the physics does with the orders (no new constant)
 
-- **Export** (top bar during a battle, and on the end panel) pauses the
-  battle and builds one line of JSON: the version (`PROTO_VERSION` in
-  `config.js`; there is no build step to stamp a git hash), the seed, the
-  loadout, every input of the player with its step number, where the battle
-  stands (ended or not, step, time, losers and reason, crew lost and rooms
-  wrecked per side), the number of events and their hash, and a per-room
-  summary ([first hot, first overheated, wrecked] in s, rooms that got hot
-  or worse). It copies the text to the clipboard and says "copied"; if the
-  phone refuses, it says so and the text stays selected in a box to copy by
-  hand. **Close** resumes. Inputs are tokens such as `5400Pc 5460TbeamBay`
-  (Cool at step 5400, then target the beam bay); about 10 kB for a
-  15-minute battle with one input every second.
-- `node proto/replay.mjs <file.json> [--every S] [--quiet]` rebuilds the
-  battle headless from the seed, loadout and inputs, runs it to the
-  exported step, prints the full event log (time, side, room, type, cause,
-  crew and the event's other fields; the player's inputs inline) and each
-  room's temperature peak, then compares the end and the event hash with
-  the export: **MATCH** (exit 0) or **MISMATCH** (exit 1). `--every 1`
-  also prints each room's temperature and integrity and each shield's state
-  once per simulated second. Text around the JSON (a pasted message) is
-  ignored.
-- The hash folds every event's JSON, after every tick, in the order the
-  battle emits them; it is not `measure.mjs`'s SHA-256. Bump
-  `PROTO_VERSION` whenever `proto/` or `js/` changes what a battle does:
-  replay warns when the export's version differs from the checkout's.
+- **Facing**: the beam bay is spinal (#234): the beam leaves along the
+  ship's axis from the bay's bow face and hits whatever that line crosses on
+  the enemy, possibly nothing (a miss). Only a bow-on ship beams its target.
+  The engine pushes along the axis, so broadside the ship dodges with the
+  engine (1.8 g at full thrust); bow-on only the RCS pushes sideways (two
+  1 MN fittings on 850 t: 2.35 m/s², 0.24 g).
+- **Rounds**: a kernel `shot` launches a round at the shooter's velocity
+  plus 800 m/s along the turret's aim; the turret aims at the lead point
+  (the target room extrapolated at its ship's velocity over the time of
+  flight). Each step the round's segment is tested against the target's
+  hull cells. A hit: the kernel's `shieldRound` slows it at the hull entry
+  point and its `fireRound` resolves it along the cells the line crosses
+  from entry to exit (holes stay on the path). A round that crosses nothing
+  flies on and is a miss once 3 km from the midpoint between the ships. No
+  dispersion: misses come from acceleration during the time of flight
+  (the lead knows velocity only).
+- **Beam**: the kernel's shield takes it at the hull entry point
+  (`setBeams`); what passes goes along the crossed cells with the kernel's
+  `fireBeam` (Bethe deposit, the bay's `beamEnergy`, no falloff).
 
 ## Read the view
 
-- Each room's colour is its temperature against its own thresholds: dark
-  blue at rest, green toward hot, yellow at hot, red at overheated, white
-  toward critical. A darker cell has lost integrity (thin red frame); a
-  destroyed cell is black with a red cross. `!` after a label: shut down.
-  A grey outline: the room has lost control. A magenta bar along a cell's
-  bottom: the beam's burn so far.
-- The cyan oval is the shield; brighter is a larger budget. Below each ship:
-  whether the beam, the gun and the engine are able, crew aboard, reactor
+- **World strip** (top): both ships to scale, the line of sight from you to
+  the enemy pointing right; every hull cell on its body (red outline: a
+  hole); a yellow line from each centre of mass shows its velocity against
+  the midpoint's as 5 s of travel; a white tick marks each bow. Rounds in
+  flight are white dots with a tail. A beam is magenta where it passes the
+  shield, cyan where the shield takes it all, grey dashes where it misses.
+  Top right: the range and how fast it opens or closes; bottom: each side's
+  hits, misses and rounds in flight.
+- **Head-up grids** (as v1; the enemy's is tappable): each room's colour is
+  its temperature against its own thresholds (dark blue at rest, green
+  toward hot, yellow at hot, red at overheated, white toward critical); a
+  darker cell has lost integrity (thin red frame); a destroyed cell is
+  black with a red cross; `!` after a label: shut down; a grey outline: the
+  room has lost control. The cyan oval is the shield. A white arrow shows
+  where a round entered in the last 1.5 s, with the cells it reached framed;
+  the beam is drawn where it enters (and to the deepest cell it reached when
+  it passes the shield); "beam: miss" when its line crosses nothing.
+- Above each grid: preset, target, the autopilot's mode and the engine's
+  throttle. Below: whether beam, gun and engine are able, crew, reactor
   output, shield and what it absorbs; a red countdown while Disabled looms.
-- Rounds are white dashes; a white frame flashes along the row a round went
-  down. A beam is a magenta line while it passes the shield, cyan while the
-  shield takes all of it.
-- The log (right) lists the kernel's events: time, side (P you, E enemy),
-  room, event, cause, crew aboard after it. Shots are drawn, not logged.
+- The log (right) lists the kernel's events and the prototype's
+  `round-hit` and `round-missed`: time, side (P you, E enemy), room, event,
+  cause, crew aboard after it. Shots are drawn, not logged.
 
 ## Stand-ins (also on screen)
 
 Each is marked `STAND-IN` in the code.
 
-1. Rounds fly straight at the muzzle velocity (`kinetic.muzzleVelocity`)
-   from gun to the aimed room: no aiming error, no lead, no deflection. On
-   arrival the kernel's `shieldRound` slows them at the aimed room and its
-   `fireRound` resolves them along one grid row of the aimed room, entering
-   from the bow (the side facing the shooter); the row is picked by the
-   seeded RNG (`js/util.js`), since the room's centre lies on a cell line.
-2. Beams: the kernel's shield takes the beam at the aimed room
-   (`setBeams`); what passes, times the Gaussian fraction that lands on one
-   cell at 900 m (`beamDeliveredFraction`), heats the aimed room and burns
-   its cells one by one, the ones facing the shooter first. A cell burns
-   through at `armour.burnEnergy` (L0's rule; `data.js` has no room value).
-3. Both sides see the true layout: no scans.
-4. No point defence, no missiles, no railgun.
-5. No helm: both ships are held at their stations for aiming and drawing.
-   Engines and RCS still draw power and make heat in the kernel; the motion
-   the kernel integrates is not shown or used.
-6. Disabled is judged from room state (working, controlled, a reactor able
-   to power it, the gun fed); destroyed means a reactor or magazine
-   explosion.
-7. Bow armour (loadout): N armour cells stand in front of each bow-facing
-   row, beyond the row's foremost room cell (grey cells in the view). A
-   round arriving in that row, after the shield, first passes them by L0's
-   rule (the kernel's `penetrate`, `armour.kineticResistance` per cell; a
-   wrecked armour cell is a hole) and enters the row with the sectional
-   momentum left. A beam burning a cell of the aimed room first burns that
-   row's armour cells (`armour.burnEnergy` each); that energy stays in the
-   armour and does not heat the room. Armour cells are wrecked like room
-   cells: 1 / `kinetic.hitsToWreck` per round passing, (absorbed / R) /
-   `hitsToWreck` for the cell a round stops in. Their mass and heat are
-   ignored (ships are held at station, stand-in 5).
+1. **Autopilot** (for L4's `helm.js`): the three orders in #40's order.
+   Range first: out of a 100 m dead band, or drifting faster than 50 m/s off
+   the wanted relative velocity, the ship flies a wanted closing speed
+   (0.05 /s × the range error, at most 40 m/s) with no drift across the line
+   of sight, thrusting along the velocity error once within 10° of it.
+   Facing next: bow-on points the bow at the enemy, broadside puts the line
+   of sight across the axis. Dodge last: the sign of the thrust across the
+   line of sight flips every 6–14 s (seeded); broadside that is a turn to the
+   other broadside, bow-on the RCS pair on one side. The RCS holds and turns
+   the heading: a time-optimal turn rate on 70 % of the couple's angular
+   acceleration, the torque it needs less the thrust torque, met each step
+   by the subset of able fittings closest to it. Every gain is in
+   `config.js` (`AUTOPILOT`), commented PROTOTYPE SETTING, NOT A GAME
+   NUMBER.
+2. **Presets' throttles**: Fire up to 50 %, Cool 0, Evade 100 %.
+3. **Enemy script**: Fire 60 s, Cool 30 s; beam bay, turret, engine; hold
+   900, bow-on, dodge on.
+4. **Turret**: free aim in any direction (no traverse arc, no slew, no
+   dispersion); its rounds never hit their own ship.
+5. A cell the line clips at a corner counts as crossed whole (the chord rule
+   waits for the next kernel pass).
+6. Both sides see the true layout: no scans.
+7. No point defence, no missiles, no railgun.
+8. A round's impact momentum is not given to the ship it hits (the kernel
+   has no call for it).
+9. Disabled is judged from room state (working, controlled, a reactor able
+   to power it, the gun fed), 10 s (`config.js`); destroyed means a reactor
+   or magazine explosion.
+10. **Deterministic trigonometry** (`detmath.js`): `Math.sin` and
+    `Math.cos` differ in their last bit between Node's V8 and a browser's
+    (Chromium 141: about 3 % of arguments), and the kernel turns ships with
+    them, so `battle.js` installs a port of fdlibm's sin and cos (within one
+    unit in the last place of the native ones) before any battle runs: the
+    same battle on the phone and in Node, so a phone export replays MATCH.
+
+## Export and replay
+
+- **Export** (top bar during a battle, and on the end panel) pauses the
+  battle and builds one line of JSON: the version (`PROTO_VERSION`), the
+  seed, the loadout (fit and your orders), every input of the player with
+  its step number, where the battle stands (ended or not, step, time,
+  losers and reason, crew lost, rooms wrecked, shots, hits and misses per
+  side), the number of events and their hash, and a per-room summary
+  ([first hot, first overheated, wrecked] in s). It copies the text to the
+  clipboard and says "copied"; if the phone refuses, it says so and the text
+  stays selected in a box to copy by hand. **Close** resumes. Inputs are
+  tokens such as `5400Pc 5460TbeamBay` (Cool at step 5400, then target the
+  beam bay).
+- `node proto/replay.mjs <file.json> [--every S] [--quiet]` rebuilds the
+  battle headless from the seed, loadout and inputs, runs it to the
+  exported step, prints the full event log and each room's temperature
+  peak, then compares the end and the event hash with the export: **MATCH**
+  (exit 0) or **MISMATCH** (exit 1). `--every 1` also prints each room's
+  temperature and integrity, each shield's state and the helm (mode, range,
+  throttle, heading) once per simulated second. Text around the JSON is
+  ignored.
+- The hash folds every event's JSON, after every tick, in the order the
+  battle emits them. Bump `PROTO_VERSION` whenever `proto/` or `js/` changes
+  what a battle does: replay warns when the export's version differs.
 
 ## Tools
 
-- `node proto/measure.mjs [--seeds N] [--limit s] [--magazine heFull|apFull|heHalf|apQuarter]
-  [--armour 0|1|2] [--layout R1|R1B] [--shield-budget W] [--hits N] [--turrets on|off]`:
-  battles headless with both sides on the enemy's script and one loadout;
-  prints per seed the length, the end, what destroyed a ship, the first
-  room to fail on each side, the event hash and the cost per step, then a
-  summary. `--beam-only` is `--turrets off`.
+- `node proto/measure.mjs [--seeds N] [--first S] [--range close|hold|open]
+  [--facing bow|broadside] [--limit s] [--magazine ...] [--layout R1|R1B]
+  [--shield-budget W] [--hits N] [--turrets on|off]`: duels headless with
+  both ships on the enemy's script (by default seeds 1–10 at each range
+  order, on both ships); prints a table per duel (length, end, each side's
+  shots / hits / misses, what destroyed a ship, the cost per step) and a
+  summary per range. `--facing broadside` replaces the script's bow-on on
+  both ships.
 - `NODE_PATH=/opt/node-tools/node_modules node proto/smoke.mjs`: Playwright
-  at 844 × 390 with touch; chooses a non-default loadout (AP full, armour 1,
-  R1-B, shield 20 MW, hits 5) and starts, taps a target, cycles the presets,
-  runs ×4 to the end or 6 simulated minutes (on the way: target the turret
-  at 8 s, Cool at 12 s, Fire at 16 s, Export from the top bar at 20 s),
-  exports again at the end, runs `replay.mjs` on both exports (each must
-  print MATCH), checks Restart brings the panel back; fails on any console
-  error, a visible button under 44 px or a MISMATCH; writes
-  `proto/screens/loadout.png`, `start.png`, `export.png` and `end.png`.
+  at 844 × 390 with touch; checks the panel shows seed 1, chooses a
+  non-default loadout (AP full, R1-B, 20 MW, hits 5, close 600, broadside,
+  dodge on) and seed 41 and starts, checks the seed in the battle's corner,
+  taps a target, cycles the presets, runs ×4 to the end or 6 simulated
+  minutes (target the turret at 8 s, Cool at 12 s, Fire at 16 s, Export from
+  the top bar at 20 s), exports again at the end, runs `replay.mjs` on both
+  exports (each must print MATCH and carry seed 41), checks Restart brings
+  the panel back with seed 42; fails on any console error, a visible button
+  under 44 px or a MISMATCH; writes `proto/screens/loadout.png`,
+  `start.png`, `export.png`, `end.png` and `restart.png`.
 
 ## Files
 
-`index.html`, `proto.css`, `proto.js` (the page), `battle.js` (the battle,
-no DOM), `export.js` (the export and its event hash, no DOM), `config.js`
-(every prototype setting), `measure.mjs`, `replay.mjs`, `smoke.mjs`,
-`screens/`.
+`index.html`, `proto.css`, `proto.js` (the page), `battle.js` (the battle
+and the autopilot, no DOM), `detmath.js` (the trigonometry stand-in),
+`export.js` (the export and its event hash, no DOM), `config.js` (every
+prototype setting), `measure.mjs`, `replay.mjs`, `smoke.mjs`, `screens/`.
