@@ -326,6 +326,21 @@ room behind it); Decoy launcher (#149).
 | 175 | **Lock coverage and stray numbers**: records also carry a hash of each scenario's `run()`; the simulation step and the burn time limit move into `data.js`; new scenarios draw their inputs from data (#144) |
 | 176 | **L0 v2 criteria approved** (beside the locked L0 scenarios, not replacing them): **`L0.blast.surface.v2`**: the energy vented at the open face is exactly (1 − coupling) × E; absorbed + escaped + vented = E; damaged and destroyed reported apart; damage non-increasing with grid distance from the burst; the damaged region symmetric about the burst row while it does not reach a plate edge. **`L0.beam.burn.v2`**: one-sided time, expected ≤ actual < expected + one step; heat ≥ burn energy and the excess below one step's energy. **`L0.kinetic.penetration.v2`**: the continuous depth s0 / R against the formula, relative 1e-9, every tier and size. **`L0.shield.point.v2`**: beam powers from `data.js` (0.5×, 1×, 2×, 6× the M beam, so the M beam itself is run); no heat invariant (#174). **`L0.shield.kinetic.v2`**: an S round stopped exactly with the computed `kineticStop`; `kineticStop` swept 0.5×–2×: S is stopped only at ≥ 1×, and exit velocity is non-increasing as it rises. **`he.coupling`** (the fraction of a contact burst's energy that enters the hull): 0.5, approved range 0.2–0.8, k = 0. Claude does not know the real value for a starship; it is a constant to tune, not a measurement |
 
+## 9d. Review roles (decided after L0)
+
+| # | Decision |
+|---|---|
+| 167 | **No AI checks its own work.** Until L0 one session wrote every decision, document and line of code and also checked them (self-confirmation, shared blind spots, context loss). **Four roles, each its own session, handing over through GitHub**: **lead designer** (discusses with the owner, keeps `DESIGN.md` and `DECISIONS.md`, never reviews its own code), **engineer** (builds a level as designed, one branch and PR; never changes the design, asks instead), **reviewer** (read-only, reviews a PR against `DESIGN.md` and `CLAUDE.md`, re-runs, comments on the PR), **physics checker** (derives each scenario's expected result **blind**, before reading the code, posts it on the PR, then compares). Reviewers receive artifacts, never the author's conclusions. Roles are defined in `.claude/agents/`. The owner decides and merges, and keeps the playtests. A reviewer may run on a different model to reduce shared blind spots |
+| 168 | **Retroactive review of L0**: a reviewer reviews PR #1 and a physics checker re-derives the seven L0 formulas |
+
+## 9e. L0 approvals, merging and hand-over (2026-10-21)
+
+| # | Decision |
+|---|---|
+| 177 | **L0 pending items approved as proposed**: the four provisional ranges (`armour.blastResistance` 1 MJ, 0.3–3 MJ; `armour.burnEnergy` 30 MJ, 10–100 MJ; `room.kineticResistance` 6.75e4, 3e4–1.4e5; `shield.bufferSeconds` 1 s, 0.2–5 s) become approved, the buffer still having to show a measured effect by L2 or be cut (E4); the fixed constants (steel density, rounds 4 diameters long, S and L at 2/3 and 3/2 of M, beam waist 1/√2 of half a cell, shield falloff exponent 2, simulation step 1/60 s, burn time limit 3600 s) are approved; the rule **continuous beams meet the shield's rate, its buffer catches impulses** is approved (this resolves the physics checker's mismatch on `L0.shield.point.v2`, which modelled the buffer filling under a beam because the rule lived only in DESIGN §17.6); the engineer's three locked v2 readings are approved; the knife-edge result (coupling 0.5 × 2 MJ = exactly the blast resistance) is accepted, and **new scenarios place no case exactly on a threshold unless they test that threshold**. The `approved` flags in `js/data.js` are flipped by the engineer at the start of L1 |
+| 178 | **Claude merges pull requests after the owner approves each merge** (supersedes the "owner merges" part of #151) |
+| 179 | **Hand-over between chats**: `STATUS.md` holds the current state (open PRs, pending approvals, running sessions, scheduled tasks, next steps, lessons) and is updated at the end of every working block, so a new chat with Claude can resume from the repository alone. Scheduled check-ins belong to the chat that made them; a new chat re-creates its own from `STATUS.md` |
+
 ## 10. Presentation and crew
 
 | # | Decision |
