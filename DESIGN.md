@@ -101,13 +101,13 @@ projectiles (#8).
 | Centre-of-mass shift | Losing a flank moves the CoM; aligned engines become off-axis |
 | Heat and radiators | Heat leaves only by radiation, through radiators on the hull; **Stefan–Boltzmann**: radiated power ∝ area × emissivity × T⁴ (#143). Inside, heat moves fast only along the machinery's **coolant loop** (plant rooms and heat sinks sharing walls); crewed rooms and magazines are insulated (a bulkhead leaks little) and cooled by **life support**, which pumps their heat into the loop (#200, #201) |
 | Infrared | Only surfaces are seen; deep reactors are invisible until heat reaches the hull; IR brightness also ∝ T⁴ (#102) |
-| Inverse-square, distance⁴ | Beams, passive sensing and jamming fall off with distance²; active scans with distance⁴ (#24) |
+| Inverse-square, distance⁴ | Passive sensing and jamming fall off with distance²; active scans with distance⁴ (#24). A beam's divergence is a few microradians, so at battle range it does not fall off (#230) |
 | Time of flight | Rounds and missiles travel; ships dodge |
 | Square–cube | Cell mass ∝ edge³, hull area ∝ edge²: big ships have less hull per tonne (#63) |
 | Fail-safe reactors | Losing control SCRAMs a reactor; decay heat follows (#81) |
 
 Cut: kinetic energy ½mv² as damage, decompression thrust, I²R resistance.
-Deferred: sloped armour (#6).
+Deferred: sloped armour (#6), now with tumble in `IDEAS.md`, after prototype v2 (#230).
 
 | Topic | Decision |
 |---|---|
@@ -229,14 +229,14 @@ hull segment, undo, mirror, exportable blueprints (#59).
 
 | Weapon | Physics | Flow | Recoil | Damage | Precision |
 |---|---|---|---|---|---|
-| Beam (a millimetre-wave **maser**, #203 B: a 600 m focus range from a 1.8 m waist is a 16 mm wavelength) | light speed, falloff | power and very much heat | almost none | burns over time at a point; heats the room | best when scanned |
+| Beam (a **neutral particle beam**, #229, in place of the maser of #203 B; §13i) | near light speed, no falloff at battle range | power and very much heat | almost none | energy lost along its path, most near the end of its range: reaches rooms behind armour; heats the room | best when scanned |
 | Kinetic | time of flight | ammunition | strongest | momentum along the path | must lead the target |
 | Missile | slow, guided | ammunition, tube | small | by warhead | by seeker |
 | Point defence | against munitions | power or ammunition | small | — | — |
 
 | Attack | Armour | Shield | Point defence | Decoys, running cold | Range | Sustain |
 |---|---|---|---|---|---|---|
-| Beam | burns through slowly | **stops well** | — | — | **weakens** | no ammunition, heat |
+| Beam | **mass alone counts**: armour stops it no better than a room of the same mass (#230) | **stops well** | — | — | **certain at every range** (no falloff, #230) | no ammunition, heat |
 | Kinetic | **stops well** | partly | — | — | **dodged** | a stock |
 | Missile | partly | partly | **shot down** | **misled** | not dodged | few, precious |
 
@@ -1056,7 +1056,7 @@ the second; prototype v2 (a helm and physical misses) the first. An
 replays the battle headless with its full event log (MATCH check), so the
 owner's play can be read exactly. Hosted as a private claude.ai page (#226).
 
-### 13h.4 Process and cost
+### 13h.5 Process and cost
 
 One engineer session (opus); no scenarios (nothing in `proto/` counts for
 Mission 0); the reviewer checks only #217's rules (reads the kernel
@@ -1064,6 +1064,102 @@ unchanged, no number outside `js/data.js` except layout and colours, every
 stand-in labelled) and a Playwright smoke test at a phone viewport with
 zero console errors. The owner plays it from a private hosted page.
 Estimated cost 10–15 USD.
+
+## 13i. The path model (#228, #229, #230, #231)
+
+Built before prototype v2 and L4, on branch `m0/path` from `main`; it
+leaves `proto/` working (the superseded functions stay). It applies the owner's symmetric principle
+(#228) to what a round and a beam meet along their path, with real material
+constants only. Estimates by the lead designer's own integrator, with every
+rule of L0–L3 and the mass pass on (#204); the scenarios below are their
+re-runnable check. Its Bethe integration reproduces NIST PSTAR's proton
+ranges in water within 0.15 % (7.709 against 7.718 g/cm² at 100 MeV).
+
+### 13i.1 Rules
+
+| Rule | Statement |
+|---|---|
+| Cell matter | A cell on a path is its own mass spread over its face: **areal density σ = cell mass / edge²** (T1: 1e4 kg / 25 m² = 400 kg/m², about 5 cm of steel; k = 1, like the kinetic resistances). The cell mass is the mass pass's (structure, plus a heat sink's water); matter is iron-equivalent by mass. A destroyed cell is a hole: σ = 0 (#212 (5)) |
+| Round damage (kinetic) | The round takes **the same sectional momentum the cell takes, against its own strength** S = `armour.kineticResistance` × ρ_steel × L / σ, where L is its pristine length: per kilogram of steel, a round is exactly as strong as an armour cell (both are steel). Its damage f grows by (sectional momentum the cell took) / S; damage **flattens it at constant volume**: A = A₀ / (1 − f), its momentum unchanged by f. At each cell, with sectional momentum s = p / A on entry and resistance r: if s > r and f + r / S < 1, it passes (the cell takes r, p falls by r·A, f grows by r / S, A and s follow); otherwise it stops there, the cell takes min(s, r), f grows by that / S, capped at 1 (f = 1: the round is **wrecked**, its remaining momentum goes to the ship like a stopped round's). A hole takes nothing and does nothing to the round. The cells' integrity losses are the D pass's (#206): a passed cell 1 / `kinetic.hitsToWreck`, the stopping cell (taken / r) / `kinetic.hitsToWreck`. Momentum books: p₀ = Σ r·A over passed cells + the stop's remaining p + p on exit |
+| Shield and rounds | The shield slows a round by a field, not by contact: no round damage (unchanged, `shieldRound`) |
+| Tumble | Left out: a yawing round needs an off-centre force (an oblique hit) and a facing the player controls; it goes to `IDEAS.md` with sloped armour (#6), to be weighed after prototype v2's helm (#230) |
+| Beam (neutral particle beam, #229) | A beam of neutral hydrogen atoms of kinetic energy E (`beam.particleEnergy`) at power P. Inside matter each atom is a proton: survivors lose energy by the **Bethe formula** (no shell or density correction): dE/dX = K (Z/A) (1/β²) [½ ln(2 mₑc² β²γ² T_max / I²) − β²], T_max = 2 mₑc² β²γ² / (1 + 2γ mₑ/M + (mₑ/M)²), X the areal density crossed, iron-equivalent (Z/A 0.46557, I 286 eV); a fraction dX / λ_I of the survivors has a **nuclear interaction** (λ_I = 1321 kg/m², iron) and leaves its remaining kinetic energy in that cell (a simplification: the real shower spreads forward over about λ_I). Cell i receives the fraction F_i of P; what is left when the path ends leaves the ship. The fractions are recomputed when a cell on the path becomes a hole |
+| Beam range | **No falloff** at battle range (#230): the beam's divergence is a few microradians (reported SDI data, a secondary source), so all of P arrives at 0.6–1.5 km. The Gaussian maser falloff (`beam.focusRange`, `FIXED.beamWaistPerHalfCell`, #165, #203 B) is superseded |
+| Beam damage and heat | Cell i loses integrity at P·F_i / `armour.burnEnergy` per second (now the energy that ruins any cell along the beam's channel: 30 MJ melts about 25 kg of steel, at about 1.2 MJ/kg from rest, an estimate) and is destroyed at 1, like every partial loss of the D pass; P·F_i is heat in cell i's room (#138). The shield absorbs first, at the entry point, as at L2 |
+| Kernel | New pure functions in `js/damage.js` (`penetrateRound`, `beamDeposit`) and a `fireBeam` in `js/rooms.js` beside `fireRound`; `fireRound` uses the round rule. The superseded pure functions (`penetrate`, `beamDeliveredFraction`, `burnThrough`) **stay** for the withdrawn scenarios and the prototype until v2 |
+
+### 13i.2 Constants
+
+| Constant | Value | Range | k | Source |
+|---|---|---|---|---|
+| `beam.particleEnergy` (new) | 400 MeV = 6.4087e-11 J | 150–700 MeV | 0 | the lead designer: reaches the 3rd cell at T1; SDI-era designs were a few hundred MeV (#229) |
+| `beam.focusRange`, `FIXED.beamWaistPerHalfCell` | removed | — | — | superseded (#230) |
+| `FIXED.protonRestEnergy` | 938.272 MeV | real | — | CODATA |
+| `FIXED.electronRestEnergy` | 0.51099895 MeV | real | — | CODATA |
+| `FIXED.betheK` | 0.307075 MeV·cm²/mol | real | — | PDG |
+| `FIXED.ironZOverA`, `FIXED.ironMeanExcitation` | 0.46557, 286 eV | real | — | PDG |
+| `FIXED.ironInteractionLength` | 132.1 g/cm² = 1321 kg/m² | real | — | PDG (16.77 cm at 7.874 g/cm³) |
+
+data.js stays SI (#163): energies in J, areal densities in kg/m²; the note
+of each constant gives the MeV and g/cm² values. With k = 0 a beam reaches
+fewer cells on bigger ships (σ grows with the edge, λ_I does not): at T6 a
+400 MeV beam stays in the first cell. That is the square–cube law (#63);
+L6 judges it.
+
+### 13i.3 Estimates (T1 unless stated)
+
+- Armour cells (round rule): continuous depth S **1.480**, M **2.166**, L
+  **3.162** (old 1.691 / 2.537 / 3.805), the same at T1–T6 (s₀, r and S all
+  scale with the edge); the round ends 43–45 % flattened. S, M and L still
+  pass 1, 2 and 3 armour cells.
+- Room cells: S **5.471**, M **8.121**, L **12.083** (old 6.765 / 10.148 /
+  15.221). An M round leaving after 1–4 room cells keeps 0.901 / 0.798 /
+  0.688 / 0.572 of its momentum (old 0.901 / 0.803 / 0.704 / 0.606).
+- D1's line of six M quarters: the M round stops in cell **9** intact, in
+  cell **10** with the 2nd cell destroyed (old 11 and 12).
+- A wrecked round, within approved ranges: `structure.cellMass` 3e4,
+  `kinetic.muzzleVelocity` 1000, `armour.kineticResistance` 3e5: the M and
+  L rounds are wrecked in their 2nd and 3rd armour cell, the S round stops
+  in its 2nd with f capped at 1.
+- Beam fractions, 400 MeV at T1: **0.431 / 0.300 / 0.269** in cells 1–3,
+  nothing beyond; 200 MeV: all in cell 1; 700 MeV: 0.336 / 0.231 / 0.158 /
+  0.107 / 0.073 / 0.051 / 0.044 over cells 1–7. Without nuclear
+  interactions 400 MeV would give 0.230 / 0.276 / 0.493 (the Bragg peak):
+  real physics blurs it at cell scale.
+- Beam burn, an M beam (5 MW, 400 MeV) on a column of cells at contact,
+  burn energy 30 MJ: cells 1, 2, 3 destroyed at **13.9, 18.2, 20.5 s**
+  (old: 6.1 s per armour cell at contact, 14.1 s at 1.5 km); the same at
+  any range.
+
+### 13i.4 Scenarios
+
+Each is locked in a commit of its own before its first canonical run.
+
+| # | Name | Setup | Expected (formula) and criterion |
+|---|---|---|---|
+| P1 | `L0.kinetic.penetration.v3` | S, M, L AP rounds into a column of armour cells, T1–T6 | the round rule by the scenario's own loop: continuous depth within 1e-9 (S 1.480, M 2.166, L 3.162), identical across tiers within 1e-9; passes 1, 2, 3 cells; momentum books within 1e-9 |
+| P2 | `L0.kinetic.overpen.v2` | an M AP round through 1–4 room cells | momentum on exit / p₀ by the rule within 1e-9 (0.901 / 0.798 / 0.688 / 0.572), each below the old rule's |
+| P3 | `L0.kinetic.wreck` | the three sizes under the overrides of 13i.3 | M and L wrecked (f = 1) in cells 2 and 3, S stopping in cell 2 with f = 1; books within 1e-9 |
+| P4 | `L1.kinetic.damage.v2` | D1's setup under the round rule | depths S 5.471, M 8.121, L 12.083 room cells at T1–T6 within 1e-9; through one quarters (3 deep) or one hold (2 deep) every size exits, each cell losing exactly 1/3 per round; deaths by the floor rule; after three M rounds every passed cell destroyed |
+| P5 | `L3.kinetic.hole.v2` | D1's line of six M quarters, intact and with the 2nd cell destroyed | stops in cell 9 and 10; the hole takes nothing and does nothing to the round; the same stopping loss; deaths by the floor rule; identical at T6 |
+| P6 | `L0.beam.depth` | 200, 400, 700 MeV into 8 cells at T1; 400 MeV at T6; 400 MeV with cell 1 a hole | fractions by the scenario's own integration of the Bethe formula and λ_I, with at least 10× finer steps than the kernel, within 1e-3 absolute; Σ F_i + exit = 1 within 1e-9; a hole shifts the whole profile one cell deeper; the CSDA range of a 200 MeV proton in iron 373 kg/m² within 1 % (estimate 37.3 g/cm²) |
+| P7 | `L0.beam.range` | an M beam at 0, 600, 1500 m | delivered power = P exactly at every range |
+| P8 | `L0.beam.burn.v3` | an M beam (400 MeV) on a column of 4 cells at contact and at 1.5 km, T1 and T3 | destruction times in [t, t + dt) of the scenario's own stepped integration (13.9, 18.2, 20.5 s at T1); heat in each room = energy deposited there within 1e-9; the same at both ranges |
+
+**Withdrawn as superseded by #230** (#188), each with its passing
+successor: `L0.kinetic.penetration` and `.v2` → P1; `L0.kinetic.overpen` →
+P2; `L1.kinetic.damage` → P4; `L3.kinetic.hole` → P5; `L0.beam.falloff` →
+P7; `L0.beam.burn` and `.v2` → P8. The engineer lists the real set: every
+other scenario re-records and must still pass, and any other verdict
+change is a finding. A tolerance is checked against the kernel's step
+error and float resolution before its lock (#212, #219, #220).
+
+### 13i.5 Process and cost
+
+One engineer session (opus) on `m0/path`; then a blind physics checker
+(sonnet) given the setups extracted by node, who derives P1–P8 before
+reading the code; then the reviewer (sonnet). The lead designer merges with
+no blocking finding (#180). Estimated cost 15–20 USD.
 
 ## 14. Architecture
 
