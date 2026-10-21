@@ -100,7 +100,7 @@ export default {
   tolerance: '(a, b) time 1e-3 relative; (c) overheat time 1e-3 relative, neighbour temperatures 1e-3 K',
   criterion: '(a, b) the linear two-room solution with a constant source h d P in the reactor gives the time the neighbour reaches its critical (magazine 450 K: cook-off; quarters 380 K: all its crew die) as a root of the closed form, within 1e-3 relative, and it comes before the reactor\'s overheated; (c) the reactor overheats first and the neighbour stays below its critical through 900 s; the overheat time, the neighbour\'s highest and final temperatures match the reference integrator (RK4 at dt / 10, the shutdown, decay heat and restart of L1 on the step grid) within 1e-3 relative and 1e-3 K (#182, #193, #194)',
   tunable: ['conduction.wall', 'conduction.holdFactor', 'thermal.heatCapacityPerCell', 'reactor.power', 'reactor.heatPerPower', 'thermal.magazineCritical', 'thermal.crewedCritical', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'a28270cd' },
   cases() {
     const out = [];
     for (const neighbour of ['magazine', 'quarters']) for (const d of [0.25, 0.5]) for (const between of ['wall', 'hold']) for (const pairs of [1, 2]) out.push({ neighbour, d, between, pairs });

@@ -68,7 +68,7 @@ export default {
   tolerance: 'relative 1e-12 (powers), 1e-9 (heat rates); the budget bound strict with a 1e-12 float slack',
   criterion: '(a) absorbed = min(P, sum_i B_i g_i), each generator pays its share a_i = P B_i g_i / sum B g (capped); (b) neither generator pays more than its budget (the #170 case: without the rule each point would absorb min(P, B + B g(d)) by itself); payments and absorption by the rule of 13d.1; (c) only the powered generator absorbs, the other pays 0 and does not heat; heat rate of each = its payment + its draw (#99, #170, #193, #194)',
   tunable: ['shield.budget', 'shield.radius', 'shield.powerDraw'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'fd488934' },
   cases() {
     const out = [];
     for (const d of [40, 80]) {

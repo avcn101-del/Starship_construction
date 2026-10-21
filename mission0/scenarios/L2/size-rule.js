@@ -53,7 +53,7 @@ export default {
   tolerance: 'relative 1e-9; counts exact',
   criterion: 'the scaled quantities of 13d.1 exactly: heat capacity = cells x thermal.heatCapacityPerCell; L reactor power 9/4 of M and explosion energy 9/4 of M (450 MJ); L magazine capacity 9/4 of M; L turret round mass (3/2)^3 of M at 2/3 the rate (shots = 1 + floor(rate t)), heat per shot (3/2)^3 of M, draw 9/4 of M; crew 9/4 of M rounded (reactor 9, turret 7); quarters crew = crewPerCell x cells (#185 (4), (5), #187 (4), #193, #194)',
   tunable: ['reactor.power', 'reactor.explosionEnergy', 'magazine.capacity', 'kinetic.roundMass', 'turret.fireRate', 'turret.heatPerShot', 'turret.powerDraw', 'thermal.heatCapacityPerCell'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '9e9d8cde' },
   cases() {
     const out = [];
     for (const type of ['reactor', 'magazine', 'turret']) for (const size of ['M', 'L']) out.push({ type, size });

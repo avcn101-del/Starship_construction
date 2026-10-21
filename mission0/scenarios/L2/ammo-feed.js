@@ -63,7 +63,7 @@ export default {
   tolerance: 'counts exact; the sustained shot interval within one step',
   criterion: 'shots by t = the closed-form count of the shot times (ready store first, then rounds fed: fire-limited 1 + floor(rate t) while rounds last, feed-limited s_k = max(n m / F, s_(k-1) + 1 / rate)); sustained rate = min(fire rate, ammo.wallFeed L / round mass): the mean interval of the fed shots is 1 / that rate within one step; the L turret on a 5 m wall is feed-limited and the other three are not; the magazine falls by exactly the rounds fed (mass = fed x round mass) and rounds are conserved (store at start + fed = shots + store at the end); a turret not touching the magazine fires only its ready store (#18, #193, #194)',
   tunable: ['ammo.wallFeed', 'turret.readyRounds', 'turret.fireRate', 'kinetic.roundMass', 'magazine.capacity'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '5d541b7d' },
   cases() {
     const out = [];
     for (const size of ['M', 'L']) for (const pairs of [1, 2]) out.push({ size, pairs });

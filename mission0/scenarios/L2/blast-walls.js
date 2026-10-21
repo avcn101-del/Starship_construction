@@ -84,7 +84,7 @@ export default {
   tolerance: 'energies 1e-12 relative; counts exact',
   criterion: 'absorbed per room by the rule of 13d.1 (fill own capacity B = surviving cells x room.blastResistance, x hold.blastFactor for a hold; pass the excess on by shared wall length as a wave front), computed in the scenario for these geometries; absorbed + escaped = E (1e-12); absorbed = min(E, sum B) and escaped = max(0, E - sum B) when every room is reached; equal shares in (c); a saturated hold absorbs hold.blastFactor times a saturated ordinary room; a room that fills its capacity loses every cell, one that does not keeps them at integrity 1 - absorbed / B; crew die per destroyed cell, floor(k crew / N) for k destroyed (#141, #169, #184, #193, #194)',
   tunable: ['room.blastResistance', 'hold.blastFactor', 'kinetic.chargeEnergy', 'he.blastEnergy', 'magazine.capacity'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'a10a083d' },
   cases() {
     const out = [];
     for (const geometry of Object.keys(GEOMETRY)) for (const load of Object.keys(LOADS)) out.push({ geometry, load });

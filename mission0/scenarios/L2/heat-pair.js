@@ -50,7 +50,7 @@ export default {
   tolerance: 'Delta T: 1e-3 of Delta T0 at every step; energy: 1e-12 relative; tau across tiers: 1e-3 relative',
   criterion: 'Delta T(t) = Delta T0 exp(-t / tau), tau = C_a C_b / ((C_a + C_b) G), G = conduction.wall x L x 2 f_a f_b / (f_a + f_b) (hold factor conduction.holdFactor), |Delta T - closed form| <= 1e-3 Delta T0 at every step; C_a T_a + C_b T_b constant to 1e-12 relative at every step; tau proportional to the edge across T1-T6 (the fitted tau over its T1 value = edge / 5 m within 1e-3) (#193, #194)',
   tunable: ['conduction.wall', 'conduction.holdFactor', 'thermal.heatCapacityPerCell'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '9f0da2d3' },
   cases() {
     const out = [];
     for (const Ta of [400, 600, 1000]) for (const pairs of [1, 2]) for (const p of ['ordinary', 'hold']) out.push({ tier: 'T1', Ta, pairs, pair: p });

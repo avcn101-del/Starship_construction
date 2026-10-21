@@ -76,7 +76,7 @@ export default {
   tolerance: 'temperatures 1e-3 K absolute at 300 s; the hold ratio strict',
   criterion: 'the 3 x 3 linear system C dT/dt = -K T, solved in the scenario by eigen-decomposition (closed form), gives every temperature within 1e-3 K at 300 s; the heat reaching the third room with a hold in the middle is < 15 % of that without (#193, #194)',
   tunable: ['conduction.wall', 'conduction.holdFactor', 'thermal.heatCapacityPerCell'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'a909375f' },
   cases() {
     return [{ middle: 'ordinary', T0: 600 }, { middle: 'hold', T0: 600 }];
   },

@@ -91,7 +91,7 @@ export default {
   tolerance: 'delivered power exact; beam power 1e-12 relative; heat rates 1e-9 relative',
   criterion: 'delivered to each consumer = the priority-ordered max flow, computed in the scenario by enumerating every cut of the small graph: the k-th consumer gets maxflow(first k) - maxflow(first k - 1), each the minimum cut, with walls of power.wallCapacity x live length, reactors of demand x reactor.power x surviving fraction and consumers of their L1 draw; exact; the reactors produce the total; a beam bay at fraction f = delivered / draw fires f x beam.power x surviving fraction and heats f x its L1 heat (draw - beam); destroying the bottleneck wall\'s cells lowers delivery exactly (#12, #38, #193, #194)',
   tunable: ['power.wallCapacity', 'reactor.power', 'beam.power', 'beambay.efficiency', 'engine.powerDraw'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '7c53e3b4' },
   cases() {
     return Object.keys(GRAPHS).map((graph) => ({ graph }));
   },

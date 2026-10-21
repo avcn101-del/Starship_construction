@@ -65,7 +65,7 @@ export default {
   tolerance: 'overheat and restart times 1e-3 relative; events and control exact',
   criterion: 'control lost at overheat (control-lost, cause overheat, at the overheated step) and restored at the restart (control-restored, cause restart); control false in every step from the overheat to the restart, true before and after; overheat time and restart time after the overheat by the reference integrator (RK4 at dt / 10, the L1 shutdown and restart on the step grid) within 1e-3 relative; no radiator on the bridge (setting one is refused); no crew deaths (#185 (6), #190 (2), #193, #194)',
   tunable: ['conduction.wall', 'radiator.area', 'thermal.heatCapacityPerCell', 'thermal.crewedHot', 'thermal.crewedOverheated', 'bridge.powerDraw'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '9882f256' },
   cases() {
     return [{ P: 1.1e6 }];
   },

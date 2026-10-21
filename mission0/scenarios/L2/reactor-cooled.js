@@ -87,7 +87,7 @@ export default {
   tolerance: 'overheat time, peak temperature and the n = 0 meltdown time 1e-3 relative',
   criterion: 'the reference integrator (RK4 at dt / 10, the shutdown, decay heat and restart of L1 on the step grid) gives the overheat time and the peak reactor temperature within 1e-3 relative; n = 0 melts down at the reference time within 1e-3 relative (L1.reactor.scram\'s closed form from the shutdown); n >= 1 does not melt down in 3600 s (#187 (5), #193, #194)',
   tunable: ['conduction.wall', 'radiator.area', 'thermal.heatCapacityPerCell', 'reactor.power', 'reactor.heatPerPower', 'reactor.decayFraction', 'reactor.decayTime', 'thermal.plantHot', 'thermal.plantOverheated', 'thermal.plantCritical'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '6c5139ec' },
   cases() {
     return [0, 1, 2, 4].map((n) => ({ n }));
   },
