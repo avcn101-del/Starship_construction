@@ -16,7 +16,7 @@ export default {
   tolerance: 'depth relative 1e-9; depth across tiers relative 1e-9; momentum books relative 1e-9; counts exact',
   criterion: 'r = matter.kineticResistance x sigma per cell, S = matter.kineticResistance x rho_steel L; depth, cells passed and f by the round rule of 13i.1 in the scenario\'s own loop (estimates S 1.480, M 2.166, L 3.162, f 0.43-0.45); S, M and L pass 1, 2 and 3 cells; the depth of each size identical T1-T6; p0 = sum of the momentum each cell took + p on exit (#230, #232, #235)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'matter.kineticResistance', 'armour.cellMass'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '5104a287' },
   cases(ctx) {
     const out = [];
     for (const tier of Object.keys(ctx.tiers)) for (const size of ['S', 'M', 'L']) out.push({ tier, size });

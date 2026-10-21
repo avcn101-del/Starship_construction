@@ -16,7 +16,7 @@ export default {
   tolerance: 'delivered power exact; the step\'s books relative 1e-12; fractions identical across ranges (exact)',
   criterion: 'delivered power = P exactly at every range (no falloff, #230); sum of the energies left in the cells + the energy that leaves = P dt within 1e-12 relative; the fractions do not depend on the range (#229, #230, #235)',
   tunable: ['beam.power', 'beam.gradient', 'cellMass.shieldGenerator'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'd12ff666' },
   cases() {
     return RANGES.map((range) => ({ range }));
   },

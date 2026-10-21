@@ -15,7 +15,7 @@ export default {
   tolerance: 'relative 1e-9',
   criterion: 'r = matter.kineticResistance x sigma, S = matter.kineticResistance x rho_steel L; p on exit / p0 by the round rule of 13i.1 in the scenario\'s own loop (estimates 0.882 / 0.756 / 0.621 / 0.476); the round exits in every case; p0 = sum of the momentum each cell took + p on exit (#230, #232, #235)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'matter.kineticResistance', 'structure.cellMass'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '8d466bea' },
   cases() {
     return [1, 2, 3, 4].map((n) => ({ cells: n }));
   },

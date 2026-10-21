@@ -18,7 +18,7 @@ export default {
   tolerance: 'times one-sided: t <= time < t + dt, with a 1e-9 relative float slack on both bounds (#185 (2)); heat relative 1e-9; times identical at both ranges (exact)',
   criterion: 'the scenario\'s own stepped integration: each step, F_i by its own Bethe integration (13i.1, steps at most 0.2 kg/m^2 and 0.1 % of the energy) over the cells still standing (a destroyed cell a hole), each cell losing P F_i dt / armour.burnEnergy (a float residue of 1e-12 or less is 0); t is the time within the step at which a cell reaches 0 at that step\'s rate; the kernel destroys the same cell at the end of that step, t <= time < t + dt (estimates at T1: N = 8 cells 1-3 at 13.9, 18.2, 20.4 s; N = 2 at 6, 12, 18, 24 s, whole steps, passing on the float slack); the heat each room holds = the energy fireBeam left in its cells within 1e-9; energy left + energy that left = P x time within 1e-9; the same times at 0 and 1500 m (#138, #229, #230, #234, #235)',
   tunable: ['beam.power', 'beam.gradient', 'armour.burnEnergy', 'cellMass.shieldGenerator'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '6e50b68a' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T3']) for (const N of [2, 8]) for (const range of [0, 1500]) out.push({ tier, N, range });

@@ -18,7 +18,7 @@ export default {
   tolerance: 'taken and f relative 1e-9 (f = 1 exactly when wrecked); momentum books relative 1e-9; counts exact',
   criterion: 'by the round rule of 13i.1 in the scenario\'s own loop: the round stops in the cell the loop names, wrecked (f = 1) exactly where the loop says (at the base values S is wrecked in cell 1 and M in cell 2; L stops in cell 3 with f about 0.95, not wrecked), the stopping cell takes min(s, r) with s the sectional momentum on entry, f capped at 1; identical at T1 and T6; p0 = sum of the momentum each cell took + p on exit (#230)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'matter.kineticResistance', 'armour.cellMass'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '23f3723a' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T6']) for (const size of ['S', 'M', 'L']) out.push({ tier, size });

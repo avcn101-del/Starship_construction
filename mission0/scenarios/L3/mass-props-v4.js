@@ -174,7 +174,7 @@ export default {
   tolerance: 'relative 1e-12 (the centre of mass per coordinate, relative to the larger value); the scaling ratios relative 1e-12',
   criterion: 'M = sum of masses, centre of mass = sum m p / M and I = sum m (a^2 / 6 + d^2) over cells (squares of edge a at their centres) and point masses (contents at their room\'s centre, fittings at their edge\'s midpoint), cell mass = its type\'s constant of 13i.2 (at T1: hold, magazine and heat sink structure.cellMass 3 000 kg; crew rooms cellMass.crewed 14 800 kg; reactor 125 000 kg; engine 6 100 kg; beam bay 5 500 kg; shield generator 10 000 kg) and a heat sink cell + (heatsink.capacityFactor - 1) C / FIXED.waterSpecificHeat (3 573 kg); R1 full about 850 t, contents of M rounds of kinetic.roundMass, radiator.mass and rcs.mass; a destroyed cell takes its fittings with it; 1e-12 relative; the cell, each room alone and each full room at T6 have 6^3 the mass and 6^5 the moment of inertia of T1 (1e-12); R1 at T6 is checked against its own cell sums (#208, #210, #219, #221, #232, #234, #235)',
   tunable: ['thermal.heatCapacityPerCell', 'structure.cellMass', 'cellMass.crewed', 'cellMass.reactor', 'cellMass.engine', 'cellMass.beamBay', 'cellMass.shieldGenerator', 'heatsink.capacityFactor', 'kinetic.roundMass', 'magazine.capacity', 'radiator.mass', 'rcs.mass', 'turret.readyRounds'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '79513725' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T6']) {

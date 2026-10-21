@@ -15,7 +15,7 @@ export default {
   tolerance: 'F_i 1e-3 absolute against the scenario\'s own integration (its step at most 1/10 of the kernel\'s); sum F_i + exit = 1 within 1e-9; the hole\'s shift 1e-12 absolute; the CSDA range 1 % relative',
   criterion: 'F_i = (N E at the cell\'s entry - N E at its exit) / E0 with N = exp(-X / ironInteractionLength) and E(X) by the Bethe formula of 13i.1 (iron: ironZOverA, ironMeanExcitation; no shell or density correction), integrated by the scenario itself with steps at most 0.2 kg/m^2 and 0.1 % of the energy (the kernel: 2 kg/m^2 and 1 %), within 1e-3 absolute (estimates in armour at T1: 100 and 200 MeV all in cell 1; 400 MeV 0.431 / 0.299 / 0.269; in crew cells 0.587 / 0.413; at T6 all in cell 1); sum F_i + exit = 1 within 1e-9; with cell 1 a hole F_1 = 0 and F_(i+1) equals the intact F_i (1e-12); the CSDA range of a 200 MeV proton in iron is 373 kg/m^2 within 1 % (37.3 g/cm^2, #229, #231, #235)',
   tunable: ['beam.gradient', 'armour.cellMass', 'cellMass.crewed'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'bfc967a1' },
   cases() {
     return [
       { length: 10, matter: 'armour', tier: 'T1' }, { length: 20, matter: 'armour', tier: 'T1' }, { length: 40, matter: 'armour', tier: 'T1' },

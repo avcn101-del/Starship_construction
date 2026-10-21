@@ -49,7 +49,7 @@ export default {
   tolerance: 'depth, losses, integrity and exit momentum relative 1e-9 (1e-12 absolute at 0); counts exact; depth and losses across tiers relative 1e-9',
   criterion: 'each cell resists r = matter.kineticResistance x sigma and the round takes the same against S = matter.kineticResistance x rho_steel L (13i.1), round after round with destroyed cells as holes, by the scenario\'s own loop: cells passed, stopping cell and depth (estimates: quarters S and M stop in the 2nd cell, L in the 3rd, depths 1.078 / 1.498 / 2.191; through a hold every size exits keeping 0.627 / 0.756 / 0.839 of its momentum; the line: M stops in cell 2); a passed cell loses 1 / kinetic.hitsToWreck per round, the stopping cell (taken / r) / hitsToWreck, a hole nothing; cumulative crew deaths per room = floor(crew x (cells - sum of integrity) / cells), never more than its crew; after three M rounds the first quarters cell is destroyed; depth and every loss identical T1-T6 (#206, #230, #232, #235)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'kinetic.hitsToWreck', 'matter.kineticResistance', 'cellMass.crewed', 'structure.cellMass', 'quarters.crewPerCell'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '0d067496' },
   cases() {
     const out = [];
     for (const target of ['quarters', 'hold', 'line']) {

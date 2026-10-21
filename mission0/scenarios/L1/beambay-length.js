@@ -51,7 +51,7 @@ export default {
   tolerance: 'E exact (the same arithmetic: gradient x N x edge); power, draw and heat rate relative 1e-9 and identical across N (exact); validation exact',
   criterion: 'E = beam.gradient x N x edge exactly (#234); beam = beam.power x sizeLinear^2 (k = 2), draw = beam / beambay.efficiency, heat rate = draw - beam, as L1.beambay.heat, the same for every N; R1 valid; the off-axis bay rejected with exactly one reason, \'axis\'; the bay with a hold ahead rejected with exactly one reason, \'bow\' (#183, #234, #235)',
   tunable: ['beam.gradient', 'beam.power', 'beambay.efficiency'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '37d3386a' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T3']) for (const size of ['M', 'L']) for (const N of [2, 4, 8]) out.push({ tier, size, N });
