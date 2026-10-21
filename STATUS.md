@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#233, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#235, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -121,23 +121,13 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-- **The beam's accelerator** (found while sourcing #232): real proton linacs
-  give about 6 MeV/m (ESS: 90 MeV in 50 m, then 2 GeV in 312 m), so 400 MeV
-  needs 20–100 m, not a 10 m beam bay. Options put to the owner: (i) the
-  beam bay becomes an axis room 2×N whose length sets the particle energy
-  (recommended); (ii) a compact accelerator as a second premise (against
-  #202); (iii) a 10 m bay and a surface beam (drops #229's role).
-- **Heavier ships**: real cell masses differ 10–100× (ISS Destiny about
-  118 kg/m³, a crew cell about 15 t; a submarine reactor compartment about
-  1000–1600 kg/m³, a reactor cell 130–200 t), so R1 may pass 1000 t. Accept
-  the real values, or the low end of the real range?
+Nothing (the owner chose the spinal beam bay and low-end masses, #234).
 
 ## Next steps
 
 1. **Prototype v1 play is paused** (#233: fixed seed, no lever acts before
    11 s).
-2. **The path model**: after the owner's answers, the lead designer sources
-   a mass per room type, revises §13i (#232) and resumes the engineer; then
+2. **The path model** (§13i revised, #235): the paused engineer resumes; then
    a blind physics checker and the reviewer; merge; then prototype v2 (a
    helm, physical misses, the path model, a seed per Restart).
 3. Then the L4 plan (ship versus static target).
