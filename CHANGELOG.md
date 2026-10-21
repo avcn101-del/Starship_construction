@@ -8,6 +8,12 @@
   `rcs.force` 100 kN → 1 MN (0.3–5 MN, k=2); all approved.
   `ROOMS.shieldGenerator` is placed `anywhere` instead of carrying the
   `fittings` override (#219 (1), #222 (2)).
+- Kernel (§13g.1): a cell's mass is `structure.cellMass` (scaled, k=3); a
+  heat sink cell adds (`heatsink.capacityFactor` − 1) × C /
+  `FIXED.waterSpecificHeat`; heat capacity unchanged. `readout` works on a
+  blueprint before `enableShip` (#222 (4)); the `fittings` override is gone
+  from `js/layout.js` and `js/rooms.js`. `tools/perf.js` takes the
+  magazine's and the turret's loads from `data.js` (#222 (3)).
 
 ## 0.5.1 — 2026-10-21 — L3 merged; reviewer answers (#222)
 

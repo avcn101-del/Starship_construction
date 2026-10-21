@@ -8,7 +8,7 @@
 //   node tools/perf.js [steps]
 import { performance } from 'node:perf_hooks';
 import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, setDemand, enablePowerRouting, step } from '../js/rooms.js';
-import { withOverrides, TIERS } from '../js/data.js';
+import { withOverrides, TIERS, scaled } from '../js/data.js';
 
 // R1, the reference ship (13f.2): x forward, the T1 drydock grid; cells [x0, x1) x [y0, y1); the engine (2 x 3)
 // rotated 90 degrees so it spans [0, 3) x [2, 4) with its exhaust at x = 0.
@@ -33,12 +33,13 @@ const R1_FITTINGS = [
 const RCS = { sternTop: 17, sternBottom: 18, bowTop: 19, bowBottom: 20 };
 
 function r1(tier, routing) {
-  const world = createWorld({ params: withOverrides(), edge: TIERS[tier].edge, grid: TIERS[tier].grid });
+  const params = withOverrides(), edge = TIERS[tier].edge;
+  const world = createWorld({ params, edge, grid: TIERS[tier].grid });
   for (const r of R1_ROOMS) addRoom(world, r.type, { id: r.id, cell: r.cell, rotation: r.rotation || 0 });
   for (const [type, room, cell, side] of R1_FITTINGS) addFitting(world, type, room, cell, side);
   const room = (id) => world.rooms.find((r) => r.id === id);
-  loadMagazine(world, room('magazine'), { heMass: 900 * (TIERS[tier].edge / 5) ** 3 });
-  loadTurret(room('turret'), 4);
+  loadMagazine(world, room('magazine'), { heMass: scaled(params.magazine.capacity, edge) }); // masses from data.js (#222 (3))
+  loadTurret(room('turret'), params.turret.readyRounds.value);
   room('turret').turret.hold = true;
   room('engine').engine.throttle = 0.5;
   room('beamBay').beamBay.firing = true;
