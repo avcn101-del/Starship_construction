@@ -620,8 +620,10 @@ function lifeSupport(world) {
   const walls = liveWalls(world).filter((w) => w.live > 0);
   const supplied = world.power ? suppliedRooms(world, walls) : null;
   for (const room of world.rooms) {
+    room.lifeSupportOn = false; // whether its life support runs this step (it may have no coolant neighbour to pump into)
     if (!room.def.lifeSupport || !room.placed || room.exploded || isDestroyed(room)) continue;
     if (room.type !== 'bridge' && !(supplied ? supplied.has(room) : room.powered)) continue;
+    room.lifeSupportOn = true;
     const excess = room.heat.Q - room.heat.C * setpoint;
     if (!(excess > 0)) continue;
     const sinks = [];
@@ -1095,6 +1097,18 @@ function shipStep(world) {
     integrate(b, forces, dt, ship.external);
   }
   for (const x of [...ship.debris, ...ship.rounds]) { x.x[0] += x.v[0] * dt; x.x[1] += x.v[1] * dt; }
+}
+
+/**
+ * A test fixture's impulse J (world, N s) at grid point p of the body holding
+ * that point's cell (13f.3 row 4: a railgun-sized impulse before the railgun
+ * is built); booked as external, like thrust.
+ */
+export function fixtureImpulse(world, J, p, bodyId = world.ship.bodies[0].id) {
+  const b = world.ship.bodies.find((x) => x.id === bodyId), q = worldPoint(b, p);
+  applyImpulse(b, J, p);
+  world.ship.external.J[0] += J[0]; world.ship.external.J[1] += J[1];
+  world.ship.external.H += q[0] * J[1] - q[1] * J[0];
 }
 
 /** Momentum, angular momentum about the origin and kinetic energy of bodies, debris and rounds, and the external impulse booked. */
