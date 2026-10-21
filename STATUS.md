@@ -6,7 +6,11 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#191, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#196, current design in `DESIGN.md`.
+- **L2 plan written** (#192–#196, `DESIGN.md` §13d): cluster layout,
+  conduction, power and ammunition by wall length, blast between rooms,
+  shield overlap without double counting (#170), shared repair, size rule,
+  12 scenarios. Engineer starting on `m0/l2-clusters`.
 - **E1 amended by the owner (#188)**: a scenario withdrawn for a
   specification error, with a passing successor, does not block E1.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
@@ -54,30 +58,27 @@ carries its head `fd815ce` with a merge commit.
 - #190: the engineer's three readings of #189 accepted (a cell stays
   destroyed until fully repaired; the bridge's radiators in the restart
   test are a fixture; turret rate sweeps must avoid shot times).
+- #192–#196: the L2 plan (layout and live walls, the flow models, 12
+  scenarios with reference integrators where no closed form exists,
+  7 constants with ranges, process).
 
 ## Awaiting the owner
 
-Nothing. The E1 question was answered (#188). The owner reads the *LD*
-list above; a veto is a message in the chat.
+1. **How harsh is a running reactor next to crew?** (#196, a feel
+   question, not blocking.) With the default, a reactor at a quarter of its
+   power kills the crew of quarters sharing its wall in about 2.4 min, and
+   a full reactor overheats in 1.5–5 min depending on its neighbours; an
+   empty hold between them saves the crew. Recommended: keep it (building
+   is a moral choice, #52). The softer option lowers `conduction.wall`
+   within its range, a constant change only.
 
 ## Next steps
 
-1. **The L2 plan** (pairs and clusters through shared walls, #127), written
-   by the lead designer as *LD* rows with `DESIGN.md` §13d, then the
-   engineer, the physics checker and the reviewer as for L1. It must carry:
-   - heat **conduction** through shared walls (#18, #18c: holds insulate);
-   - the L1 signal that an overheated reactor without wall cooling always
-     melts down (#187 (5)): show whether conduction to radiator rooms saves
-     it, and how fast heat discipline must act;
-   - crewed rooms next to plant rooms (#182: do they cook?);
-   - a bridge that restarts by conduction, not by a fixture (#190 (2));
-   - power and ammunition feed through walls by wall length;
-   - shield overlap and the **budget double counting** (#170, before L2);
-   - the shared repair budget (#185 (6));
-   - the size rule in the kernel with its scenario (#187 (4));
-   - the blast closed forms (#184);
-   - no case on a whole number of steps unless it tests that (#185 (2)).
-2. The owner sees only direction questions from the plan, if any.
+1. Engineer builds L2 on `m0/l2-clusters` (§13d).
+2. Physics checker blind on the pull request, then the reviewer; fixes;
+   the lead designer merges when no blocking finding remains (#180).
+3. Then the L3 plan (minimal ship: rigid body, CoM, MoI, recoil spin,
+   split momentum, control graph, SCRAM in a fragment, validation).
 
 ## Scheduled tasks
 

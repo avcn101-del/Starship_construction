@@ -409,6 +409,11 @@ beam itself against the shield, and an S round stopped exactly with
 §13c: nine rooms (the eight of #127 plus the beam bay), the per-room heat
 model with two threshold classes, 13 scenarios and their constants.
 
+**L2** (pairs and clusters; #192–#196): planned 2026-10-21, §13d: a cell
+layout with shared walls, heat conduction, power and ammunition by wall
+length, blast between rooms, shield overlap with the budget counted once
+(#170), the shared repair budget, the size rule, 12 scenarios.
+
 **Agentic operation** (#131–#136): parallel within a level, gated between
 levels; runner, verifier (independent, re-runs from the command line only),
 analyst, integrator (the only writer of `data.js` and the ledger); criteria
@@ -592,6 +597,112 @@ their heat has to reach a plant room or stay small, which L2 measures.
   branch `m0/l1-rooms`, one pull request; the reviewer and the physics
   checker run on it; the lead designer merges once neither reports a
   blocking finding (#180).
+
+## 13d. L2 plan (lead designer, 2026-10-21, #192–#196)
+
+L1 proved each room alone. L2 proves **pairs and clusters through shared
+walls** (#127): heat conduction, power and ammunition flowing by wall
+length, blast between rooms, shield overlap with the budget counted once
+(#170), the shared repair budget, the size rule, and the L1 signals (an
+overheated reactor without cooling melts down, #187 (5); a bridge restarts
+by conduction, not a fixture, #190 (2)). A cluster is a few rooms placed on
+a cell grid; it is not yet a ship (no rigid body, no control graph: L3).
+Numbers are T1, size M, SI.
+
+### 13d.1 The models (#192, #193)
+
+| Rule | Statement |
+|---|---|
+| Layout (`js/layout.js`) | A cluster has one cell grid at the tier's edge. A room occupies a rectangle of cells at an integer cell position, its footprint rotated by 0° or 90°. Rooms never overlap. Two rooms **share a wall** along every pair of edge-adjacent cells, one in each; the shared wall length L is (number of such cell pairs) × edge. An **open edge** is a room cell edge with no room cell beside it; a room carries at most one radiator per open edge (#15). The distance between two rooms (fields) is between their centres |
+| Live walls | A shared edge carries power, ammunition and heat only while **both** cells on it survive (a destroyed cell is a hole). Blast uses every shared edge (a hole lets blast through) |
+| Conduction (`js/heat.js`) | Heat flows through each shared wall at G (T_a − T_b), G = `conduction.wall` × L × h(f_a, f_b), h the harmonic mean 2 f_a f_b / (f_a + f_b) of the two rooms' conductivity factors: 1 for every room, `conduction.holdFactor` for an empty hold (#18c). Explicit Euler at the step, flows computed from the temperatures at the start of the step, so the heat books close exactly: generated = radiated + stored in every room, Σ flows = 0 over the cluster |
+| Power (`js/graph.js`) | Reactors produce up to their output (L1); consumers draw their L1 draw. Power flows through any room (no conduit rooms, #12) along live walls, each with capacity `power.wallCapacity` × L. Consumers are served in **priority order** (the power-priority order of #38; at L2 a list given by the scenario, then room id): each consumer in turn gets the most additional flow the residual network allows (augmenting paths found by breadth-first search in room-id order, so the result is deterministic). A consumer that receives a fraction f of its draw works at f: every rate-like output and its heat × f (a beam at f × power, a turret at f × its fire rate, a shield at f × its budget). The bridge keeps its backup supply (#147); a reactor delivers only what is routed |
+| Ammunition | A magazine feeds only rooms that share a live wall with it, no routing through other rooms (#18; magazines must touch the guns they feed, so a bomb sits beside every gun). Each wall carries at most `ammo.wallFeed` × L kg/s of rounds of the consumer's size, in the magazine's loading order. A turret holds a **ready store** of `turret.readyRounds` × size rounds; it fires from the store and the feed refills it. Its sustained rate is min(fire rate, feed / round mass) |
+| Blast between rooms | An internal explosion of energy E (a magazine or reactor, L1) first fills its own room up to that room's blast capacity B = surviving cells × `room.blastResistance` (× `hold.blastFactor` for a hold); the excess passes to the rooms sharing a wall with it, split by shared wall length, each filling up to its capacity and passing its own excess on (the wave front of #169); what no room can take escapes to space. Within a room the energy spreads evenly over its cells; a cell is destroyed when its share reaches its resistance. Books: absorbed + escaped = E exactly; with every room reached, absorbed = min(E, Σ B), escaped = max(0, E − Σ B) (#184) |
+| Shield overlap (#170) | Fields add, each generator paying from its own budget (#99). In each step, a beam at point j asks generator i for a_ij = P_j × B_i g_ij / Σ_k B_k g_kj, capped so that Σ_i a_ij ≤ min(P_j, Σ_i B_i g_ij) (L0 for one generator). If a generator's asks Σ_j a_ij exceed its budget B_i (× its power fraction), every ask to it is scaled by B_i / Σ_j a_ij; the point then absorbs the sum of what it was granted, with no second round in the same step. **No generator ever absorbs more than its budget**: this removes the double counting of #170. Each generator heats by what it pays (L1). The impulse buffer of each generator is shared the same way |
+| Shield buffer (E4) | The buffer (budget × `shield.bufferSeconds`) pays the energy of rounds stopped (L0), drains when rounds arrive faster than it refills, and refills at the budget left unused by continuous beams. L2 shows it binding under a salvo; L5 decides whether real salvos ever reach it, or it is cut (#177, E4) |
+| Repair sharing (#99, #185 (6)) | A quarters' repair budget is R = `repair.rate` × surviving fraction (integrity per second). A damaged cell j in range asks q_j = R g(r_j) (L1); if Σ q_j > R, every ask is scaled by R / Σ q_j. Overlapping quarters add, each paying its own budget. One cell alone is repaired exactly as at L1 |
+| Size rule (#185 (4), #187 (4)) | Per-cell quantities scale with the cell count (L = 9/4 of M): heat capacity, magazine capacity, reactor explosion energy, crew (rounded). Rate-like quantities scale with the footprint (9/4 of M): power, draw, thrust, budget (L1). Per-round quantities follow the round: an L turret fires rounds of (3/2)³ the M mass at 2/3 the M rate, heat per shot × (3/2)³ |
+
+### 13d.2 Scenarios (#194)
+
+Conventions as L1 (#177, #181, #185 (2)): inputs from `data.js`; no case on
+a threshold or on a whole number of steps unless it tests that; closed
+forms where they exist. Where the dynamics of several coupled rooms has no
+closed form, the scenario computes its expected value with **its own
+reference integrator** (RK4 at dt / 10, written in the scenario file, using
+only `data.js` constants and the rules of §13d.1, never the kernel), and the
+tolerance is the kernel's Euler error, stated per row. Every scenario
+checks the heat books (1e-9 per room and Σ flows = 0), event fields, no
+NaN and determinism.
+
+| # | Scenario | Setup and measure | Expected and criterion |
+|---|---|---|---|
+| 1 | `L2.heat.pair` | two idle M rooms side by side, one at T_a ∈ {400, 600, 1000 K}, the other at 290 K; wall L ∈ {5, 10 m}; ordinary–ordinary and ordinary–hold; no radiators; 4 τ; T1–T6 for one case | ΔT(t) = ΔT₀ e^(−t/τ), τ = C_a C_b / ((C_a + C_b) G); \|ΔT − closed form\| ≤ 1e-3 ΔT₀; C_a T_a + C_b T_b constant to 1e-12; τ ∝ edge across tiers |
+| 2 | `L2.heat.chain` | three idle M rooms in a row, the first at 600 K, the others at 290 K; the middle one ordinary or a hold; 300 s | the 3 × 3 linear system solved in the scenario by eigen-decomposition (closed form); temperatures within 1e-3 K; heat reaching the third room with a hold in the middle < 15 % of that without |
+| 3 | `L2.heat.neighbour` | an M reactor at demand d ∈ {0.25, 0.5} beside (a) an M magazine, (b) crew quarters, with wall L ∈ {5, 10 m}, and (c) each with an M hold between; no radiators; until the neighbour's critical, the reactor's overheated, or 900 s | (a, b) the linear two-room solution with a constant source: time the neighbour reaches its critical (magazine 450 K: cook-off; quarters 380 K: crew die) within 1e-3 relative, by a root of the closed form; (c) the reactor overheats first and the neighbour stays below critical through 900 s (reference integrator, 1e-3 K) |
+| 4 | `L2.reactor.cooled` | an M reactor at full demand with n ∈ {0, 1, 2, 4} M hull rooms sharing a 10 m wall each, every hull room with 4 radiators; to overheat, then decay heat, 3600 s | reference integrator: overheat time and peak reactor temperature within 1e-3; n = 0 melts down at the L1 time; **n ≥ 1 does not melt down**; reports the overheat time (the battle clock of one reactor at full power) |
+| 5 | `L2.power.flow` | small graphs of reactors, holds and consumers: reactor → beam bay over L ∈ {5, 10 m}; reactor → hold → beam bay; two reactors and three consumers with a priority list; a bottleneck wall losing cells | delivered to each consumer = the priority-ordered max flow, computed in the scenario by enumerating every cut of the small graph (independent of the kernel), exact; a beam bay at fraction f fires f × beam power and heats f × its L1 heat; cutting the bottleneck wall's cells lowers delivery exactly |
+| 6 | `L2.ammo.feed` | an M magazine beside an M or L turret over L ∈ {5, 10 m}, firing freely 600 s (measurement times off the shot and refill grid) | shots by t = ready store + rounds fed, closed form: sustained rate = min(fire rate, `ammo.wallFeed` L / round mass); the L turret on a 5 m wall is **feed-limited**; magazine contents fall by exactly the mass fired; a turret not touching the magazine fires only its ready store |
+| 7 | `L2.blast.walls` | a magazine (M, full HE, and half AP) exploding in (a) a row of three ordinary rooms, (b) the same with a hold beside it, (c) a magazine in the middle of two identical rooms | absorbed per room by the rule of §13d.1, closed form for these geometries; absorbed + escaped = E exactly; absorbed = min(E, Σ B), escaped = max(0, E − Σ B) when every room is reached; equal shares in (c); the hold absorbs `hold.blastFactor` times an ordinary room; crew die per destroyed cell (L1) |
+| 8 | `L2.shield.overlap` | two M generators d ∈ {40, 80 m} apart; (a) one beam of P ∈ {5, 20 MW} midway; (b) two simultaneous beams of 10 MW, one at each generator; (c) one generator unpowered | (a) absorbed = min(P, Σ B_i g_i), each generator pays its share; (b) **neither generator pays more than its budget** (the #170 case: without the rule the two points would absorb 10 + B g(d) each); (c) only the powered one absorbs; heat of each = its payment + its draw |
+| 9 | `L2.shield.buffer` | an M generator, idle beam; a salvo of N ∈ {5, 20, 40} M rounds arriving in one step at the generator, then the refill | stopping energy per round from L0; the buffer binds at the round k = ⌈buffer / energy⌉ and later rounds pass at their unstopped speed; refill at the unused budget, closed form; (E4: the buffer has a measured effect) |
+| 10 | `L2.repair.shared` | one quarters and two damaged hold cells at r ∈ {0.25, 1} × radius; then two quarters overlapping on one cell | rates by the rule of §13d.1, closed form; one cell alone = L1; the sum of a quarters' payments never exceeds R |
+| 11 | `L2.size.rule` | M and L reactor, magazine, turret, quarters at T1 | the scaled quantities of §13d.1 exactly: L reactor explosion 450 MJ, L magazine capacity 9/4, L turret round mass (3/2)³ M at 2/3 the rate, crew 9/4 rounded |
+| 12 | `L2.bridge.conduction` | an M bridge beside an M hull room with 4 radiators over 10 m, heated by an external 1.1 MW until it overheats, then the source off | control lost at overheat, restored at restart (L1 events); restart time by the reference integrator within 1e-3; no radiator on the bridge itself (replaces the fixture of #190 (2)) |
+
+Dependencies: 2–4 and 12 on 1; 3 on `L1.room.thresholds` and
+`L1.magazine.cookoff`; 4 on `L1.reactor.scram`; 5 on `L1.beambay.heat`;
+6 on `L1.turret.fire`; 7 on `L0.blast.surface.v2`; 8 and 9 on
+`L1.shield.generator`; 10 on `L1.quarters.repair`.
+
+**What L2 does not test**: the control graph and the bridge's control
+paths (L3), the rigid body, recoil and CoM (L3), validation of a whole ship
+(L3), round types chosen against a target (L4), battle balance (L5).
+
+### 13d.3 Constants and approved ranges (#195)
+
+| Constant | Value | Range | k | Note |
+|---|---|---|---|---|
+| `conduction.wall` | 4e3 W/(K·m) | 1e3–2e4 | 1 | two M rooms over a 10 m wall: τ = 30 s; heat races ∝ edge as at L1 |
+| `conduction.holdFactor` | 0.1 | 0.02–0.3 | 0 | an empty hold's conductivity (#18c); hold–ordinary wall 0.18 of ordinary |
+| `power.wallCapacity` | 2e6 W/m | 5e5–5e6 | 1 | a 10 m wall carries 20 MW (a whole M reactor), a 5 m wall 10 MW (not a whole beam bay) |
+| `ammo.wallFeed` | 0.06 kg/(s·m) | 0.02–0.3 | 1 | 5 m: 0.3 kg/s, enough for an M turret (0.25 kg/s), not for an L one (0.56 kg/s) |
+| `turret.readyRounds` | 4 | 2–10 | 0 | rounds held in the turret, per its size |
+| `room.blastResistance` | 5e5 J | 2e5–2e6 | 3 | blast energy one ordinary room cell absorbs before it is destroyed (half an armour cell) |
+| `hold.blastFactor` | 4 | 2–10 | 0 | an empty hold absorbs blast (#18c) |
+
+No other new constant; anything an engineer needs beyond this list enters
+`data.js` with `approved: false` and is listed in the pull request.
+
+**Reading** (estimated by the lead designer with a simple integrator
+before locking, the lesson of L1): an M reactor at full power overheats in
+61 s alone, 94 s with one cooled neighbour and 278 s with four, and **one
+neighbour is enough to keep it from melting down** after the overheat: the
+battle clock of one reactor at full power is 1.5–5 minutes. A reactor at a
+quarter of its power cooks a magazine sharing a 10 m wall in about 3 min
+and kills the crew of quarters beside it in about 2.4 min; an empty hold in
+between keeps both below critical until the reactor overheats. Heat, not
+ammunition, is what limits a ship that fights at full power.
+
+### 13d.4 Kernel, tools and process (#196)
+
+- New files as `DESIGN.md` §14 plans: `js/layout.js` (grid, placement,
+  rotation, shared walls, open edges) and `js/graph.js` (power flow by
+  priority, ammunition feed); conduction in `js/heat.js`; blast between
+  rooms, shield overlap, repair sharing and the size rule in the existing
+  files where their L1 parts live. `js/rooms.js` stays the behaviour of a
+  room; a cluster world steps all its rooms together, conduction and flows
+  computed from the state at the start of each step.
+- The L1 API keeps working: a room added without a layout is a cluster of
+  one, and every L0 and L1 scenario must still VERIFY unchanged
+  (`node tools/m0.js regress`); a run() or kernel change that moves an L0 or
+  L1 result is a bug to report, never a reason to re-record.
+- Process as L1: scenarios unlocked, run for crashes only, committed,
+  **locked in a commit of their own**, then the first canonical run; one
+  branch `m0/l2-clusters`, one pull request; the physics checker (blind,
+  from §13d.1 and §13d.3) and the reviewer run on it; the lead designer
+  merges when neither reports a blocking finding (#180).
 
 ## 14. Architecture
 
