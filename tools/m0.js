@@ -5,7 +5,7 @@
 //   node tools/m0.js run <id|level> [--set group.name=value ...]
 //   node tools/m0.js lock <id|level>       lock criteria BEFORE the first run
 //   node tools/m0.js verify <id|level>     independent re-run from the record
-//   node tools/m0.js regress               re-run every recorded PASS
+//   node tools/m0.js regress               re-run every recorded PASS and every withdrawn scenario
 //   node tools/m0.js ledger                regenerate MISSION0.md
 //
 // A run without --set is canonical and is recorded in mission0/results/.
@@ -14,13 +14,33 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { PARAMS, FIXED, TIERS, BASE_EDGE, scaled, withOverrides } from '../js/data.js';
+import { PARAMS, FIXED, ROOMS, TIERS, BASE_EDGE, scaled, withOverrides } from '../js/data.js';
 import { hash, stableStringify } from '../js/util.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SCEN = path.join(ROOT, 'mission0', 'scenarios');
 const RESULTS = path.join(ROOT, 'mission0', 'results');
 const LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
+// Scenarios withdrawn for a specification error (#187 (8)): each stays locked
+// with its recorded FAIL; verify and regress report it as WITHDRAWN while it
+// still fails exactly as recorded.
+const WITHDRAWN_FILE = path.join(ROOT, 'mission0', 'withdrawn.json');
+const WITHDRAWN = new Map((fs.existsSync(WITHDRAWN_FILE) ? JSON.parse(fs.readFileSync(WITHDRAWN_FILE, 'utf8')) : []).map((w) => [w.id, w]));
+/** #188, #189 (6): every entry names a locked scenario, a successor that exists, is locked and is recorded PASS, and a decision #n. */
+function checkWithdrawn(all) {
+  const byId = new Map(all.map((s) => [s.id, s]));
+  for (const w of WITHDRAWN.values()) {
+    const s = byId.get(w.id), next = byId.get(w.successor);
+    const problem = !s ? 'the withdrawn scenario does not exist'
+      : !s.locked ? 'the withdrawn scenario is not locked'
+      : !next ? `its successor ${w.successor} does not exist`
+      : !next.locked ? `its successor ${w.successor} is not locked`
+      : (recorded(w.successor) || {}).verdict !== 'PASS' ? `its successor ${w.successor} is not recorded PASS`
+      : !/^#\d+$/.test(String(w.decision)) ? `decision "${w.decision}" is not a decision number (#n)`
+      : null;
+    if (problem) throw new Error(`mission0/withdrawn.json, ${w.id}: ${problem}`);
+  }
+}
 
 // ---------- discovery ----------
 async function loadAll() {
@@ -53,12 +73,29 @@ function select(all, sel) {
 }
 
 // ---------- locking ----------
-// The hash covers everything that defines the criterion: what is measured,
-// the cases, the expected formula, the comparison and the invariants. It
-// does NOT cover run(): changing the simulation is allowed, changing the
-// test is not. run() is hashed separately into each record (runHash, #175),
-// so verify notices a run() edited since the canonical run.
+// L0 rule (kept so the L0 locks stay valid): the hash covers everything that
+// defines the criterion: what is measured, the cases, the expected formula,
+// the comparison and the invariants, but NOT run() or helpers in the file.
+// From L1 on (#184): the hash covers the whole scenario file except its
+// `locked:` line, so nothing in the file can change after the lock.
+// run() is also hashed separately into each record (runHash, #175), so
+// verify notices a run() edited since the canonical run.
+// The stripped line may hold nothing but `locked: null` or the lock object
+// that `lock` writes, with an optional trailing comma; any other text on it
+// is an error, so nothing can be smuggled past the hash (#189 (2)). Which
+// rule applies is decided by the scenario's folder, not by its own `level`.
+const LOCKED_LINE = /^[ \t]*locked:.*(\r?\n|$)/m;
+const VALID_LOCKED_LINE = /^[ \t]*locked:[ \t]*(?:null|\{ date: '\d{4}-\d{2}-\d{2}', hash: '[0-9a-f]{8}' \})[ \t]*,?[ \t]*(\r?\n|$)/;
+const folderOf = (s) => path.basename(path.dirname(s.file));
 function criterionHash(s) {
+  const folder = folderOf(s);
+  if (folder !== s.level) throw new Error(`${s.id}: level ${s.level} but its file is in mission0/scenarios/${folder}/`);
+  if (folder !== 'L0') {
+    const text = fs.readFileSync(s.file, 'utf8'), line = text.match(LOCKED_LINE);
+    if (!line) throw new Error(`${s.id}: no locked: line`);
+    if (!VALID_LOCKED_LINE.test(line[0])) throw new Error(`${s.id}: the locked: line holds other text; it may contain only "locked: null" or "locked: { date: '...', hash: '...' }" with an optional trailing comma (#189 (2)): ${line[0].trim()}`);
+    return hash(text.replace(LOCKED_LINE, ''));
+  }
   const parts = {
     id: s.id, level: s.level, laws: s.laws, dependsOn: s.dependsOn, measure: s.measure,
     tolerance: s.tolerance, criterion: s.criterion,
@@ -109,7 +146,8 @@ function execute(s, overrides) {
   const again = s.cases(ctx).map((c) => s.run(context(overrides), c));
   const rowsHash = hash(stableStringify(rows.map((r) => r.actual)));
   invariants.push({ name: 'deterministic (two runs, same hash)', ok: hash(stableStringify(again)) === rowsHash });
-  return { rows, invariants, rowsHash, dataHash: hash(stableStringify(ctx.params)) };
+  // The data hash covers PARAMS (with any overrides), FIXED, ROOMS (#185 (9)), TIERS and BASE_EDGE (#189 (7)).
+  return { rows, invariants, rowsHash, dataHash: hash(stableStringify({ params: ctx.params, fixed: FIXED, rooms: ROOMS, tiers: TIERS, baseEdge: BASE_EDGE })) };
 }
 function verdictOf(s, res, deps) {
   if (!s.locked) return 'UNLOCKED';
@@ -217,33 +255,42 @@ async function main() {
     return;
   }
   if (cmd === 'verify' || cmd === 'regress') {
-    const list = cmd === 'regress' ? all.filter((s) => (recorded(s.id) || {}).verdict === 'PASS') : select(all, sel);
+    checkWithdrawn(all);
+    const list = cmd === 'regress'
+      ? all.filter((s) => (recorded(s.id) || {}).verdict === 'PASS' || WITHDRAWN.has(s.id))
+      : select(all, sel);
     let bad = 0;
     for (const s of list) {
       const rec = recorded(s.id);
       if (!rec) { console.log(`${s.id}: no record to verify`); bad++; continue; }
       const res = execute(s, {});
+      const w = WITHDRAWN.get(s.id);
+      const verdict = verdictOf(s, res, unmetDeps(s));
       const checks = [
         ['criterion unchanged since lock', s.locked && criterionHash(s) === s.locked.hash && rec.lockedHash === s.locked.hash],
         ['same results as recorded', res.rowsHash === rec.rowsHash],
         ['same data as recorded', res.dataHash === rec.dataHash],
         ...(rec.runHash ? [['run() unchanged since record', runHash(s) === rec.runHash]] : []),
-        ['still passes', verdictOf(s, res, unmetDeps(s)) === 'PASS'],
+        w ? ['still fails as recorded', verdict === 'FAIL' && rec.verdict === 'FAIL'] : ['still passes', verdict === 'PASS'],
       ];
       const ok = checks.every(([, v]) => v);
       if (!ok) bad++;
-      console.log(`${ok ? 'VERIFIED' : 'MISMATCH'}  ${s.id}  ${checks.map(([n, v]) => `${v ? 'ok' : 'NO'} ${n}`).join('; ')}`);
+      const label = !ok ? 'MISMATCH' : w ? 'WITHDRAWN' : 'VERIFIED';
+      const why = w ? `  (successor ${w.successor}, ${w.decision})` : '';
+      console.log(`${label}  ${s.id}  ${checks.map(([n, v]) => `${v ? 'ok' : 'NO'} ${n}`).join('; ')}${why}`);
     }
     process.exitCode = bad ? 1 : 0;
     return;
   }
   if (cmd === 'ledger') {
+    checkWithdrawn(all);
     const lines = ['# MISSION0 — results ledger', '',
       'Generated by `node tools/m0.js ledger` from `mission0/results/`; do not edit by hand.',
       'Each row: the scenario, its locked criterion hash, the verdict of its last canonical run,',
       'the hash of its run() at that run, the code it ran on, the unapproved constants the verdict',
       'depends on (it holds only once the owner approves them), and the command that reproduces it',
-      '(`DESIGN.md` §13).', ''];
+      '(`DESIGN.md` §13). A WITHDRAWN scenario failed for a specification error; it stays locked',
+      'with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#187 (8)).', ''];
     for (const level of LEVELS) {
       const ss = all.filter((s) => s.level === level);
       lines.push(`## ${level}`, '');
@@ -252,7 +299,9 @@ async function main() {
       for (const s of ss) {
         const r = recorded(s.id);
         const un = unapproved(s).map((k) => `\`${k}\``).join(', ') || 'none';
-        lines.push(`| \`${s.id}\` | ${s.locked ? s.locked.hash : 'unlocked'} | ${r ? r.verdict : 'not run'} | ${r && r.runHash ? r.runHash : '-'} | ${r ? r.code : '-'} | ${un} | \`${r ? r.command : '-'}\` |`);
+        const w = WITHDRAWN.get(s.id);
+        const verdict = !r ? 'not run' : w ? `${r.verdict}, WITHDRAWN (successor \`${w.successor}\`, ${w.decision})` : r.verdict;
+        lines.push(`| \`${s.id}\` | ${s.locked ? s.locked.hash : 'unlocked'} | ${verdict} | ${r && r.runHash ? r.runHash : '-'} | ${r ? r.code : '-'} | ${un} | \`${r ? r.command : '-'}\` |`);
       }
       lines.push('');
     }

@@ -1,0 +1,461 @@
+{
+  "id": "L1.engine.thrust",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.engine.thrust",
+  "code": "12f2aaa",
+  "criterionHash": "9be928bb",
+  "lockedHash": "9be928bb",
+  "runHash": "62d00ad7",
+  "dataHash": "e7b13ff5",
+  "rowsHash": "8249b6fa",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "u": 0,
+        "m": 1000000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 0,
+        "draw": 0,
+        "heatRate": 0,
+        "acceleration": 0,
+        "hot": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 0,
+        "draw": 0,
+        "acceleration": 0,
+        "heatRate": 0,
+        "hot": null,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "u": 0,
+        "m": 1500000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 0,
+        "draw": 0,
+        "heatRate": 0,
+        "acceleration": 0,
+        "hot": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 0,
+        "draw": 0,
+        "acceleration": 0,
+        "heatRate": 0,
+        "hot": null,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "u": 0.5,
+        "m": 1000000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 4000000,
+        "draw": 5000000,
+        "heatRate": 1500000,
+        "acceleration": 4,
+        "hot": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 4000000,
+        "draw": 5000000,
+        "acceleration": 4,
+        "heatRate": 1500000,
+        "hot": null,
+        "books": {
+          "generated": 25000,
+          "radiated": 0,
+          "stored": 25000,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "u": 0.5,
+        "m": 1500000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 4000000,
+        "draw": 5000000,
+        "heatRate": 1500000,
+        "acceleration": 2.6666666666666665,
+        "hot": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 4000000,
+        "draw": 5000000,
+        "acceleration": 2.6666666666666665,
+        "heatRate": 1500000,
+        "hot": null,
+        "books": {
+          "generated": 25000,
+          "radiated": 0,
+          "stored": 25000,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "u": 1,
+        "m": 1000000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 8000000,
+        "draw": 10000000,
+        "heatRate": 3000000,
+        "acceleration": 8,
+        "hot": 372,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 8000000,
+        "draw": 10000000,
+        "acceleration": 8,
+        "heatRate": 3000000,
+        "hot": 372,
+        "books": {
+          "generated": 1116000000,
+          "radiated": 0,
+          "stored": 1116000000,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "u": 1,
+        "m": 1500000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 8000000,
+        "draw": 10000000,
+        "heatRate": 3000000,
+        "acceleration": 5.333333333333333,
+        "hot": 372,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 8000000,
+        "draw": 10000000,
+        "acceleration": 5.333333333333333,
+        "heatRate": 3000000,
+        "hot": 372,
+        "books": {
+          "generated": 1116000000,
+          "radiated": 0,
+          "stored": 1116000000,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "u": 1,
+        "m": 1500000,
+        "powered": false,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 0,
+        "draw": 0,
+        "heatRate": 0,
+        "acceleration": 0,
+        "hot": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 0,
+        "draw": 0,
+        "acceleration": 0,
+        "heatRate": 0,
+        "hot": null,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "u": 1,
+        "m": 1500000,
+        "powered": true,
+        "controlled": false
+      },
+      "expected": {
+        "thrust": 0,
+        "draw": 0,
+        "heatRate": 0,
+        "acceleration": 0,
+        "hot": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 0,
+        "draw": 0,
+        "acceleration": 0,
+        "heatRate": 0,
+        "hot": null,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "u": 1,
+        "m": 1500000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 18000000,
+        "draw": 22500000,
+        "heatRate": 6750000,
+        "acceleration": 12,
+        "hot": 558,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 18000000,
+        "draw": 22500000,
+        "acceleration": 12,
+        "heatRate": 6750000,
+        "hot": 558,
+        "books": {
+          "generated": 3766500000,
+          "radiated": 0,
+          "stored": 3766500000,
+          "initial": 3523500000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "u": 1,
+        "m": 1500000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 32000000,
+        "draw": 40000000,
+        "heatRate": 12000000,
+        "acceleration": 21.333333333333332,
+        "hot": 744,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 32000000,
+        "draw": 40000000,
+        "acceleration": 21.333333333333332,
+        "heatRate": 12000000,
+        "hot": 744,
+        "books": {
+          "generated": 8928000000,
+          "radiated": 0,
+          "stored": 8928000000,
+          "initial": 8352000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "u": 1,
+        "m": 1500000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 72000000,
+        "draw": 90000000,
+        "heatRate": 27000000,
+        "acceleration": 48,
+        "hot": 1116,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 72000000,
+        "draw": 90000000,
+        "acceleration": 48,
+        "heatRate": 27000000,
+        "hot": 1116,
+        "books": {
+          "generated": 30132000000,
+          "radiated": 0,
+          "stored": 30132000000,
+          "initial": 28188000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "u": 1,
+        "m": 1500000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 128000000,
+        "draw": 160000000,
+        "heatRate": 48000000,
+        "acceleration": 85.33333333333333,
+        "hot": 1488,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 128000000,
+        "draw": 160000000,
+        "acceleration": 85.33333333333333,
+        "heatRate": 48000000,
+        "hot": 1488,
+        "books": {
+          "generated": 71424000000,
+          "radiated": 0,
+          "stored": 71424000000,
+          "initial": 66816000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "u": 1,
+        "m": 1500000,
+        "powered": true,
+        "controlled": true
+      },
+      "expected": {
+        "thrust": 288000000,
+        "draw": 360000000,
+        "heatRate": 108000000,
+        "acceleration": 192,
+        "hot": 2232,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "thrust": 288000000,
+        "draw": 360000000,
+        "acceleration": 192,
+        "heatRate": 108000000,
+        "hot": 2232,
+        "books": {
+          "generated": 241056000000,
+          "radiated": 0,
+          "stored": 241056000000,
+          "initial": 225504000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

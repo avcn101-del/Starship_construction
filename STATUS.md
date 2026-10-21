@@ -13,6 +13,12 @@ Updated 2026-10-21 by the lead designer chat (session
   before their first run, all PASS, VERIFIED by independent reviewer and
   physics-checker sessions; 12/12 VERIFIED on `main` (`node tools/m0.js
   regress`).
+- **Mission 0 L1 (one room alone) done and merged** (PR #5, head
+  `fd815ce`, 2026-10-21): 16 scenarios, each locked before its first run;
+  15 PASS and `L1.radiator.steady` WITHDRAWN for a specification error
+  (#185, #188), replaced by `L1.radiator.steady.v2`. Checked by a blind
+  physics checker and two reviews; every blocking finding fixed (#185–#190).
+  `regress` on `main`: **27 VERIFIED + 1 WITHDRAWN**. L1 cost **17.2 USD**.
 - **Approval tiers (#180)**: the owner decides direction; the lead designer
   decides and records everything technical (*LD* rows), reports it here,
   and merges after a clean review. Spending: 20 USD of sessions per level
@@ -26,9 +32,8 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Open pull requests
 
-| PR | Branch | State |
-|---|---|---|
-| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened 2026-10-21 03:33 UTC: 12 PASS, 1 recorded FAIL (`L1.radiator.steady`, a spec error, #185), 24/24 VERIFIED. Physics checker: 12 match, 1 blocking (the same spec error), answered in #187. Fixes of #185/#187 landed at `734064e`: 25 VERIFIED + 1 WITHDRAWN. Reviewer at `734064e`: 2 blocking (destroyed count after repair; lock-line bypass), 7 not blocking, all answered in #189; engineer fixing #189 now; reviewer re-check after |
+None. PR #5 (L1) is merged through the lead designer's branch, so `main`
+carries its head `fd815ce` with a merge commit.
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -57,14 +62,22 @@ list above; a veto is a message in the chat.
 
 ## Next steps
 
-1. The engineer lands #189 on `m0/l1-rooms`.
-2. A reviewer (sonnet: Fable is out of limit, and not the engineer's opus)
-   re-checks the final head against #189 and the earlier findings.
-3. Lead designer merges PR #5 when no blocking finding remains (#180);
-   `STATUS.md` updated; then the L2 plan.
-4. Before L2: resolve **shield budget double counting** (#170); add the
-   blast closed forms to the L2 blast scenarios (#184); propose L2
-   (conduction through walls, feed, shield overlap, shared repair budget).
+1. **The L2 plan** (pairs and clusters through shared walls, #127), written
+   by the lead designer as *LD* rows with `DESIGN.md` §13d, then the
+   engineer, the physics checker and the reviewer as for L1. It must carry:
+   - heat **conduction** through shared walls (#18, #18c: holds insulate);
+   - the L1 signal that an overheated reactor without wall cooling always
+     melts down (#187 (5)): show whether conduction to radiator rooms saves
+     it, and how fast heat discipline must act;
+   - crewed rooms next to plant rooms (#182: do they cook?);
+   - a bridge that restarts by conduction, not by a fixture (#190 (2));
+   - power and ammunition feed through walls by wall length;
+   - shield overlap and the **budget double counting** (#170, before L2);
+   - the shared repair budget (#185 (6));
+   - the size rule in the kernel with its scenario (#187 (4));
+   - the blast closed forms (#184);
+   - no case on a whole number of steps unless it tests that (#185 (2)).
+2. The owner sees only direction questions from the plan, if any.
 
 ## Scheduled tasks
 
@@ -95,6 +108,9 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Engineer, L1 fixes (#185, #187) | session_01TQvnSvo7qZzJ4HBuas89nY | opus-5-5 | 2.65 |
 | Reviewer, L1 | session_01RYgtwmNTAS4VRWxefHDetg | sonnet-5-5 | 1.19 |
 | Engineer, L1 review fixes (#189) | session_014jtbGrQdvSycQU8E6stAeY | opus-5-5 | 4.97 |
+| Reviewer, L1 re-review | session_01GsfMyFUqaSXRsVGQhELH2U | sonnet-5-5 | 0.53 |
+
+L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 
 Sessions have reported a **seven-day usage limit warning**.
 
@@ -118,3 +134,10 @@ Sessions have reported a **seven-day usage limit warning**.
 - A scheduled task's fresh session has no repository and no `add_repo`
   tool: its prompt must `git clone` the repository first (the container's
   git proxy serves it without a token).
+- Write a scenario's expected result from the physics before writing the
+  criterion: `L1.radiator.steady` failed because the lead designer's run
+  length was under two time constants. A one-line estimate (τ = C / (4 n
+  εσA T³)) would have caught it.
+- Engineers' branches go stale against `main` while docs land: the lead
+  designer merges a level by merging the level branch into its own branch
+  and opening one pull request, resolving `STATUS.md` conflicts there.

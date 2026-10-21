@@ -32,10 +32,11 @@ export function penetrate(s0, resistances) {
  * proportion to the shared wall length (#18, #141); with no neighbour left
  * the rest escapes to space. `coupling` is the fraction of E that enters
  * the hull at a contact burst on an open face; the rest vents to space
- * there (#169, #176). The caller passes it explicitly; 1 means all of E
- * enters the plate. Returns per-cell absorption, the escape and the vent.
+ * there (#169, #176). It is required (#184); 1 means all of E enters the
+ * plate. Returns per-cell absorption, the escape and the vent.
  */
-export function blast(w, h, origin, E, capacity, coupling = 1) {
+export function blast(w, h, origin, E, capacity, coupling) {
+  if (typeof coupling !== 'number') throw new Error('blast(): the coupling argument is required (#184)');
   const idx = (x, y) => y * w + x;
   const absorbed = new Float64Array(w * h);
   const inRegion = new Uint8Array(w * h); // cells the blast has reached

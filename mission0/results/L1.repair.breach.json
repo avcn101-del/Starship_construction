@@ -1,0 +1,105 @@
+{
+  "id": "L1.repair.breach",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.repair.breach",
+  "code": "12f2aaa",
+  "criterionHash": "75b5992c",
+  "lockedHash": "75b5992c",
+  "runHash": "5cbdde8f",
+  "dataHash": "e7b13ff5",
+  "rowsHash": "357bc751",
+  "rows": [
+    {
+      "case": {
+        "x": 0.25,
+        "P": 1100000,
+        "heatFor": 2000
+      },
+      "expected": {
+        "repairedAt": 54.12499999999999,
+        "destroyedAfterRepair": 0,
+        "breachAtHit2": false,
+        "breachAtHit3": true,
+        "countdown": 10,
+        "energy": 200000000,
+        "cause": "hit-3",
+        "deathsAtHits": [
+          1,
+          1,
+          1
+        ],
+        "crew": 4,
+        "critical": 1000,
+        "endTemperature": 1206.6666666666665,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "repairedAt": 54.13333333333333,
+        "destroyedAfterRepair": 0,
+        "hits": [
+          1,
+          55.13333333333333,
+          56.13333333333333
+        ],
+        "breachesAfterHit2": 0,
+        "breachesAfterHit3": 1,
+        "breach": {
+          "t": 56.13333333333333,
+          "cause": "hit-3"
+        },
+        "explosions": [
+          {
+            "t": 66.13333333333333,
+            "energy": 200000000,
+            "cause": "hit-3"
+          }
+        ],
+        "meltdowns": 0,
+        "critical": 1,
+        "deathsAtHits": [
+          1,
+          1,
+          1
+        ],
+        "totalDeaths": 4,
+        "endTemperature": 1206.6666666677722,
+        "books": [
+          {
+            "generated": 103306666.6665309,
+            "radiated": 0,
+            "stored": 103306666.66106915,
+            "initial": 1044000000
+          },
+          {
+            "generated": 2199999999.9967318,
+            "radiated": 0,
+            "stored": 2200000000.0026536,
+            "initial": 696000000
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, both rooms, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "id": "L1.radiator.steady",
+    "successor": "L1.radiator.steady.v2",
+    "decision": "#185",
+    "reason": "Specification error: 3600 s is under two time constants of the room, so T cannot settle to 1e-3 of T_ss, and the below-critical filter on a crewed room leaves one case. The lock and the recorded FAIL stay (#185 (1), #187 (8))."
+  }
+]
