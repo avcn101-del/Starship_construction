@@ -229,7 +229,7 @@ hull segment, undo, mirror, exportable blueprints (#59).
 
 | Weapon | Physics | Flow | Recoil | Damage | Precision |
 |---|---|---|---|---|---|
-| Beam (a millimetre-wave **maser**, #203 B: a 600 m focus range from a 1.8 m waist is a 16 mm wavelength) | light speed, falloff | power and very much heat | almost none | burns over time at a point; heats the room | best when scanned |
+| Beam (a **neutral particle beam**, #229, in place of the maser of #203 B; its numbers wait for the path model, #228) | near light speed, falloff | power and very much heat | almost none | energy lost along its path, most near the end of its range: reaches rooms behind armour; heats the room | best when scanned |
 | Kinetic | time of flight | ammunition | strongest | momentum along the path | must lead the target |
 | Missile | slow, guided | ammunition, tube | small | by warhead | by seeker |
 | Point defence | against munitions | power or ammunition | small | — | — |
@@ -1056,7 +1056,7 @@ the second; prototype v2 (a helm and physical misses) the first. An
 replays the battle headless with its full event log (MATCH check), so the
 owner's play can be read exactly. Hosted as a private claude.ai page (#226).
 
-### 13h.4 Process and cost
+### 13h.5 Process and cost
 
 One engineer session (opus); no scenarios (nothing in `proto/` counts for
 Mission 0); the reviewer checks only #217's rules (reads the kernel

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.3 — 2026-10-21 — The beam becomes a neutral particle beam (#229)
+
+- `DESIGN.md` §6: the beam is a neutral particle beam that reaches rooms
+  behind armour (the owner, #229); its numbers wait for the path model.
+- `IDEAS.md`: the plasma toroid gun (MARAUDER), waiting.
+- `DESIGN.md` §13h: the second 13h.4 renumbered 13h.5.
+
 ## 0.6.2 — 2026-10-21 — The prototype published; the symmetric principle (#227, #228)
 
 - `DESIGN.md` §2: every interaction is symmetric (the owner, #228).

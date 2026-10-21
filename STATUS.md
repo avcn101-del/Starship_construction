@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#228, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#229, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -38,8 +38,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - **The path model** (#228, the owner's principle: every interaction
   symmetric, no correction factors): the lead designer is rebuilding the
   terminal effects of rounds, beams, missiles and fragments on it, every
-  number checked against real materials, to put to the owner; the beam's
-  nature (plasma toroid or other) is open.
+  number checked against real materials, to put to the owner; the beam is
+  a neutral particle beam that reaches rooms behind armour (#229, the
+  owner).
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
