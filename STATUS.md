@@ -67,7 +67,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| (to come) Path model | `m0/path` → `main` | engineer `session_01GVBq5ohYZDDfg15HAkHm71` (opus) **paused** (#232): §13i is revised (mass per room type) before it resumes |
+| (to come) Path model | `m0/path` → `main` | engineer `session_01GVBq5ohYZDDfg15HAkHm71` (opus) resumed on §13i v2 (#235, main `17303ef`); check-in `trig_01M8ydxF3ZiFH8jGsm4KHSEd` 16:23 UTC |
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
