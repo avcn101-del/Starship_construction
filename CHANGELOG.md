@@ -18,6 +18,20 @@
   `regress` runs were re-run canonically on the new data; verdicts, rows,
   `run()` and criterion hashes are unchanged (only the data hash and the
   code field moved). `MISSION0.md` regenerated.
+- Prototype v2 (`proto/`, `PROTO_VERSION` 'feel-3'; §13j.2): rounds and
+  beams on the path model's kernel (`shieldRound` at the hull entry point,
+  `fireRound` and `fireBeam` along the cells the line crosses, found by a
+  grid traversal in the target's body frame); a STAND-IN autopilot flying
+  three standing orders (range close 600 / hold 900 / open 1500 m, facing
+  bow-on / broadside, dodge off / on, in #40's order) with the engine and
+  the RCS fittings; rounds launched by the kernel's `shot` at the shooter's
+  velocity plus the muzzle velocity toward a lead point, tested each step
+  against the target's hull, culled 3 km from the midpoint; the spinal beam
+  along the ship's axis, possibly a miss. v1's Gaussian beam, `burnThrough`
+  and bow-armour stand-ins are gone. `proto/detmath.js` (STAND-IN): the
+  same `Math.sin` and `Math.cos` in every engine (Node's V8 and Chromium
+  141 differ in the last bit for about 3 % of arguments), so a phone export
+  replays MATCH. `proto/measure.mjs` runs seeds 1–10 at each range order.
 
 ## 0.7.2 — 2026-10-21 — Prototype v2 planned (#237)
 
