@@ -1,14 +1,14 @@
 {
   "id": "L2.heat.pair",
   "level": "L2",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L2.heat.pair",
-  "code": "621f2c6",
+  "code": "fd649fa",
   "criterionHash": "9f0da2d3",
   "lockedHash": "9f0da2d3",
   "runHash": "c7635b23",
-  "dataHash": "7278a2a8",
-  "rowsHash": "f40f60fb",
+  "dataHash": "7f6af3b5",
+  "rowsHash": "619b8abc",
   "rows": [
     {
       "case": {
@@ -36,14 +36,18 @@
             "radiated": 0,
             "stored": -129583678.68915546,
             "initial": 960000000,
-            "conducted": -129583678.68915415
+            "conducted": -129583678.68915415,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 129583678.68915546,
             "initial": 696000000,
-            "conducted": 129583678.68915415
+            "conducted": 129583678.68915415,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -67,30 +71,34 @@
       },
       "actual": {
         "t": 1320,
-        "dT": 2.0145167740879515,
-        "maxDeviation": 0.000009290080352674192,
+        "dT": 107.28408989980551,
+        "maxDeviation": 0.9569942692913159,
         "maxEnergy": 0,
-        "tauFit": 329.9916665965118,
+        "tauFit": 52799.99166667789,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
-            "stored": -129582579.87109447,
+            "stored": -3259092.1202334166,
             "initial": 960000000,
-            "conducted": -129582579.87109174
+            "conducted": -3259092.1202342566,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 129582579.87109447,
+            "stored": 3259092.1202334166,
             "initial": 696000000,
-            "conducted": 129582579.87109174
+            "conducted": 3259092.1202342566,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "Delta T at every step"
     },
     {
       "case": {
@@ -118,14 +126,18 @@
             "radiated": 0,
             "stored": -129585021.4627918,
             "initial": 960000000,
-            "conducted": -129585021.46278927
+            "conducted": -129585021.46278927,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 129585021.4627918,
             "initial": 696000000,
-            "conducted": 129585021.46278927
+            "conducted": 129585021.46278927,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -149,30 +161,34 @@
       },
       "actual": {
         "t": 660,
-        "dT": 2.0143132772670924,
-        "maxDeviation": 0.000018580551786778248,
+        "dT": 107.28408947649496,
+        "maxDeviation": 0.9569942654430381,
         "maxEnergy": 0,
-        "tauFit": 164.99166652634702,
+        "tauFit": 26399.99166668453,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
-            "stored": -129582824.06727946,
+            "stored": -3259092.6282060146,
             "initial": 960000000,
-            "conducted": -129582824.06727721
+            "conducted": -3259092.6282082815,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 129582824.06727946,
+            "stored": 3259092.6282060146,
             "initial": 696000000,
-            "conducted": 129582824.06727721
+            "conducted": 3259092.6282082815,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "Delta T at every step"
     },
     {
       "case": {
@@ -200,14 +216,18 @@
             "radiated": 0,
             "stored": -365190367.21490145,
             "initial": 1440000000,
-            "conducted": -365190367.2148865
+            "conducted": -365190367.2148865,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 365190367.21488774,
             "initial": 696000000,
-            "conducted": 365190367.2148865
+            "conducted": 365190367.2148865,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -231,30 +251,34 @@
       },
       "actual": {
         "t": 1320,
-        "dT": 5.6772745451579,
-        "maxDeviation": 0.000009290080395881857,
-        "maxEnergy": 1.5403447526224542e-14,
-        "tauFit": 329.99166659652553,
+        "dT": 302.3460715358053,
+        "maxDeviation": 0.9569942692912831,
+        "maxEnergy": 1.3952398121580202e-14,
+        "tauFit": 52799.99166660672,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
-            "stored": -365187270.5458188,
+            "stored": -9184714.15703988,
             "initial": 1440000000,
-            "conducted": -365187270.5457898
+            "conducted": -9184714.157023435,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 365187270.54580224,
+            "stored": 9184714.157027364,
             "initial": 696000000,
-            "conducted": 365187270.5457898
+            "conducted": 9184714.157023435,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "Delta T at every step"
     },
     {
       "case": {
@@ -282,14 +306,18 @@
             "radiated": 0,
             "stored": -365194151.3951359,
             "initial": 1440000000,
-            "conducted": -365194151.39513963
+            "conducted": -365194151.39513963,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 365194151.39513755,
             "initial": 696000000,
-            "conducted": 365194151.39513963
+            "conducted": 365194151.39513963,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -313,30 +341,34 @@
       },
       "actual": {
         "t": 660,
-        "dT": 5.676701054119803,
-        "maxDeviation": 0.00001858055175924003,
+        "dT": 302.3460703428414,
+        "maxDeviation": 0.9569942654430124,
         "maxEnergy": 8.483058057920764e-15,
-        "tauFit": 164.99166652637211,
+        "tauFit": 26399.991666656522,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
-            "stored": -365187958.73505473,
+            "stored": -9184715.588583708,
             "initial": 1440000000,
-            "conducted": -365187958.7350692
+            "conducted": -9184715.588587131,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 365187958.7350577,
+            "stored": 9184715.58859682,
             "initial": 696000000,
-            "conducted": 365187958.7350692
+            "conducted": 9184715.588587131,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "Delta T at every step"
     },
     {
       "case": {
@@ -364,14 +396,18 @@
             "radiated": 0,
             "stored": -836403744.2663696,
             "initial": 2400000000,
-            "conducted": -836403744.2663709
+            "conducted": -836403744.2663709,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 836403744.2663684,
             "initial": 696000000,
-            "conducted": 836403744.2663709
+            "conducted": 836403744.2663709,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -395,30 +431,34 @@
       },
       "actual": {
         "t": 1320,
-        "dT": 13.002790087298422,
-        "maxDeviation": 0.000009290080376324985,
-        "maxEnergy": 3.234360569207243e-15,
-        "tauFit": 329.9916665965337,
+        "dT": 692.470034807834,
+        "maxDeviation": 0.9569942692913138,
+        "maxEnergy": 9.85709887758398e-15,
+        "tauFit": 52799.99166667331,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
-            "stored": -836396651.8952379,
+            "stored": -21035958.23058796,
             "initial": 2400000000,
-            "conducted": -836396651.8952658
+            "conducted": -21035958.23060168,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 836396651.8952458,
+            "stored": 21035958.23061037,
             "initial": 696000000,
-            "conducted": 836396651.8952658
+            "conducted": 21035958.23060168,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "Delta T at every step"
     },
     {
       "case": {
@@ -446,14 +486,18 @@
             "radiated": 0,
             "stored": -836412411.2598357,
             "initial": 2400000000,
-            "conducted": -836412411.2598311
+            "conducted": -836412411.2598311,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 836412411.2598326,
             "initial": 696000000,
-            "conducted": 836412411.2598311
+            "conducted": 836412411.2598311,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -477,30 +521,34 @@
       },
       "actual": {
         "t": 660,
-        "dT": 13.001476607828181,
-        "maxDeviation": 0.000018580551770602256,
-        "maxEnergy": 2.926326229282744e-15,
-        "tauFit": 164.99166652638925,
+        "dT": 692.4700320755434,
+        "maxDeviation": 0.956994265443017,
+        "maxEnergy": 5.236583778716489e-15,
+        "tauFit": 26399.991666661692,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
-            "stored": -836398228.0706048,
+            "stored": -21035961.509340763,
             "initial": 2400000000,
-            "conducted": -836398228.0706141
+            "conducted": -21035961.50934472,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 836398228.0706077,
+            "stored": 21035961.509355187,
             "initial": 696000000,
-            "conducted": 836398228.0706141
+            "conducted": 21035961.50934472,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "Delta T at every step"
     },
     {
       "case": {
@@ -529,14 +577,18 @@
             "radiated": 0,
             "stored": -836412411.2598357,
             "initial": 2400000000,
-            "conducted": -836412411.2598311
+            "conducted": -836412411.2598311,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 836412411.2598326,
             "initial": 696000000,
-            "conducted": 836412411.2598311
+            "conducted": 836412411.2598311,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -571,14 +623,18 @@
             "radiated": 0,
             "stored": -2822872387.869054,
             "initial": 8100000000,
-            "conducted": -2822872387.8690367
+            "conducted": -2822872387.8690367,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 2822872387.8690405,
             "initial": 2349000000,
-            "conducted": 2822872387.8690367
+            "conducted": 2822872387.8690367,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -613,14 +669,18 @@
             "radiated": 0,
             "stored": -6691229954.130957,
             "initial": 19200000000,
-            "conducted": -6691229954.130967
+            "conducted": -6691229954.130967,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 6691229954.130947,
             "initial": 5568000000,
-            "conducted": 6691229954.130967
+            "conducted": 6691229954.130967,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -655,14 +715,18 @@
             "radiated": 0,
             "stored": -22582823082.613335,
             "initial": 64800000000,
-            "conducted": -22582823082.612892
+            "conducted": -22582823082.612892,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 22582823082.61338,
             "initial": 18792000000,
-            "conducted": 22582823082.612892
+            "conducted": 22582823082.612892,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -697,14 +761,18 @@
             "radiated": 0,
             "stored": -53529562250.70795,
             "initial": 153600000000,
-            "conducted": -53529562250.70757
+            "conducted": -53529562250.70757,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 53529562250.707535,
             "initial": 44544000000,
-            "conducted": 53529562250.70757
+            "conducted": 53529562250.70757,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -739,14 +807,18 @@
             "radiated": 0,
             "stored": -180661960521.739,
             "initial": 518400000000,
-            "conducted": -180661960521.7294
+            "conducted": -180661960521.7294,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 180661960521.74097,
             "initial": 150336000000,
-            "conducted": 180661960521.7294
+            "conducted": 180661960521.7294,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true

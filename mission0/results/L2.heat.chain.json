@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.heat.chain",
-  "code": "621f2c6",
+  "code": "fd649fa",
   "criterionHash": "a909375f",
   "lockedHash": "a909375f",
   "runHash": "35cbf822",
-  "dataHash": "7278a2a8",
-  "rowsHash": "47b9d6d7",
+  "dataHash": "7f6af3b5",
+  "rowsHash": "b7e0e589",
   "rows": [
     {
       "case": {
@@ -44,21 +44,27 @@
             "radiated": 0,
             "stored": -493495186.37516093,
             "initial": 1440000000,
-            "conducted": -493495186.3751626
+            "conducted": -493495186.3751626,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 247999924.60915482,
             "initial": 696000000,
-            "conducted": 247999924.60915878
+            "conducted": 247999924.60915878,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 245495261.76600277,
             "initial": 696000000,
-            "conducted": 245495261.7660082
+            "conducted": 245495261.7660082,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -89,32 +95,38 @@
       "actual": {
         "t": 300,
         "T": [
-          459.1580672520976,
-          386.5769978885912,
-          334.2649348593148
+          598.2485963660829,
+          291.7464377654264,
+          290.00496586848857
         ],
-        "heatToThird": 106235843.66235554,
+        "heatToThird": 11918.084372520447,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
-            "stored": -338020638.5949657,
+            "stored": -4203368.721400976,
             "initial": 1440000000,
-            "conducted": -338020638.5949761
+            "conducted": -4203368.721390699,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 231784794.93261898,
+            "stored": 4191450.6370233297,
             "initial": 696000000,
-            "conducted": 231784794.9326153
+            "conducted": 4191450.6370158144,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 106235843.66235554,
+            "stored": 11918.084372520447,
             "initial": 696000000,
-            "conducted": 106235843.66236086
+            "conducted": 11918.084374907648,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -126,8 +138,8 @@
   "invariants": [
     {
       "name": "heat reaching the third room with a hold in the middle < 15 % of that without",
-      "ok": false,
-      "detail": "measured 43.27 %, closed form 43.27 %"
+      "ok": true,
+      "detail": "measured 0.00 %, closed form 43.27 %"
     },
     {
       "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",

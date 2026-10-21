@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.ammo.feed",
-  "code": "621f2c6",
+  "code": "fd649fa",
   "criterionHash": "5d541b7d",
   "lockedHash": "5d541b7d",
   "runHash": "0dcdb2ea",
-  "dataHash": "7278a2a8",
-  "rowsHash": "ed4ccd26",
+  "dataHash": "7f6af3b5",
+  "rowsHash": "f6527a22",
   "rows": [
     {
       "case": {
@@ -362,16 +362,20 @@
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 23066147.81724,
+            "stored": 1049953.7301232815,
             "initial": 696000000,
-            "conducted": 23066147.817243375
+            "conducted": 1049953.7301212773,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 46200000,
             "radiated": 0,
-            "stored": 23133852.18276,
+            "stored": 45150046.26987672,
             "initial": 696000000,
-            "conducted": -23066147.817243375
+            "conducted": -1049953.7301212773,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -731,16 +735,20 @@
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 23099871.347103953,
+            "stored": 2050380.7459894419,
             "initial": 696000000,
-            "conducted": 23099871.347094502
+            "conducted": 2050380.745994635,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 46200000,
             "radiated": 0,
-            "stored": 23100128.652896047,
+            "stored": 44149619.25401056,
             "initial": 696000000,
-            "conducted": -23099871.347094502
+            "conducted": -2050380.745994635,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -888,16 +896,20 @@
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 14887982.488536239,
+            "stored": 533763.2657026052,
             "initial": 696000000,
-            "conducted": 14887982.488538528
+            "conducted": 533763.2656991801,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 48600000,
             "radiated": 0,
-            "stored": 33712017.51146579,
+            "stored": 48066236.73432183,
             "initial": 1566000000,
-            "conducted": -14887982.488538528
+            "conducted": -533763.2656991801,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -1045,16 +1057,20 @@
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 14953777.472783327,
+            "stored": 1144848.8926678896,
             "initial": 696000000,
-            "conducted": 14953777.47278539
+            "conducted": 1144848.892657524,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 48600000,
             "radiated": 0,
-            "stored": 33646222.52721906,
+            "stored": 47455151.10732889,
             "initial": 1566000000,
-            "conducted": -14953777.47278539
+            "conducted": -1144848.892657524,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -1117,14 +1133,18 @@
             "radiated": 0,
             "stored": 0,
             "initial": 696000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 1200000,
             "radiated": 0,
             "stored": 1200000,
             "initial": 696000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true

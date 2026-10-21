@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.3.1 — 2026-10-21 — Heat along the coolant loop, life support, the heat sink (#198, #200, #201; in review)
+
+- Data: `conduction.passive` (25 W/(K·m), 5–100, k=1),
+  `lifeSupport.capacityPerCell` (50 kW, 10–200 kW, k=2),
+  `FIXED.lifeSupportSetpoint` (295 K), `heatsink.capacityFactor` (5,
+  2–10) and `heatsink.conductivityFactor` (3, 1–5), all approved; the
+  heat sink room (2×2 M, 3×3 L, anywhere, plant class, no crew, no power);
+  every room type is `coolant` (reactor, beam bay, shield generator,
+  engine, railgun, heat sink) or `passive`, and crewed rooms and magazines
+  carry life support; the hold's 0.1 factor applies on passive walls. No
+  cofferdam (deferred, #201 (4)). L0 and L1 re-recorded for the new data
+  hash: only `dataHash` and `code` moved.
+- `js/heat.js`, `js/rooms.js`: coolant walls (two coolant rooms) keep
+  `conduction.wall` with the harmonic mean of coolant factors; every other
+  wall is passive. Life support pumps a powered crewed room's or magazine's
+  heat above 295 K into its coolant neighbours by live wall length, at most
+  the capacity per surviving cell, never below the setpoint within a step;
+  the bridge runs it on its backup. Books: `pumped` (part of `conducted`)
+  and `vented`; generated + conducted = radiated + vented + stored. A
+  destroyed heat sink cell vents (C / n)(T − T_rest) to space (a
+  `heat-vented` event), its capacity falls by one cell and T stays; an
+  emptied heat sink reads as the rest temperature.
+- `tools/m0.js`: a dependency listed in `withdrawn.json` counts through
+  its successor (#188), so `L2.reactor.cooled` is not blocked by the
+  withdrawn `L2.heat.pair`.
+- Seven new L2 scenarios (§13d.2 rows 1b, 2b, 3b, 12b, 13, 14, 16), locked
+  before their first canonical run, all PASS. Withdrawn: `L2.heat.chain`
+  and `L2.heat.neighbour` (specification errors, #201 (2)), `L2.heat.pair`
+  and `L2.bridge.conduction` (superseded by #200).
+- `regress`: 42 VERIFIED + 5 WITHDRAWN.
+
 ## 0.3.0 — 2026-10-21 — Mission 0 L2: pairs and clusters (in review)
 
 - Data (#195): `conduction.wall`, `conduction.holdFactor`,

@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.size.rule",
-  "code": "621f2c6",
+  "code": "fd649fa",
   "criterionHash": "9e9d8cde",
   "lockedHash": "9e9d8cde",
   "runHash": "4596ce6d",
-  "dataHash": "7278a2a8",
-  "rowsHash": "60c498c0",
+  "dataHash": "7f6af3b5",
+  "rowsHash": "26ab5205",
   "rows": [
     {
       "case": {
@@ -34,7 +34,9 @@
             "radiated": 0,
             "stored": 333333.33333337307,
             "initial": 696000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -66,7 +68,9 @@
             "radiated": 0,
             "stored": 750000,
             "initial": 1566000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -96,7 +100,9 @@
             "radiated": 0,
             "stored": 0,
             "initial": 696000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -125,7 +131,9 @@
             "radiated": 0,
             "stored": 0,
             "initial": 1566000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -161,7 +169,9 @@
             "radiated": 0,
             "stored": 1800000,
             "initial": 696000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -197,7 +207,9 @@
             "radiated": 0,
             "stored": 4050000,
             "initial": 1566000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -225,7 +237,9 @@
             "radiated": 0,
             "stored": 0,
             "initial": 1044000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true

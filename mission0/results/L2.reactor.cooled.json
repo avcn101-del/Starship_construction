@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.reactor.cooled",
-  "code": "621f2c6",
+  "code": "fd649fa",
   "criterionHash": "6c5139ec",
   "lockedHash": "6c5139ec",
   "runHash": "11c148a7",
-  "dataHash": "7278a2a8",
-  "rowsHash": "126c2d6b",
+  "dataHash": "7f6af3b5",
+  "rowsHash": "4840cf96",
   "rows": [
     {
       "case": {
@@ -35,7 +35,9 @@
             "radiated": 0,
             "stored": 1704001815.8531604,
             "initial": 696000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -68,14 +70,18 @@
             "radiated": 0,
             "stored": 747286091.8679328,
             "initial": 696000000,
-            "conducted": -4059524115.9895887
+            "conducted": -4059524115.9895887,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 3337756472.063472,
             "stored": 721767643.9260235,
             "initial": 696000000,
-            "conducted": 4059524115.9895887
+            "conducted": 4059524115.9895887,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -108,21 +114,27 @@
             "radiated": 0,
             "stored": 979529059.1618335,
             "initial": 696000000,
-            "conducted": -7973039668.114245
+            "conducted": -7973039668.114245,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 3059582825.8304152,
             "stored": 926937008.2267587,
             "initial": 696000000,
-            "conducted": 3986519834.0571227
+            "conducted": 3986519834.0571227,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 3059582825.8304152,
             "stored": 926937008.2267587,
             "initial": 696000000,
-            "conducted": 3986519834.0571227
+            "conducted": 3986519834.0571227,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -155,35 +167,45 @@
             "radiated": 0,
             "stored": 900538854.3607452,
             "initial": 696000000,
-            "conducted": -15946161109.469791
+            "conducted": -15946161109.469791,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 3117779134.4924617,
             "stored": 868761142.8749282,
             "initial": 696000000,
-            "conducted": 3986540277.367448
+            "conducted": 3986540277.367448,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 3117779134.4924617,
             "stored": 868761142.8749282,
             "initial": 696000000,
-            "conducted": 3986540277.367448
+            "conducted": 3986540277.367448,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 3117779134.4924617,
             "stored": 868761142.8749282,
             "initial": 696000000,
-            "conducted": 3986540277.367448
+            "conducted": 3986540277.367448,
+            "pumped": 0,
+            "vented": 0
           },
           {
             "generated": 0,
             "radiated": 3117779134.4924617,
             "stored": 868761142.8749282,
             "initial": 696000000,
-            "conducted": 3986540277.367448
+            "conducted": 3986540277.367448,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true

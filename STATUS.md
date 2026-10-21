@@ -46,7 +46,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 | PR | Branch | State |
 |---|---|---|
-| #15 Mission 0, L2: pairs and clusters | `m0/l2-clusters` → `main` | rows 1–12 built (10 PASS, 2 FAIL: spec errors); fixes of #200/#201 and the heat sink (rows 13, 14) next, then the physics checker and the reviewer |
+| #15 Mission 0, L2: pairs and clusters | `m0/l2-clusters` → `main` | #198/#200/#201 landed by the engineer (`session_011dfRdXfFAYsLmAY2C9a6Qg`): coolant and passive walls, life support, the heat sink; 7 new scenarios (rows 1b, 2b, 3b, 12b, 13, 14, 16) locked before their first run, all PASS; `L2.heat.chain`, `L2.heat.neighbour` (#201 (2)), `L2.heat.pair`, `L2.bridge.conduction` (#200) WITHDRAWN; `regress` 42 VERIFIED + 5 WITHDRAWN; questions for the designer in the pull request (row 16's closed form, row 12b's 480 s, life support during shutdown); next: physics checker (blind), then the reviewer |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -91,9 +91,12 @@ Four sense-check items (#202 A–D), each with a recommended answer:
 
 ## Next steps
 
-1. An engineer session on `m0/l2-clusters` lands #200/#201: the
-   coolant-loop rule, life support, the v2 scenarios (rows 1b, 2b, 3b,
-   12b, 16) and the heat sink (rows 13, 14), withdrawals under #188/#200.
+1. Done on `m0/l2-clusters` (engineer, 2026-10-21): #200/#201 and the
+   heat sink landed, 7 scenarios PASS, 4 withdrawn; the lead designer
+   answers the questions in PR #15 (row 16's closed form leaves out the
+   passive wall and the shutdown of the draw; row 12b's 480 s assumes a
+   shut-down bridge keeps drawing; whether life support runs while its
+   room is shut down or unpowered by routing fraction).
 2. Physics checker blind on the pull request, then the reviewer; fixes;
    the lead designer merges when no blocking finding remains (#180).
 3. Then the L3 plan (minimal ship: rigid body, CoM, MoI, recoil spin,
@@ -130,6 +133,7 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Engineer, L1 review fixes (#189) | session_014jtbGrQdvSycQU8E6stAeY | opus-5-5 | 4.97 |
 | Reviewer, L1 re-review | session_01GsfMyFUqaSXRsVGQhELH2U | sonnet-5-5 | 0.53 |
 | Engineer, L2 rows 1–12 (PR #15) | session_0111ENvC2XXCj4tA5T9zTZQ7 | opus-5-5 | 11.48 |
+| Engineer, L2 #200/#201 and the heat sink (PR #15) | session_011dfRdXfFAYsLmAY2C9a6Qg | opus-5-5 | not visible to the session |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 

@@ -1,14 +1,14 @@
 {
   "id": "L2.bridge.conduction",
   "level": "L2",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L2.bridge.conduction",
-  "code": "621f2c6",
+  "code": "fd649fa",
   "criterionHash": "9882f256",
   "lockedHash": "9882f256",
   "runHash": "e6834f34",
-  "dataHash": "7278a2a8",
-  "rowsHash": "7810ecb7",
+  "dataHash": "7f6af3b5",
+  "rowsHash": "df795cc3",
   "rows": [
     {
       "case": {
@@ -23,49 +23,53 @@
         "tolerance": 0.001
       },
       "actual": {
-        "overheated": 217.13333333333333,
-        "restart": 1150.2833333333333,
+        "overheated": 142.95,
+        "restart": 373.5833333333333,
         "controlOk": true,
         "controlAtEnd": true,
         "lost": [
           {
-            "t": 217.13333333333333,
+            "t": 142.95,
             "cause": "overheat"
           }
         ],
         "restored": [
           {
-            "t": 1150.2833333333333,
+            "t": 373.5833333333333,
             "cause": "restart"
           }
         ],
         "radiators": 0,
         "refused": true,
         "end": [
-          330.2599471221021,
-          329.15357797673954
+          329.567116814017,
+          315.4664969151678
         ],
         "deaths": 0,
         "books": [
           {
-            "generated": 261559999.99999404,
+            "generated": 172539999.99999404,
             "radiated": 0,
-            "stored": 96623873.09304512,
+            "stored": 94961080.35364091,
             "initial": 696000000,
-            "conducted": -164936126.90695426
+            "conducted": -77578919.64635894,
+            "pumped": -74713333.333342,
+            "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 70967539.76277392,
-            "stored": 93968587.14417493,
+            "radiated": 16459327.049961371,
+            "stored": 61119592.596402764,
             "initial": 696000000,
-            "conducted": 164936126.90695426
+            "conducted": 77578919.64635894,
+            "pumped": 74713333.333342,
+            "vented": 0
           }
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "overheat time, restart time after the overheat"
     }
   ],
   "invariants": [

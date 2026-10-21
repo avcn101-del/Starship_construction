@@ -6,7 +6,7 @@ fights dirty. Build a ship from rooms, prepare it, and win fights you should
 lose. Guns recoil, heat must be radiated, scans give you away, reactors fail
 safe, and your crew's deaths are permanent.
 
-**Status: Mission 0, levels L0 (materials) and L1 (one room alone) done: 27 scenarios verified, 1 withdrawn for a specification error and replaced. L2 (pairs and clusters) in review: 12 scenarios locked and run, 10 PASS, 2 FAIL on specification questions (pull request `m0/l2-clusters`).** No game yet. Mission 0
+**Status: Mission 0, levels L0 (materials) and L1 (one room alone) done: 27 scenarios verified, 1 withdrawn for a specification error and replaced. L2 (pairs and clusters) in review: 19 scenarios locked and run; 15 PASS and 4 withdrawn (two for specification errors, two superseded by the coolant-loop heat model of #200), each replaced by a passing successor (pull request `m0/l2-clusters`).** No game yet. Mission 0
 proves the physics and balance bottom-up, in text, before any graphics.
 
 ## Documents
@@ -93,7 +93,11 @@ Keep this section in sync with `data.js`.
 | `repair.radius` | 30 | 10–80 | 1 | m | yes |
 | `bridge.powerDraw` | 100000 | 20000–500000 | 2 | W | yes |
 | `conduction.wall` | 4000 | 1000–20000 | 1 | W/(K*m) | yes |
+| `conduction.passive` | 25 | 5–100 | 1 | W/(K*m) | yes |
 | `conduction.holdFactor` | 0.1 | 0.02–0.3 | 0 |  | yes |
+| `lifeSupport.capacityPerCell` | 50000 | 10000–200000 | 2 | W | yes |
+| `heatsink.capacityFactor` | 5 | 2–10 | 0 |  | yes |
+| `heatsink.conductivityFactor` | 3 | 1–5 | 0 |  | yes |
 | `power.wallCapacity` | 2000000 | 500000–5000000 | 1 | W/m | yes |
 | `ammo.wallFeed` | 0.06 | 0.02–0.3 | 1 | kg/(s*m) | yes |
 | `hold.blastFactor` | 4 | 2–10 | 0 |  | yes |
@@ -122,13 +126,15 @@ Fixed (not tunable):
 | `restTemperature` | 290 | K | rooms start here; space (3 K) is taken as 0 (#182, #183) |
 | `radiatorEmissivity` | 0.9 |  | radiator.emissivity in DESIGN.md 13c.3: real, a dark panel (#182, #183) |
 | `repairFalloffExponent` | 2 |  | repair field strength g(r) = 1 / (1 + (r / radius)^n), like the shield (#99, #183) |
+| `lifeSupportSetpoint` | 295 | K | the air temperature life support holds in crewed rooms and magazines (#201) |
 
 `shield.kineticStop` is computed in `data.js` as one S round's sectional
 momentum at T1 (#171), and again inside `withOverrides` so a kinetic
 override reaches it (#184); its range is 0.5×–2× of that value.
 Rate-like constants of an L room (power, draw, thrust, budget) are 9/4 of
 the M value (#183). The `ROOMS` table in `data.js` gives each room's
-footprint, placement, threshold class, crew and draws.
+footprint, placement, threshold class, crew and draws, whether it is a
+coolant or a passive room (#200) and whether it carries life support (#201).
 
 ## Lineage
 

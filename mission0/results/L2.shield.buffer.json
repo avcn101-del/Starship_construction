@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.shield.buffer",
-  "code": "621f2c6",
+  "code": "fd649fa",
   "criterionHash": "d0132a0f",
   "lockedHash": "d0132a0f",
   "runHash": "a85ed8de",
-  "dataHash": "7278a2a8",
-  "rowsHash": "8be7f2ed",
+  "dataHash": "7f6af3b5",
+  "rowsHash": "811b2241",
   "rows": [
     {
       "case": {
@@ -305,7 +305,9 @@
             "radiated": 0,
             "stored": 6711111.111118197,
             "initial": 696000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -668,7 +670,9 @@
             "radiated": 0,
             "stored": 8844444.44445157,
             "initial": 696000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -1111,7 +1115,9 @@
             "radiated": 0,
             "stored": 11688888.888895988,
             "initial": 696000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true
@@ -1714,7 +1720,9 @@
             "radiated": 0,
             "stored": 16000000.000007153,
             "initial": 696000000,
-            "conducted": 0
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
           }
         ],
         "eventsOk": true

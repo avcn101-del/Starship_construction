@@ -966,6 +966,67 @@ rule; the bridge relies on its backup supply in a routed cluster (#147);
 rounds in overlapping shields are not built (a question in the pull
 request).
 
+**L2 after #200 and #201: the coolant loop, life support and the heat
+sink** (2026-10-21; kernel `21deae1` and `53bc67c`; seven scenarios, 42
+cases, locked at `bb2c50b` before their first canonical run; all PASS;
+code `fd649fa`). The new constants changed the data hash, so L0 and L1
+were re-recorded with only `dataHash` and `code` moving, and all 28 still
+VERIFY with unchanged results and run() hashes (a room alone has no
+walls). Every L2 record moved: the books now carry `pumped` and `vented`;
+beyond that shape, the results of `L2.blast.walls`, `L2.power.flow`,
+`L2.reactor.cooled`, `L2.repair.shared`, `L2.shield.buffer`,
+`L2.shield.overlap` and `L2.size.rule` are unchanged (their heat runs only
+through coolant walls, or none), and `L2.ammo.feed` still PASSes with its
+magazine–turret wall now passive (the heat it moved fell from 23 MJ to
+0.5–2 MJ; nothing it checks depends on it).
+
+| Scenario | What the numbers say |
+|---|---|
+| `L2.heat.pair.v2` | Two coolant rooms over 10 m relax with τ = 30 s (5 m: 60 s), ΔT within 1.02e-4 ΔT₀ of the closed form at every step, τ in proportion to the edge from T1 to T6 (45, 60, 90, 120, 180 s). A 600 K coolant room beside a passive neighbour barely moves in an hour: τ = 26 400 s through a hold (10 m; 52 800 s over 5 m), the hold reaches 309.8 K; τ = 4 800 s into an unpowered magazine, which reaches 371.8 K (338.5 K over 5 m). Energy constant to 2.2e-14 |
+| `L2.heat.chain.v2` | Through two coolant walls the three rooms meet near 393 K in 300 s (closed form within 7.25e-4 K); through a hold the third room receives **4.855e-5** of that heat (0.012 MJ against 245.5 MJ), as the lead designer estimated |
+| `L2.heat.neighbour.v2` | A reactor at a quarter or half power beside a full HE magazine or crew quarters over a 10 m passive wall: with life support the neighbour never passes **295.0011 K** in 15 min (it pumps 92–151 MJ back into the reactor); without it the neighbour peaks at 331.0 / 337.8 K (magazine) and 317.7 / 322.3 K (quarters), as estimated, far below cook-off (450 K) and crew death (380 K). The reactor, with no radiators, overheats at 123 / 247 s and, on decay heat, peaks at 833–966 K: **with life support pumping its heat back it reaches 950 K (magazine) and 966 K (quarters) at half power, 34 K from meltdown** |
+| `L2.lifesupport` | Quarters with 300 kW of life support under an enemy beam: at 0.2 MW they hold 295.001 K for 15 min (213 MJ pumped into the beam bay, which climbs to 355 K); at 1 MW the crew die at **439.2 s** and at 5 MW at **68.4 s**; unpowered, at 327.9 s and 65.0 s, and at 0.2 MW they reach 338.1 K. The row's estimates (425 s, 68 s) left out the passive wall and the quarters' draw stopping at overheated (350 K), which add 14 s at 1 MW |
+| `L2.bridge.conduction.v2` | A bridge under 1.1 MW overheats at **142.95 s** (control lost) and restarts **230.6 s** after the source stops (control restored), life support moving 74.7 MJ into the beam bay; reference within one step. The row estimated about 480 s: that holds only if a shut-down bridge kept drawing its 100 kW (451 s); the L1 rule stops it |
+| `L2.heatsink.buffer` | A reactor delivering 12.5 MW overheats at **166.0 s** beside an idle beam bay and **420.9 s** beside a heat sink at T1 (estimates 166 / 421 s); at T3 (same layout, 20 m wall) 331.9 / 841.7 s. A heat sink multiplies the battle clock by 2.5 |
+| `L2.heatsink.loss` | Each destroyed cell of a 600 K heat sink vents exactly 930 MJ, T stays 600 K, C and Q fall by 3e6 J/K and 1.8 GJ; the last cell empties it. A reactor placed beside the damaged sink overheats at 132.1, 129.2, 125.3, 103.1 and 97.9 s for 0–4 cells lost (the third loss also halves the wall). Note: a sink already at 600 K makes the reactor overheat **sooner** than a cold beam bay does (132 s against 166 s): a full sink is a liability |
+
+**Withdrawn** (`mission0/withdrawn.json`; locked and recorded with their
+FAIL; `verify` and `regress` report them WITHDRAWN): `L2.heat.pair`
+(superseded by #200: its hold cases expect τ = 165 / 330 s, the passive
+wall gives 26 400 / 52 800 s) and `L2.bridge.conduction` (superseded by
+#200: it expects overheat at 217.1 s and restart 933.1 s later, the
+passive wall and life support give 143.0 s and 230.6 s), successors
+`L2.heat.pair.v2` and `L2.bridge.conduction.v2`; `L2.heat.chain` and
+`L2.heat.neighbour` (specification errors, #201 (2)), successors
+`L2.heat.chain.v2` and `L2.heat.neighbour.v2`. Under the #200 kernel these
+two fail differently from their first records (the chain's hold case is
+off by 139 K against the old conductance; every neighbour case now fails,
+since nothing cooks), so they were re-recorded canonically: their
+records show the #200 kernel's FAIL, and the replaced rule's FAIL stays
+in the git history of the record files. `L2.reactor.cooled` depends on
+the withdrawn `L2.heat.pair`; `tools/m0.js` now lets a withdrawn
+dependency count through its successor (#188).
+
+Honest reading. Strong: the coolant and passive walls against closed
+forms (pair, chain) and the heat sink's clock against its closed form at
+two tiers; the vent law to 1e-12; the reference integrators for the
+neighbour, life support, the bridge and the damaged sink (RK4 against the
+kernel's Euler, with life support taken once per step as 13d.1 states it,
+and the L1 shutdowns on the step grid). Weaker: the life-support cases
+pass partly by construction (the pump is capped at what lies above the
+setpoint), and the row-16 closed form is shown, not checked. What the
+numbers say for the design: **crew beside a running reactor are now safe
+as long as life support runs** (about 0.001 K above 295 K), and without
+it they reach only 318–338 K in 15 minutes; **enemy beams are what kill
+crew by heat** (1 MW: 7.3 min; 5 MW: 68 s); life support pumps the heat
+back into the coolant loop, so it lengthens the crew's life at the
+reactor's expense (a reactor at half power without radiators reaches
+950–966 K); the heat sink buys 2.5× the clock when cold and costs time
+when already hot; losing it shortens the clock as the dependency law
+wants. Signals: whether life support should stop when its room shuts
+down, and whether it should draw power, are open (questions in the pull
+request); a full heat sink beside a cold reactor is a heat source.
+
 ## 17. Open questions
 
 1. **Chapter design** waits for Mission 0 (#125).
