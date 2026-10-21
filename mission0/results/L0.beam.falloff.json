@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.beam.falloff",
-  "code": "12f2aaa",
+  "code": "f95e078",
   "criterionHash": "b45fa911",
   "lockedHash": "b45fa911",
   "runHash": "0c7856c4",
-  "dataHash": "e7b13ff5",
+  "dataHash": "7278a2a8",
   "rowsHash": "cd535177",
   "rows": [
     {
