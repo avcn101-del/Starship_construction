@@ -13,6 +13,6 @@ decision: log it in `DECISIONS.md` and reflect it in `DESIGN.md`.
 | Surrendered enemy crew join yours | Replacements with a story | A new system; touches the economy of replacements | waiting |
 | Beam modes (focused / wide) | Beams gain a choice like ammunition | Beams already have an identity (no ammunition) | waiting |
 | Battery / capacitor room | Store power for a burst: a time window | Proposed in a rejected early room list, never approved | waiting |
-| Heat sink room | Store heat for a while, then vent: a time window | As above | waiting |
+| Heat sink room | Store heat for a while, then vent: a time window | Passed the four gates (throughput law; time-window path; glows as it fills; the heat model with two constants) | adopted (#197, built at L2) |
 | Sound carried through the hull | Only your own ship is heard | Adopted as a principle in `DESIGN.md` §11; the audio itself waits for Mission 0 | adopted (principle) |
 | Rescuing crew on dark fragments | A different ending to a fragment's last words | — | adopted (#88) |

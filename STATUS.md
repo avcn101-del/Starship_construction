@@ -6,11 +6,16 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#196, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#199, current design in `DESIGN.md`.
 - **L2 plan written** (#192–#196, `DESIGN.md` §13d): cluster layout,
   conduction, power and ammunition by wall length, blast between rooms,
   shield overlap without double counting (#170), shared repair, size rule,
-  12 scenarios. Engineer starting on `m0/l2-clusters`.
+  12 scenarios. Engineer `session_0111ENvC2XXCj4tA5T9zTZQ7` building it on
+  `m0/l2-clusters`.
+- **Owner's answers (#197)**: reactor adjacency stays harsh; the **heat
+  sink** room and the **cofferdam** (a 1×N hold) are added to L2 as
+  scenarios 13–15 (#198, #199), built on the same branch after the first
+  canonical run of rows 1–12.
 - **E1 amended by the owner (#188)**: a scenario withdrawn for a
   specification error, with a passing successor, does not block E1.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
@@ -61,20 +66,19 @@ carries its head `fd815ce` with a merge commit.
 - #192–#196: the L2 plan (layout and live walls, the flow models, 12
   scenarios with reference integrators where no closed form exists,
   7 constants with ranges, process).
+- #198, #199: the heat sink (5× capacity, 3× conductivity, a destroyed
+  cell vents its heat to space) and the cofferdam (1×N, the hold's
+  factors).
 
 ## Awaiting the owner
 
-1. **How harsh is a running reactor next to crew?** (#196, a feel
-   question, not blocking.) With the default, a reactor at a quarter of its
-   power kills the crew of quarters sharing its wall in about 2.4 min, and
-   a full reactor overheats in 1.5–5 min depending on its neighbours; an
-   empty hold between them saves the crew. Recommended: keep it (building
-   is a moral choice, #52). The softer option lowers `conduction.wall`
-   within its range, a constant change only.
+Nothing. The reactor-adjacency question was answered (#197).
 
 ## Next steps
 
-1. Engineer builds L2 on `m0/l2-clusters` (§13d).
+1. Engineer builds L2 rows 1–12 on `m0/l2-clusters` (§13d); then a second
+   engineer session adds rows 13–15 (heat sink, cofferdam) on the same
+   branch, locked in their own commit.
 2. Physics checker blind on the pull request, then the reviewer; fixes;
    the lead designer merges when no blocking finding remains (#180).
 3. Then the L3 plan (minimal ship: rigid body, CoM, MoI, recoil spin,
