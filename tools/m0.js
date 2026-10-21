@@ -53,12 +53,16 @@ function select(all, sel) {
 }
 
 // ---------- locking ----------
-// The hash covers everything that defines the criterion: what is measured,
-// the cases, the expected formula, the comparison and the invariants. It
-// does NOT cover run(): changing the simulation is allowed, changing the
-// test is not. run() is hashed separately into each record (runHash, #175),
-// so verify notices a run() edited since the canonical run.
+// L0 rule (kept so the L0 locks stay valid): the hash covers everything that
+// defines the criterion: what is measured, the cases, the expected formula,
+// the comparison and the invariants, but NOT run() or helpers in the file.
+// From L1 on (#184): the hash covers the whole scenario file except its
+// `locked:` line, so nothing in the file can change after the lock.
+// run() is also hashed separately into each record (runHash, #175), so
+// verify notices a run() edited since the canonical run.
+const LOCKED_LINE = /^[ \t]*locked:.*\r?\n/m;
 function criterionHash(s) {
+  if (s.level !== 'L0') return hash(fs.readFileSync(s.file, 'utf8').replace(LOCKED_LINE, ''));
   const parts = {
     id: s.id, level: s.level, laws: s.laws, dependsOn: s.dependsOn, measure: s.measure,
     tolerance: s.tolerance, criterion: s.criterion,

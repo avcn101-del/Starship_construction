@@ -35,15 +35,17 @@ const KINETIC = {
   muzzleVelocity: P(800, 500, 1000, 0, 'm/s', true, '#166'),
 };
 
-// One S round's sectional momentum at T1 (#171), with the same arithmetic as
+// One S round's sectional momentum (#171), with the same arithmetic as
 // roundGeometry and sectionalMomentum in projectile.js, so the field stops an
-// S round at full strength exactly.
-const S_ROUND_STOP = (() => {
-  const mass = KINETIC.roundMass.value * FIXED.sizeLinear.value.S ** 3;
+// S round at full strength exactly. withOverrides derives it again from the
+// overridden round, so a kinetic override reaches it (#184).
+function sRoundStop(kinetic) {
+  const mass = kinetic.roundMass.value * FIXED.sizeLinear.value.S ** 3;
   const D = Math.cbrt((4 * mass) / (Math.PI * FIXED.steelDensity.value * FIXED.roundLengthToDiameter.value));
   const A = (Math.PI * D * D) / 4;
-  return (mass * KINETIC.muzzleVelocity.value) / A;
-})();
+  return (mass * kinetic.muzzleVelocity.value) / A;
+}
+const S_ROUND_STOP = sRoundStop(KINETIC);
 
 export const PARAMS = {
   kinetic: KINETIC,
@@ -51,11 +53,11 @@ export const PARAMS = {
     // An AP M round carries 6.85e5 kg/(m*s) of sectional momentum; 2.7e5 per
     // cell lets it pass 2 cells and stop in the 3rd (#166: 2-3 cells).
     kineticResistance: P(2.7e5, 1.35e5, 5.4e5, 1, 'kg/(m*s)', true, 'sectional momentum one armour cell absorbs (#165, #166)'),
-    blastResistance: P(1e6, 3e5, 3e6, 3, 'J', false, 'blast energy one armour cell absorbs before it is destroyed (provisional)'),
-    burnEnergy: P(3e7, 1e7, 1e8, 3, 'J', false, 'beam energy that burns through one armour cell (provisional)'),
+    blastResistance: P(1e6, 3e5, 3e6, 3, 'J', true, 'blast energy one armour cell absorbs before it is destroyed (#177)'),
+    burnEnergy: P(3e7, 1e7, 1e8, 3, 'J', true, 'beam energy that burns through one armour cell (#177)'),
   },
   room: {
-    kineticResistance: P(6.75e4, 3e4, 1.4e5, 1, 'kg/(m*s)', false, 'sectional momentum one ordinary room cell absorbs (provisional, a quarter of armour)'),
+    kineticResistance: P(6.75e4, 3e4, 1.4e5, 1, 'kg/(m*s)', true, 'sectional momentum one ordinary room cell absorbs, a quarter of armour (#177)'),
   },
   he: {
     blastEnergy: P(2e6, 5e5, 5e6, 3, 'J', true, 'size M HE warhead (#166)'),
@@ -69,7 +71,7 @@ export const PARAMS = {
     budget: P(1e7, 2e6, 4e7, 2, 'W', true, 'size M absorption rate (#166)'),
     radius: P(40, 20, 80, 1, 'm', true, 'radius where the field is at half strength (#166)'),
     kineticStop: P(S_ROUND_STOP, 0.5 * S_ROUND_STOP, 2 * S_ROUND_STOP, 1, 'kg/(m*s)', true, 'sectional momentum the field stops per round at full strength: one S round at T1, computed (#166, #171)'),
-    bufferSeconds: P(1, 0.2, 5, 0, 's', false, 'buffer for impulses (rounds, blasts) = budget x this (provisional)'),
+    bufferSeconds: P(1, 0.2, 5, 0, 's', true, 'buffer for impulses (rounds, blasts) = budget x this; must show a measured effect by L2 or be cut (#177)'),
   },
 };
 
@@ -78,7 +80,11 @@ export function scaled(param, edge = BASE_EDGE) {
   return param.value * (edge / BASE_EDGE) ** param.k;
 }
 
-/** A deep copy of PARAMS with run-time overrides { 'beam.power': 8e6 } applied. */
+/**
+ * A deep copy of PARAMS with run-time overrides { 'beam.power': 8e6 } applied.
+ * shield.kineticStop is derived from the (overridden) round unless it is
+ * overridden itself (#171, #184).
+ */
 export function withOverrides(overrides = {}) {
   const params = JSON.parse(JSON.stringify(PARAMS));
   for (const [path, value] of Object.entries(overrides)) {
@@ -86,6 +92,10 @@ export function withOverrides(overrides = {}) {
     const p = params[group] && params[group][name];
     if (!p) throw new Error(`unknown constant ${path}`);
     p.value = value;
+  }
+  if (!('shield.kineticStop' in overrides)) {
+    const stop = sRoundStop(params.kinetic), p = params.shield.kineticStop;
+    Object.assign(p, { value: stop, min: 0.5 * stop, max: 2 * stop });
   }
   return params;
 }
