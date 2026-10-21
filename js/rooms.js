@@ -81,7 +81,7 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
   if (world.layout) {
     room.heat.conducted = 0;
     room.placed = !!cell;
-    room.conductivity = def.conductivity ? param(world, def.conductivity).value : 1;
+    room.conductivity = def.passiveFactor ? param(world, def.passiveFactor).value : 1; // the coolant-loop rule of #201 lands in the next commit
     room.blastFactor = def.blastFactor ? param(world, def.blastFactor).value : 1;
     room.powerFraction = 0;
   }
