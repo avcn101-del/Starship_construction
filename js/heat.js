@@ -21,7 +21,9 @@ export function createHeat(C, T0) {
   return { C, Q, Q0: Q, generated: 0, radiated: 0, lastRadiatedPower: 0, isHot: false, isOverheated: false, isCritical: false };
 }
 
-export const temperature = (h) => h.Q / h.C;
+// A heat sink whose last cell is destroyed holds no heat and no capacity (#198); it reads as the rest
+// temperature it was vented to, so nothing downstream sees 0 / 0. Every other room has C > 0.
+export const temperature = (h) => (h.C > 0 ? h.Q / h.C : h.emptyTemperature);
 
 /** Power (W) radiated by n panels of `area` at temperature T. Also the IR brightness (#102, #143). */
 export function radiatorPower(T, n, area, emissivity, sigma) {
@@ -57,6 +59,7 @@ export function ventCell(h, n, restTemperature) {
   h.Q0 -= share * restTemperature;
   h.C -= share;
   h.vented += vented;
+  if (n === 1) { h.Q = 0; h.C = 0; h.emptyTemperature = restTemperature; } // the last cell: nothing left (float residue cleared)
   return vented;
 }
 
