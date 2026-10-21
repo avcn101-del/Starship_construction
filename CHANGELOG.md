@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.4 — 2026-10-21 — The path model planned (#230, #231)
+
+- The owner's decisions on the path model (#230): rounds are damaged by
+  what they hit and flatten; tumble and sloped armour wait in `IDEAS.md`;
+  the beam does not fall off at battle range; for the beam only mass counts.
+- `DESIGN.md` §13i: the path model's build pass (rules, constants,
+  estimates, scenarios P1–P8, withdrawals); §2 and §6 updated.
+
 ## 0.6.3 — 2026-10-21 — The beam becomes a neutral particle beam (#229)
 
 - `DESIGN.md` §6: the beam is a neutral particle beam that reaches rooms

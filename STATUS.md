@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#229, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#231, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -38,9 +38,11 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - **The path model** (#228, the owner's principle: every interaction
   symmetric, no correction factors): the lead designer is rebuilding the
   terminal effects of rounds, beams, missiles and fragments on it, every
-  number checked against real materials, to put to the owner; the beam is
-  a neutral particle beam that reaches rooms behind armour (#229, the
-  owner).
+  number checked against real materials; the owner approved it (#229,
+  #230): rounds are damaged and flatten, the beam is a neutral particle
+  beam with no falloff at battle range, tumble waits with sloped armour in
+  `IDEAS.md`. Plan and scenarios P1–P8: `DESIGN.md` §13i (#231); the
+  engineer builds it on `m0/path`.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -126,10 +128,9 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
 1. **The owner plays the prototype** and exports battles; the lead
    designer replays them (`node proto/replay.mjs`). Judge readability and
    the levers, not pace (perfect aim, #227).
-2. **The path model** (#228): the lead designer drafts it on the
-   symmetric principle with real material numbers and puts it to the owner;
-   then one build pass (like the D pass) with a physics checker and the
-   reviewer; then prototype v2 (a helm, physical misses, the path model).
+2. **The path model** (§13i, #231): engineer on `m0/path`, then a blind
+   physics checker and the reviewer; merge; then prototype v2 (a helm,
+   physical misses, the path model).
 3. Then the L4 plan (ship versus static target), with the prototype's
    findings.
 
