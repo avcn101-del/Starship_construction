@@ -678,15 +678,21 @@ blast, burn and shield-kinetic v2 verdicts hold only once the owner
 approves them. The shield buffer still never binds (a round costs at most
 0.53 MJ of 10 MJ).
 
-**L1 one room alone** (2026-10-21; 14 scenarios, 196 cases, each locked
-before its first canonical run; 13 PASS and VERIFIED, `L1.radiator.steady`
+**L1 one room alone** (2026-10-21; 16 scenarios, 199 cases, each locked
+before its first canonical run; 15 PASS and VERIFIED, `L1.radiator.steady`
 FAILs and is **WITHDRAWN** for a specification error (#185, #187 (8)),
 replaced by `L1.radiator.steady.v2`; T1, size M, SI; constants of §13c.3.
 The first run also failed 2 of 20 cases of `L1.quarters.repair` on a
 kernel bug, a repaired cell reported one step early; the kernel was fixed
 and L1 re-run, the criterion untouched. All L0 and L1 records were
 re-recorded when the data hash widened to `PARAMS`, `FIXED` and `ROOMS`
-(#185 (9)); only `dataHash` and `code` moved):
+(#185 (9)), and again when it took in `TIERS` and `BASE_EDGE` (#189 (7));
+both times only `dataHash` and `code` moved. The reviewer's fixes of #189
+landed without changing any recorded result: the destroyed count is the
+cells destroyed now (a cell stays destroyed until repaired to integrity
+1), an exploded room never explodes or melts down again, the turret fires
+on accumulated time, the bridge raises `control-restored`, and the lock
+line and `withdrawn.json` are validated):
 
 | Scenario | What the numbers say |
 |---|---|
@@ -704,6 +710,14 @@ re-recorded when the data hash widened to `PARAMS`, `FIXED` and `ROOMS`
 | `L1.quarters.repair` | Housed crew 3 per surviving cell (18, 9, 3, 0); 3 die per destroyed cell; repair 0.02 /s × (c / 6) × g(r): a destroyed cell next to full quarters is whole in 50 s, at the radius in 100 s, at 4 radii in 850 s; quarters with one cell left take 6 times longer; with none, nothing |
 | `L1.bridge.control` | Control holds while any cell survives and with the power cut (the backup feeds the 100 kW draw); the 4th destroyed cell removes it, 'control-lost' caused by hit-4; alone the bridge's own draw makes it hot in 960 s |
 | `L1.beambay.heat` | Draw 12.5 MW for a 5 MW beam, 7.5 MW of heat: hot at 99.2 s, shut down at 163.2 s, after which beam and draw are 0 ('beam-stopped', cause 'heat'); T6 979.2 s; unpowered no beam |
+| `L1.repair.breach` (#189) | Full quarters 7.5 m from an idle M reactor rebuild a destroyed reactor cell in 53.13 s (repaired at 54.13 s, closed form 54.125 s); the destroyed count is then 0, so the next hit (1 of 4) does not breach and the one after (2 of 4) does; the explosion follows 10 s later (200 MJ, cause hit-3). One crew member dies per destroyed cell (3 hits, then the explosion takes the last: 4 of 4). Heated by 1.1 MW for 2000 s, the wreck passes its critical temperature (1206.7 K) with no meltdown and no second explosion |
+| `L1.room.restart` (#189) | An M engine at full throttle with two panels cycles: shutdown at 800 K, restart below 600 K after 1258.7 s (closed form within 1e-4: 1.1e-6 to 3.3e-6 relative here), full thrust again, 4 shutdowns and 3 restarts in 6000 s. An M bridge heated past 350 K loses control at the overheated step ('control-lost', cause 'overheat': **heat decapitates**), regains it at the restart 1412.08 s later (closed form 1412.078 s, 4.0e-6 relative; 'control-restored'), no crew deaths |
+
+The locked `L1.bridge.control` lists the law "decapitation only by
+destruction"; that text is **superseded by #185 (6)** (an overheated or
+switched-off bridge gives no control), which `L1.room.restart` now locks.
+The `L1.reactor.scram` case started at 600 K sits exactly on the plant
+hot threshold (#177); its lock stays (#189 (9)).
 
 Honest reading. Strong: the radiator cooling (Euler against the T⁻³
 closed form over five temperatures and six tiers), the radiator's fixed
@@ -714,7 +728,7 @@ radiated power at 1e-6 in every case and the temperature in the fast
 cases (time constants under about 1100 s), as #187 (3) intends), the decay heat and the
 meltdown time (an exponential integrated per step against the logarithmic
 closed form), the breach threshold tested exactly at 2 of 4, the heat
-books and event fields checked in all 196 cases, and the tier sweeps.
+books and event fields checked in all 199 cases, and the tier sweeps.
 Close restatements of their formulas: the engine, the shield generator's
 rates, the beam bay's rates, the turret's counts and the magazine's
 energies; their value is locking the rules. **Caveat on the one-sided

@@ -11,37 +11,39 @@ with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#18
 
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
-| `L0.beam.burn.v2` | 2f23b6ac | PASS | d0b53db6 | ff1b7fb | none | `node tools/m0.js run L0.beam.burn.v2` |
-| `L0.beam.burn` | 908664be | PASS | 231d1090 | ff1b7fb | none | `node tools/m0.js run L0.beam.burn` |
-| `L0.beam.falloff` | b45fa911 | PASS | 0c7856c4 | ff1b7fb | none | `node tools/m0.js run L0.beam.falloff` |
-| `L0.blast.surface.v2` | 188c60ea | PASS | 943c8b42 | ff1b7fb | none | `node tools/m0.js run L0.blast.surface.v2` |
-| `L0.blast.surface` | f9738b67 | PASS | 4450a2b8 | ff1b7fb | none | `node tools/m0.js run L0.blast.surface` |
-| `L0.kinetic.overpen` | 810e8a2c | PASS | f75b211e | ff1b7fb | none | `node tools/m0.js run L0.kinetic.overpen` |
-| `L0.kinetic.penetration.v2` | de60d649 | PASS | cedce90a | ff1b7fb | none | `node tools/m0.js run L0.kinetic.penetration.v2` |
-| `L0.kinetic.penetration` | 8228497c | PASS | 665a79b8 | ff1b7fb | none | `node tools/m0.js run L0.kinetic.penetration` |
-| `L0.shield.kinetic.v2` | e27d5251 | PASS | ad19da8b | ff1b7fb | none | `node tools/m0.js run L0.shield.kinetic.v2` |
-| `L0.shield.kinetic` | 908651e6 | PASS | 9707317d | ff1b7fb | none | `node tools/m0.js run L0.shield.kinetic` |
-| `L0.shield.point.v2` | 48511feb | PASS | a82d6757 | ff1b7fb | none | `node tools/m0.js run L0.shield.point.v2` |
-| `L0.shield.point` | d83b6f9a | PASS | 4812ede3 | ff1b7fb | none | `node tools/m0.js run L0.shield.point` |
+| `L0.beam.burn.v2` | 2f23b6ac | PASS | d0b53db6 | 12f2aaa | none | `node tools/m0.js run L0.beam.burn.v2` |
+| `L0.beam.burn` | 908664be | PASS | 231d1090 | 12f2aaa | none | `node tools/m0.js run L0.beam.burn` |
+| `L0.beam.falloff` | b45fa911 | PASS | 0c7856c4 | 12f2aaa | none | `node tools/m0.js run L0.beam.falloff` |
+| `L0.blast.surface.v2` | 188c60ea | PASS | 943c8b42 | 12f2aaa | none | `node tools/m0.js run L0.blast.surface.v2` |
+| `L0.blast.surface` | f9738b67 | PASS | 4450a2b8 | 12f2aaa | none | `node tools/m0.js run L0.blast.surface` |
+| `L0.kinetic.overpen` | 810e8a2c | PASS | f75b211e | 12f2aaa | none | `node tools/m0.js run L0.kinetic.overpen` |
+| `L0.kinetic.penetration.v2` | de60d649 | PASS | cedce90a | 12f2aaa | none | `node tools/m0.js run L0.kinetic.penetration.v2` |
+| `L0.kinetic.penetration` | 8228497c | PASS | 665a79b8 | 12f2aaa | none | `node tools/m0.js run L0.kinetic.penetration` |
+| `L0.shield.kinetic.v2` | e27d5251 | PASS | ad19da8b | 12f2aaa | none | `node tools/m0.js run L0.shield.kinetic.v2` |
+| `L0.shield.kinetic` | 908651e6 | PASS | 9707317d | 12f2aaa | none | `node tools/m0.js run L0.shield.kinetic` |
+| `L0.shield.point.v2` | 48511feb | PASS | a82d6757 | 12f2aaa | none | `node tools/m0.js run L0.shield.point.v2` |
+| `L0.shield.point` | d83b6f9a | PASS | 4812ede3 | 12f2aaa | none | `node tools/m0.js run L0.shield.point` |
 
 ## L1
 
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
-| `L1.beambay.heat` | 503836e4 | PASS | 36707521 | ff1b7fb | none | `node tools/m0.js run L1.beambay.heat` |
-| `L1.bridge.control` | afe034f9 | PASS | 71a858eb | ff1b7fb | none | `node tools/m0.js run L1.bridge.control` |
-| `L1.engine.thrust` | 9be928bb | PASS | 62d00ad7 | ff1b7fb | none | `node tools/m0.js run L1.engine.thrust` |
-| `L1.magazine.cookoff` | dac098d6 | PASS | ce8eb1a8 | ff1b7fb | none | `node tools/m0.js run L1.magazine.cookoff` |
-| `L1.quarters.repair` | 2ad503bc | PASS | 60099027 | ff1b7fb | none | `node tools/m0.js run L1.quarters.repair` |
-| `L1.radiator.cooling` | d33a4cfc | PASS | c524d7c4 | ff1b7fb | none | `node tools/m0.js run L1.radiator.cooling` |
-| `L1.radiator.steady.v2` | 686ca4b0 | PASS | 93cd6303 | ff1b7fb | none | `node tools/m0.js run L1.radiator.steady.v2` |
-| `L1.radiator.steady` | 9b5a31a3 | FAIL, WITHDRAWN (successor `L1.radiator.steady.v2`, #185) | a584cd21 | ff1b7fb | none | `node tools/m0.js run L1.radiator.steady` |
-| `L1.reactor.breach` | 3c6f9aa0 | PASS | 2aef6bad | ff1b7fb | none | `node tools/m0.js run L1.reactor.breach` |
-| `L1.reactor.power` | 9b8cc517 | PASS | a9209af6 | ff1b7fb | none | `node tools/m0.js run L1.reactor.power` |
-| `L1.reactor.scram` | a9f1c96a | PASS | 673931c3 | ff1b7fb | none | `node tools/m0.js run L1.reactor.scram` |
-| `L1.room.thresholds` | 44b1338a | PASS | 71457c3f | ff1b7fb | none | `node tools/m0.js run L1.room.thresholds` |
-| `L1.shield.generator` | cf7ea187 | PASS | 014441cf | ff1b7fb | none | `node tools/m0.js run L1.shield.generator` |
-| `L1.turret.fire` | 6687eaa4 | PASS | e498ae2f | ff1b7fb | none | `node tools/m0.js run L1.turret.fire` |
+| `L1.beambay.heat` | 503836e4 | PASS | 36707521 | 12f2aaa | none | `node tools/m0.js run L1.beambay.heat` |
+| `L1.bridge.control` | afe034f9 | PASS | 71a858eb | 12f2aaa | none | `node tools/m0.js run L1.bridge.control` |
+| `L1.engine.thrust` | 9be928bb | PASS | 62d00ad7 | 12f2aaa | none | `node tools/m0.js run L1.engine.thrust` |
+| `L1.magazine.cookoff` | dac098d6 | PASS | ce8eb1a8 | 12f2aaa | none | `node tools/m0.js run L1.magazine.cookoff` |
+| `L1.quarters.repair` | 2ad503bc | PASS | 60099027 | 12f2aaa | none | `node tools/m0.js run L1.quarters.repair` |
+| `L1.radiator.cooling` | d33a4cfc | PASS | c524d7c4 | 12f2aaa | none | `node tools/m0.js run L1.radiator.cooling` |
+| `L1.radiator.steady.v2` | 686ca4b0 | PASS | 93cd6303 | 12f2aaa | none | `node tools/m0.js run L1.radiator.steady.v2` |
+| `L1.radiator.steady` | 9b5a31a3 | FAIL, WITHDRAWN (successor `L1.radiator.steady.v2`, #185) | a584cd21 | 12f2aaa | none | `node tools/m0.js run L1.radiator.steady` |
+| `L1.reactor.breach` | 3c6f9aa0 | PASS | 2aef6bad | 12f2aaa | none | `node tools/m0.js run L1.reactor.breach` |
+| `L1.reactor.power` | 9b8cc517 | PASS | a9209af6 | 12f2aaa | none | `node tools/m0.js run L1.reactor.power` |
+| `L1.reactor.scram` | a9f1c96a | PASS | 673931c3 | 12f2aaa | none | `node tools/m0.js run L1.reactor.scram` |
+| `L1.repair.breach` | 75b5992c | PASS | 5cbdde8f | 12f2aaa | none | `node tools/m0.js run L1.repair.breach` |
+| `L1.room.restart` | a9cf26b9 | PASS | ea075c7d | 12f2aaa | none | `node tools/m0.js run L1.room.restart` |
+| `L1.room.thresholds` | 44b1338a | PASS | 71457c3f | 12f2aaa | none | `node tools/m0.js run L1.room.thresholds` |
+| `L1.shield.generator` | cf7ea187 | PASS | 014441cf | 12f2aaa | none | `node tools/m0.js run L1.shield.generator` |
+| `L1.turret.fire` | 6687eaa4 | PASS | e498ae2f | 12f2aaa | none | `node tools/m0.js run L1.turret.fire` |
 
 ## L2
 

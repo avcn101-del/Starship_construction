@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.radiator.steady.v2",
-  "code": "ff1b7fb",
+  "code": "12f2aaa",
   "criterionHash": "686ca4b0",
   "lockedHash": "686ca4b0",
   "runHash": "93cd6303",
-  "dataHash": "c55fa4fa",
+  "dataHash": "e7b13ff5",
   "rowsHash": "2bd97fcb",
   "rows": [
     {

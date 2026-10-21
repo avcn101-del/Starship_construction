@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.beam.burn.v2",
-  "code": "ff1b7fb",
+  "code": "12f2aaa",
   "criterionHash": "2f23b6ac",
   "lockedHash": "2f23b6ac",
   "runHash": "d0b53db6",
-  "dataHash": "c55fa4fa",
+  "dataHash": "e7b13ff5",
   "rowsHash": "c326b4ff",
   "rows": [
     {

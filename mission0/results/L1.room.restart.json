@@ -1,0 +1,153 @@
+{
+  "id": "L1.room.restart",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.room.restart",
+  "code": "12f2aaa",
+  "criterionHash": "a9cf26b9",
+  "lockedHash": "a9cf26b9",
+  "runHash": "ea075c7d",
+  "dataHash": "e7b13ff5",
+  "rowsHash": "4301b3f6",
+  "rows": [
+    {
+      "case": {
+        "part": "engine",
+        "n": 2,
+        "duration": 6000
+      },
+      "expected": {
+        "hot": 600,
+        "n": 2,
+        "emissivity": 0.9,
+        "sigma": 5.670374e-8,
+        "area": 25,
+        "C": 3600000,
+        "tolerance": 0.0001,
+        "thrust": 8000000,
+        "minShutdowns": 2
+      },
+      "actual": {
+        "cycles": [
+          {
+            "shutdown": 695.7166666666667,
+            "Ts": 800.008516360452,
+            "restart": 1954.45,
+            "Tr": 599.9994956372265,
+            "Tbefore": 600.0010266486852
+          },
+          {
+            "shutdown": 2261.65,
+            "Ts": 800.0020999700076,
+            "restart": 3520.366666666667,
+            "Tr": 599.9989965305747,
+            "Tbefore": 600.0005275369391
+          },
+          {
+            "shutdown": 3827.5666666666666,
+            "Ts": 800.0017344540213,
+            "restart": 5086.283333333333,
+            "Tr": 599.9988808817726,
+            "Tbefore": 600.0004118869566
+          },
+          {
+            "shutdown": 5393.483333333334,
+            "Ts": 800.0016497596955,
+            "restart": null
+          }
+        ],
+        "order": [
+          "shutdown",
+          "restart",
+          "shutdown",
+          "restart",
+          "shutdown",
+          "restart",
+          "shutdown"
+        ],
+        "offAfter": true,
+        "onAfter": [
+          8000000,
+          8000000,
+          8000000
+        ],
+        "books": {
+          "generated": 4851950000,
+          "radiated": 3463773633.865056,
+          "stored": 1388176366.1349244,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "bridge",
+        "n": 2,
+        "P": 1100000,
+        "after": 10
+      },
+      "expected": {
+        "hot": 330,
+        "n": 2,
+        "emissivity": 0.9,
+        "sigma": 5.670374e-8,
+        "area": 25,
+        "C": 2400000,
+        "tolerance": 0.0001,
+        "lostCause": "overheat",
+        "deaths": 0
+      },
+      "actual": {
+        "overheated": 122.8,
+        "restart": 1534.8833333333332,
+        "Ts": 350.0054194505401,
+        "Tr": 329.9999041238068,
+        "controlOk": true,
+        "controlAtEnd": true,
+        "lost": [
+          {
+            "t": 122.8,
+            "cause": "overheat"
+          }
+        ],
+        "restored": [
+          {
+            "t": 1534.8833333333332,
+            "cause": "restart"
+          }
+        ],
+        "deaths": 0,
+        "books": {
+          "generated": 148359999.99999404,
+          "radiated": 51663369.6824352,
+          "stored": 96696630.31755352,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

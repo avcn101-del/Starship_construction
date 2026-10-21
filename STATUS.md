@@ -27,7 +27,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 | PR | Branch | State |
 |---|---|---|
-| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened 2026-10-21 03:33 UTC: 12 PASS, 1 recorded FAIL (`L1.radiator.steady`, a spec error, #185), 24/24 VERIFIED. Physics checker: 12 match, 1 blocking (the same spec error), answered in #187. Fixes of #185/#187 landed at `734064e`: 25 VERIFIED + 1 WITHDRAWN. Reviewer at `734064e`: 2 blocking (destroyed count after repair; lock-line bypass), 7 not blocking, all answered in #189; engineer fixing #189 now; reviewer re-check after |
+| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened 2026-10-21 03:33 UTC. Physics checker: 12 match, 1 blocking (spec error), answered in #187. Reviewer at `734064e`: 2 blocking, 7 not blocking, answered in #189. **#189 landed** by the engineer (session `session_014jtbGrQdvSycQU8E6stAeY`): destroyed count after repair, no second explosion, turret on accumulated time, `control-restored`, lock-line and folder rule, `withdrawn.json` checks, data hash over `TIERS`/`BASE_EDGE`; new `L1.repair.breach` and `L1.room.restart` locked and PASS. `regress`: 27 VERIFIED + 1 WITHDRAWN (L0 12/12, L1 15 + 1). Two questions for the designer in the PR (destroyed until fully repaired; radiators on the inside bridge in row 15). Waits for the reviewer re-check on the final head |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -53,7 +53,8 @@ list above; a veto is a message in the chat.
 
 ## Next steps
 
-1. The engineer lands #189 on `m0/l1-rooms`.
+1. ~~The engineer lands #189 on `m0/l1-rooms`.~~ Done (PR #5's latest
+   comment); the lead designer answers its two questions.
 2. A reviewer (sonnet: Fable is out of limit, and not the engineer's opus)
    re-checks the final head against #189 and the earlier findings.
 3. Lead designer merges PR #5 when no blocking finding remains (#180);
@@ -90,6 +91,7 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Physics checker, L1 | session_01GmQGV34nzAo394dCthy28J | sonnet-5-5 | 1.22 |
 | Engineer, L1 fixes (#185, #187) | session_01TQvnSvo7qZzJ4HBuas89nY | opus-5-5 | 2.65 |
 | Reviewer, L1 | session_01RYgtwmNTAS4VRWxefHDetg | sonnet-5-5 | 1.19 |
+| Engineer, L1 fixes (#189) | session_014jtbGrQdvSycQU8E6stAeY | opus-5-5 | not visible to the session |
 
 Sessions have reported a **seven-day usage limit warning**.
 
