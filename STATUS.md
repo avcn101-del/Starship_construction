@@ -68,6 +68,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 | PR | Branch | State |
 |---|---|---|
 | #42 Feel prototype | `proto/feel` → `main` | head `c1282d8`; published; light reviewer `session_01FHeYxhXNqrCLrjyT1kpwia` (sonnet) running; check-in `trig_012TJoAPzegxXek1NmWJiovT` 15:28 UTC |
+| (to come) Path model | `m0/path` → `main` | engineer `session_01GVBq5ohYZDDfg15HAkHm71` (opus) building §13i; check-in `trig_01Atbbanc5CbbZ3EbNEGYuXt` 15:58 UTC |
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
