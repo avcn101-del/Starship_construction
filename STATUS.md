@@ -6,7 +6,11 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#202, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#203, current design in `DESIGN.md`.
+- **Sense check closed (#203, the owner)**: engines are self-fuelled
+  torches, beams are millimetre-wave masers, recoil is kept but expected to
+  matter only for the spinal railgun, kinetic damage and repair get the D
+  pass before L3.
 - **L2 in progress** (#192–#201, `DESIGN.md` §13d): PR #15 on
   `m0/l2-clusters` built rows 1–12: 10 PASS, 2 FAIL on the lead designer's
   own specification errors (#201 (2)). Engineer cost 11.48 USD.
@@ -80,24 +84,24 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Awaiting the owner
 
-Four sense-check items (#202 A–D), each with a recommended answer:
-- **(A) Engines**: self-fuelled torches, fuel not tracked; electricity
-  runs their auxiliaries. Needed before L3 (thrust and mass).
-- **(B) Beams**: millimetre-wave masers instead of optical lasers.
-- **(C) Recoil**: kept in the physics, expected to matter only for the
-  spinal railgun; L3 measures it, E4 may cut it.
-- **(D) Kinetic damage and repair**: real naval calibres per tier, partial
-  damage per hit, repair of damaged (not destroyed) cells. Needed before L4.
+Nothing. The owner approved the four sense-check proposals (#203 A–D).
 
 ## Next steps
 
-1. An engineer session on `m0/l2-clusters` lands #200/#201: the
-   coolant-loop rule, life support, the v2 scenarios (rows 1b, 2b, 3b,
-   12b, 16) and the heat sink (rows 13, 14), withdrawals under #188/#200.
+1. The engineer session `session_011dfRdXfFAYsLmAY2C9a6Qg` on
+   `m0/l2-clusters` lands #200/#201: the coolant-loop rule, life support,
+   the v2 scenarios (rows 1b, 2b, 3b, 12b, 16) and the heat sink (rows 13,
+   14), withdrawals under #188/#200.
 2. Physics checker blind on the pull request, then the reviewer; fixes;
    the lead designer merges when no blocking finding remains (#180).
-3. Then the L3 plan (minimal ship: rigid body, CoM, MoI, recoil spin,
-   split momentum, control graph, SCRAM in a fragment, validation).
+3. **The D pass** (#203 D), its own branch after L2 merges: realistic round
+   sizes and re-approved L0 ranges, partial kinetic damage per hit, repair
+   of damaged cells only; superseded L0/L1 scenarios withdrawn with
+   successors. The lead designer specifies it with whole-run estimates.
+4. Then the L3 plan (minimal ship: rigid body, cell mass = heat capacity /
+   c_p (#202 E), engine thrust re-tuned for torches (#203 A), CoM, MoI,
+   recoil measured (#203 C), split momentum, control graph, SCRAM in a
+   fragment, validation).
 
 ## Scheduled tasks
 
