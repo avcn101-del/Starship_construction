@@ -10,7 +10,7 @@ export default {
   tolerance: 'energy relative 1e-9 of E; ordering and symmetry within 1e-9 of E',
   criterion: 'vented = (1 - c) E; absorbed + escaped + vented = E; damaged and destroyed reported apart (destroyed <= damaged); damage non-increasing with grid (Manhattan) distance from the burst cell: every cell at distance d + 1 has absorbed no more than every cell at distance d; the damaged region is symmetric about the burst row while it does not reach a plate edge other than the open face (#169, #176)',
   tunable: ['he.blastEnergy', 'he.coupling', 'armour.blastResistance'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '188c60ea' },
   cases(ctx) {
     const c = ctx.params.he.coupling;
     const out = [];

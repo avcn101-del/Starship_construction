@@ -11,7 +11,7 @@ export default {
   tolerance: 'one-sided: none beyond one step',
   criterion: 'with t = Q / (P f(d)) and the closed-form f(d): t <= actual time < t + dt; heat >= Q and heat - Q < P f(d) dt (#138, #176)',
   tunable: ['beam.power', 'beam.focusRange', 'armour.burnEnergy'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '2f23b6ac' },
   cases(ctx) {
     const zR = ctx.params.beam.focusRange.value;
     return [0, 0.25, 0.5, 1, 1.5, 2.5].map((ranges) => ({ d: ranges * zR }));

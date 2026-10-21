@@ -13,7 +13,7 @@ export default {
   tolerance: 'relative 1e-9',
   criterion: 'absorbed = min(P, B g(r)) t with g(r) = 1 / (1 + (r / radius)^2); passed = P t - absorbed (#99, #176); no heat invariant (#174)',
   tunable: ['shield.budget', 'shield.radius', 'beam.power'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '48511feb' },
   cases(ctx) {
     const radius = ctx.params.shield.radius.value, power = ctx.params.beam.power.value;
     const out = [];

@@ -11,7 +11,7 @@ export default {
   tolerance: 'relative 1e-9',
   criterion: 'depth = s0 / R, where s0 = m v / (pi D^2 / 4) and R is the armour resistance per cell, at every tier and size (#165, #176)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'armour.kineticResistance'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'de60d649' },
   cases(ctx) {
     const out = [];
     for (const tier of Object.keys(ctx.tiers)) for (const size of ['S', 'M', 'L']) out.push({ tier, size });

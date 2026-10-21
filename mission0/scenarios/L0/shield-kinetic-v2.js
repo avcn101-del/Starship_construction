@@ -11,7 +11,7 @@ export default {
   tolerance: 'relative 1e-9; the S round at 1x must stop exactly (velocity 0)',
   criterion: 'ds = min(s0, stop); v1 = v0 (s0 - ds) / s0; energy = m (v0^2 - v1^2) / 2, limited by the buffer (budget x bufferSeconds); with the computed kineticStop (1x) an S round is stopped exactly; an S round is stopped only at >= 1x; for each size the exit velocity is non-increasing as kineticStop rises (#171, #176)',
   tunable: ['shield.kineticStop', 'shield.budget', 'shield.bufferSeconds'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'e27d5251' },
   cases(ctx) {
     const p = ctx.params.shield.kineticStop;
     const sweep = [p.min / p.value, 0.75, 0.9, 1, 1.1, 1.5, p.max / p.value];
