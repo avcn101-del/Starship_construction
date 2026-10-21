@@ -157,7 +157,7 @@ signature, hp (for point defence), fuel, reusable, pilot.
 | Bridge | 2×2 | inside | provides control; little power, **own backup supply** (#147); destroyed: every reactor SCRAMs |
 | Reactor | 2×2, 3×3 | inside | power and much heat; SCRAM on control loss, decay heat; breach when heavily damaged; meltdown when critical |
 | Engine | 2×3 | exhaust on the aft hull, **exhaust must be clear** | a self-fuelled torch (#203 A): thrust from its own fuel, auxiliary power and heat from the ship; exhaust very IR-bright; thrust through the CoM recommended, not required |
-| Magazine | 2×2 | inside | ammunition by contents, fed through walls; explodes by the ammunition left (HE far more than AP) |
+| Magazine | 2×2 | inside | ammunition by contents, fed through walls; explodes by the ammunition left: the propellant dominates, HE adds about a third (#215) |
 | Shield generator | 2×2, 3×3 | inside | shield field; EM-bright while absorbing; absorbing makes heat |
 | Crew quarters | 3×2 | inside | houses crew, sets crew capacity (#60); repair field by surviving cells (#51) |
 | Beam bay | 2×2, 3×3 | one side on the hull | much power, very much heat; its firing window stays open while firing |
