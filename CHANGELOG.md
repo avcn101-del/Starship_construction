@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 — 2026-10-21 — Mission 0 D pass: real round sizes, partial damage, repair (#203 D, #206, #207)
+
+- Data (#206, approved by the lead designer): `kinetic.roundMass` 6 kg
+  (2–20, k=3), `armour.kineticResistance` 2.7e5 × 12^(1/3) (3e5–1.25e6),
+  `room.kineticResistance` 6.75e4 × 12^(1/3) (7e4–3.2e5), both computed
+  exactly in `data.js`; `magazine.capacity` 900 kg (300–3000),
+  `ammo.wallFeed` 0.72 kg/(s·m) (0.24–3.6), `kinetic.chargeEnergy` 6 MJ
+  (2–20 MJ); new `kinetic.hitsToWreck` 3 (1–8, k=0).
+  `shield.kineticStop` stays derived from the S round (#171).
+
 ## 0.3.2 — 2026-10-21 — Mission 0 L2 merged; reviewer answers (#207)
 
 - L2 (`m0/l2-clusters`, PR #15, head `e40d1af`) merged into `main` after
