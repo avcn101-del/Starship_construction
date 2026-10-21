@@ -6,7 +6,9 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#187, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#188, current design in `DESIGN.md`.
+- **E1 amended by the owner (#188)**: a scenario withdrawn for a
+  specification error, with a passing successor, does not block E1.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
   before their first run, all PASS, VERIFIED by independent reviewer and
   physics-checker sessions; 12/12 VERIFIED on `main` (`node tools/m0.js
@@ -43,11 +45,8 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Awaiting the owner
 
-1. **Exit criterion E1 (#164)** says every L0–L6 scenario passes its locked
-   criterion. Should a scenario **withdrawn for a specification error**
-   (locked, recorded FAIL, replaced by a v2 that passes, #187 (8)) count as
-   not blocking E1? Recommended: yes. Until answered, `L1.radiator.steady`
-   counts against E1.
+Nothing. The E1 question was answered (#188). The owner reads the *LD*
+list above; a veto is a message in the chat.
 
 ## Next steps
 
