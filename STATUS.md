@@ -69,7 +69,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| #50 | `ccr-4f9cd066-gv15es` | docs: §13j, #237, CHANGELOG 0.7.2, STATUS; the lead designer merges with the v2 block (#218) |
+| #50 | `ccr-4f9cd066-gv15es` | docs: §13j, #237, #238, CHANGELOG 0.7.2, STATUS; the lead designer merges with the v2 block (#218) |
+| #51 | `proto/v2` (head `4fba090`) | prototype v2 built; reviewer running; nine questions for the lead designer (answered at merge) |
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
@@ -137,11 +138,18 @@ Nothing (the owner chose the spinal beam bay and low-end masses, #234).
 
 ## Next steps
 
-1. **Prototype v2 is being built** (engineer
-   `session_013XH7jici9kFqQf6EJYqURu` on `proto/v2`, started 22:29 UTC;
-   check-in `trig_01Nq4Vw8Y6EqYrxahdj2yMYE` at 23:10 UTC). Then the
-   reviewer (§13j.5), the lead designer merges the v2 block with PR #50
-   and publishes the page (#226); the owner plays it with a changing seed.
+1. **Prototype v2 is built (PR #51)** and published for the owner on the
+   v1 page (https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d, head
+   `4fba090`); the reviewer runs (`session_01EjFiN5BcJedtsbn1K6ucc6`).
+   **The measure contradicts §13j.3**: bow-on at hold 900 the duel ends
+   in 7.1 s with 100 % hits (the lead designer's estimate assumed 1.8 g
+   of dodge that its own facing rule denies a bow-on ship); broadside
+   9–45 s at hold, 38–108 s at open, 12–13 % misses. The engineer found
+   that `Math.sin` / `Math.cos` differ between V8 versions (replay
+   MISMATCH across engines) and patched them in `proto/detmath.js`
+   (fdlibm); the kernel's own sin/cos is a next-kernel-pass item. Its nine
+   questions are answered at merge (a decision row). Then the lead designer
+   merges the v2 block with PR #50; the owner plays with a changing seed.
 2. **Audits (#238, §13b)**: documents (`audit/docs`), physics as one
    system (`audit/physics`) and scenario quality (`audit/scenarios`) run
    now; the process audit is the lead designer's own, from this file's
@@ -211,7 +219,8 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Physics checker, path model | session_01PsqTHfLh2EPTgKeY3KroeR | sonnet-5-5 | 4.08 |
 | Reviewer, path model | session_01D2L2Kyg1bin1QGk1UZQvfW | sonnet-5-5 | 0.59 |
 | Engineer, prototype v2, created on the wrong model and archived after 35 s (the lead designer's error) | session_01Tf9UpKXmBCZJZbj4Rj2s8M | fable-5-1 | 1.12 |
-| Engineer, prototype v2 | session_013XH7jici9kFqQf6EJYqURu | opus-5-5 | running |
+| Engineer, prototype v2 (PR #51) | session_013XH7jici9kFqQf6EJYqURu | opus-5-5 | 11.73 |
+| Reviewer, prototype v2 (PR #51) | session_01EjFiN5BcJedtsbn1K6ucc6 | sonnet-5-5 | running |
 | Docs audit (read-only; report on `audit/docs`, `audit/2026-10-21-docs.md`) | session_01RwaxZTmMVcMs2QbrF8KohP | sonnet-5-5 | running |
 | Physics system audit (read-only; `audit/physics`, `audit/2026-10-21-physics.md`) | session_01VxycQ6zZQf69yMEK5QXyJr | opus-5-5 | running |
 | Scenario quality audit (read-only; `audit/scenarios`, `audit/2026-10-21-scenarios.md`) | session_01Pr1RKAyvUNZpe8ticEBuyF | sonnet-5-5 | running |
