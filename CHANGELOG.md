@@ -27,6 +27,13 @@
   0), whatever its own request; it draws nothing for it. Without routing
   the `powered` flag stays; the bridge keeps its backup. A switched-off
   reactor now routes no power (it already generated none).
+- `tools/m0.js`: a case whose `run()` throws is recorded as a FAIL (its
+  actual value is the error, plus a failing invariant "run() completes in
+  every case") instead of stopping the runner. `L1.repair.breach` throws
+  under the D kernel (its destroyed cell A is never repaired, so it waits
+  for a `cell-repaired` event that never comes); it must stay recorded
+  with a FAIL to be withdrawn (#188). Scenarios that do not throw record
+  exactly as before.
 
 ## 0.3.2 — 2026-10-21 — Mission 0 L2 merged; reviewer answers (#207)
 
