@@ -26,16 +26,24 @@ const LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
 // still fails exactly as recorded.
 const WITHDRAWN_FILE = path.join(ROOT, 'mission0', 'withdrawn.json');
 const WITHDRAWN = new Map((fs.existsSync(WITHDRAWN_FILE) ? JSON.parse(fs.readFileSync(WITHDRAWN_FILE, 'utf8')) : []).map((w) => [w.id, w]));
-/** #188, #189 (6): every entry names a locked scenario, a successor that exists, is locked and is recorded PASS, and a decision #n. */
+/** The scenario that stands for `id`: itself, or the end of its chain of successors when it was withdrawn and its successor withdrawn in turn (#188, #221). */
+function standing(id) {
+  const seen = new Set();
+  while (WITHDRAWN.has(id) && !seen.has(id)) { seen.add(id); id = WITHDRAWN.get(id).successor; }
+  return id;
+}
+/** #188, #189 (6): every entry names a locked scenario, a successor that exists and is locked, a chain of successors that ends in one recorded PASS, and a decision #n. */
 function checkWithdrawn(all) {
   const byId = new Map(all.map((s) => [s.id, s]));
   for (const w of WITHDRAWN.values()) {
-    const s = byId.get(w.id), next = byId.get(w.successor);
+    const s = byId.get(w.id), next = byId.get(w.successor), last = standing(w.successor);
     const problem = !s ? 'the withdrawn scenario does not exist'
       : !s.locked ? 'the withdrawn scenario is not locked'
       : !next ? `its successor ${w.successor} does not exist`
       : !next.locked ? `its successor ${w.successor} is not locked`
-      : (recorded(w.successor) || {}).verdict !== 'PASS' ? `its successor ${w.successor} is not recorded PASS`
+      : WITHDRAWN.has(last) ? `its chain of successors from ${w.successor} loops`
+      : !byId.has(last) || !byId.get(last).locked ? `the last successor ${last} does not exist or is not locked`
+      : (recorded(last) || {}).verdict !== 'PASS' ? `its successor ${last === w.successor ? w.successor : `${w.successor}, through ${last},`} is not recorded PASS`
       : !/^#\d+$/.test(String(w.decision)) ? `decision "${w.decision}" is not a decision number (#n)`
       : null;
     if (problem) throw new Error(`mission0/withdrawn.json, ${w.id}: ${problem}`);
@@ -169,12 +177,9 @@ function recorded(id) {
   const f = path.join(RESULTS, `${id}.json`);
   return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null;
 }
-/** Dependencies not recorded PASS; a withdrawn dependency counts through its successor (#188, #200). */
+/** Dependencies not recorded PASS; a withdrawn dependency counts through its successor, and through that one's successor if it was withdrawn in turn (#188, #200, #221). */
 function unmetDeps(s) {
-  return (s.dependsOn || []).filter((d) => {
-    const w = WITHDRAWN.get(d);
-    return (recorded(w ? w.successor : d) || {}).verdict !== 'PASS';
-  });
+  return (s.dependsOn || []).filter((d) => (recorded(standing(d)) || {}).verdict !== 'PASS');
 }
 function gitState() {
   try {

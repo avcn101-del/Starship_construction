@@ -14,6 +14,9 @@
   blueprint before `enableShip` (#222 (4)); the `fittings` override is gone
   from `js/layout.js` and `js/rooms.js`. `tools/perf.js` takes the
   magazine's and the turret's loads from `data.js` (#222 (3)).
+- `tools/m0.js`: a dependency on a withdrawn scenario, and the check of
+  `mission0/withdrawn.json`, follow a chain of successors to the one that
+  stands (v1 → v2 → v3, #188, #221).
 
 ## 0.5.1 — 2026-10-21 — L3 merged; reviewer answers (#222)
 
