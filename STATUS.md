@@ -46,11 +46,12 @@ None.
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
-| Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session attaches the repo with `add_repo`, runs `node tools/m0.js regress` and `verify` on `main`, reports read-only; push notification to the owner |
+| Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
-The first test firing found that a fresh session starts **without the
-repository** (the scheduled task stores no sources); the prompt now attaches
-it with `add_repo` first. See the sessions table for the second test.
+Tested on 2026-10-21: the first two firings found that a fresh session
+starts **without the repository** and without the `add_repo` tool; the
+third, with a plain `git clone` in the prompt, ran end to end:
+12/12 VERIFIED at `40bfbc5`. Each firing costs about 0.1 USD (sonnet).
 
 ## Sessions so far
 
@@ -63,7 +64,8 @@ it with `add_repo` first. See the sessions table for the second test.
 | Reviewer, fixes and v2 | session_0135xRdTHuFwAefY16Hy5vfu | fable-5-1 | 4.70 |
 | Physics checker, v2 | session_01XqJFVUAYNUWsmcR9Vh8Qur | sonnet-5-5 | 0.80 |
 | Nightly regression, test 1 (no repo) | session_01ApfJTLNkjCfepi7fVjyFW8 | sonnet-5-5 | 0.09 |
-| Nightly regression, test 2 | session_01Md1GQ7LftRREZ1w6sZyMpb | sonnet-5-5 | see the chat |
+| Nightly regression, test 2 (no `add_repo`) | session_01Md1GQ7LftRREZ1w6sZyMpb | sonnet-5-5 | 0.09 |
+| Nightly regression, test 3 (works) | session_01RQvwmFsoF6vu1G5wzQJsnP | sonnet-5-5 | 0.09 |
 
 Sessions have reported a **seven-day usage limit warning**.
 
@@ -84,5 +86,6 @@ Sessions have reported a **seven-day usage limit warning**.
 - Lock in a commit of its own, before the first canonical run.
 - A stacked pull request is **not** retargeted automatically when its base
   branch is merged but kept: retarget it to `main` before merging.
-- A scheduled task's fresh session has no repository: its prompt must
-  attach one with `add_repo` and clone it before anything else.
+- A scheduled task's fresh session has no repository and no `add_repo`
+  tool: its prompt must `git clone` the repository first (the container's
+  git proxy serves it without a token).
