@@ -670,16 +670,21 @@ blast, burn and shield-kinetic v2 verdicts hold only once the owner
 approves them. The shield buffer still never binds (a round costs at most
 0.53 MJ of 10 MJ).
 
-**L1 one room alone** (2026-10-21; 13 scenarios, 174 cases, locked before
-their first canonical run; 12 PASS, `L1.radiator.steady` FAILs; T1, size M,
-SI; constants of §13c.3. The first run also failed 2 of 20 cases of
-`L1.quarters.repair` on a kernel bug, a repaired cell reported one step
-early; the kernel was fixed and L1 re-run, the criterion untouched):
+**L1 one room alone** (2026-10-21; 14 scenarios, 196 cases, each locked
+before its first canonical run; 13 PASS and VERIFIED, `L1.radiator.steady`
+FAILs and is **WITHDRAWN** for a specification error (#185, #187 (8)),
+replaced by `L1.radiator.steady.v2`; T1, size M, SI; constants of §13c.3.
+The first run also failed 2 of 20 cases of `L1.quarters.repair` on a
+kernel bug, a repaired cell reported one step early; the kernel was fixed
+and L1 re-run, the criterion untouched. All L0 and L1 records were
+re-recorded when the data hash widened to `PARAMS`, `FIXED` and `ROOMS`
+(#185 (9)); only `dataHash` and `code` moved):
 
 | Scenario | What the numbers say |
 |---|---|
 | `L1.radiator.cooling` | An idle M turret with one panel cools from 1000 K to 970.0 K in 60 s (two panels: faster, per n); at 400 K it loses under 1 K. The stepped temperature matches the T⁻³ closed form within 1e-3 at 400–1200 K and T1–T6 (T6 cools slowest: C grows k = 3, A k = 2); radiated + heat left = initial heat to 1e-9 |
-| `L1.radiator.steady` | **FAIL.** Only one case lies below a crewed room's critical (0.1 MW, 4 panels, T_ss = 374.1 K): after 3600 s from rest the room is at 351.8 K, radiating 78.1 kW of 100 kW. Its time constant C T_ss / (4P) is about 2200 s, so one hour is not "steady" to 1e-3; the formula is not contradicted, the run is too short |
+| `L1.radiator.steady` | **FAIL, WITHDRAWN** (successor `L1.radiator.steady.v2`, #185; listed in `mission0/withdrawn.json`, its lock and FAIL kept). Only one case lies below a crewed room's critical (0.1 MW, 4 panels, T_ss = 374.1 K): after 3600 s from rest the room is at 351.8 K, radiating 78.1 kW of 100 kW. Its time constant C T_ss / (4P) is about 2200 s, so one hour is not "steady" to 1e-3; the formula is not contradicted, the run is too short |
+| `L1.radiator.steady.v2` | An idle M beam bay (plant class, switched off), 11 (P, n) pairs with T_ss below 1000 K (2 MW on one panel, 1119 K, is out): T_ss from 374.1 K (0.1 MW, 4 panels) to 940.9 K (1 MW on 1, 2 MW on 2). **(a)** Started at T_ss, the room holds it for 600 s with a largest deviation of **exactly 0** in every case, and radiates P (100 kW to 2 MW) with IR brightness = P to 1e-6. **(b)** From rest, the temperature rises in every one of the 216 000 steps, never passes T_ss, and the gap shrinks every step; after 3600 s it is 22.8% short at 0.1 MW on one panel (time constant ~3200 s) and 5.7e-7 short at 2 MW on four (~240 s); the smallest single-step rise is 3.2e-8 K, far above float resolution |
 | `L1.room.thresholds` | Under 1.1 MW, all nine rooms cross hot, overheated and critical in that order at C (T_x − T_rest) / P, one-sided: a crewed 2×2 room is hot at 87.3 s and critical at 196.4 s, a plant room critical at 1549 s. Each shuts down at overheated; at critical its crew die (bridge 4, reactor 4, engine 2, magazine 2, shield 2, quarters 18, beam bay 3, turret 3, hold 0); the full HE magazine cooks off (375 MJ) and the reactor melts down (200 MJ), cause 'heat' |
 | `L1.reactor.power` | Delivered = d P exactly; heat = d P; an M reactor alone at full overheats at 61.2 s (122.4 s at half, 244.8 s at a quarter; T6 367.2 s, since C grows faster than P); in the next step it delivers 0 and decay heat has begun (f h d P τ (1 − e^(−dt/τ)) to 1e-9); at d = 0 it stays at 290 K |
 | `L1.reactor.scram` | A control cut stops delivery within one step (event cause 'control-loss'); decay heat adds 81 / 796 / 928 MJ by 60 / 900 / 1200 s from full; SCRAMmed at 600 K the reactor melts down at 1291.6 s (21.5 min) with a 200 MJ explosion; from rest it peaks near 815 K (it does overheat) and never melts down; an idle reactor gets no decay heat |
@@ -693,27 +698,43 @@ early; the kernel was fixed and L1 re-run, the criterion untouched):
 | `L1.beambay.heat` | Draw 12.5 MW for a 5 MW beam, 7.5 MW of heat: hot at 99.2 s, shut down at 163.2 s, after which beam and draw are 0 ('beam-stopped', cause 'heat'); T6 979.2 s; unpowered no beam |
 
 Honest reading. Strong: the radiator cooling (Euler against the T⁻³
-closed form over five temperatures and six tiers), the decay heat and the
+closed form over five temperatures and six tiers), the radiator's fixed
+point (v2: at T_ss the per-step imbalance P − nεσA·T_ss⁴ is below the
+float resolution of the stored heat, so the temperature does not move at
+all; a kernel area or emissivity off by 1e-5 would fail it, through the
+radiated power at 1e-6 in every case and the temperature in the fast
+cases (time constants under about 1100 s), as #187 (3) intends), the decay heat and the
 meltdown time (an exponential integrated per step against the logarithmic
 closed form), the breach threshold tested exactly at 2 of 4, the heat
-books and event fields checked in all 174 cases, and the tier sweeps.
+books and event fields checked in all 196 cases, and the tier sweeps.
 Close restatements of their formulas: the engine, the shield generator's
 rates, the beam bay's rates, the turret's counts and the magazine's
 energies; their value is locking the rules. **Caveat on the one-sided
-times**: many cases the plan lists land exactly on a whole number of
-steps (61.2 s = 3672 steps, 50 s of repair, 960 s for the bridge), so 18
-of the 96 one-sided times come out at expected + dt and 5 a rounding error
-below expected; they pass only through a 1e-9 relative slack on both
-bounds, i.e. the window is effectively closed there. Signals for L2 and
-the designer: (1) `L1.radiator.steady` needs a longer run, a start near
-T_ss, or a criterion on the approach; (2) a turret firing freely
-overheats at 16 min and shuts itself down, so its own heat never reaches
-critical (the §13c.3 reading "crew cooked after 24 min" ignores the
-shutdown); (3) a reactor SCRAMmed at full from rest still crosses
-overheated (815 K peak): a cold SCRAM is safe from meltdown but not from
-a shutdown event; (4) a bridge alone overheats in 24 min on its own draw
-and, shut down, gives no control: unless L2 cools it, heat can decapitate;
-(5) crewed rooms radiate almost nothing, so their cooling is all L2.
+times** (#185 (2)): many cases the plan lists land exactly on a whole
+number of steps, so **19 of the 96** one-sided times pass only through the
+1e-9 relative float slack on their bounds, i.e. the window is effectively
+closed there (the earlier count of 18 + 5 was wrong; the 19 were found by
+evaluating `expected <= actual < expected + dt` without slack on every
+call, the command is in PR #5). At expected + dt (14): `L1.reactor.power`
+T1 at full (61.2 s); `L1.bridge.control` powered and cut (960 s);
+`L1.quarters.repair` c = 6 at 0, 0.5, 1 radius (50, 62.5, 100 s), c = 3
+at 0, 0.5, 2, 4 radii (100, 125, 500, 1700 s), c = 1 at 0.5, 1, 2, 4 radii
+(375, 600, 1500, 5100 s). One rounding error below expected (5):
+`L1.reactor.power` T1 at half and T3 at full (122.4 s); `L1.beambay.heat`
+T2, T4, T6 (244.8, 489.6, 979.2 s). From L2 on no case lands on a whole
+number of steps unless it tests that (#185 (2)). Signals for L2 and the
+designer: (1) `L1.radiator.steady` is withdrawn and its successor passes;
+(2) a turret firing freely overheats at 16 min and shuts itself down, so
+its own heat never reaches critical (#185 (7)); (3) a reactor SCRAMmed at
+full from rest still crosses overheated (815 K peak) and does not melt
+down, as intended (#185 (8)); (4) a bridge alone overheats in 24 min on
+its own draw and, shut down, gives no control: heat can decapitate
+(#185 (6)); (5) crewed rooms radiate almost nothing, so their cooling is
+all L2; (6) **an overheated reactor without wall cooling always melts
+down** (#187 (5)): an M reactor that overheats at full power has 1.26 GJ
+of decay heat to come against 0.48 GJ of margin to critical, so heat
+discipline must act before overheated (#18b), and L2 measures whether
+conduction through its walls to radiator rooms saves it.
 
 ## 17. Open questions
 

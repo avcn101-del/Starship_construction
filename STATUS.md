@@ -25,7 +25,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 | PR | Branch | State |
 |---|---|---|
-| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened 2026-10-21 03:33 UTC: 12 PASS, 1 recorded FAIL (`L1.radiator.steady`, a spec error, #185), 24/24 VERIFIED; physics checker running; engineer fixes of #185 running on the same branch; reviewer after the fixes |
+| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | #185 and #187 landed by the engineer-fixes session: data hash over `PARAMS`, `FIXED`, `ROOMS`; railgun plant class; `mission0/withdrawn.json` and WITHDRAWN in verify/regress/ledger; `L1.radiator.steady.v2` locked and PASS (22 cases). `regress`: 25 VERIFIED + 1 WITHDRAWN (L0 12/12, L1 13 + 1). Waits for the reviewer on the final head. **#187 is in open PR #7, not yet on `main`**: the branch implements it but does not carry its `DECISIONS.md` row until #7 merges and `main` is merged in again |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -44,9 +44,9 @@ message in the chat.
 
 ## Next steps
 
-1. Physics checker posts its blind derivation and comparison on PR #5;
-   the engineer-fixes session lands #185 on `m0/l1-rooms`.
-2. Lead designer starts the **reviewer** on the final head.
+1. ~~The engineer-fixes session lands #185 and #187 on `m0/l1-rooms`.~~
+   Done (see PR #5's latest comment). Merge PR #7 (#187) into `main`.
+2. Lead designer starts the **reviewer** on the final head of PR #5.
 3. Engineer fixes blocking findings; lead designer merges when none remain
    (#180); `STATUS.md` and `DESIGN.md` §16 updated.
 4. Before L2: resolve **shield budget double counting** (#170); add the
@@ -79,7 +79,7 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Nightly regression, test 3 (works) | session_01RQvwmFsoF6vu1G5wzQJsnP | sonnet-5-5 | 0.09 |
 | Engineer, L1 (PR #5) | session_01NEZ3dFYvXRDcUQJWexkacC | opus-5-5 | 6.65 |
 | Physics checker, L1 | session_01GmQGV34nzAo394dCthy28J | sonnet-5-5 | running |
-| Engineer, L1 fixes (#185) | see below | opus-5-5 | running |
+| Engineer, L1 fixes (#185, #187) | session_01TQvnSvo7qZzJ4HBuas89nY | opus-5-5 | not visible to the session |
 
 Sessions have reported a **seven-day usage limit warning**.
 

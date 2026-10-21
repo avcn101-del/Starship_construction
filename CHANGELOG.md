@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.2.1 — 2026-10-21 — L1 answers #185 and #187 landed
+
+- `tools/m0.js`: the data hash of a record covers `PARAMS`, `FIXED` and
+  `ROOMS` (#185 (9)); every L0 and L1 record re-recorded, only `dataHash`
+  and `code` moved (criterion, results and run() hashes unchanged).
+- `ROOMS.railgun.thermalClass` is `'plant'` (#185 (3)).
+- Withdrawn scenarios (#187 (8)): `mission0/withdrawn.json` lists a
+  scenario withdrawn for a specification error with its successor and
+  decision; `verify` and `regress` report it as WITHDRAWN while it still
+  fails exactly as recorded (any other difference is a MISMATCH);
+  `regress` includes it; the ledger names the successor. First entry:
+  `L1.radiator.steady` → `L1.radiator.steady.v2` (#185).
+- New `L1.radiator.steady.v2` (#185 (1)), locked before its first
+  canonical run: 22 cases, PASS. No kernel change (`addRoom` already takes
+  a start temperature).
+- Results: L0 12/12 VERIFIED; L1 13 VERIFIED + 1 WITHDRAWN.
+- `DESIGN.md` §16: the v2 numbers, the withdrawal, the 19 one-sided times
+  that pass only through the 1e-9 slack, named (the earlier count of
+  18 + 5 was wrong), and the #187 (5) signal for L2.
+
 ## 0.2.0 — 2026-10-21 — Mission 0 L1: one room alone
 
 - Process items of #184: from L1 the lock hash covers the whole scenario

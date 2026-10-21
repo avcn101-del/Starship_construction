@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.room.thresholds",
-  "code": "b3e8f75",
+  "code": "ff1b7fb",
   "criterionHash": "44b1338a",
   "lockedHash": "44b1338a",
   "runHash": "71457c3f",
-  "dataHash": "6a6ff9ca",
+  "dataHash": "c55fa4fa",
   "rowsHash": "b79680fd",
   "rows": [
     {
