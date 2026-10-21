@@ -6,7 +6,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#186, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#187, current design in `DESIGN.md`.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
   before their first run, all PASS, VERIFIED by independent reviewer and
   physics-checker sessions; 12/12 VERIFIED on `main` (`node tools/m0.js
@@ -25,7 +25,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 | PR | Branch | State |
 |---|---|---|
-| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened 2026-10-21 03:33 UTC: 12 PASS, 1 recorded FAIL (`L1.radiator.steady`, a spec error, #185), 24/24 VERIFIED; physics checker running; engineer fixes of #185 running on the same branch; reviewer after the fixes |
+| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened 2026-10-21 03:33 UTC: 12 PASS, 1 recorded FAIL (`L1.radiator.steady`, a spec error, #185), 24/24 VERIFIED. Physics checker done: 12 match, 1 blocking (the same spec error), 6 non-blocking, answered in #187. Engineer fixes of #185 and #187 running (`session_01TQvnSvo7qZzJ4HBuas89nY`); reviewer after the fixes |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -36,17 +36,24 @@ Updated 2026-10-21 by the lead designer chat (session
   the size rule, crew rounding, the kernel interpretations, the data hash
   covering `FIXED` and `ROOMS`).
 - #186: order of checks on L1 and the cost so far (6.65 USD engineer).
+- #187: answers to the physics checker (size rule enters the kernel at L2;
+  a reactor keeps decay heat after an overheat, so without wall cooling it
+  always melts down, a signal for L2; withdrawn scenarios listed in
+  `mission0/withdrawn.json`).
 
 ## Awaiting the owner
 
-Nothing. The owner reads this section and the *LD* list above; a veto is a
-message in the chat.
+1. **Exit criterion E1 (#164)** says every L0–L6 scenario passes its locked
+   criterion. Should a scenario **withdrawn for a specification error**
+   (locked, recorded FAIL, replaced by a v2 that passes, #187 (8)) count as
+   not blocking E1? Recommended: yes. Until answered, `L1.radiator.steady`
+   counts against E1.
 
 ## Next steps
 
-1. Physics checker posts its blind derivation and comparison on PR #5;
-   the engineer-fixes session lands #185 on `m0/l1-rooms`.
-2. Lead designer starts the **reviewer** on the final head.
+1. The engineer-fixes session lands #185 and #187 on `m0/l1-rooms`.
+2. Lead designer starts the **reviewer** (sonnet: Fable is out of limit,
+   and a model other than the engineer's opus) on the final head.
 3. Engineer fixes blocking findings; lead designer merges when none remain
    (#180); `STATUS.md` and `DESIGN.md` §16 updated.
 4. Before L2: resolve **shield budget double counting** (#170); add the
@@ -78,8 +85,8 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Nightly regression, test 2 (no `add_repo`) | session_01Md1GQ7LftRREZ1w6sZyMpb | sonnet-5-5 | 0.09 |
 | Nightly regression, test 3 (works) | session_01RQvwmFsoF6vu1G5wzQJsnP | sonnet-5-5 | 0.09 |
 | Engineer, L1 (PR #5) | session_01NEZ3dFYvXRDcUQJWexkacC | opus-5-5 | 6.65 |
-| Physics checker, L1 | session_01GmQGV34nzAo394dCthy28J | sonnet-5-5 | running |
-| Engineer, L1 fixes (#185) | see below | opus-5-5 | running |
+| Physics checker, L1 | session_01GmQGV34nzAo394dCthy28J | sonnet-5-5 | 1.22 |
+| Engineer, L1 fixes (#185, #187) | session_01TQvnSvo7qZzJ4HBuas89nY | opus-5-5 | running |
 
 Sessions have reported a **seven-day usage limit warning**.
 
