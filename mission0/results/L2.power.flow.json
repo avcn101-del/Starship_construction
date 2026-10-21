@@ -1,0 +1,596 @@
+{
+  "id": "L2.power.flow",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.power.flow",
+  "code": "621f2c6",
+  "criterionHash": "7c53e3b4",
+  "lockedHash": "7c53e3b4",
+  "runHash": "ca1596f1",
+  "dataHash": "7278a2a8",
+  "rowsHash": "4cdde575",
+  "rows": [
+    {
+      "case": {
+        "graph": "direct-5"
+      },
+      "expected": {
+        "delivered": {
+          "B": 10000000
+        },
+        "produced": 10000000,
+        "beam": {
+          "B": 4000000
+        },
+        "heat": {
+          "B": 6000000
+        }
+      },
+      "actual": {
+        "delivered": {
+          "B": 10000000
+        },
+        "produced": 10000000,
+        "reactorHeat": 10000000,
+        "beam": {
+          "B": 4000000
+        },
+        "heat": {
+          "B": 6000000
+        },
+        "books": [
+          {
+            "generated": 166666.66666666666,
+            "radiated": 0,
+            "stored": 166666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 100000,
+            "radiated": 0,
+            "stored": 100000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "graph": "direct-10"
+      },
+      "expected": {
+        "delivered": {
+          "B": 12500000
+        },
+        "produced": 12500000,
+        "beam": {
+          "B": 5000000
+        },
+        "heat": {
+          "B": 7500000
+        }
+      },
+      "actual": {
+        "delivered": {
+          "B": 12500000
+        },
+        "produced": 12500000,
+        "reactorHeat": 12500000,
+        "beam": {
+          "B": 5000000
+        },
+        "heat": {
+          "B": 7500000
+        },
+        "books": [
+          {
+            "generated": 208333.33333333334,
+            "radiated": 0,
+            "stored": 208333.33333337307,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 125000,
+            "radiated": 0,
+            "stored": 125000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "graph": "hold-10-10"
+      },
+      "expected": {
+        "delivered": {
+          "B": 12500000
+        },
+        "produced": 12500000,
+        "beam": {
+          "B": 5000000
+        },
+        "heat": {
+          "B": 7500000
+        }
+      },
+      "actual": {
+        "delivered": {
+          "B": 12500000
+        },
+        "produced": 12500000,
+        "reactorHeat": 12500000,
+        "beam": {
+          "B": 5000000
+        },
+        "heat": {
+          "B": 7500000
+        },
+        "books": [
+          {
+            "generated": 208333.33333333334,
+            "radiated": 0,
+            "stored": 208333.33333337307,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 125000,
+            "radiated": 0,
+            "stored": 125000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "graph": "hold-10-5"
+      },
+      "expected": {
+        "delivered": {
+          "B": 10000000
+        },
+        "produced": 10000000,
+        "beam": {
+          "B": 4000000
+        },
+        "heat": {
+          "B": 6000000
+        }
+      },
+      "actual": {
+        "delivered": {
+          "B": 10000000
+        },
+        "produced": 10000000,
+        "reactorHeat": 10000000,
+        "beam": {
+          "B": 4000000
+        },
+        "heat": {
+          "B": 6000000
+        },
+        "books": [
+          {
+            "generated": 166666.66666666666,
+            "radiated": 0,
+            "stored": 166666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 100000,
+            "radiated": 0,
+            "stored": 100000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "graph": "bottleneck-1"
+      },
+      "expected": {
+        "delivered": {
+          "B": 10000000
+        },
+        "produced": 10000000,
+        "beam": {
+          "B": 4000000
+        },
+        "heat": {
+          "B": 6000000
+        }
+      },
+      "actual": {
+        "delivered": {
+          "B": 10000000
+        },
+        "produced": 10000000,
+        "reactorHeat": 10000000,
+        "beam": {
+          "B": 4000000
+        },
+        "heat": {
+          "B": 6000000
+        },
+        "books": [
+          {
+            "generated": 166666.66666666666,
+            "radiated": 0,
+            "stored": 166666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 100000,
+            "radiated": 0,
+            "stored": 100000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "graph": "bottleneck-2"
+      },
+      "expected": {
+        "delivered": {
+          "B": 0
+        },
+        "produced": 0,
+        "beam": {
+          "B": 0
+        },
+        "heat": {
+          "B": 0
+        }
+      },
+      "actual": {
+        "delivered": {
+          "B": 0
+        },
+        "produced": 0,
+        "reactorHeat": 0,
+        "beam": {
+          "B": 0
+        },
+        "heat": {
+          "B": 0
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "graph": "two-B2-E-B1"
+      },
+      "expected": {
+        "delivered": {
+          "B2": 12500000,
+          "E": 10000000,
+          "B1": 7500000
+        },
+        "produced": 30000000,
+        "beam": {
+          "B2": 5000000,
+          "B1": 3000000
+        },
+        "heat": {
+          "B2": 7500000,
+          "B1": 4500000
+        }
+      },
+      "actual": {
+        "delivered": {
+          "B1": 7500000,
+          "B2": 12500000,
+          "E": 10000000
+        },
+        "produced": 30000000,
+        "reactorHeat": 30000000,
+        "beam": {
+          "B1": 3000000,
+          "B2": 5000000
+        },
+        "heat": {
+          "B1": 4500000,
+          "B2": 7500000
+        },
+        "books": [
+          {
+            "generated": 333333.3333333333,
+            "radiated": 0,
+            "stored": 333333.33333337307,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 75000,
+            "radiated": 0,
+            "stored": 75000,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 166666.66666666666,
+            "radiated": 0,
+            "stored": 166666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 125000,
+            "radiated": 0,
+            "stored": 125000,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 50000,
+            "radiated": 0,
+            "stored": 50000,
+            "initial": 1044000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "graph": "two-B1-B2-E"
+      },
+      "expected": {
+        "delivered": {
+          "B1": 12500000,
+          "B2": 12500000,
+          "E": 5000000
+        },
+        "produced": 30000000,
+        "beam": {
+          "B1": 5000000,
+          "B2": 5000000
+        },
+        "heat": {
+          "B1": 7500000,
+          "B2": 7500000
+        }
+      },
+      "actual": {
+        "delivered": {
+          "B1": 12500000,
+          "B2": 12500000,
+          "E": 5000000
+        },
+        "produced": 30000000,
+        "reactorHeat": 30000000,
+        "beam": {
+          "B1": 5000000,
+          "B2": 5000000
+        },
+        "heat": {
+          "B1": 7500000,
+          "B2": 7500000
+        },
+        "books": [
+          {
+            "generated": 333333.3333333333,
+            "radiated": 0,
+            "stored": 333333.33333337307,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 125000,
+            "radiated": 0,
+            "stored": 125000,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 166666.66666666666,
+            "radiated": 0,
+            "stored": 166666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 125000,
+            "radiated": 0,
+            "stored": 125000,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 25000,
+            "radiated": 0,
+            "stored": 25000,
+            "initial": 1044000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "graph": "two-B2-E-B1-hit"
+      },
+      "expected": {
+        "delivered": {
+          "B2": 9375000,
+          "E": 10000000,
+          "B1": 10625000
+        },
+        "produced": 30000000,
+        "beam": {
+          "B2": 3750000,
+          "B1": 4250000
+        },
+        "heat": {
+          "B2": 5625000,
+          "B1": 6375000
+        }
+      },
+      "actual": {
+        "delivered": {
+          "B1": 10625000,
+          "B2": 9375000,
+          "E": 10000000
+        },
+        "produced": 30000000,
+        "reactorHeat": 30000000,
+        "beam": {
+          "B1": 4250000,
+          "B2": 3750000
+        },
+        "heat": {
+          "B1": 6375000,
+          "B2": 5625000
+        },
+        "books": [
+          {
+            "generated": 333333.3333333333,
+            "radiated": 0,
+            "stored": 333333.33333337307,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 106250,
+            "radiated": 0,
+            "stored": 106250,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 166666.66666666666,
+            "radiated": 0,
+            "stored": 166666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 93750,
+            "radiated": 0,
+            "stored": 93750,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 50000,
+            "radiated": 0,
+            "stored": 50000,
+            "initial": 1044000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "destroying the bottleneck wall's cells lowers delivery (2 pairs > 1 pair > 0)",
+      "ok": true
+    },
+    {
+      "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction flows sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

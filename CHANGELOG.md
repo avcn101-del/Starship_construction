@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.3.0 — 2026-10-21 — Mission 0 L2: pairs and clusters (in review)
+
+- Data (#195): `conduction.wall`, `conduction.holdFactor`,
+  `power.wallCapacity`, `ammo.wallFeed`, `turret.readyRounds`,
+  `room.blastResistance`, `hold.blastFactor`, all approved; the hold names
+  its conductivity and blast factors in `ROOMS`; an L magazine (3×3) for
+  `L2.size.rule`. Every L0 and L1 record re-recorded for the new data
+  hash: only `dataHash` and `code` moved.
+- New `js/layout.js` (grid at the tier's edge, placement and rotation,
+  shared walls, open edges, centres) and `js/graph.js` (priority-ordered
+  max flow over live walls, ammunition feed into turret ready stores).
+- `js/heat.js`: conduction through live walls (harmonic mean of the
+  conductivity factors, flows from the start of the step); books carry
+  `conducted` for rooms in a cluster.
+- `js/rooms.js`: `createWorld({ grid })` makes a cluster; rooms placed with
+  `cell` and `rotation`; power routing (`enablePowerRouting`), consumers at
+  the fraction they receive; blast between rooms (wave front by wall
+  length, `world.blasts`); shield beams at points without double counting
+  (`setBeams`, #170) and the impulse buffer with refill (`shieldRound`);
+  repair asks scaled to each quarters' budget; the size rule in a cluster.
+  A room without a layout behaves exactly as at L1.
+- 12 L2 scenarios (§13d.2), locked before their first canonical run:
+  10 PASS, `L2.heat.chain` and `L2.heat.neighbour` FAIL on the plan's own
+  claims (see `DESIGN.md` §16 and the pull request).
+- `regress`: 37 VERIFIED + 1 WITHDRAWN.
+
 ## 0.2.2 — 2026-10-21 — L1 reviewer answers #189 landed
 
 - Kernel (`js/rooms.js`, #189 (1)): a room's destroyed count is the cells

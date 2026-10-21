@@ -1,0 +1,820 @@
+{
+  "id": "L2.shield.overlap",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.shield.overlap",
+  "code": "621f2c6",
+  "criterionHash": "fd488934",
+  "lockedHash": "fd488934",
+  "runHash": "bb6e7e18",
+  "dataHash": "7278a2a8",
+  "rowsHash": "7ba0c781",
+  "rows": [
+    {
+      "case": {
+        "part": "a",
+        "d": 40,
+        "P": 5000000
+      },
+      "expected": {
+        "paid": [
+          2500000,
+          2500000
+        ],
+        "absorbed": [
+          5000000
+        ],
+        "perPoint": [
+          5000000
+        ],
+        "B": 10000000,
+        "heat": [
+          4500000,
+          4500000
+        ],
+        "power": [
+          5000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          5000000
+        ],
+        "paid": [
+          2500000,
+          2500000
+        ],
+        "em": [
+          2500000,
+          2500000
+        ],
+        "heat": [
+          4500000,
+          4500000
+        ],
+        "distance": 40,
+        "books": [
+          {
+            "generated": 75000,
+            "radiated": 0,
+            "stored": 75000,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 75000,
+            "radiated": 0,
+            "stored": 75000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "d": 40,
+        "P": 20000000
+      },
+      "expected": {
+        "paid": [
+          8000000,
+          8000000
+        ],
+        "absorbed": [
+          16000000
+        ],
+        "perPoint": [
+          16000000
+        ],
+        "B": 10000000,
+        "heat": [
+          10000000,
+          10000000
+        ],
+        "power": [
+          20000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          16000000
+        ],
+        "paid": [
+          8000000,
+          8000000
+        ],
+        "em": [
+          8000000,
+          8000000
+        ],
+        "heat": [
+          10000000.000000002,
+          10000000.000000002
+        ],
+        "distance": 40,
+        "books": [
+          {
+            "generated": 166666.6666666667,
+            "radiated": 0,
+            "stored": 166666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 166666.6666666667,
+            "radiated": 0,
+            "stored": 166666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "b",
+        "d": 40,
+        "P": 10000000
+      },
+      "expected": {
+        "paid": [
+          10000000,
+          10000000
+        ],
+        "absorbed": [
+          10000000,
+          10000000
+        ],
+        "perPoint": [
+          10000000,
+          10000000
+        ],
+        "B": 10000000,
+        "heat": [
+          12000000,
+          12000000
+        ],
+        "power": [
+          10000000,
+          10000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          10000000,
+          10000000
+        ],
+        "paid": [
+          10000000,
+          10000000
+        ],
+        "em": [
+          10000000,
+          10000000
+        ],
+        "heat": [
+          12000000,
+          12000000
+        ],
+        "distance": 40,
+        "books": [
+          {
+            "generated": 200000,
+            "radiated": 0,
+            "stored": 200000,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 200000,
+            "radiated": 0,
+            "stored": 200000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "b",
+        "d": 40,
+        "P": 20000000
+      },
+      "expected": {
+        "paid": [
+          10000000,
+          10000000
+        ],
+        "absorbed": [
+          10000000,
+          10000000
+        ],
+        "perPoint": [
+          15000000,
+          15000000
+        ],
+        "B": 10000000,
+        "heat": [
+          12000000,
+          12000000
+        ],
+        "power": [
+          20000000,
+          20000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          10000000,
+          10000000
+        ],
+        "paid": [
+          10000000,
+          10000000
+        ],
+        "em": [
+          10000000,
+          10000000
+        ],
+        "heat": [
+          12000000,
+          12000000
+        ],
+        "distance": 40,
+        "books": [
+          {
+            "generated": 200000,
+            "radiated": 0,
+            "stored": 200000,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 200000,
+            "radiated": 0,
+            "stored": 200000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "c",
+        "d": 40,
+        "P": 5000000
+      },
+      "expected": {
+        "paid": [
+          5000000,
+          0
+        ],
+        "absorbed": [
+          5000000
+        ],
+        "perPoint": [
+          5000000
+        ],
+        "B": 10000000,
+        "heat": [
+          7000000,
+          0
+        ],
+        "power": [
+          5000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          5000000
+        ],
+        "paid": [
+          5000000,
+          0
+        ],
+        "em": [
+          5000000,
+          0
+        ],
+        "heat": [
+          6999999.999999999,
+          0
+        ],
+        "distance": 40,
+        "books": [
+          {
+            "generated": 116666.66666666666,
+            "radiated": 0,
+            "stored": 116666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "c",
+        "d": 40,
+        "P": 20000000
+      },
+      "expected": {
+        "paid": [
+          8000000,
+          0
+        ],
+        "absorbed": [
+          8000000
+        ],
+        "perPoint": [
+          8000000
+        ],
+        "B": 10000000,
+        "heat": [
+          10000000,
+          0
+        ],
+        "power": [
+          20000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          8000000
+        ],
+        "paid": [
+          8000000,
+          0
+        ],
+        "em": [
+          8000000,
+          0
+        ],
+        "heat": [
+          10000000.000000002,
+          0
+        ],
+        "distance": 40,
+        "books": [
+          {
+            "generated": 166666.6666666667,
+            "radiated": 0,
+            "stored": 166666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "d": 80,
+        "P": 5000000
+      },
+      "expected": {
+        "paid": [
+          2500000,
+          2500000
+        ],
+        "absorbed": [
+          5000000
+        ],
+        "perPoint": [
+          5000000
+        ],
+        "B": 10000000,
+        "heat": [
+          4500000,
+          4500000
+        ],
+        "power": [
+          5000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          5000000
+        ],
+        "paid": [
+          2500000,
+          2500000
+        ],
+        "em": [
+          2500000,
+          2500000
+        ],
+        "heat": [
+          4500000,
+          4500000
+        ],
+        "distance": 80,
+        "books": [
+          {
+            "generated": 75000,
+            "radiated": 0,
+            "stored": 75000,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 75000,
+            "radiated": 0,
+            "stored": 75000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "d": 80,
+        "P": 20000000
+      },
+      "expected": {
+        "paid": [
+          5000000,
+          5000000
+        ],
+        "absorbed": [
+          10000000
+        ],
+        "perPoint": [
+          10000000
+        ],
+        "B": 10000000,
+        "heat": [
+          7000000,
+          7000000
+        ],
+        "power": [
+          20000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          10000000
+        ],
+        "paid": [
+          5000000,
+          5000000
+        ],
+        "em": [
+          5000000,
+          5000000
+        ],
+        "heat": [
+          6999999.999999999,
+          6999999.999999999
+        ],
+        "distance": 80,
+        "books": [
+          {
+            "generated": 116666.66666666666,
+            "radiated": 0,
+            "stored": 116666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 116666.66666666666,
+            "radiated": 0,
+            "stored": 116666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "b",
+        "d": 80,
+        "P": 10000000
+      },
+      "expected": {
+        "paid": [
+          10000000,
+          10000000
+        ],
+        "absorbed": [
+          10000000,
+          10000000
+        ],
+        "perPoint": [
+          10000000,
+          10000000
+        ],
+        "B": 10000000,
+        "heat": [
+          12000000,
+          12000000
+        ],
+        "power": [
+          10000000,
+          10000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          10000000,
+          10000000
+        ],
+        "paid": [
+          10000000,
+          10000000
+        ],
+        "em": [
+          10000000,
+          10000000
+        ],
+        "heat": [
+          12000000,
+          12000000
+        ],
+        "distance": 80,
+        "books": [
+          {
+            "generated": 200000,
+            "radiated": 0,
+            "stored": 200000,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 200000,
+            "radiated": 0,
+            "stored": 200000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "b",
+        "d": 80,
+        "P": 20000000
+      },
+      "expected": {
+        "paid": [
+          10000000,
+          10000000
+        ],
+        "absorbed": [
+          10000000,
+          10000000
+        ],
+        "perPoint": [
+          12000000,
+          12000000
+        ],
+        "B": 10000000,
+        "heat": [
+          12000000,
+          12000000
+        ],
+        "power": [
+          20000000,
+          20000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          10000000,
+          10000000
+        ],
+        "paid": [
+          10000000,
+          10000000
+        ],
+        "em": [
+          10000000,
+          10000000
+        ],
+        "heat": [
+          12000000,
+          12000000
+        ],
+        "distance": 80,
+        "books": [
+          {
+            "generated": 200000,
+            "radiated": 0,
+            "stored": 200000,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 200000,
+            "radiated": 0,
+            "stored": 200000,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "c",
+        "d": 80,
+        "P": 5000000
+      },
+      "expected": {
+        "paid": [
+          5000000,
+          0
+        ],
+        "absorbed": [
+          5000000
+        ],
+        "perPoint": [
+          5000000
+        ],
+        "B": 10000000,
+        "heat": [
+          7000000,
+          0
+        ],
+        "power": [
+          5000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          5000000
+        ],
+        "paid": [
+          5000000,
+          0
+        ],
+        "em": [
+          5000000,
+          0
+        ],
+        "heat": [
+          6999999.999999999,
+          0
+        ],
+        "distance": 80,
+        "books": [
+          {
+            "generated": 116666.66666666666,
+            "radiated": 0,
+            "stored": 116666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "c",
+        "d": 80,
+        "P": 20000000
+      },
+      "expected": {
+        "paid": [
+          5000000,
+          0
+        ],
+        "absorbed": [
+          5000000
+        ],
+        "perPoint": [
+          5000000
+        ],
+        "B": 10000000,
+        "heat": [
+          7000000,
+          0
+        ],
+        "power": [
+          20000000
+        ]
+      },
+      "actual": {
+        "absorbed": [
+          5000000
+        ],
+        "paid": [
+          5000000,
+          0
+        ],
+        "em": [
+          5000000,
+          0
+        ],
+        "heat": [
+          6999999.999999999,
+          0
+        ],
+        "distance": 80,
+        "books": [
+          {
+            "generated": 116666.66666666666,
+            "radiated": 0,
+            "stored": 116666.66666662693,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction flows sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

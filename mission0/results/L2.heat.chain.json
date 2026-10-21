@@ -1,0 +1,153 @@
+{
+  "id": "L2.heat.chain",
+  "level": "L2",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L2.heat.chain",
+  "code": "621f2c6",
+  "criterionHash": "a909375f",
+  "lockedHash": "a909375f",
+  "runHash": "35cbf822",
+  "dataHash": "7278a2a8",
+  "rowsHash": "47b9d6d7",
+  "rows": [
+    {
+      "case": {
+        "middle": "ordinary",
+        "T0": 600
+      },
+      "expected": {
+        "T": [
+          394.3777309231449,
+          393.3333017234268,
+          392.2889673534281
+        ],
+        "heatToThird": 245493521.64822748,
+        "lambda": [
+          1.2488076781254993e-18,
+          0.049999999999999996,
+          0.01666666666666667
+        ],
+        "tolerance": 0.001,
+        "ratio": 0.15
+      },
+      "actual": {
+        "t": 300,
+        "T": [
+          394.37700567701626,
+          393.3333019204812,
+          392.28969240250115
+        ],
+        "heatToThird": 245495261.76600277,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -493495186.37516093,
+            "initial": 1440000000,
+            "conducted": -493495186.3751626
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 247999924.60915482,
+            "initial": 696000000,
+            "conducted": 247999924.60915878
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 245495261.76600277,
+            "initial": 696000000,
+            "conducted": 245495261.7660082
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "middle": "hold",
+        "T0": 600
+      },
+      "expected": {
+        "T": [
+          459.1601990038918,
+          386.5756016662478,
+          334.2641993298607
+        ],
+        "heatToThird": 106234078.39166562,
+        "lambda": [
+          -4.099326131768127e-21,
+          0.009090909090909089,
+          0.00303030303030303
+        ],
+        "tolerance": 0.001,
+        "ratio": 0.15
+      },
+      "actual": {
+        "t": 300,
+        "T": [
+          459.1580672520976,
+          386.5769978885912,
+          334.2649348593148
+        ],
+        "heatToThird": 106235843.66235554,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -338020638.5949657,
+            "initial": 1440000000,
+            "conducted": -338020638.5949761
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 231784794.93261898,
+            "initial": 696000000,
+            "conducted": 231784794.9326153
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 106235843.66235554,
+            "initial": 696000000,
+            "conducted": 106235843.66236086
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "temperatures at 300 s"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat reaching the third room with a hold in the middle < 15 % of that without",
+      "ok": false,
+      "detail": "measured 43.27 %, closed form 43.27 %"
+    },
+    {
+      "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction flows sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

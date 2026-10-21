@@ -1,0 +1,1473 @@
+{
+  "id": "L2.blast.walls",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.blast.walls",
+  "code": "621f2c6",
+  "criterionHash": "a10a083d",
+  "lockedHash": "a10a083d",
+  "runHash": "c6841d1c",
+  "dataHash": "7278a2a8",
+  "rowsHash": "3a6a62cd",
+  "rows": [
+    {
+      "case": {
+        "geometry": "row",
+        "load": "full-HE"
+      },
+      "expected": {
+        "E": 375000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000
+        },
+        "escaped": 367000000,
+        "sumB": 8000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 375000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "magazine": 2000000
+        },
+        "escaped": 367000000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B3": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row",
+        "load": "half-AP"
+      },
+      "expected": {
+        "E": 37500000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000
+        },
+        "escaped": 29500000,
+        "sumB": 8000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 37500000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "magazine": 2000000
+        },
+        "escaped": 29500000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B3": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row",
+        "load": "HE-2"
+      },
+      "expected": {
+        "E": 5000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 1000000,
+          "B3": 0
+        },
+        "escaped": 0,
+        "sumB": 8000000,
+        "reachedAll": false,
+        "full": [
+          "magazine",
+          "B1"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 1000000,
+            "destroyed": 0,
+            "integrity": 0.5,
+            "deaths": 0
+          },
+          "B3": {
+            "absorbed": 0,
+            "destroyed": 0,
+            "integrity": 1,
+            "deaths": 0
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 5000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 1000000,
+          "magazine": 2000000
+        },
+        "escaped": 0,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 0,
+            "integrity": [
+              0.5,
+              0.5,
+              0.5,
+              0.5
+            ],
+            "deaths": 0
+          },
+          "B3": {
+            "destroyed": 0,
+            "integrity": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "deaths": 0
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row",
+        "load": "HE-4"
+      },
+      "expected": {
+        "E": 10000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000
+        },
+        "escaped": 2000000,
+        "sumB": 8000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 10000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "magazine": 2000000
+        },
+        "escaped": 2000000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B3": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row-hold",
+        "load": "full-HE"
+      },
+      "expected": {
+        "E": 375000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000
+        },
+        "escaped": 359000000,
+        "sumB": 16000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "H",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "H": {
+            "absorbed": 8000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 0
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 375000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000,
+          "magazine": 2000000
+        },
+        "escaped": 359000000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B3": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "H": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 0
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row-hold",
+        "load": "half-AP"
+      },
+      "expected": {
+        "E": 37500000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000
+        },
+        "escaped": 21500000,
+        "sumB": 16000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "H",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "H": {
+            "absorbed": 8000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 0
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 37500000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000,
+          "magazine": 2000000
+        },
+        "escaped": 21500000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B3": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "H": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 0
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row-hold",
+        "load": "HE-2"
+      },
+      "expected": {
+        "E": 5000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 1500000,
+          "B2": 0,
+          "B3": 0,
+          "H": 1500000
+        },
+        "escaped": 0,
+        "sumB": 16000000,
+        "reachedAll": false,
+        "full": [
+          "magazine"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 1500000,
+            "destroyed": 0,
+            "integrity": 0.25,
+            "deaths": 0
+          },
+          "B2": {
+            "absorbed": 0,
+            "destroyed": 0,
+            "integrity": 1,
+            "deaths": 0
+          },
+          "B3": {
+            "absorbed": 0,
+            "destroyed": 0,
+            "integrity": 1,
+            "deaths": 0
+          },
+          "H": {
+            "absorbed": 1500000,
+            "destroyed": 0,
+            "integrity": 0.8125,
+            "deaths": 0
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 5000000,
+        "absorbed": {
+          "B1": 1500000,
+          "H": 1500000,
+          "magazine": 2000000
+        },
+        "escaped": 0,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 0,
+            "integrity": [
+              0.25,
+              0.25,
+              0.25,
+              0.25
+            ],
+            "deaths": 0
+          },
+          "B2": {
+            "destroyed": 0,
+            "integrity": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "deaths": 0
+          },
+          "B3": {
+            "destroyed": 0,
+            "integrity": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "deaths": 0
+          },
+          "H": {
+            "destroyed": 0,
+            "integrity": [
+              0.8125,
+              0.8125,
+              0.8125,
+              0.8125
+            ],
+            "deaths": 0
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row-hold",
+        "load": "HE-4"
+      },
+      "expected": {
+        "E": 10000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 1000000,
+          "B3": 0,
+          "H": 5000000
+        },
+        "escaped": 0,
+        "sumB": 16000000,
+        "reachedAll": false,
+        "full": [
+          "magazine",
+          "B1"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 1000000,
+            "destroyed": 0,
+            "integrity": 0.5,
+            "deaths": 0
+          },
+          "B3": {
+            "absorbed": 0,
+            "destroyed": 0,
+            "integrity": 1,
+            "deaths": 0
+          },
+          "H": {
+            "absorbed": 5000000,
+            "destroyed": 0,
+            "integrity": 0.375,
+            "deaths": 0
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 10000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 1000000,
+          "H": 5000000,
+          "magazine": 2000000
+        },
+        "escaped": 0,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 0,
+            "integrity": [
+              0.5,
+              0.5,
+              0.5,
+              0.5
+            ],
+            "deaths": 0
+          },
+          "B3": {
+            "destroyed": 0,
+            "integrity": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "deaths": 0
+          },
+          "H": {
+            "destroyed": 0,
+            "integrity": [
+              0.375,
+              0.375,
+              0.375,
+              0.375
+            ],
+            "deaths": 0
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "middle",
+        "load": "full-HE"
+      },
+      "expected": {
+        "E": 375000000,
+        "absorbed": {
+          "B1": 2000000,
+          "magazine": 2000000,
+          "B2": 2000000
+        },
+        "escaped": 369000000,
+        "sumB": 6000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 375000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "magazine": 2000000
+        },
+        "escaped": 369000000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "middle",
+        "load": "half-AP"
+      },
+      "expected": {
+        "E": 37500000,
+        "absorbed": {
+          "B1": 2000000,
+          "magazine": 2000000,
+          "B2": 2000000
+        },
+        "escaped": 31500000,
+        "sumB": 6000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 37500000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "magazine": 2000000
+        },
+        "escaped": 31500000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "middle",
+        "load": "HE-2"
+      },
+      "expected": {
+        "E": 5000000,
+        "absorbed": {
+          "B1": 1500000,
+          "magazine": 2000000,
+          "B2": 1500000
+        },
+        "escaped": 0,
+        "sumB": 6000000,
+        "reachedAll": true,
+        "full": [
+          "magazine"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 1500000,
+            "destroyed": 0,
+            "integrity": 0.25,
+            "deaths": 0
+          },
+          "B2": {
+            "absorbed": 1500000,
+            "destroyed": 0,
+            "integrity": 0.25,
+            "deaths": 0
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 5000000,
+        "absorbed": {
+          "B1": 1500000,
+          "B2": 1500000,
+          "magazine": 2000000
+        },
+        "escaped": 0,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 0,
+            "integrity": [
+              0.25,
+              0.25,
+              0.25,
+              0.25
+            ],
+            "deaths": 0
+          },
+          "B2": {
+            "destroyed": 0,
+            "integrity": [
+              0.25,
+              0.25,
+              0.25,
+              0.25
+            ],
+            "deaths": 0
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "middle",
+        "load": "HE-4"
+      },
+      "expected": {
+        "E": 10000000,
+        "absorbed": {
+          "B1": 2000000,
+          "magazine": 2000000,
+          "B2": 2000000
+        },
+        "escaped": 4000000,
+        "sumB": 6000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 10000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "magazine": 2000000
+        },
+        "escaped": 4000000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction flows sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

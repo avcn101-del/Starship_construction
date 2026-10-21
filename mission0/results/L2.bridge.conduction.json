@@ -1,0 +1,93 @@
+{
+  "id": "L2.bridge.conduction",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.bridge.conduction",
+  "code": "621f2c6",
+  "criterionHash": "9882f256",
+  "lockedHash": "9882f256",
+  "runHash": "e6834f34",
+  "dataHash": "7278a2a8",
+  "rowsHash": "7810ecb7",
+  "rows": [
+    {
+      "case": {
+        "P": 1100000
+      },
+      "expected": {
+        "overheat": 217.13333333333333,
+        "restartAfter": 933.1333333333333,
+        "lostCause": "overheat",
+        "restoredCause": "restart",
+        "deaths": 0,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "overheated": 217.13333333333333,
+        "restart": 1150.2833333333333,
+        "controlOk": true,
+        "controlAtEnd": true,
+        "lost": [
+          {
+            "t": 217.13333333333333,
+            "cause": "overheat"
+          }
+        ],
+        "restored": [
+          {
+            "t": 1150.2833333333333,
+            "cause": "restart"
+          }
+        ],
+        "radiators": 0,
+        "refused": true,
+        "end": [
+          330.2599471221021,
+          329.15357797673954
+        ],
+        "deaths": 0,
+        "books": [
+          {
+            "generated": 261559999.99999404,
+            "radiated": 0,
+            "stored": 96623873.09304512,
+            "initial": 696000000,
+            "conducted": -164936126.90695426
+          },
+          {
+            "generated": 0,
+            "radiated": 70967539.76277392,
+            "stored": 93968587.14417493,
+            "initial": 696000000,
+            "conducted": 164936126.90695426
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction flows sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

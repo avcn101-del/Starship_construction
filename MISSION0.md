@@ -47,7 +47,20 @@ with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#18
 
 ## L2
 
-Not started.
+| Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
+|---|---|---|---|---|---|---|
+| `L2.ammo.feed` | 5d541b7d | PASS | 0dcdb2ea | 621f2c6 | none | `node tools/m0.js run L2.ammo.feed` |
+| `L2.blast.walls` | a10a083d | PASS | c6841d1c | 621f2c6 | none | `node tools/m0.js run L2.blast.walls` |
+| `L2.bridge.conduction` | 9882f256 | PASS | e6834f34 | 621f2c6 | none | `node tools/m0.js run L2.bridge.conduction` |
+| `L2.heat.chain` | a909375f | FAIL | 35cbf822 | 621f2c6 | none | `node tools/m0.js run L2.heat.chain` |
+| `L2.heat.neighbour` | a28270cd | FAIL | d8ad3308 | 621f2c6 | none | `node tools/m0.js run L2.heat.neighbour` |
+| `L2.heat.pair` | 9f0da2d3 | PASS | c7635b23 | 621f2c6 | none | `node tools/m0.js run L2.heat.pair` |
+| `L2.power.flow` | 7c53e3b4 | PASS | ca1596f1 | 621f2c6 | none | `node tools/m0.js run L2.power.flow` |
+| `L2.reactor.cooled` | 6c5139ec | PASS | 11c148a7 | 621f2c6 | none | `node tools/m0.js run L2.reactor.cooled` |
+| `L2.repair.shared` | 365a0ba8 | PASS | 4545aa78 | 621f2c6 | none | `node tools/m0.js run L2.repair.shared` |
+| `L2.shield.buffer` | d0132a0f | PASS | a85ed8de | 621f2c6 | none | `node tools/m0.js run L2.shield.buffer` |
+| `L2.shield.overlap` | fd488934 | PASS | bb6e7e18 | 621f2c6 | none | `node tools/m0.js run L2.shield.overlap` |
+| `L2.size.rule` | 9e9d8cde | PASS | 4596ce6d | 621f2c6 | none | `node tools/m0.js run L2.size.rule` |
 
 ## L3
 

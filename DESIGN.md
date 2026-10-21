@@ -870,6 +870,53 @@ of decay heat to come against 0.48 GJ of margin to critical, so heat
 discipline must act before overheated (#18b), and L2 measures whether
 conduction through its walls to radiator rooms saves it.
 
+**L2 pairs and clusters** (2026-10-21; 12 scenarios, 95 cases, each
+locked before its first canonical run (commit `621f2c6`); **10 PASS, 2
+FAIL**; T1, size M, SI; constants of §13d.3; in review on
+`m0/l2-clusters`. The seven constants changed the data hash, so every L0
+and L1 record was re-recorded with only `dataHash` and `code` moving, and
+every L0 and L1 scenario still VERIFIES with unchanged results and run()
+hashes. Cases added by the engineer beyond §13d.2, so the plan's claims
+have something to bite on: two small HE loads in `L2.blast.walls`, 20 MW
+beams in `L2.shield.overlap` (b), N = 80 in `L2.shield.buffer`):
+
+| Scenario | What the numbers say |
+|---|---|
+| `L2.heat.pair` | Two M rooms over 10 m relax with τ = 30 s (5 m: 60 s; ordinary–hold: 165 and 330 s); ΔT follows ΔT₀ e^(−t/τ) within 1.02e-4 ΔT₀ at every step (Euler); C_a T_a + C_b T_b drifts by at most 1.5e-14; the fitted τ is in proportion to the edge from T1 to T6 |
+| `L2.heat.chain` | **FAIL.** Without a hold the three rooms match the eigen-decomposition within 7.3e-4 K at 300 s; with a hold in the middle the Euler error is 2.1e-3 K, over the plan's 1e-3 K, and the hold lets **43.3 %** of the heat through to the third room (closed form 43.27 %), not < 15 %: at 300 s the hold walls (τ ≈ 330 s) have not finished slowing it. Both are the plan's numbers, not the kernel's: the kernel agrees with the closed form to its Euler error |
+| `L2.heat.neighbour` | Direct walls, all 8 PASS: a reactor at a quarter of its power cooks a magazine off in 183.6 s (10 m) or 211.9 s (5 m) and kills all 18 crew of quarters beside it in 143.3 s (10 m) or 173.6 s (5 m); at half power 105.9 / 129.9 s and 86.8 / 110.5 s; the reactor itself would overheat only at 187–558 s. **FAIL** on the hold cases: an M hold between them saves the neighbour through 900 s only behind 5 m walls (magazine 404 K and 414 K at the end; quarters at a quarter power 374.6 K); behind 10 m walls the magazine still cooks off (654 s at d = 0.25, 624 s at d = 0.5) and the quarters' crew die (530 s, 471 s), and at half power behind 5 m walls too (879 s). The hold delays death by 6–13 minutes; it does not prevent it, because after the overheat the reactor's stored heat and decay heat keep flowing outwards. In every hold case the kernel matches the reference integrator (overheat within one step; temperatures within 1e-3 K except two cases that stop one step apart on the critical threshold) |
+| `L2.reactor.cooled` | The battle clock of one M reactor at full power: **overheat at 61.2 s alone, 94.1 s with one cooled neighbour, 146.3 s with two, 278.3 s with four** (three not run); alone it melts down at 492.5 s (reference 492.8 s, L1 closed form 492.8 s); with one or more neighbours it never melts down in an hour but cycles between 800 K and its restart below 600 K (2, 4 and 5 shutdowns). The lead designer's estimates hold. The n = 0 overheat lands on a whole number of steps (3672), so the kernel crosses one step after the reference and its meltdown comes 0.37 s earlier (7.4e-4, inside the 1e-3) |
+| `L2.power.flow` | Delivery equals the priority-ordered max flow by cut enumeration in all 9 graphs, to the watt: a 5 m wall carries 10 of a beam bay's 12.5 MW (it fires 4 MW and heats 6 MW); power passes through a hold; the hold-bay wall losing 1 and 2 cells gives 12.5, 10 and 0 MW; two reactors (30 MW) and 35 MW of consumers give 12.5 / 10 / 7.5 MW under one priority list and 12.5 / 12.5 / 5 under the other |
+| `L2.ammo.feed` | An M turret is fire-limited on both walls (154 shots: the 4-round store and 150 fed); an L turret on a 5 m wall is **feed-limited**, one round every 5.625 s instead of every 3 s (48 shots, 30 by 150 s against 48 on a 10 m wall); a turret not touching the magazine fires its 4 ready rounds and stops. Counts match the closed form at all 30 measurement times |
+| `L2.blast.walls` | The wave front of 13d.1 exactly, in all 12 cases: a full HE magazine (375 MJ) or a half AP one (37.5 MJ) saturates every room of these small clusters (6–16 MJ of capacity) and the rest escapes; 5 and 10 MJ show the split by wall length (of 5 MJ, a hold beside the magazine takes 1.5 MJ and the first room 1.5 MJ; of 10 MJ, the first room fills and the hold takes 5 MJ as the front moves on) |
+| `L2.shield.overlap` | Two M generators share a beam between them in halves; at 20 MW midway they absorb 16 MW (40 m apart) or 10 MW (80 m). With a beam at each generator **no generator pays more than its 10 MW**: at 10 MW the asks sum to exactly the budget, at 20 MW the rule cuts each point from 15 (or 12) MW to 10 MW. The double counting of #170 is gone |
+| `L2.shield.buffer` | An M round costs 142.2 kJ to stop (800 → 266.7 m/s): salvos of 5, 20, 40 leave 9.29, 7.16, 4.31 MJ of the 10 MJ buffer, so **the buffer binds only at round 71**; at N = 80 rounds 72–80 pass at 800 m/s. It refills at the full unused budget in one second. The plan's salvos never reach it (E4 still needs a real salvo of 71 M rounds in one step, L5) |
+| `L2.repair.shared` | Two damaged cells at 0.25 radius share one quarters' budget (0.01 /s each instead of 0.0188); at one radius the asks sum to exactly the budget; one cell alone is repaired at L1's rate; two quarters overlapping add (0.0288 /s); no quarters ever pays more than its budget |
+| `L2.size.rule` | In a cluster an L reactor delivers 45 MW, houses 9 crew and explodes at **450 MJ**; an L magazine holds 168.75 kg; an L turret fires 1.6875 kg rounds at a third per second, 1.0125 MJ of heat per shot, drawing 450 kW, with 7 crew |
+| `L2.bridge.conduction` | An M bridge heated by 1.1 MW overheats at 217.1 s (control lost, cause `overheat`) and, cooled only through its wall into a hull room with 4 radiators, restarts 933.1 s later (control restored, cause `restart`); reference 933.13 s. No radiator on the bridge, no crew deaths |
+
+Honest reading. Strong: the conduction against two closed forms
+(exponential pair at six tiers, the chain's eigen-decomposition), the
+reference integrators of the neighbour, the cooled reactor and the bridge
+(RK4 against the kernel's Euler, with the L1 shutdown, decay heat and
+restart on the step grid), the power flow against cut enumeration (an
+algorithm unlike the kernel's augmenting paths), and the feed counts at 30
+times. Close restatements of their rules: the blast split, the shield
+overlap, the buffer, the repair sharing and the size rule; their value is
+locking the rules, and the engineer-added cases are what make the blast
+and buffer checks bite. What the numbers say for the design: **a running
+reactor cooks its neighbours within one battle, and one empty hold buys
+6–13 minutes rather than safety**; one cooled neighbour is enough to stop a
+meltdown (#187 (5) answered), but the reactor then cycles between 600 and
+800 K; a 5 m wall starves a beam bay and an L turret; the shield buffer
+still has no effect at realistic salvo sizes. Signals for L3: power
+routing, feed and conduction now depend on which cells survive, so
+fragments (L3) will change power and heat paths mid-battle; the reactor
+restart cycle (shut down, restart below 600 K) will need a control-path
+rule; the bridge relies on its backup supply in a routed cluster (#147);
+rounds in overlapping shields are not built (a question in the pull
+request).
+
 ## 17. Open questions
 
 1. **Chapter design** waits for Mission 0 (#125).

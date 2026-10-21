@@ -1,0 +1,836 @@
+{
+  "id": "L2.heat.neighbour",
+  "level": "L2",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L2.heat.neighbour",
+  "code": "621f2c6",
+  "criterionHash": "a28270cd",
+  "lockedHash": "a28270cd",
+  "runHash": "d8ad3308",
+  "dataHash": "7278a2a8",
+  "rowsHash": "5ff6a625",
+  "rows": [
+    {
+      "case": {
+        "neighbour": "magazine",
+        "d": 0.25,
+        "between": "wall",
+        "pairs": 1
+      },
+      "expected": {
+        "first": "neighbour",
+        "closedFormFirst": "neighbour",
+        "time": 211.8429636432595,
+        "reactorOverheat": 429.6465870865357,
+        "crit": 450,
+        "crew": null,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "neighbour",
+        "t": 211.85,
+        "critical": 211.85,
+        "overheat": null,
+        "max": 450.0062175313455,
+        "end": 450.0062175313455,
+        "cookOff": 211.85,
+        "deaths": 2,
+        "books": [
+          {
+            "generated": 1059250000.0001979,
+            "radiated": 0,
+            "stored": 675235077.9247718,
+            "initial": 696000000,
+            "conducted": -384014922.0752271
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 384014922.07522917,
+            "initial": 696000000,
+            "conducted": 384014922.0752271
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "magazine",
+        "d": 0.25,
+        "between": "wall",
+        "pairs": 2
+      },
+      "expected": {
+        "first": "neighbour",
+        "closedFormFirst": "neighbour",
+        "time": 183.53390084482132,
+        "reactorOverheat": 459.60000666391875,
+        "crit": 450,
+        "crew": null,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "neighbour",
+        "t": 183.55,
+        "critical": 183.55,
+        "overheat": null,
+        "max": 450.01661611403534,
+        "end": 450.01661611403534,
+        "cookOff": 183.55,
+        "deaths": 2,
+        "books": [
+          {
+            "generated": 917750000.0001304,
+            "radiated": 0,
+            "stored": 533710121.32631135,
+            "initial": 696000000,
+            "conducted": -384039878.6736823
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 384039878.67368484,
+            "initial": 696000000,
+            "conducted": 384039878.6736823
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "magazine",
+        "d": 0.25,
+        "between": "hold",
+        "pairs": 1
+      },
+      "expected": {
+        "first": "reactor",
+        "belowCritical": true,
+        "overheat": 295.65,
+        "max": 404.160147565144,
+        "end": 404.160147565144,
+        "referenceCritical": null,
+        "crit": 450,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "reactor",
+        "t": 900,
+        "critical": null,
+        "overheat": 295.65,
+        "max": 404.15985719397236,
+        "end": 404.15985719397236,
+        "cookOff": null,
+        "deaths": 0,
+        "books": [
+          {
+            "generated": 1632303399.0538306,
+            "radiated": 0,
+            "stored": 846773478.4736362,
+            "initial": 696000000,
+            "conducted": -785529920.5803752
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 511546263.3148346,
+            "initial": 696000000,
+            "conducted": 511546263.3148413
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 273983657.2655337,
+            "initial": 696000000,
+            "conducted": 273983657.2655359
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "magazine",
+        "d": 0.25,
+        "between": "hold",
+        "pairs": 2
+      },
+      "expected": {
+        "first": "reactor",
+        "belowCritical": true,
+        "overheat": 355.26666666666665,
+        "max": 450.00293649626167,
+        "end": 450.00293649626167,
+        "referenceCritical": 654.25,
+        "crit": 450,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "reactor",
+        "t": 654.25,
+        "critical": 654.25,
+        "overheat": 355.26666666666665,
+        "max": 450.0031138670818,
+        "end": 450.0031138670818,
+        "cookOff": 654.25,
+        "deaths": 2,
+        "books": [
+          {
+            "generated": 1865370860.7147028,
+            "radiated": 0,
+            "stored": 880715653.4562316,
+            "initial": 696000000,
+            "conducted": -984655207.2589421
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 600647733.9779441,
+            "initial": 696000000,
+            "conducted": 600647733.977959
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 384007473.2809963,
+            "initial": 696000000,
+            "conducted": 384007473.2809885
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "neighbour below critical through 900 s"
+    },
+    {
+      "case": {
+        "neighbour": "magazine",
+        "d": 0.5,
+        "between": "wall",
+        "pairs": 1
+      },
+      "expected": {
+        "first": "neighbour",
+        "closedFormFirst": "neighbour",
+        "time": 129.91694848731638,
+        "reactorOverheat": 187.43890185002726,
+        "crit": 450,
+        "crew": null,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "neighbour",
+        "t": 129.93333333333334,
+        "critical": 129.93333333333334,
+        "overheat": null,
+        "max": 450.0259077925961,
+        "end": 450.0259077925961,
+        "cookOff": 129.93333333333334,
+        "deaths": 2,
+        "books": [
+          {
+            "generated": 1299333333.3333385,
+            "radiated": 0,
+            "stored": 915271154.6311114,
+            "initial": 696000000,
+            "conducted": -384062178.7022287
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 384062178.7022307,
+            "initial": 696000000,
+            "conducted": 384062178.7022287
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "magazine",
+        "d": 0.5,
+        "between": "wall",
+        "pairs": 2
+      },
+      "expected": {
+        "first": "neighbour",
+        "closedFormFirst": "neighbour",
+        "time": 105.92148182162975,
+        "reactorOverheat": 214.82329354326785,
+        "crit": 450,
+        "crew": null,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "neighbour",
+        "t": 105.93333333333334,
+        "critical": 105.93333333333334,
+        "overheat": null,
+        "max": 450.02217345433115,
+        "end": 450.02217345433115,
+        "cookOff": 105.93333333333334,
+        "deaths": 2,
+        "books": [
+          {
+            "generated": 1059333333.3332344,
+            "radiated": 0,
+            "stored": 675280117.0429335,
+            "initial": 696000000,
+            "conducted": -384053216.2903982
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 384053216.2903948,
+            "initial": 696000000,
+            "conducted": 384053216.2903982
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "magazine",
+        "d": 0.5,
+        "between": "hold",
+        "pairs": 1
+      },
+      "expected": {
+        "first": "reactor",
+        "belowCritical": true,
+        "overheat": 134.45,
+        "max": 414.1559031328228,
+        "end": 414.1559031328228,
+        "referenceCritical": null,
+        "crit": 450,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "reactor",
+        "t": 900,
+        "critical": null,
+        "overheat": 134.45,
+        "max": 414.1556934135268,
+        "end": 414.1556934135268,
+        "cookOff": null,
+        "deaths": 0,
+        "books": [
+          {
+            "generated": 1705393097.3505657,
+            "radiated": 0,
+            "stored": 876214653.4281988,
+            "initial": 696000000,
+            "conducted": -829178443.9223504
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 531204779.7298572,
+            "initial": 696000000,
+            "conducted": 531204779.7298717
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 297973664.19246435,
+            "initial": 696000000,
+            "conducted": 297973664.1924764
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "magazine",
+        "d": 0.5,
+        "between": "hold",
+        "pairs": 2
+      },
+      "expected": {
+        "first": "reactor",
+        "belowCritical": true,
+        "overheat": 147.83333333333334,
+        "max": 450.003234646147,
+        "end": 450.003234646147,
+        "referenceCritical": 623.7166666666667,
+        "crit": 450,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "reactor",
+        "t": 623.7,
+        "critical": 623.7,
+        "overheat": 147.83333333333334,
+        "max": 450.0000326021191,
+        "end": 450.0000326021191,
+        "cookOff": 623.7,
+        "deaths": 2,
+        "books": [
+          {
+            "generated": 1737044948.3580847,
+            "radiated": 0,
+            "stored": 794457980.3135986,
+            "initial": 696000000,
+            "conducted": -942586968.0443655
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 558586889.7992666,
+            "initial": 696000000,
+            "conducted": 558586889.799283
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 384000078.24508595,
+            "initial": 696000000,
+            "conducted": 384000078.2450902
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "neighbour below critical through 900 s, neighbour highest temperature, neighbour final temperature"
+    },
+    {
+      "case": {
+        "neighbour": "quarters",
+        "d": 0.25,
+        "between": "wall",
+        "pairs": 1
+      },
+      "expected": {
+        "first": "neighbour",
+        "closedFormFirst": "neighbour",
+        "time": 173.53461094388518,
+        "reactorOverheat": 504.09834882034136,
+        "crit": 380,
+        "crew": 18,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "neighbour",
+        "t": 173.55,
+        "critical": 173.55,
+        "overheat": null,
+        "max": 380.0101699450727,
+        "end": 380.0101699450727,
+        "cookOff": null,
+        "deaths": 18,
+        "books": [
+          {
+            "generated": 867750000.0001066,
+            "radiated": 0,
+            "stored": 543713388.1977234,
+            "initial": 696000000,
+            "conducted": -324036611.80227387
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 324036611.8022616,
+            "initial": 1044000000,
+            "conducted": 324036611.80227387
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "quarters",
+        "d": 0.25,
+        "between": "wall",
+        "pairs": 2
+      },
+      "expected": {
+        "first": "neighbour",
+        "closedFormFirst": "neighbour",
+        "time": 143.32821735280737,
+        "reactorOverheat": 558.0000100191104,
+        "crit": 380,
+        "crew": 18,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "neighbour",
+        "t": 143.33333333333334,
+        "critical": 143.33333333333334,
+        "overheat": null,
+        "max": 380.00366796738206,
+        "end": 380.00366796738206,
+        "cookOff": null,
+        "deaths": 18,
+        "books": [
+          {
+            "generated": 716666666.6667012,
+            "radiated": 0,
+            "stored": 392653461.984087,
+            "initial": 696000000,
+            "conducted": -324013204.6825779
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 324013204.68257546,
+            "initial": 1044000000,
+            "conducted": 324013204.6825779
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "quarters",
+        "d": 0.25,
+        "between": "hold",
+        "pairs": 1
+      },
+      "expected": {
+        "first": "reactor",
+        "belowCritical": true,
+        "overheat": 295.68333333333334,
+        "max": 374.5632398436725,
+        "end": 374.5632398436725,
+        "referenceCritical": null,
+        "crit": 380,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "reactor",
+        "t": 900,
+        "critical": null,
+        "overheat": 295.68333333333334,
+        "max": 374.5628310882703,
+        "end": 374.5628310882703,
+        "cookOff": null,
+        "deaths": 0,
+        "books": [
+          {
+            "generated": 1632464104.6248915,
+            "radiated": 0,
+            "stored": 839625429.1702447,
+            "initial": 696000000,
+            "conducted": -792838675.4548454
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 488412483.5370827,
+            "initial": 696000000,
+            "conducted": 488412483.5370677
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 304426191.917773,
+            "initial": 1044000000,
+            "conducted": 304426191.91776985
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "quarters",
+        "d": 0.25,
+        "between": "hold",
+        "pairs": 2
+      },
+      "expected": {
+        "first": "reactor",
+        "belowCritical": true,
+        "overheat": 356.01666666666665,
+        "max": 380.001473575637,
+        "end": 380.001473575637,
+        "referenceCritical": 529.7,
+        "crit": 380,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "reactor",
+        "t": 529.7166666666667,
+        "critical": 529.7166666666667,
+        "overheat": 356,
+        "max": 380.0032273266489,
+        "end": 380.0032273266489,
+        "cookOff": null,
+        "deaths": 18,
+        "books": [
+          {
+            "generated": 1835292987.5793147,
+            "radiated": 0,
+            "stored": 969394127.0890737,
+            "initial": 696000000,
+            "conducted": -865898860.4906987
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 541887242.114754,
+            "initial": 696000000,
+            "conducted": 541887242.1147515
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 324011618.37593603,
+            "initial": 1044000000,
+            "conducted": 324011618.37594265
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "neighbour below critical through 900 s, neighbour highest temperature, neighbour final temperature"
+    },
+    {
+      "case": {
+        "neighbour": "quarters",
+        "d": 0.5,
+        "between": "wall",
+        "pairs": 1
+      },
+      "expected": {
+        "first": "neighbour",
+        "closedFormFirst": "neighbour",
+        "time": 110.47817650889345,
+        "reactorOverheat": 204.32368593551143,
+        "crit": 380,
+        "crew": 18,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "neighbour",
+        "t": 110.48333333333333,
+        "critical": 110.48333333333333,
+        "overheat": null,
+        "max": 380.00214740736055,
+        "end": 380.00214740736055,
+        "cookOff": null,
+        "deaths": 18,
+        "books": [
+          {
+            "generated": 1104833333.3332458,
+            "radiated": 0,
+            "stored": 780825602.6668396,
+            "initial": 696000000,
+            "conducted": -324007730.6665
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 324007730.66649795,
+            "initial": 1044000000,
+            "conducted": 324007730.6665
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "quarters",
+        "d": 0.5,
+        "between": "wall",
+        "pairs": 2
+      },
+      "expected": {
+        "first": "neighbour",
+        "closedFormFirst": "neighbour",
+        "time": 86.76730547194259,
+        "reactorOverheat": 252.04917441017068,
+        "crit": 380,
+        "crew": 18,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "neighbour",
+        "t": 86.78333333333333,
+        "critical": 86.78333333333333,
+        "overheat": null,
+        "max": 380.0213096112992,
+        "end": 380.0213096112992,
+        "cookOff": null,
+        "deaths": 18,
+        "books": [
+          {
+            "generated": 867833333.3332801,
+            "radiated": 0,
+            "stored": 543756618.7326477,
+            "initial": 696000000,
+            "conducted": -324076714.60068184
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 324076714.60067725,
+            "initial": 1044000000,
+            "conducted": 324076714.60068184
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "quarters",
+        "d": 0.5,
+        "between": "hold",
+        "pairs": 1
+      },
+      "expected": {
+        "first": "reactor",
+        "belowCritical": true,
+        "overheat": 134.45,
+        "max": 380.00163468095786,
+        "end": 380.00163468095786,
+        "referenceCritical": 879.0166666666667,
+        "crit": 380,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "reactor",
+        "t": 879.0166666666667,
+        "critical": 879.0166666666667,
+        "overheat": 134.45,
+        "max": 380.0012557143032,
+        "end": 380.0012557143032,
+        "cookOff": null,
+        "deaths": 18,
+        "books": [
+          {
+            "generated": 1699045207.356621,
+            "radiated": 0,
+            "stored": 872718684.1044087,
+            "initial": 696000000,
+            "conducted": -826326523.2521851
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 502322002.6806543,
+            "initial": 696000000,
+            "conducted": 502322002.6806774
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 324004520.5714917,
+            "initial": 1044000000,
+            "conducted": 324004520.5715163
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "neighbour below critical through 900 s"
+    },
+    {
+      "case": {
+        "neighbour": "quarters",
+        "d": 0.5,
+        "between": "hold",
+        "pairs": 2
+      },
+      "expected": {
+        "first": "reactor",
+        "belowCritical": true,
+        "overheat": 147.85,
+        "max": 380.00123889175507,
+        "end": 380.00123889175507,
+        "referenceCritical": 471.3333333333333,
+        "crit": 380,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "first": "reactor",
+        "t": 471.3666666666667,
+        "critical": 471.3666666666667,
+        "overheat": 147.83333333333334,
+        "max": 380.00105315383945,
+        "end": 380.00105315383945,
+        "cookOff": null,
+        "deaths": 18,
+        "books": [
+          {
+            "generated": 1668569281.2114131,
+            "radiated": 0,
+            "stored": 846863110.7498429,
+            "initial": 696000000,
+            "conducted": -821706170.4615023
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 497702379.1076884,
+            "initial": 696000000,
+            "conducted": 497702379.1076787
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 324003791.353822,
+            "initial": 1044000000,
+            "conducted": 324003791.3538173
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "neighbour below critical through 900 s"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction flows sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

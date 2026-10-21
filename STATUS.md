@@ -10,7 +10,10 @@ Updated 2026-10-21 by the lead designer chat (session
 - **L2 plan written** (#192–#196, `DESIGN.md` §13d): cluster layout,
   conduction, power and ammunition by wall length, blast between rooms,
   shield overlap without double counting (#170), shared repair, size rule,
-  12 scenarios. Engineer starting on `m0/l2-clusters`.
+  12 scenarios. **Engineer's pull request open** on `m0/l2-clusters`:
+  10 PASS, 2 FAIL on specification questions (the hold does not save a
+  neighbour behind a 10 m wall; the chain's 1e-3 K and < 15 % are not met
+  by the closed form itself).
 - **E1 amended by the owner (#188)**: a scenario withdrawn for a
   specification error, with a passing successor, does not block E1.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
@@ -36,7 +39,11 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Open pull requests
 
-None. PR #5 (L1) is merged through the lead designer's branch, so `main`
+| PR | Branch | What | State |
+|---|---|---|---|
+| (see the PR list) | `m0/l2-clusters` | Mission 0, L2: pairs and clusters (engineer, `session_0111ENvC2XXCj4tA5T9zTZQ7`) | open; 12 scenarios locked at `621f2c6` and run: 10 PASS, `L2.heat.chain` and `L2.heat.neighbour` FAIL on the plan's own claims (Questions for the designer in the PR); `regress` 37 VERIFIED + 1 WITHDRAWN; waits for the physics checker (blind) and the reviewer |
+
+PR #5 (L1) is merged through the lead designer's branch, so `main`
 carries its head `fd815ce` with a merge commit.
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
@@ -110,6 +117,7 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Reviewer, L1 | session_01RYgtwmNTAS4VRWxefHDetg | sonnet-5-5 | 1.19 |
 | Engineer, L1 review fixes (#189) | session_014jtbGrQdvSycQU8E6stAeY | opus-5-5 | 4.97 |
 | Reviewer, L1 re-review | session_01GsfMyFUqaSXRsVGQhELH2U | sonnet-5-5 | 0.53 |
+| Engineer, L2 (`m0/l2-clusters`) | session_0111ENvC2XXCj4tA5T9zTZQ7 | opus-5-5 | not visible to the session |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 
