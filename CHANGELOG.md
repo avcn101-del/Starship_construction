@@ -12,6 +12,21 @@
   (§13f.2 puts six radiators on it, §13f.1 lists it as inside); a question
   in the L3 pull request. Every earlier record re-recorded for the new data
   hash (see the pull request for what moved).
+- Kernel (§13f.1, #208): new `js/body.js` (mass properties from cells as
+  squares plus point masses, the rigid body, semi-implicit Euler, impulses,
+  the velocity field kept when a part leaves, momentum kept when rounds move
+  inside, momentum books). `js/rooms.js`: `addFitting` (radiators and RCS on
+  open edges, with mass), `enableShip`, engine thrust at the exhaust face,
+  RCS forces through their host room (power, control, heat), recoil
+  (−m u d at the turret, rounds in flight), turrets that hold fire, debris
+  for every mass that leaves (a destroyed cell takes its heat with it,
+  #214 (9)), fragments with the parent's velocity field, control over live
+  walls with SCRAM on its loss (turrets, shields and beams now also stop
+  without control), and the shipyard `readout` (#58). A destroyed cell
+  resists no round (#212 (5)). `js/graph.js`: structure components, control
+  reach, live walls only within a room's working fragment. `js/layout.js`:
+  fitting rules and `validateShip` (#57). No earlier record moved.
+- `tools/perf.js`: milliseconds per step for two R1s at T1 and T6 (E8, #213).
 
 ## 0.4.1 — 2026-10-21 — The D pass merged; reviewer answers (#216)
 
