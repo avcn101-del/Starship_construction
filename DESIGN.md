@@ -1088,7 +1088,7 @@ integration reproduces NIST PSTAR's proton ranges in water within 0.15 %
 | Round damage (#230) | The round takes **the same sectional momentum the cell takes, against its own strength** S = c × ρ_steel × L (L its pristine length: per kilogram of steel, a round is as strong as armour). Its damage f grows by (sectional momentum the cell took) / S; damage **flattens it at constant volume**: A = A₀ / (1 − f), its momentum unchanged by f. At each cell, with s = p / A on entry: if s > r and f + r / S < 1, it passes (the cell takes r, p falls by r·A, f grows by r / S); otherwise it stops there, the cell takes min(s, r), f grows by that / S, capped at 1 (f = 1: the round is **wrecked**; its remaining momentum goes to the ship like a stopped round's). A hole takes nothing and does nothing to the round. Cell losses are the D pass's (#206): a passed cell 1 / `kinetic.hitsToWreck`, the stopping cell (taken / r) / `kinetic.hitsToWreck`. Momentum books: p₀ = Σ r·A over passed cells + the stop's remaining p + p on exit |
 | Shield and rounds | The shield slows a round by a field, not by contact: no round damage (unchanged) |
 | Tumble | Left out; in `IDEAS.md` with sloped armour (#6), after prototype v2's helm (#230) |
-| Beam bay (#234) | **An axis room 2 × N cells** (M; 3 × N for L), N ≥ 2, lying along the ship's axis rows with its bow face open, like the spinal railgun: a linear accelerator. Its particles' kinetic energy is **E = `beam.gradient` × N × edge** (10 MeV/m: a 10 m bay gives 100 MeV, a 40 m bay 400 MeV). Its power, draw and heat are as at L1, whatever N (a longer bay gives the same power at a lower current). R1's 2 × 2 bow beam bay is such a room with N = 2 |
+| Beam bay (#234) | **An axis room 2 × N cells** (M; 3 × N for L), N ≥ 2, lying along the ship's axis rows (its rows hold strictly the mean row of the cells of rooms joined to a bridge, and its x-span is at least its y-span; rules `axis` and `bow`, #236) with its bow face open, like the spinal railgun: a linear accelerator. Its particles' kinetic energy is **E = `beam.gradient` × N × edge** (10 MeV/m: a 10 m bay gives 100 MeV, a 40 m bay 400 MeV). Its power, draw and heat are as at L1, whatever N (a longer bay gives the same power at a lower current). R1's 2 × 2 bow beam bay is such a room with N = 2 |
 | Beam deposit (#229) | Neutral hydrogen atoms of energy E: inside matter each is a proton; survivors lose energy by the **Bethe formula** (no shell or density correction): dE/dX = K (Z/A) (1/β²) [½ ln(2 mₑc² β²γ² T_max / I²) − β²], T_max = 2 mₑc² β²γ² / (1 + 2γ mₑ/M + (mₑ/M)²), X the areal density crossed, iron (Z/A 0.46557, I 286 eV); a fraction dX / λ_I of the survivors has a **nuclear interaction** (λ_I = 1321 kg/m², iron) and leaves its remaining energy in that cell (a simplification: the real shower spreads forward over about λ_I). Cell i receives the fraction F_i of P; what is left leaves the ship. F is recomputed when a path cell becomes a hole |
 | Beam range (#230) | **No falloff** at battle range: all of P arrives at 0.6–1.5 km. The Gaussian maser falloff (`beam.focusRange`, `FIXED.beamWaistPerHalfCell`) is superseded |
 | Beam damage and heat | Cell i loses integrity at P·F_i / `armour.burnEnergy` per second (the energy that ruins any cell along the beam's channel: 30 MJ melts about 25 kg of steel, at about 1.2 MJ/kg from rest, an estimate) and is destroyed at 1; P·F_i is heat in cell i's room (#138). The shield absorbs first, at the entry point, as at L2 |
@@ -1099,7 +1099,7 @@ integration reproduces NIST PSTAR's proton ranges in water within 0.15 %
 
 | Constant | Value | Range | Source or reasoning |
 |---|---|---|---|
-| `matter.kineticResistance` (new, k = 0) | 1545.4 m/s (= 2.7e5 × 12^(1/3) / 400) | 750–3125 m/s (the old armour range over 400 kg/m²) | L0's armour calibration; an M round ≈ 150 mm of armour steel, about 6 cm per 400 kg/m² cell, by De Marre from the 6-pounder (a weak source, #230) |
+| `matter.kineticResistance` (new, k = 0) | 1545.4 m/s (= 2.7e5 × 12^(1/3) / 400) | 750–3125 m/s (the old armour range over 400 kg/m²) | L0's armour calibration: the model stops an M round in 2.166 cells of 400 kg/m² (5.1 cm of steel each), about 11 cm; De Marre from the 6-pounder gives 100–150 mm (a weak source, #230; corrected by the physics checker, #236) |
 | `armour.kineticResistance`, `room.kineticResistance` | removed | — | replaced by the line above (#232) |
 | `armour.cellMass` (new) | 1e4 kg | 3e3–3e4 | L0's armour cell (5 cm of steel over 25 m²); armour fittings come later (#15) |
 | `structure.cellMass` (now structure only: hold, magazine, heat sink before contents) | 3e3 kg (24 kg/m³) | 2e3–6e3 | the lead designer's estimate: frames, decks and bulkheads only (no source found) |
@@ -1142,7 +1142,7 @@ new constant is approved by the lead designer (#235), for veto.
   / 0.413. R1's 10 m bay is a surface beam; reaching rooms behind needs a
   long spinal accelerator, which costs length, mass and exposure (#234).
 - Beam burn on an armour column at contact (5 MW, 30 MJ): N = 2: cells 1, 2,
-  3 at **6.02, 12.03, 18.05 s**; N = 8: **13.9, 18.2, 20.5 s**; the same at
+  3 at **6, 12, 18 s** (exactly 360 steps each; the earlier 6.02 was a stale estimate, #236); N = 8: **13.9, 18.2, 20.5 s**; the same at
   any range.
 
 ### 13i.4 Scenarios

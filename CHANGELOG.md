@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.1 — 2026-10-21 — The path model merged (PR #48, #236)
+
+- PR #48 merged after the physics checker and the reviewer found no
+  blocking finding; `DESIGN.md` §13i text corrected (axis rule, the armour
+  sentence, N = 2 burn times); findings for the next kernel pass in #236.
+
 ## 0.7.0 — 2026-10-21 — Mission 0: the path model (#228–#235)
 
 - Data (§13i.2, #235): new `matter.kineticResistance` 1545.4 m/s
