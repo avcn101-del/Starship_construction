@@ -28,7 +28,7 @@ export default {
   tolerance: '(a) relative 1e-6; (b) strict, every step',
   criterion: 'T_ss = (P / (n eps sigma A))^(1/4); (a) |T - T_ss| / T_ss <= 1e-6 at every step, radiated power at the end and IR brightness each equal P within 1e-6 relative; (b) T rises every step, never exceeds T_ss, and T_ss - T shrinks every step (#102, #143, #185)',
   tunable: ['radiator.area', 'thermal.heatCapacityPerCell', 'thermal.plantCritical'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '686ca4b0' },
   cases(ctx) {
     const critical = ctx.params.thermal.plantCritical.value;
     const out = [];
