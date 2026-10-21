@@ -41,3 +41,13 @@ export function simpson(f, a, b, n = 2000) {
   for (let i = 1; i < n; i++) sum += f(a + i * h) * (i % 2 ? 4 : 2);
   return (sum * h) / 3;
 }
+
+/**
+ * Whole steps of dt needed for `duration` to have passed: duration / dt
+ * rounded up, except that a quotient within 1e-9 of a whole number counts
+ * as that number (10 s / (1/60 s) is 600 steps, not 601).
+ */
+export function stepsAtLeast(duration, dt) {
+  const n = duration / dt, r = Math.round(n);
+  return Math.abs(n - r) <= 1e-9 * Math.max(1, Math.abs(n)) ? r : Math.ceil(n);
+}
