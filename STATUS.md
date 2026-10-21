@@ -67,7 +67,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| (to come) Path model | `m0/path` → `main` | engineer `session_01GVBq5ohYZDDfg15HAkHm71` (opus) resumed on §13i v2 (#235, main `17303ef`); check-in `trig_01M8ydxF3ZiFH8jGsm4KHSEd` 16:23 UTC |
+| #48 Path model | `m0/path` → `main` | head `07e20ec`; all P1–P10 PASS, regress 57 VERIFIED + 34 WITHDRAWN; physics checker `session_01PsqTHfLh2EPTgKeY3KroeR` and reviewer `session_01D2L2Kyg1bin1QGk1UZQvfW` (sonnet) running; check-in `trig_01CwVR487CnaBr52C2utBmwp` 17:06 UTC |
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
@@ -186,7 +186,7 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, prototype loadout | session_013115n9cwYfUvYMg8ij5ed4 | opus-5-5 | 3.71 |
 | Engineer, prototype export and replay | session_01D3M6QwPL2KWFkX1Scsi4fd | opus-5-5 | 2.93 |
 | Reviewer, feel prototype (PR #42) | session_01FHeYxhXNqrCLrjyT1kpwia | sonnet-5-5 | 0.31 |
-| Engineer, path model (paused, #232) | session_01GVBq5ohYZDDfg15HAkHm71 | opus-5-5 | 2.56 so far |
+| Engineer, path model (PR #48) | session_01GVBq5ohYZDDfg15HAkHm71 | opus-5-5 | 13.57 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -194,7 +194,7 @@ D pass total: 14.11 USD (engineers 7.83 + 2.93, physics checker 2.26, reviewer 1
 L3 total: 23.82 USD (engineers 13.09 + 2.94 + 3.12, physics checker 3.22, reviewer 1.45).
 Mass pass total: 8.90 USD (engineer 8.07, reviewer 0.83).
 Feel prototype total: 12.36 USD (engineers 5.41 + 3.71 + 2.93, reviewer 0.31).
-Path model so far: 2.56 USD (engineer, paused).
+Path model so far: 13.57 USD (engineer).
 
 Sessions have reported a **seven-day usage limit warning**.
 
