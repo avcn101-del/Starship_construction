@@ -1,0 +1,192 @@
+{
+  "id": "L1.reactor.breach",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.reactor.breach",
+  "code": "a5915f2",
+  "criterionHash": "3c6f9aa0",
+  "lockedHash": "3c6f9aa0",
+  "runHash": "2aef6bad",
+  "dataHash": "6a6ff9ca",
+  "rowsHash": "cc10c5ae",
+  "rows": [
+    {
+      "case": {
+        "size": "M",
+        "mode": "breach"
+      },
+      "expected": {
+        "N": 4,
+        "k": 2,
+        "breachAt": 2,
+        "explosionAt": 12,
+        "oneSided": true,
+        "cause": "hit-2",
+        "energy": 200000000,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hits": 2,
+        "breach": {
+          "hits": 2,
+          "t": 2,
+          "cause": "hit-2"
+        },
+        "explosions": [
+          {
+            "t": 12,
+            "energy": 200000000,
+            "cause": "hit-2"
+          }
+        ],
+        "books": {
+          "generated": 135000000.0000015,
+          "radiated": 0,
+          "stored": 134999999.99997854,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "M",
+        "mode": "entire"
+      },
+      "expected": {
+        "N": 4,
+        "k": 2,
+        "breachAt": 2,
+        "explosionAt": 4,
+        "oneSided": false,
+        "cause": "hit-4",
+        "energy": 200000000,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hits": 4,
+        "breach": {
+          "hits": 2,
+          "t": 2,
+          "cause": "hit-2"
+        },
+        "explosions": [
+          {
+            "t": 4,
+            "energy": 200000000,
+            "cause": "hit-4"
+          }
+        ],
+        "books": {
+          "generated": 50000000,
+          "radiated": 0,
+          "stored": 50000000.000002384,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "mode": "breach"
+      },
+      "expected": {
+        "N": 9,
+        "k": 5,
+        "breachAt": 5,
+        "explosionAt": 15,
+        "oneSided": true,
+        "cause": "hit-5",
+        "energy": 200000000,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hits": 5,
+        "breach": {
+          "hits": 5,
+          "t": 5,
+          "cause": "hit-5"
+        },
+        "explosions": [
+          {
+            "t": 15,
+            "energy": 200000000,
+            "cause": "hit-5"
+          }
+        ],
+        "books": {
+          "generated": 374999999.9999956,
+          "radiated": 0,
+          "stored": 374999999.9999571,
+          "initial": 1566000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "size": "L",
+        "mode": "entire"
+      },
+      "expected": {
+        "N": 9,
+        "k": 5,
+        "breachAt": 5,
+        "explosionAt": 9,
+        "oneSided": false,
+        "cause": "hit-9",
+        "energy": 200000000,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hits": 9,
+        "breach": {
+          "hits": 5,
+          "t": 5,
+          "cause": "hit-5"
+        },
+        "explosions": [
+          {
+            "t": 9,
+            "energy": 200000000,
+            "cause": "hit-9"
+          }
+        ],
+        "books": {
+          "generated": 224999999.99999976,
+          "radiated": 0,
+          "stored": 225000000,
+          "initial": 1566000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

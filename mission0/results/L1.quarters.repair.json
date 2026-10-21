@@ -1,0 +1,717 @@
+{
+  "id": "L1.quarters.repair",
+  "level": "L1",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L1.quarters.repair",
+  "code": "a5915f2",
+  "criterionHash": "2ad503bc",
+  "lockedHash": "2ad503bc",
+  "runHash": "60099027",
+  "dataHash": "6a6ff9ca",
+  "rowsHash": "750818be",
+  "rows": [
+    {
+      "case": {
+        "c": 6,
+        "x": 0
+      },
+      "expected": {
+        "housed": 18,
+        "deathsPerCell": 3,
+        "lost": 0,
+        "rate": 0.02,
+        "repaired": 50,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 18,
+        "deaths": [],
+        "rate": 0.02,
+        "repaired": 50,
+        "integrity": 1,
+        "books": {
+          "generated": 2500833.33333333,
+          "radiated": 0,
+          "stored": 2500833.3334525824,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 6,
+        "x": 0.5
+      },
+      "expected": {
+        "housed": 18,
+        "deathsPerCell": 3,
+        "lost": 0,
+        "rate": 0.016,
+        "repaired": 62.5,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 18,
+        "deaths": [],
+        "rate": 0.016,
+        "repaired": 62.5,
+        "integrity": 1,
+        "books": {
+          "generated": 3125833.3333334466,
+          "radiated": 0,
+          "stored": 3125833.3334823847,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 6,
+        "x": 1
+      },
+      "expected": {
+        "housed": 18,
+        "deathsPerCell": 3,
+        "lost": 0,
+        "rate": 0.01,
+        "repaired": 100,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 18,
+        "deaths": [],
+        "rate": 0.01,
+        "repaired": 100,
+        "integrity": 1,
+        "books": {
+          "generated": 5000833.333333345,
+          "radiated": 0,
+          "stored": 5000833.333571792,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 6,
+        "x": 2
+      },
+      "expected": {
+        "housed": 18,
+        "deathsPerCell": 3,
+        "lost": 0,
+        "rate": 0.004,
+        "repaired": 250,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 18,
+        "deaths": [],
+        "rate": 0.004,
+        "repaired": 250,
+        "integrity": 1,
+        "books": {
+          "generated": 12500833.333335146,
+          "radiated": 0,
+          "stored": 12500833.33392942,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 6,
+        "x": 4
+      },
+      "expected": {
+        "housed": 18,
+        "deathsPerCell": 3,
+        "lost": 0,
+        "rate": 0.0011764705882352942,
+        "repaired": 849.9999999999999,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 18,
+        "deaths": [],
+        "rate": 0.0011764705882352942,
+        "repaired": 849.9833333333333,
+        "integrity": 1,
+        "books": {
+          "generated": 42500000.00000666,
+          "radiated": 0,
+          "stored": 42500000.00020146,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "repaired"
+    },
+    {
+      "case": {
+        "c": 3,
+        "x": 0
+      },
+      "expected": {
+        "housed": 9,
+        "deathsPerCell": 3,
+        "lost": 3,
+        "rate": 0.01,
+        "repaired": 100,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 9,
+        "deaths": [
+          3,
+          3,
+          3
+        ],
+        "rate": 0.01,
+        "repaired": 100,
+        "integrity": 1,
+        "books": {
+          "generated": 2500416.6666666726,
+          "radiated": 0,
+          "stored": 2500416.6664282084,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 3,
+        "x": 0.5
+      },
+      "expected": {
+        "housed": 9,
+        "deathsPerCell": 3,
+        "lost": 3,
+        "rate": 0.008,
+        "repaired": 125,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 9,
+        "deaths": [
+          3,
+          3,
+          3
+        ],
+        "rate": 0.008,
+        "repaired": 125,
+        "integrity": 1,
+        "books": {
+          "generated": 3125416.6666664397,
+          "radiated": 0,
+          "stored": 3125416.6663686037,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 3,
+        "x": 1
+      },
+      "expected": {
+        "housed": 9,
+        "deathsPerCell": 3,
+        "lost": 3,
+        "rate": 0.005,
+        "repaired": 200,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 9,
+        "deaths": [
+          3,
+          3,
+          3
+        ],
+        "rate": 0.005,
+        "repaired": 200,
+        "integrity": 1,
+        "books": {
+          "generated": 5000416.666666642,
+          "radiated": 0,
+          "stored": 5000416.66618979,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 3,
+        "x": 2
+      },
+      "expected": {
+        "housed": 9,
+        "deathsPerCell": 3,
+        "lost": 3,
+        "rate": 0.002,
+        "repaired": 500,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 9,
+        "deaths": [
+          3,
+          3,
+          3
+        ],
+        "rate": 0.002,
+        "repaired": 500,
+        "integrity": 1,
+        "books": {
+          "generated": 12500416.66666304,
+          "radiated": 0,
+          "stored": 12500416.665474534,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 3,
+        "x": 4
+      },
+      "expected": {
+        "housed": 9,
+        "deathsPerCell": 3,
+        "lost": 3,
+        "rate": 0.0005882352941176471,
+        "repaired": 1699.9999999999998,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 9,
+        "deaths": [
+          3,
+          3,
+          3
+        ],
+        "rate": 0.0005882352941176471,
+        "repaired": 1700,
+        "integrity": 1,
+        "books": {
+          "generated": 42500416.66665334,
+          "radiated": 0,
+          "stored": 42500416.66626382,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 1,
+        "x": 0
+      },
+      "expected": {
+        "housed": 3,
+        "deathsPerCell": 3,
+        "lost": 5,
+        "rate": 0.003333333333333333,
+        "repaired": 300,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 3,
+        "deaths": [
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "rate": 0.003333333333333333,
+        "repaired": 299.98333333333335,
+        "integrity": 1,
+        "books": {
+          "generated": 2500000.000000997,
+          "radiated": 0,
+          "stored": 2499999.9990463257,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "repaired"
+    },
+    {
+      "case": {
+        "c": 1,
+        "x": 0.5
+      },
+      "expected": {
+        "housed": 3,
+        "deathsPerCell": 3,
+        "lost": 5,
+        "rate": 0.0026666666666666666,
+        "repaired": 375,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 3,
+        "deaths": [
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "rate": 0.0026666666666666666,
+        "repaired": 375,
+        "integrity": 1,
+        "books": {
+          "generated": 3125138.8888903516,
+          "radiated": 0,
+          "stored": 3125138.887696743,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 1,
+        "x": 1
+      },
+      "expected": {
+        "housed": 3,
+        "deathsPerCell": 3,
+        "lost": 5,
+        "rate": 0.0016666666666666666,
+        "repaired": 600,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 3,
+        "deaths": [
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "rate": 0.0016666666666666666,
+        "repaired": 600,
+        "integrity": 1,
+        "books": {
+          "generated": 5000138.888891748,
+          "radiated": 0,
+          "stored": 5000138.886981487,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 1,
+        "x": 2
+      },
+      "expected": {
+        "housed": 3,
+        "deathsPerCell": 3,
+        "lost": 5,
+        "rate": 0.0006666666666666666,
+        "repaired": 1500,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 3,
+        "deaths": [
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "rate": 0.0006666666666666666,
+        "repaired": 1500,
+        "integrity": 1,
+        "books": {
+          "generated": 12500138.888869766,
+          "radiated": 0,
+          "stored": 12500138.884120464,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 1,
+        "x": 4
+      },
+      "expected": {
+        "housed": 3,
+        "deathsPerCell": 3,
+        "lost": 5,
+        "rate": 0.000196078431372549,
+        "repaired": 5100,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 3,
+        "deaths": [
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "rate": 0.000196078431372549,
+        "repaired": 5100,
+        "integrity": 1,
+        "books": {
+          "generated": 42500138.888690956,
+          "radiated": 0,
+          "stored": 42500138.87267637,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 0,
+        "x": 0
+      },
+      "expected": {
+        "housed": 0,
+        "deathsPerCell": 3,
+        "lost": 6,
+        "rate": 0,
+        "repaired": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 0,
+        "deaths": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 0,
+        "x": 0.5
+      },
+      "expected": {
+        "housed": 0,
+        "deathsPerCell": 3,
+        "lost": 6,
+        "rate": 0,
+        "repaired": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 0,
+        "deaths": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 0,
+        "x": 1
+      },
+      "expected": {
+        "housed": 0,
+        "deathsPerCell": 3,
+        "lost": 6,
+        "rate": 0,
+        "repaired": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 0,
+        "deaths": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 0,
+        "x": 2
+      },
+      "expected": {
+        "housed": 0,
+        "deathsPerCell": 3,
+        "lost": 6,
+        "rate": 0,
+        "repaired": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 0,
+        "deaths": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "c": 0,
+        "x": 4
+      },
+      "expected": {
+        "housed": 0,
+        "deathsPerCell": 3,
+        "lost": 6,
+        "rate": 0,
+        "repaired": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "housed": 0,
+        "deaths": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,532 @@
+{
+  "id": "L1.radiator.cooling",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.radiator.cooling",
+  "code": "a5915f2",
+  "criterionHash": "d33a4cfc",
+  "lockedHash": "d33a4cfc",
+  "runHash": "c524d7c4",
+  "dataHash": "6a6ff9ca",
+  "rowsHash": "ff52e197",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "T0": 400,
+        "n": 1
+      },
+      "expected": {
+        "T": 399.18678398379853,
+        "initial": 960000000
+      },
+      "actual": {
+        "T": 399.1867830680943,
+        "radiated": 1951720.6365717452,
+        "left": 958048279.3634263,
+        "books": {
+          "generated": 0,
+          "radiated": 1951720.6365717452,
+          "stored": -1951720.6365736723,
+          "initial": 960000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "T0": 400,
+        "n": 2
+      },
+      "expected": {
+        "T": 398.3801410937033,
+        "initial": 960000000
+      },
+      "actual": {
+        "T": 398.3801374714227,
+        "radiated": 3887670.0685841925,
+        "left": 956112329.9314145,
+        "books": {
+          "generated": 0,
+          "radiated": 3887670.0685841925,
+          "stored": -3887670.068585515,
+          "initial": 960000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "T0": 600,
+        "n": 1
+      },
+      "expected": {
+        "T": 595.9223555383383,
+        "initial": 1440000000
+      },
+      "actual": {
+        "T": 595.9223402991748,
+        "radiated": 9786383.281973805,
+        "left": 1430213616.7180197,
+        "books": {
+          "generated": 0,
+          "radiated": 9786383.281973805,
+          "stored": -9786383.281980276,
+          "initial": 1440000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "T0": 600,
+        "n": 2
+      },
+      "expected": {
+        "T": 591.9533465466872,
+        "initial": 1440000000
+      },
+      "actual": {
+        "T": 591.953287792437,
+        "radiated": 19312109.298149228,
+        "left": 1420687890.7018487,
+        "books": {
+          "generated": 0,
+          "radiated": 19312109.298149228,
+          "stored": -19312109.298151255,
+          "initial": 1440000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "T0": 800,
+        "n": 1
+      },
+      "expected": {
+        "T": 787.3465411619493,
+        "initial": 1920000000
+      },
+      "actual": {
+        "T": 787.3464325924081,
+        "radiated": 30368561.778220844,
+        "left": 1889631438.2217793,
+        "books": {
+          "generated": 0,
+          "radiated": 30368561.778220844,
+          "stored": -30368561.778220654,
+          "initial": 1920000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "T0": 800,
+        "n": 2
+      },
+      "expected": {
+        "T": 775.4574538763743,
+        "initial": 1920000000
+      },
+      "actual": {
+        "T": 775.4570545639655,
+        "radiated": 58903069.04648294,
+        "left": 1861096930.9535172,
+        "books": {
+          "generated": 0,
+          "radiated": 58903069.04648294,
+          "stored": -58903069.0464828,
+          "initial": 1920000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "T0": 1000,
+        "n": 1
+      },
+      "expected": {
+        "T": 969.9985600105884,
+        "initial": 2400000000
+      },
+      "actual": {
+        "T": 969.99808215493,
+        "radiated": 72004602.82817456,
+        "left": 2327995397.171832,
+        "books": {
+          "generated": 0,
+          "radiated": 72004602.82817456,
+          "stored": -72004602.82816792,
+          "initial": 2400000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "T0": 1000,
+        "n": 2
+      },
+      "expected": {
+        "T": 943.3014259188176,
+        "initial": 2400000000
+      },
+      "actual": {
+        "T": 943.2997879766049,
+        "radiated": 136080508.85613927,
+        "left": 2263919491.1438518,
+        "books": {
+          "generated": 0,
+          "radiated": 136080508.85613927,
+          "stored": -136080508.85614824,
+          "initial": 2400000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "T0": 1200,
+        "n": 1
+      },
+      "expected": {
+        "T": 1140.3268610929254,
+        "initial": 2880000000
+      },
+      "actual": {
+        "T": 1140.3253327419761,
+        "radiated": 143219201.41924483,
+        "left": 2736780798.580743,
+        "books": {
+          "generated": 0,
+          "radiated": 143219201.41924483,
+          "stored": -143219201.41925716,
+          "initial": 2880000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "T0": 1200,
+        "n": 2
+      },
+      "expected": {
+        "T": 1090.9921001441896,
+        "initial": 2880000000
+      },
+      "actual": {
+        "T": 1090.9873182466984,
+        "radiated": 261630436.2079267,
+        "left": 2618369563.792076,
+        "books": {
+          "generated": 0,
+          "radiated": 261630436.2079267,
+          "stored": -261630436.2079239,
+          "initial": 2880000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "T0": 1000,
+        "n": 1
+      },
+      "expected": {
+        "T": 979.597797073079,
+        "initial": 8100000000
+      },
+      "actual": {
+        "T": 979.5975728322618,
+        "radiated": 165259660.05867115,
+        "left": 7934740339.94132,
+        "books": {
+          "generated": 0,
+          "radiated": 165259660.05867115,
+          "stored": -165259660.05867958,
+          "initial": 8100000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "T0": 1000,
+        "n": 2
+      },
+      "expected": {
+        "T": 960.7648522503373,
+        "initial": 8100000000
+      },
+      "actual": {
+        "T": 960.7640464626039,
+        "radiated": 317811223.652901,
+        "left": 7782188776.347092,
+        "books": {
+          "generated": 0,
+          "radiated": 317811223.652901,
+          "stored": -317811223.6529083,
+          "initial": 8100000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "T0": 1000,
+        "n": 1
+      },
+      "expected": {
+        "T": 984.542541889482,
+        "initial": 19200000000
+      },
+      "actual": {
+        "T": 984.5424122038472,
+        "radiated": 296785685.6861216,
+        "left": 18903214314.313866,
+        "books": {
+          "generated": 0,
+          "radiated": 296785685.6861216,
+          "stored": -296785685.68613434,
+          "initial": 19200000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "T0": 1000,
+        "n": 2
+      },
+      "expected": {
+        "T": 969.9985600105884,
+        "initial": 19200000000
+      },
+      "actual": {
+        "T": 969.99808215493,
+        "radiated": 576036822.6253965,
+        "left": 18623963177.374657,
+        "books": {
+          "generated": 0,
+          "radiated": 576036822.6253965,
+          "stored": -576036822.6253433,
+          "initial": 19200000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "T0": 1000,
+        "n": 1
+      },
+      "expected": {
+        "T": 989.5886621034753,
+        "initial": 64800000000
+      },
+      "actual": {
+        "T": 989.5886028190755,
+        "radiated": 674658537.3238745,
+        "left": 64125341462.676094,
+        "books": {
+          "generated": 0,
+          "radiated": 674658537.3238745,
+          "stored": -674658537.323906,
+          "initial": 64800000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "T0": 1000,
+        "n": 2
+      },
+      "expected": {
+        "T": 979.597797073079,
+        "initial": 64800000000
+      },
+      "actual": {
+        "T": 979.5975728322618,
+        "radiated": 1322077280.4693692,
+        "left": 63477922719.53056,
+        "books": {
+          "generated": 0,
+          "radiated": 1322077280.4693692,
+          "stored": -1322077280.4694366,
+          "initial": 64800000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "T0": 1000,
+        "n": 1
+      },
+      "expected": {
+        "T": 992.1508848779459,
+        "initial": 153600000000
+      },
+      "actual": {
+        "T": 992.1508510522895,
+        "radiated": 1205629278.3691022,
+        "left": 152394370721.63165,
+        "books": {
+          "generated": 0,
+          "radiated": 1205629278.3691022,
+          "stored": -1205629278.3683472,
+          "initial": 153600000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "T0": 1000,
+        "n": 2
+      },
+      "expected": {
+        "T": 984.542541889482,
+        "initial": 153600000000
+      },
+      "actual": {
+        "T": 984.5424122038472,
+        "radiated": 2374285485.4889727,
+        "left": 151225714514.51093,
+        "books": {
+          "generated": 0,
+          "radiated": 2374285485.4889727,
+          "stored": -2374285485.4890747,
+          "initial": 153600000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "T0": 1000,
+        "n": 1
+      },
+      "expected": {
+        "T": 994.7398516979065,
+        "initial": 518400000000
+      },
+      "actual": {
+        "T": 994.739836447086,
+        "radiated": 2726868785.831414,
+        "left": 515673131214.1694,
+        "books": {
+          "generated": 0,
+          "radiated": 2726868785.831414,
+          "stored": -2726868785.8306274,
+          "initial": 518400000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "T0": 1000,
+        "n": 2
+      },
+      "expected": {
+        "T": 989.5886621034753,
+        "initial": 518400000000
+      },
+      "actual": {
+        "T": 989.5886028190755,
+        "radiated": 5397268298.590996,
+        "left": 513002731701.40875,
+        "books": {
+          "generated": 0,
+          "radiated": 5397268298.590996,
+          "stored": -5397268298.591248,
+          "initial": 518400000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

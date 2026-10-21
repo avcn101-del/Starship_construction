@@ -1,0 +1,1944 @@
+{
+  "id": "L1.turret.fire",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.turret.fire",
+  "code": "a5915f2",
+  "criterionHash": "6687eaa4",
+  "lockedHash": "6687eaa4",
+  "runHash": "e498ae2f",
+  "dataHash": "6a6ff9ca",
+  "rowsHash": "80c2b2df",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "n": 5,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 400,
+        "heat": 300000,
+        "energy": 200000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 400,
+        "heat": 300000,
+        "energy": 200000.00000000012,
+        "cease": [],
+        "books": {
+          "generated": 300000,
+          "radiated": 0,
+          "stored": 300000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 5,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 2000,
+        "heat": 1500000,
+        "energy": 1600000,
+        "cease": {
+          "t": 8,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 2000,
+        "heat": 1500000,
+        "energy": 1599999.999999992,
+        "cease": [
+          {
+            "t": 8,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 1500000,
+          "radiated": 0,
+          "stored": 1500000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 5,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 2000,
+        "heat": 1500000,
+        "energy": 1600000,
+        "cease": {
+          "t": 8,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 2000,
+        "heat": 1500000,
+        "energy": 1599999.999999992,
+        "cease": [
+          {
+            "t": 8,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 1500000,
+          "radiated": 0,
+          "stored": 1500000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 5,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 2000,
+        "heat": 1500000,
+        "energy": 1600000,
+        "cease": {
+          "t": 8,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 2000,
+        "heat": 1500000,
+        "energy": 1599999.999999992,
+        "cease": [
+          {
+            "t": 8,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 1500000,
+          "radiated": 0,
+          "stored": 1500000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 150,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 400,
+        "heat": 300000,
+        "energy": 200000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 400,
+        "heat": 300000,
+        "energy": 200000.00000000012,
+        "cease": [],
+        "books": {
+          "generated": 300000,
+          "radiated": 0,
+          "stored": 300000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 150,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 2000,
+        "heat": 1500000,
+        "energy": 1900000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 2000,
+        "heat": 1500000,
+        "energy": 1899999.999999985,
+        "cease": [],
+        "books": {
+          "generated": 1500000,
+          "radiated": 0,
+          "stored": 1500000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 150,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 50,
+        "impulse": 20000,
+        "heat": 15000000,
+        "energy": 19900000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 50,
+        "impulse": 20000,
+        "heat": 15000000,
+        "energy": 19900000.000000086,
+        "cease": [],
+        "books": {
+          "generated": 15000000,
+          "radiated": 0,
+          "stored": 15000000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 150,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 150,
+        "impulse": 60000,
+        "heat": 45000000,
+        "energy": 59600000,
+        "cease": {
+          "t": 298,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 150,
+        "impulse": 60000,
+        "heat": 45000000,
+        "energy": 59600000.0000144,
+        "cease": [
+          {
+            "t": 298,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 45000000,
+          "radiated": 0,
+          "stored": 45000000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "n": 5,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 1350,
+        "heat": 1012500,
+        "energy": 450000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 1350,
+        "heat": 1012500,
+        "energy": 450000,
+        "cease": [],
+        "books": {
+          "generated": 1012500,
+          "radiated": 0,
+          "stored": 1012500,
+          "initial": 2349000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "n": 5,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 4,
+        "impulse": 5400,
+        "heat": 4050000,
+        "energy": 4275000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 4,
+        "impulse": 5400,
+        "heat": 4050000,
+        "energy": 4275000,
+        "cease": [],
+        "books": {
+          "generated": 4050000,
+          "radiated": 0,
+          "stored": 4050000,
+          "initial": 2349000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "n": 5,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 6750,
+        "heat": 5062500,
+        "energy": 5400000,
+        "cease": {
+          "t": 12,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 6750,
+        "heat": 5062500,
+        "energy": 5400000,
+        "cease": [
+          {
+            "t": 12,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 5062500,
+          "radiated": 0,
+          "stored": 5062500,
+          "initial": 2349000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "n": 5,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 6750,
+        "heat": 5062500,
+        "energy": 5400000,
+        "cease": {
+          "t": 12,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 6750,
+        "heat": 5062500,
+        "energy": 5400000,
+        "cease": [
+          {
+            "t": 12,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 5062500,
+          "radiated": 0,
+          "stored": 5062500,
+          "initial": 2349000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "n": 150,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 1350,
+        "heat": 1012500,
+        "energy": 450000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 1350,
+        "heat": 1012500,
+        "energy": 450000,
+        "cease": [],
+        "books": {
+          "generated": 1012500,
+          "radiated": 0,
+          "stored": 1012500,
+          "initial": 2349000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "n": 150,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 4,
+        "impulse": 5400,
+        "heat": 4050000,
+        "energy": 4275000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 4,
+        "impulse": 5400,
+        "heat": 4050000,
+        "energy": 4275000,
+        "cease": [],
+        "books": {
+          "generated": 4050000,
+          "radiated": 0,
+          "stored": 4050000,
+          "initial": 2349000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "n": 150,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 34,
+        "impulse": 45900,
+        "heat": 34425000,
+        "energy": 44775000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 34,
+        "impulse": 45900,
+        "heat": 34425000,
+        "energy": 44775000,
+        "cease": [],
+        "books": {
+          "generated": 34425000,
+          "radiated": 0,
+          "stored": 34425000,
+          "initial": 2349000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "n": 150,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 134,
+        "impulse": 180900,
+        "heat": 135675000,
+        "energy": 179775000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 134,
+        "impulse": 180900,
+        "heat": 135675000,
+        "energy": 179775000,
+        "cease": [],
+        "books": {
+          "generated": 135675000,
+          "radiated": 0,
+          "stored": 135675000,
+          "initial": 2349000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "n": 5,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 3200,
+        "heat": 2400000,
+        "energy": 800000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 3200,
+        "heat": 2400000,
+        "energy": 800000.0000000005,
+        "cease": [],
+        "books": {
+          "generated": 2400000,
+          "radiated": 0,
+          "stored": 2400000,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "n": 5,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 3,
+        "impulse": 9600,
+        "heat": 7200000,
+        "energy": 7600000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 3,
+        "impulse": 9600,
+        "heat": 7200000,
+        "energy": 7599999.99999994,
+        "cease": [],
+        "books": {
+          "generated": 7200000,
+          "radiated": 0,
+          "stored": 7200000,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "n": 5,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 16000,
+        "heat": 12000000,
+        "energy": 12800000,
+        "cease": {
+          "t": 16,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 16000,
+        "heat": 12000000,
+        "energy": 12800000.000000127,
+        "cease": [
+          {
+            "t": 16,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 12000000,
+          "radiated": 0,
+          "stored": 12000000,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "n": 5,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 16000,
+        "heat": 12000000,
+        "energy": 12800000,
+        "cease": {
+          "t": 16,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 16000,
+        "heat": 12000000,
+        "energy": 12800000.000000127,
+        "cease": [
+          {
+            "t": 16,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 12000000,
+          "radiated": 0,
+          "stored": 12000000,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "n": 150,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 3200,
+        "heat": 2400000,
+        "energy": 800000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 3200,
+        "heat": 2400000,
+        "energy": 800000.0000000005,
+        "cease": [],
+        "books": {
+          "generated": 2400000,
+          "radiated": 0,
+          "stored": 2400000,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "n": 150,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 3,
+        "impulse": 9600,
+        "heat": 7200000,
+        "energy": 7600000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 3,
+        "impulse": 9600,
+        "heat": 7200000,
+        "energy": 7599999.99999994,
+        "cease": [],
+        "books": {
+          "generated": 7200000,
+          "radiated": 0,
+          "stored": 7200000,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "n": 150,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 25,
+        "impulse": 80000,
+        "heat": 60000000,
+        "energy": 79600000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 25,
+        "impulse": 80000,
+        "heat": 60000000,
+        "energy": 79600000.00000034,
+        "cease": [],
+        "books": {
+          "generated": 60000000,
+          "radiated": 0,
+          "stored": 60000000,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "n": 150,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 100,
+        "impulse": 320000,
+        "heat": 240000000,
+        "energy": 319600000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 100,
+        "impulse": 320000,
+        "heat": 240000000,
+        "energy": 319600000.00000376,
+        "cease": [],
+        "books": {
+          "generated": 240000000,
+          "radiated": 0,
+          "stored": 240000000,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "n": 5,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 10800,
+        "heat": 8100000,
+        "energy": 1800000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 10800,
+        "heat": 8100000,
+        "energy": 1800000,
+        "cease": [],
+        "books": {
+          "generated": 8100000,
+          "radiated": 0,
+          "stored": 8100000,
+          "initial": 18792000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "n": 5,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 2,
+        "impulse": 21600,
+        "heat": 16200000,
+        "energy": 17100000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 2,
+        "impulse": 21600,
+        "heat": 16200000,
+        "energy": 17100000,
+        "cease": [],
+        "books": {
+          "generated": 16200000,
+          "radiated": 0,
+          "stored": 16200000,
+          "initial": 18792000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "n": 5,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 54000,
+        "heat": 40500000,
+        "energy": 43200000,
+        "cease": {
+          "t": 24,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 54000,
+        "heat": 40500000,
+        "energy": 43200000,
+        "cease": [
+          {
+            "t": 24,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 40500000,
+          "radiated": 0,
+          "stored": 40500000,
+          "initial": 18792000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "n": 5,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 54000,
+        "heat": 40500000,
+        "energy": 43200000,
+        "cease": {
+          "t": 24,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 54000,
+        "heat": 40500000,
+        "energy": 43200000,
+        "cease": [
+          {
+            "t": 24,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 40500000,
+          "radiated": 0,
+          "stored": 40500000,
+          "initial": 18792000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "n": 150,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 10800,
+        "heat": 8100000,
+        "energy": 1800000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 10800,
+        "heat": 8100000,
+        "energy": 1800000,
+        "cease": [],
+        "books": {
+          "generated": 8100000,
+          "radiated": 0,
+          "stored": 8100000,
+          "initial": 18792000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "n": 150,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 2,
+        "impulse": 21600,
+        "heat": 16200000,
+        "energy": 17100000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 2,
+        "impulse": 21600,
+        "heat": 16200000,
+        "energy": 17100000,
+        "cease": [],
+        "books": {
+          "generated": 16200000,
+          "radiated": 0,
+          "stored": 16200000,
+          "initial": 18792000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "n": 150,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 17,
+        "impulse": 183600,
+        "heat": 137700000,
+        "energy": 179100000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 17,
+        "impulse": 183600,
+        "heat": 137700000,
+        "energy": 179100000,
+        "cease": [],
+        "books": {
+          "generated": 137700000,
+          "radiated": 0,
+          "stored": 137700000,
+          "initial": 18792000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "n": 150,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 67,
+        "impulse": 723600,
+        "heat": 542700000,
+        "energy": 719100000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 67,
+        "impulse": 723600,
+        "heat": 542700000,
+        "energy": 719100000,
+        "cease": [],
+        "books": {
+          "generated": 542700000,
+          "radiated": 0,
+          "stored": 542700000,
+          "initial": 18792000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "n": 5,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 25600,
+        "heat": 19200000,
+        "energy": 3200000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 25600,
+        "heat": 19200000,
+        "energy": 3200000.000000002,
+        "cease": [],
+        "books": {
+          "generated": 19200000,
+          "radiated": 0,
+          "stored": 19200000,
+          "initial": 44544000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "n": 5,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 2,
+        "impulse": 51200,
+        "heat": 38400000,
+        "energy": 30400000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 2,
+        "impulse": 51200,
+        "heat": 38400000,
+        "energy": 30399999.99999976,
+        "cease": [],
+        "books": {
+          "generated": 38400000,
+          "radiated": 0,
+          "stored": 38400000,
+          "initial": 44544000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "n": 5,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 128000,
+        "heat": 96000000,
+        "energy": 102400000,
+        "cease": {
+          "t": 32,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 128000,
+        "heat": 96000000,
+        "energy": 102399999.99999796,
+        "cease": [
+          {
+            "t": 32,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 96000000,
+          "radiated": 0,
+          "stored": 96000000,
+          "initial": 44544000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "n": 5,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 128000,
+        "heat": 96000000,
+        "energy": 102400000,
+        "cease": {
+          "t": 32,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 128000,
+        "heat": 96000000,
+        "energy": 102399999.99999796,
+        "cease": [
+          {
+            "t": 32,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 96000000,
+          "radiated": 0,
+          "stored": 96000000,
+          "initial": 44544000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "n": 150,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 25600,
+        "heat": 19200000,
+        "energy": 3200000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 25600,
+        "heat": 19200000,
+        "energy": 3200000.000000002,
+        "cease": [],
+        "books": {
+          "generated": 19200000,
+          "radiated": 0,
+          "stored": 19200000,
+          "initial": 44544000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "n": 150,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 2,
+        "impulse": 51200,
+        "heat": 38400000,
+        "energy": 30400000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 2,
+        "impulse": 51200,
+        "heat": 38400000,
+        "energy": 30399999.99999976,
+        "cease": [],
+        "books": {
+          "generated": 38400000,
+          "radiated": 0,
+          "stored": 38400000,
+          "initial": 44544000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "n": 150,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 13,
+        "impulse": 332800,
+        "heat": 249600000,
+        "energy": 318400000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 13,
+        "impulse": 332800,
+        "heat": 249600000,
+        "energy": 318400000.0000014,
+        "cease": [],
+        "books": {
+          "generated": 249600000,
+          "radiated": 0,
+          "stored": 249600000,
+          "initial": 44544000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "n": 150,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 50,
+        "impulse": 1280000,
+        "heat": 960000000,
+        "energy": 1278400000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 50,
+        "impulse": 1280000,
+        "heat": 960000000,
+        "energy": 1278400000.000015,
+        "cease": [],
+        "books": {
+          "generated": 960000000,
+          "radiated": 0,
+          "stored": 960000000,
+          "initial": 44544000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "n": 5,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 86400,
+        "heat": 64800000,
+        "energy": 7200000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 86400,
+        "heat": 64800000,
+        "energy": 7200000,
+        "cease": [],
+        "books": {
+          "generated": 64800000,
+          "radiated": 0,
+          "stored": 64800000,
+          "initial": 150336000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "n": 5,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 86400,
+        "heat": 64800000,
+        "energy": 68400000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 86400,
+        "heat": 64800000,
+        "energy": 68400000,
+        "cease": [],
+        "books": {
+          "generated": 64800000,
+          "radiated": 0,
+          "stored": 64800000,
+          "initial": 150336000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "n": 5,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 432000,
+        "heat": 324000000,
+        "energy": 345600000,
+        "cease": {
+          "t": 48,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 432000,
+        "heat": 324000000,
+        "energy": 345600000,
+        "cease": [
+          {
+            "t": 48,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 324000000,
+          "radiated": 0,
+          "stored": 324000000,
+          "initial": 150336000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "n": 5,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 5,
+        "impulse": 432000,
+        "heat": 324000000,
+        "energy": 345600000,
+        "cease": {
+          "t": 48,
+          "cause": "dry"
+        }
+      },
+      "actual": {
+        "shots": 5,
+        "impulse": 432000,
+        "heat": 324000000,
+        "energy": 345600000,
+        "cease": [
+          {
+            "t": 48,
+            "cause": "dry"
+          }
+        ],
+        "books": {
+          "generated": 324000000,
+          "radiated": 0,
+          "stored": 324000000,
+          "initial": 150336000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "n": 150,
+        "t": 1,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 86400,
+        "heat": 64800000,
+        "energy": 7200000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 86400,
+        "heat": 64800000,
+        "energy": 7200000,
+        "cease": [],
+        "books": {
+          "generated": 64800000,
+          "radiated": 0,
+          "stored": 64800000,
+          "initial": 150336000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "n": 150,
+        "t": 9.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 1,
+        "impulse": 86400,
+        "heat": 64800000,
+        "energy": 68400000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 1,
+        "impulse": 86400,
+        "heat": 64800000,
+        "energy": 68400000,
+        "cease": [],
+        "books": {
+          "generated": 64800000,
+          "radiated": 0,
+          "stored": 64800000,
+          "initial": 150336000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "n": 150,
+        "t": 99.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 9,
+        "impulse": 777600,
+        "heat": 583200000,
+        "energy": 716400000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 9,
+        "impulse": 777600,
+        "heat": 583200000,
+        "energy": 716400000,
+        "cease": [],
+        "books": {
+          "generated": 583200000,
+          "radiated": 0,
+          "stored": 583200000,
+          "initial": 150336000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "n": 150,
+        "t": 399.5,
+        "powered": true
+      },
+      "expected": {
+        "shots": 34,
+        "impulse": 2937600,
+        "heat": 2203200000,
+        "energy": 2876400000,
+        "cease": null
+      },
+      "actual": {
+        "shots": 34,
+        "impulse": 2937600,
+        "heat": 2203200000,
+        "energy": 2876400000,
+        "cease": [],
+        "books": {
+          "generated": 2203200000,
+          "radiated": 0,
+          "stored": 2203200000,
+          "initial": 150336000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 5,
+        "t": 1,
+        "powered": false
+      },
+      "expected": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": {
+          "t": 0,
+          "cause": "no-power"
+        }
+      },
+      "actual": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 5,
+        "t": 9.5,
+        "powered": false
+      },
+      "expected": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": {
+          "t": 0,
+          "cause": "no-power"
+        }
+      },
+      "actual": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 5,
+        "t": 99.5,
+        "powered": false
+      },
+      "expected": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": {
+          "t": 0,
+          "cause": "no-power"
+        }
+      },
+      "actual": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 5,
+        "t": 399.5,
+        "powered": false
+      },
+      "expected": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": {
+          "t": 0,
+          "cause": "no-power"
+        }
+      },
+      "actual": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 150,
+        "t": 1,
+        "powered": false
+      },
+      "expected": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": {
+          "t": 0,
+          "cause": "no-power"
+        }
+      },
+      "actual": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 150,
+        "t": 9.5,
+        "powered": false
+      },
+      "expected": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": {
+          "t": 0,
+          "cause": "no-power"
+        }
+      },
+      "actual": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 150,
+        "t": 99.5,
+        "powered": false
+      },
+      "expected": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": {
+          "t": 0,
+          "cause": "no-power"
+        }
+      },
+      "actual": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "n": 150,
+        "t": 399.5,
+        "powered": false
+      },
+      "expected": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": {
+          "t": 0,
+          "cause": "no-power"
+        }
+      },
+      "actual": {
+        "shots": 0,
+        "impulse": 0,
+        "heat": 0,
+        "energy": 0,
+        "cease": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

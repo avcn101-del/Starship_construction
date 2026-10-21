@@ -1,0 +1,609 @@
+{
+  "id": "L1.shield.generator",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.shield.generator",
+  "code": "a5915f2",
+  "criterionHash": "cf7ea187",
+  "lockedHash": "cf7ea187",
+  "runHash": "014441cf",
+  "dataHash": "6a6ff9ca",
+  "rowsHash": "3ca22308",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "x": 0.4,
+        "powered": true
+      },
+      "expected": {
+        "Pin": 2000000,
+        "absorbed": 2000000,
+        "passed": 0,
+        "em": 2000000,
+        "heatRate": 4000000,
+        "overheated": 306,
+        "down": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 2000000.0000000002,
+        "passed": 0,
+        "em": 2000000.0000000002,
+        "heatRate": 3999999.999997616,
+        "overheated": 306,
+        "after": {
+          "passed": 2000000,
+          "heatRate": 0
+        },
+        "down": [
+          {
+            "t": 306,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 1223999999.999923,
+          "radiated": 0,
+          "stored": 1224000000.0007837,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "x": 1,
+        "powered": true
+      },
+      "expected": {
+        "Pin": 5000000,
+        "absorbed": 5000000,
+        "passed": 0,
+        "em": 5000000,
+        "heatRate": 7000000,
+        "overheated": 174.85714285714286,
+        "down": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 5000000,
+        "passed": 0,
+        "em": 5000000,
+        "heatRate": 6999999.999997616,
+        "overheated": 174.86666666666667,
+        "after": {
+          "passed": 5000000,
+          "heatRate": 0
+        },
+        "down": [
+          {
+            "t": 174.86666666666667,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 1224066666.6666229,
+          "radiated": 0,
+          "stored": 1224066666.6671145,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "x": 2,
+        "powered": true
+      },
+      "expected": {
+        "Pin": 10000000,
+        "absorbed": 10000000,
+        "passed": 0,
+        "em": 10000000,
+        "heatRate": 12000000,
+        "overheated": 102,
+        "down": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 10000000,
+        "passed": 0,
+        "em": 10000000,
+        "heatRate": 12000000,
+        "overheated": 102,
+        "after": {
+          "passed": 10000000,
+          "heatRate": 0
+        },
+        "down": [
+          {
+            "t": 102,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 1224000000,
+          "radiated": 0,
+          "stored": 1224000000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "x": 6,
+        "powered": true
+      },
+      "expected": {
+        "Pin": 30000000,
+        "absorbed": 10000000,
+        "passed": 20000000,
+        "em": 10000000,
+        "heatRate": 12000000,
+        "overheated": 102,
+        "down": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 10000000,
+        "passed": 20000000,
+        "em": 10000000,
+        "heatRate": 12000000,
+        "overheated": 102,
+        "after": {
+          "passed": 30000000,
+          "heatRate": 0
+        },
+        "down": [
+          {
+            "t": 102,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 1224000000,
+          "radiated": 0,
+          "stored": 1224000000,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "x": 0.4,
+        "powered": false
+      },
+      "expected": {
+        "Pin": 2000000,
+        "absorbed": 0,
+        "passed": 2000000,
+        "em": 0,
+        "heatRate": 0,
+        "overheated": null,
+        "down": {
+          "t": 0,
+          "cause": "no-power"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 0,
+        "passed": 2000000,
+        "em": 0,
+        "heatRate": 0,
+        "overheated": null,
+        "after": null,
+        "down": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "x": 1,
+        "powered": false
+      },
+      "expected": {
+        "Pin": 5000000,
+        "absorbed": 0,
+        "passed": 5000000,
+        "em": 0,
+        "heatRate": 0,
+        "overheated": null,
+        "down": {
+          "t": 0,
+          "cause": "no-power"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 0,
+        "passed": 5000000,
+        "em": 0,
+        "heatRate": 0,
+        "overheated": null,
+        "after": null,
+        "down": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "x": 2,
+        "powered": false
+      },
+      "expected": {
+        "Pin": 10000000,
+        "absorbed": 0,
+        "passed": 10000000,
+        "em": 0,
+        "heatRate": 0,
+        "overheated": null,
+        "down": {
+          "t": 0,
+          "cause": "no-power"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 0,
+        "passed": 10000000,
+        "em": 0,
+        "heatRate": 0,
+        "overheated": null,
+        "after": null,
+        "down": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "x": 6,
+        "powered": false
+      },
+      "expected": {
+        "Pin": 30000000,
+        "absorbed": 0,
+        "passed": 30000000,
+        "em": 0,
+        "heatRate": 0,
+        "overheated": null,
+        "down": {
+          "t": 0,
+          "cause": "no-power"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 0,
+        "passed": 30000000,
+        "em": 0,
+        "heatRate": 0,
+        "overheated": null,
+        "after": null,
+        "down": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "x": 1,
+        "powered": true
+      },
+      "expected": {
+        "Pin": 11250000,
+        "absorbed": 11250000,
+        "passed": 0,
+        "em": 11250000,
+        "heatRate": 15750000,
+        "overheated": 262.2857142857143,
+        "down": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 11250000,
+        "passed": 0,
+        "em": 11250000,
+        "heatRate": 15750000,
+        "overheated": 262.3,
+        "after": {
+          "passed": 11250000,
+          "heatRate": 0
+        },
+        "down": [
+          {
+            "t": 262.3,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 4131225000,
+          "radiated": 0,
+          "stored": 4131225000,
+          "initial": 2349000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "x": 1,
+        "powered": true
+      },
+      "expected": {
+        "Pin": 20000000,
+        "absorbed": 20000000,
+        "passed": 0,
+        "em": 20000000,
+        "heatRate": 28000000,
+        "overheated": 349.7142857142857,
+        "down": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 20000000,
+        "passed": 0,
+        "em": 20000000,
+        "heatRate": 28000000.000019073,
+        "overheated": 349.71666666666664,
+        "after": {
+          "passed": 20000000,
+          "heatRate": 0
+        },
+        "down": [
+          {
+            "t": 349.71666666666664,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 9792066666.66737,
+          "radiated": 0,
+          "stored": 9792066666.659502,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "x": 1,
+        "powered": true
+      },
+      "expected": {
+        "Pin": 45000000,
+        "absorbed": 45000000,
+        "passed": 0,
+        "em": 45000000,
+        "heatRate": 63000000,
+        "overheated": 524.5714285714286,
+        "down": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 45000000,
+        "passed": 0,
+        "em": 45000000,
+        "heatRate": 63000000,
+        "overheated": 524.5833333333334,
+        "after": {
+          "passed": 45000000,
+          "heatRate": 0
+        },
+        "down": [
+          {
+            "t": 524.5833333333334,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 33048750000,
+          "radiated": 0,
+          "stored": 33048750000,
+          "initial": 18792000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "x": 1,
+        "powered": true
+      },
+      "expected": {
+        "Pin": 80000000,
+        "absorbed": 80000000,
+        "passed": 0,
+        "em": 80000000,
+        "heatRate": 112000000,
+        "overheated": 699.4285714285714,
+        "down": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 80000000,
+        "passed": 0,
+        "em": 80000000,
+        "heatRate": 111999999.99984741,
+        "overheated": 699.4333333333333,
+        "after": {
+          "passed": 80000000,
+          "heatRate": 0
+        },
+        "down": [
+          {
+            "t": 699.4333333333333,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 78336533333.32208,
+          "radiated": 0,
+          "stored": 78336533333.44797,
+          "initial": 44544000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "x": 1,
+        "powered": true
+      },
+      "expected": {
+        "Pin": 180000000,
+        "absorbed": 180000000,
+        "passed": 0,
+        "em": 180000000,
+        "heatRate": 252000000,
+        "overheated": 1049.142857142857,
+        "down": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "absorbed": 180000000,
+        "passed": 0,
+        "em": 180000000,
+        "heatRate": 252000000,
+        "overheated": 1049.15,
+        "after": {
+          "passed": 180000000,
+          "heatRate": 0
+        },
+        "down": [
+          {
+            "t": 1049.15,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 264385800000,
+          "radiated": 0,
+          "stored": 264385800000,
+          "initial": 150336000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
