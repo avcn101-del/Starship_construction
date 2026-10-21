@@ -38,7 +38,7 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
   const room = {
     id, type, size, def, position,
     footprintFactor: sizeLinear * sizeLinear, // rate-like constants: L = 9/4 of M (#183)
-    cells: Array.from({ length: n }, () => ({ integrity: 1 })),
+    cells: Array.from({ length: n }, () => ({ integrity: 1, destroyed: false })),
     thresholds: { hot: th[`${cls}Hot`].value, overheated: th[`${cls}Overheated`].value, critical: th[`${cls}Critical`].value },
     heat: createHeat(C, T0),
     radiators: 0,
@@ -57,9 +57,11 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
 }
 
 // ---------- shared state ----------
-export const survivingCells = (room) => room.cells.filter((c) => c.integrity > 0).length;
+// A cell is destroyed when its integrity reaches 0 and stays destroyed until
+// repair brings it back to integrity 1 (#189 (1), DESIGN.md 13c.2 row 14).
+export const survivingCells = (room) => room.cells.filter((c) => !c.destroyed).length;
 export const survivingFraction = (room) => survivingCells(room) / room.cells.length;
-/** Cells currently at integrity 0: a repaired cell no longer counts (#189 (1)). */
+/** Cells destroyed now: a repaired cell no longer counts (#189 (1)). */
 export const destroyedCells = (room) => room.cells.length - survivingCells(room);
 export const isDestroyed = (room) => room.exploded || survivingCells(room) === 0;
 export const roomTemperature = (room) => temperature(room.heat);
@@ -101,9 +103,10 @@ export function setControl(world, room, on, cause) {
  */
 export function damageCell(world, room, index, loss, cause, channel) {
   const cell = room.cells[index];
-  if (cell.integrity <= 0 || room.exploded) return;
+  if (cell.destroyed || room.exploded) return;
   cell.integrity = Math.max(0, cell.integrity - loss);
   if (cell.integrity > 0) return;
+  cell.destroyed = true;
   // k = cells currently destroyed (#189 (1)); crew do not come back, and
   // killCrew never takes more than are aboard, so deaths never exceed the crew.
   const k = destroyedCells(room), N = room.cells.length;
@@ -162,7 +165,7 @@ function onThreshold(world, room, x) {
 
 function explode(world, room, energy, cause) {
   room.exploded = true;
-  for (const c of room.cells) c.integrity = 0;
+  for (const c of room.cells) { c.integrity = 0; c.destroyed = true; }
   event(world, room, 'explosion', cause, { energy, channel: 'blast' });
   killCrew(world, room, room.crew, cause);
 }
@@ -313,6 +316,7 @@ const BEHAVIOUR = {
       other.cells.forEach((c, i) => {
         if (c.integrity >= 1 || rate <= 0) return;
         c.integrity = Math.min(1, c.integrity + rate * dt);
+        if (c.integrity >= 1) c.destroyed = false;
         if (c.integrity >= 1) world.repaired.push({ room: other, cell: i, cause: room.id }); // reported at the end of the step
       });
     }
