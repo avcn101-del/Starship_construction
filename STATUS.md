@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#231, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#232, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -68,7 +68,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 | PR | Branch | State |
 |---|---|---|
 | #42 Feel prototype | `proto/feel` → `main` | head `c1282d8`; published; light reviewer `session_01FHeYxhXNqrCLrjyT1kpwia` (sonnet) running; check-in `trig_012TJoAPzegxXek1NmWJiovT` 15:28 UTC |
-| (to come) Path model | `m0/path` → `main` | engineer `session_01GVBq5ohYZDDfg15HAkHm71` (opus) building §13i; check-in `trig_01Atbbanc5CbbZ3EbNEGYuXt` 15:58 UTC |
+| (to come) Path model | `m0/path` → `main` | engineer `session_01GVBq5ohYZDDfg15HAkHm71` (opus) **paused** (#232): §13i is revised (mass per room type) before it resumes |
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
