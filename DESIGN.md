@@ -82,7 +82,7 @@ projectiles (#8).
 | Law (kept) | In the game |
 |---|---|
 | Inertia, moment of inertia | Mass far from the centre turns slowly; recomputed when blocks are lost |
-| Recoil (Newton 3) | Kinetic weapons recoil hard, beams barely; off-axis guns spin the ship; RCS compensates |
+| Recoil (Newton 3) | Every gun pushes its ship by the momentum of its round, beams almost not at all; at real masses a turret's push is tiny (as on real warships) and only the spinal railgun's heavy slug is expected to move or turn a ship visibly; RCS compensates. L3 measures it, E4 cuts it if it has no effect (#203 C) |
 | Centre-of-mass shift | Losing a flank moves the CoM; aligned engines become off-axis |
 | Heat and radiators | Heat leaves only by radiation, through radiators on the hull; **Stefan–Boltzmann**: radiated power ∝ area × emissivity × T⁴ (#143). Inside, heat moves fast only along the machinery's **coolant loop** (plant rooms and heat sinks sharing walls); crewed rooms and magazines are insulated (a bulkhead leaks little) and cooled by **life support**, which pumps their heat into the loop (#200, #201) |
 | Infrared | Only surfaces are seen; deep reactors are invisible until heat reaches the hull; IR brightness also ∝ T⁴ (#102) |
@@ -101,7 +101,7 @@ Deferred: sloped armour (#6).
 | Shields | An energy screen: an absorption rate plus a small buffer; everything stopped, kinetic included, costs budget and becomes heat (#21, #139) |
 | Fields | One rule: each source has a finite budget spread over its coverage with falloff; overlaps add, each source paying from its own budget (#99) |
 | Explosions | Through shared walls inside a ship; a radial field outside it (#141) |
-| Propellant | Ships have none to run out of (reactor drives); craft have a delta-v budget (#140) |
+| Propellant | Engines are **self-fuelled torches**: their thrust comes from their own fuel, whose amount is not tracked, and their exhaust carries the jet's heat away (very IR-bright); the ship's electricity runs only their pumps and magnets (#140, #203 A). Craft have a delta-v budget |
 
 ## 5. Ship model
 
@@ -156,7 +156,7 @@ signature, hp (for point defence), fuel, reusable, pilot.
 |---|---|---|---|
 | Bridge | 2×2 | inside | provides control; little power, **own backup supply** (#147); destroyed: every reactor SCRAMs |
 | Reactor | 2×2, 3×3 | inside | power and much heat; SCRAM on control loss, decay heat; breach when heavily damaged; meltdown when critical |
-| Engine | 2×3 | exhaust on the aft hull, **exhaust must be clear** | thrust and heat; exhaust very IR-bright; thrust through the CoM recommended, not required |
+| Engine | 2×3 | exhaust on the aft hull, **exhaust must be clear** | a self-fuelled torch (#203 A): thrust from its own fuel, auxiliary power and heat from the ship; exhaust very IR-bright; thrust through the CoM recommended, not required |
 | Magazine | 2×2 | inside | ammunition by contents, fed through walls; explodes by the ammunition left (HE far more than AP) |
 | Shield generator | 2×2, 3×3 | inside | shield field; EM-bright while absorbing; absorbing makes heat |
 | Crew quarters | 3×2 | inside | houses crew, sets crew capacity (#60); repair field by surviving cells (#51) |
@@ -214,7 +214,7 @@ hull segment, undo, mirror, exportable blueprints (#59).
 
 | Weapon | Physics | Flow | Recoil | Damage | Precision |
 |---|---|---|---|---|---|
-| Beam | light speed, falloff | power and very much heat | almost none | burns over time at a point; heats the room | best when scanned |
+| Beam (a millimetre-wave **maser**, #203 B: a 600 m focus range from a 1.8 m waist is a 16 mm wavelength) | light speed, falloff | power and very much heat | almost none | burns over time at a point; heats the room | best when scanned |
 | Kinetic | time of flight | ammunition | strongest | momentum along the path | must lead the target |
 | Missile | slow, guided | ammunition, tube | small | by warhead | by seeker |
 | Point defence | against munitions | power or ammunition | small | — | — |
