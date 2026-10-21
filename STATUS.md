@@ -1,7 +1,8 @@
 # STATUS — hand-over between chats (#179)
 
 Updated 2026-10-21 by the lead designer chat (session
-`session_01LozzrLAfpzaSd7wTt1AUec`). Read this first, then `CLAUDE.md`,
+`session_01LozzrLAfpzaSd7wTt1AUec`); open PR and sessions rows updated by
+the L1 engineer (session `session_01NEZ3dFYvXRDcUQJWexkacC`). Read this first, then `CLAUDE.md`,
 `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
@@ -25,7 +26,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 | PR | Branch | State |
 |---|---|---|
-| (L1, to be opened by the engineer) | `m0/l1-rooms` → `main` | engineer session running, see below |
+| Mission 0, L1: one room alone (number on GitHub) | `m0/l1-rooms` → `main` | opened by the engineer 2026-10-21; 12 of 13 L1 scenarios PASS, `L1.radiator.steady` FAILs (design question in the PR); waits for the reviewer and the physics checker |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -39,7 +40,10 @@ message in the chat.
 
 ## Next steps
 
-1. Engineer finishes L1 on `m0/l1-rooms` and opens the pull request.
+1. ~~Engineer finishes L1 on `m0/l1-rooms` and opens the pull request.~~
+   Done; the PR lists questions for the designer (`L1.radiator.steady`
+   cannot settle in 3600 s; one-sided times on exact steps; the ninth
+   room; size-L rules; draws by surviving cells).
 2. Lead designer starts the **reviewer** and the **physics checker** on it
    (artifacts only; blind derivation posted first).
 3. Engineer fixes blocking findings; lead designer merges when none remain
@@ -72,6 +76,7 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Nightly regression, test 1 (no repo) | session_01ApfJTLNkjCfepi7fVjyFW8 | sonnet-5-5 | 0.09 |
 | Nightly regression, test 2 (no `add_repo`) | session_01Md1GQ7LftRREZ1w6sZyMpb | sonnet-5-5 | 0.09 |
 | Nightly regression, test 3 (works) | session_01RQvwmFsoF6vu1G5wzQJsnP | sonnet-5-5 | 0.09 |
+| Engineer, L1 | session_01NEZ3dFYvXRDcUQJWexkacC | opus-5-5 | not visible to the session |
 
 Sessions have reported a **seven-day usage limit warning**.
 

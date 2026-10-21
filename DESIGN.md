@@ -666,6 +666,51 @@ blast, burn and shield-kinetic v2 verdicts hold only once the owner
 approves them. The shield buffer still never binds (a round costs at most
 0.53 MJ of 10 MJ).
 
+**L1 one room alone** (2026-10-21; 13 scenarios, 174 cases, locked before
+their first canonical run; 12 PASS, `L1.radiator.steady` FAILs; T1, size M,
+SI; constants of §13c.3. The first run also failed 2 of 20 cases of
+`L1.quarters.repair` on a kernel bug, a repaired cell reported one step
+early; the kernel was fixed and L1 re-run, the criterion untouched):
+
+| Scenario | What the numbers say |
+|---|---|
+| `L1.radiator.cooling` | An idle M turret with one panel cools from 1000 K to 970.0 K in 60 s (two panels: faster, per n); at 400 K it loses under 1 K. The stepped temperature matches the T⁻³ closed form within 1e-3 at 400–1200 K and T1–T6 (T6 cools slowest: C grows k = 3, A k = 2); radiated + heat left = initial heat to 1e-9 |
+| `L1.radiator.steady` | **FAIL.** Only one case lies below a crewed room's critical (0.1 MW, 4 panels, T_ss = 374.1 K): after 3600 s from rest the room is at 351.8 K, radiating 78.1 kW of 100 kW. Its time constant C T_ss / (4P) is about 2200 s, so one hour is not "steady" to 1e-3; the formula is not contradicted, the run is too short |
+| `L1.room.thresholds` | Under 1.1 MW, all nine rooms cross hot, overheated and critical in that order at C (T_x − T_rest) / P, one-sided: a crewed 2×2 room is hot at 87.3 s and critical at 196.4 s, a plant room critical at 1549 s. Each shuts down at overheated; at critical its crew die (bridge 4, reactor 4, engine 2, magazine 2, shield 2, quarters 18, beam bay 3, turret 3, hold 0); the full HE magazine cooks off (375 MJ) and the reactor melts down (200 MJ), cause 'heat' |
+| `L1.reactor.power` | Delivered = d P exactly; heat = d P; an M reactor alone at full overheats at 61.2 s (122.4 s at half, 244.8 s at a quarter; T6 367.2 s, since C grows faster than P); in the next step it delivers 0 and decay heat has begun (f h d P τ (1 − e^(−dt/τ)) to 1e-9); at d = 0 it stays at 290 K |
+| `L1.reactor.scram` | A control cut stops delivery within one step (event cause 'control-loss'); decay heat adds 81 / 796 / 928 MJ by 60 / 900 / 1200 s from full; SCRAMmed at 600 K the reactor melts down at 1291.6 s (21.5 min) with a 200 MJ explosion; from rest it peaks near 815 K (it does overheat) and never melts down; an idle reactor gets no decay heat |
+| `L1.reactor.breach` | The countdown starts at the 2nd of 4 and the 5th of 9 destroyed cells (the ≥ threshold itself); the explosion follows 10 s later (200 MJ, caused by the breaching hit); destroyed entirely, a reactor explodes at the last hit (4 s, 9 s), once |
+| `L1.magazine.cookoff` | Full magazines hold 150 M, 506 S, 44 L rounds; full AP is a 75 MJ bomb, full HE 375 MJ (S and L scale by (2/3)³ and (3/2)³); cook-off at 349.09 s under 1.1 MW at every tier (source scaled k = 3), cause 'heat'; a hit that destroys a cell sets it off at once, cause the hit |
+| `L1.turret.fire` | Shots = min(n, 1 + floor(rate t)) at T1–T6 (one every 2 s at T1, every 12 s at T6); recoil impulse, heat and energy drawn match exactly; 5 rounds run dry at 8 s with a 'dry' cease-fire; unpowered it never fires |
+| `L1.shield.generator` | At the generator an M shield absorbs min(P_in, 10 MW) and is EM-bright by exactly that; under the M beam it heats at 7 MW and shuts down at 174.9 s (102 s under 10 or 30 MW, 306 s under 2 MW); then the whole beam passes and it stops heating; unpowered the field is off from the start |
+| `L1.engine.thrust` | Thrust u F, draw u D, heat 0.3 u D, a = u F / m exactly (8 MN on 1500 t: 5.33 m/s²); no power or no control gives zero thrust and draw; full throttle is hot at 372 s at T1 (2232 s at T6) |
+| `L1.quarters.repair` | Housed crew 3 per surviving cell (18, 9, 3, 0); 3 die per destroyed cell; repair 0.02 /s × (c / 6) × g(r): a destroyed cell next to full quarters is whole in 50 s, at the radius in 100 s, at 4 radii in 850 s; quarters with one cell left take 6 times longer; with none, nothing |
+| `L1.bridge.control` | Control holds while any cell survives and with the power cut (the backup feeds the 100 kW draw); the 4th destroyed cell removes it, 'control-lost' caused by hit-4; alone the bridge's own draw makes it hot in 960 s |
+| `L1.beambay.heat` | Draw 12.5 MW for a 5 MW beam, 7.5 MW of heat: hot at 99.2 s, shut down at 163.2 s, after which beam and draw are 0 ('beam-stopped', cause 'heat'); T6 979.2 s; unpowered no beam |
+
+Honest reading. Strong: the radiator cooling (Euler against the T⁻³
+closed form over five temperatures and six tiers), the decay heat and the
+meltdown time (an exponential integrated per step against the logarithmic
+closed form), the breach threshold tested exactly at 2 of 4, the heat
+books and event fields checked in all 174 cases, and the tier sweeps.
+Close restatements of their formulas: the engine, the shield generator's
+rates, the beam bay's rates, the turret's counts and the magazine's
+energies; their value is locking the rules. **Caveat on the one-sided
+times**: many cases the plan lists land exactly on a whole number of
+steps (61.2 s = 3672 steps, 50 s of repair, 960 s for the bridge), so 18
+of the 96 one-sided times come out at expected + dt and 5 a rounding error
+below expected; they pass only through a 1e-9 relative slack on both
+bounds, i.e. the window is effectively closed there. Signals for L2 and
+the designer: (1) `L1.radiator.steady` needs a longer run, a start near
+T_ss, or a criterion on the approach; (2) a turret firing freely
+overheats at 16 min and shuts itself down, so its own heat never reaches
+critical (the §13c.3 reading "crew cooked after 24 min" ignores the
+shutdown); (3) a reactor SCRAMmed at full from rest still crosses
+overheated (815 K peak): a cold SCRAM is safe from meltdown but not from
+a shutdown event; (4) a bridge alone overheats in 24 min on its own draw
+and, shut down, gives no control: unless L2 cools it, heat can decapitate;
+(5) crewed rooms radiate almost nothing, so their cooling is all L2.
+
 ## 17. Open questions
 
 1. **Chapter design** waits for Mission 0 (#125).

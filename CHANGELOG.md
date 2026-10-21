@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.2.0 — 2026-10-21 — Mission 0 L1: one room alone
+
+- Process items of #184: from L1 the lock hash covers the whole scenario
+  file except its `locked:` line (L0 keeps its rule, chosen by level);
+  `shield.kineticStop` derived inside `withOverrides`; `blast()` requires
+  its coupling (the locked `L0.blast.surface` run now passes 1); the
+  `approved` flags of #177 flipped to true.
+- `data.js`: the L1 constants of `DESIGN.md` §13c.3 with approved ranges
+  (#183), new `FIXED` values (Stefan–Boltzmann, rest temperature,
+  radiator emissivity, repair falloff exponent) and a `ROOMS` table.
+- Kernel: `js/events.js` (event list, #156 fields), `js/heat.js`
+  (per-room heat, radiators by T⁴, thresholds, books), `js/rooms.js` (the
+  nine rooms' behaviours); `util.stepsAtLeast` for whole-step timers.
+- Thirteen L1 scenarios, locked before their first canonical run: 12 PASS,
+  `L1.radiator.steady` FAILs (the room has not settled after 3600 s; a
+  design question). The first run also caught a kernel bug (a repaired
+  cell reported one step early), fixed and re-run.
+- L0 re-run canonically: 12/12 PASS, same criterion and result hashes
+  (data hash moved with the new constants).
+- `DESIGN.md` §16: the L1 numbers and an honest reading; `README.md`
+  constants table regenerated from `data.js`; ledger regenerated.
+
 ## 0.1.4 — 2026-10-21 — approval tiers and the L1 plan
 
 - Decision #180: the owner decides direction; the lead designer decides and
