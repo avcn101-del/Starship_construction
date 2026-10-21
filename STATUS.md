@@ -1,8 +1,8 @@
 # STATUS — hand-over between chats (#179)
 
 Updated 2026-10-21 by the lead designer chat
-`session_013PTXKzyTQkpVaKYQyBhRP8` (took over from
-`session_01LozzrLAfpzaSd7wTt1AUec`). Read this
+`session_01Ld11QmhkPubc8PkfKtd7CT` (took over from
+`session_013PTXKzyTQkpVaKYQyBhRP8`). Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
@@ -35,14 +35,15 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d, PR #42 on `proto/feel`,
   head `c1282d8`): an R1 duel ends in about 11 s (#227); loadout panel and
   Export / replay built. A light reviewer checks #217's rules.
-- **The path model** (#228, the owner's principle: every interaction
-  symmetric, no correction factors): the lead designer is rebuilding the
-  terminal effects of rounds, beams, missiles and fragments on it, every
-  number checked against real materials; the owner approved it (#229,
-  #230): rounds are damaged and flatten, the beam is a neutral particle
-  beam with no falloff at battle range, tumble waits with sloped armour in
-  `IDEAS.md`. Plan and scenarios P1–P8: `DESIGN.md` §13i (#231); the
-  engineer builds it on `m0/path`.
+- **The path model is done and merged** (`DESIGN.md` §13i; #228–#236;
+  PR #48): rounds are damaged and flatten, protection is the mass on the
+  path, the beam is a spinal neutral particle beam (Bethe deposit, no
+  falloff). `regress` on `main`: **57 VERIFIED + 34 WITHDRAWN**. Cost
+  18.24 USD.
+- **Prototype v2 is planned** (`DESIGN.md` §13j, #237): a helm as three
+  standing orders run by a stand-in autopilot, physical misses, the path
+  model's kernel, a seed per Restart, the three superseded constants
+  removed. Not started: waiting for the owner's veto or go.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -78,6 +79,14 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #237: prototype v2's plan (§13j): kernel numbers first (R1 850 t, 1.80
+  g; 5 / 11 / 31 m of dodge over the time of flight at 600 / 900 / 1500 m;
+  R1's magazine open from three sides); the helm as standing orders, the
+  facing trade (bow-on beams, broadside dodges) from the spinal bay and the
+  axial engine with no constant; no dispersion; five withdrawn L0
+  scenarios retired when the superseded constants go.
+- #236: the path model merged; answers to its engineer, reviewer and
+  physics checker; findings for the next kernel pass.
 - #204: answers to the L2 heat-v2 engineer (two estimate errors of the
   lead designer; estimates now switch on every passed level's rules).
 - #205: answers to the L2 physics checker (blast from the whole damaged
@@ -124,19 +133,17 @@ Nothing (the owner chose the spinal beam bay and low-end masses, #234).
 
 ## Next steps
 
-1. **Start a new chat now** (the owner asked to be reminded when the path
-   model merged; this chat's context was compressed once). Hand over
-   through this file; this chat has no pending check-in.
-2. **Prototype v2** (plan first, #224's process): a helm (thrust, RCS; R1's
-   thrust line is 1.29 m off its centre of mass, #236), physical misses
-   (time of flight, lead, dodging), the path model's kernel (`fireRound`,
-   `fireBeam`, cell masses), a seed per Restart shown and exported, the
-   enemy script and preset throttles added to the stand-ins list (#233),
-   and the three SUPERSEDED constants then removed from `data.js`.
-3. **Next kernel pass** (with L4): the findings of #236 (the `beamPaths`
+1. **Owner's veto or go on #237** (§13j). On go: a docs pull request from
+   this branch (`ccr-4f9cd066-gv15es`: §13j, #237, CHANGELOG 0.7.2, this
+   file), then the engineer session on `proto/v2` with the whole of §13j
+   in its initial prompt, a check-in 30–45 min later (`send_later`), then
+   the reviewer; the lead designer publishes the page (#226) and the
+   owner plays it with a changing seed.
+2. **Next kernel pass** (with L4): the findings of #236 (the `beamPaths`
    cache, withdrawal reason texts, a PSTAR water anchor for `csdaRange`,
-   §13f.1's dead-weight flows) and #227 Q9.
-4. Then the L4 plan (ship versus static target). Physics is frozen unless a
+   §13f.1's dead-weight flows), #227 Q9, the chord rule of §13j.2 and
+   whatever v2's autopilot teaches `helm.js`.
+3. Then the L4 plan (ship versus static target). Physics is frozen unless a
    playtest of prototype v2 points at it.
 
 ## Scheduled tasks

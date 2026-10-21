@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.2 — 2026-10-21 — Prototype v2 planned (#237)
+
+- `DESIGN.md` §13j: the plan for prototype v2 (a helm as three standing
+  orders run by a stand-in autopilot, physical misses from time of flight
+  and lead, the path model's `fireRound` and `fireBeam` along the cells a
+  line crosses, a seed per Restart, the three superseded constants removed
+  and the five withdrawn L0 scenarios that read them retired), with the
+  kernel's own numbers (R1 850 t at 1.80 g; 5 / 11 / 31 m of dodge over
+  the time of flight at 600 / 900 / 1500 m; R1's magazine open from three
+  sides). Documentation only.
+
 ## 0.7.1 — 2026-10-21 — The path model merged (PR #48, #236)
 
 - PR #48 merged after the physics checker and the reviewer found no
