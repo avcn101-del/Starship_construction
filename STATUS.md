@@ -41,7 +41,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 | PR | Branch | What | State |
 |---|---|---|---|
-| (see the PR list) | `m0/l2-clusters` | Mission 0, L2: pairs and clusters (engineer, `session_0111ENvC2XXCj4tA5T9zTZQ7`) | open; 12 scenarios locked at `621f2c6` and run: 10 PASS, `L2.heat.chain` and `L2.heat.neighbour` FAIL on the plan's own claims (Questions for the designer in the PR); `regress` 37 VERIFIED + 1 WITHDRAWN; waits for the physics checker (blind) and the reviewer |
+| #15 | `m0/l2-clusters` | Mission 0, L2: pairs and clusters (engineer, `session_0111ENvC2XXCj4tA5T9zTZQ7`) | open; 12 scenarios locked at `621f2c6` and run: 10 PASS, `L2.heat.chain` and `L2.heat.neighbour` FAIL on the plan's own claims (Questions for the designer in the PR); `regress` 37 VERIFIED + 1 WITHDRAWN; waits for the physics checker (blind) and the reviewer |
 
 PR #5 (L1) is merged through the lead designer's branch, so `main`
 carries its head `fd815ce` with a merge commit.
