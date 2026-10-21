@@ -53,6 +53,7 @@ with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#18
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
 | `L2.ammo.feed` | 5d541b7d | PASS | 0dcdb2ea | 49355f3 | none | `node tools/m0.js run L2.ammo.feed` |
+| `L2.blast.split` | 0a800e30 | PASS | 1cd4ef8d | f637d2e | none | `node tools/m0.js run L2.blast.split` |
 | `L2.blast.walls` | a10a083d | PASS | c6841d1c | 49355f3 | none | `node tools/m0.js run L2.blast.walls` |
 | `L2.bridge.conduction.v2` | 5045c746 | PASS | bfc72471 | 49355f3 | none | `node tools/m0.js run L2.bridge.conduction.v2` |
 | `L2.bridge.conduction` | 9882f256 | FAIL, WITHDRAWN (successor `L2.bridge.conduction.v2`, #200) | e6834f34 | 49355f3 | none | `node tools/m0.js run L2.bridge.conduction` |
@@ -64,7 +65,8 @@ with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#18
 | `L2.heat.pair` | 9f0da2d3 | FAIL, WITHDRAWN (successor `L2.heat.pair.v2`, #200) | c7635b23 | 49355f3 | none | `node tools/m0.js run L2.heat.pair` |
 | `L2.heatsink.buffer` | 80a7fdb1 | PASS | afb04fb5 | 49355f3 | none | `node tools/m0.js run L2.heatsink.buffer` |
 | `L2.heatsink.loss` | 8f98a73b | PASS | 54ff45f4 | 49355f3 | none | `node tools/m0.js run L2.heatsink.loss` |
-| `L2.lifesupport.routed` | da11232d | FAIL | 98b531b8 | 49355f3 | none | `node tools/m0.js run L2.lifesupport.routed` |
+| `L2.lifesupport.routed.v2` | 9eebc863 | PASS | 98b531b8 | f637d2e | none | `node tools/m0.js run L2.lifesupport.routed.v2` |
+| `L2.lifesupport.routed` | da11232d | FAIL, WITHDRAWN (successor `L2.lifesupport.routed.v2`, #212) | 98b531b8 | 49355f3 | none | `node tools/m0.js run L2.lifesupport.routed` |
 | `L2.lifesupport` | 84909130 | PASS | 9c1205a3 | 49355f3 | none | `node tools/m0.js run L2.lifesupport` |
 | `L2.power.flow` | 7c53e3b4 | PASS | ca1596f1 | 49355f3 | none | `node tools/m0.js run L2.power.flow` |
 | `L2.reactor.cooled` | 6c5139ec | PASS | 11c148a7 | 49355f3 | none | `node tools/m0.js run L2.reactor.cooled` |

@@ -1240,7 +1240,9 @@ Every other record moved only `dataHash` and `code`.
 | `L1.quarters.repair.v2` | A cell damaged by 0.7123 next to full quarters is whole at 35.62 s, at the radius at 71.23 s, at four radii at 605.5 s; quarters with one cell left take six times longer; with none nothing is repaired. The destroyed second cell stays at 0 through every run (600 s to 3633 s) and never raises `cell-repaired`. Two (c, r) pairs of the v1 grid are left out: their times (356.15 s, 1068.45 s) are whole numbers of steps |
 | `L1.repair.breach.v2` | Reactor cell A, damaged by 0.7123 at 1 s, is repaired at 38.85 s (closed form 38.841 s); a destroyed hold cell beside the quarters is not; the next hit (1 of 4) does not breach, the one after (2 of 4) does, and the reactor explodes 10 s later (200 MJ, cause hit-3), once; deaths 0, 1, 1 at the three hits and the explosion takes the last 2 |
 | `L2.shield.salvo` | Stopping a 6 kg M round costs **1.7067 MJ** (800 → 266.7 m/s): salvos of 3 and 5 leave 4.88 and 1.47 MJ of the 10 MJ buffer; the **6th round** is slowed only to 388.7 m/s and every later round passes at 800 m/s; the buffer refills in 1 s. E4 for `shield.bufferSeconds` now has a measured effect at a realistic salvo |
-| `L2.lifesupport.routed` | **FAIL** on one check. (a) Quarters at 320 K beside an idle reactor (5 m) and a heat sink (10 m) pump 39.57 and 79.14 MJ in the exact ratio 1 : 2 (largest error 0 over 36 000 steps), reach 1 mK of the setpoint at 353.17 s (reference 353.17 s) and never drop below 295 K (lowest 295.000238 K). (b) Under routing, quarters switched off keep life support (0.2 MW: peak 295.0010 K; switched on 295.0013 K), so #207 holds; with the reactor switched off nothing is pumped, the quarters reach 338.5 K and are hot at 738.15 s; at 1 MW the crew die at 437.98 s (on), 458.27 s (off) and 327.67 s (no supply), each one-sided against the reference. What fails is the row's **1e-6 K per-second match**: the kernel's explicit Euler differs from the RK4 reference by 2.0e-6 to 5.0e-5 K (largest without supply, where the passive wall carries the whole gradient); the same gaps came out of an independent pre-lock estimate. Every other check passes |
+| `L2.lifesupport.routed` | **FAIL** on one check. (a) Quarters at 320 K beside an idle reactor (5 m) and a heat sink (10 m) pump 39.57 and 79.14 MJ in the exact ratio 1 : 2 (largest error 0 over 36 000 steps), reach 1 mK of the setpoint at 353.17 s (reference 353.17 s) and never drop below 295 K (lowest 295.000238 K). (b) Under routing, quarters switched off keep life support (0.2 MW: peak 295.0010 K; switched on 295.0013 K), so #207 holds; with the reactor switched off nothing is pumped, the quarters reach 338.5 K and are hot at 738.15 s; at 1 MW the crew die at 437.98 s (on), 458.27 s (off) and 327.67 s (no supply), each one-sided against the reference. What fails is the row's **1e-6 K per-second match**: the kernel's explicit Euler differs from the RK4 reference by 2.0e-6 to 5.0e-5 K (largest without supply, where the passive wall carries the whole gradient); the same gaps came out of an independent pre-lock estimate. Every other check passes. **Withdrawn** under #188 (#212 (1)), successor D5b |
+| `L2.lifesupport.routed.v2` (D5b, #212) | **PASS**, every case. D5's setup and numbers unchanged (they come from the same kernel and reference): (a) 1 : 2 split with error 0 over 36 000 steps, 1 mK at 353.17 s, 39.57 / 79.14 MJ, lowest 295.000238 K; (b) the largest per-second gap to the RK4 reference is 2.0e-6 K (0.2 MW, on), 2.8e-6 K (off), 2.5e-5 K (no supply, 338.5 K), 1.7e-5, 1.9e-5 and 5.0e-5 K at 1 MW: at most 1.3e-7 relative, **7.6× inside** the 1e-6 relative criterion. Crew die at 437.98 s (on), 458.27 s (off), 327.67 s (no supply), one-sided against the reference |
+| `L2.blast.split` (D6, #212) | **PASS**, 3 cases. The magazine (2 MJ capacity) saturates and the rest splits exactly 2 : 1 by wall length (10 m : 5 m) with no neighbour saturated and nothing escaping: (i) HE 8 MJ gives the holds 4 and 2 MJ (integrity 0.5 and 0.75 of their 8 MJ capacity), AP 6 MJ gives 2.667 and 1.333 MJ; (ii) AP: hold 2.667 MJ, bridge 1.333 MJ, every bridge cell at integrity 1/3 and 2 of its 4 crew dead (floor(4 × 8/3 / 4)), one `cell-damaged` (channel blast) per neighbour cell; absorbed + escaped = E to 1e-12 |
 
 **Withdrawn** (`mission0/withdrawn.json`, decision #206, superseded by the
 owner's #203 D): `L1.quarters.repair` (its target cell is destroyed and is
@@ -1250,6 +1252,8 @@ left still pass), successor `L1.quarters.repair.v2`; `L1.repair.breach`
 stops on a null event, which `tools/m0.js` now records as a FAIL instead
 of aborting), successor `L1.repair.breach.v2`. `regress`: 44 VERIFIED,
 7 WITHDRAWN.
+
+**Fixes of #212** (2026-10-21; D5b and D6 written at `78a7101`, locked at `f637d2e` before their first canonical run; `L2.lifesupport.routed` withdrawn, decision #212, successor `L2.lifesupport.routed.v2`): 2 PASS, 10 cases. `regress`: 46 VERIFIED, 8 WITHDRAWN.
 
 Honest reading. Strong: the momentum books of D1 (depth to 1e-9 at six
 tiers, the stopping cell's share, the exit momentum), the per-step 1 : 2
@@ -1264,7 +1268,13 @@ Signals: the small HE loads of `L2.blast.walls` (2 and 4 rounds) are now
 wall length before saturation is no longer exercised there, and its
 row-hold HE-2 case sits exactly on E = Σ B (16 MJ); D5's 1e-6 K
 tolerance is below the kernel's Euler error, a question in the pull
-request.
+request. Both were answered by #212: D5b's relative tolerance has a
+7.6× margin over the measured Euler gap (a check that the tolerance sits
+above the step error, not new evidence beyond D5's); D6 brings back the
+split by wall length before saturation, but it is a restatement of the
+wave-front rule on a two-neighbour graph with exact float arithmetic and
+no stepping, so its strength is in exercising the D-pass crew rule for
+blast (2 of 4 bridge crew at integrity 1/3), not in the energies.
 
 ## 17. Open questions
 

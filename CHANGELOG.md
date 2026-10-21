@@ -54,6 +54,14 @@
   `L1.quarters.repair.v2` and `L1.repair.breach.v2`. `regress`:
   44 VERIFIED + 7 WITHDRAWN. `DESIGN.md` §16: the D pass block;
   `MISSION0.md` regenerated.
+- Fixes of #212, after merging `main`: D5b `L2.lifesupport.routed.v2`
+  (D5 with its (b) per-second match at 1e-6 relative, both directions)
+  and D6 `L2.blast.split` (one HE or AP round in an M magazine beside an
+  M hold over 10 m and a hold or bridge over 5 m: the 2 : 1 split before
+  saturation and the D-pass crew rule for blast), written and run for
+  crashes only, locked at `f637d2e`, then run: both PASS.
+  `L2.lifesupport.routed` withdrawn under #188 (decision #212, successor
+  `L2.lifesupport.routed.v2`). `regress`: 46 VERIFIED + 8 WITHDRAWN.
 
 ## 0.3.4 — 2026-10-21 — Answers to the D-pass engineer (#212)
 

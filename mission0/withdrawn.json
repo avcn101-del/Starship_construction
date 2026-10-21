@@ -40,5 +40,11 @@
     "successor": "L1.repair.breach.v2",
     "decision": "#206",
     "reason": "Superseded by the owner's design decision #203 (D), specified in #206: a destroyed cell is never repaired in battle. It waits for the cell-repaired event of the destroyed reactor cell A, which never comes, so its run() stops on a null event; tools/m0.js records that as a FAIL. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.lifesupport.routed",
+    "successor": "L2.lifesupport.routed.v2",
+    "decision": "#212",
+    "reason": "Specification error of the lead designer (#212 (1)): its (b) per-second temperature match within 1e-6 K is tighter than the kernel's own Euler error against the RK4 reference (2.0e-6 to 5.0e-5 K over the run), as estimated before the lock. Every other check passed. The successor checks the same at 1e-6 relative. Locked and recorded with that FAIL."
   }
 ]
