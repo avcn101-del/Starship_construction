@@ -1749,8 +1749,8 @@ scenarios prove the Bethe deposit against an independent integration and
 the burn against a stepped re-implementation; they do not prove that the
 real numbers feel right. What the path model changes: **light structure
 no longer lets a round through like a needle** where it is heavy: an M
-round stops in the 2nd cell of crew quarters (it crossed ten in the first
-version) and, by the estimate of 13i.3, in R1's first bridge cell from the
+round stops in the 2nd cell of crew quarters (about eight in the first
+version, ten before it) and, by the estimate of 13i.3, in R1's first bridge cell from the
 bow, so the reactor behind is safe from a single round; but **holds and
 light machinery are thin**: an M round crosses two hold cells keeping 76 %
 of its momentum, and a reactor cell (5000 kg/m²) stops any round in a fifth
