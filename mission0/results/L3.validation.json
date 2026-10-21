@@ -1,0 +1,359 @@
+{
+  "id": "L3.validation",
+  "level": "L3",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L3.validation",
+  "code": "923bb27",
+  "criterionHash": "dc386731",
+  "lockedHash": "dc386731",
+  "runHash": "51e87ff4",
+  "dataHash": "3d66afdf",
+  "rowsHash": "76157285",
+  "rows": [
+    {
+      "case": {
+        "variant": "R1"
+      },
+      "expected": {
+        "valid": true,
+        "rules": []
+      },
+      "actual": {
+        "valid": true,
+        "rules": [],
+        "reasons": [],
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 36693.98716652267,
+            "stored": -36404.22012543678,
+            "initial": 1044000000,
+            "conducted": 289.7670408074192,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 15801.071449279785,
+            "initial": 696000000,
+            "conducted": 15801.07144950441,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 101666.66666666673,
+            "radiated": 0,
+            "stored": 101653.09084022045,
+            "initial": 696000000,
+            "conducted": -13.575826390110516,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 4.743371367454529,
+            "initial": 696000000,
+            "conducted": 4.7433708487966415,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 27520.243544651592,
+            "stored": -27518.093398213387,
+            "initial": 696000000,
+            "conducted": 2.150146367354466,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 36695.753670485276,
+            "stored": -36471.85791015625,
+            "initial": 3480000000,
+            "conducted": 223.89576001663536,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 50833.333333333365,
+            "radiated": 0,
+            "stored": 50832.06960737705,
+            "initial": 1044000000,
+            "conducted": -1.2637257633943004,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 1.0483715534210205,
+            "initial": 696000000,
+            "conducted": 1.0483714120194776,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 2033333.3333333316,
+            "radiated": 55351.71251856454,
+            "stored": 1961673.7841982841,
+            "initial": 696000000,
+            "conducted": -16307.836616250786,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0.000029206275939941406,
+            "initial": 696000000,
+            "conducted": 0.000029447650459505066,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "variant": "room cut off"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "connected"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "connected"
+        ],
+        "reasons": [
+          "connected: hold is not joined to a bridge through shared walls"
+        ],
+        "books": [],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "variant": "hull room with no open edge"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "hull"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "hull"
+        ],
+        "reasons": [
+          "hull: turret is a hull room with no open edge"
+        ],
+        "books": [],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "variant": "exhaust blocked aft"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "exhaust"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "exhaust"
+        ],
+        "reasons": [
+          "exhaust: engine: a cell lies aft of its exhaust in row 3"
+        ],
+        "books": [],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "variant": "fitting on an inside room"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "fitting-inside"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "fitting-inside"
+        ],
+        "reasons": [
+          "fitting-inside: bridge is placed inside and carries no fitting"
+        ],
+        "books": [],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "variant": "two fittings on one edge"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "fitting-per-edge"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "fitting-per-edge"
+        ],
+        "reasons": [
+          "fitting-per-edge: two fittings on the edge (1,3) side (0,1)"
+        ],
+        "books": [],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "variant": "overlap"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "overlap"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "overlap"
+        ],
+        "reasons": [
+          "overlap: cell (8,0) overlaps hold"
+        ],
+        "books": [],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "variant": "room outside the grid"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "grid"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "grid"
+        ],
+        "reasons": [
+          "grid: cell (30,0) is outside the 30 x 14 grid"
+        ],
+        "books": [],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + vented + stored, 1e-9 relative, every room, every case",
+      "ok": false
+    },
+    {
+      "name": "conduction and life-support flows each sum to 0 over the ship, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "momentum books: mass, momentum and angular momentum of ship + rounds + debris kept (with the external impulse), 1e-9, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

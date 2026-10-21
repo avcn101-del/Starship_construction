@@ -78,7 +78,17 @@ with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#18
 
 ## L3
 
-Not started.
+| Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
+|---|---|---|---|---|---|---|
+| `L3.fragment.scram` | 48ea595c | BLOCKED | a74d2034 | 923bb27 | none | `node tools/m0.js run L3.fragment.scram` |
+| `L3.kinetic.hole` | f9f796a5 | PASS | 525f54eb | 923bb27 | none | `node tools/m0.js run L3.kinetic.hole` |
+| `L3.mass.props` | ce132775 | FAIL | dab24409 | 923bb27 | none | `node tools/m0.js run L3.mass.props` |
+| `L3.rcs.turn` | b2c4ea93 | BLOCKED | 09cf7d35 | 923bb27 | none | `node tools/m0.js run L3.rcs.turn` |
+| `L3.recoil` | 60e2e893 | BLOCKED | 2ff8c992 | 923bb27 | none | `node tools/m0.js run L3.recoil` |
+| `L3.ship.heat` | 384c519b | BLOCKED | ca80d3ad | 923bb27 | none | `node tools/m0.js run L3.ship.heat` |
+| `L3.split.momentum` | 35d9b858 | BLOCKED | 7e399e39 | 923bb27 | none | `node tools/m0.js run L3.split.momentum` |
+| `L3.thrust` | f8844599 | BLOCKED | d68c014c | 923bb27 | none | `node tools/m0.js run L3.thrust` |
+| `L3.validation` | dc386731 | FAIL | 51e87ff4 | 923bb27 | none | `node tools/m0.js run L3.validation` |
 
 ## L4
 

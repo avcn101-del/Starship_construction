@@ -1274,6 +1274,64 @@ wave-front rule on a two-neighbour graph with exact float arithmetic and
 no stepping, so its strength is in exercising the D-pass crew rule for
 blast (2 of 4 bridge crew at integrity 1/3), not in the energies.
 
+**L3 the minimal ship, first run** (2026-10-21; #208–#216; data `208955b`,
+records re-recorded `1f10e81`, kernel `e5916df` and `4ec77d9`; nine
+scenarios, 68 cases, written at `4df036d`, locked at `923bb27` before their
+first canonical run; T1 and T6, size M, SI; constants of §13f.4). **1 PASS
+(`L3.kinetic.hole`), 2 FAIL, 6 BLOCKED** behind failed dependencies. Of the
+68 cases **65 PASS**; the 3 that fail are the two the engineer predicted
+before the lock from the documents alone (the plan's tolerance in
+`L3.thrust` (b) and its 295.01 K bound in `L3.ship.heat`). The other
+verdicts fall on two invariants the engineer wrote into every L3 file and
+did not check against float resolution before the lock: the heat books'
+1e-9 is taken relative to the heat moved, with no floor at the resolution
+of the stored heat Q − Q0 (residuals ≤ 5e-12 of the stored heat, 3.6e-3 J
+at most), and the angular books' scale leaves out the gross angular
+impulse of a couple fired one way then the other (6.2e-9 of about 2e7
+booked in `L3.rcs.turn`). Both are float residues, not physics; the
+withdrawals and successors are for the lead designer (questions in the
+pull request). The data commit moved only `dataHash` and `code` in every
+earlier record, except `L1.engine.thrust` and `L1.room.restart`, which hold
+`engine.thrust` (8 → 2 MN); the kernel (holes that resist no round
+included) moved none, and every earlier verdict holds (`regress`: 46
+VERIFIED + 8 WITHDRAWN).
+
+| Scenario | What the numbers say |
+|---|---|
+| `L3.mass.props` | All 34 cases match the cell sums to 1e-12. A T1 cell is 1000 kg, a heat sink cell 1573.34 kg. **R1 is 52.267 t** with its centre of mass at (28.733, 16.472) m and I = 1.3114e7 kg·m² (the plan's 52.3 t, (28.73, 16.47), 1.313e7); after 20 rounds fired and the store refilled 52.147 t; after four cells that split nothing 48.267 t; after the cut of row 5, 26.074 t and 20.797 t. A cell, each room and each full room has 216 times the mass and 7776 times the moment of inertia at T6. R1 at T6 is 10 525 t, not 216 × 52.267 t: `radiator.mass` scales with k = 2. FAIL on the heat-books invariant only |
+| `L3.thrust` | (a) The symmetric ship accelerates at exactly F / M (142.857 m/s² for 14 t) with ω = 0. (b) R1's thrust line passes **1.4717 m** below its centre of mass: α = 0.22446 rad/s² (12.86 °/s²), ω = α t to 1e-9 at every step, readout **3.902 g**. Against the RK4 reference the semi-implicit Euler heading and position differ by **1.67e-2** relative at 1 s and 1.7e-3 at 10 s (11.279 against 11.260 rad), the scheme's own first-order error dt / t: over the row's 1e-6, as predicted before the lock. BLOCKED |
+| `L3.rcs.turn` | One bow–stern couple gives α = **0.3813 rad/s²** (5 MN·m on 1.311e7 kg·m², arms 23.8 + 26.2 m); a bang-bang 90° turn ends at 4.0667 s (244 steps) against 2 √(θ / α) = 4.0595 s, with |ω| ≈ 1e-16 rad/s and the heading at 90.32°; the readout gives the same α and 4.0595 s. Both directions. BLOCKED (heat books and the angular books' scale) |
+| `L3.recoil` | **One M shot broadside moves R1 by 0.0918 m/s and turns it by 0.341 °/s**; 20 shots, the store refilled from the magazine between them, 6.834 °/s (each shot a little more as the ship gets lighter: 0.3412 to 0.3421 °/s); forward 0.179 °/s per shot (the gun sits 8.5 m above the centre of mass). The ship's momentum change equals minus the rounds' momenta to 1e-12. The railgun-sized fixture (25 000 N·s) gives 0.4783 m/s, and 0.546 °/s 5 m off the axis. For E4 (#203 C): an M turret on a 52 t ship turns it visibly (7 °/s after 20 shots), so recoil has an effect on a minimal ship; on a 250 t corvette #210 estimates about 0.02 °/s per shot. BLOCKED (heat books) |
+| `L3.split.momentum` | The cut leaves a 26.074 t bow (bridge half, magazine, quarters, turret, beam bay, hold) and a 20.797 t stern (engine, reactor, shield generator, half the heat sink), and 5 pieces of debris, 5.397 t: the four cells and the radiator on heat sink cell (4,5). At T1 the fragments move at (9.945, 0.590) and (10.133, −0.681) m/s, both at 0.05 rad/s, the parent's field at their centres of mass; momentum, angular momentum and kinetic energy are kept to 6e-11 N·s, 1.9e-9 kg·m²/s and the last digit, and through the flight after. T6 the same. BLOCKED (heat books) |
+| `L3.fragment.scram` | All 5 cases PASS and all invariants hold; BLOCKED behind `L3.split.momentum`. Split: the stern reactor SCRAMs at the cut (1.0167 s, cause `cut-4`), having delivered 7.25 MW (shield 2 + engine 5 + quarters 0.05 + turret 0.2), 456.75 MJ of decay heat to come, 15.219 MJ by 30.5 s later (closed form to 1e-9); the engine stops, the shield goes down; the bow bridge keeps control and its life support, the quarters, magazine and turret lose theirs. The hold's inner row cut: two bodies, nothing stops. The bridge destroyed: SCRAM at the 4th cell (`bridge-4`), one body. #216: quarters joined to the reactor only through the bridge and heat sink keep life support (22.6 MJ pumped); a reactor switched on at demand 0 supplies none (the quarters stay at 299.9 K) |
+| `L3.validation` | R1 is valid and each of the seven variants is rejected with exactly its rule (connected, hull, exhaust, fitting-inside, fitting-per-edge, overlap, grid). R1 is valid only under the engineer's reading that its shield generator may carry radiators (a question). FAIL on the heat-books invariant only |
+| `L3.ship.heat` | The readout: idle 0.15 MW, cruise 10.9 MW, battle 30.9 MW of heat against **2.81 MW** of radiators at plant hot. Event times match the reference within one step: cruise hot at 509.25 s (shield generator), 513.05 s (reactor), 550.43 s (engine), 737.25 s (heat sink), nothing overheated in 900 s (reactor peak 743.2 K); battle beam bay hot at 102.62 s, **overheated at 177.92 s**, reactor hot at 157.12 s, overheated at 348.70 s, shield generator hot at 194.45 s, engine 230.25 s, heat sink 353.38 s. **FAIL** in cruise and battle on one check: the bridge reaches 295.304 K and 295.742 K. Its only coolant neighbour is the reactor, whose passive wall (250 W/K) leaks 110–130 kW into it at 740–800 K, and with its own 100 kW draw that is more than its 200 kW of life support; the reference agrees to 1 mK, so the row's estimate, not the kernel, is off. Quarters, magazine and turret hold ≤ 295.001 K |
+| `L3.kinetic.hole` | **PASS.** An M round along D1's line stops in cell 11 intact and in cell 12 with the 2nd cell destroyed beforehand, with the same stopping loss (0.04922); the hole absorbs nothing and loses nothing; deaths by the floor rule (5/3/3/2 against 3/3/3/1); identical at T6 |
+
+`node tools/perf.js` (E8 baseline, #213; two R1s stepping together, battle
+load, Node 22 in the container): **0.05 ms per step without power routing
+and 0.11–0.12 ms with it, at T1 and at T6**, a tenth of the 1 ms budget
+before combat (L5).
+
+Honest reading. Strong: the mass properties against cell sums at two
+tiers and the square–cube ratios; ω = α t at every step and the
+semi-implicit Euler's known first-order gap to RK4 (measured, not assumed);
+the split's exact conservation of mass, momentum, angular momentum and
+kinetic energy with the velocity field; the decay heat after a SCRAM
+caused by a split, by the closed form; the heat run of a whole ship
+against an independent RK4 reference with every L1, L2 and D-pass rule
+(event times within one step). Close restatements: the readout's numbers,
+validation's reasons, the hole. What the numbers say for the design: a
+minimal ship at 2 MN accelerates at 3.9 g and spins at 12.9 °/s² off its
+thrust line, so a ship needs its engines on the centre of mass or RCS to
+fly straight; recoil turns a 52 t ship visibly (E4 for recoil is judged at
+L5); R1 cannot cruise for ten minutes on 17 radiators without passing
+plant hot, and its beam bay, outside the coolant loop, shuts down after
+three minutes of firing (the throughput law binds, #205 (8)); a bridge
+beside a reactor that runs hot warms above its setpoint (life support too
+small for the passive leak plus its draw), the first sign that the bridge
+wants a cooler neighbour.
+
 ## 17. Open questions
 
 1. **Chapter design** waits for Mission 0 (#125).

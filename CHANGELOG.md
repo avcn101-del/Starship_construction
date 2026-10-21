@@ -27,6 +27,11 @@
   reach, live walls only within a room's working fragment. `js/layout.js`:
   fitting rules and `validateShip` (#57). No earlier record moved.
 - `tools/perf.js`: milliseconds per step for two R1s at T1 and T6 (E8, #213).
+- `mission0/scenarios/L3/`: the nine scenarios of §13f.3 on R1, locked
+  before their first canonical run: 65 of 68 cases PASS; 1 PASS, 2 FAIL,
+  6 BLOCKED (see §16 and the pull request: two predicted specification
+  differences and two float-scale flaws in the engineer's invariants).
+  `DESIGN.md` §16 gets the measured L3 block; `MISSION0.md` regenerated.
 
 ## 0.4.1 — 2026-10-21 — The D pass merged; reviewer answers (#216)
 
