@@ -14,6 +14,10 @@
   `regress` and `verify` list a retired scenario as RETIRED without running
   it and print the counts (VERIFIED + WITHDRAWN + RETIRED); `run` skips it
   so its record stays; the ledger marks it.
+- Records: the data hash covers `PARAMS` and `FIXED`, so the 86 scenarios
+  `regress` runs were re-run canonically on the new data; verdicts, rows,
+  `run()` and criterion hashes are unchanged (only the data hash and the
+  code field moved). `MISSION0.md` regenerated.
 
 ## 0.7.2 — 2026-10-21 — Prototype v2 planned (#237)
 
