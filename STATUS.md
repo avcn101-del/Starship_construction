@@ -43,7 +43,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - **Prototype v2 is planned** (`DESIGN.md` §13j, #237): a helm as three
   standing orders run by a stand-in autopilot, physical misses, the path
   model's kernel, a seed per Restart, the three superseded constants
-  removed. Not started: waiting for the owner's veto or go.
+  removed. The owner said go; the engineer runs on `proto/v2`
+  (`session_013XH7jici9kFqQf6EJYqURu`, opus); the plan's docs are PR #50.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -68,6 +69,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
+| #50 | `ccr-4f9cd066-gv15es` | docs: §13j, #237, CHANGELOG 0.7.2, STATUS; the lead designer merges with the v2 block (#218) |
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
@@ -133,12 +135,11 @@ Nothing (the owner chose the spinal beam bay and low-end masses, #234).
 
 ## Next steps
 
-1. **Owner's veto or go on #237** (§13j). On go: a docs pull request from
-   this branch (`ccr-4f9cd066-gv15es`: §13j, #237, CHANGELOG 0.7.2, this
-   file), then the engineer session on `proto/v2` with the whole of §13j
-   in its initial prompt, a check-in 30–45 min later (`send_later`), then
-   the reviewer; the lead designer publishes the page (#226) and the
-   owner plays it with a changing seed.
+1. **Prototype v2 is being built** (engineer
+   `session_013XH7jici9kFqQf6EJYqURu` on `proto/v2`, started 22:29 UTC;
+   check-in `trig_01Nq4Vw8Y6EqYrxahdj2yMYE` at 23:10 UTC). Then the
+   reviewer (§13j.5), the lead designer merges the v2 block with PR #50
+   and publishes the page (#226); the owner plays it with a changing seed.
 2. **Next kernel pass** (with L4): the findings of #236 (the `beamPaths`
    cache, withdrawal reason texts, a PSTAR water anchor for `csdaRange`,
    §13f.1's dead-weight flows), #227 Q9, the chord rule of §13j.2 and
@@ -199,6 +200,8 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, path model (PR #48) | session_01GVBq5ohYZDDfg15HAkHm71 | opus-5-5 | 13.57 |
 | Physics checker, path model | session_01PsqTHfLh2EPTgKeY3KroeR | sonnet-5-5 | 4.08 |
 | Reviewer, path model | session_01D2L2Kyg1bin1QGk1UZQvfW | sonnet-5-5 | 0.59 |
+| Engineer, prototype v2, created on the wrong model and archived after 35 s (the lead designer's error) | session_01Tf9UpKXmBCZJZbj4Rj2s8M | fable-5-1 | 1.12 |
+| Engineer, prototype v2 | session_013XH7jici9kFqQf6EJYqURu | opus-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -265,3 +268,6 @@ Sessions have reported a **seven-day usage limit warning**.
   pass), re-derive every constant calibrated on the old scale (#232).
 - When the owner plays a build, first check that a lever can act before
   the battle ends; a fixed seed decided every battle of v1 (#233).
+- `create_session` inherits the chat's model: pass `model` explicitly for
+  every role (an engineer created on fable by mistake cost 1.12 USD in
+  35 s before it was archived).
