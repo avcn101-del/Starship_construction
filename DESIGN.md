@@ -487,7 +487,8 @@ carries time, room, cause id and the fields of #156.
 | # | Scenario | Setup and measure | Expected (formula) and criterion |
 |---|---|---|---|
 | 1 | `L1.radiator.cooling` | a hull room (idle turret) at T0 ∈ {400, 600, 800, 1000, 1200 K}, n ∈ {1, 2} radiators, no generation, 60 s; tiers at T0 = 1000 K | T(t) = (T0⁻³ + 3 n εσA t / C)^(−1/3); relative error ≤ 1e-3; radiated + stored = initial heat to 1e-9 |
-| 2 | `L1.radiator.steady` | the same room with generation P ∈ {0.1, 0.5, 1, 2 MW}, n ∈ {1, 2, 4}, run 3600 s (cases with T_ss below critical only) | T_ss = (P / (n εσA))^(1/4); \|T(3600 s) − T_ss\| / T_ss ≤ 1e-3; radiated power at the end = IR brightness = P within 1e-3 |
+| 2 | `L1.radiator.steady` | the same room with generation P ∈ {0.1, 0.5, 1, 2 MW}, n ∈ {1, 2, 4}, run 3600 s (cases with T_ss below critical only) | T_ss = (P / (n εσA))^(1/4); \|T(3600 s) − T_ss\| / T_ss ≤ 1e-3; radiated power at the end = IR brightness = P within 1e-3. **Recorded FAIL** (#185: 3600 s is under two time constants; a specification error, the lock stays) |
+| 2b | `L1.radiator.steady.v2` (#185) | an idle M beam bay (plant class, hull room), P ∈ {0.1, 0.5, 1, 2 MW}, n ∈ {1, 2, 4}, cases with T_ss below the plant critical; (a) started at T_ss for 600 s; (b) started at rest for 3600 s | T_ss = (P / (n εσA))^(1/4); (a) \|T − T_ss\| / T_ss ≤ 1e-6 at every step, radiated power = IR brightness = P within 1e-6 at the end; (b) T rises every step, never exceeds T_ss, and T_ss − T shrinks every step |
 | 3 | `L1.room.thresholds` | each of the nine rooms heated by an external P (no own generation, no radiator) | t_x = C (T_x − T_rest) / P for hot, overheated, critical, one-sided; events in that order; at critical the room's crew die (deaths = crew housed or required); the magazine cooks off; the reactor melts down |
 | 4 | `L1.reactor.power` | reactor at demand d ∈ {0, 0.25, 0.5, 1} of `reactor.power`, no radiator; tiers | delivered = d P exactly (demand-driven); heat rate = h d P; time to overheated one-sided; at overheated it shuts down: delivered = 0 within one step, decay heat begins |
 | 5 | `L1.reactor.scram` | running at full from T_s ∈ {rest, 600 K} (and idle from rest); control cut at t_s; cause id 'control-loss' (EMP later uses the same path) | delivered → 0 within one step; decay heat P_d(t) = f h P e^(−t/τ); heat added by t = f h P τ (1 − e^(−t/τ)) to 1e-3; **no decay heat from an idle reactor**; meltdown iff C (T_crit − T_s) < f h P τ, at t = −τ ln(1 − C (T_crit − T_s) / (f h P τ)) one-sided (yes from 600 K, no from rest with the values of §4); the explosion event carries `reactor.explosionEnergy` |
@@ -555,7 +556,8 @@ Reading at T1 with these values (what the engineer should see): a reactor
 alone at full power overheats in 61 s, so power on demand and conduction
 to radiators (L2) are what keep a ship alive; the beam bay is the heat
 problem (163 s to shutdown); a turret firing freely is not, within a
-battle (hot after 11 min, its crew cooked after 24 min); a shield generator
+battle (hot after 11 min, shut down at 16 min, never critical alone,
+#185); a shield generator
 under an M beam shuts down after 175 s; engines run a whole battle (6 min
 to hot). Crewed rooms radiate almost nothing (15 kW per panel at 330 K):
 their heat has to reach a plant room or stay small, which L2 measures.
@@ -568,7 +570,9 @@ their heat has to reach a plant room or stay small, which L2 measures.
   the event list; every event has `t`, `type`, `room`, `cause`, and the
   fields of #156 where they apply (`energy`, `crew`, `channel`).
   `data.js` gains a `ROOMS` table and the groups above. `DESIGN.md` §14
-  lists `rooms.js` under the kernel.
+  lists `rooms.js` under the kernel. The data hash of a record covers
+  `PARAMS`, `FIXED` and `ROOMS` (#185). The size rule, the crew rounding
+  and the kernel interpretations accepted after PR #5 are in #185.
 - `tools/m0.js`: from L1 the lock hash covers **the whole scenario file
   except its `locked:` line** (the v2 review's coverage gap); L0 locks stay
   as they are. `shield.kineticStop` is derived inside `withOverrides` so
