@@ -34,6 +34,13 @@
 - Tools: `tools/m0.js` checks that a withdrawn scenario keeps the verdict it
   was recorded with (a withdrawn scenario on a kept superseded function can
   still pass); `tools/perf.js` adds each R1's beam on the other's middle row.
+- Scenarios P1–P10 (§13i.4), written and committed unlocked: P1
+  `L0.kinetic.penetration.v3`, P2 `L0.kinetic.overpen.v2`, P3
+  `L0.kinetic.wreck`, P4 `L1.kinetic.damage.v2`, P5 `L3.kinetic.hole.v2`, P6
+  `L0.beam.depth`, P7 `L0.beam.range`, P8 `L0.beam.burn.v3`, P9
+  `L1.beambay.length`, P10 `L3.mass.props.v4`, `L3.thrust.v4`,
+  `L3.rcs.turn.v4`, `L3.recoil.v4`, `L3.split.momentum.v4` and
+  `L3.fragment.rules.v2` (v3 / v1 identical except the masses of §13i.2).
 
 ## 0.6.6 — 2026-10-21 — The path model revised (#234, #235)
 
