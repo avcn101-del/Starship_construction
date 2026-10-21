@@ -102,7 +102,10 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   console errors (a blocked Google Fonts request in the sandbox is not a
   game error).
 - Git: `main` is the default branch; **one branch and one pull request per
-  Mission 0 level**; the owner reviews and merges.
+  Mission 0 level**; Claude merges after the owner approves each merge.
+- **`STATUS.md`** is the hand-over: read it first; update it at the end of
+  every working block (open PRs, pending approvals, running sessions,
+  scheduled tasks, next steps).
 - Commit messages: a short imperative subject; the body explains why.
 - Docs and code are in English. Discussion with the owner is in Vietnamese
   mixed with English.

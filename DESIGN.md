@@ -424,8 +424,9 @@ agent; nightly regression.
 | Physics checker | derives expected results blind, posts them, then compares | sees the answer first |
 
 Each role is its own session, defined in `.claude/agents/`; work is handed
-over through pull requests; reviewers get artifacts, not conclusions; the
-owner merges (#167).
+over through pull requests; reviewers get artifacts, not conclusions;
+Claude merges after the owner approves each merge (#167, #178). The current
+state for a new chat is in `STATUS.md` (#179).
 
 ## 14. Architecture
 
@@ -522,15 +523,6 @@ approves them. The shield buffer still never binds (a round costs at most
 4. A store and trademark check of the title before any public release.
 5. Approved ranges for each level after L0, proposed before that level
    starts (#145).
-6. **Awaiting the owner's approval** (introduced while building L0; agents
-   may not tune them until approved):
-   - Provisional ranges: `armour.blastResistance` (1 MJ, 0.3–3 MJ),
-     `armour.burnEnergy` (30 MJ, 10–100 MJ), `room.kineticResistance`
-     (6.75e4, a quarter of armour), `shield.bufferSeconds` (1 s, 0.2–5 s).
-   - Fixed constants: steel density 7850 kg/m³ (real); rounds are
-     cylinders 4 diameters long; S and L are 2/3 and 3/2 of M in linear
-     size; the beam waist is 1/√2 of half a cell; the shield field falls
-     off as 1 / (1 + (r / radius)²); the simulation step is 1/60 s and a
-     beam burn gives up after 3600 s (#175).
-   - A provisional rule: **continuous beams meet the shield's rate; its
-     buffer catches impulses** (rounds, blasts).
+6. The items that awaited approval after L0 (provisional ranges, fixed
+   constants, the beam-meets-rate rule, the v2 readings) are approved
+   (#177); the `approved` flags in `data.js` flip at the start of L1.
