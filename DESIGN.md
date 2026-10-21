@@ -753,6 +753,52 @@ what the enemy cuts.
   from §13d.1 and §13d.3) and the reviewer run on it; the lead designer
   merges when neither reports a blocking finding (#180).
 
+## 13e. The D pass: real round sizes, partial damage, repair (#203 D, #206)
+
+Built after L2 merges and before L3, on its own branch `m0/d-damage`,
+because it touches L0 constants and L1's repair. Estimates were made with
+every rule of L0–L2 switched on (#204).
+
+### 13e.1 Rules
+
+| Rule | Statement |
+|---|---|
+| Real round sizes | An M kinetic round at T1 is **6 kg** of solid steel at 800 m/s (62 mm, 250 mm long): a light naval gun, as a 1500–2500 t real corvette carries (the old 0.5 kg was a 27 mm cannon). Every quantity tied to the round scales by the same factor 12 in mass so that every penetration depth and feed ratio of L0–L2 is **unchanged**: the kinetic resistances scale by 12^(1/3) (sectional momentum ∝ m^(1/3) at fixed shape and speed), magazine capacity and wall feed by 12 (the magazine still holds 150 M rounds), the propellant charge by 12 (6 MJ per M round, about 1.5 kg of propellant). The HE warhead stays 2 MJ (≈ 0.5 kg TNT, 8 % of a 6 kg shell, a real filler fraction); the turret's heat per shot stays 0.3 MJ (most of a gun's heat stays in its barrel, outside the room) |
+| Partial kinetic damage | Kinetic damage stays momentum (#137): a round passing a room cell removes that cell's resistance R from its sectional momentum, as before, and takes **1 / `kinetic.hitsToWreck`** of the cell's integrity; the cell it stops in loses (sectional momentum left / R) / `kinetic.hitsToWreck`. A cell is destroyed when its integrity reaches 0 (#16). Crew die in proportion to the integrity lost: the room's cumulative deaths are floor(crew × (cells − Σ integrity) / cells), never more than its crew (#189) |
+| Repair | Repair restores **damaged** cells only (integrity between 0 and 1); a destroyed cell (integrity 0) is not repaired in battle and waits for the drydock (amends #51); it stays destroyed for the rest of the battle (this replaces #190 (1), which let a destroyed cell come back at integrity 1) |
+| Shield buffer | Unchanged rule; with the real round, stopping an M round costs 1.71 MJ, so a 10 MJ buffer binds at the **6th** round of a salvo (the old 0.5 kg round: the 71st). E4 for `shield.bufferSeconds` is met at L2 by this effect |
+
+### 13e.2 Constants and approved ranges (#206)
+
+| Constant | Old | New | Range | k |
+|---|---|---|---|---|
+| `kinetic.roundMass` | 0.5 kg | 6 kg | 2–20 | 3 |
+| `armour.kineticResistance` | 2.7e5 | 2.7e5 × 12^(1/3) = 6.181e5, computed exactly in `data.js` | 3e5–1.25e6 | 1 |
+| `room.kineticResistance` | 6.75e4 | 6.75e4 × 12^(1/3) = 1.545e5, computed exactly | 7e4–3.2e5 | 1 |
+| `magazine.capacity` | 75 kg | 900 kg | 300–3000 | 3 |
+| `ammo.wallFeed` | 0.06 kg/(s·m) | 0.72 kg/(s·m) | 0.24–3.6 | 1 |
+| `kinetic.chargeEnergy` | 0.5 MJ | 6 MJ | 2–20 | 3 |
+| `kinetic.hitsToWreck` | — | 3 | 1–8 | 0 |
+
+`shield.kineticStop` stays computed from the S round (#171), so it follows.
+
+### 13e.3 Scenarios
+
+| # | Scenario | Setup and measure | Expected and criterion |
+|---|---|---|---|
+| D1 | `L1.kinetic.damage` | S, M and L rounds at T1 along a row of M crew quarters cells (3 cells deep) and along a row of empty hold cells; then 2 and 3 M rounds along the same line; T1–T6 for M | per passed cell integrity loss 1 / hitsToWreck exactly; the stopping cell (s_left / R) / hitsToWreck; crew deaths by the floor rule; after 3 M rounds every passed cell destroyed; depths and losses identical T1–T6 |
+| D2 | `L1.quarters.repair.v2` | the setup of `L1.quarters.repair` with the target cell damaged by 0.7123 (not destroyed), and a second target cell destroyed | time to integrity 1 = 0.7123 / (rate × c / 6 × g(r)), one-sided; the destroyed cell stays at 0 through 600 s and no `cell-repaired` event for it |
+| D3 | `L1.repair.breach.v2` | quarters and an idle M reactor at 0.25 radius; cell A damaged by 0.7123 at 1 s and repaired; then cells B and C destroyed 1 s apart; a destroyed cell D next to the quarters | no breach after B; breach at C (2 of 4 destroyed); explosion at breach + countdown, one-sided; exactly one explosion; D stays destroyed; reactor deaths ≤ its crew |
+| D4 | `L2.shield.salvo` | an M generator and a salvo of N ∈ {3, 5, 6, 7, 10} M rounds of 6 kg | stop cost 1.707 MJ per round (L0 formula); the buffer binds at round ⌈10 MJ / cost⌉ = 6; later rounds pass unstopped; refill at the unused budget |
+
+**Expected effect on locked scenarios**: every L0, L1 and L2 scenario
+whose criterion is a formula over `data.js` re-records with the new values
+and still passes (the scaling keeps every ratio). `L1.quarters.repair` and
+`L1.repair.breach` repair destroyed cells, so they no longer pass: they are
+withdrawn as superseded by #203 (#188 as extended by #200) with D2 and D3
+as successors. Any other scenario that changes verdict is a finding for the
+lead designer, not a withdrawal.
+
 ## 14. Architecture
 
 | Layer | Files (planned) |
