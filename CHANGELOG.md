@@ -14,6 +14,26 @@
   `armour.kineticResistance`, `beam.focusRange` and
   `FIXED.beamWaistPerHalfCell` are marked superseded and kept only because
   `proto/` v1 reads them (a question for the lead designer in the PR).
+- Kernel (§13i.1): `js/damage.js` gains the pure functions
+  `penetrateRound` (the round rule: the round takes what each cell takes,
+  flattens at constant volume, is wrecked at f = 1; exact momentum books),
+  `betheStopping`, `csdaRange` and `beamDeposit` (Bethe without shell or
+  density correction, nuclear interactions leaving their energy in place;
+  RK4 in areal density); `penetrate`, `burnThrough` and
+  `beamDeliveredFraction` stay for the withdrawn scenarios and `proto/`.
+  `js/rooms.js`: a cell's mass by its type, `cellArealDensity` (σ, 0 for a
+  hole), `roundStrength`, `fireRound` on the round rule with r = c σ,
+  `beamEnergy` (gradient × N × edge) and `fireBeam` (per step: P·F_i as heat
+  in each cell's room, P·F_i·dt / `armour.burnEnergy` as integrity loss,
+  channel `thermal`; fractions recomputed when a path cell becomes a hole);
+  `addRoom` takes a spinal room's `length`. `js/heat.js`: `depositHeat`.
+  `js/layout.js`: `roomFootprint`; validation rules `axis` (a spinal room
+  lies along x and its rows hold the ship's centre line, the mean row of the
+  cells of rooms joined to a bridge) and `bow` (no cell ahead of its bow
+  face).
+- Tools: `tools/m0.js` checks that a withdrawn scenario keeps the verdict it
+  was recorded with (a withdrawn scenario on a kept superseded function can
+  still pass); `tools/perf.js` adds each R1's beam on the other's middle row.
 
 ## 0.6.6 — 2026-10-21 — The path model revised (#234, #235)
 
