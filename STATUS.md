@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#216, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#219, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -19,9 +19,10 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   life support under routing. `regress` on `main`: **46 VERIFIED + 8
   WITHDRAWN**. Cost 14.11 USD (engineers 10.76, physics checker 2.26,
   reviewer 1.09).
-- **L3, the minimal ship** (`DESIGN.md` §13f, #208–#213, #216): engineer
-  `session_01LapPHkFEVnX7ADLbgrCENH` (opus) building it on `m0/l3-ship`
-  since 10:00 UTC.
+- **L3, the minimal ship** (`DESIGN.md` §13f, #208–#213, #216, #219): PR
+  #35, head `1ba258b`: 65 of 68 cases PASS; seven scenarios withdrawn as
+  specification errors with v2 successors (#219), built by a fix engineer
+  session; physics checker (blind) in parallel; then the reviewer.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -46,7 +47,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| (to come) Mission 0, L3 | `m0/l3-ship` → `main` | engineer building it |
+| #35 Mission 0, L3 | `m0/l3-ship` → `main` | head `1ba258b`; answers in #219; fix engineer and physics checker running |
 
 The D pass merged by PR #32 (`ea4e96f`).
 
@@ -60,6 +61,12 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #219: answers to the L3 engineer (shield generator may carry fittings;
+  seven L3 scenarios withdrawn as specification errors, five of them the
+  engineer's invariant scales, two the lead designer's criteria; v2
+  successors).
+- #218: one documentation pull request per working block; small fix
+  rounds get the reviewer only.
 - #216: answers to the D-pass reviewer (two #207 clauses get L3 cases;
   blast capacity counts remaining integrity from L4); the D pass merged.
 - #214: answers to the D-pass physics checker (crew round per cell; the
@@ -90,6 +97,10 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
    §13f as its task; scenarios locked in their own commit; the engineer
    reproduces the estimates of #209 independently before the lock; then
    the physics checker (blind, §13f.1, §13f.2, §13f.4) and the reviewer.
+2. **The feel prototype** (#217, the owner): after L3 merges, write its
+   plan as an *LD* row (scope, stand-ins for what L4–L5 have not built,
+   what the owner judges on the phone, cost estimate), then one engineer
+   session builds it in `proto/`.
 
 ## Scheduled tasks
 
@@ -131,7 +142,7 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, D-pass fixes (#212) | session_01VgbfDLKbvp1rTyfbnxLcNd | opus-5-5 | 2.93 |
 | Physics checker, D pass | session_01UFe2RUu58iTgEttPPf5dZ4 | sonnet-5-5 | 2.26 |
 | Reviewer, D pass | session_01TVQqxMbuhGDobwni8xCnqq | sonnet-5-5 | 1.09 |
-| Engineer, L3 | session_01LapPHkFEVnX7ADLbgrCENH | opus-5-5 | running |
+| Engineer, L3 (PR #35) | session_01LapPHkFEVnX7ADLbgrCENH | opus-5-5 | 13.09 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -173,14 +184,18 @@ Sessions have reported a **seven-day usage limit warning**.
 - Sense-check every new mechanic against real magnitudes before it is
   locked (#200, #202): the first heat model passed its tests and was still
   about 160 times too harsh.
+- Before locking, compare every criterion with the plan's own estimate
+  output, and size every invariant against float resolution (#219: the
+  lead designer repeated #212's tolerance error in the L3 plan and wrote
+  a 295.01 K bound its own estimate contradicted).
 - Check every tolerance against the kernel's own step error before
   locking it (#212: D5's 1e-6 K sat under a 5e-5 K Euler error; #201 (2)
   was the same mistake). Absolute temperature tolerances below 1e-4 K are
   suspect.
 - `node tools/m0.js regress` takes several minutes since L2: give it a long
   timeout or run it in the background.
-- Documentation changes go through a pull request from the lead
-  designer's branch, merged at once (the session pushes only to its own
+- Documentation changes go through **one** pull request per working
+  block from the lead designer's branch (#218), merged at once (the session pushes only to its own
   branch).
 - A check-in made with `send_later` fires into the chat that made it, not
   into a new chat: re-create check-ins after a hand-over.

@@ -158,7 +158,7 @@ signature, hp (for point defence), fuel, reusable, pilot.
 | Reactor | 2×2, 3×3 | inside | power and much heat; SCRAM on control loss, decay heat; breach when heavily damaged; meltdown when critical |
 | Engine | 2×3 | exhaust on the aft hull, **exhaust must be clear** | a self-fuelled torch (#203 A): thrust from its own fuel, auxiliary power and heat from the ship; exhaust very IR-bright; thrust through the CoM recommended, not required |
 | Magazine | 2×2 | inside | ammunition by contents, fed through walls; explodes by the ammunition left: the propellant dominates, HE adds about a third (#215) |
-| Shield generator | 2×2, 3×3 | inside | shield field; EM-bright while absorbing; absorbing makes heat |
+| Shield generator | 2×2, 3×3 | anywhere; a plant room that may carry fittings (#219) | shield field; EM-bright while absorbing; absorbing makes heat |
 | Crew quarters | 3×2 | inside | houses crew, sets crew capacity (#60); repair field by surviving cells (#51) |
 | Beam bay | 2×2, 3×3 | one side on the hull | much power, very much heat; its firing window stays open while firing |
 | Kinetic turret | 2×2, 3×3 | one side on the hull | rounds and recoil; ammunition and some power |
@@ -836,7 +836,7 @@ independently before the lock, as at L2.
 | Structure and fragments (`js/graph.js`) | Surviving cells connect through every edge they share, inside a room and across live walls. When the surviving cells fall into several connected sets, each becomes a fragment: a rigid body with its own mass properties and the parent's velocity field (v of its new centre of mass, the same ω), so mass, momentum, angular momentum and kinetic energy are conserved exactly. A room whose surviving cells fall into two fragments works in the fragment holding most of them (tie: the lower cell index); its other cells are dead weight there |
 | Control (#12, #81, #147) | A room is controlled while a path of live walls joins it to a surviving bridge in its fragment (connectivity only, through any rooms). A room that loses control loses its function (L1 `controlled`): an engine stops, a gun stops firing, a reactor **SCRAMs** (decay heat follows, #81). A fragment without the bridge goes dark; destroying the bridge SCRAMs every reactor (decapitation). The bridge keeps its backup supply. At L3 control and structure run over the same live walls, so control is lost only with the bridge or by a split (the "cut the power walls" route of #82 is power, L2) |
 | Life support in fragments | §13d.1 as amended by #207: a room keeps life support while joined to a reactor able to produce; a dark fragment's crewed rooms lose it, the bridge keeps it on its backup |
-| Validation (`js/layout.js`, #57) | A ship undocks only if: every room connects to the bridge through live walls; every hull room (beam bay, turret, missile bay, engine) has an open edge, and an engine's exhaust face is open with **no cell aft of it** in its rows (clear exhaust); a fitting sits on an open edge of a room that is not inside, at most one per edge (#15); no room overlaps another or leaves the drydock grid (`TIERS` grid). **Inside** (bridge, reactor, magazine, shield generator, quarters) means the room carries no fitting; it may touch the hull. Each failure names its rule |
+| Validation (`js/layout.js`, #57) | A ship undocks only if: every room connects to the bridge through live walls; every hull room (beam bay, turret, missile bay, engine) has an open edge, and an engine's exhaust face is open with **no cell aft of it** in its rows (clear exhaust); a fitting sits on an open edge of a room that is not inside, at most one per edge (#15); no room overlaps another or leaves the drydock grid (`TIERS` grid). **Inside** (bridge, reactor, magazine, quarters; not the shield generator, #219) means the room carries no fitting; it may touch the hull. Each failure names its rule |
 | Readout (#58) | The shipyard's physics readout is computed from the same functions: M, centre of mass, I, acceleration in g with every engine at full throttle (`FIXED.standardGravity`), angular acceleration from every RCS couple, and the heat balance at a stated load against the radiators' capacity at plant hot |
 
 ### 13f.2 The reference ship R1
@@ -884,6 +884,9 @@ ship + rounds + debris conserve momentum and angular momentum to 1e-9.
 | 7 | `L3.validation` | R1 and one variant per rule of 13f.1 (a room cut off, a hull room with no open edge, an exhaust blocked by one cell aft, a fitting on an inside room, two fittings on one edge, an overlap, a room outside the grid) | R1 valid; every variant rejected with exactly its rule's reason |
 | 8 | `L3.ship.heat` | R1 without power routing (fixed loads, every room powered): idle (bridge and quarters only), cruise (shield on, engine at 0.5, the reactor delivering 7.25 MW) and battle (cruise plus the beam firing, 19.75 MW) for 900, 900 and 600 s | books per room and per ship 1e-9; the readout's heat balance and radiator capacity at plant hot (17 panels: 2.81 MW) exact; event times (hot, overheated, SCRAM) against the scenario's reference integrator, which carries every L1, L2 and D-pass rule over the whole run, 1e-3: estimates idle none (plant rooms near 300 K), cruise hot at 509 s (shield generator), 513 s (reactor), 550 s (engine), nothing overheated in 900 s (reactor peak ≈ 743 K), battle beam bay hot at 103 s and overheated at 178 s (it sits outside the loop), reactor hot at 157 s, later events after the beam bay's shutdown left to the reference; crewed rooms ≤ 295.01 K while life support runs (#205 (8)) |
 | 9 | `L3.kinetic.hole` (#212) | an M round along a line of six M quarters (D1's line) with the 2nd cell destroyed beforehand, and the same line intact | the destroyed cell takes nothing from the round and loses no integrity; the round stops one cell deeper than in the intact line (D1: in cell 11 of the intact line, so in cell 12), its stopping loss by the D-pass rule; deaths by the floor rule |
+| 2b | `L3.thrust.v2` (#219) | row 2's setup and cases | row 2's checks, except that (b)'s position and heading match the RK4 reference within **1e-2 relative at t = 5 s and 10 s** (the kernel's semi-implicit Euler differs by about dt / t: 3.3e-3 and 1.7e-3; a thrust that does not turn with the ship is off by order 1) |
+| 8b | `L3.ship.heat.v2` (#219) | row 8's setup and cases | row 8's checks, except the crewed rooms: their peak temperatures match the reference integrator within **0.01 K** and **none reaches crewed hot** (330 K); the bridge beside a reactor at 740–800 K rises to about 295.3 K (cruise) and 295.7 K (battle), because the reactor's passive leak plus the bridge's own draw exceed its 200 kW of life support (the lead designer's own estimate showed it) |
+| v2 | `L3.mass.props.v2`, `L3.validation.v2`, `L3.rcs.turn.v2`, `L3.recoil.v2`, `L3.split.momentum.v2` (#219) | their rows' setups and cases | their rows' checks unchanged; only the shared invariants are rescaled: heat books within max(1e-9 × the largest flow, **1e-10 × the room's heat at the start**) (float resolution of a stored heat of 1e9 J; measured residues ≤ 5.2e-12 of it), angular books within 1e-12 × (net + **gross** angular impulse booked). `L3.thrust.v2` and `L3.ship.heat.v2` carry the same invariants |
 
 `node tools/perf.js` (new, not a scenario: timing is not deterministic)
 reports milliseconds per step for two R1s at T1 and T6 stepping together
@@ -947,7 +950,11 @@ channel, room, crew aboard).
 
 ## 15. Roadmap
 
-1. **Mission 0**, L0 to L6, one branch and PR per level (#151).
+1. **Mission 0**, L0 to L6, one branch and PR per level (#151). After L3
+   merges, a **rough feel prototype** (#217): a throwaway page in `proto/`
+   on the L3 kernel, played by the owner on the Android phone, to judge the
+   battle's pace (E7) and how harsh heat is before L4–L5 lock their
+   numbers; its plan is written after L3, with estimates, as an *LD* row.
 2. After Mission 0 exits: presentation (renderer, shipyard, report, phone
    UI, sound). Order to be decided then.
 3. Content: factions, named ships, chapters, story.
