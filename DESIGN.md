@@ -432,7 +432,8 @@ Each role is its own session, defined in `.claude/agents/`; work is handed
 over through pull requests; reviewers get artifacts, not conclusions (#167).
 **Approval tiers** (#180): the owner decides **direction** (vision, core
 laws, verbs and loop, adding or removing a law, what is built or cut,
-setting and tone, spending caps, anything flagged as uncertain or
+setting and tone, the spending guideline (#191: 20 USD of sessions per
+level, soft, every cost reported), anything flagged as uncertain or
 irreversible); the **lead designer decides everything technical**
 (scenarios, criteria, formulas, constants, ranges, exponents, models that
 implement a decided law, architecture, process), records each as a row

@@ -6,7 +6,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#190, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#191, current design in `DESIGN.md`.
 - **E1 amended by the owner (#188)**: a scenario withdrawn for a
   specification error, with a passing successor, does not block E1.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
@@ -15,9 +15,10 @@ Updated 2026-10-21 by the lead designer chat (session
   regress`).
 - **Approval tiers (#180)**: the owner decides direction; the lead designer
   decides and records everything technical (*LD* rows), reports it here,
-  and merges after a clean review. Spending cap: 20 USD of sessions per
-  level. Documentation-only commits by the lead designer go straight to
-  `main`.
+  and merges after a clean review. Spending: 20 USD of sessions per level
+  is a soft guideline, not a cap (#191: the owner is on a Max plan until
+  the end of October); every cost is reported here. Documentation-only
+  commits by the lead designer go straight to `main`.
 - **L1 plan approved** (#181–#184, `DESIGN.md` §13c): nine rooms, the
   per-room heat model, 13 scenarios, constants with ranges.
 - Roles (#167): lead designer (the chat with the owner), engineer,

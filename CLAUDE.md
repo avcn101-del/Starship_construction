@@ -83,8 +83,8 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   Android phone, design decisions when a law fails.
 - A verifier receives only the command line and the criterion, never the
   runner's conclusion.
-- A multi-agent wave runs only with the lead designer's go-ahead, within
-  the owner's spending cap (#180).
+- A multi-agent wave runs only with the lead designer's go-ahead, keeping
+  the owner's spending guideline in mind (#191).
 
 ## Roles
 
