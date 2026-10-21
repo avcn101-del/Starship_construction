@@ -165,6 +165,8 @@ signature, hp (for point defence), fuel, reusable, pilot.
 | Spinal railgun | 2×N | on the axis, fires forward | longer barrel, faster round; axial recoil; very much power |
 | Missile bay | 3×2 | one side on the hull | a small ready store refilled from the magazine; explodes by the missiles inside (#148) |
 | Empty hold | 2×2 | anywhere | structure only; insulates, absorbs blast |
+| Cofferdam | 1×N (N = 2–6) | anywhere | a strip of empty hold: the void space real ships put between machinery and crew; insulates and absorbs blast like a hold, in one cell's width (#199) |
+| Heat sink | 2×2, 3×3 | anywhere | stores heat: 5× the heat capacity and 3× the conductivity of a room, no crew, no power; buys time while firing hot, then must be cooled through its walls; a destroyed cell vents its share of the heat (#197, #198) |
 
 Later rooms: hangar bay (#107), jammer (#27), auxiliary bridge (#13). No
 separate EMP room: EMP is a warhead (#142).
@@ -660,6 +662,17 @@ Dependencies: 2–4 and 12 on 1; 3 on `L1.room.thresholds` and
 paths (L3), the rigid body, recoil and CoM (L3), validation of a whole ship
 (L3), round types chosen against a target (L4), battle balance (L5).
 
+**Additions after the owner's answers (#197–#199)**, built on the same
+branch after the first canonical run of rows 1–12 and before the review:
+
+| # | Scenario | Setup and measure | Expected and criterion |
+|---|---|---|---|
+| 13 | `L2.heatsink.buffer` | an M reactor at 12.5 MW (feeding one M beam bay) beside (a) an ordinary idle M room, (b) an M heat sink, over 10 m, no radiators; T1 and T3 | the two-room linear solution with a constant source: reactor overheat time by a root of the closed form, within 1e-3 relative; (b) later than (a) (estimate: 421 s against 166 s at T1) |
+| 14 | `L2.heatsink.loss` | an M heat sink at 600 K; its cells destroyed one per second; then an M reactor at 12.5 MW beside the damaged sink | each destroyed cell vents exactly (C / n)(T − T_rest) to space, T unchanged, C and Q fall by one cell's share; heat books include the vented energy; with k cells lost the reactor overheats sooner, by the reference integrator within 1e-3 |
+| 15 | `L2.cofferdam` | an M reactor at d ∈ {0.25, 0.5} with crew quarters beside it, (a) directly over 10 m, (b) through a 1×2 cofferdam, (c) through a 2×2 hold | (a) crew death time by the closed form within 1e-3; (b) and (c): the reactor overheats first and the quarters stay below critical through 900 s (reference integrator, 1e-3 K); estimate: the quarters peak at 342 K with the cofferdam, 331 K with the hold |
+
+Dependencies: 13 and 14 on 1; 15 on 3.
+
 ### 13d.3 Constants and approved ranges (#195)
 
 | Constant | Value | Range | k | Note |
@@ -671,6 +684,13 @@ paths (L3), the rigid body, recoil and CoM (L3), validation of a whole ship
 | `turret.readyRounds` | 4 | 2–10 | 0 | rounds held in the turret, per its size |
 | `room.blastResistance` | 5e5 J | 2e5–2e6 | 3 | blast energy one ordinary room cell absorbs before it is destroyed (half an armour cell) |
 | `hold.blastFactor` | 4 | 2–10 | 0 | an empty hold absorbs blast (#18c) |
+| `heatsink.capacityFactor` | 5 | 2–10 | 0 | heat capacity per cell × this (#198); a water or phase-change store |
+| `heatsink.conductivityFactor` | 3 | 1–5 | 0 | conductivity factor in the harmonic mean of §13d.1 (#198) |
+
+The heat sink's threshold class is **plant** (600 / 800 / 1000 K) with no
+function to lose and no crew; it has no special behaviour at its
+thresholds (events only). The cofferdam uses the hold's conductivity and
+blast factors.
 
 No other new constant; anything an engineer needs beyond this list enters
 `data.js` with `approved: false` and is listed in the pull request.
