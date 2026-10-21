@@ -133,7 +133,7 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Engineer, L1 review fixes (#189) | session_014jtbGrQdvSycQU8E6stAeY | opus-5-5 | 4.97 |
 | Reviewer, L1 re-review | session_01GsfMyFUqaSXRsVGQhELH2U | sonnet-5-5 | 0.53 |
 | Engineer, L2 rows 1–12 (PR #15) | session_0111ENvC2XXCj4tA5T9zTZQ7 | opus-5-5 | 11.48 |
-| Engineer, L2 #200/#201 and the heat sink (PR #15) | session_011dfRdXfFAYsLmAY2C9a6Qg | opus-5-5 | not visible to the session |
+| Engineer, L2 #200/#201 and the heat sink (PR #15) | session_011dfRdXfFAYsLmAY2C9a6Qg | see the session | not visible to the session |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 
