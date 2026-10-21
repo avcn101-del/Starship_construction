@@ -14,8 +14,10 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
 - `DESIGN.md` is the current design. `DECISIONS.md` is the dated,
   append-only log. A new decision is appended to `DECISIONS.md` **and**
   reflected in `DESIGN.md` in the same commit.
-- **Changing a law, a criterion or a decided rule needs the owner.** Propose
-  it; do not do it.
+- **Changing a law, an exit criterion or the direction needs the owner.**
+  Technical decisions (scenarios, criteria, constants, ranges, models,
+  architecture, process) are the **lead designer's**, recorded as *LD* rows
+  in `DECISIONS.md` (#180). Any other session proposes; it does not decide.
 - A new idea goes to `IDEAS.md` first. It is built only after it passes the
   four gates (`DESIGN.md` §2) and the coverage table (§8). An idea that
   passes no gate is not built.
@@ -74,14 +76,15 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
 
 - Agents may run, re-run, report, tune constants within approved ranges,
   flag anomalies and hunt exploits on their own.
-- The owner decides new criteria, constants outside the approved ranges,
-  changes to a law, and anything that touches `DECISIONS.md`.
+- The lead designer decides new criteria, ranges and constants outside
+  them, and records them; the owner decides direction and changes to a law
+  (#180). No other session writes `DECISIONS.md`.
 - Never delegated: judging the feel of play, playtests on the owner's
   Android phone, design decisions when a law fails.
 - A verifier receives only the command line and the criterion, never the
   runner's conclusion.
-- A multi-agent wave runs only with the owner's explicit go-ahead, with a
-  cap on the number of agents.
+- A multi-agent wave runs only with the lead designer's go-ahead, within
+  the owner's spending cap (#180).
 
 ## Roles
 
@@ -102,7 +105,9 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   console errors (a blocked Google Fonts request in the sandbox is not a
   game error).
 - Git: `main` is the default branch; **one branch and one pull request per
-  Mission 0 level**; Claude merges after the owner approves each merge.
+  Mission 0 level**; the lead designer merges once the reviewer and the
+  physics checker report no blocking finding (#180). Documentation-only
+  commits by the lead designer go straight to `main`.
 - **`STATUS.md`** is the hand-over: read it first; update it at the end of
   every working block (open PRs, pending approvals, running sessions,
   scheduled tasks, next steps).
