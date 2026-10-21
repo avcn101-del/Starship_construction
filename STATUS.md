@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#221, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#222, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -21,11 +21,11 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   reviewer 1.09).
 - **Ships get real density (#221, the owner)**: 10 t per cell instead of
   1 t, heat unchanged; built as the mass pass after L3.
-- **L3, the minimal ship** (`DESIGN.md` §13f, #208–#213, #216, #219): PR
-  #35, head `1ba258b`: 65 of 68 cases PASS; seven scenarios withdrawn as
-  specification errors with v2 successors (#219, #220). Physics checker:
-  kernel matches its blind derivation in all nine (#220). A second fix
-  engineer session locks and records the v2s; then the reviewer.
+- **L3, the minimal ship, is done and merged** (`DESIGN.md` §13f;
+  #208–#213, #216, #219, #220, #222): rigid body, thrust, RCS, recoil,
+  debris and fragments, control and SCRAM, validation. `regress` on
+  `main`: **55 VERIFIED + 15 WITHDRAWN**. Cost 23.82 USD.
+- **Next: the mass pass** (`DESIGN.md` §13g, #221, #222) on `m0/mass`.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -50,7 +50,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| #35 Mission 0, L3 | `m0/l3-ship` → `main` | head `6af9f33` (v2 files unlocked); answers in #219, #220; fix engineer 2 running; reviewer next |
+| (to come) The mass pass | `m0/mass` → `main` | engineer to start |
+
+L3 merged through the lead designer's branch (PR #35 closes with it).
 
 The D pass merged by PR #32 (`ea4e96f`).
 
@@ -64,6 +66,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #222: answers to the L3 reviewer (three untested rules get a scenario in
+  the mass pass; control needs a working bridge); L3 merged.
 - #220: answers to the L3 physics checker and Q13 (angular books
   1e-9 × net + 1e-12 × gross; crew capacity at L4; ship density to settle
   before the prototype).
@@ -98,17 +102,12 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
 
 ## Next steps
 
-1. **L3** (`DESIGN.md` §13f, #208–#213, #216): one
-   engineer session (opus) on `m0/l3-ship` from `main`, with the whole
-   §13f as its task; scenarios locked in their own commit; the engineer
-   reproduces the estimates of #209 independently before the lock; then
-   the physics checker (blind, §13f.1, §13f.2, §13f.4) and the reviewer.
-2. **The mass pass** (`DESIGN.md` §13g, #221, the owner): after L3
-   merges, one engineer session on `m0/mass`: 10 t per cell, thrust 15 MN,
-   RCS 1 MN; the L3 scenarios encoding the old mass rule withdrawn as
+1. **The mass pass** (`DESIGN.md` §13g, #221, #222, the owner): one
+   engineer session on `m0/mass`: 10 t per cell, thrust 15 MN,
+   RCS 1 MN, `L3.fragment.rules`; the L3 scenarios encoding the old mass rule withdrawn as
    superseded with v3 successors; then a physics checker and the reviewer
    (or the reviewer only if no physics a checker has not seen, #218).
-3. **The feel prototype** (#217, the owner): after L3 merges, write its
+2. **The feel prototype** (#217, the owner): after the mass pass, write its
    plan as an *LD* row (scope, stand-ins for what L4–L5 have not built,
    what the owner judges on the phone, cost estimate), then one engineer
    session builds it in `proto/`.
@@ -156,10 +155,13 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, L3 (PR #35) | session_01LapPHkFEVnX7ADLbgrCENH | opus-5-5 | 13.09 |
 | Physics checker, L3 | session_014dyKkuWtmsZa9fcmrS8jkp | sonnet-5-5 | 3.22 |
 | Engineer, L3 fixes 1 (#219, stopped on Q13) | session_016VbwLzzv4YyZZL383cPXbx | opus-5-5 | 2.94 |
+| Engineer, L3 fixes 2 (#219, #220) | session_01AQ4WNuYgQLBevpeWC2HZku | opus-5-5 | 3.12 |
+| Reviewer, L3 | session_01WR2QvB555iEiVuoLRBQS7A | sonnet-5-5 | 1.45 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
 D pass total: 14.11 USD (engineers 7.83 + 2.93, physics checker 2.26, reviewer 1.09).
+L3 total: 23.82 USD (engineers 13.09 + 2.94 + 3.12, physics checker 3.22, reviewer 1.45).
 
 Sessions have reported a **seven-day usage limit warning**.
 
