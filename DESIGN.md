@@ -1339,6 +1339,50 @@ beside a reactor that runs hot warms above its setpoint (life support too
 small for the passive leak plus its draw), the first sign that the bridge
 wants a cooler neighbour.
 
+**L3 fixes of #219 and #220** (2026-10-21; v2 files written at `6af9f33`
+with the kernel's gross angular impulse booked, `external.Hgross`;
+rescaled and extended for #220 at `249fc1e`; locked at `a3a8e6c` before
+their first canonical run; no kernel or data change since the first run).
+**All seven v2 successors PASS**, and `L3.fragment.scram`, unchanged, now
+PASS through its dependency's successor (#188; same rows as its BLOCKED
+record). The seven v1 scenarios are withdrawn as specification errors
+(#219): the five recorded BLOCKED were re-run unchanged once
+`L3.mass.props.v2` passed and now hold FAIL with the same rows, on exactly
+the invariants and criteria #219 names. `regress`: 55 VERIFIED + 15
+WITHDRAWN. Margins measured before the lock (tolerance over the worst
+residue, every case): angular books (1e-9 × net + 1e-12 × gross)
+`L3.mass.props.v2` 454 (R1 at T6), `L3.rcs.turn.v2` 3.7e3, `L3.recoil.v2`
+3.4e3, `L3.ship.heat.v2` 4.2e4, `L3.thrust.v2` 9.8e4, `L3.split.momentum.v2`
+2.4e5 (`L3.validation.v2` books no angular impulse: residue 0); heat books
+(max(1e-9 × flow, 1e-10 × Q0)) 1.5e3 (`L3.ship.heat.v2`) to 1.3e5; the
+discrete heading 1.8e6; the discrete position 1.6e5; the end time exact.
+
+| Scenario | What the numbers say |
+|---|---|
+| `L3.mass.props.v2` | The first run's 34 cases, unchanged, with the books rescaled: PASS |
+| `L3.validation.v2` | R1 valid, the seven variants rejected with exactly their rule: PASS |
+| `L3.rcs.turn.v2` | α = 0.381278 rad/s² both ways; **122 turning + 122 braking firing steps**, the last ending at 4.06667 s = 244 / 60 s; the heading **1.576373 rad** (90.32°) equals the semi-implicit scheme's discrete sum 122² α dt² to 5.6e-16 relative; |ω| ≈ 1e-16 rad/s. The discrete heading catches a wrong step count (one step is 8e-3) or a wrong α, but not explicit against semi-implicit Euler: for a symmetric bang-bang both give n² α dt². PASS |
+| `L3.recoil.v2` | The first run's numbers (0.0918 m/s and 0.341 °/s per broadside shot, 6.834 °/s after 20; 0.179 °/s forward; fixture 0.4783 m/s): PASS |
+| `L3.split.momentum.v2` | The first run's numbers (26.074 t and 20.797 t, 5 pieces of debris, 5.397 t; conservation at the cut and in flight): PASS |
+| `L3.thrust.v2` | (a) the symmetric ship's centre of mass at the discrete x_n = a dt² n(n+1)/2 at every whole second and at step 601 (7178.611 m) to 6.2e-15 (explicit Euler would be off by 2 / (n + 1), 3.3e-2 at 1 s); (b) against RK4 at 5 s and 10 s: position 2.7e-3 and 8.1e-4, heading 3.3e-3 and 1.7e-3, inside 1e-2 and the dt / t of the plan: PASS |
+| `L3.ship.heat.v2` | Event times as in the first run; the crewed rooms' peaks match the reference within 0.01 K (bridge 295.304 K cruise, 295.742 K battle) and none reaches crewed hot: PASS |
+
+Honest reading, added to the first run's. The v2 successors restate the
+first run's measurements with books sized to float resolution; they add
+two checks of the integrator itself (the discrete turn and the discrete
+position), which pin the kernel to its scheme to 1e-15 but are close
+restatements of semi-implicit Euler, not new physics. The scale of the
+angular books stays a float bound, not a physical one: 1e-12 of the gross
+angular impulse lets a couple fired both ways leave its rounding, and
+`L3.mass.props.v2`'s margin of 454 (R1 at T6) is the tightest. In
+`L3.ship.heat.v2`'s battle the reactor is held at a fixed 19.75 MW after
+the beam bay shuts down at 178 s, since the scenario has no power routing
+(a fixture): the events after that time (reactor overheated at 348.70 s,
+heat sink hot at 353.38 s, engine and shield generator hot) are fixture
+consequences, not design signals (#220 (4)). The bridge's rise above its
+setpoint (life support overwhelmed by a hot reactor's passive leak plus
+its own draw) stays a signal (#219 (3)).
+
 ## 17. Open questions
 
 1. **Chapter design** waits for Mission 0 (#125).

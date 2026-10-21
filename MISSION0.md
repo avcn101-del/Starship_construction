@@ -80,15 +80,22 @@ with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#18
 
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
-| `L3.fragment.scram` | 48ea595c | BLOCKED | a74d2034 | 923bb27 | none | `node tools/m0.js run L3.fragment.scram` |
+| `L3.fragment.scram` | 48ea595c | PASS | a74d2034 | a3a8e6c | none | `node tools/m0.js run L3.fragment.scram` |
 | `L3.kinetic.hole` | f9f796a5 | PASS | 525f54eb | 923bb27 | none | `node tools/m0.js run L3.kinetic.hole` |
-| `L3.mass.props` | ce132775 | FAIL | dab24409 | 923bb27 | none | `node tools/m0.js run L3.mass.props` |
-| `L3.rcs.turn` | b2c4ea93 | BLOCKED | 09cf7d35 | 923bb27 | none | `node tools/m0.js run L3.rcs.turn` |
-| `L3.recoil` | 60e2e893 | BLOCKED | 2ff8c992 | 923bb27 | none | `node tools/m0.js run L3.recoil` |
-| `L3.ship.heat` | 384c519b | BLOCKED | ca80d3ad | 923bb27 | none | `node tools/m0.js run L3.ship.heat` |
-| `L3.split.momentum` | 35d9b858 | BLOCKED | 7e399e39 | 923bb27 | none | `node tools/m0.js run L3.split.momentum` |
-| `L3.thrust` | f8844599 | BLOCKED | d68c014c | 923bb27 | none | `node tools/m0.js run L3.thrust` |
-| `L3.validation` | dc386731 | FAIL | 51e87ff4 | 923bb27 | none | `node tools/m0.js run L3.validation` |
+| `L3.mass.props.v2` | e622ae23 | PASS | dab24409 | a3a8e6c | none | `node tools/m0.js run L3.mass.props.v2` |
+| `L3.mass.props` | ce132775 | FAIL, WITHDRAWN (successor `L3.mass.props.v2`, #219) | dab24409 | 923bb27 | none | `node tools/m0.js run L3.mass.props` |
+| `L3.rcs.turn.v2` | cc344c95 | PASS | 16750328 | a3a8e6c | none | `node tools/m0.js run L3.rcs.turn.v2` |
+| `L3.rcs.turn` | b2c4ea93 | FAIL, WITHDRAWN (successor `L3.rcs.turn.v2`, #219) | 09cf7d35 | a3a8e6c | none | `node tools/m0.js run L3.rcs.turn` |
+| `L3.recoil.v2` | 83c88b71 | PASS | 2ff8c992 | a3a8e6c | none | `node tools/m0.js run L3.recoil.v2` |
+| `L3.recoil` | 60e2e893 | FAIL, WITHDRAWN (successor `L3.recoil.v2`, #219) | 2ff8c992 | a3a8e6c | none | `node tools/m0.js run L3.recoil` |
+| `L3.ship.heat.v2` | 0667f5ed | PASS | ca80d3ad | a3a8e6c | none | `node tools/m0.js run L3.ship.heat.v2` |
+| `L3.ship.heat` | 384c519b | FAIL, WITHDRAWN (successor `L3.ship.heat.v2`, #219) | ca80d3ad | a3a8e6c | none | `node tools/m0.js run L3.ship.heat` |
+| `L3.split.momentum.v2` | eb9abb02 | PASS | 7e399e39 | a3a8e6c | none | `node tools/m0.js run L3.split.momentum.v2` |
+| `L3.split.momentum` | 35d9b858 | FAIL, WITHDRAWN (successor `L3.split.momentum.v2`, #219) | 7e399e39 | a3a8e6c | none | `node tools/m0.js run L3.split.momentum` |
+| `L3.thrust.v2` | ca2ffe38 | PASS | 4dc7753b | a3a8e6c | none | `node tools/m0.js run L3.thrust.v2` |
+| `L3.thrust` | f8844599 | FAIL, WITHDRAWN (successor `L3.thrust.v2`, #219) | d68c014c | a3a8e6c | none | `node tools/m0.js run L3.thrust` |
+| `L3.validation.v2` | 66c78555 | PASS | 51e87ff4 | a3a8e6c | none | `node tools/m0.js run L3.validation.v2` |
+| `L3.validation` | dc386731 | FAIL, WITHDRAWN (successor `L3.validation.v2`, #219) | 51e87ff4 | 923bb27 | none | `node tools/m0.js run L3.validation` |
 
 ## L4
 

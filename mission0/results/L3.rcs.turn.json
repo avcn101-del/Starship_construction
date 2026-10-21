@@ -1,9 +1,9 @@
 {
   "id": "L3.rcs.turn",
   "level": "L3",
-  "verdict": "BLOCKED",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L3.rcs.turn",
-  "code": "923bb27",
+  "code": "a3a8e6c",
   "criterionHash": "b2c4ea93",
   "lockedHash": "b2c4ea93",
   "runHash": "09cf7d35",

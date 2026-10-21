@@ -1,0 +1,695 @@
+{
+  "id": "L3.ship.heat.v2",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.ship.heat.v2",
+  "code": "a3a8e6c",
+  "criterionHash": "0667f5ed",
+  "lockedHash": "0667f5ed",
+  "runHash": "ca80d3ad",
+  "dataHash": "3d66afdf",
+  "rowsHash": "00ba4fac",
+  "rows": [
+    {
+      "case": {
+        "load": "idle"
+      },
+      "expected": {
+        "generated": 150000,
+        "capacity": 2810917.7992800004,
+        "panels": 17,
+        "events": {
+          "engine": [],
+          "reactor": [],
+          "bridge": [],
+          "magazine": [],
+          "beamBay": [],
+          "heatSink": [],
+          "quarters": [],
+          "turret": [],
+          "shield": [],
+          "hold": []
+        },
+        "peak": {
+          "engine": 290,
+          "reactor": 290,
+          "bridge": 295.0006771767238,
+          "magazine": 290.1773914143903,
+          "beamBay": 290,
+          "heatSink": 290,
+          "quarters": 295.00021713342335,
+          "turret": 290.1479455393626,
+          "shield": 290,
+          "hold": 290.0020354432614
+        },
+        "hot": {
+          "engine": 600,
+          "reactor": 600,
+          "bridge": 330,
+          "magazine": 330,
+          "beamBay": 600,
+          "heatSink": 600,
+          "quarters": 330,
+          "turret": 330,
+          "shield": 600,
+          "hold": 330
+        }
+      },
+      "actual": {
+        "heat": {
+          "generated": 150000,
+          "capacity": 2810917.79928,
+          "panels": 17,
+          "balance": 2660917.79928
+        },
+        "events": {
+          "engine": [],
+          "reactor": [],
+          "bridge": [],
+          "magazine": [],
+          "beamBay": [],
+          "heatSink": [],
+          "quarters": [],
+          "turret": [],
+          "shield": [],
+          "hold": []
+        },
+        "peak": {
+          "engine": 290,
+          "reactor": 290,
+          "bridge": 295.00067717671334,
+          "magazine": 290.17739131498,
+          "beamBay": 290,
+          "heatSink": 290,
+          "quarters": 295.0002171334148,
+          "turret": 290.14794502177926,
+          "shield": 290,
+          "hold": 290.00203539502337
+        },
+        "lifeSupport": true,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 31959835.438716114,
+            "stored": -3906588.1314235926,
+            "initial": 1044000000,
+            "conducted": 28053247.30729078,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -244433.88030338287,
+            "initial": 696000000,
+            "conducted": -244433.8803070221,
+            "pumped": 75684298.18676817,
+            "vented": 0
+          },
+          {
+            "generated": 90000000.00002822,
+            "radiated": 0,
+            "stored": 12001625.224112034,
+            "initial": 696000000,
+            "conducted": -77998374.77589232,
+            "pumped": -75684298.18676817,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 377912.76744019985,
+            "initial": 696000000,
+            "conducted": 377912.7674487216,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 22855187.944453403,
+            "stored": -21256133.14790964,
+            "initial": 696000000,
+            "conducted": 1599054.7965489083,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 32265208.421337716,
+            "stored": -1479671.1406755447,
+            "initial": 3480000000,
+            "conducted": 30785537.280673992,
+            "pumped": 24829002.26236558,
+            "vented": 0
+          },
+          {
+            "generated": 45000000.00001411,
+            "radiated": 0,
+            "stored": 18000781.68029332,
+            "initial": 1044000000,
+            "conducted": -26999218.319710433,
+            "pumped": -24829002.26236558,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 355068.052270174,
+            "initial": 696000000,
+            "conducted": 355068.05226738343,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 47645198.55934362,
+            "stored": -3578876.73571527,
+            "initial": 696000000,
+            "conducted": 44066321.82362488,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 4884.948056101799,
+            "initial": 696000000,
+            "conducted": 4884.948054706967,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0,
+          "net": 0,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "load": "cruise"
+      },
+      "expected": {
+        "generated": 10900000,
+        "capacity": 2810917.7992800004,
+        "panels": 17,
+        "events": {
+          "engine": [
+            [
+              "hot",
+              550.4333333333333
+            ]
+          ],
+          "reactor": [
+            [
+              "hot",
+              513.05
+            ]
+          ],
+          "bridge": [],
+          "magazine": [],
+          "beamBay": [],
+          "heatSink": [
+            [
+              "hot",
+              737.25
+            ]
+          ],
+          "quarters": [],
+          "turret": [],
+          "shield": [
+            [
+              "hot",
+              509.25
+            ]
+          ],
+          "hold": []
+        },
+        "peak": {
+          "engine": 720.8882013769951,
+          "reactor": 743.1929031990694,
+          "bridge": 295.30421858530445,
+          "magazine": 290.1861884086786,
+          "beamBay": 290,
+          "heatSink": 659.8698898544177,
+          "quarters": 295.0006457315584,
+          "turret": 290.1594734643142,
+          "shield": 725.2247161140002,
+          "hold": 290.0021575675681
+        },
+        "hot": {
+          "engine": 600,
+          "reactor": 600,
+          "bridge": 330,
+          "magazine": 330,
+          "beamBay": 600,
+          "heatSink": 600,
+          "quarters": 330,
+          "turret": 330,
+          "shield": 600,
+          "hold": 330
+        }
+      },
+      "actual": {
+        "heat": {
+          "generated": 10900000,
+          "capacity": 2810917.79928,
+          "panels": 17,
+          "balance": -8089082.20072
+        },
+        "events": {
+          "engine": [
+            [
+              "hot",
+              550.4333333333333
+            ]
+          ],
+          "reactor": [
+            [
+              "hot",
+              513.05
+            ]
+          ],
+          "bridge": [],
+          "magazine": [],
+          "beamBay": [],
+          "heatSink": [
+            [
+              "hot",
+              737.25
+            ]
+          ],
+          "quarters": [],
+          "turret": [],
+          "shield": [
+            [
+              "hot",
+              509.25
+            ]
+          ],
+          "hold": []
+        },
+        "peak": {
+          "engine": 720.8893982924715,
+          "reactor": 743.1941442392841,
+          "bridge": 295.3041980766373,
+          "magazine": 290.18618749935285,
+          "beamBay": 290,
+          "heatSink": 659.8712240755643,
+          "quarters": 295.0006457297554,
+          "turret": 290.1594719410356,
+          "shield": 725.2257722641148,
+          "hold": 290.00215750421523
+        },
+        "lifeSupport": true,
+        "books": [
+          {
+            "generated": 1350000000,
+            "radiated": 508634649.7730714,
+            "stored": 1551201833.8528972,
+            "initial": 1044000000,
+            "conducted": 709836483.6259812,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 6524999999.996393,
+            "radiated": 0,
+            "stored": 1087665946.1742818,
+            "initial": 696000000,
+            "conducted": -5437334053.825738,
+            "pumped": 135792802.92246526,
+            "vented": 0
+          },
+          {
+            "generated": 90000000.00002822,
+            "radiated": 0,
+            "stored": 12730075.383929491,
+            "initial": 696000000,
+            "conducted": -77269924.61607733,
+            "pumped": -135792802.92246526,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 401349.0198506117,
+            "initial": 696000000,
+            "conducted": 401349.0198646195,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 22855312.670162942,
+            "stored": -21253788.83161509,
+            "initial": 696000000,
+            "conducted": 1601523.8385378623,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 309936531.8500764,
+            "stored": 4438454688.906773,
+            "initial": 3480000000,
+            "conducted": 4748391220.75683,
+            "pumped": 65918984.3953681,
+            "vented": 0
+          },
+          {
+            "generated": 45000000.00001411,
+            "radiated": 0,
+            "stored": 18002324.627119303,
+            "initial": 1044000000,
+            "conducted": -26997675.372880533,
+            "pumped": -65918984.3953681,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 382732.6584854126,
+            "initial": 696000000,
+            "conducted": 382732.65849076206,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 1799999999.9987805,
+            "radiated": 836441312.4709319,
+            "stored": 1044541853.4338753,
+            "initial": 696000000,
+            "conducted": 80983165.9048341,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 5178.010116577148,
+            "initial": 696000000,
+            "conducted": 5178.0101308515705,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 4.610987378256499e-8,
+          "dL": 0.00047850608825683594,
+          "net": 1445339589.1567857,
+          "gross": 18415706782265.42
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "load": "battle"
+      },
+      "expected": {
+        "generated": 30900000,
+        "capacity": 2810917.7992800004,
+        "panels": 17,
+        "events": {
+          "engine": [
+            [
+              "hot",
+              230.25
+            ]
+          ],
+          "reactor": [
+            [
+              "hot",
+              157.11666666666667
+            ],
+            [
+              "overheated",
+              348.7
+            ]
+          ],
+          "bridge": [],
+          "magazine": [],
+          "beamBay": [
+            [
+              "hot",
+              102.61666666666666
+            ],
+            [
+              "overheated",
+              177.93333333333334
+            ]
+          ],
+          "heatSink": [
+            [
+              "hot",
+              353.4
+            ]
+          ],
+          "quarters": [],
+          "turret": [],
+          "shield": [
+            [
+              "hot",
+              194.45
+            ]
+          ],
+          "hold": []
+        },
+        "peak": {
+          "engine": 727.9909042967413,
+          "reactor": 800.013415680162,
+          "bridge": 295.7420772552969,
+          "magazine": 295.0008693353863,
+          "beamBay": 800.0391538800297,
+          "heatSink": 653.8213101826357,
+          "quarters": 295.0006473930173,
+          "turret": 295.00038678602976,
+          "shield": 747.4040849197236,
+          "hold": 290.04540091535495
+        },
+        "hot": {
+          "engine": 600,
+          "reactor": 600,
+          "bridge": 330,
+          "magazine": 330,
+          "beamBay": 600,
+          "heatSink": 600,
+          "quarters": 330,
+          "turret": 330,
+          "shield": 600,
+          "hold": 330
+        }
+      },
+      "actual": {
+        "heat": {
+          "generated": 30900000,
+          "capacity": 2810917.79928,
+          "panels": 17,
+          "balance": -28089082.20072
+        },
+        "events": {
+          "engine": [
+            [
+              "hot",
+              230.25
+            ]
+          ],
+          "reactor": [
+            [
+              "hot",
+              157.11666666666667
+            ],
+            [
+              "overheated",
+              348.7
+            ]
+          ],
+          "bridge": [],
+          "magazine": [],
+          "beamBay": [
+            [
+              "hot",
+              102.61666666666666
+            ],
+            [
+              "overheated",
+              177.91666666666666
+            ]
+          ],
+          "heatSink": [
+            [
+              "hot",
+              353.3833333333333
+            ]
+          ],
+          "quarters": [],
+          "turret": [],
+          "shield": [
+            [
+              "hot",
+              194.45
+            ]
+          ],
+          "hold": []
+        },
+        "peak": {
+          "engine": 727.9969027370037,
+          "reactor": 800.0152046893589,
+          "bridge": 295.7420332948322,
+          "magazine": 295.0008692666905,
+          "beamBay": 800.0045229294221,
+          "heatSink": 653.8229363828036,
+          "quarters": 295.0006473940918,
+          "turret": 295.00038675089684,
+          "shield": 747.4106429144439,
+          "hold": 290.04539940325134
+        },
+        "lifeSupport": true,
+        "books": [
+          {
+            "generated": 900000000,
+            "radiated": 502900628.29254884,
+            "stored": 1459367413.4981074,
+            "initial": 1044000000,
+            "conducted": 1062268041.7906713,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 7189959385.468465,
+            "radiated": 0,
+            "stored": 946947393.8529229,
+            "initial": 696000000,
+            "conducted": -6243011991.613824,
+            "pumped": 98783517.46066457,
+            "vented": 0
+          },
+          {
+            "generated": 59999999.99997059,
+            "radiated": 0,
+            "stored": 13268539.837434769,
+            "initial": 696000000,
+            "conducted": -46731460.16256824,
+            "pumped": -98783517.46066457,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 12001395.18550396,
+            "initial": 696000000,
+            "conducted": 12001395.185498944,
+            "pumped": -42547743.54612303,
+            "vented": 0
+          },
+          {
+            "generated": 1334375000,
+            "radiated": 493916224.9493792,
+            "stored": 816513517.2201915,
+            "initial": 696000000,
+            "conducted": -23945257.830424324,
+            "pumped": 57942726.30842435,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 287122071.15731376,
+            "stored": 4365875236.593643,
+            "initial": 3480000000,
+            "conducted": 4652997307.750935,
+            "pumped": 45306989.23320925,
+            "vented": 0
+          },
+          {
+            "generated": 29999999.999985296,
+            "radiated": 0,
+            "stored": 18002330.618730426,
+            "initial": 1044000000,
+            "conducted": -11997669.381263971,
+            "pumped": -45306989.23320925,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 12000698.372648358,
+            "initial": 696000000,
+            "conducted": 12000698.372646704,
+            "pumped": -15394982.762301326,
+            "vented": 0
+          },
+          {
+            "generated": 1200000000.000211,
+            "radiated": 822315141.2737292,
+            "stored": 963994836.0468085,
+            "initial": 696000000,
+            "conducted": 586309977.3205403,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 108958.56780326366,
+            "initial": 696000000,
+            "conducted": 108958.56781402865,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 4.5975651767840554e-8,
+          "dL": 0.00021731853485107422,
+          "net": 1057495250.7732421,
+          "gross": 8163977847935.624
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + vented + stored, within max(1e-9 x the largest flow, 1e-10 x the room's heat at the start), every room, every case (#219)",
+      "ok": true
+    },
+    {
+      "name": "conduction and life-support flows each sum to 0 over the ship, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "momentum books: mass, momentum (1e-9) and angular momentum (1e-9 x net + 1e-12 x gross angular impulse booked, #219, #220) of ship + rounds + debris kept (with the external impulse), every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

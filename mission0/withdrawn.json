@@ -46,5 +46,47 @@
     "successor": "L2.lifesupport.routed.v2",
     "decision": "#212",
     "reason": "Specification error of the lead designer (#212 (1)): its (b) per-second temperature match within 1e-6 K is tighter than the kernel's own Euler error against the RK4 reference (2.0e-6 to 5.0e-5 K over the run), as estimated before the lock. Every other check passed. The successor checks the same at 1e-6 relative. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.mass.props",
+    "successor": "L3.mass.props.v2",
+    "decision": "#219",
+    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Every case passed. The successor rescales the heat books to max(1e-9 x the largest flow, 1e-10 x the room's heat at the start) and the angular books to 1e-9 x net + 1e-12 x gross (#220 (1)). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.validation",
+    "successor": "L3.validation.v2",
+    "decision": "#219",
+    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Every case passed. The successor carries the rescaled heat and angular books (#219, #220 (1)). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.rcs.turn",
+    "successor": "L3.rcs.turn.v2",
+    "decision": "#219",
+    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J), and the angular books' scale leaves out the gross angular impulse of a couple fired one way then the other (residue 6.2e-9 of about 2e7 booked). Every case passed. Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on those two invariants. The successor carries the rescaled books (#219, #220 (1)) and asserts the discrete turn (#220 (2)). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.recoil",
+    "successor": "L3.recoil.v2",
+    "decision": "#219",
+    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Every case passed. Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on that invariant. The successor carries the rescaled heat and angular books (#219, #220 (1)). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.split.momentum",
+    "successor": "L3.split.momentum.v2",
+    "decision": "#219",
+    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Every case passed. Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on that invariant. The successor carries the rescaled heat and angular books (#219, #220 (1)). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.thrust",
+    "successor": "L3.thrust.v2",
+    "decision": "#219",
+    "reason": "Specification error of the lead designer (#219 (2)): (b)'s 1e-6 match of position and heading to the RK4 reference sits under the semi-implicit Euler error (about dt / t, 1.67e-2 at 1 s), as estimated before the lock; and of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on (b) and that invariant. The successor checks (b) at 1e-2 at 5 and 10 s, carries the rescaled books and asserts (a)'s discrete position (#219, #220). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.ship.heat",
+    "successor": "L3.ship.heat.v2",
+    "decision": "#219",
+    "reason": "Specification error of the lead designer (#219 (3)): the crewed rooms' bound of 295.01 K ignored the plan's own estimate (the bridge beside a reactor at 740-800 K reaches 295.3 K in cruise and 295.7 K in battle; the reference integrator agrees to 1 mK); and of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on cruise, battle and that invariant. The successor checks the crewed rooms' peaks against the reference (0.01 K) and that none reaches crewed hot, with the rescaled books. Locked and recorded with that FAIL."
   }
 ]

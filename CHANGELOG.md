@@ -32,12 +32,18 @@
   6 BLOCKED (see §16 and the pull request: two predicted specification
   differences and two float-scale flaws in the engineer's invariants).
   `DESIGN.md` §16 gets the measured L3 block; `MISSION0.md` regenerated.
-- Fixes of #219 (in progress): `js/body.js` and `fixtureImpulse` also book
-  the gross angular impulse (`external.Hgross`, Σ |q × F dt|) for the v2
-  angular books; no record moved. Seven v2 scenarios written in
-  `mission0/scenarios/L3/*-v2.js`, **not locked**: the literal angular scale
-  of #219 fails float resolution in `L3.mass.props` (question in the pull
-  request).
+- Fixes of #219 and #220: `js/body.js` and `fixtureImpulse` also book
+  the gross angular impulse (`external.Hgross`, Σ |q × F dt|); no record
+  moved. Seven v2 scenarios in `mission0/scenarios/L3/*-v2.js`: heat books
+  within max(1e-9 × flow, 1e-10 × the room's starting heat), angular books
+  within 1e-9 × net + 1e-12 × gross (#220 (1)); `L3.rcs.turn.v2` also
+  asserts the discrete turn (122 + 122 firing steps, heading 1.576373 rad)
+  and `L3.thrust.v2` (a) the discrete position (#220 (2)). Locked before
+  their first canonical run: all seven PASS. The seven v1 scenarios are
+  withdrawn under #188 (`mission0/withdrawn.json`, decision #219); the five
+  recorded BLOCKED were re-run unchanged and hold FAIL with the same rows.
+  `L3.fragment.scram` re-run unchanged: PASS. `DESIGN.md` §16 gets the v2
+  results; `MISSION0.md` regenerated.
 
 ## 0.4.4 — 2026-10-21 — Answers to the L3 physics checker (#220)
 
