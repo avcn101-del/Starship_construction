@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.bridge.conduction",
-  "code": "fd649fa",
+  "code": "49355f3",
   "criterionHash": "9882f256",
   "lockedHash": "9882f256",
   "runHash": "e6834f34",
-  "dataHash": "7f6af3b5",
+  "dataHash": "bcc9b491",
   "rowsHash": "df795cc3",
   "rows": [
     {

@@ -3,12 +3,12 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.kinetic.overpen",
-  "code": "8d16824",
+  "code": "49355f3",
   "criterionHash": "810e8a2c",
   "lockedHash": "810e8a2c",
   "runHash": "f75b211e",
-  "dataHash": "7f6af3b5",
-  "rowsHash": "c8e06d5a",
+  "dataHash": "bcc9b491",
+  "rowsHash": "ba41e224",
   "rows": [
     {
       "case": {
@@ -18,7 +18,7 @@
         "wasted": 0.9014551394053412
       },
       "actual": {
-        "wasted": 0.9014551394053412,
+        "wasted": 0.9014551394053413,
         "exited": true
       },
       "pass": true,
@@ -32,7 +32,7 @@
         "wasted": 0.8029102788106823
       },
       "actual": {
-        "wasted": 0.8029102788106823,
+        "wasted": 0.8029102788106824,
         "exited": true
       },
       "pass": true,
@@ -43,10 +43,10 @@
         "cells": 4
       },
       "expected": {
-        "wasted": 0.6058205576213647
+        "wasted": 0.6058205576213648
       },
       "actual": {
-        "wasted": 0.6058205576213647,
+        "wasted": 0.6058205576213649,
         "exited": true
       },
       "pass": true,
@@ -57,10 +57,10 @@
         "cells": 8
       },
       "expected": {
-        "wasted": 0.21164111524272944
+        "wasted": 0.21164111524272955
       },
       "actual": {
-        "wasted": 0.21164111524272938,
+        "wasted": 0.21164111524272972,
         "exited": true
       },
       "pass": true,

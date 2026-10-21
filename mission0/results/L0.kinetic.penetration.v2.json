@@ -3,12 +3,12 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.kinetic.penetration.v2",
-  "code": "8d16824",
+  "code": "49355f3",
   "criterionHash": "de60d649",
   "lockedHash": "de60d649",
   "runHash": "cedce90a",
-  "dataHash": "7f6af3b5",
-  "rowsHash": "3e491f6f",
+  "dataHash": "bcc9b491",
+  "rowsHash": "c61f6ed8",
   "rows": [
     {
       "case": {
@@ -16,10 +16,10 @@
         "size": "S"
       },
       "expected": {
-        "depth": 1.6912771062938625
+        "depth": 1.691277106293862
       },
       "actual": {
-        "depth": 1.6912771062938625
+        "depth": 1.691277106293862
       },
       "pass": true,
       "note": ""
@@ -44,10 +44,10 @@
         "size": "L"
       },
       "expected": {
-        "depth": 3.805373489161191
+        "depth": 3.8053734891611914
       },
       "actual": {
-        "depth": 3.805373489161191
+        "depth": 3.8053734891611914
       },
       "pass": true,
       "note": ""
@@ -72,7 +72,7 @@
         "size": "M"
       },
       "expected": {
-        "depth": 2.536915659440794
+        "depth": 2.5369156594407944
       },
       "actual": {
         "depth": 2.536915659440794
@@ -89,7 +89,7 @@
         "depth": 3.8053734891611914
       },
       "actual": {
-        "depth": 3.8053734891611914
+        "depth": 3.805373489161191
       },
       "pass": true,
       "note": ""
@@ -100,10 +100,10 @@
         "size": "S"
       },
       "expected": {
-        "depth": 1.6912771062938625
+        "depth": 1.691277106293862
       },
       "actual": {
-        "depth": 1.6912771062938625
+        "depth": 1.691277106293862
       },
       "pass": true,
       "note": ""
@@ -128,10 +128,10 @@
         "size": "L"
       },
       "expected": {
-        "depth": 3.805373489161191
+        "depth": 3.8053734891611914
       },
       "actual": {
-        "depth": 3.805373489161191
+        "depth": 3.8053734891611914
       },
       "pass": true,
       "note": ""
@@ -156,7 +156,7 @@
         "size": "M"
       },
       "expected": {
-        "depth": 2.536915659440794
+        "depth": 2.5369156594407944
       },
       "actual": {
         "depth": 2.536915659440794
@@ -173,7 +173,7 @@
         "depth": 3.8053734891611914
       },
       "actual": {
-        "depth": 3.8053734891611914
+        "depth": 3.805373489161191
       },
       "pass": true,
       "note": ""
@@ -184,10 +184,10 @@
         "size": "S"
       },
       "expected": {
-        "depth": 1.6912771062938625
+        "depth": 1.691277106293862
       },
       "actual": {
-        "depth": 1.6912771062938625
+        "depth": 1.691277106293862
       },
       "pass": true,
       "note": ""
@@ -212,10 +212,10 @@
         "size": "L"
       },
       "expected": {
-        "depth": 3.805373489161191
+        "depth": 3.8053734891611914
       },
       "actual": {
-        "depth": 3.805373489161191
+        "depth": 3.8053734891611914
       },
       "pass": true,
       "note": ""
@@ -240,7 +240,7 @@
         "size": "M"
       },
       "expected": {
-        "depth": 2.536915659440794
+        "depth": 2.5369156594407944
       },
       "actual": {
         "depth": 2.536915659440794
@@ -257,7 +257,7 @@
         "depth": 3.8053734891611914
       },
       "actual": {
-        "depth": 3.8053734891611914
+        "depth": 3.805373489161191
       },
       "pass": true,
       "note": ""
