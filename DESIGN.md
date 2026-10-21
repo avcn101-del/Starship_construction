@@ -386,7 +386,7 @@ carry approved `min`–`max` ranges (#145).
 | E5 | No build wins more than 75% against the reference set; every degenerate build loses ≥ 3 of 4 against the reference ship on the same budget |
 | E6 | Each underdog path: a 60%-budget ship beats a 100% one with the intended tactic and loses without it |
 | E7 | The median reference battle lasts 3–6 minutes |
-| E8 | T1 and T6 1v1 battles cost at most a quarter of the phone's frame budget per step in Node (milliseconds set at L3, approved, then locked) |
+| E8 | T1 and T6 1v1 battles cost at most **1 ms per simulation step in Node** (a quarter of a 60 Hz phone frame, allowing for a phone's slower JavaScript; the owner, #213) |
 
 **L0** (#165, #166): seven material scenarios; kinetic penetration by
 sectional momentum (p/A) so same-tier rounds and armour balance; beams as a
@@ -419,8 +419,7 @@ length, blast between rooms, shield overlap with the budget counted once
 **L3** (the minimal ship; #208–#211): planned 2026-10-21, §13f: cell mass
 from heat capacity, a 2D rigid body, thrust, RCS and recoil, fragments with
 momentum conserved, control and SCRAM in a fragment, validation, the
-reference ship R1, 9 scenarios. The E8 frame budget is the owner's
-(§13f.5).
+reference ship R1, 9 scenarios. E8's budget is 1 ms per step (#213).
 
 **Agentic operation** (#131–#136): parallel within a level, gated between
 levels; runner, verifier (independent, re-runs from the command line only),
@@ -926,12 +925,10 @@ on the final head. **Signals to measure, not to fix at L3**: recoil turns a
 minimal ship visibly (E4 is judged at L5); R1 cannot hold shields and half
 thrust for ten minutes on 17 radiators without passing plant hot, and a beam bay outside the coolant
 loop shuts down after about three minutes of firing (the throughput law
-binding, #205 (8)); control and structure coincide at L3. **For the
-owner** (an exit criterion's number): E8's budget, proposed as 1 ms per
-step in Node for a T1 and a T6 1v1 (a quarter of a 60 Hz phone frame is
-4.2 ms, and a phone runs JavaScript about 3–5× slower than this
-container); `tools/perf.js` measures the L3 baseline, the number is locked
-when the owner approves it, and L5 checks it with combat on.
+binding, #205 (8)); control and structure coincide at L3. E8's
+budget is **1 ms per step in Node** for a T1 and a T6 1v1 (the owner,
+#213); `tools/perf.js` measures the L3 baseline against it, and L5 checks
+it with combat on.
 
 ## 14. Architecture
 

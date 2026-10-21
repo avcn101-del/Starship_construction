@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.5 — 2026-10-21 — E8's budget (#213)
+
+- `DESIGN.md` §13: E8 is 1 ms per simulation step in Node for a T1 and a
+  T6 1v1 (the owner).
+
 ## 0.3.4 — 2026-10-21 — Answers to the D-pass engineer (#212)
 
 - `DESIGN.md` §13e.3: D5 withdrawn for a tolerance under the Euler error,

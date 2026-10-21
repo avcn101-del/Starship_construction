@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#212, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#213, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` on `main`: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -75,10 +75,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-- **E8's budget** (an exit criterion's number, #180, #211): proposed 1 ms
-  per simulation step in Node for a T1 and a T6 1v1 (a quarter of a 60 Hz
-  phone frame is 4.2 ms; a phone runs JavaScript about 3–5× slower than
-  the container). Not blocking: L3 only measures the baseline.
+Nothing (E8's budget decided by the owner: 1 ms per step, #213).
 
 ## Next steps
 
