@@ -398,6 +398,11 @@ before L2; `shield.kineticStop` is computed exactly from the S round;
 round; locked L0 criteria stay and stronger v2 scenarios follow; heat
 invariants that hold by construction do not count towards E3; records hash
 `run()` too; the step and burn limit live in `data.js`.
+The five **v2 scenarios** and `he.coupling` (0.5, 0.2–0.8) are approved
+(#176): vented energy at the open face, damage falling with distance,
+one-sided burn time with a heat floor, continuous penetration depth, the M
+beam itself against the shield, and an S round stopped exactly with
+`kineticStop` swept over its range.
 
 **Agentic operation** (#131–#136): parallel within a level, gated between
 levels; runner, verifier (independent, re-runs from the command line only),
