@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.7 — 2026-10-21 — Magazine explosion wording (#215)
+
+- `DESIGN.md` §5.2: a magazine explodes by the ammunition left; the
+  propellant dominates, HE adds about a third (the owner).
+
 ## 0.3.6 — 2026-10-21 — Answers to the D-pass physics checker (#214)
 
 - `DESIGN.md` §13e.1: the shield buffer binds at the 6th round within one

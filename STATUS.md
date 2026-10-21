@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#214, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#215, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` on `main`: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -78,11 +78,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-- **Magazine explosion size** (#214 (6), changes the wording of #91): with
-  the 6 kg round the propellant dominates: a full AP magazine 900 MJ, a
-  full HE one 1.2 GJ (HE only 1.33× AP per round). Recommended: keep the
-  physics, reword #91 to "propellant dominates, HE adds a third". Not
-  blocking; default if no answer: keep as built.
+Nothing (the owner decided E8, #213, and the magazine wording, #215).
 
 ## Next steps
 
