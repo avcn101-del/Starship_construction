@@ -1,14 +1,14 @@
 {
   "id": "L1.quarters.repair",
   "level": "L1",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L1.quarters.repair",
-  "code": "8d16824",
+  "code": "49355f3",
   "criterionHash": "2ad503bc",
   "lockedHash": "2ad503bc",
   "runHash": "60099027",
-  "dataHash": "7f6af3b5",
-  "rowsHash": "32a874fb",
+  "dataHash": "bcc9b491",
+  "rowsHash": "3e80b634",
   "rows": [
     {
       "case": {
@@ -26,19 +26,19 @@
       "actual": {
         "housed": 18,
         "deaths": [],
-        "rate": 0.02,
-        "repaired": 50.016666666666666,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 2500833.33333333,
+          "generated": 216000833.33398825,
           "radiated": 0,
-          "stored": 2500833.3334525824,
+          "stored": 216000833.31698847,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -56,19 +56,19 @@
       "actual": {
         "housed": 18,
         "deaths": [],
-        "rate": 0.016,
-        "repaired": 62.516666666666666,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 3125833.3333334466,
+          "generated": 216000833.33398825,
           "radiated": 0,
-          "stored": 3125833.3334823847,
+          "stored": 216000833.31698847,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -86,19 +86,19 @@
       "actual": {
         "housed": 18,
         "deaths": [],
-        "rate": 0.01,
-        "repaired": 100.01666666666667,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 5000833.333333345,
+          "generated": 216000833.33398825,
           "radiated": 0,
-          "stored": 5000833.333571792,
+          "stored": 216000833.31698847,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -116,19 +116,19 @@
       "actual": {
         "housed": 18,
         "deaths": [],
-        "rate": 0.004,
-        "repaired": 250.01666666666665,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 12500833.333335146,
+          "generated": 216000833.33398825,
           "radiated": 0,
-          "stored": 12500833.33392942,
+          "stored": 216000833.31698847,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -146,19 +146,19 @@
       "actual": {
         "housed": 18,
         "deaths": [],
-        "rate": 0.0011764705882352942,
-        "repaired": 850,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 42500000.00000666,
+          "generated": 216000833.33398825,
           "radiated": 0,
-          "stored": 42500000.00020146,
+          "stored": 216000833.31698847,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -180,19 +180,19 @@
           3,
           3
         ],
-        "rate": 0.01,
-        "repaired": 100.01666666666667,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 2500416.6666666726,
+          "generated": 215999999.99869016,
           "radiated": 0,
-          "stored": 2500416.6664282084,
+          "stored": 216000000.03268957,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -214,19 +214,19 @@
           3,
           3
         ],
-        "rate": 0.008,
-        "repaired": 125.01666666666667,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 3125416.6666664397,
+          "generated": 215999999.99869016,
           "radiated": 0,
-          "stored": 3125416.6663686037,
+          "stored": 216000000.03268957,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -248,19 +248,19 @@
           3,
           3
         ],
-        "rate": 0.005,
-        "repaired": 200.01666666666665,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 5000416.666666642,
+          "generated": 215999999.99869016,
           "radiated": 0,
-          "stored": 5000416.66618979,
+          "stored": 216000000.03268957,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -282,19 +282,19 @@
           3,
           3
         ],
-        "rate": 0.002,
-        "repaired": 500.01666666666665,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 12500416.66666304,
+          "generated": 215999999.99869016,
           "radiated": 0,
-          "stored": 12500416.665474534,
+          "stored": 216000000.03268957,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -316,19 +316,19 @@
           3,
           3
         ],
-        "rate": 0.0005882352941176471,
-        "repaired": 1700.0166666666667,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 42500416.66665334,
+          "generated": 215999999.99869016,
           "radiated": 0,
-          "stored": 42500416.66626382,
+          "stored": 216000000.03268957,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -352,19 +352,19 @@
           3,
           3
         ],
-        "rate": 0.003333333333333333,
-        "repaired": 300,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 2500000.000000997,
+          "generated": 83333333.33376236,
           "radiated": 0,
-          "stored": 2499999.9990463257,
+          "stored": 83333333.30154419,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -388,19 +388,19 @@
           3,
           3
         ],
-        "rate": 0.0026666666666666666,
-        "repaired": 375.01666666666665,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 3125138.8888903516,
+          "generated": 83333333.33376236,
           "radiated": 0,
-          "stored": 3125138.887696743,
+          "stored": 83333333.30154419,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -424,19 +424,19 @@
           3,
           3
         ],
-        "rate": 0.0016666666666666666,
-        "repaired": 600.0166666666667,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 5000138.888891748,
+          "generated": 83333333.33376236,
           "radiated": 0,
-          "stored": 5000138.886981487,
+          "stored": 83333333.30154419,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -460,19 +460,19 @@
           3,
           3
         ],
-        "rate": 0.0006666666666666666,
-        "repaired": 1500.0166666666667,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 12500138.888869766,
+          "generated": 83333333.33376236,
           "radiated": 0,
-          "stored": 12500138.884120464,
+          "stored": 83333333.30154419,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {
@@ -496,19 +496,19 @@
           3,
           3
         ],
-        "rate": 0.000196078431372549,
-        "repaired": 5100.016666666666,
-        "integrity": 1,
+        "rate": 0,
+        "repaired": null,
+        "integrity": 0,
         "books": {
-          "generated": 42500138.888690956,
+          "generated": 83333333.33376236,
           "radiated": 0,
-          "stored": 42500138.87267637,
+          "stored": 83333333.30154419,
           "initial": 1044000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rate, repaired"
     },
     {
       "case": {

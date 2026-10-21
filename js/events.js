@@ -11,6 +11,7 @@ export const EVENT_FIELDS = {
   shutdown: [], // the room shut itself down (overheated)
   restart: [], // cooled below hot after a shutdown
   'crew-died': ['deaths'],
+  'cell-damaged': ['channel', 'cell', 'integrity'], // a hit left the cell with integrity above 0 (#206)
   'cell-destroyed': ['channel', 'cell'],
   'cell-repaired': ['cell'],
   scram: ['energy'], // energy: decay heat still to come (J)

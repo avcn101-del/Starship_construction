@@ -133,17 +133,27 @@ function hasNaN(v) {
   if (v && typeof v === 'object') return Object.values(v).some(hasNaN);
   return false;
 }
+// A case whose run() throws is recorded as a FAIL with the error as its
+// actual value, so a locked scenario the kernel no longer satisfies (a
+// withdrawn one, #188) keeps a record instead of stopping the runner (#206).
+function runCase(s, ctx, c) {
+  try { return s.run(ctx, c); } catch (e) { return { error: String(e && e.message ? e.message : e) }; }
+}
 function execute(s, overrides) {
   const ctx = context(overrides);
   const rows = s.cases(ctx).map((c) => {
     const expected = s.expected(ctx, c);
-    const actual = s.run(ctx, c);
+    const actual = runCase(s, ctx, c);
+    if (actual && actual.error !== undefined && Object.keys(actual).length === 1) return { case: c, expected, actual, pass: false, note: `run() threw: ${actual.error}` };
     const { pass, note } = s.compare(expected, actual, c, ctx);
     return { case: c, expected, actual, pass, note: note || '' };
   });
-  const invariants = (s.invariants ? s.invariants(ctx, rows) : []).slice();
+  const errored = rows.filter((r) => r.note.startsWith('run() threw: '));
+  let invariants;
+  try { invariants = (s.invariants ? s.invariants(ctx, errored.length ? rows.filter((r) => !errored.includes(r)) : rows) : []).slice(); } catch (e) { invariants = [{ name: 'invariants', ok: false, detail: String(e.message) }]; }
+  if (errored.length) invariants.push({ name: 'run() completes in every case', ok: false, detail: `${errored.length} case(s) threw` });
   invariants.push({ name: 'no NaN or infinity', ok: !rows.some((r) => hasNaN(r.actual)) });
-  const again = s.cases(ctx).map((c) => s.run(context(overrides), c));
+  const again = s.cases(ctx).map((c) => runCase(s, context(overrides), c));
   const rowsHash = hash(stableStringify(rows.map((r) => r.actual)));
   invariants.push({ name: 'deterministic (two runs, same hash)', ok: hash(stableStringify(again)) === rowsHash });
   // The data hash covers PARAMS (with any overrides), FIXED, ROOMS (#185 (9)), TIERS and BASE_EDGE (#189 (7)).
@@ -189,7 +199,8 @@ function show(s, res, verdict, command) {
   lines.push(`  criterion: ${s.criterion}`);
   lines.push(`  tolerance: ${s.tolerance}`);
   for (const r of res.rows) {
-    const shown = s.display ? s.display(r) : { expected: fmt(r.expected), actual: fmt(r.actual) };
+    let shown;
+    try { shown = s.display ? s.display(r) : { expected: fmt(r.expected), actual: fmt(r.actual) }; } catch { shown = { expected: fmt(r.expected), actual: fmt(r.actual) }; }
     lines.push(`  ${r.pass ? 'PASS' : 'FAIL'}  ${fmt(r.case).padEnd(26)} expected ${shown.expected}`);
     lines.push(`        ${''.padEnd(26)} actual   ${shown.actual}${r.note ? '   (' + r.note + ')' : ''}`);
   }

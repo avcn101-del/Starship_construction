@@ -7,22 +7,19 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#215, current design in `DESIGN.md`.
-- **Mission 0 L0, L1 and L2 done and merged.** `regress` on `main`: 42
+- Design settled: `DECISIONS.md` #1–#216, current design in `DESIGN.md`.
+- **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
   checker 2.82, reviewer 1.34). The reviewer found no blocking defect; its
   three findings are answered by #207 (life support under routing is fixed
   in the D pass, scenario D5).
-- **The D pass** (`DESIGN.md` §13e, #206, #207, #212): PR #24 on
-  `m0/d-damage`, head `36a3a1d`: D1–D4 PASS, `regress` 44 VERIFIED + 7
-  WITHDRAWN; D5 FAILed on a tolerance the lead designer set under the
-  kernel's Euler error (#212): withdrawn, successor D5b, plus a new
-  `L2.blast.split` (D6). Fixes landed at head `4b754b1`: `regress` 46
-  VERIFIED + 8 WITHDRAWN, `verify L2` exit 0 (verified by the lead
-  designer). Physics checker: no blocking finding (#214). Reviewer
-  `session_01TVQqxMbuhGDobwni8xCnqq` running. **The L3 plan is written** (`DESIGN.md` §13f, #208–#211);
-  L3 starts after the D pass merges.
+- **The D pass is done and merged** (`DESIGN.md` §13e; #206, #207, #212,
+  #214, #216): 6 kg rounds, partial damage, repair of damaged cells only,
+  life support under routing. `regress` on `main`: **46 VERIFIED + 8
+  WITHDRAWN**. Cost 14.11 USD (engineers 10.76, physics checker 2.26,
+  reviewer 1.09).
+- **Next: L3, the minimal ship** (`DESIGN.md` §13f, #208–#213, #216).
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -30,7 +27,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - **Sense check closed (#202, #203, the owner)**: engines are self-fuelled
   torches; beams are millimetre-wave masers; recoil kept, measured at L3;
   real round sizes, partial kinetic damage and repair of damaged cells only
-  in the **D pass** (#206, `DESIGN.md` §13e), built after L2 merges.
+  in the **D pass** (#206, `DESIGN.md` §13e), now merged.
 - **E1 (#188, #200)**: a scenario withdrawn for a specification error or
   superseded by an owner's decision, locked, recorded, listed in
   `mission0/withdrawn.json`, with a passing successor, does not block E1.
@@ -47,7 +44,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| #24 Mission 0 D pass | `m0/d-damage` → `main` | head `4b754b1`; physics checker done (#214); reviewer `session_01TVQqxMbuhGDobwni8xCnqq` running |
+| — | — | none open (the D pass merged through the lead designer's branch; PR #24 closes with it) |
 
 L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
@@ -59,6 +56,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #216: answers to the D-pass reviewer (two #207 clauses get L3 cases;
+  blast capacity counts remaining integrity from L4); the D pass merged.
 - #214: answers to the D-pass physics checker (crew round per cell; the
   shield buffer's E4 stays open until L5; magazine size put to the owner).
 - #212: answers to the D-pass engineer (D5 withdrawn for the lead
@@ -82,15 +81,7 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
 
 ## Next steps
 
-1. **The D pass** (`DESIGN.md` §13e, #206): one engineer session (opus) on
-   a new branch `m0/d-damage` from `main`; scenarios D1–D4 locked in their
-   own commit before their first canonical run; L0/L1/L2 re-recorded with
-   the new data and still passing; `L1.quarters.repair` and
-   `L1.repair.breach` withdrawn as superseded by #203 with D2/D3 as
-   successors; D5 (#207) adds life support under routing; any other
-   verdict change is a finding, not a withdrawal;
-   then the physics checker (blind) and the reviewer.
-2. **L3** (`DESIGN.md` §13f, #208–#211), after the D pass merges: one
+1. **L3** (`DESIGN.md` §13f, #208–#213, #216): one
    engineer session (opus) on `m0/l3-ship` from `main`, with the whole
    §13f as its task; scenarios locked in their own commit; the engineer
    reproduces the estimates of #209 independently before the lock; then
@@ -135,7 +126,7 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, D pass (PR #24) | session_012PgbFfMKtgaDjSpVz451eZ | opus-5-5 | 7.83 |
 | Engineer, D-pass fixes (#212) | session_01VgbfDLKbvp1rTyfbnxLcNd | opus-5-5 | 2.93 |
 | Physics checker, D pass | session_01UFe2RUu58iTgEttPPf5dZ4 | sonnet-5-5 | 2.26 |
-| Reviewer, D pass | session_01TVQqxMbuhGDobwni8xCnqq | sonnet-5-5 | running |
+| Reviewer, D pass | session_01TVQqxMbuhGDobwni8xCnqq | sonnet-5-5 | 1.09 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

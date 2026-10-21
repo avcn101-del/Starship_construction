@@ -1,5 +1,76 @@
 # Changelog
 
+## 0.4.1 — 2026-10-21 — The D pass merged; reviewer answers (#216)
+
+- The D pass (PR #24, head `4b754b1`) merged into `main` after the physics
+  checker (#214) and the reviewer (#216) reported no blocking finding;
+  `regress`: 46 VERIFIED + 8 WITHDRAWN.
+- `DESIGN.md`: §13e.1 states the interim (a destroyed cell still resists
+  until L3); §13f row 6 gets two cases for #207; §13d.1 notes the blast
+  capacity of damaged cells from L4; §16's salvo wording corrected (#214).
+
+## 0.4.0 — 2026-10-21 — Mission 0 D pass: real round sizes, partial damage, repair (#203 D, #206, #207)
+
+- Data (#206, approved by the lead designer): `kinetic.roundMass` 6 kg
+  (2–20, k=3), `armour.kineticResistance` 2.7e5 × 12^(1/3) (3e5–1.25e6),
+  `room.kineticResistance` 6.75e4 × 12^(1/3) (7e4–3.2e5), both computed
+  exactly in `data.js`; `magazine.capacity` 900 kg (300–3000),
+  `ammo.wallFeed` 0.72 kg/(s·m) (0.24–3.6), `kinetic.chargeEnergy` 6 MJ
+  (2–20 MJ); new `kinetic.hitsToWreck` 3 (1–8, k=0).
+  `shield.kineticStop` stays derived from the S round (#171).
+- `js/rooms.js`, `js/events.js`: partial kinetic damage (#206). `fireRound`
+  sends a round along a path of room cells: each cell resists
+  `room.kineticResistance` (L0's `penetrate`), a passed cell loses
+  1 / `hitsToWreck` of its integrity, the cell it stops in (s_left / R) /
+  `hitsToWreck`; a cell is destroyed at 0 (a residue of 1e-12 or less
+  counts as 0). A damaged cell raises `cell-damaged` (channel, cell,
+  integrity). Crew die in proportion to integrity lost: cumulative deaths
+  floor(crew × (cells − Σ integrity) / cells), never more than the crew,
+  never undone (a quotient within 1e-9 of a whole number counts as it);
+  with whole cells destroyed this is L1's rule. Repair restores damaged
+  cells only; a destroyed cell stays destroyed (replaces #190 (1)).
+- `js/rooms.js`: life support under power routing (#207). With routing on,
+  a crewed room or magazine counts as powered for life support while it is
+  joined through live walls (through any rooms) to a reactor able to
+  produce (switched on, not shut down, SCRAMmed or destroyed, demand above
+  0), whatever its own request; it draws nothing for it. Without routing
+  the `powered` flag stays; the bridge keeps its backup. A switched-off
+  reactor now routes no power (it already generated none).
+- `tools/m0.js`: a case whose `run()` throws is recorded as a FAIL (its
+  actual value is the error, plus a failing invariant "run() completes in
+  every case") instead of stopping the runner. `L1.repair.breach` throws
+  under the D kernel (its destroyed cell A is never repaired, so it waits
+  for a `cell-repaired` event that never comes); it must stay recorded
+  with a FAIL to be withdrawn (#188). Scenarios that do not throw record
+  exactly as before.
+- Scenarios D1–D5 (`DESIGN.md` §13e.3), written and run for crashes only
+  before the lock: `L1.kinetic.damage`, `L1.quarters.repair.v2`,
+  `L1.repair.breach.v2`, `L2.shield.salvo`, `L2.lifesupport.routed`, each
+  with its expected values from `data.js`, closed forms or its own RK4
+  reference integrator (D5). Added beyond the rows: D1 also fires along a
+  line of six quarters (18 cells) so every size stops inside it and the
+  stopping cell is measured; D2 leaves out the two (c, r) pairs whose repair
+  time is a whole number of steps (#185 (2)); D3 adds the v1 heating of the
+  wreck; D5 (a) also checks the heat pumped into each neighbour.
+- Locked at `49355f3` (only the `locked:` lines), then the first
+  canonical run: D1–D4 PASS; **D5 `L2.lifesupport.routed` FAILs** one
+  check, the row's 1e-6 K per-second match against its RK4 reference (the
+  kernel's Euler error is 2.0e-6 to 5.0e-5 K, as estimated before the
+  lock); every other D5 check passes.
+- L0, L1 and L2 re-recorded with the new data: every scenario that passed
+  still passes except `L1.quarters.repair` and `L1.repair.breach`, now
+  withdrawn as superseded by #203 (decision #206) with successors
+  `L1.quarters.repair.v2` and `L1.repair.breach.v2`. `regress`:
+  44 VERIFIED + 7 WITHDRAWN. `DESIGN.md` §16: the D pass block;
+  `MISSION0.md` regenerated.
+- Fixes of #212, after merging `main`: D5b `L2.lifesupport.routed.v2`
+  (D5 with its (b) per-second match at 1e-6 relative, both directions)
+  and D6 `L2.blast.split` (one HE or AP round in an M magazine beside an
+  M hold over 10 m and a hold or bridge over 5 m: the 2 : 1 split before
+  saturation and the D-pass crew rule for blast), written and run for
+  crashes only, locked at `f637d2e`, then run: both PASS.
+  `L2.lifesupport.routed` withdrawn under #188 (decision #212, successor
+  `L2.lifesupport.routed.v2`). `regress`: 46 VERIFIED + 8 WITHDRAWN.
 ## 0.3.7 — 2026-10-21 — Magazine explosion wording (#215)
 
 - `DESIGN.md` §5.2: a magazine explodes by the ammunition left; the

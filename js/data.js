@@ -36,9 +36,10 @@ export const FIXED = {
 };
 
 const KINETIC = {
-  roundMass: P(0.5, 0.2, 2, 3, 'kg', true, 'size M round at T1 (#166)'),
+  roundMass: P(6, 2, 20, 3, 'kg', true, 'size M round at T1: 6 kg of solid steel, 62 mm, a light naval gun (#166, #203 D, #206)'),
   muzzleVelocity: P(800, 500, 1000, 0, 'm/s', true, '#166'),
-  chargeEnergy: P(5e5, 2e5, 2e6, 3, 'J', true, 'propellant energy per M round; an AP magazine explodes by this alone, HE by this plus the warhead (#91, #183)'),
+  chargeEnergy: P(6e6, 2e6, 2e7, 3, 'J', true, 'propellant energy per M round (about 1.5 kg of propellant, x 12 with the round, #206); an AP magazine explodes by this alone, HE by this plus the warhead (#91, #183)'),
+  hitsToWreck: P(3, 1, 8, 0, 'hits', true, 'a round passing a room cell takes 1 / this of its integrity; the cell it stops in loses (sectional momentum left / R) / this (#203 D, #206)'),
 };
 
 // One S round's sectional momentum (#171), with the same arithmetic as
@@ -56,14 +57,16 @@ const S_ROUND_STOP = sRoundStop(KINETIC);
 export const PARAMS = {
   kinetic: KINETIC,
   armour: {
-    // An AP M round carries 6.85e5 kg/(m*s) of sectional momentum; 2.7e5 per
-    // cell lets it pass 2 cells and stop in the 3rd (#166: 2-3 cells).
-    kineticResistance: P(2.7e5, 1.35e5, 5.4e5, 1, 'kg/(m*s)', true, 'sectional momentum one armour cell absorbs (#165, #166)'),
+    // An AP M round carries 1.568e6 kg/(m*s) of sectional momentum; 2.7e5 x
+    // 12^(1/3) per cell lets it pass 2 cells and stop in the 3rd (#166: 2-3
+    // cells). The factor keeps every depth of the 0.5 kg round with the 6 kg
+    // one: sectional momentum grows as m^(1/3) at fixed shape and speed (#206).
+    kineticResistance: P(2.7e5 * Math.cbrt(12), 3e5, 1.25e6, 1, 'kg/(m*s)', true, 'sectional momentum one armour cell absorbs (#165, #166, #206)'),
     blastResistance: P(1e6, 3e5, 3e6, 3, 'J', true, 'blast energy one armour cell absorbs before it is destroyed (#177)'),
     burnEnergy: P(3e7, 1e7, 1e8, 3, 'J', true, 'beam energy that burns through one armour cell (#177)'),
   },
   room: {
-    kineticResistance: P(6.75e4, 3e4, 1.4e5, 1, 'kg/(m*s)', true, 'sectional momentum one ordinary room cell absorbs, a quarter of armour (#177)'),
+    kineticResistance: P(6.75e4 * Math.cbrt(12), 7e4, 3.2e5, 1, 'kg/(m*s)', true, 'sectional momentum one ordinary room cell absorbs, a quarter of armour; 6.75e4 x 12^(1/3) (#177, #206)'),
     blastResistance: P(5e5, 2e5, 2e6, 3, 'J', true, 'blast energy one ordinary room cell absorbs before it is destroyed, half an armour cell; a room fills up to surviving cells x this before passing the excess on (#193, #195)'),
   },
   he: {
@@ -122,7 +125,7 @@ export const PARAMS = {
     readyRounds: P(4, 2, 10, 0, 'rounds', true, 'rounds held in the turret, of its own size; it fires from this store and the magazine feed refills it (#193, #195)'),
   },
   magazine: {
-    capacity: P(75, 25, 250, 3, 'kg', true, 'ammunition mass a magazine holds: 150 M rounds (#91, #183)'),
+    capacity: P(900, 300, 3000, 3, 'kg', true, 'ammunition mass a magazine holds: 150 M rounds (#91, #183, #206)'),
   },
   quarters: {
     crewPerCell: P(3, 1, 8, 2, 'crew', true, 'crew housed per surviving cell: 18 in a T1 quarters (#60, #65, #183)'),
@@ -152,7 +155,7 @@ export const PARAMS = {
     wallCapacity: P(2e6, 5e5, 5e6, 1, 'W/m', true, 'power a live shared wall carries per metre: 10 m carries 20 MW, a whole M reactor (#12, #193, #195)'),
   },
   ammo: {
-    wallFeed: P(0.06, 0.02, 0.3, 1, 'kg/(s*m)', true, 'rounds a live wall between a magazine and a room it feeds carries per second per metre: 5 m feeds 0.3 kg/s (#18, #193, #195)'),
+    wallFeed: P(0.72, 0.24, 3.6, 1, 'kg/(s*m)', true, 'rounds a live wall between a magazine and a room it feeds carries per second per metre: 5 m feeds 3.6 kg/s, 0.6 M rounds/s (#18, #193, #195, #206)'),
   },
   hold: {
     blastFactor: P(4, 2, 10, 0, '', true, 'an empty hold absorbs this many times the blast of an ordinary room cell (#18c, #193, #195)'),

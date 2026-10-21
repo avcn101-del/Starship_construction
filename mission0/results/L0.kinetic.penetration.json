@@ -3,12 +3,12 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.kinetic.penetration",
-  "code": "8d16824",
+  "code": "49355f3",
   "criterionHash": "8228497c",
   "lockedHash": "8228497c",
   "runHash": "665a79b8",
-  "dataHash": "7f6af3b5",
-  "rowsHash": "68f32189",
+  "dataHash": "bcc9b491",
+  "rowsHash": "f0f87d3e",
   "rows": [
     {
       "case": {
@@ -20,8 +20,8 @@
       },
       "actual": {
         "passed": 1,
-        "s0": 456644.8186993429,
-        "absorbedSum": 456644.8186993429,
+        "s0": 1045455.6555066435,
+        "absorbedSum": 1045455.6555066435,
         "residual": 0
       },
       "pass": true,
@@ -37,8 +37,8 @@
       },
       "actual": {
         "passed": 2,
-        "s0": 684967.2280490143,
-        "absorbedSum": 684967.2280490143,
+        "s0": 1568183.483259966,
+        "absorbedSum": 1568183.483259966,
         "residual": 0
       },
       "pass": true,
@@ -54,8 +54,8 @@
       },
       "actual": {
         "passed": 3,
-        "s0": 1027450.8420735216,
-        "absorbedSum": 1027450.8420735216,
+        "s0": 2352275.224889949,
+        "absorbedSum": 2352275.224889949,
         "residual": 0
       },
       "pass": true,
@@ -71,8 +71,8 @@
       },
       "actual": {
         "passed": 1,
-        "s0": 684967.2280490143,
-        "absorbedSum": 684967.2280490143,
+        "s0": 1568183.4832599657,
+        "absorbedSum": 1568183.4832599657,
         "residual": 0
       },
       "pass": true,
@@ -88,8 +88,8 @@
       },
       "actual": {
         "passed": 2,
-        "s0": 1027450.8420735216,
-        "absorbedSum": 1027450.8420735216,
+        "s0": 2352275.224889949,
+        "absorbedSum": 2352275.224889949,
         "residual": 0
       },
       "pass": true,
@@ -105,8 +105,8 @@
       },
       "actual": {
         "passed": 3,
-        "s0": 1541176.2631102826,
-        "absorbedSum": 1541176.2631102826,
+        "s0": 3528412.8373349234,
+        "absorbedSum": 3528412.837334923,
         "residual": 0
       },
       "pass": true,
@@ -122,8 +122,8 @@
       },
       "actual": {
         "passed": 1,
-        "s0": 913289.6373986858,
-        "absorbedSum": 913289.6373986858,
+        "s0": 2090911.311013287,
+        "absorbedSum": 2090911.311013287,
         "residual": 0
       },
       "pass": true,
@@ -139,8 +139,8 @@
       },
       "actual": {
         "passed": 2,
-        "s0": 1369934.4560980287,
-        "absorbedSum": 1369934.4560980287,
+        "s0": 3136366.966519932,
+        "absorbedSum": 3136366.966519932,
         "residual": 0
       },
       "pass": true,
@@ -156,8 +156,8 @@
       },
       "actual": {
         "passed": 3,
-        "s0": 2054901.6841470432,
-        "absorbedSum": 2054901.6841470432,
+        "s0": 4704550.449779898,
+        "absorbedSum": 4704550.449779898,
         "residual": 0
       },
       "pass": true,
@@ -173,8 +173,8 @@
       },
       "actual": {
         "passed": 1,
-        "s0": 1369934.4560980287,
-        "absorbedSum": 1369934.4560980287,
+        "s0": 3136366.9665199313,
+        "absorbedSum": 3136366.9665199313,
         "residual": 0
       },
       "pass": true,
@@ -190,8 +190,8 @@
       },
       "actual": {
         "passed": 2,
-        "s0": 2054901.6841470432,
-        "absorbedSum": 2054901.6841470432,
+        "s0": 4704550.449779898,
+        "absorbedSum": 4704550.449779898,
         "residual": 0
       },
       "pass": true,
@@ -207,8 +207,8 @@
       },
       "actual": {
         "passed": 3,
-        "s0": 3082352.526220565,
-        "absorbedSum": 3082352.526220565,
+        "s0": 7056825.674669847,
+        "absorbedSum": 7056825.674669846,
         "residual": 0
       },
       "pass": true,
@@ -224,8 +224,8 @@
       },
       "actual": {
         "passed": 1,
-        "s0": 1826579.2747973716,
-        "absorbedSum": 1826579.2747973716,
+        "s0": 4181822.622026574,
+        "absorbedSum": 4181822.622026574,
         "residual": 0
       },
       "pass": true,
@@ -241,8 +241,8 @@
       },
       "actual": {
         "passed": 2,
-        "s0": 2739868.9121960574,
-        "absorbedSum": 2739868.9121960574,
+        "s0": 6272733.933039864,
+        "absorbedSum": 6272733.933039864,
         "residual": 0
       },
       "pass": true,
@@ -258,8 +258,8 @@
       },
       "actual": {
         "passed": 3,
-        "s0": 4109803.3682940863,
-        "absorbedSum": 4109803.3682940863,
+        "s0": 9409100.899559796,
+        "absorbedSum": 9409100.899559796,
         "residual": 0
       },
       "pass": true,
@@ -275,8 +275,8 @@
       },
       "actual": {
         "passed": 1,
-        "s0": 2739868.9121960574,
-        "absorbedSum": 2739868.9121960574,
+        "s0": 6272733.933039863,
+        "absorbedSum": 6272733.933039863,
         "residual": 0
       },
       "pass": true,
@@ -292,8 +292,8 @@
       },
       "actual": {
         "passed": 2,
-        "s0": 4109803.3682940863,
-        "absorbedSum": 4109803.3682940863,
+        "s0": 9409100.899559796,
+        "absorbedSum": 9409100.899559796,
         "residual": 0
       },
       "pass": true,
@@ -309,8 +309,8 @@
       },
       "actual": {
         "passed": 3,
-        "s0": 6164705.05244113,
-        "absorbedSum": 6164705.05244113,
+        "s0": 14113651.349339694,
+        "absorbedSum": 14113651.349339692,
         "residual": 0
       },
       "pass": true,
