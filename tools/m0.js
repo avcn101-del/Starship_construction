@@ -147,19 +147,28 @@ function hasNaN(v) {
 function runCase(s, ctx, c) {
   try { return s.run(ctx, c); } catch (e) { return { error: String(e && e.message ? e.message : e) }; }
 }
+// Likewise a case whose expected() throws (a locked formula naming a constant
+// that a later decision removed, #221) is recorded as a FAIL with the error.
+function expectedCase(s, ctx, c) {
+  try { return { value: s.expected(ctx, c) }; } catch (e) { return { error: String(e && e.message ? e.message : e) }; }
+}
 function execute(s, overrides) {
   const ctx = context(overrides);
   const rows = s.cases(ctx).map((c) => {
-    const expected = s.expected(ctx, c);
+    const exp = expectedCase(s, ctx, c);
     const actual = runCase(s, ctx, c);
+    if (exp.error !== undefined) return { case: c, expected: { error: exp.error }, actual, pass: false, note: `expected() threw: ${exp.error}` };
+    const expected = exp.value;
     if (actual && actual.error !== undefined && Object.keys(actual).length === 1) return { case: c, expected, actual, pass: false, note: `run() threw: ${actual.error}` };
     const { pass, note } = s.compare(expected, actual, c, ctx);
     return { case: c, expected, actual, pass, note: note || '' };
   });
-  const errored = rows.filter((r) => r.note.startsWith('run() threw: '));
+  const errored = rows.filter((r) => r.note.startsWith('run() threw: ') || r.note.startsWith('expected() threw: '));
   let invariants;
   try { invariants = (s.invariants ? s.invariants(ctx, errored.length ? rows.filter((r) => !errored.includes(r)) : rows) : []).slice(); } catch (e) { invariants = [{ name: 'invariants', ok: false, detail: String(e.message) }]; }
-  if (errored.length) invariants.push({ name: 'run() completes in every case', ok: false, detail: `${errored.length} case(s) threw` });
+  const ranOut = errored.filter((r) => r.note.startsWith('run() threw: ')).length, formulaOut = errored.length - ranOut;
+  if (ranOut) invariants.push({ name: 'run() completes in every case', ok: false, detail: `${ranOut} case(s) threw` });
+  if (formulaOut) invariants.push({ name: 'expected() completes in every case', ok: false, detail: `${formulaOut} case(s) threw` });
   invariants.push({ name: 'no NaN or infinity', ok: !rows.some((r) => hasNaN(r.actual)) });
   const again = s.cases(ctx).map((c) => runCase(s, context(overrides), c));
   const rowsHash = hash(stableStringify(rows.map((r) => r.actual)));

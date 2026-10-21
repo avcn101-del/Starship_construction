@@ -17,6 +17,9 @@
 - `tools/m0.js`: a dependency on a withdrawn scenario, and the check of
   `mission0/withdrawn.json`, follow a chain of successors to the one that
   stands (v1 → v2 → v3, #188, #221).
+- `tools/m0.js`: a case whose `expected()` throws is recorded as a FAIL
+  with the error, like a `run()` that throws (#212 (7)): the superseded L3
+  formulas name the removed `thermal.specificHeat`.
 
 ## 0.5.1 — 2026-10-21 — L3 merged; reviewer answers (#222)
 
