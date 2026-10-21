@@ -20,6 +20,13 @@
 - `tools/m0.js`: a case whose `expected()` throws is recorded as a FAIL
   with the error, like a `run()` that throws (#212 (7)): the superseded L3
   formulas name the removed `thermal.specificHeat`.
+- Every L0–L3 record re-recorded for the new data. Results moved only in
+  `L1.engine.thrust` and `L1.room.restart` (`engine.thrust` 2 → 15 MN, both
+  still PASS) and in L3: the five v2 scenarios whose formulas compute mass
+  from `thermal.specificHeat` (`L3.mass.props.v2` FAIL, its four dependants
+  BLOCKED until their v3 successors pass), their v1 predecessors, and
+  `L3.fragment.scram` (thrust and momentum residues; still PASS).
+  `L3.validation.v2` and `L3.kinetic.hole` unchanged.
 
 ## 0.5.1 — 2026-10-21 — L3 merged; reviewer answers (#222)
 

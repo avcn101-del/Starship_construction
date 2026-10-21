@@ -1,14 +1,14 @@
 {
   "id": "L3.ship.heat.v2",
   "level": "L3",
-  "verdict": "PASS",
+  "verdict": "BLOCKED",
   "command": "node tools/m0.js run L3.ship.heat.v2",
-  "code": "a3a8e6c",
+  "code": "7b0f40f",
   "criterionHash": "0667f5ed",
   "lockedHash": "0667f5ed",
   "runHash": "ca80d3ad",
-  "dataHash": "3d66afdf",
-  "rowsHash": "00ba4fac",
+  "dataHash": "62e2f8d9",
+  "rowsHash": "ea1c7c77",
   "rows": [
     {
       "case": {
@@ -407,10 +407,10 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 4.610987378256499e-8,
-          "dL": 0.00047850608825683594,
-          "net": 1445339589.1567857,
-          "gross": 18415706782265.42
+          "dP": 8.741344271325e-7,
+          "dL": 0.015478134155273438,
+          "net": 14028977509.680506,
+          "gross": 130797761783656.12
         }
       },
       "pass": true,
@@ -656,10 +656,10 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 4.5975651767840554e-8,
-          "dL": 0.00021731853485107422,
-          "net": 1057495250.7732421,
-          "gross": 8163977847935.624
+          "dP": 6.915908883121042e-7,
+          "dL": 0.006500244140625,
+          "net": 6846953823.053314,
+          "gross": 58046092443400.086
         }
       },
       "pass": true,

@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L3.mass.props",
-  "code": "923bb27",
+  "code": "7b0f40f",
   "criterionHash": "ce132775",
   "lockedHash": "ce132775",
   "runHash": "dab24409",
-  "dataHash": "3d66afdf",
-  "rowsHash": "f9edc32f",
+  "dataHash": "62e2f8d9",
+  "rowsHash": "8e5e015e",
   "rows": [
     {
       "case": {
@@ -16,12 +16,11 @@
         "tier": "T1"
       },
       "expected": {
-        "cell": 1000,
-        "sinkCell": 1573.3397037744862
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "cell": 1000,
-        "sinkCell": 1573.3397037744862,
+        "cell": 10000,
+        "sinkCell": 10573.339703774487,
         "books": [
           {
             "generated": 0,
@@ -51,8 +50,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -62,26 +61,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 4000,
-            "c": [
-              5,
-              5
-            ],
-            "I": 66666.66666666667
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 4000,
+            "M": 40000,
             "c": [
               5,
               5
             ],
-            "I": 66666.66666666667
+            "I": 666666.6666666667
           }
         ],
         "rounds": 0,
@@ -106,8 +96,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -117,26 +107,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 4000,
-            "c": [
-              5,
-              5
-            ],
-            "I": 66666.66666666667
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 4000,
+            "M": 40000,
             "c": [
               5,
               5
             ],
-            "I": 66666.66666666667
+            "I": 666666.6666666667
           }
         ],
         "rounds": 0,
@@ -161,8 +142,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -172,26 +153,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 6000,
-            "c": [
-              5,
-              7.5
-            ],
-            "I": 162500.00000000003
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 6000,
+            "M": 60000,
             "c": [
               5,
               7.5
             ],
-            "I": 162500.00000000003
+            "I": 1625000
           }
         ],
         "rounds": 0,
@@ -216,8 +188,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -227,26 +199,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 4000,
-            "c": [
-              5,
-              5
-            ],
-            "I": 66666.66666666667
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 4000,
+            "M": 40000,
             "c": [
               5,
               5
             ],
-            "I": 66666.66666666667
+            "I": 666666.6666666667
           }
         ],
         "rounds": 0,
@@ -271,8 +234,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -282,26 +245,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 4900,
-            "c": [
-              5,
-              5
-            ],
-            "I": 66666.66666666667
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 4900,
+            "M": 40900,
             "c": [
               5,
               5
             ],
-            "I": 66666.66666666667
+            "I": 666666.6666666667
           }
         ],
         "rounds": 0,
@@ -326,8 +280,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -337,26 +291,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 4000,
-            "c": [
-              5,
-              5
-            ],
-            "I": 66666.66666666667
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 4000,
+            "M": 40000,
             "c": [
               5,
               5
             ],
-            "I": 66666.66666666667
+            "I": 666666.6666666667
           }
         ],
         "rounds": 0,
@@ -381,8 +326,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -392,26 +337,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 6000,
-            "c": [
-              7.5,
-              5
-            ],
-            "I": 162500.00000000003
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 6000,
+            "M": 60000,
             "c": [
               7.5,
               5
             ],
-            "I": 162500.00000000003
+            "I": 1625000.0000000002
           }
         ],
         "rounds": 0,
@@ -436,8 +372,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -447,26 +383,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 4000,
-            "c": [
-              5,
-              5
-            ],
-            "I": 66666.66666666667
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 4000,
+            "M": 40000,
             "c": [
               5,
               5
             ],
-            "I": 66666.66666666667
+            "I": 666666.6666666667
           }
         ],
         "rounds": 0,
@@ -491,8 +418,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -502,26 +429,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 4000,
-            "c": [
-              5,
-              5
-            ],
-            "I": 66666.66666666667
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 4000,
+            "M": 40000,
             "c": [
               5,
               5
             ],
-            "I": 66666.66666666667
+            "I": 666666.6666666667
           }
         ],
         "rounds": 0,
@@ -546,8 +464,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -557,26 +475,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 4024,
-            "c": [
-              5,
-              5
-            ],
-            "I": 66666.66666666667
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 4024,
+            "M": 40024,
             "c": [
               5,
               5
             ],
-            "I": 66666.66666666667
+            "I": 666666.6666666667
           }
         ],
         "rounds": 0,
@@ -601,8 +510,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -612,26 +521,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 4000,
-            "c": [
-              5,
-              5
-            ],
-            "I": 66666.66666666667
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 4000,
+            "M": 40000,
             "c": [
               5,
               5
             ],
-            "I": 66666.66666666667
+            "I": 666666.6666666667
           }
         ],
         "rounds": 0,
@@ -656,8 +556,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -667,26 +567,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 6293.358815097945,
-            "c": [
-              5,
-              5
-            ],
-            "I": 104889.31358496576
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 6293.358815097945,
+            "M": 42293.35881509795,
             "c": [
               5,
               5
             ],
-            "I": 104889.31358496576
+            "I": 704889.3135849659
           }
         ],
         "rounds": 0,
@@ -711,8 +602,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -721,26 +612,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 52267.35881509795,
-            "c": [
-              28.733462152063872,
-              16.471732834695278
-            ],
-            "I": 13113786.255453693
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 52267.35881509795,
+            "M": 448267.35881509795,
             "c": [
-              28.733462152063872,
-              16.471732834695278
+              29.450777346800905,
+              16.376240263805265
             ],
-            "I": 13113786.255453693
+            "I": 108026587.31976852
           }
         ],
         "rounds": 0,
@@ -846,8 +728,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -856,26 +738,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 52147.35881509795,
-            "c": [
-              28.707535919700963,
-              16.475119543901197
-            ],
-            "I": 13098258.500754695
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 52147.35881509795,
+            "M": 448147.35881509795,
             "c": [
-              28.707535919700963,
-              16.475119543901197
+              29.44795259129698,
+              16.376608778376216
             ],
-            "I": 13098258.500754695
+            "I": 108013002.06672972
           }
         ],
         "rounds": 20,
@@ -977,12 +850,12 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 1.2071379567343277e-10,
-          "dL": 2.414453774690628e-7
+          "dP": 1.2005674564028674e-11,
+          "dL": 1.4458782970905304e-7
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -991,26 +864,17 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 48267.35881509795,
-            "c": [
-              28.214143258155307,
-              16.593697895210248
-            ],
-            "I": 12167642.286289394
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 48267.35881509795,
+            "M": 408267.35881509795,
             "c": [
-              28.214143258155307,
-              16.593697895210248
+              28.90709218232394,
+              16.51107742225942
             ],
-            "I": 12167642.286289394
+            "I": 98924300.3460641
           }
         ],
         "rounds": 0,
@@ -1116,8 +980,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1126,42 +990,25 @@
         "tier": "T1"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 26074,
-            "c": [
-              40.55591777249367,
-              17.262406995474418
-            ],
-            "I": 2869920.0832246686
-          },
-          {
-            "M": 20796.679407548974,
-            "c": [
-              15.047685426093187,
-              14.168943965244917
-            ],
-            "I": 2110097.8287308062
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 26074,
+            "M": 242074,
             "c": [
-              40.55591777249367,
-              17.262406995474418
+              40.059878384295715,
+              17.474408651899832
             ],
-            "I": 2869920.0832246686
+            "I": 26728423.524418153
           },
           {
-            "M": 20796.679407548974,
+            "M": 164796.67940754897,
             "c": [
-              15.047685426093187,
-              14.168943965244917
+              15.006017709352141,
+              13.802869046671622
             ],
-            "I": 2110097.8287308062
+            "I": 15088328.630743176
           }
         ],
         "rounds": 0,
@@ -1267,8 +1114,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1276,12 +1123,11 @@
         "tier": "T6"
       },
       "expected": {
-        "cell": 216000,
-        "sinkCell": 339841.37601528905
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "cell": 216000,
-        "sinkCell": 339841.37601528905,
+        "cell": 2160000,
+        "sinkCell": 2283841.376015289,
         "books": [
           {
             "generated": 0,
@@ -1311,8 +1157,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1322,26 +1168,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 864000,
-            "c": [
-              30,
-              30
-            ],
-            "I": 518400000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 864000,
+            "M": 8640000,
             "c": [
               30,
               30
             ],
-            "I": 518400000
+            "I": 5184000000
           }
         ],
         "rounds": 0,
@@ -1366,8 +1203,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1377,26 +1214,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 864000,
-            "c": [
-              30,
-              30
-            ],
-            "I": 518400000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 864000,
+            "M": 8640000,
             "c": [
               30,
               30
             ],
-            "I": 518400000
+            "I": 5184000000
           }
         ],
         "rounds": 0,
@@ -1421,8 +1249,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1432,26 +1260,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 1296000,
-            "c": [
-              30,
-              45
-            ],
-            "I": 1263600000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 1296000,
+            "M": 12960000,
             "c": [
               30,
               45
             ],
-            "I": 1263600000
+            "I": 12636000000
           }
         ],
         "rounds": 0,
@@ -1476,8 +1295,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1487,26 +1306,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 864000,
-            "c": [
-              30,
-              30
-            ],
-            "I": 518400000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 864000,
+            "M": 8640000,
             "c": [
               30,
               30
             ],
-            "I": 518400000
+            "I": 5184000000
           }
         ],
         "rounds": 0,
@@ -1531,8 +1341,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1542,26 +1352,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 1058400,
-            "c": [
-              30,
-              30
-            ],
-            "I": 518400000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 1058400,
+            "M": 8834400,
             "c": [
               30,
               30
             ],
-            "I": 518400000
+            "I": 5184000000
           }
         ],
         "rounds": 0,
@@ -1586,8 +1387,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1597,26 +1398,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 864000,
-            "c": [
-              30,
-              30
-            ],
-            "I": 518400000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 864000,
+            "M": 8640000,
             "c": [
               30,
               30
             ],
-            "I": 518400000
+            "I": 5184000000
           }
         ],
         "rounds": 0,
@@ -1641,8 +1433,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1652,26 +1444,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 1296000,
-            "c": [
-              45,
-              30
-            ],
-            "I": 1263600000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 1296000,
+            "M": 12960000,
             "c": [
               45,
               30
             ],
-            "I": 1263600000
+            "I": 12636000000
           }
         ],
         "rounds": 0,
@@ -1696,8 +1479,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1707,26 +1490,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 864000,
-            "c": [
-              30,
-              30
-            ],
-            "I": 518400000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 864000,
+            "M": 8640000,
             "c": [
               30,
               30
             ],
-            "I": 518400000
+            "I": 5184000000
           }
         ],
         "rounds": 0,
@@ -1751,8 +1525,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1762,26 +1536,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 864000,
-            "c": [
-              30,
-              30
-            ],
-            "I": 518400000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 864000,
+            "M": 8640000,
             "c": [
               30,
               30
             ],
-            "I": 518400000
+            "I": 5184000000
           }
         ],
         "rounds": 0,
@@ -1806,8 +1571,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1817,26 +1582,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 869184,
-            "c": [
-              30,
-              30
-            ],
-            "I": 518400000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 869184,
+            "M": 8645184,
             "c": [
               30,
               30
             ],
-            "I": 518400000
+            "I": 5184000000
           }
         ],
         "rounds": 0,
@@ -1861,8 +1617,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1872,26 +1628,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 864000,
-            "c": [
-              30,
-              30
-            ],
-            "I": 518400000
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 864000,
+            "M": 8640000,
             "c": [
               30,
               30
             ],
-            "I": 518400000
+            "I": 5184000000
           }
         ],
         "rounds": 0,
@@ -1916,8 +1663,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1927,26 +1674,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 1359365.5040611562,
-            "c": [
-              30,
-              29.999999999999996
-            ],
-            "I": 815619302.4366937
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 1359365.5040611562,
+            "M": 9135365.504061157,
             "c": [
               30,
-              29.999999999999996
+              30
             ],
-            "I": 815619302.4366937
+            "I": 5481219302.436694
           }
         ],
         "rounds": 0,
@@ -1971,8 +1709,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -1981,26 +1719,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 10524749.504061155,
-            "c": [
-              174.99100950352053,
-              100.11358704571511
-            ],
-            "I": 92069882671.17274
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 10524749.504061155,
+            "M": 96060749.50406116,
             "c": [
-              174.99100950352053,
-              100.11358704571511
+              177.02273434550312,
+              98.39346949098686
             ],
-            "I": 92069882671.17274
+            "I": 829954664094.8661
           }
         ],
         "rounds": 0,
@@ -2106,8 +1835,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -2116,26 +1845,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 10498829.504061155,
-            "c": [
-              174.83051227542316,
-              100.13855594116423
-            ],
-            "I": 91957412168.17427
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 10498829.504061155,
+            "M": 96034829.50406116,
             "c": [
-              174.83051227542316,
-              100.13855594116423
+              177.00573665066474,
+              98.3957349058403
             ],
-            "I": 91957412168.17427
+            "I": 829850007538.0668
           }
         ],
         "rounds": 20,
@@ -2237,12 +1957,12 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 1.4598407088760813e-8,
-          "dL": 0.017554625868797302
+          "dP": 1.2458615232779926e-8,
+          "dL": 0.003046393394470215
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -2251,26 +1971,17 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 9660749.504061155,
-            "c": [
-              171.86001353097794,
-              101.01808614320487
-            ],
-            "I": 84858355646.46426
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 9660749.504061155,
+            "M": 87420749.50406116,
             "c": [
-              171.86001353097794,
-              101.01808614320487
+              173.7635129721881,
+              99.22301598668189
             ],
-            "I": 84858355646.46426
+            "I": 759345185443.7217
           }
         ],
         "rounds": 0,
@@ -2376,8 +2087,8 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -2386,42 +2097,25 @@
         "tier": "T6"
       },
       "expected": {
-        "bodies": [
-          {
-            "M": 5496984,
-            "c": [
-              241.57550394907463,
-              104.15340484891351
-            ],
-            "I": 21421268699.75244
-          },
-          {
-            "M": 3907082.7520305784,
-            "c": [
-              89.46513579256664,
-              86.68575361721338
-            ],
-            "I": 13550018529.381636
-          }
-        ]
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "bodies": [
           {
-            "M": 5496984,
+            "M": 52152984,
             "c": [
-              241.57550394907463,
-              104.15340484891351
+              240.1660599132736,
+              104.91076790543758
             ],
-            "I": 21421268699.75244
+            "I": 206894599773.6168
           },
           {
-            "M": 3907082.7520305784,
+            "M": 35011082.75203058,
             "c": [
-              89.46513579256664,
-              86.68575361721338
+              89.94031150837743,
+              82.96711168226054
             ],
-            "I": 13550018529.381636
+            "I": 114505426521.09969
           }
         ],
         "rounds": 0,
@@ -2527,14 +2221,14 @@
           "dL": 0
         }
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
     {
       "name": "heat books: generated + conducted = radiated + vented + stored, 1e-9 relative, every room, every case",
-      "ok": false
+      "ok": true
     },
     {
       "name": "conduction and life-support flows each sum to 0 over the ship, every case",
@@ -2551,6 +2245,11 @@
     {
       "name": "mass x 6^3 and moment of inertia x 6^5 from T1 to T6: one cell, each room alone, each full room",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "34 case(s) threw"
     },
     {
       "name": "no NaN or infinity",
