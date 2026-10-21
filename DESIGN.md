@@ -49,6 +49,13 @@ change a law or the direction, which is the owner's. Combinations do not
 fix pacing (that is rung 1), and a combination the player cannot read on
 screen does not count.
 
+**Every interaction is symmetric** (#228, the owner): an agent and what it
+meets exchange the same quantity (impulse for a round, energy for a beam)
+and each is damaged by it against its own strength (Newton's third law: a
+bird strike wrecks the bird and dents the aircraft). New behaviour must
+follow from the physics already in the model and real material constants,
+never from a factor added to correct an outcome.
+
 **Gates and rules**
 
 | Rule | Statement |
@@ -1032,6 +1039,22 @@ minutes of firing (L3), the coolant loop reaches plant hot in about 3
 minutes at battle load; then the shield fails and the rounds and beams
 start wrecking rooms. Expected duel: **about 3–6 minutes** (E7), uncertain
 by a factor of two; the prototype measures it.
+
+### 13h.4 What the first build showed (#227)
+
+With the kernel's numbers an R1 duel ends in **about 11 s**: M rounds slowed
+by the shield still pass about 6 room cells, reach the full magazine behind
+the beam bay and set it off; a beam alone never passes a fresh shield (both
+ships disabled by their own heat after 14.5 min). A loadout panel (magazine
+load, a stand-in bow armour belt, layout R1-B, shield budget and hits to
+wreck within their ranges, turrets off) moves it only to 15–47 s (armour,
+hits to wreck). The cause is partly the stand-ins (perfect aim, ships held
+at station) and partly the kinetic model itself: a round never suffers
+damage, so it skewers rooms like a needle. The **path model** (#228) answers
+the second; prototype v2 (a helm and physical misses) the first. An
+**Export** button copies seed, loadout and inputs, and `proto/replay.mjs`
+replays the battle headless with its full event log (MATCH check), so the
+owner's play can be read exactly. Hosted as a private claude.ai page (#226).
 
 ### 13h.4 Process and cost
 
