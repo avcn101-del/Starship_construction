@@ -59,6 +59,7 @@ export const PARAMS = {
   },
   he: {
     blastEnergy: P(2e6, 5e5, 5e6, 3, 'J', true, 'size M HE warhead (#166)'),
+    coupling: P(0.5, 0.2, 0.8, 0, '', true, 'fraction of a contact burst\'s energy that enters the hull; the rest vents to space at the open face (#169, #176)'),
   },
   beam: {
     power: P(5e6, 1e6, 2e7, 2, 'W', true, 'size M beam (#166)'),
