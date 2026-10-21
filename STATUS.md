@@ -69,8 +69,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| #50 | `ccr-4f9cd066-gv15es` | docs: §13j, #237, #238, CHANGELOG 0.7.2, STATUS; the lead designer merges with the v2 block (#218) |
-| #51 | `proto/v2` (head `4fba090`) | merged into the lead designer's branch (closes with PR #50); answers in #239 |
+
+The prototype v2 block merged by PR #50 (`8116e8d`; PR #51 closes with it); `regress` on the merge: 57 VERIFIED + 29 WITHDRAWN + 5 RETIRED.
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
