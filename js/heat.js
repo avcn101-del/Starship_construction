@@ -4,6 +4,11 @@
 // the room's hull segments, by emissivity x sigma x area x T^4 (#143).
 // Explicit Euler at the simulation step. The books keep
 // generated = radiated + stored (stored = Q - Q0).
+// In a cluster (L2, DESIGN.md 13d.1, #193) heat also flows through shared
+// walls: G (T_a - T_b), with G = conduction.wall x live length x the
+// harmonic mean of the two rooms' conductivity factors; every flow is
+// computed from the temperatures at the start of the step, so per room
+// generated + conducted = radiated + stored and the flows sum to 0.
 
 export function createHeat(C, T0) {
   const Q = C * T0;
@@ -17,13 +22,31 @@ export function radiatorPower(T, n, area, emissivity, sigma) {
   return n * emissivity * sigma * area * T * T * T * T;
 }
 
-/** One Euler step: add `generated` (J), radiate at `radiated` (W) for dt. */
-export function heatStep(h, generated, radiatedPower, dt) {
+/**
+ * One Euler step: add `generated` (J), radiate at `radiated` (W) for dt and,
+ * in a cluster, take `conducted` (J, net heat in through walls).
+ */
+export function heatStep(h, generated, radiatedPower, dt, conducted) {
   const radiated = radiatedPower * dt;
   h.generated += generated;
   h.radiated += radiated;
   h.lastRadiatedPower = radiatedPower;
-  h.Q += generated - radiated;
+  if (conducted === undefined) { h.Q += generated - radiated; return; } // a room alone (L1), unchanged
+  h.conducted += conducted;
+  h.Q += generated + conducted - radiated;
+}
+
+/** Conductance (W/K) of a wall of `length` (m) between rooms with conductivity factors fa, fb (#193). */
+export function wallConductance(perMetre, length, fa, fb) {
+  return perMetre * length * ((2 * fa * fb) / (fa + fb));
+}
+
+/**
+ * Heat (J) through each wall { a, b, G } in one step, from a to b, at the
+ * temperatures of the start of the step (#193).
+ */
+export function conductionFlows(walls, dt) {
+  return walls.map((w) => w.G * (temperature(w.a) - temperature(w.b)) * dt);
 }
 
 /**
@@ -41,6 +64,9 @@ export function crossings(h, th) {
   return out;
 }
 
+/** The books; a room in a cluster also reports `conducted` (net heat in through walls). */
 export function heatBooks(h) {
-  return { generated: h.generated, radiated: h.radiated, stored: h.Q - h.Q0, initial: h.Q0 };
+  const books = { generated: h.generated, radiated: h.radiated, stored: h.Q - h.Q0, initial: h.Q0 };
+  if (h.conducted !== undefined) books.conducted = h.conducted; // L1 books keep their shape
+  return books;
 }
