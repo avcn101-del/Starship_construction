@@ -3,12 +3,12 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.turret.fire",
-  "code": "8d16824",
+  "code": "49355f3",
   "criterionHash": "6687eaa4",
   "lockedHash": "6687eaa4",
   "runHash": "e498ae2f",
-  "dataHash": "7f6af3b5",
-  "rowsHash": "80c2b2df",
+  "dataHash": "bcc9b491",
+  "rowsHash": "e46a2f95",
   "rows": [
     {
       "case": {
@@ -19,14 +19,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 400,
+        "impulse": 4800,
         "heat": 300000,
         "energy": 200000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 400,
+        "impulse": 4800,
         "heat": 300000,
         "energy": 200000.00000000012,
         "cease": [],
@@ -50,7 +50,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 2000,
+        "impulse": 24000,
         "heat": 1500000,
         "energy": 1600000,
         "cease": {
@@ -60,7 +60,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 2000,
+        "impulse": 24000,
         "heat": 1500000,
         "energy": 1599999.999999992,
         "cease": [
@@ -89,7 +89,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 2000,
+        "impulse": 24000,
         "heat": 1500000,
         "energy": 1600000,
         "cease": {
@@ -99,7 +99,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 2000,
+        "impulse": 24000,
         "heat": 1500000,
         "energy": 1599999.999999992,
         "cease": [
@@ -128,7 +128,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 2000,
+        "impulse": 24000,
         "heat": 1500000,
         "energy": 1600000,
         "cease": {
@@ -138,7 +138,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 2000,
+        "impulse": 24000,
         "heat": 1500000,
         "energy": 1599999.999999992,
         "cease": [
@@ -167,14 +167,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 400,
+        "impulse": 4800,
         "heat": 300000,
         "energy": 200000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 400,
+        "impulse": 4800,
         "heat": 300000,
         "energy": 200000.00000000012,
         "cease": [],
@@ -198,14 +198,14 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 2000,
+        "impulse": 24000,
         "heat": 1500000,
         "energy": 1900000,
         "cease": null
       },
       "actual": {
         "shots": 5,
-        "impulse": 2000,
+        "impulse": 24000,
         "heat": 1500000,
         "energy": 1899999.999999985,
         "cease": [],
@@ -229,14 +229,14 @@
       },
       "expected": {
         "shots": 50,
-        "impulse": 20000,
+        "impulse": 240000,
         "heat": 15000000,
         "energy": 19900000,
         "cease": null
       },
       "actual": {
         "shots": 50,
-        "impulse": 20000,
+        "impulse": 240000,
         "heat": 15000000,
         "energy": 19900000.000000086,
         "cease": [],
@@ -260,7 +260,7 @@
       },
       "expected": {
         "shots": 150,
-        "impulse": 60000,
+        "impulse": 720000,
         "heat": 45000000,
         "energy": 59600000,
         "cease": {
@@ -270,7 +270,7 @@
       },
       "actual": {
         "shots": 150,
-        "impulse": 60000,
+        "impulse": 720000,
         "heat": 45000000,
         "energy": 59600000.0000144,
         "cease": [
@@ -299,14 +299,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 1350,
+        "impulse": 16200,
         "heat": 1012500,
         "energy": 450000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 1350,
+        "impulse": 16200,
         "heat": 1012500,
         "energy": 450000,
         "cease": [],
@@ -330,14 +330,14 @@
       },
       "expected": {
         "shots": 4,
-        "impulse": 5400,
+        "impulse": 64800,
         "heat": 4050000,
         "energy": 4275000,
         "cease": null
       },
       "actual": {
         "shots": 4,
-        "impulse": 5400,
+        "impulse": 64800,
         "heat": 4050000,
         "energy": 4275000,
         "cease": [],
@@ -361,7 +361,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 6750,
+        "impulse": 81000,
         "heat": 5062500,
         "energy": 5400000,
         "cease": {
@@ -371,7 +371,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 6750,
+        "impulse": 81000,
         "heat": 5062500,
         "energy": 5400000,
         "cease": [
@@ -400,7 +400,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 6750,
+        "impulse": 81000,
         "heat": 5062500,
         "energy": 5400000,
         "cease": {
@@ -410,7 +410,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 6750,
+        "impulse": 81000,
         "heat": 5062500,
         "energy": 5400000,
         "cease": [
@@ -439,14 +439,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 1350,
+        "impulse": 16200,
         "heat": 1012500,
         "energy": 450000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 1350,
+        "impulse": 16200,
         "heat": 1012500,
         "energy": 450000,
         "cease": [],
@@ -470,14 +470,14 @@
       },
       "expected": {
         "shots": 4,
-        "impulse": 5400,
+        "impulse": 64800,
         "heat": 4050000,
         "energy": 4275000,
         "cease": null
       },
       "actual": {
         "shots": 4,
-        "impulse": 5400,
+        "impulse": 64800,
         "heat": 4050000,
         "energy": 4275000,
         "cease": [],
@@ -501,14 +501,14 @@
       },
       "expected": {
         "shots": 34,
-        "impulse": 45900,
+        "impulse": 550800,
         "heat": 34425000,
         "energy": 44775000,
         "cease": null
       },
       "actual": {
         "shots": 34,
-        "impulse": 45900,
+        "impulse": 550800,
         "heat": 34425000,
         "energy": 44775000,
         "cease": [],
@@ -532,14 +532,14 @@
       },
       "expected": {
         "shots": 134,
-        "impulse": 180900,
+        "impulse": 2170800,
         "heat": 135675000,
         "energy": 179775000,
         "cease": null
       },
       "actual": {
         "shots": 134,
-        "impulse": 180900,
+        "impulse": 2170800,
         "heat": 135675000,
         "energy": 179775000,
         "cease": [],
@@ -563,14 +563,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 3200,
+        "impulse": 38400,
         "heat": 2400000,
         "energy": 800000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 3200,
+        "impulse": 38400,
         "heat": 2400000,
         "energy": 800000.0000000005,
         "cease": [],
@@ -594,14 +594,14 @@
       },
       "expected": {
         "shots": 3,
-        "impulse": 9600,
+        "impulse": 115200,
         "heat": 7200000,
         "energy": 7600000,
         "cease": null
       },
       "actual": {
         "shots": 3,
-        "impulse": 9600,
+        "impulse": 115200,
         "heat": 7200000,
         "energy": 7599999.99999994,
         "cease": [],
@@ -625,7 +625,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 16000,
+        "impulse": 192000,
         "heat": 12000000,
         "energy": 12800000,
         "cease": {
@@ -635,7 +635,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 16000,
+        "impulse": 192000,
         "heat": 12000000,
         "energy": 12800000.000000127,
         "cease": [
@@ -664,7 +664,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 16000,
+        "impulse": 192000,
         "heat": 12000000,
         "energy": 12800000,
         "cease": {
@@ -674,7 +674,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 16000,
+        "impulse": 192000,
         "heat": 12000000,
         "energy": 12800000.000000127,
         "cease": [
@@ -703,14 +703,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 3200,
+        "impulse": 38400,
         "heat": 2400000,
         "energy": 800000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 3200,
+        "impulse": 38400,
         "heat": 2400000,
         "energy": 800000.0000000005,
         "cease": [],
@@ -734,14 +734,14 @@
       },
       "expected": {
         "shots": 3,
-        "impulse": 9600,
+        "impulse": 115200,
         "heat": 7200000,
         "energy": 7600000,
         "cease": null
       },
       "actual": {
         "shots": 3,
-        "impulse": 9600,
+        "impulse": 115200,
         "heat": 7200000,
         "energy": 7599999.99999994,
         "cease": [],
@@ -765,14 +765,14 @@
       },
       "expected": {
         "shots": 25,
-        "impulse": 80000,
+        "impulse": 960000,
         "heat": 60000000,
         "energy": 79600000,
         "cease": null
       },
       "actual": {
         "shots": 25,
-        "impulse": 80000,
+        "impulse": 960000,
         "heat": 60000000,
         "energy": 79600000.00000034,
         "cease": [],
@@ -796,14 +796,14 @@
       },
       "expected": {
         "shots": 100,
-        "impulse": 320000,
+        "impulse": 3840000,
         "heat": 240000000,
         "energy": 319600000,
         "cease": null
       },
       "actual": {
         "shots": 100,
-        "impulse": 320000,
+        "impulse": 3840000,
         "heat": 240000000,
         "energy": 319600000.00000376,
         "cease": [],
@@ -827,14 +827,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 10800,
+        "impulse": 129600,
         "heat": 8100000,
         "energy": 1800000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 10800,
+        "impulse": 129600,
         "heat": 8100000,
         "energy": 1800000,
         "cease": [],
@@ -858,14 +858,14 @@
       },
       "expected": {
         "shots": 2,
-        "impulse": 21600,
+        "impulse": 259200,
         "heat": 16200000,
         "energy": 17100000,
         "cease": null
       },
       "actual": {
         "shots": 2,
-        "impulse": 21600,
+        "impulse": 259200,
         "heat": 16200000,
         "energy": 17100000,
         "cease": [],
@@ -889,7 +889,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 54000,
+        "impulse": 648000,
         "heat": 40500000,
         "energy": 43200000,
         "cease": {
@@ -899,7 +899,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 54000,
+        "impulse": 648000,
         "heat": 40500000,
         "energy": 43200000,
         "cease": [
@@ -928,7 +928,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 54000,
+        "impulse": 648000,
         "heat": 40500000,
         "energy": 43200000,
         "cease": {
@@ -938,7 +938,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 54000,
+        "impulse": 648000,
         "heat": 40500000,
         "energy": 43200000,
         "cease": [
@@ -967,14 +967,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 10800,
+        "impulse": 129600,
         "heat": 8100000,
         "energy": 1800000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 10800,
+        "impulse": 129600,
         "heat": 8100000,
         "energy": 1800000,
         "cease": [],
@@ -998,14 +998,14 @@
       },
       "expected": {
         "shots": 2,
-        "impulse": 21600,
+        "impulse": 259200,
         "heat": 16200000,
         "energy": 17100000,
         "cease": null
       },
       "actual": {
         "shots": 2,
-        "impulse": 21600,
+        "impulse": 259200,
         "heat": 16200000,
         "energy": 17100000,
         "cease": [],
@@ -1029,14 +1029,14 @@
       },
       "expected": {
         "shots": 17,
-        "impulse": 183600,
+        "impulse": 2203200,
         "heat": 137700000,
         "energy": 179100000,
         "cease": null
       },
       "actual": {
         "shots": 17,
-        "impulse": 183600,
+        "impulse": 2203200,
         "heat": 137700000,
         "energy": 179100000,
         "cease": [],
@@ -1060,14 +1060,14 @@
       },
       "expected": {
         "shots": 67,
-        "impulse": 723600,
+        "impulse": 8683200,
         "heat": 542700000,
         "energy": 719100000,
         "cease": null
       },
       "actual": {
         "shots": 67,
-        "impulse": 723600,
+        "impulse": 8683200,
         "heat": 542700000,
         "energy": 719100000,
         "cease": [],
@@ -1091,14 +1091,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 25600,
+        "impulse": 307200,
         "heat": 19200000,
         "energy": 3200000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 25600,
+        "impulse": 307200,
         "heat": 19200000,
         "energy": 3200000.000000002,
         "cease": [],
@@ -1122,14 +1122,14 @@
       },
       "expected": {
         "shots": 2,
-        "impulse": 51200,
+        "impulse": 614400,
         "heat": 38400000,
         "energy": 30400000,
         "cease": null
       },
       "actual": {
         "shots": 2,
-        "impulse": 51200,
+        "impulse": 614400,
         "heat": 38400000,
         "energy": 30399999.99999976,
         "cease": [],
@@ -1153,7 +1153,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 128000,
+        "impulse": 1536000,
         "heat": 96000000,
         "energy": 102400000,
         "cease": {
@@ -1163,7 +1163,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 128000,
+        "impulse": 1536000,
         "heat": 96000000,
         "energy": 102399999.99999796,
         "cease": [
@@ -1192,7 +1192,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 128000,
+        "impulse": 1536000,
         "heat": 96000000,
         "energy": 102400000,
         "cease": {
@@ -1202,7 +1202,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 128000,
+        "impulse": 1536000,
         "heat": 96000000,
         "energy": 102399999.99999796,
         "cease": [
@@ -1231,14 +1231,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 25600,
+        "impulse": 307200,
         "heat": 19200000,
         "energy": 3200000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 25600,
+        "impulse": 307200,
         "heat": 19200000,
         "energy": 3200000.000000002,
         "cease": [],
@@ -1262,14 +1262,14 @@
       },
       "expected": {
         "shots": 2,
-        "impulse": 51200,
+        "impulse": 614400,
         "heat": 38400000,
         "energy": 30400000,
         "cease": null
       },
       "actual": {
         "shots": 2,
-        "impulse": 51200,
+        "impulse": 614400,
         "heat": 38400000,
         "energy": 30399999.99999976,
         "cease": [],
@@ -1293,14 +1293,14 @@
       },
       "expected": {
         "shots": 13,
-        "impulse": 332800,
+        "impulse": 3993600,
         "heat": 249600000,
         "energy": 318400000,
         "cease": null
       },
       "actual": {
         "shots": 13,
-        "impulse": 332800,
+        "impulse": 3993600,
         "heat": 249600000,
         "energy": 318400000.0000014,
         "cease": [],
@@ -1324,14 +1324,14 @@
       },
       "expected": {
         "shots": 50,
-        "impulse": 1280000,
+        "impulse": 15360000,
         "heat": 960000000,
         "energy": 1278400000,
         "cease": null
       },
       "actual": {
         "shots": 50,
-        "impulse": 1280000,
+        "impulse": 15360000,
         "heat": 960000000,
         "energy": 1278400000.000015,
         "cease": [],
@@ -1355,14 +1355,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 86400,
+        "impulse": 1036800,
         "heat": 64800000,
         "energy": 7200000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 86400,
+        "impulse": 1036800,
         "heat": 64800000,
         "energy": 7200000,
         "cease": [],
@@ -1386,14 +1386,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 86400,
+        "impulse": 1036800,
         "heat": 64800000,
         "energy": 68400000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 86400,
+        "impulse": 1036800,
         "heat": 64800000,
         "energy": 68400000,
         "cease": [],
@@ -1417,7 +1417,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 432000,
+        "impulse": 5184000,
         "heat": 324000000,
         "energy": 345600000,
         "cease": {
@@ -1427,7 +1427,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 432000,
+        "impulse": 5184000,
         "heat": 324000000,
         "energy": 345600000,
         "cease": [
@@ -1456,7 +1456,7 @@
       },
       "expected": {
         "shots": 5,
-        "impulse": 432000,
+        "impulse": 5184000,
         "heat": 324000000,
         "energy": 345600000,
         "cease": {
@@ -1466,7 +1466,7 @@
       },
       "actual": {
         "shots": 5,
-        "impulse": 432000,
+        "impulse": 5184000,
         "heat": 324000000,
         "energy": 345600000,
         "cease": [
@@ -1495,14 +1495,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 86400,
+        "impulse": 1036800,
         "heat": 64800000,
         "energy": 7200000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 86400,
+        "impulse": 1036800,
         "heat": 64800000,
         "energy": 7200000,
         "cease": [],
@@ -1526,14 +1526,14 @@
       },
       "expected": {
         "shots": 1,
-        "impulse": 86400,
+        "impulse": 1036800,
         "heat": 64800000,
         "energy": 68400000,
         "cease": null
       },
       "actual": {
         "shots": 1,
-        "impulse": 86400,
+        "impulse": 1036800,
         "heat": 64800000,
         "energy": 68400000,
         "cease": [],
@@ -1557,14 +1557,14 @@
       },
       "expected": {
         "shots": 9,
-        "impulse": 777600,
+        "impulse": 9331200,
         "heat": 583200000,
         "energy": 716400000,
         "cease": null
       },
       "actual": {
         "shots": 9,
-        "impulse": 777600,
+        "impulse": 9331200,
         "heat": 583200000,
         "energy": 716400000,
         "cease": [],
@@ -1588,14 +1588,14 @@
       },
       "expected": {
         "shots": 34,
-        "impulse": 2937600,
+        "impulse": 35251200,
         "heat": 2203200000,
         "energy": 2876400000,
         "cease": null
       },
       "actual": {
         "shots": 34,
-        "impulse": 2937600,
+        "impulse": 35251200,
         "heat": 2203200000,
         "energy": 2876400000,
         "cease": [],

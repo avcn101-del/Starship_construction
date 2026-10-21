@@ -3,12 +3,12 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.room.thresholds",
-  "code": "8d16824",
+  "code": "49355f3",
   "criterionHash": "44b1338a",
   "lockedHash": "44b1338a",
   "runHash": "71457c3f",
-  "dataHash": "7f6af3b5",
-  "rowsHash": "b79680fd",
+  "dataHash": "bcc9b491",
+  "rowsHash": "3e82a529",
   "rows": [
     {
       "case": {
@@ -124,7 +124,7 @@
         "overheated": 130.9090909090909,
         "critical": 349.09090909090907,
         "deaths": 2,
-        "explosion": 375000000,
+        "explosion": 1200000000,
         "dt": 0.016666666666666666
       },
       "actual": {
@@ -137,7 +137,7 @@
         "explosions": [
           {
             "t": 349.1,
-            "energy": 375000000,
+            "energy": 1200000000,
             "cause": "heat"
           }
         ],

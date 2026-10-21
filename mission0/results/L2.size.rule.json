@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.size.rule",
-  "code": "fd649fa",
+  "code": "49355f3",
   "criterionHash": "9e9d8cde",
   "lockedHash": "9e9d8cde",
   "runHash": "4596ce6d",
-  "dataHash": "7f6af3b5",
-  "rowsHash": "26ab5205",
+  "dataHash": "bcc9b491",
+  "rowsHash": "4f97e24d",
   "rows": [
     {
       "case": {
@@ -86,14 +86,14 @@
       "expected": {
         "cells": 4,
         "C": 2400000,
-        "capacity": 75,
+        "capacity": 900,
         "crew": 2
       },
       "actual": {
         "cells": 4,
         "C": 2400000,
         "crew": 2,
-        "capacity": 75,
+        "capacity": 900,
         "books": [
           {
             "generated": 0,
@@ -118,13 +118,13 @@
       "expected": {
         "cells": 9,
         "C": 5400000,
-        "capacity": 168.75
+        "capacity": 2025
       },
       "actual": {
         "cells": 9,
         "C": 5400000,
         "crew": 5,
-        "capacity": 168.75,
+        "capacity": 2025,
         "books": [
           {
             "generated": 0,
@@ -150,7 +150,7 @@
         "cells": 4,
         "C": 2400000,
         "crew": 3,
-        "roundMass": 0.5,
+        "roundMass": 6,
         "shots": 6,
         "heatPerShot": 300000,
         "draw": 200000
@@ -160,7 +160,7 @@
         "C": 2400000,
         "crew": 3,
         "shots": 6,
-        "roundMass": 0.5,
+        "roundMass": 6,
         "heatPerShot": 300000,
         "draw": 199999.9999999982,
         "books": [
@@ -188,7 +188,7 @@
         "cells": 9,
         "C": 5400000,
         "crew": 7,
-        "roundMass": 1.6875,
+        "roundMass": 20.25,
         "shots": 4,
         "heatPerShot": 1012500,
         "draw": 450000
@@ -198,7 +198,7 @@
         "C": 5400000,
         "crew": 7,
         "shots": 4,
-        "roundMass": 1.6875,
+        "roundMass": 20.25,
         "heatPerShot": 1012500,
         "draw": 450000,
         "books": [

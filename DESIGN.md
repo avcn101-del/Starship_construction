@@ -1089,6 +1089,54 @@ powered (under routing: joined to a reactor able to produce); it draws
 no power until L3. Reviewer (#207): the split by wall length and the
 setpoint clamp moved no L2 criterion; D5 tests them.
 
+**D pass: real round sizes, partial damage, repair** (2026-10-21; #203 D,
+#206, #207; data `9bf66b9`, kernel `7cab27e` and `c63b42e`, runner
+`f03e869`; five scenarios, 61 cases, locked at `49355f3` before their
+first canonical run; **4 PASS, 1 FAIL** (`L2.lifesupport.routed`); T1,
+size M, SI; constants of §13e.2). Every record was re-recorded for the new
+data hash. Of the L0–L2 scenarios that passed on `main`, all still PASS
+except the two withdrawn below; results moved only where the round's mass
+enters (each by the factor 12 or as a float residue): `L0.kinetic.penetration`
+(s0 × 12^(1/3)), `L0.kinetic.penetration.v2` and `L0.kinetic.overpen`
+(last-digit float), `L0.shield.kinetic` and `.v2` (energies × 12, speeds in
+the last digits), `L1.magazine.cookoff` (a full AP magazine 900 MJ, full HE
+1.2 GJ), `L1.room.thresholds` (cook-off 1.2 GJ), `L1.turret.fire` (impulse
+4800 N·s per shot), `L2.blast.walls`, `L2.shield.buffer`, `L2.size.rule`
+(capacity 900 kg, round 6 kg); `L2.ammo.feed` only in its expected values.
+Every other record moved only `dataHash` and `code`.
+
+| Scenario | What the numbers say |
+|---|---|
+| `L1.kinetic.damage` | An M room cell resists 1.545e5 kg/(m·s): S, M and L rounds have depths of 6.765, 10.148 and 15.221 room cells at every tier T1–T6. Through one M quarters (3 cells deep) or one hold (2 deep) every size passes and exits, each cell losing exactly 1/3 per round; the quarters lose 3 of 18 crew per round (9 after three, every passed cell destroyed after the third). Along a line of six quarters the S round stops in cell 7 (loss 0.255), M in cell 11 (0.049), L in cell 16 (0.074); the fourth quarters on the M line loses 1 crew at 0.383 cells' worth of integrity (floor rule). Events: one `cell-damaged` or `cell-destroyed` per cell reached |
+| `L1.quarters.repair.v2` | A cell damaged by 0.7123 next to full quarters is whole at 35.62 s, at the radius at 71.23 s, at four radii at 605.5 s; quarters with one cell left take six times longer; with none nothing is repaired. The destroyed second cell stays at 0 through every run (600 s to 3633 s) and never raises `cell-repaired`. Two (c, r) pairs of the v1 grid are left out: their times (356.15 s, 1068.45 s) are whole numbers of steps |
+| `L1.repair.breach.v2` | Reactor cell A, damaged by 0.7123 at 1 s, is repaired at 38.85 s (closed form 38.841 s); a destroyed hold cell beside the quarters is not; the next hit (1 of 4) does not breach, the one after (2 of 4) does, and the reactor explodes 10 s later (200 MJ, cause hit-3), once; deaths 0, 1, 1 at the three hits and the explosion takes the last 2 |
+| `L2.shield.salvo` | Stopping a 6 kg M round costs **1.7067 MJ** (800 → 266.7 m/s): salvos of 3 and 5 leave 4.88 and 1.47 MJ of the 10 MJ buffer; the **6th round** is slowed only to 388.7 m/s and every later round passes at 800 m/s; the buffer refills in 1 s. E4 for `shield.bufferSeconds` now has a measured effect at a realistic salvo |
+| `L2.lifesupport.routed` | **FAIL** on one check. (a) Quarters at 320 K beside an idle reactor (5 m) and a heat sink (10 m) pump 39.57 and 79.14 MJ in the exact ratio 1 : 2 (largest error 0 over 36 000 steps), reach 1 mK of the setpoint at 353.17 s (reference 353.17 s) and never drop below 295 K (lowest 295.000238 K). (b) Under routing, quarters switched off keep life support (0.2 MW: peak 295.0010 K; switched on 295.0013 K), so #207 holds; with the reactor switched off nothing is pumped, the quarters reach 338.5 K and are hot at 738.15 s; at 1 MW the crew die at 437.98 s (on), 458.27 s (off) and 327.67 s (no supply), each one-sided against the reference. What fails is the row's **1e-6 K per-second match**: the kernel's explicit Euler differs from the RK4 reference by 2.0e-6 to 5.0e-5 K (largest without supply, where the passive wall carries the whole gradient); the same gaps came out of an independent pre-lock estimate. Every other check passes |
+
+**Withdrawn** (`mission0/withdrawn.json`, decision #206, superseded by the
+owner's #203 D): `L1.quarters.repair` (its target cell is destroyed and is
+now never repaired: 15 of 20 cases fail, the 5 with no quarters cells
+left still pass), successor `L1.quarters.repair.v2`; `L1.repair.breach`
+(it waits for the repair of a destroyed cell that never comes; its run()
+stops on a null event, which `tools/m0.js` now records as a FAIL instead
+of aborting), successor `L1.repair.breach.v2`. `regress`: 44 VERIFIED,
+7 WITHDRAWN.
+
+Honest reading. Strong: the momentum books of D1 (depth to 1e-9 at six
+tiers, the stopping cell's share, the exit momentum), the per-step 1 : 2
+split of D5 (a), D5 (b)'s crossing times against an RK4 reference, the
+D4 binding round. Close restatements: the repair times of D2 and D3 and
+the buffer arithmetic of D4 lock the rules. What the numbers say for the
+design: one M round through a compartment now kills a third of the crew
+it would have killed before and leaves it repairable; three hits wreck
+it; a shield's buffer stops five M rounds of a salvo and slows the sixth.
+Signals: the small HE loads of `L2.blast.walls` (2 and 4 rounds) are now
+16 and 32 MJ and saturate every room of its clusters, so the split by
+wall length before saturation is no longer exercised there, and its
+row-hold HE-2 case sits exactly on E = Σ B (16 MJ); D5's 1e-6 K
+tolerance is below the kernel's Euler error, a question in the pull
+request.
+
 ## 17. Open questions
 
 1. **Chapter design** waits for Mission 0 (#125).

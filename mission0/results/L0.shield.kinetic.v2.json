@@ -3,12 +3,12 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.shield.kinetic.v2",
-  "code": "8d16824",
+  "code": "49355f3",
   "criterionHash": "e27d5251",
   "lockedHash": "e27d5251",
   "runHash": "ad19da8b",
-  "dataHash": "7f6af3b5",
-  "rowsHash": "da86de82",
+  "dataHash": "bcc9b491",
+  "rowsHash": "238fd920",
   "rows": [
     {
       "case": {
@@ -17,11 +17,11 @@
       },
       "expected": {
         "velocity": 400,
-        "energy": 35555.55555555555
+        "energy": 426666.6666666665
       },
       "actual": {
         "velocity": 400,
-        "energy": 35555.55555555555,
+        "energy": 426666.6666666665,
         "v0": 800
       },
       "pass": true,
@@ -34,11 +34,11 @@
       },
       "expected": {
         "velocity": 200,
-        "energy": 44444.44444444443
+        "energy": 533333.3333333331
       },
       "actual": {
         "velocity": 200,
-        "energy": 44444.44444444443,
+        "energy": 533333.3333333331,
         "v0": 800
       },
       "pass": true,
@@ -50,12 +50,12 @@
         "times": 0.9
       },
       "expected": {
-        "velocity": 80.00000000000003,
-        "energy": 46933.33333333332
+        "velocity": 79.99999999999999,
+        "energy": 563199.9999999999
       },
       "actual": {
-        "velocity": 80.00000000000003,
-        "energy": 46933.33333333332,
+        "velocity": 79.99999999999999,
+        "energy": 563199.9999999999,
         "v0": 800
       },
       "pass": true,
@@ -68,11 +68,11 @@
       },
       "expected": {
         "velocity": 0,
-        "energy": 47407.407407407394
+        "energy": 568888.8888888888
       },
       "actual": {
         "velocity": 0,
-        "energy": 47407.407407407394,
+        "energy": 568888.8888888888,
         "v0": 800
       },
       "pass": true,
@@ -85,11 +85,11 @@
       },
       "expected": {
         "velocity": 0,
-        "energy": 47407.407407407394
+        "energy": 568888.8888888888
       },
       "actual": {
         "velocity": 0,
-        "energy": 47407.407407407394,
+        "energy": 568888.8888888888,
         "v0": 800
       },
       "pass": true,
@@ -102,11 +102,11 @@
       },
       "expected": {
         "velocity": 0,
-        "energy": 47407.407407407394
+        "energy": 568888.8888888888
       },
       "actual": {
         "velocity": 0,
-        "energy": 47407.407407407394,
+        "energy": 568888.8888888888,
         "v0": 800
       },
       "pass": true,
@@ -119,11 +119,11 @@
       },
       "expected": {
         "velocity": 0,
-        "energy": 47407.407407407394
+        "energy": 568888.8888888888
       },
       "actual": {
         "velocity": 0,
-        "energy": 47407.407407407394,
+        "energy": 568888.8888888888,
         "v0": 800
       },
       "pass": true,
@@ -136,11 +136,11 @@
       },
       "expected": {
         "velocity": 533.3333333333334,
-        "energy": 88888.88888888888
+        "energy": 1066666.6666666665
       },
       "actual": {
         "velocity": 533.3333333333334,
-        "energy": 88888.88888888888,
+        "energy": 1066666.6666666665,
         "v0": 800
       },
       "pass": true,
@@ -152,12 +152,12 @@
         "times": 0.75
       },
       "expected": {
-        "velocity": 400,
-        "energy": 120000
+        "velocity": 400.00000000000017,
+        "energy": 1439999.9999999995
       },
       "actual": {
-        "velocity": 400,
-        "energy": 120000,
+        "velocity": 400.00000000000017,
+        "energy": 1439999.9999999995,
         "v0": 800
       },
       "pass": true,
@@ -169,12 +169,12 @@
         "times": 0.9
       },
       "expected": {
-        "velocity": 320.00000000000006,
-        "energy": 134400
+        "velocity": 320.0000000000002,
+        "energy": 1612799.9999999995
       },
       "actual": {
-        "velocity": 320.00000000000006,
-        "energy": 134400,
+        "velocity": 320.0000000000002,
+        "energy": 1612799.9999999995,
         "v0": 800
       },
       "pass": true,
@@ -186,12 +186,12 @@
         "times": 1
       },
       "expected": {
-        "velocity": 266.6666666666667,
-        "energy": 142222.22222222222
+        "velocity": 266.6666666666669,
+        "energy": 1706666.6666666663
       },
       "actual": {
-        "velocity": 266.6666666666667,
-        "energy": 142222.22222222222,
+        "velocity": 266.6666666666669,
+        "energy": 1706666.6666666663,
         "v0": 800
       },
       "pass": true,
@@ -203,12 +203,12 @@
         "times": 1.1
       },
       "expected": {
-        "velocity": 213.33333333333331,
-        "energy": 148622.22222222222
+        "velocity": 213.33333333333354,
+        "energy": 1783466.6666666663
       },
       "actual": {
-        "velocity": 213.33333333333331,
-        "energy": 148622.22222222222,
+        "velocity": 213.33333333333354,
+        "energy": 1783466.6666666663,
         "v0": 800
       },
       "pass": true,
@@ -220,12 +220,12 @@
         "times": 1.5
       },
       "expected": {
-        "velocity": 0,
-        "energy": 160000
+        "velocity": 3.563317371559467e-13,
+        "energy": 1920000
       },
       "actual": {
-        "velocity": 0,
-        "energy": 160000,
+        "velocity": 3.563317371559467e-13,
+        "energy": 1920000,
         "v0": 800
       },
       "pass": true,
@@ -238,11 +238,11 @@
       },
       "expected": {
         "velocity": 0,
-        "energy": 160000
+        "energy": 1920000
       },
       "actual": {
         "velocity": 0,
-        "energy": 160000,
+        "energy": 1920000,
         "v0": 800
       },
       "pass": true,
@@ -255,11 +255,11 @@
       },
       "expected": {
         "velocity": 622.2222222222223,
-        "energy": 213333.33333333328
+        "energy": 2559999.999999999
       },
       "actual": {
         "velocity": 622.2222222222223,
-        "energy": 213333.33333333328,
+        "energy": 2559999.999999999,
         "v0": 800
       },
       "pass": true,
@@ -272,11 +272,11 @@
       },
       "expected": {
         "velocity": 533.3333333333335,
-        "energy": 299999.9999999999
+        "energy": 3599999.999999998
       },
       "actual": {
         "velocity": 533.3333333333335,
-        "energy": 299999.9999999999,
+        "energy": 3599999.999999998,
         "v0": 800
       },
       "pass": true,
@@ -288,12 +288,12 @@
         "times": 0.9
       },
       "expected": {
-        "velocity": 480.0000000000001,
-        "energy": 345599.9999999999
+        "velocity": 480.0000000000002,
+        "energy": 4147199.9999999977
       },
       "actual": {
-        "velocity": 480.0000000000001,
-        "energy": 345599.9999999999,
+        "velocity": 480.0000000000002,
+        "energy": 4147199.9999999977,
         "v0": 800
       },
       "pass": true,
@@ -305,12 +305,12 @@
         "times": 1
       },
       "expected": {
-        "velocity": 444.4444444444445,
-        "energy": 373333.3333333333
+        "velocity": 444.4444444444446,
+        "energy": 4479999.999999998
       },
       "actual": {
-        "velocity": 444.4444444444445,
-        "energy": 373333.3333333333,
+        "velocity": 444.4444444444446,
+        "energy": 4479999.999999998,
         "v0": 800
       },
       "pass": true,
@@ -322,12 +322,12 @@
         "times": 1.1
       },
       "expected": {
-        "velocity": 408.88888888888886,
-        "energy": 398933.3333333334
+        "velocity": 408.8888888888891,
+        "energy": 4787199.999999998
       },
       "actual": {
-        "velocity": 408.88888888888886,
-        "energy": 398933.3333333334,
+        "velocity": 408.8888888888891,
+        "energy": 4787199.999999998,
         "v0": 800
       },
       "pass": true,
@@ -339,12 +339,12 @@
         "times": 1.5
       },
       "expected": {
-        "velocity": 266.66666666666674,
-        "energy": 480000
+        "velocity": 266.6666666666669,
+        "energy": 5759999.999999999
       },
       "actual": {
-        "velocity": 266.66666666666674,
-        "energy": 480000,
+        "velocity": 266.6666666666669,
+        "energy": 5759999.999999999,
         "v0": 800
       },
       "pass": true,
@@ -356,12 +356,12 @@
         "times": 2
       },
       "expected": {
-        "velocity": 88.88888888888893,
-        "energy": 533333.3333333334
+        "velocity": 88.88888888888924,
+        "energy": 6399999.999999999
       },
       "actual": {
-        "velocity": 88.88888888888893,
-        "energy": 533333.3333333334,
+        "velocity": 88.88888888888924,
+        "energy": 6399999.999999999,
         "v0": 800
       },
       "pass": true,

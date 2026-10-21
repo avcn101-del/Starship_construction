@@ -43,6 +43,17 @@
   stopping cell is measured; D2 leaves out the two (c, r) pairs whose repair
   time is a whole number of steps (#185 (2)); D3 adds the v1 heating of the
   wreck; D5 (a) also checks the heat pumped into each neighbour.
+- Locked at `49355f3` (only the `locked:` lines), then the first
+  canonical run: D1–D4 PASS; **D5 `L2.lifesupport.routed` FAILs** one
+  check, the row's 1e-6 K per-second match against its RK4 reference (the
+  kernel's Euler error is 2.0e-6 to 5.0e-5 K, as estimated before the
+  lock); every other D5 check passes.
+- L0, L1 and L2 re-recorded with the new data: every scenario that passed
+  still passes except `L1.quarters.repair` and `L1.repair.breach`, now
+  withdrawn as superseded by #203 (decision #206) with successors
+  `L1.quarters.repair.v2` and `L1.repair.breach.v2`. `regress`:
+  44 VERIFIED + 7 WITHDRAWN. `DESIGN.md` §16: the D pass block;
+  `MISSION0.md` regenerated.
 
 ## 0.3.2 — 2026-10-21 — Mission 0 L2 merged; reviewer answers (#207)
 
