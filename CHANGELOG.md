@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.4 — 2026-10-21 — approval tiers and the L1 plan
+
+- Decision #180: the owner decides direction; the lead designer decides and
+  records everything technical, and merges after a clean review.
+- Decisions #181–#184 and `DESIGN.md` §13c: the L1 plan (nine rooms, the
+  per-room heat model with two threshold classes, 13 scenarios, constants
+  with approved ranges, the process items from the L0 v2 review).
+- `CLAUDE.md` rules updated for #180; `STATUS.md` hand-over kept current.
+- PR #1 (L0) and PR #2 (review roles) merged; nightly regression (#136)
+  scheduled.
+
 ## 0.1.3 — 2026-10-21 — L0 v2 scenarios
 
 - `he.coupling` in `data.js` (0.5, approved 0.2–0.8, k = 0): the fraction

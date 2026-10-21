@@ -6,41 +6,47 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#179, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#184, current design in `DESIGN.md`.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
   before their first run, all PASS, VERIFIED by independent reviewer and
-  physics-checker sessions; 12/12 VERIFIED again on `main` after the
-  merges (`node tools/m0.js regress`).
+  physics-checker sessions; 12/12 VERIFIED on `main` (`node tools/m0.js
+  regress`).
+- **Approval tiers (#180)**: the owner decides direction; the lead designer
+  decides and records everything technical (*LD* rows), reports it here,
+  and merges after a clean review. Spending cap: 20 USD of sessions per
+  level. Documentation-only commits by the lead designer go straight to
+  `main`.
+- **L1 plan approved** (#181–#184, `DESIGN.md` §13c): nine rooms, the
+  per-room heat model, 13 scenarios, constants with ranges.
 - Roles (#167): lead designer (the chat with the owner), engineer,
   reviewer, physics checker, each its own session (`.claude/agents/`).
-- **Claude merges after the owner approves each merge** (#178). PR #1 and
-  PR #2 were approved and merged on 2026-10-21 (merge commits, so the lock
-  commits stay visible in history).
-- The owner works **through the lead designer chat** from now on: it
-  proposes, asks only what is unclear, and runs the other roles.
 
 ## Open pull requests
 
-None.
+| PR | Branch | State |
+|---|---|---|
+| (L1, to be opened by the engineer) | `m0/l1-rooms` → `main` | engineer session running, see below |
+
+## Decisions taken by the lead designer since the owner last read (for veto)
+
+- #181–#184: the L1 plan as proposed in the chat and approved in principle
+  by the owner ("duyệt theo đề xuất").
 
 ## Awaiting the owner
 
-1. **The L1 plan**: `mission0/L1-plan.md` (scenarios, criteria, constants
-   with ranges, the heat model, and five questions with recommended
-   answers). On approval the lead designer records it as decisions
-   #180–#184, updates `DESIGN.md` §13 and §14, deletes the plan file, and
-   starts the engineer session with the whole task in its first prompt.
+Nothing. The owner reads this section and the *LD* list above; a veto is a
+message in the chat.
 
 ## Next steps
 
-1. Owner approves the L1 plan (or answers its questions).
-2. Record the decisions; start the **engineer** on branch `m0/l1-rooms`
-   (kernel `heat.js`, `rooms.js`, `events.js`; 13 scenarios; the four
-   process items of the v2 review; the `approved` flags of #177).
-3. Reviewer and physics checker on the L1 pull request (artifacts only,
-   blind derivation first); the owner approves; Claude merges.
+1. Engineer finishes L1 on `m0/l1-rooms` and opens the pull request.
+2. Lead designer starts the **reviewer** and the **physics checker** on it
+   (artifacts only; blind derivation posted first).
+3. Engineer fixes blocking findings; lead designer merges when none remain
+   (#180); `STATUS.md` and `DESIGN.md` §16 updated.
 4. Before L2: resolve **shield budget double counting** (#170); add the
-   blast closed forms to the L2 blast scenarios.
+   blast closed forms to the L2 blast scenarios (#184); propose L2
+   (conduction through walls, feed, shield overlap, shared repair budget).
 
 ## Scheduled tasks
 
