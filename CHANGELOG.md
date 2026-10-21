@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.6.4 — 2026-10-21 — Export and replay for the feel prototype (#217, #224), throwaway
+
+- `proto/`: an **Export** button in the top bar and on the end panel. It
+  pauses the battle and copies one line of JSON (version, seed, loadout,
+  the player's inputs by step, where the battle stands, the event count and
+  hash, a per-room summary of first hot, overheated and wrecked), with a
+  selectable text box when the phone's clipboard refuses. About 10 kB for a
+  15-minute battle with one input a second.
+- `proto/replay.mjs` (new): rebuilds the battle headless from an export,
+  prints the full event log and each room's temperature peak (`--every S`:
+  temperature, integrity and shields every S seconds), and checks the end
+  and the event hash: MATCH or MISMATCH. `proto/export.js` (new) holds the
+  export and its hash for both.
+- `proto/smoke.mjs` changes target, switches presets, exports mid-battle
+  and at the end, and requires MATCH from `replay.mjs` on both. No change
+  to `js/`, `tools/`, `mission0/` or `data.js`.
+
 ## 0.6.3 — 2026-10-21 — The feel prototype's loadout panel (#217, #223), throwaway
 
 - `proto/`: a loadout panel before each battle and from Restart, applied to

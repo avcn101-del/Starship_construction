@@ -86,6 +86,11 @@ export const TIER = 'T1';
 // which row of the aimed room a round flies along).
 export const SEED = 20261021;
 
+// Prototype setting: the version written in an export (proto/export.js). There is no build step to stamp a git hash,
+// so it is a constant: change it whenever proto/ or js/ changes what a battle does, so proto/replay.mjs can tell an
+// export of another version.
+export const PROTO_VERSION = 'feel-2';
+
 // Prototype setting: the three presets (13h.2). Fire: beam and turret on
 // the target, shield on, engine half. Cool: weapons off, shield off, engine
 // off. Evade: engine full, RCS turning, weapons hold; 13h.2 does not say

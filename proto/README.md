@@ -64,6 +64,34 @@ physics):
   thrust for 10 s, #82) or destroyed (its reactor or magazine explodes), and
   shows the time, crew lost and rooms wrecked.
 
+## Export and replay
+
+- **Export** (top bar during a battle, and on the end panel) pauses the
+  battle and builds one line of JSON: the version (`PROTO_VERSION` in
+  `config.js`; there is no build step to stamp a git hash), the seed, the
+  loadout, every input of the player with its step number, where the battle
+  stands (ended or not, step, time, losers and reason, crew lost and rooms
+  wrecked per side), the number of events and their hash, and a per-room
+  summary ([first hot, first overheated, wrecked] in s, rooms that got hot
+  or worse). It copies the text to the clipboard and says "copied"; if the
+  phone refuses, it says so and the text stays selected in a box to copy by
+  hand. **Close** resumes. Inputs are tokens such as `5400Pc 5460TbeamBay`
+  (Cool at step 5400, then target the beam bay); about 10 kB for a
+  15-minute battle with one input every second.
+- `node proto/replay.mjs <file.json> [--every S] [--quiet]` rebuilds the
+  battle headless from the seed, loadout and inputs, runs it to the
+  exported step, prints the full event log (time, side, room, type, cause,
+  crew and the event's other fields; the player's inputs inline) and each
+  room's temperature peak, then compares the end and the event hash with
+  the export: **MATCH** (exit 0) or **MISMATCH** (exit 1). `--every 1`
+  also prints each room's temperature and integrity and each shield's state
+  once per simulated second. Text around the JSON (a pasted message) is
+  ignored.
+- The hash folds every event's JSON, after every tick, in the order the
+  battle emits them; it is not `measure.mjs`'s SHA-256. Bump
+  `PROTO_VERSION` whenever `proto/` or `js/` changes what a battle does:
+  replay warns when the export's version differs from the checkout's.
+
 ## Read the view
 
 - Each room's colour is its temperature against its own thresholds: dark
@@ -127,12 +155,16 @@ Each is marked `STAND-IN` in the code.
 - `NODE_PATH=/opt/node-tools/node_modules node proto/smoke.mjs`: Playwright
   at 844 × 390 with touch; chooses a non-default loadout (AP full, armour 1,
   R1-B, shield 20 MW, hits 5) and starts, taps a target, cycles the presets,
-  runs ×4 to the end or 6 simulated minutes, checks Restart brings the
-  panel back; fails on any console error or a visible button under 44 px;
-  writes `proto/screens/loadout.png`, `start.png` and `end.png`.
+  runs ×4 to the end or 6 simulated minutes (on the way: target the turret
+  at 8 s, Cool at 12 s, Fire at 16 s, Export from the top bar at 20 s),
+  exports again at the end, runs `replay.mjs` on both exports (each must
+  print MATCH), checks Restart brings the panel back; fails on any console
+  error, a visible button under 44 px or a MISMATCH; writes
+  `proto/screens/loadout.png`, `start.png`, `export.png` and `end.png`.
 
 ## Files
 
 `index.html`, `proto.css`, `proto.js` (the page), `battle.js` (the battle,
-no DOM), `config.js` (every prototype setting), `measure.mjs`, `smoke.mjs`,
+no DOM), `export.js` (the export and its event hash, no DOM), `config.js`
+(every prototype setting), `measure.mjs`, `replay.mjs`, `smoke.mjs`,
 `screens/`.

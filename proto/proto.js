@@ -5,8 +5,9 @@
 // throwaway: it only reads the kernel's state and never counts as a Mission 0
 // result. No Math.random: the page draws no random effect.
 import { createBattle, tick, setTarget, setPreset, drainEvents, abilities } from './battle.js';
+import { createRecorder, record, exportText } from './export.js';
 import { isDestroyed, roomTemperature, survivingFraction } from '../js/rooms.js';
-import { PRESETS, PRESET_ORDER, SPEEDS, MAX_STEPS_PER_FRAME, LOG_LINES, COLOURS, LABELS, STAND_INS, SEPARATION, DISABLED_SECONDS, LOADOUT, LOADOUT_ORDER, defaultLoadout } from './config.js';
+import { PRESETS, PRESET_ORDER, SPEEDS, MAX_STEPS_PER_FRAME, LOG_LINES, COLOURS, LABELS, STAND_INS, SEPARATION, DISABLED_SECONDS, LOADOUT, LOADOUT_ORDER, defaultLoadout, SEED } from './config.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view'), ctx = canvas.getContext('2d');
@@ -15,6 +16,8 @@ const GAP = 4; // cells of screen between the ships (900 m is not drawn to scale
 // GW x GH: the drawn grid of a ship (its layout plus the armour belt), set when a battle starts.
 let battle = null, GW = 0, GH = 0, speed = 1, paused = false, choosing = true, acc = 0, last = null, geo = null;
 let loadout = defaultLoadout();
+// rec: the battle's recorder (proto/export.js), fed every tick's events; logged: events waiting for the log.
+let rec = null, logged = [], lastExport = null, pausedBeforeExport = false;
 
 // ---------- controls ----------
 function buttons() {
@@ -32,6 +35,9 @@ function buttons() {
   }));
   $('pause').addEventListener('click', () => { paused = !paused; refreshButtons(); });
   $('restart').addEventListener('click', chooseLoadout);
+  $('export').addEventListener('click', openExport);
+  $('export-close').addEventListener('click', closeExport);
+  $('export-copy').addEventListener('click', () => copyExport());
   $('loadout-groups').replaceChildren(...LOADOUT_ORDER.map((k) => {
     const g = document.createElement('div'), h = document.createElement('div'), row = document.createElement('div');
     g.className = 'lo-group'; h.className = 'lo-label'; h.textContent = LOADOUT[k].label; row.className = 'group'; row.setAttribute('role', 'group'); row.setAttribute('aria-label', LOADOUT[k].label);
@@ -66,6 +72,7 @@ function loadoutTag(lo) {
 }
 /** The loadout panel: shown before the first battle and from Restart; the battle behind it stops. */
 function chooseLoadout() {
+  closeExport();
   choosing = true;
   refreshLoadout();
   $('end').hidden = true;
@@ -73,7 +80,8 @@ function chooseLoadout() {
 }
 
 function start() {
-  battle = createBattle({ loadout });
+  battle = createBattle({ seed: SEED, loadout });
+  rec = createRecorder(battle); logged = [];
   GW = battle.width; GH = battle.player.size[1];
   choosing = false; acc = 0; last = null; paused = false;
   $('loadout').hidden = true;
@@ -242,7 +250,8 @@ function draw() {
 // ---------- log ----------
 const BIG = new Set(['explosion', 'scram', 'shutdown', 'control-lost', 'crew-died', 'cell-destroyed', 'meltdown', 'breach', 'cook-off', 'shield-down']);
 function logEvents() {
-  const evs = drainEvents(battle).filter((e) => e.type !== 'shot'); // shots are drawn as rounds
+  const evs = logged.filter((e) => e.type !== 'shot'); // shots are drawn as rounds
+  logged = [];
   if (!evs.length) return;
   const log = $('log'), stick = log.scrollTop + log.clientHeight >= log.scrollHeight - 4;
   for (const e of evs.slice(-LOG_LINES)) {
@@ -268,7 +277,9 @@ function showEnd() {
     <table><tr><th></th><th>Crew lost</th><th>Rooms wrecked</th></tr>${row('player')}${row('enemy')}</table>`;
   const b = document.createElement('button');
   b.type = 'button'; b.textContent = 'Restart'; b.addEventListener('click', chooseLoadout);
-  el.prepend(b);
+  const x = document.createElement('button');
+  x.type = 'button'; x.id = 'end-export'; x.textContent = 'Export'; x.addEventListener('click', openExport);
+  el.prepend(b, x);
   el.hidden = false;
 }
 
@@ -293,7 +304,12 @@ function frame(now) {
     acc += real * speed;
     let n = Math.min(MAX_STEPS_PER_FRAME * speed, Math.floor(acc / battle.dt + 1e-9));
     acc -= n * battle.dt;
-    while (n-- > 0 && !battle.ended) tick(battle);
+    while (n-- > 0 && !battle.ended) {
+      tick(battle);
+      const evs = drainEvents(battle); // after every tick, as proto/replay.mjs does, so the hashes agree
+      record(rec, evs);
+      for (const e of evs) logged.push(e);
+    }
     if (acc > 4 * battle.dt * speed) acc = 0; // a slow phone drops time rather than spiral
     logEvents();
     if (battle.ended) showEnd();
@@ -302,10 +318,41 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 
+// ---------- export (proto/export.js): one JSON text for proto/replay.mjs ----------
+/** Build the export of the battle as it stands, pause it, show it and copy it. */
+function openExport() {
+  if (!battle || choosing) return;
+  if ($('export-panel').hidden) pausedBeforeExport = paused;
+  paused = true; refreshButtons();
+  lastExport = exportText(battle, rec);
+  const box = $('export-text');
+  box.value = lastExport;
+  $('export-status').textContent = `${(lastExport.length / 1024).toFixed(1)} kB, step ${battle.steps}`;
+  $('export-panel').hidden = false;
+  copyExport();
+}
+function closeExport() {
+  if ($('export-panel').hidden) return;
+  $('export-panel').hidden = true;
+  paused = pausedBeforeExport; refreshButtons();
+}
+/** Copy to the clipboard; a phone's clipboard can refuse, so the text stays in a selectable box. */
+async function copyExport() {
+  const box = $('export-text'), status = $('export-status'), size = `${(lastExport.length / 1024).toFixed(1)} kB`;
+  let ok = false;
+  try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(lastExport); ok = true; } } catch { ok = false; }
+  if (!ok) {
+    box.focus(); box.select(); box.setSelectionRange(0, lastExport.length);
+    try { ok = document.execCommand('copy'); } catch { ok = false; }
+  }
+  status.textContent = ok ? `copied (${size})` : `not copied: select the text below and copy it (${size})`;
+}
+
 // For the smoke test: read-only access and the screen rectangle of a room.
 window.__proto = {
   get battle() { return battle; },
   get choosing() { return choosing; },
+  get lastExport() { return lastExport; },
   roomCentre(side, id) {
     const r = canvas.getBoundingClientRect(), [x, y, w, h] = roomRect(battle[side], id);
     return [r.left + x + w / 2, r.top + y + h / 2];

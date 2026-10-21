@@ -17,6 +17,7 @@
     <div class="group">
       <button id="pause" type="button">Pause</button>
       <button id="restart" type="button">Restart</button>
+      <button id="export" type="button">Export</button>
     </div>
     <div id="lo-tag" aria-label="Loadout"></div>
     <div id="clock">0:00</div>
@@ -46,6 +47,16 @@
     <div id="loadout-groups"></div>
     <div id="loadout-note">Shield budget and hits to wreck are run-time overrides of js/data.js within their approved ranges. Bow armour is a STAND-IN (see the list). Turrets off: the beam-only probe.</div>
   </div>
+</div>
+<div id="export-panel" hidden>
+  <div id="export-head">
+    <h2>Export</h2>
+    <span id="export-status"></span>
+    <button id="export-copy" type="button">Copy</button>
+    <button id="export-close" type="button">Close</button>
+  </div>
+  <div id="export-note">Send this text to the lead designer: proto/replay.mjs replays the battle from it. The battle is paused.</div>
+  <textarea id="export-text" readonly spellcheck="false" aria-label="Export text"></textarea>
 </div>
 <script type="module" src="proto.js"></script>
 </body>

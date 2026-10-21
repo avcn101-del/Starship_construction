@@ -108,7 +108,7 @@ export function createBattle({ seed = SEED, overrides = {}, scripted = { player:
   const { A } = roundGeometry(mass, FIXED.steelDensity.value, FIXED.roundLengthToDiameter.value);
   const aperture = edge / 2;
   const battle = {
-    params, loadout: lo, player, enemy, ships: [player, enemy], scripted, beamOnly: beamOnly || lo.turrets === false, dt: player.world.dt, t: 0, steps: 0,
+    seed, params, loadout: lo, player, enemy, ships: [player, enemy], scripted, beamOnly: beamOnly || lo.turrets === false, dt: player.world.dt, t: 0, steps: 0,
     round: { mass, velocity, area: A },
     // STAND-IN beam geometry: the fraction of the beam's power that lands on one cell at the stations' distance (L0's Gaussian beam).
     beamFraction: beamDeliveredFraction(SEPARATION, scaled(params.beam.focusRange, edge), aperture, FIXED.beamWaistPerHalfCell.value * aperture),
