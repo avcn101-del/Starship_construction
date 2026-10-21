@@ -99,14 +99,17 @@ export const PARAMS = {
     magazineHot: P(330, 320, 350, 0, 'K', true, 'magazine (#182, #183)'),
     magazineOverheated: P(350, 340, 380, 0, 'K', true, 'magazine (#182, #183)'),
     magazineCritical: P(450, 400, 500, 0, 'K', true, 'magazine cook-off (#91, #182, #183)'),
-    specificHeat: P(600, 400, 900, 0, 'J/(kg*K)', true, 'a cell\'s mass is its heat capacity / this: 1 t per M cell at T1, a steel-and-aluminium structure (#202 E, #208, #210)'),
+  },
+  // Structural mass (#221): a cell's mass no longer follows its heat capacity.
+  structure: {
+    cellMass: P(1e4, 3e3, 3e4, 3, 'kg', true, 'one M cell at T1: 80 kg/m^3 over a 5 m cube, a light warship (a 250-cell corvette is about 2500 t); a heat sink cell adds the water of its extra capacity (#221)'),
   },
   radiator: {
     area: P(25, 10, 100, 2, 'm^2', true, 'one panel per hull segment; radiates emissivity x sigma x area x T^4 of its room (#143, #183)'),
     mass: P(250, 100, 1000, 2, 'kg', true, 'one panel, 10 kg/m^2 like an ISS radiator; at its edge\'s midpoint (#208, #210)'),
   },
   rcs: {
-    force: P(1e5, 3e4, 5e5, 2, 'N', true, 'one RCS fitting while fired, along its edge\'s inward normal at the edge\'s midpoint (#15, #208, #210)'),
+    force: P(1e6, 3e5, 5e6, 2, 'N', true, 'one RCS fitting while fired, along its edge\'s inward normal at the edge\'s midpoint; re-tuned 100 kN -> 1 MN for ships of real density: a 2500 t corvette turns 90 degrees in about 10 s on two couples 60 m out (#15, #208, #210, #221)'),
     powerDraw: P(2e5, 5e4, 1e6, 2, 'W', true, 'while fired, from its host room; x engine.heatFraction is heat in the host (#208, #210)'),
     mass: P(200, 50, 1000, 3, 'kg', true, 'one RCS fitting, at its edge\'s midpoint (#208, #210)'),
   },
@@ -123,7 +126,7 @@ export const PARAMS = {
     efficiency: P(0.4, 0.2, 0.8, 0, '', true, 'draw = beam power / efficiency; the rest is heat (#183)'),
   },
   engine: {
-    thrust: P(2e6, 5e5, 8e6, 2, 'N', true, 'one engine, a self-fuelled torch; re-tuned 8 -> 2 MN for ships of #202 E\'s mass: a 250 t corvette with two reaches 1.6 g (#54, #183, #203 A, #210)'),
+    thrust: P(1.5e7, 4e6, 6e7, 2, 'N', true, 'one engine, a self-fuelled torch; re-tuned 2 -> 15 MN for ships of real density: a 2500 t corvette with two reaches about 1.2 g (#54, #183, #203 A, #210, #221)'),
     powerDraw: P(1e7, 2e6, 4e7, 2, 'W', true, 'at full throttle; ships have no propellant (#140, #183)'),
     heatFraction: P(0.3, 0.1, 1, 0, '', true, 'heat per watt drawn (#183)'),
   },
@@ -200,9 +203,8 @@ export const ROOMS = {
   reactor: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.reactor', power: 'reactor.power' },
   engine: { footprint: { M: [2, 3] }, placement: 'aft hull, exhaust clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.engine', draw: 'engine.powerDraw' },
   magazine: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'magazine', loop: 'passive', lifeSupport: true, crew: 'crewRequired.magazine' },
-  // fittings: true is the engineer's reading of 13f.2 against 13f.1 (a question in the L3 pull request):
-  // R1 puts six radiators on its shield generator, which 13f.1 lists as inside (no fitting).
-  shieldGenerator: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', fittings: true, thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.shieldGenerator', draw: 'shield.powerDraw' },
+  // A plant room that may carry fittings, placed anywhere (#219 (1), #222 (2)).
+  shieldGenerator: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.shieldGenerator', draw: 'shield.powerDraw' },
   quarters: { footprint: { M: [3, 2] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'housed', draw: 'quarters.powerDraw' },
   beamBay: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.beamBay', draw: 'beam.power / beambay.efficiency' },
   turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.turret', draw: 'turret.powerDraw' },

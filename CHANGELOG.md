@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.0 — 2026-10-21 — Mission 0: the mass pass, ships of real density (#221, #222)
+
+- Data (#221, the owner; ranges by the lead designer): new
+  `structure.cellMass` 1e4 kg per M cell at T1 (3e3–3e4 kg, k=3);
+  `thermal.specificHeat` removed; `engine.thrust` 2 → 15 MN (4–60 MN, k=2);
+  `rcs.force` 100 kN → 1 MN (0.3–5 MN, k=2); all approved.
+  `ROOMS.shieldGenerator` is placed `anywhere` instead of carrying the
+  `fittings` override (#219 (1), #222 (2)).
+
 ## 0.5.1 — 2026-10-21 — L3 merged; reviewer answers (#222)
 
 - L3 (PR #35, head `f8d31c6`) merged into `main` after the physics checker
