@@ -7,15 +7,18 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#211, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#212, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` on `main`: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
   checker 2.82, reviewer 1.34). The reviewer found no blocking defect; its
   three findings are answered by #207 (life support under routing is fixed
   in the D pass, scenario D5).
-- **Next: the D pass** (`DESIGN.md` §13e, #206, #207) on `m0/d-damage`,
-  being built. **The L3 plan is written** (`DESIGN.md` §13f, #208–#211);
+- **The D pass** (`DESIGN.md` §13e, #206, #207, #212): PR #24 on
+  `m0/d-damage`, head `36a3a1d`: D1–D4 PASS, `regress` 44 VERIFIED + 7
+  WITHDRAWN; D5 FAILed on a tolerance the lead designer set under the
+  kernel's Euler error (#212): withdrawn, successor D5b, plus a new
+  `L2.blast.split` (D6); a fix engineer session builds both. **The L3 plan is written** (`DESIGN.md` §13f, #208–#211);
   L3 starts after the D pass merges.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
@@ -41,7 +44,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| (to come) D pass | `m0/d-damage` → `main` | engineer `session_012PgbFfMKtgaDjSpVz451eZ` (opus) building it since 07:57 UTC |
+| #24 Mission 0 D pass | `m0/d-damage` → `main` | head `36a3a1d`; answers in #212; fix engineer session building D5b and D6 |
 
 L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
@@ -53,6 +56,10 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #212: answers to the D-pass engineer (D5 withdrawn for the lead
+  designer's tolerance error, successor D5b; new `L2.blast.split`; blast
+  kills crew in proportion; a destroyed cell resists no round, built at
+  L3).
 - #208–#211: the L3 plan (cell mass from heat capacity, rigid body,
   debris and fragments, control, validation, reference ship R1, 8
   scenarios with estimates; `engine.thrust` re-tuned 8 → 2 MN; new RCS,
@@ -123,7 +130,7 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, L2 heat v2 and heat sink | session_011dfRdXfFAYsLmAY2C9a6Qg | opus-5-5 | 8.25 |
 | Physics checker, L2 | session_01KdLbYYddDJgStcfriEdqsv | sonnet-5-5 | 2.82 |
 | Reviewer, L2 | session_01AKKABP9PxiAjtEkN1wcowa | sonnet-5-5 | 1.34 |
-| Engineer, D pass | session_012PgbFfMKtgaDjSpVz451eZ | opus-5-5 | running |
+| Engineer, D pass (PR #24) | session_012PgbFfMKtgaDjSpVz451eZ | opus-5-5 | 7.83 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -164,6 +171,10 @@ Sessions have reported a **seven-day usage limit warning**.
 - Sense-check every new mechanic against real magnitudes before it is
   locked (#200, #202): the first heat model passed its tests and was still
   about 160 times too harsh.
+- Check every tolerance against the kernel's own step error before
+  locking it (#212: D5's 1e-6 K sat under a 5e-5 K Euler error; #201 (2)
+  was the same mistake). Absolute temperature tolerances below 1e-4 K are
+  suspect.
 - `node tools/m0.js regress` takes several minutes since L2: give it a long
   timeout or run it in the background.
 - Documentation changes go through a pull request from the lead
