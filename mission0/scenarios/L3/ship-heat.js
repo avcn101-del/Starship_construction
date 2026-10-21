@@ -246,7 +246,7 @@ export default {
   tolerance: 'books 1e-9 relative; readout 1e-12 relative; event times 1e-3 relative to the reference, the same events in the same order per room; crewed rooms\' peak <= setpoint + 0.01 K',
   criterion: 'heat books per room and per ship 1e-9; the readout\'s heat balance (the generation of the load) and radiator capacity at plant hot (17 panels: 2.81 MW) exact; event times (hot, overheated, restart; critical) against the scenario\'s reference integrator, which carries every L1, L2 and D-pass rule over the whole run, 1e-3: estimates idle none (plant rooms near 300 K), cruise hot at 509 s (shield generator), 513 s (reactor), 550 s (engine), nothing overheated in 900 s (reactor peak ~743 K), battle beam bay hot at 103 s and overheated at 178 s (outside the loop), reactor hot at 157 s, later events after the beam bay\'s shutdown left to the reference; crewed rooms <= 295.01 K while life support runs (#205 (8)) (#143, #182, #200, #201, #205, #209)',
   tunable: ['thermal.heatCapacityPerCell', 'radiator.area', 'conduction.wall', 'conduction.passive', 'lifeSupport.capacityPerCell', 'heatsink.capacityFactor', 'heatsink.conductivityFactor', 'reactor.decayFraction', 'reactor.decayTime', 'shield.powerDraw', 'engine.powerDraw', 'engine.heatFraction', 'beam.power', 'beambay.efficiency', 'bridge.powerDraw', 'quarters.powerDraw'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '384c519b' },
   cases() {
     return Object.keys(LOADS).map((load) => ({ load }));
   },

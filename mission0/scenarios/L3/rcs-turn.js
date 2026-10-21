@@ -159,7 +159,7 @@ export default {
   tolerance: 'alpha 1e-9 relative; the turn time one-sided on the step grid (T <= t < T + dt, 1e-9 relative float slack); |omega| <= alpha dt (1e-9 relative slack); readout 1e-12 relative',
   criterion: 'alpha = sum r x F / I (estimate 0.381 rad/s^2, arms 50 m); the turn takes T = 2 sqrt(theta / alpha) (estimate 4.06 s), one-sided on the step grid; final |omega| <= alpha dt; the readout\'s angular acceleration and turn time exact (#15, #58, #208, #209, #210)',
   tunable: ['rcs.force', 'thermal.heatCapacityPerCell', 'thermal.specificHeat', 'radiator.mass', 'rcs.mass'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'b2c4ea93' },
   cases() {
     return [{ turn: 'ccw' }, { turn: 'cw' }];
   },

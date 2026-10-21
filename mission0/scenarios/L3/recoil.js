@@ -151,7 +151,7 @@ export default {
   tolerance: 'ship momentum change against the rounds\' momenta 1e-12 relative to the rounds\' total; delta omega per shot 1e-9 relative; fixture delta v 1e-12 relative, delta omega 1e-12 relative (1e-15 rad/s absolute through the centre of mass)',
   criterion: 'ship momentum change = -sum of round momenta (1e-12); delta omega per shot = (r x p) / I with p = -m u d the recoil at the turret\'s centre and r and I from the cell sums after that round has left (the store refilled before every shot, the magazine one round less per earlier shot) (1e-9); estimates 0.092 m/s and 0.34 deg/s per broadside shot, 6.8 deg/s after 20, 0.18 deg/s per forward shot; the fixture 0.48 m/s and 0.55 deg/s (0 through the centre of mass); the measured numbers go to DESIGN.md 16 for E4 (#5, #203 C, #208, #209)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'turret.fireRate', 'ammo.wallFeed', 'thermal.heatCapacityPerCell', 'thermal.specificHeat', 'radiator.mass', 'rcs.mass'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '60e2e893' },
   cases() {
     const out = [];
     for (const aim of ['broadside', 'forward']) for (const N of [1, 5, 20]) out.push({ aim, N });

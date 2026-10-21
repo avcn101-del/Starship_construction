@@ -166,7 +166,7 @@ export default {
   tolerance: 'conservation 1e-9 relative; each fragment\'s v and omega 1e-9 relative to the parent\'s speed at that point (omega relative)',
   criterion: 'two fragments (stern ~17 t of cells: engine, reactor, shield generator, half the heat sink; bow ~25 t: the bridge\'s other half, magazine, quarters, turret, beam bay, hold) and the 4 cells as debris (~5 t; the radiator on heat sink cell (4,5) leaves with its cell); mass, momentum, angular momentum about the origin and kinetic energy conserved at the cut (1e-9) and through the flight after it; each fragment\'s v and omega equal the parent\'s velocity field at its centre of mass (stern ~(10.10, -0.68) m/s, bow ~(9.95, 0.56) m/s from the cells alone), the fragments\' masses from the cell sums (13f.1) (#13, #208, #209)',
   tunable: ['thermal.heatCapacityPerCell', 'thermal.specificHeat', 'heatsink.capacityFactor', 'radiator.mass', 'rcs.mass'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '35d9b858' },
   cases() {
     return [{ tier: 'T1' }, { tier: 'T6' }];
   },

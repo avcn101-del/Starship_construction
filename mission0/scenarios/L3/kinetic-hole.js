@@ -27,7 +27,7 @@ export default {
   tolerance: 'integrity and losses relative 1e-9 (1e-12 absolute at 0); counts exact; momentum books relative 1e-12',
   criterion: 'the destroyed cell takes nothing from the round (absorbs 0) and loses no integrity; every other cell resists R = room.kineticResistance, a passed cell losing 1 / kinetic.hitsToWreck, the stopping cell (s_left / R) / hitsToWreck (D pass); with depth d = s0 / R the round stops in cell floor(d) + 1 of the intact line (cell 11 at T1) and one cell deeper with the hole (cell 12), with the same stopping loss; deaths by the floor rule, floor(crew x (cells - sum of integrity) / cells); s0 = sum absorbed + residual (#206, #208, #212 (5), #216)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'kinetic.hitsToWreck', 'room.kineticResistance', 'quarters.crewPerCell'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'f9f796a5' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T6']) for (const line of ['intact', 'hole']) out.push({ tier, line });

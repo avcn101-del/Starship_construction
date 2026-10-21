@@ -178,7 +178,7 @@ export default {
   tolerance: '(a) acceleration 1e-9 relative, omega 1e-12 rad/s absolute; (b) omega 1e-9 relative at every step, position (relative to the reference displacement) and heading (relative to the reference heading) 1e-6 at every sample; readout 1e-12 relative',
   criterion: '(a) a = F / M to 1e-9 and omega = 0 to 1e-12 (thrust through the centre of mass); (b) omega(t) = alpha t with alpha = F d / I (d: the thrust line, the centre of the exhaust face, below the centre of mass; estimate 0.224 rad/s^2, 12.9 deg/s^2) to 1e-9, position and heading against the reference integrator within 1e-6; the readout\'s acceleration = F / (M g) exact (estimate 3.90 g for R1 at 2 MN) (#14, #203 A, #208, #209, #210)',
   tunable: ['engine.thrust', 'thermal.heatCapacityPerCell', 'thermal.specificHeat', 'radiator.mass', 'rcs.mass'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'f8844599' },
   cases() {
     return [{ ship: 'symmetric' }, { ship: 'R1' }];
   },

@@ -167,7 +167,7 @@ export default {
   tolerance: 'exact',
   criterion: 'R1 valid; every variant rejected with exactly one reason, its rule\'s (connected, hull, exhaust, fitting-inside, fitting-per-edge, overlap, grid); inside rooms (bridge, reactor, magazine, quarters; the shield generator by the reading of 13f.2, a question in the pull request) carry no fitting and may touch the hull (#15, #57, #208)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-21', hash: 'dc386731' },
   cases() {
     return Object.keys(VARIANTS).map((variant) => ({ variant }));
   },

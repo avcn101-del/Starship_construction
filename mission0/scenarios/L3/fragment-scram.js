@@ -158,7 +158,7 @@ export default {
   tolerance: 'decay heat and scram energy 1e-9 relative; delivered power 1e-9 relative; times exact (the event at the cut)',
   criterion: '(split) the stern reactor SCRAMs at the cut (event \'scram\', cause the hit that destroyed the splitting cell), having delivered the routed requests (shield.powerDraw + engine.powerDraw / 2 + quarters.powerDraw + turret.powerDraw = 7.25 MW); its decay heat follows L1: energy f h P tau at the event, f h P tau (1 - e^(-t / tau)) by t (1e-9); the stern engine\'s thrust is 0 and the shield goes down; the bow bridge keeps control on its backup and its life support runs, while the quarters\', magazine\'s and turret\'s stop (#207) and pump nothing more; (kept) two bodies, no scram, the reactor still delivers 7.25 MW, thrust and shield go on; (bridge) every reactor SCRAMs at the last bridge cell (cause that hit), thrust stops, one body; (through rooms) the quarters keep life support and pump heat into the heat sink; (demand 0) a reactor switched on at demand 0 supplies none: the quarters, magazine and turret pump nothing, the bridge keeps its own (#13, #81, #82, #147, #207, #208, #216)',
   tunable: ['reactor.decayFraction', 'reactor.decayTime', 'reactor.heatPerPower', 'reactor.power', 'shield.powerDraw', 'engine.powerDraw', 'quarters.powerDraw', 'turret.powerDraw', 'lifeSupport.capacityPerCell'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '48ea595c' },
   cases() {
     return [{ cut: 'split' }, { cut: 'kept' }, { cut: 'bridge' }, { cut: 'through rooms', demand: DEMAND }, { cut: 'demand 0', demand: 0 }];
   },
