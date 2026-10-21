@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.5 — 2026-10-21 — The feel prototype merged (PR #42); protection is mass (#232, #233)
+
+- `proto/` merged after a light review with no blocking finding (#233).
+- The owner's decision #232: a cell resists in proportion to its mass on
+  the path; room types get their real cell mass (§13i to be revised).
+
 ## 0.6.4 — 2026-10-21 — The path model planned (#230, #231)
 
 - The owner's decisions on the path model (#230): rounds are damaged by
@@ -20,6 +26,50 @@
 - `DESIGN.md` §2: every interaction is symmetric (the owner, #228).
 - `DESIGN.md` §13h.4: what the first prototype build showed; loadout panel
   and Export / replay.
+## proto feel-2b — 2026-10-21 — Export and replay for the feel prototype (#217, #224), throwaway
+
+- `proto/`: an **Export** button in the top bar and on the end panel. It
+  pauses the battle and copies one line of JSON (version, seed, loadout,
+  the player's inputs by step, where the battle stands, the event count and
+  hash, a per-room summary of first hot, overheated and wrecked), with a
+  selectable text box when the phone's clipboard refuses. About 10 kB for a
+  15-minute battle with one input a second.
+- `proto/replay.mjs` (new): rebuilds the battle headless from an export,
+  prints the full event log and each room's temperature peak (`--every S`:
+  temperature, integrity and shields every S seconds), and checks the end
+  and the event hash: MATCH or MISMATCH. `proto/export.js` (new) holds the
+  export and its hash for both.
+- `proto/smoke.mjs` changes target, switches presets, exports mid-battle
+  and at the end, and requires MATCH from `replay.mjs` on both. No change
+  to `js/`, `tools/`, `mission0/` or `data.js`.
+
+## proto feel-2a — 2026-10-21 — The feel prototype's loadout panel (#217, #223), throwaway
+
+- `proto/`: a loadout panel before each battle and from Restart, applied to
+  both ships alike and shown in the corner during the battle: magazine (HE
+  full, AP full, HE half, AP quarter, by mass), bow armour (none, 1, 2
+  cells; a `STAND-IN` by L0's penetration and burn rules), layout (R1 or
+  R1-B, checked with the kernel's `validateShip`), shield budget (10, 5,
+  20 MW) and hits to wreck (3, 5) as run-time overrides within their
+  approved ranges, turrets on or off. Defaults give the same event hash as
+  before.
+- `proto/measure.mjs` takes the loadout as flags and prints the event hash
+  and what destroyed a ship; `proto/smoke.mjs` also drives the panel and
+  saves `proto/screens/loadout.png`.
+- `main` merged in (the mass pass, #225, #226). No change to `js/`,
+  `tools/`, `mission0/` or `data.js`.
+
+## proto feel-1 — 2026-10-21 — The feel prototype (#217, #224), throwaway
+
+- `proto/` (new, DESIGN.md §13h): a canvas page of two R1s at 900 m on the
+  unchanged L3 kernel and the mass pass's masses: tap an enemy room to
+  target it, presets Fire / Cool / Evade, time ×1/×2/×4, a seeded scripted
+  enemy, the end at Disabled (#82) or destruction. Every kernel import uses
+  `../js/`; prototype settings live in `proto/config.js`; every stand-in is
+  marked `STAND-IN` in code and listed on screen. Never a Mission 0 result.
+- `proto/measure.mjs`: one R1-versus-R1 battle headless, both sides
+  scripted. `proto/smoke.mjs`: Playwright at 844 × 390, zero console errors.
+- No change to `js/`, `tools/`, `mission0/` or `data.js`.
 
 ## 0.6.1 — 2026-10-21 — The mass pass merged; answers (#225, #226)
 

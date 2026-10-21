@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Duct Tape Navy feel prototype</title>
+<link rel="stylesheet" href="proto.css">
+</head>
+<body>
+<!-- Throwaway feel prototype (DESIGN.md 13h, #217, #224). Never a Mission 0 result. -->
+<div id="rotate">Turn the phone sideways: the battle is landscape.</div>
+<div id="app">
+  <header id="bar">
+    <div class="group" id="presets" role="group" aria-label="Preset"></div>
+    <div class="group" id="speeds" role="group" aria-label="Time"></div>
+    <div class="group">
+      <button id="pause" type="button">Pause</button>
+      <button id="restart" type="button">Restart</button>
+      <button id="export" type="button">Export</button>
+    </div>
+    <div id="lo-tag" aria-label="Loadout"></div>
+    <div id="clock">0:00</div>
+  </header>
+  <main id="main">
+    <div id="stage">
+      <canvas id="view"></canvas>
+      <div id="hint">Tap an enemy room to target it.</div>
+      <div id="end" hidden></div>
+    </div>
+    <aside id="side">
+      <div id="log" aria-live="off"></div>
+      <details id="standins" open>
+        <summary>STAND-INS</summary>
+        <ul id="standin-list"></ul>
+      </details>
+    </aside>
+  </main>
+</div>
+<div id="loadout" hidden>
+  <div id="loadout-box">
+    <div id="loadout-head">
+      <h2>Loadout <span>both ships alike</span></h2>
+      <button id="loadout-default" type="button">Defaults</button>
+      <button id="loadout-start" type="button">Start</button>
+    </div>
+    <div id="loadout-groups"></div>
+    <div id="loadout-note">Shield budget and hits to wreck are run-time overrides of js/data.js within their approved ranges. Bow armour is a STAND-IN (see the list). Turrets off: the beam-only probe.</div>
+  </div>
+</div>
+<div id="export-panel" hidden>
+  <div id="export-head">
+    <h2>Export</h2>
+    <span id="export-status"></span>
+    <button id="export-copy" type="button">Copy</button>
+    <button id="export-close" type="button">Close</button>
+  </div>
+  <div id="export-note">Send this text to the lead designer: proto/replay.mjs replays the battle from it. The battle is paused.</div>
+  <textarea id="export-text" readonly spellcheck="false" aria-label="Export text"></textarea>
+</div>
+<script type="module" src="proto.js"></script>
+</body>
+</html>

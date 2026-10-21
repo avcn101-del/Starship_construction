@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#231, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#233, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -67,7 +67,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| #42 Feel prototype | `proto/feel` → `main` | head `c1282d8`; published; light reviewer `session_01FHeYxhXNqrCLrjyT1kpwia` (sonnet) running; check-in `trig_012TJoAPzegxXek1NmWJiovT` 15:28 UTC |
+| (to come) Path model | `m0/path` → `main` | engineer `session_01GVBq5ohYZDDfg15HAkHm71` (opus) **paused** (#232): §13i is revised (mass per room type) before it resumes |
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
@@ -121,18 +121,26 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-Nothing (the owner decided E8, #213, and the magazine wording, #215).
+- **The beam's accelerator** (found while sourcing #232): real proton linacs
+  give about 6 MeV/m (ESS: 90 MeV in 50 m, then 2 GeV in 312 m), so 400 MeV
+  needs 20–100 m, not a 10 m beam bay. Options put to the owner: (i) the
+  beam bay becomes an axis room 2×N whose length sets the particle energy
+  (recommended); (ii) a compact accelerator as a second premise (against
+  #202); (iii) a 10 m bay and a surface beam (drops #229's role).
+- **Heavier ships**: real cell masses differ 10–100× (ISS Destiny about
+  118 kg/m³, a crew cell about 15 t; a submarine reactor compartment about
+  1000–1600 kg/m³, a reactor cell 130–200 t), so R1 may pass 1000 t. Accept
+  the real values, or the low end of the real range?
 
 ## Next steps
 
-1. **The owner plays the prototype** and exports battles; the lead
-   designer replays them (`node proto/replay.mjs`). Judge readability and
-   the levers, not pace (perfect aim, #227).
-2. **The path model** (§13i, #231): engineer on `m0/path`, then a blind
-   physics checker and the reviewer; merge; then prototype v2 (a helm,
-   physical misses, the path model).
-3. Then the L4 plan (ship versus static target), with the prototype's
-   findings.
+1. **Prototype v1 play is paused** (#233: fixed seed, no lever acts before
+   11 s).
+2. **The path model**: after the owner's answers, the lead designer sources
+   a mass per room type, revises §13i (#232) and resumes the engineer; then
+   a blind physics checker and the reviewer; merge; then prototype v2 (a
+   helm, physical misses, the path model, a seed per Restart).
+3. Then the L4 plan (ship versus static target).
 
 ## Scheduled tasks
 
@@ -183,13 +191,16 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, feel prototype | session_011PcMxJ4ydx4kZctZb2Gefn | opus-5-5 | 5.41 |
 | Engineer, prototype loadout | session_013115n9cwYfUvYMg8ij5ed4 | opus-5-5 | 3.71 |
 | Engineer, prototype export and replay | session_01D3M6QwPL2KWFkX1Scsi4fd | opus-5-5 | 2.93 |
+| Reviewer, feel prototype (PR #42) | session_01FHeYxhXNqrCLrjyT1kpwia | sonnet-5-5 | 0.31 |
+| Engineer, path model (paused, #232) | session_01GVBq5ohYZDDfg15HAkHm71 | opus-5-5 | 2.56 so far |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
 D pass total: 14.11 USD (engineers 7.83 + 2.93, physics checker 2.26, reviewer 1.09).
 L3 total: 23.82 USD (engineers 13.09 + 2.94 + 3.12, physics checker 3.22, reviewer 1.45).
 Mass pass total: 8.90 USD (engineer 8.07, reviewer 0.83).
-Feel prototype so far: 12.05 USD (engineers 5.41 + 3.71 + 2.93).
+Feel prototype total: 12.36 USD (engineers 5.41 + 3.71 + 2.93, reviewer 0.31).
+Path model so far: 2.56 USD (engineer, paused).
 
 Sessions have reported a **seven-day usage limit warning**.
 
