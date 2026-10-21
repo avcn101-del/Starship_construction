@@ -84,7 +84,7 @@ projectiles (#8).
 | Inertia, moment of inertia | Mass far from the centre turns slowly; recomputed when blocks are lost |
 | Recoil (Newton 3) | Kinetic weapons recoil hard, beams barely; off-axis guns spin the ship; RCS compensates |
 | Centre-of-mass shift | Losing a flank moves the CoM; aligned engines become off-axis |
-| Heat and radiators | Heat leaves only by radiation, through radiators on the hull; **Stefan–Boltzmann**: radiated power ∝ area × emissivity × T⁴ (#143) |
+| Heat and radiators | Heat leaves only by radiation, through radiators on the hull; **Stefan–Boltzmann**: radiated power ∝ area × emissivity × T⁴ (#143). Inside, heat moves fast only along the machinery's **coolant loop** (plant rooms and heat sinks sharing walls); crewed rooms and magazines are insulated (a bulkhead leaks little) and cooled by **life support**, which pumps their heat into the loop (#200, #201) |
 | Infrared | Only surfaces are seen; deep reactors are invisible until heat reaches the hull; IR brightness also ∝ T⁴ (#102) |
 | Inverse-square, distance⁴ | Beams, passive sensing and jamming fall off with distance²; active scans with distance⁴ (#24) |
 | Time of flight | Rounds and missiles travel; ships dodge |
@@ -165,7 +165,6 @@ signature, hp (for point defence), fuel, reusable, pilot.
 | Spinal railgun | 2×N | on the axis, fires forward | longer barrel, faster round; axial recoil; very much power |
 | Missile bay | 3×2 | one side on the hull | a small ready store refilled from the magazine; explodes by the missiles inside (#148) |
 | Empty hold | 2×2 | anywhere | structure only; insulates, absorbs blast |
-| Cofferdam | 1×N (N = 2–6) | anywhere | a strip of empty hold: the void space real ships put between machinery and crew; insulates and absorbs blast like a hold, in one cell's width (#199) |
 | Heat sink | 2×2, 3×3 | anywhere | stores heat: 5× the heat capacity and 3× the conductivity of a room, no crew, no power; buys time while firing hot, then must be cooled through its walls; a destroyed cell vents its share of the heat (#197, #198) |
 
 Later rooms: hangar bay (#107), jammer (#27), auxiliary bridge (#13). No
@@ -380,7 +379,7 @@ carry approved `min`–`max` ranges (#145).
 
 | | Criterion |
 |---|---|
-| E1 | Every L0–L6 scenario PASSes its locked criterion, or is withdrawn for a specification error: still locked and recorded, listed in `mission0/withdrawn.json` with its decision, and replaced by a successor that PASSes (#188) |
+| E1 | Every L0–L6 scenario PASSes its locked criterion, or is withdrawn for a specification error or as superseded by an owner's design decision: still locked and recorded, listed in `mission0/withdrawn.json` with its decision, and replaced by a successor that PASSes (#188, #200) |
 | E2 | Invariants on every sweep: same seed → same log hash; momentum conserved at splits; heat generated = radiated + stored; no NaN |
 | E3 | Every kept physics law has at least one passing proof scenario |
 | E4 | Every schema attribute has a measured effect, or it is cut |
@@ -617,7 +616,8 @@ Numbers are T1, size M, SI.
 |---|---|
 | Layout (`js/layout.js`) | A cluster has one cell grid at the tier's edge. A room occupies a rectangle of cells at an integer cell position, its footprint rotated by 0° or 90°. Rooms never overlap. Two rooms **share a wall** along every pair of edge-adjacent cells, one in each; the shared wall length L is (number of such cell pairs) × edge. An **open edge** is a room cell edge with no room cell beside it; a room carries at most one radiator per open edge (#15). The distance between two rooms (fields) is between their centres |
 | Live walls | A shared edge carries power, ammunition and heat only while **both** cells on it survive (a destroyed cell is a hole). Blast uses every shared edge (a hole lets blast through) |
-| Conduction (`js/heat.js`) | Heat flows through each shared wall at G (T_a − T_b), G = `conduction.wall` × L × h(f_a, f_b), h the harmonic mean 2 f_a f_b / (f_a + f_b) of the two rooms' conductivity factors: 1 for every room, `conduction.holdFactor` for an empty hold (#18c). Explicit Euler at the step, flows computed from the temperatures at the start of the step, so the heat books close exactly: generated = radiated + stored in every room, Σ flows = 0 over the cluster |
+| Conduction (`js/heat.js`, **#200, #201**) | Heat flows through each live shared wall at G (T_a − T_b). **Coolant walls**: between two **coolant rooms** (the plant rooms: reactor, beam bay, shield generator, engine, spinal railgun; and the heat sink), the machinery's coolant loop runs through the bulkhead: G = `conduction.wall` × L × h(f_a, f_b), h the harmonic mean 2 f_a f_b / (f_a + f_b) of their coolant factors (1; the heat sink `heatsink.conductivityFactor`). **Passive walls**: every other wall (a crewed room, a magazine, a hold on either side) leaks only through the bulkhead: G = `conduction.passive` × L × h(p_a, p_b) with passive factors 1, and `conduction.holdFactor` for an empty hold (#18c). Explicit Euler at the step, flows computed from the temperatures at the start of the step, so the heat books close exactly: generated = radiated + stored + moved, Σ flows = 0 over the cluster |
+| Life support (#201) | Each crewed room (bridge, quarters, turret, missile bay) and each magazine keeps its own air cool: while it is powered (the bridge on its backup, #147) and above `FIXED.lifeSupportSetpoint` (295 K), it **pumps** heat out of itself into the coolant rooms sharing a live wall with it, split by wall length, at most `lifeSupport.capacityPerCell` × surviving cells W and never below the setpoint within a step. A heat pump works against the gradient, so it pushes into a hotter coolant room. With no coolant neighbour, or unpowered, it does nothing: the room has only its passive walls and its own radiators. Enemy beams that heat the room directly (#138) can overwhelm it |
 | Power (`js/graph.js`) | Reactors produce up to their output (L1); consumers draw their L1 draw. Power flows through any room (no conduit rooms, #12) along live walls, each with capacity `power.wallCapacity` × L. Consumers are served in **priority order** (the power-priority order of #38; at L2 a list given by the scenario, then room id): each consumer in turn gets the most additional flow the residual network allows (augmenting paths found by breadth-first search in room-id order, so the result is deterministic). A consumer that receives a fraction f of its draw works at f: every rate-like output and its heat × f (a beam at f × power, a turret at f × its fire rate, a shield at f × its budget). The bridge keeps its backup supply (#147); a reactor delivers only what is routed |
 | Ammunition | A magazine feeds only rooms that share a live wall with it, no routing through other rooms (#18; magazines must touch the guns they feed, so a bomb sits beside every gun). Each wall carries at most `ammo.wallFeed` × L kg/s of rounds of the consumer's size, in the magazine's loading order. A turret holds a **ready store** of `turret.readyRounds` × size rounds; it fires from the store and the feed refills it. Its sustained rate is min(fire rate, feed / round mass) |
 | Blast between rooms | An internal explosion of energy E (a magazine or reactor, L1) first fills its own room up to that room's blast capacity B = surviving cells × `room.blastResistance` (× `hold.blastFactor` for a hold); the excess passes to the rooms sharing a wall with it, split by shared wall length, each filling up to its capacity and passing its own excess on (the wave front of #169); what no room can take escapes to space. Within a room the energy spreads evenly over its cells; a cell is destroyed when its share reaches its resistance. Books: absorbed + escaped = E exactly; with every room reached, absorbed = min(E, Σ B), escaped = max(0, E − Σ B) (#184) |
@@ -669,9 +669,25 @@ branch after the first canonical run of rows 1–12 and before the review:
 |---|---|---|---|
 | 13 | `L2.heatsink.buffer` | an M reactor at 12.5 MW (feeding one M beam bay) beside (a) an ordinary idle M room, (b) an M heat sink, over 10 m, no radiators; T1 and T3 | the two-room linear solution with a constant source: reactor overheat time by a root of the closed form, within 1e-3 relative; (b) later than (a) (estimate: 421 s against 166 s at T1) |
 | 14 | `L2.heatsink.loss` | an M heat sink at 600 K; its cells destroyed one per second; then an M reactor at 12.5 MW beside the damaged sink | each destroyed cell vents exactly (C / n)(T − T_rest) to space, T unchanged, C and Q fall by one cell's share; heat books include the vented energy; with k cells lost the reactor overheats sooner, by the reference integrator within 1e-3 |
-| 15 | `L2.cofferdam` | an M reactor at d ∈ {0.25, 0.5} with crew quarters beside it, (a) directly over 10 m, (b) through a 1×2 cofferdam, (c) through a 2×2 hold | (a) crew death time by the closed form within 1e-3; (b) and (c): the reactor overheats first and the quarters stay below critical through 900 s (reference integrator, 1e-3 K); estimate: the quarters peak at 342 K with the cofferdam, 331 K with the hold |
+| ~~15~~ | ~~`L2.cofferdam`~~ | withdrawn before it was written (#201): under #200 the cofferdam has no heat role left; the room is deferred to `IDEAS.md` | — |
 
-Dependencies: 13 and 14 on 1; 15 on 3.
+Row 13 (a) uses a **coolant** neighbour (an idle M beam bay), so the heat
+sink is compared with an ordinary coolant room. Dependencies: 13 and 14
+on 1.
+
+**Heat v2 (#200, #201)**: the rows below replace rows 1–3 and 12 where
+they test the replaced conduction rule; the replaced scenarios stay locked
+and recorded and are withdrawn under #188 (rows 2 and 3 also for the lead
+designer's specification errors, #201). Every expected value below was
+estimated by the lead designer before locking, over the **whole run**.
+
+| # | Scenario | Setup and measure | Expected and criterion |
+|---|---|---|---|
+| 1b | `L2.heat.pair.v2` | two idle M rooms side by side over L ∈ {5, 10 m}: (a) two coolant rooms (beam bays off) at T_a ∈ {400, 600, 1000 K} and 290 K, 4 τ, T1–T6 for one case; (b) a coolant room at 600 K beside an empty hold or an unpowered M magazine at 290 K, 3600 s | ΔT(t) = ΔT₀ e^(−t/τ), τ = C_a C_b / ((C_a + C_b) G) with G by the wall type of §13d.1; \|ΔT − closed form\| ≤ 1e-3 ΔT₀; C_a T_a + C_b T_b constant to 1e-12 |
+| 2b | `L2.heat.chain.v2` | three idle M rooms in a row over 10 m walls: a beam bay off at 600 K, a middle room at 290 K (a beam bay off, or an empty hold), a beam bay off at 290 K; 300 s | the 3 × 3 linear system by eigen-decomposition; temperatures within **3e-3 K**; the heat reaching the third room through a hold is **< 1e-3** of that through a coolant room (estimate 4.9e-5) |
+| 3b | `L2.heat.neighbour.v2` | an M reactor at demand d ∈ {0.25, 0.5} (on demand, L1) beside an M magazine full of M HE or M crew quarters over a 10 m passive wall, life support on (powered) or off (unpowered); 900 s | life support on: the neighbour never exceeds 295 K + 0.01 K; life support off: the neighbour's peak temperature by the reference integrator within 1e-3 K, and it stays below its critical through 900 s (estimates: magazine 331 / 338 K, quarters 318 / 322 K) |
+| 16 | `L2.lifesupport` | M crew quarters, powered, beside an idle M beam bay with 4 radiators over 10 m; an enemy beam heats the quarters directly (#138) at P ∈ {0.2, 1, 5 MW}; and the same quarters unpowered; 900 s | piecewise closed form: time to the setpoint C·5 / (P + draw), then rate P + draw − capacity; time to critical (crew die) one-sided: **never** at 0.2 MW (peak ≤ 295.01 K), about 425 s at 1 MW, 68 s at 5 MW; the heat pumped arrives in the beam bay (books) |
+| 12b | `L2.bridge.conduction.v2` | an M bridge (inside, no radiator, life support on its backup) beside an idle M beam bay with 4 radiators over 10 m; an external 1.1 MW heats it until overheated, then the source is off | reference integrator within 1e-3: overheat at about 142 s, restart about 480 s after the source stops; control lost and restored (L1 events) |
 
 ### 13d.3 Constants and approved ranges (#195)
 
@@ -689,8 +705,15 @@ Dependencies: 13 and 14 on 1; 15 on 3.
 
 The heat sink's threshold class is **plant** (600 / 800 / 1000 K) with no
 function to lose and no crew; it has no special behaviour at its
-thresholds (events only). The cofferdam uses the hold's conductivity and
-blast factors.
+thresholds (events only).
+
+| Constant (#201) | Value | Range | k | Note |
+|---|---|---|---|---|
+| `conduction.passive` | 25 W/(K·m) | 5–100 | 1 | a steel bulkhead with air on both sides (≈ 250 W/K for 10 m × 5 m) |
+| `lifeSupport.capacityPerCell` | 5e4 W | 1e4–2e5 | 2 | bridge 200 kW, quarters 300 kW, magazine 200 kW |
+| `FIXED.lifeSupportSetpoint` | 295 K | fixed | — | the air temperature life support holds |
+
+`conduction.holdFactor` now applies to passive walls (#201).
 
 No other new constant; anything an engineer needs beyond this list enters
 `data.js` with `approved: false` and is listed in the pull request.
@@ -699,11 +722,17 @@ No other new constant; anything an engineer needs beyond this list enters
 before locking, the lesson of L1): an M reactor at full power overheats in
 61 s alone, 94 s with one cooled neighbour and 278 s with four, and **one
 neighbour is enough to keep it from melting down** after the overheat: the
-battle clock of one reactor at full power is 1.5–5 minutes. A reactor at a
-quarter of its power cooks a magazine sharing a 10 m wall in about 3 min
-and kills the crew of quarters beside it in about 2.4 min; an empty hold in
-between keeps both below critical until the reactor overheats. Heat, not
-ammunition, is what limits a ship that fights at full power.
+battle clock of one reactor at full power is 1.5–5 minutes (coolant
+neighbours; unchanged by #200). ~~A reactor at a quarter of its power cooks
+a magazine in about 3 min and kills the crew of quarters beside it in about
+2.4 min~~: that was the harmonic-mean model, about 35 times harsher than a
+real bulkhead, replaced by #200. Under #200, crewed rooms and magazines
+beside a running reactor stay at 295 K while life support runs, and reach
+only 318–338 K in 15 min without it; crew die of heat when an enemy beam
+heats their room (5 MW: 68 s; 1 MW: about 7 min; 0.2 MW: never), or when
+cooling and power are cut for a long time. Heat, not ammunition, is what
+limits a ship that fights at full power; the machinery's coolant chain is
+what the enemy cuts.
 
 ### 13d.4 Kernel, tools and process (#196)
 
