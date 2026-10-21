@@ -19,7 +19,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   life support under routing. `regress` on `main`: **46 VERIFIED + 8
   WITHDRAWN**. Cost 14.11 USD (engineers 10.76, physics checker 2.26,
   reviewer 1.09).
-- **Next: L3, the minimal ship** (`DESIGN.md` §13f, #208–#213, #216).
+- **L3, the minimal ship** (`DESIGN.md` §13f, #208–#213, #216): engineer
+  `session_01LapPHkFEVnX7ADLbgrCENH` (opus) building it on `m0/l3-ship`
+  since 10:00 UTC.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -44,7 +46,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| — | — | none open (the D pass merged through the lead designer's branch; PR #24 closes with it) |
+| (to come) Mission 0, L3 | `m0/l3-ship` → `main` | engineer building it |
+
+The D pass merged by PR #32 (`ea4e96f`).
 
 L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
@@ -93,7 +97,7 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
 |---|---|---|---|
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
-| Check-in on the D-pass reviewer | `trig_015GvrFCeR8yKwvxLfTg97bC` | once, 2026-10-21 09:56 UTC | wakes the lead designer chat `session_013PTXKzyTQkpVaKYQyBhRP8` |
+| Check-in on the L3 engineer | `trig_018PsQLPx5GvJkFKCPVJkWs5` | once, 2026-10-21 10:46 UTC | wakes the lead designer chat `session_013PTXKzyTQkpVaKYQyBhRP8` |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
@@ -127,9 +131,11 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, D-pass fixes (#212) | session_01VgbfDLKbvp1rTyfbnxLcNd | opus-5-5 | 2.93 |
 | Physics checker, D pass | session_01UFe2RUu58iTgEttPPf5dZ4 | sonnet-5-5 | 2.26 |
 | Reviewer, D pass | session_01TVQqxMbuhGDobwni8xCnqq | sonnet-5-5 | 1.09 |
+| Engineer, L3 | session_01LapPHkFEVnX7ADLbgrCENH | opus-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
+D pass total: 14.11 USD (engineers 7.83 + 2.93, physics checker 2.26, reviewer 1.09).
 
 Sessions have reported a **seven-day usage limit warning**.
 
