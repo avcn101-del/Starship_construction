@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.6 — 2026-10-21 — The path model revised (#234, #235)
+
+- The beam bay becomes a spinal accelerator whose length sets its particle
+  energy; room types take their real cell mass at the low end (the owner,
+  #234). `DESIGN.md` §13i rewritten (#235): one kinetic constant, a mass
+  table with sources, scenarios P1–P10; §5 and §6 rows updated.
+
 ## 0.6.5 — 2026-10-21 — The feel prototype merged (PR #42); protection is mass (#232, #233)
 
 - `proto/` merged after a light review with no blocking finding (#233).

@@ -17,5 +17,6 @@ decision: log it in `DECISIONS.md` and reflect it in `DESIGN.md`.
 | Heat sink room | Store heat for a while, then vent: a time window | Passed the four gates (throughput law; time-window path; glows as it fills; the heat model with two constants) | adopted (#197, built at L2) |
 | Sound carried through the hull | Only your own ship is heard | Adopted as a principle in `DESIGN.md` §11; the audio itself waits for Mission 0 | adopted (principle) |
 | Rescuing crew on dark fragments | A different ending to a fragment's last words | — | adopted (#88) |
+| Blast resistance from mass | Blast, like rounds and beams, would then follow the mass of a cell (#232) | Not in the path model; needs its own estimate | waiting (#235) |
 | Tumble and sloped armour (#6) | A round hitting obliquely is turned by the off-centre contact force and presents more area; angling the ship becomes a lever, as with real tank armour | Needs a facing the player controls (prototype v2's helm) and an estimate of the effect | waiting (#230) |
 | Plasma toroid gun (MARAUDER) | An energy 'bullet': a magnetically self-confined plasma ring that bursts on contact (#228) | Few public numbers; lifetime and range at 0.6–1.5 km unverified; a surface effect, not penetration; the beam role went to the particle beam (#229) | waiting |
