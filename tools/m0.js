@@ -6,6 +6,7 @@
 //   node tools/m0.js lock <id|level>       lock criteria BEFORE the first run
 //   node tools/m0.js verify <id|level>     independent re-run from the record
 //   node tools/m0.js regress               re-run every recorded PASS and every withdrawn scenario
+//                                          (a retired one is listed, not run, #237)
 //   node tools/m0.js ledger                regenerate MISSION0.md
 //
 // A run without --set is canonical and is recorded in mission0/results/.
@@ -23,7 +24,10 @@ const RESULTS = path.join(ROOT, 'mission0', 'results');
 const LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
 // Scenarios withdrawn for a specification error (#187 (8)) or as superseded
 // (#188, #200): each stays locked with its record; verify and regress report
-// it as WITHDRAWN while it keeps the verdict it was recorded with.
+// it as WITHDRAWN while it keeps the verdict it was recorded with. A
+// withdrawn scenario marked `retired` (#237: it reads a constant data.js no
+// longer holds) is listed as RETIRED and not run, its file, lock and last
+// record unchanged; verify and regress count it apart.
 const WITHDRAWN_FILE = path.join(ROOT, 'mission0', 'withdrawn.json');
 const WITHDRAWN = new Map((fs.existsSync(WITHDRAWN_FILE) ? JSON.parse(fs.readFileSync(WITHDRAWN_FILE, 'utf8')) : []).map((w) => [w.id, w]));
 /** The scenario that stands for `id`: itself, or the end of its chain of successors when it was withdrawn and its successor withdrawn in turn (#188, #221). */
@@ -45,6 +49,8 @@ function checkWithdrawn(all) {
       : !byId.has(last) || !byId.get(last).locked ? `the last successor ${last} does not exist or is not locked`
       : (recorded(last) || {}).verdict !== 'PASS' ? `its successor ${last === w.successor ? w.successor : `${w.successor}, through ${last},`} is not recorded PASS`
       : !/^#\d+$/.test(String(w.decision)) ? `decision "${w.decision}" is not a decision number (#n)`
+      : w.retired !== undefined && w.retired !== true ? 'retired must be true when present'
+      : w.retired && (!/^#\d+$/.test(String(w.retiredDecision)) || !w.retiredReason) ? 'a retired scenario needs a retiredDecision (#n) and a retiredReason'
       : null;
     if (problem) throw new Error(`mission0/withdrawn.json, ${w.id}: ${problem}`);
   }
@@ -262,6 +268,8 @@ async function main() {
     warnings.forEach((w) => console.log('warning: ' + w));
     let failed = 0;
     for (const s of select(all, sel)) {
+      const retired = WITHDRAWN.get(s.id);
+      if (retired && retired.retired) { console.log(`\n${s.id}: RETIRED (${retired.retiredDecision}), not run; its last record stays`); continue; }
       const res = execute(s, overrides);
       const deps = unmetDeps(s);
       const verdict = verdictOf(s, res, deps);
@@ -289,11 +297,13 @@ async function main() {
       ? all.filter((s) => (recorded(s.id) || {}).verdict === 'PASS' || WITHDRAWN.has(s.id))
       : select(all, sel);
     let bad = 0;
+    const counts = { VERIFIED: 0, WITHDRAWN: 0, RETIRED: 0, MISMATCH: 0 };
     for (const s of list) {
+      const w = WITHDRAWN.get(s.id);
+      if (w && w.retired) { counts.RETIRED++; console.log(`RETIRED  ${s.id}  not run (${w.retiredDecision}; successor ${w.successor})`); continue; }
       const rec = recorded(s.id);
       if (!rec) { console.log(`${s.id}: no record to verify`); bad++; continue; }
       const res = execute(s, {});
-      const w = WITHDRAWN.get(s.id);
       const verdict = verdictOf(s, res, unmetDeps(s));
       const checks = [
         ['criterion unchanged since lock', s.locked && criterionHash(s) === s.locked.hash && rec.lockedHash === s.locked.hash],
@@ -307,9 +317,11 @@ async function main() {
       const ok = checks.every(([, v]) => v);
       if (!ok) bad++;
       const label = !ok ? 'MISMATCH' : w ? 'WITHDRAWN' : 'VERIFIED';
+      counts[label]++;
       const why = w ? `  (successor ${w.successor}, ${w.decision})` : '';
       console.log(`${label}  ${s.id}  ${checks.map(([n, v]) => `${v ? 'ok' : 'NO'} ${n}`).join('; ')}${why}`);
     }
+    console.log(`${counts.VERIFIED} VERIFIED + ${counts.WITHDRAWN} WITHDRAWN + ${counts.RETIRED} RETIRED${counts.MISMATCH ? ` + ${counts.MISMATCH} MISMATCH` : ''}${bad - counts.MISMATCH > 0 ? ` (${bad - counts.MISMATCH} without a record)` : ''}`);
     process.exitCode = bad ? 1 : 0;
     return;
   }
@@ -321,7 +333,8 @@ async function main() {
       'the hash of its run() at that run, the code it ran on, the unapproved constants the verdict',
       'depends on (it holds only once the owner approves them), and the command that reproduces it',
       '(`DESIGN.md` §13). A WITHDRAWN scenario failed for a specification error; it stays locked',
-      'with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#187 (8)).', ''];
+      'with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#187 (8)).',
+      'A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (#237).', ''];
     for (const level of LEVELS) {
       const ss = all.filter((s) => s.level === level);
       lines.push(`## ${level}`, '');
@@ -331,7 +344,7 @@ async function main() {
         const r = recorded(s.id);
         const un = unapproved(s).map((k) => `\`${k}\``).join(', ') || 'none';
         const w = WITHDRAWN.get(s.id);
-        const verdict = !r ? 'not run' : w ? `${r.verdict}, WITHDRAWN (successor \`${w.successor}\`, ${w.decision})` : r.verdict;
+        const verdict = !r ? 'not run' : w && w.retired ? `${r.verdict}, WITHDRAWN (successor \`${w.successor}\`, ${w.decision}), RETIRED (${w.retiredDecision}, not run)` : w ? `${r.verdict}, WITHDRAWN (successor \`${w.successor}\`, ${w.decision})` : r.verdict;
         lines.push(`| \`${s.id}\` | ${s.locked ? s.locked.hash : 'unlocked'} | ${verdict} | ${r && r.runHash ? r.runHash : '-'} | ${r ? r.code : '-'} | ${un} | \`${r ? r.command : '-'}\` |`);
       }
       lines.push('');

@@ -470,6 +470,25 @@ finding; the owner can veto any row afterwards. Documentation-only commits
 by the lead designer go straight to `main`; code always goes through a pull
 request. The current state for a new chat is in `STATUS.md` (#179).
 
+**Audits** (#238, the owner): besides the per-pull-request roles, an
+**independent, read-only audit** that reads the whole, not one pass, at
+fixed milestones, each a session that decides nothing and reports with a
+location and a quote for every finding: (a) **documents** (`data.js`
+against `DESIGN.md` and `DECISIONS.md`; decisions against each other;
+rules living in one place only; sense), (b) **process** (where errors
+were caught against where money went; the plan gate; what to streamline),
+(c) **physics as one system** (models resting on different assumptions,
+one law or several, exponents against the new masses, the shield's
+exchanges, real-world anchors), (d) **scenario quality** (tautologies,
+outside anchors, tolerances against the method's error, lock discipline,
+withdrawals, coverage by mutation). The lead designer answers each finding
+in a consolidation pass recorded as a decision. **Milestones**: now
+(2026-10-21, before the L4 plan); before each level's plan from L4 on
+(a–d, light: only what the level touches); at Mission 0 exit (all four,
+full); before the first rendering commit and before the first public
+build (a, b, d full; c light); and whenever a law changes (c full). An
+audit found nothing is recorded too.
+
 ## 13c. L1 plan (approved 2026-10-21, #181–#184)
 
 L0 proved the materials. L1 proves that **each room alone** behaves as its
@@ -1178,6 +1197,129 @@ version; then a blind physics checker (sonnet) given the setups extracted
 by node, who derives P1–P9 before reading the code; then the reviewer
 (sonnet). The lead designer merges with no blocking finding (#180).
 Estimated cost 20–25 USD (more scenarios than the first version).
+
+## 13j. Prototype v2: a helm and physical misses (#237)
+
+Built after the path model, before L4, on branch `proto/v2` from `main`;
+throwaway, in `proto/` only (#217), on the path model's kernel. v1 showed
+that no lever could act before the magazine blew (#233); v2 gives the
+player the levers the design already names (§8: engagement range, facing,
+dodging) and lets rounds miss for physical reasons only. Every number
+below was computed with the kernel at `719a6c1` (the lead designer's
+scripts; re-runnable from `proto/measure.mjs` once v2 exists).
+
+### 13j.1 What the kernel says before anything is built
+
+- R1 at the path model's masses: **850.1 t**, centre of mass (24.59,
+  16.29) m, I = 1.117e8 kg·m²; 15 MN gives **1.80 g**. The thrust line
+  (row 3's midpoint, y = 15 m) passes **1.29 m** below the centre of mass:
+  a torque of 19.4 MN·m, **9.9 °/s²** of spin under full thrust. One bow
+  RCS fitting (27.9 m from the centre of mass) gives 27.9 MN·m, so a helm
+  holds heading under full thrust with one bow fitting fired about 70 % of
+  the steps; the bow–stern couple (50 m arm) gives 25.6 °/s², a 90° turn
+  in 3.75 s bang-bang.
+- Time of flight of an M round (800 m/s) at 600 / 900 / 1500 m: **0.75 /
+  1.13 / 1.88 s**. A ship that changes its thrust after the shot moves
+  **5 / 11 / 31 m** across the line of fire in that time (½ a t²), against
+  a hull 30 m wide and 55 m long. So with a lead-aimed gun: at 600 m
+  nothing misses; at 900 m a dodging ship takes the round about two cells
+  from the aimed one (another room, same ship); at 1.5 km most rounds
+  miss. This is #54's band (0.6–1.5 km) from the existing physics, with
+  no new constant.
+- Paths through R1 after 5 s with the shield charged (M round, 800 m/s):
+  from the bow down the middle rows (472 m/s after the shield) it passes
+  both beam-bay cells and **stops in the first magazine cell** (loss 0.28):
+  about four hits on one row wreck a magazine cell and set it off; down
+  row 4 it stops in the second turret cell. **Broadside at x = 7** (hold
+  then magazine) it passes the hold and both magazine cells (0.33 each):
+  three hits; from the other side the magazine is the hull. At x = 3 the
+  shield generator's 10 t cells stop it in the first cell (267 m/s at the
+  generator); at x = 5 the quarters stop it. **R1's magazine is open from
+  three sides** behind 3–5.5 t cells: a layout fault the shipyard will
+  teach, not unfairness; R1-B (the hold forward) covers the bow only.
+- The beam: R1's N = 2 bay gives 100 MeV, all of it in the first cell met;
+  through a fresh shield (6 MW absorbed at g ≈ 0.6 against 5 MW) nothing
+  passes, as in v1: the first minutes stay a heat race.
+
+### 13j.2 Scope
+
+| Part | Built as |
+|---|---|
+| Kernel | `js/` unchanged except `data.js`: `armour.kineticResistance`, `beam.focusRange` and `FIXED.beamWaistPerHalfCell` **removed** (#236 (1)); the superseded pure functions stay. The five withdrawn L0 scenarios that read them (`beam-burn`, `beam-burn-v2`, `beam-falloff`, `kinetic-penetration`, `kinetic-penetration-v2`) become **retired** in `mission0/withdrawn.json` (`retired: true`, reason): `regress` lists them and does not run them, counted apart (expected 57 VERIFIED + 29 WITHDRAWN + 5 RETIRED). A locked scenario is never edited |
+| Paths | the path model's kernel: `shieldRound` at the hull entry point, `fireRound` along the **cells the round's line crosses** in the target's grid (entry to exit, in order; holes stay on the path); `fireBeam` the same along the beam's line; cell masses as the kernel has them. The Gaussian beam, `burnThrough` and the bow-armour belt stand-ins of v1 go |
+| Helm | three **standing orders** (§8), executed by an autopilot STAND-IN for L4's `helm.js`: **range** close 600 / hold 900 / open 1500 m (the #54 band; thrust along the line of sight into a dead band); **facing** bow-on / broadside; **dodge** off / on (the throttle's sign flipped at seeded random intervals across the line of sight). Conflicts resolve as #40: range, then facing, then dodging; the autopilot holds heading with the RCS against the thrust torque and turns with the couple. Interval, dead band and gains are prototype settings in `proto/config.js`, never game numbers |
+| Facing's physics | the beam bay is spinal (#234): the beam leaves along the ship's axis and hits whatever that line crosses, so only a bow-on ship beams its target; the main engine pushes along the axis, so only a broadside ship dodges at 1.8 g (bow-on it has the RCS: 2 MN / 850 t = 2.35 m/s², 0.24 g, about 1.5 m over a 900 m flight: nothing; the first version wrote 0.24 m/s², a unit error, #239), and a broadside shows 11 columns instead of 6 rows. No constant |
+| Rounds | a kernel `shot` launches a round at the shooter's velocity plus 800 m/s along the turret's aim; the turret aims at the **lead point** (the target room's position extrapolated at its ship's velocity over the time of flight; a quadratic) in any direction (STAND-IN: no traverse arc, no slew); each step the round's segment is tested against the target's hull; a round that crosses nothing flies on and is culled 3 km from the midpoint (a prototype setting; #222 (7)). **No dispersion**: misses come from motion only |
+| Player | targets a room by tap (as v1); presets: **Fire** (weapons on the target, shield on, the standing orders as set), **Cool** (weapons off, shield off, engine off: the ship coasts, the RCS holds heading, no dodging), **Evade** (weapons hold, shield on, broadside and dodge on at full thrust); time ×1, ×2, ×4 |
+| Loadout | v1's magazine, layout, shield budget, hits to wreck, turrets; **bow armour removed** (its stand-in read the removed constants; armour fittings come with #15); new **range** and **facing** orders; the **seed**, shown, changed at every Restart (+1, editable), written in the export; `PROTO_VERSION` 'feel-3' |
+| Enemy | the script of v1 (Fire 60 s, Cool 30 s; beam bay, turret, engine) with orders hold 900, bow-on, dodge on (which, bow-on, is the RCS only: the enemy does not dodge in effect, a contradiction of this plan with its own facing row, found by the docs audit and the measure, #239); the script and every preset's throttle listed in the on-screen stand-ins (#233) |
+| View | v1's two head-up grids (enemy tappable) plus a **world strip**: both ships to scale with heading and velocity, rounds in flight, the range in metres, hits and misses counted; on each grid an arrow where rounds enter; the beam drawn where it lands (or misses). The camera of #55 waits |
+| Export / replay | as v1 (`proto/export.js`, `proto/replay.mjs`, MATCH on the event hash), now with seed and orders; `proto/measure.mjs` runs the duel headless for the seeds 1–10 at each range and prints its length, hits, misses and the end |
+
+**Stand-ins**, labelled `STAND-IN` in the code and on screen: the
+autopilot; a cell the line clips at a corner counts as crossed whole (the
+chord rule r = c σ chord / edge, no constant, goes to the next kernel
+pass); the turret's free aim; both sides see the true layout; no point
+defence, missiles or railgun; Disabled from room state (10 s in
+`proto/config.js`).
+
+### 13j.3 Estimate (rough, for the owner to test, not a criterion)
+
+At hold 900 m, both bow-on and dodging, the hits spread over six rows
+instead of two: an R1 duel should last **30–90 s** (v1: 11 s), ended by
+the magazine. At 1.5 km most rounds miss and the beam is stopped by the
+fresh shield: a heat race of **minutes**, decided by who cools when. At
+600 m nothing misses: about v1. Uncertain by a factor of two; v2 measures
+it over ten seeds.
+
+**Not reached (#239).** The estimate assumed a bow-on ship dodges at 1.8 g,
+which the facing row above denies it: bow-on the dodge is the RCS alone.
+§13j.6 has the measure.
+
+### 13j.4 What the owner judges (on the Android phone)
+
+v1's four (pace, heat, readability, choices; §13h.1) and: (5) **range**:
+whether 600 / 900 / 1500 m play differently; (6) **facing**: whether
+bow-on (beam, short silhouette, no dodge) against broadside (dodge, no
+beam, long silhouette) is a choice the player can read; (7) whether R1's
+open magazine reads as a layout to fix in the shipyard. Each finding goes
+on #223's ladder.
+
+### 13j.5 Process and cost
+
+One engineer session (opus) on `proto/v2`; no scenarios; the reviewer
+(sonnet) checks #217's rules, the retirement of the five scenarios, a full
+`regress`, the replay MATCH and a phone-viewport smoke test with zero
+console errors; no physics checker (the kernel's physics is unchanged;
+the helm is a stand-in). The lead designer publishes the page (#226).
+Estimated cost 12–18 USD (v1's three sessions cost 12.05).
+
+### 13j.6 What the build measured (#239)
+
+`node proto/measure.mjs` (both ships on the enemy script, seeds 1–10 per
+range order, default loadout; head `4fba090`):
+
+| Orders (both ships) | close 600 m | hold 900 m | open 1500 m |
+|---|---|---|---|
+| bow-on, dodge on | 20.8 s, 91 % hits, all seeds alike | **7.1 s, 100 % hits**, all seeds alike | 33.7–37.8 s, 94 % |
+| broadside, dodge on | 20.9 / 33.9 / 46.9 s, 6 % misses | 9.1 / 37.2 / 45.4 s, 12 % | 37.8 / 49.0 / 107.9 s, 13 % |
+
+(min / median / max over seeds; every duel ends in a magazine explosion.)
+Bow-on the lead-aimed gun lands on the aimed beam bay and the round runs
+down the axis rows into the magazine, as §13j.1 predicted: four hits on one
+row. The reviewer found that the close and open rows mostly measure the
+stand-in autopilot settling (the ships start 900 m apart and, while
+ranging, fly by velocity error rather than bow-on, so hits scatter across
+rooms for about 18 s), not the range order itself: read them so. The
+**levers act** (#233's question): broadside and dodge move the duel from
+7 s to 9–108 s, at the cost of the beam and a longer silhouette.
+Kernel finding: `Math.sin` / `Math.cos` differ between V8 versions
+(Chromium 141 against Node 22), so a battle in which ships turn cannot
+replay across engines; `proto/detmath.js` installs fdlibm's sin and cos
+(within 1 ulp of native, bit-identical across the two engines) as a
+stand-in; the kernel gets its own in the next kernel pass. Reviewer: no
+blocking finding; the replay MATCHes across engines; the smoke test runs
+with zero console errors.
 
 ## 14. Architecture
 

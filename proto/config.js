@@ -1,10 +1,11 @@
-// proto/config.js — every setting of the feel prototype (DESIGN.md 13h,
-// #217, #224) that is not in js/data.js. Each one is a PROTOTYPE SETTING,
+// proto/config.js — every setting of the feel prototype v2 (DESIGN.md 13j,
+// #217, #237) that is not in js/data.js. Each one is a PROTOTYPE SETTING,
 // NOT A GAME NUMBER: it shapes the throwaway page (geometry, the scripted
-// enemy, presets, colours, layout) and is never read by the kernel. Every
-// number that affects the physics comes from js/data.js; the loadout panel's
-// shield budget and hits to wreck are run-time overrides of js/data.js
-// constants (withOverrides), checked against their approved min-max.
+// enemy, presets, the stand-in autopilot's gains, colours, layout) and is
+// never read by the kernel. Every number that affects the physics comes from
+// js/data.js; the loadout panel's shield budget and hits to wreck are
+// run-time overrides of js/data.js constants (withOverrides), checked against
+// their approved min-max.
 
 import { PARAMS } from '../js/data.js';
 
@@ -50,69 +51,104 @@ export const LAYOUTS = {
 };
 
 // Prototype setting: the loadout panel (#223's ladder: constants within approved ranges, then layout and
-// combinations of existing physics). One loadout applies to both ships alike. Each lever lists its options; the
-// first is the default, and the defaults give the battle of the prototype without the panel (same event hash).
+// combinations of existing physics; DESIGN.md 13j.2). Magazine, layout, shield budget, hits to wreck and turrets
+// apply to both ships alike; the three standing orders (range, facing, dodge; DESIGN.md 8) are the player's: the
+// enemy keeps its script's (SCRIPT.orders). Each lever lists its options; the first is the default.
 //  magazine: what the magazine holds, as a fraction of magazine.capacity by mass, loaded as rounds by the kernel's
 //    loadMagazine (whole rounds of kinetic.roundMass).
-//  armour: armour cells in front of each bow-facing row (a STAND-IN, see STAND_INS).
 //  layout: a key of LAYOUTS.
 //  shieldBudget / hitsToWreck: run-time overrides of shield.budget (W) and kinetic.hitsToWreck (withOverrides);
 //    null keeps the js/data.js value. battle.js refuses a value outside the constant's approved min-max.
 //  turrets: false holds both turrets (the beam-only probe).
+//  range / facing / dodge: the player's standing orders (RANGES, FACINGS); Fire flies them as set.
 export const LOADOUT = {
   magazine: { label: 'Magazine', options: [
     { value: 'heFull', label: 'HE full', he: 1, ap: 0 }, { value: 'apFull', label: 'AP full', he: 0, ap: 1 },
     { value: 'heHalf', label: 'HE half', he: 0.5, ap: 0 }, { value: 'apQuarter', label: 'AP quarter', he: 0, ap: 0.25 },
   ] },
-  armour: { label: 'Bow armour', options: [{ value: 0, label: 'none' }, { value: 1, label: '1 cell' }, { value: 2, label: '2 cells' }] },
   layout: { label: 'Layout', options: [{ value: 'R1', label: 'R1' }, { value: 'R1B', label: 'R1-B' }] },
   shieldBudget: { label: 'Shield budget', override: 'shield.budget', options: [{ value: null, label: `${PARAMS.shield.budget.value / 1e6} MW` }, { value: 5e6, label: '5 MW' }, { value: 2e7, label: '20 MW' }] },
   hitsToWreck: { label: 'Hits to wreck', override: 'kinetic.hitsToWreck', options: [{ value: null, label: `${PARAMS.kinetic.hitsToWreck.value}` }, { value: 5, label: '5' }] },
   turrets: { label: 'Turrets', options: [{ value: true, label: 'on' }, { value: false, label: 'off' }] },
+  range: { label: 'Range order', options: [{ value: 'hold', label: 'hold 900' }, { value: 'close', label: 'close 600' }, { value: 'open', label: 'open 1500' }] },
+  facing: { label: 'Facing order', options: [{ value: 'bow', label: 'bow-on' }, { value: 'broadside', label: 'broadside' }] },
+  dodge: { label: 'Dodge order', options: [{ value: false, label: 'off' }, { value: true, label: 'on' }] },
 };
-export const LOADOUT_ORDER = ['magazine', 'armour', 'layout', 'shieldBudget', 'hitsToWreck', 'turrets'];
+export const LOADOUT_ORDER = ['magazine', 'layout', 'shieldBudget', 'hitsToWreck', 'turrets', 'range', 'facing', 'dodge'];
 /** The default loadout: every lever's first option. */
 export const defaultLoadout = () => Object.fromEntries(LOADOUT_ORDER.map((k) => [k, LOADOUT[k].options[0].value]));
 /** A short text of a loadout, for the corner of the battle view and the measure. */
 export const loadoutText = (lo) => LOADOUT_ORDER.map((k) => `${LOADOUT[k].label}: ${LOADOUT[k].options.find((o) => o.value === lo[k]).label}`).join(' · ');
 
-// Prototype setting: the two ships' stations (13h.2: 900 m apart, facing
-// each other, within #54's 0.6-1.5 km). The player's centre of mass sits at
-// the origin facing +x; the enemy's 900 m ahead facing -x.
-export const SEPARATION = 900; // m
+// Prototype setting: the range order's distances (DESIGN.md 13j.2, #54's band 0.6-1.5 km), centre of mass to
+// centre of mass.
+export const RANGES = { close: 600, hold: 900, open: 1500 }; // m
+
+// Prototype setting: where the ships start (13j.2): the hold distance apart, facing each other, at rest. The
+// player's centre of mass sits at the origin facing +x; the enemy's at (START_SEPARATION, 0) facing -x.
+export const START_SEPARATION = RANGES.hold; // m
 export const TIER = 'T1';
 
-// Prototype setting: the battle's seed (the seeded RNG of js/util.js picks
-// which row of the aimed room a round flies along).
-export const SEED = 20261021;
+// Prototype setting: the first battle's seed (the seeded RNG of js/util.js times each ship's dodge). The panel
+// shows it, Restart adds 1, the player may type another; the export writes it.
+export const SEED = 1;
 
 // Prototype setting: the version written in an export (proto/export.js). There is no build step to stamp a git hash,
 // so it is a constant: change it whenever proto/ or js/ changes what a battle does, so proto/replay.mjs can tell an
 // export of another version.
-export const PROTO_VERSION = 'feel-2';
+export const PROTO_VERSION = 'feel-3';
 
-// Prototype setting: the three presets (13h.2). Fire: beam and turret on
-// the target, shield on, engine half. Cool: weapons off, shield off, engine
-// off. Evade: engine full, RCS turning, weapons hold; 13h.2 does not say
-// what the shield does in Evade: it stays on here (a question in the PR).
-// rcs: fitting ids fired (a stern-top / bow-bottom couple turns the ship).
+// Prototype setting: the three presets (13j.2). throttle: the most the autopilot may open the engine (a stand-in
+// number, listed on screen, #233); orders: which standing orders the preset overrides (null: the ship's own).
+//  Fire: weapons on the target, shield on, the standing orders as set (engine up to half, as v1's Fire).
+//  Cool: weapons off, shield off, engine off: the ship coasts, the RCS holds the facing order's heading, no dodge.
+//  Evade: weapons hold, shield on, broadside and dodge on at full thrust (the range order still comes first, #40).
 export const PRESETS = {
-  fire: { label: 'Fire', beam: true, turret: true, shield: true, throttle: 0.5, rcs: [] },
-  cool: { label: 'Cool', beam: false, turret: false, shield: false, throttle: 0, rcs: [] },
-  evade: { label: 'Evade', beam: false, turret: false, shield: true, throttle: 1, rcs: [17, 20] },
+  fire: { label: 'Fire', beam: true, turret: true, shield: true, throttle: 0.5, orders: null },
+  cool: { label: 'Cool', beam: false, turret: false, shield: false, throttle: 0, orders: { dodge: false } },
+  evade: { label: 'Evade', beam: false, turret: false, shield: true, throttle: 1, orders: { facing: 'broadside', dodge: true } },
 };
 export const PRESET_ORDER = ['fire', 'cool', 'evade'];
 
-// Prototype setting: the enemy's fixed script (13h.2): Fire 60 s, Cool 30 s,
-// repeat; aiming at the player's beam bay, then turret, then engine (each
-// until it is wrecked: a reading of "then", a question in the PR).
-export const SCRIPT = { phases: [{ preset: 'fire', seconds: 60 }, { preset: 'cool', seconds: 30 }], targets: ['beamBay', 'turret', 'engine'] };
+// Prototype setting: the enemy's fixed script (13j.2, v1's): Fire 60 s, Cool 30 s, repeat; aiming at the player's
+// beam bay, then turret, then engine (each until it is wrecked), with the standing orders hold 900, bow-on, dodge on.
+export const SCRIPT = {
+  phases: [{ preset: 'fire', seconds: 60 }, { preset: 'cool', seconds: 30 }],
+  targets: ['beamBay', 'turret', 'engine'],
+  orders: { range: 'hold', facing: 'bow', dodge: true },
+};
 
-// Prototype setting: Disabled (#82): no weapon able to fire and no thrust
-// for about 10 s. #82 says "~10 s"; no constant in js/data.js holds it yet.
+// STAND-IN autopilot (for L4's helm.js; DESIGN.md 13j.2). Every number below is a PROTOTYPE SETTING, NOT A GAME
+// NUMBER: gains and thresholds of a controller that flies the kernel's engine and RCS fittings; none enters the
+// physics (thrust, RCS force, masses and inertia come from js/data.js through the kernel).
+export const AUTOPILOT = {
+  // Range (first, #40): out of the dead band, or drifting too fast, the ship thrusts to fly the wanted closing speed
+  // with no drift across the line of sight. PROTOTYPE SETTING, NOT A GAME NUMBER.
+  rangeDeadBand: 100, // m: |range - order| inside this leaves the range alone
+  rangeGain: 0.05, // 1/s: wanted closing speed = gain x range error, PROTOTYPE SETTING, NOT A GAME NUMBER
+  maxClosingSpeed: 40, // m/s: cap on that wanted speed, PROTOTYPE SETTING, NOT A GAME NUMBER
+  speedTolerance: 2, // m/s: a relative velocity error inside this needs no thrust, PROTOTYPE SETTING, NOT A GAME NUMBER
+  driftLimit: 50, // m/s: relative velocity off the wanted one (dodging drift) beyond this calls the range order too, PROTOTYPE SETTING, NOT A GAME NUMBER
+  // Heading (facing, second): a time-optimal turn toward the wanted heading, held by the RCS fittings against
+  // the thrust torque. PROTOTYPE SETTING, NOT A GAME NUMBER.
+  turnAuthority: 0.7, // fraction of the RCS couple's angular acceleration a turn plans on, PROTOTYPE SETTING, NOT A GAME NUMBER
+  turnRateTime: 0.25, // s: time constant of the turn-rate loop, PROTOTYPE SETTING, NOT A GAME NUMBER
+  aimTolerance: 10 * Math.PI / 180, // rad: the engine opens only within this of the wanted heading, PROTOTYPE SETTING, NOT A GAME NUMBER
+  // Dodge (third): the sign of the thrust across the line of sight flips at seeded random intervals. Broadside
+  // that is a turn to the other broadside (the engine pushes only forward); bow-on the RCS pushes sideways.
+  dodgeMin: 6, // s, PROTOTYPE SETTING, NOT A GAME NUMBER
+  dodgeMax: 14, // s, PROTOTYPE SETTING, NOT A GAME NUMBER
+};
+
+// Prototype setting: a round that crosses no hull is culled this far from the midpoint between the ships
+// (13j.2, #222 (7)). PROTOTYPE SETTING, NOT A GAME NUMBER.
+export const CULL_DISTANCE = 3000; // m
+
+// Prototype setting: Disabled (#82): no weapon able to fire and no thrust for about 10 s. #82 says "~10 s"; no
+// constant in js/data.js holds it yet.
 export const DISABLED_SECONDS = 10;
 
-// Prototype setting: time controls (13h.2) and the cap on steps per frame.
+// Prototype setting: time controls (13j.2) and the cap on steps per frame.
 export const SPEEDS = [1, 2, 4];
 export const MAX_STEPS_PER_FRAME = 60;
 
@@ -123,22 +159,26 @@ export const LOG_LINES = 120;
 export const COLOURS = {
   background: '#000000', text: '#ffffff', dim: '#a8a8a8', grid: '#3a3a3a',
   player: '#38e8ff', enemy: '#ff5a3c', target: '#ffff00',
-  round: '#ffffff', beam: '#ff3cff', beamAbsorbed: '#38e8ff', shield: '#38e8ff',
-  destroyed: '#000000', cross: '#ff2020', armour: [150, 150, 170],
+  round: '#ffffff', beam: '#ff3cff', beamAbsorbed: '#38e8ff', shield: '#38e8ff', miss: '#a8a8a8',
+  destroyed: '#000000', cross: '#ff2020',
   // Temperature ramp against a room's own thresholds (rest, hot, overheated, critical).
   cold: [40, 70, 160], warm: [40, 150, 60], hot: [255, 190, 0], overheated: [255, 60, 0], critical: [255, 255, 255],
 };
 
 // Prototype setting: short room labels for the view.
-export const LABELS = { armour: 'ARM', engine: 'ENG', reactor: 'RCT', bridge: 'BRG', magazine: 'MAG', beamBay: 'BEAM', heatSink: 'SINK', quarters: 'QTR', turret: 'TUR', shield: 'SHLD', hold: 'HOLD' };
+export const LABELS = { engine: 'ENG', reactor: 'RCT', bridge: 'BRG', magazine: 'MAG', beamBay: 'BEAM', heatSink: 'SINK', quarters: 'QTR', turret: 'TUR', shield: 'SHLD', hold: 'HOLD' };
 
-// What the prototype stands in for (13h.2), listed on screen and in the README.
+const pct = (x) => `${Math.round(x * 100)} %`;
+// What the prototype stands in for (13j.2), listed on screen and in the README (#233: the enemy's script and
+// every preset's throttle among them).
 export const STAND_INS = [
-  'Rounds fly straight at the muzzle velocity from gun to the aimed room: no aiming error, no lead, no deflection. On arrival the shield slows them (kernel shieldRound) and the kernel\'s fireRound resolves them along the aimed row, entering from the bow.',
-  'Beams: the shield absorbs at the aimed room (kernel setBeams); what passes, times the Gaussian fraction at this range, heats the aimed room and burns its cells one by one. Burn energy per cell: armour.burnEnergy (data.js has no room value).',
+  'Autopilot (for L4\'s helm): three standing orders. Range first: out of a 100 m dead band (or drifting over 50 m/s) it thrusts to fly a closing speed with no sideways drift. Facing next: bow-on or broadside, heading held by the RCS against the thrust torque, turned by the bow-stern couple. Dodge last: the thrust\'s sign across the line of sight flips every 6-14 s (seeded); broadside that means turning to the other broadside, bow-on only the RCS pushes sideways.',
+  `Presets: Fire = weapons on the target, shield on, orders as set, engine up to ${pct(PRESETS.fire.throttle)}. Cool = weapons off, shield off, engine off (coasting, RCS holds heading, no dodge). Evade = weapons hold, shield on, broadside and dodge, engine up to ${pct(PRESETS.evade.throttle)}.`,
+  `Enemy script: Fire 60 s, Cool 30 s, repeat; targets your beam bay, then turret, then engine, each until wrecked; orders hold 900 m, bow-on, dodge on.`,
+  'Turret: free aim in any direction at the lead point (target room extrapolated at its ship\'s velocity over the time of flight): no traverse arc, no slew, no dispersion; its rounds never hit their own ship.',
+  'A cell the line clips at a corner counts as crossed whole (the chord rule waits for the next kernel pass).',
   'Both sides see the true layout: no scans.',
   'No point defence, no missiles, no railgun.',
-  'No helm: both ships are held at their stations, 900 m apart. Engines and RCS still draw power and make heat in the kernel; the motion they cause is not shown or used.',
-  'Disabled: no weapon able to fire and no thrust for 10 s (#82), judged from room state. Destroyed: a reactor or magazine explodes.',
-  'Bow armour (loadout): armour fittings (#15) are not built in the kernel. N armour cells stand in front of each bow-facing row. A round arriving there first passes them by L0\'s rule (kernel penetrate, armour.kineticResistance per cell) and goes on into the row with what is left; a beam first burns them (armour.burnEnergy each), and that energy does not heat the room behind. Armour cells are wrecked like room cells (1 / kinetic.hitsToWreck per pass). Their mass and heat are ignored (ships are held at station).',
+  'A round\'s impact momentum is not given to the ship it hits (the kernel has no call for it yet).',
+  `Disabled: no weapon able to fire and no thrust for ${DISABLED_SECONDS} s (#82), judged from room state. Destroyed: a reactor or magazine explodes.`,
 ];

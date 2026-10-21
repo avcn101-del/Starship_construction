@@ -1,6 +1,7 @@
-// proto/export.js — the feel prototype's export (DESIGN.md 13h, #217, #224):
-// one compact JSON text of a battle (version, seed, loadout, the player's
-// inputs by step, the end, the event hash and a short per-room summary), so
+// proto/export.js — the feel prototype's export (DESIGN.md 13h, 13j, #217,
+// #224, #237): one compact JSON text of a battle (version, seed, loadout with
+// the player's standing orders, the player's inputs by step, the end, the
+// event hash and a short per-room summary), so
 // that proto/replay.mjs can rebuild the battle headless from seed, loadout
 // and inputs and check it ends the same. No DOM: the page (proto/proto.js)
 // and Node (proto/replay.mjs) both use it. The full event list is not
@@ -30,7 +31,7 @@ export function record(rec, events) {
     }
     rec.h1 = Math.imul(h1 ^ 10, 2654435761); rec.h2 = Math.imul(h2 ^ 10, 1597334677);
     rec.count++;
-    if (e.room === 'armour' || !(e.side in rec.rooms)) continue;
+    if (e.room === '-' || !(e.side in rec.rooms)) continue; // a miss names no room
     const r = rec.rooms[e.side][e.room] || (rec.rooms[e.side][e.room] = { hot: null, overheated: null, wrecked: null });
     if (e.type === 'hot' && r.hot === null) r.hot = e.t;
     if (e.type === 'overheated' && r.overheated === null) r.overheated = e.t;
@@ -46,9 +47,9 @@ export function eventHash(rec) {
   return (h2 >>> 0).toString(16).padStart(8, '0') + (h1 >>> 0).toString(16).padStart(8, '0');
 }
 
-/** Where the battle stands: its end if it ended, else the step it was exported at; crew lost and rooms wrecked per side. */
+/** Where the battle stands: its end if it ended, else the step it was exported at; crew lost, rooms wrecked, shots, hits and misses per side. */
 export function endOf(battle) {
-  const e = battle.ended, side = (s) => { const x = summary(s); return { crewLost: x.crewLost, crewTotal: x.crewTotal, wrecked: x.wrecked }; };
+  const e = battle.ended, side = (s) => { const x = summary(s); return { crewLost: x.crewLost, crewTotal: x.crewTotal, wrecked: x.wrecked, shots: x.shots, hits: x.hits, misses: x.misses }; };
   return {
     ended: !!e, steps: battle.steps, t: battle.t,
     losers: e ? e.losers : null, reason: e ? e.reason : null,

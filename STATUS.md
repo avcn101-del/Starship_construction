@@ -1,8 +1,8 @@
 # STATUS — hand-over between chats (#179)
 
 Updated 2026-10-21 by the lead designer chat
-`session_013PTXKzyTQkpVaKYQyBhRP8` (took over from
-`session_01LozzrLAfpzaSd7wTt1AUec`). Read this
+`session_01Ld11QmhkPubc8PkfKtd7CT` (took over from
+`session_013PTXKzyTQkpVaKYQyBhRP8`). Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
@@ -35,14 +35,16 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d, PR #42 on `proto/feel`,
   head `c1282d8`): an R1 duel ends in about 11 s (#227); loadout panel and
   Export / replay built. A light reviewer checks #217's rules.
-- **The path model** (#228, the owner's principle: every interaction
-  symmetric, no correction factors): the lead designer is rebuilding the
-  terminal effects of rounds, beams, missiles and fragments on it, every
-  number checked against real materials; the owner approved it (#229,
-  #230): rounds are damaged and flatten, the beam is a neutral particle
-  beam with no falloff at battle range, tumble waits with sloped armour in
-  `IDEAS.md`. Plan and scenarios P1–P8: `DESIGN.md` §13i (#231); the
-  engineer builds it on `m0/path`.
+- **The path model is done and merged** (`DESIGN.md` §13i; #228–#236;
+  PR #48): rounds are damaged and flatten, protection is the mass on the
+  path, the beam is a spinal neutral particle beam (Bethe deposit, no
+  falloff). `regress` on `main`: **57 VERIFIED + 34 WITHDRAWN**. Cost
+  18.24 USD.
+- **Prototype v2 is planned** (`DESIGN.md` §13j, #237): a helm as three
+  standing orders run by a stand-in autopilot, physical misses, the path
+  model's kernel, a seed per Restart, the three superseded constants
+  removed. The owner said go; the engineer runs on `proto/v2`
+  (`session_013XH7jici9kFqQf6EJYqURu`, opus); the plan's docs are PR #50.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -67,6 +69,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
+| #50 | `ccr-4f9cd066-gv15es` | docs: §13j, #237, #238, CHANGELOG 0.7.2, STATUS; the lead designer merges with the v2 block (#218) |
+| #51 | `proto/v2` (head `4fba090`) | merged into the lead designer's branch (closes with PR #50); answers in #239 |
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
 
@@ -78,6 +82,18 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #239: prototype v2 merged; answers to its engineer and reviewer; the
+  lead designer's §13j.3 estimate was wrong by its own facing rule.
+- #238: audits at fixed milestones (the owner's direction; the milestones
+  and the four audits' scope are the lead designer's wording, §13b).
+- #237: prototype v2's plan (§13j): kernel numbers first (R1 850 t, 1.80
+  g; 5 / 11 / 31 m of dodge over the time of flight at 600 / 900 / 1500 m;
+  R1's magazine open from three sides); the helm as standing orders, the
+  facing trade (bow-on beams, broadside dodges) from the spinal bay and the
+  axial engine with no constant; no dispersion; five withdrawn L0
+  scenarios retired when the superseded constants go.
+- #236: the path model merged; answers to its engineer, reviewer and
+  physics checker; findings for the next kernel pass.
 - #204: answers to the L2 heat-v2 engineer (two estimate errors of the
   lead designer; estimates now switch on every passed level's rules).
 - #205: answers to the L2 physics checker (blast from the whole damaged
@@ -124,18 +140,26 @@ Nothing (the owner chose the spinal beam bay and low-end masses, #234).
 
 ## Next steps
 
-1. **Start a new chat now** (the owner asked to be reminded when the path
-   model merged; this chat's context was compressed once). Hand over
-   through this file; this chat has no pending check-in.
-2. **Prototype v2** (plan first, #224's process): a helm (thrust, RCS; R1's
-   thrust line is 1.29 m off its centre of mass, #236), physical misses
-   (time of flight, lead, dodging), the path model's kernel (`fireRound`,
-   `fireBeam`, cell masses), a seed per Restart shown and exported, the
-   enemy script and preset throttles added to the stand-ins list (#233),
-   and the three SUPERSEDED constants then removed from `data.js`.
+1. **Prototype v2 is merged (#239)** and published for the owner
+   (https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d, head `4fba090`):
+   the owner plays it with a changing seed and the player's orders
+   (range, facing, dodge) and writes down what is not fun (§13j.4).
+2. **Audits (#238, §13b)**: documents done (`audit/docs`, 72 findings:
+   9 contradictions, 28 stale, 4 unsupported, 22 single-place, 9
+   questions; six questions are the owner's: no dice vs seeded stand-ins,
+   blast and shield exempt from the mass law, heat capacity against
+   steel's, range band vs ship lengths, the outside blast field); physics
+   as one system (`audit/physics`) and scenario quality
+   (`audit/scenarios`) run now; the process audit is the lead designer's own, from this file's
+   ledger, once the docs audit is in. Then one consolidation pass answering
+   every finding, recorded as a decision (DESIGN keeps the current design
+   and a table of decisions in force; plans and measured history move to
+   their own file; DECISIONS untouched), before the L4 plan. Milestones for
+   the next audits are in §13b.
 3. **Next kernel pass** (with L4): the findings of #236 (the `beamPaths`
    cache, withdrawal reason texts, a PSTAR water anchor for `csdaRange`,
-   §13f.1's dead-weight flows) and #227 Q9.
+   §13f.1's dead-weight flows), #227 Q9, the chord rule of §13j.2 and
+   whatever v2's autopilot teaches `helm.js`.
 4. Then the L4 plan (ship versus static target). Physics is frozen unless a
    playtest of prototype v2 points at it.
 
@@ -192,6 +216,12 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, path model (PR #48) | session_01GVBq5ohYZDDfg15HAkHm71 | opus-5-5 | 13.57 |
 | Physics checker, path model | session_01PsqTHfLh2EPTgKeY3KroeR | sonnet-5-5 | 4.08 |
 | Reviewer, path model | session_01D2L2Kyg1bin1QGk1UZQvfW | sonnet-5-5 | 0.59 |
+| Engineer, prototype v2, created on the wrong model and archived after 35 s (the lead designer's error) | session_01Tf9UpKXmBCZJZbj4Rj2s8M | fable-5-1 | 1.12 |
+| Engineer, prototype v2 (PR #51) | session_013XH7jici9kFqQf6EJYqURu | opus-5-5 | 11.73 |
+| Reviewer, prototype v2 (PR #51; no blocking finding, 4 non-blocking) | session_01EjFiN5BcJedtsbn1K6ucc6 | sonnet-5-5 | 1.00 |
+| Docs audit (read-only; report on `audit/docs`, `audit/2026-10-21-docs.md`: 72 findings) | session_01RwaxZTmMVcMs2QbrF8KohP | sonnet-5-5 | 6.59 |
+| Physics system audit (read-only; `audit/physics`, `audit/2026-10-21-physics.md`: 29 findings) | session_01VxycQ6zZQf69yMEK5QXyJr | opus-5-5 | 3.78 |
+| Scenario quality audit (read-only; `audit/scenarios`; it spawned sub-agents) | session_01Pr1RKAyvUNZpe8ticEBuyF | sonnet-5-5 | running, 12.42 at 23:41 UTC |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -199,6 +229,7 @@ D pass total: 14.11 USD (engineers 7.83 + 2.93, physics checker 2.26, reviewer 1
 L3 total: 23.82 USD (engineers 13.09 + 2.94 + 3.12, physics checker 3.22, reviewer 1.45).
 Mass pass total: 8.90 USD (engineer 8.07, reviewer 0.83).
 Feel prototype total: 12.36 USD (engineers 5.41 + 3.71 + 2.93, reviewer 0.31).
+Prototype v2 total: 13.85 USD (engineer 11.73, reviewer 1.00, mis-created session 1.12).
 Path model total: 18.24 USD (engineer 13.57, physics checker 4.08, reviewer 0.59).
 
 Sessions have reported a **seven-day usage limit warning**.
@@ -258,3 +289,6 @@ Sessions have reported a **seven-day usage limit warning**.
   pass), re-derive every constant calibrated on the old scale (#232).
 - When the owner plays a build, first check that a lever can act before
   the battle ends; a fixed seed decided every battle of v1 (#233).
+- `create_session` inherits the chat's model: pass `model` explicitly for
+  every role (an engineer created on fable by mistake cost 1.12 USD in
+  35 s before it was archived).

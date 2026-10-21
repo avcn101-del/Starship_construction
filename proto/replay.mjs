@@ -1,18 +1,20 @@
 #!/usr/bin/env node
-// proto/replay.mjs — replays an export of the feel prototype (proto/export.js)
-// headless (Node, no DOM): rebuilds the battle from its seed, loadout and the
-// player's inputs by step, checks that its end and event hash equal the
+// proto/replay.mjs — replays an export of the feel prototype v2
+// (proto/export.js) headless (Node, no DOM): rebuilds the battle from its
+// seed, loadout (with the player's standing orders) and the player's inputs
+// by step, checks that its end and event hash equal the
 // exported ones (MATCH or MISMATCH), and prints the full event log and each
 // room's temperature peak. Not a Mission 0 scenario (#217).
 //
 //   node proto/replay.mjs <file.json> [--every S] [--quiet]
 //
 // --every S also prints, once per S simulated seconds, each room's
-// temperature and integrity and each shield's state. --quiet prints only the
+// temperature and integrity, each shield's state and the helm (mode, range,
+// throttle). --quiet prints only the
 // check. Exit code 0 on MATCH, 1 on MISMATCH.
 import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { createBattle, tick, setTarget, setPreset, drainEvents } from './battle.js';
+import { createBattle, tick, setTarget, setPreset, drainEvents, mainBody } from './battle.js';
 import { createRecorder, record, eventHash, endOf, decodeInputs } from './export.js';
 import { PROTO_VERSION, LABELS, loadoutText } from './config.js';
 import { roomTemperature, isDestroyed } from '../js/rooms.js';
@@ -58,7 +60,8 @@ function snapshot() {
       return `${LABELS[r.id]} ${Math.round(roomTemperature(r))}K ${Math.round(integrity * 100)}%${isDestroyed(r) ? 'X' : r.shutdown ? '!' : ''}`;
     }).join(' | ');
     const sh = s.room('shield').shield;
-    out(`  [${battle.t.toFixed(0).padStart(4)} s ${s.side === 'player' ? 'P' : 'E'} ${s.preset}] ${rooms} || shield ${sh.on ? (sh.down ? 'DOWN' : 'up') : 'off'} strength ${sh.strength.toFixed(2)} absorbing ${(sh.absorbed / 1e6).toFixed(2)} MW passing ${(sh.passed / 1e6).toFixed(2)} MW`);
+    const b = mainBody(s), h = s.helm;
+    out(`  [${battle.t.toFixed(0).padStart(4)} s ${s.side === 'player' ? 'P' : 'E'} ${s.preset}] ${rooms} || shield ${sh.on ? (sh.down ? 'DOWN' : 'up') : 'off'} strength ${sh.strength.toFixed(2)} absorbing ${(sh.absorbed / 1e6).toFixed(2)} MW passing ${(sh.passed / 1e6).toFixed(2)} MW || helm ${h.mode || '-'} range ${h.range === undefined ? '-' : h.range.toFixed(0)} m throttle ${h.throttle} heading ${((b.theta * 180) / Math.PI).toFixed(0)} deg`);
   }
 }
 

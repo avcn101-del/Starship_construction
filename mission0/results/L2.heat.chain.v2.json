@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.heat.chain.v2",
-  "code": "f220524",
+  "code": "f7bf5c6",
   "criterionHash": "407c65f5",
   "lockedHash": "407c65f5",
   "runHash": "9e7ed5c3",
-  "dataHash": "70b16e4c",
+  "dataHash": "930a2386",
   "rowsHash": "b7e0e589",
   "rows": [
     {
