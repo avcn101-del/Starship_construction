@@ -150,9 +150,13 @@ Nothing (the owner chose the spinal beam bay and low-end masses, #234).
    (fdlibm); the kernel's own sin/cos is a next-kernel-pass item. Its nine
    questions are answered at merge (a decision row). Then the lead designer
    merges the v2 block with PR #50; the owner plays with a changing seed.
-2. **Audits (#238, §13b)**: documents (`audit/docs`), physics as one
-   system (`audit/physics`) and scenario quality (`audit/scenarios`) run
-   now; the process audit is the lead designer's own, from this file's
+2. **Audits (#238, §13b)**: documents done (`audit/docs`, 72 findings:
+   9 contradictions, 28 stale, 4 unsupported, 22 single-place, 9
+   questions; six questions are the owner's: no dice vs seeded stand-ins,
+   blast and shield exempt from the mass law, heat capacity against
+   steel's, range band vs ship lengths, the outside blast field); physics
+   as one system (`audit/physics`) and scenario quality
+   (`audit/scenarios`) run now; the process audit is the lead designer's own, from this file's
    ledger, once the docs audit is in. Then one consolidation pass answering
    every finding, recorded as a decision (DESIGN keeps the current design
    and a table of decisions in force; plans and measured history move to
@@ -221,7 +225,7 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, prototype v2, created on the wrong model and archived after 35 s (the lead designer's error) | session_01Tf9UpKXmBCZJZbj4Rj2s8M | fable-5-1 | 1.12 |
 | Engineer, prototype v2 (PR #51) | session_013XH7jici9kFqQf6EJYqURu | opus-5-5 | 11.73 |
 | Reviewer, prototype v2 (PR #51) | session_01EjFiN5BcJedtsbn1K6ucc6 | sonnet-5-5 | running |
-| Docs audit (read-only; report on `audit/docs`, `audit/2026-10-21-docs.md`) | session_01RwaxZTmMVcMs2QbrF8KohP | sonnet-5-5 | running |
+| Docs audit (read-only; report on `audit/docs`, `audit/2026-10-21-docs.md`: 72 findings) | session_01RwaxZTmMVcMs2QbrF8KohP | sonnet-5-5 | 6.59 |
 | Physics system audit (read-only; `audit/physics`, `audit/2026-10-21-physics.md`) | session_01VxycQ6zZQf69yMEK5QXyJr | opus-5-5 | running |
 | Scenario quality audit (read-only; `audit/scenarios`, `audit/2026-10-21-scenarios.md`) | session_01Pr1RKAyvUNZpe8ticEBuyF | sonnet-5-5 | running |
 
