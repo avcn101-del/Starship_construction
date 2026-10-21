@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.7.0 — 2026-10-21 — Mission 0: the path model (#228–#235)
+
+- Data (§13i.2, #235): new `matter.kineticResistance` 1545.4 m/s
+  (750–3125, k=0); cell masses by room type (`structure.cellMass` 3 t,
+  structure only; new `cellMass.crewed` 14.8 t, `.reactor` 125 t, `.engine`
+  6.1 t, `.beamBay` 5.5 t, `.shieldGenerator` and `.railgun` 10 t,
+  `armour.cellMass` 10 t; k=3) named by each room in `ROOMS`;
+  `beam.gradient` 10 MeV/m in J/m (5–20 MeV/m, k=0); real FIXED constants
+  for a proton in iron (CODATA, PDG) in SI; `room.kineticResistance`
+  removed. The beam bay is a spinal room (`spinal: { min: 2 }`, placement
+  axis and bow clear), its footprint its default length.
+  `armour.kineticResistance`, `beam.focusRange` and
+  `FIXED.beamWaistPerHalfCell` are marked superseded and kept only because
+  `proto/` v1 reads them (a question for the lead designer in the PR).
+
 ## 0.6.6 — 2026-10-21 — The path model revised (#234, #235)
 
 - The beam bay becomes a spinal accelerator whose length sets its particle
