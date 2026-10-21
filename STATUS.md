@@ -6,14 +6,19 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#196, current design in `DESIGN.md`.
-- **L2 plan written** (#192–#196, `DESIGN.md` §13d): cluster layout,
-  conduction, power and ammunition by wall length, blast between rooms,
-  shield overlap without double counting (#170), shared repair, size rule,
-  12 scenarios. **Engineer's pull request open** on `m0/l2-clusters`:
-  10 PASS, 2 FAIL on specification questions (the hold does not save a
-  neighbour behind a 10 m wall; the chain's 1e-3 K and < 15 % are not met
-  by the closed form itself).
+- Design settled: `DECISIONS.md` #1–#202, current design in `DESIGN.md`.
+- **L2 in progress** (#192–#201, `DESIGN.md` §13d): PR #15 on
+  `m0/l2-clusters` built rows 1–12: 10 PASS, 2 FAIL on the lead designer's
+  own specification errors (#201 (2)). Engineer cost 11.48 USD.
+- **Heat now makes physical sense (#200, the owner)**: heat moves fast only
+  along the machinery's coolant loop; crewed rooms and magazines are
+  insulated and cooled by life support (#201). The heat sink stays (#198);
+  the cofferdam is deferred (#201 (4)). Superseded scenarios are withdrawn
+  under #188 as extended by #200.
+- **Sense check of all mechanics (#202)**: four inconsistencies for the
+  owner (engines, beams, recoil, kinetic damage and repair) and two fixed
+  by the lead designer (cell mass = heat capacity / c_p, about 1 t per cell;
+  relative velocity checked at L5).
 - **E1 amended by the owner (#188)**: a scenario withdrawn for a
   specification error, with a passing successor, does not block E1.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
@@ -39,12 +44,9 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Open pull requests
 
-| PR | Branch | What | State |
-|---|---|---|---|
-| #15 | `m0/l2-clusters` | Mission 0, L2: pairs and clusters (engineer, `session_0111ENvC2XXCj4tA5T9zTZQ7`) | open; 12 scenarios locked at `621f2c6` and run: 10 PASS, `L2.heat.chain` and `L2.heat.neighbour` FAIL on the plan's own claims (Questions for the designer in the PR); `regress` 37 VERIFIED + 1 WITHDRAWN; waits for the physics checker (blind) and the reviewer |
-
-PR #5 (L1) is merged through the lead designer's branch, so `main`
-carries its head `fd815ce` with a merge commit.
+| PR | Branch | State |
+|---|---|---|
+| #15 Mission 0, L2: pairs and clusters | `m0/l2-clusters` → `main` | rows 1–12 built (10 PASS, 2 FAIL: spec errors); fixes of #200/#201 and the heat sink (rows 13, 14) next, then the physics checker and the reviewer |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -68,20 +70,30 @@ carries its head `fd815ce` with a merge commit.
 - #192–#196: the L2 plan (layout and live walls, the flow models, 12
   scenarios with reference integrators where no closed form exists,
   7 constants with ranges, process).
+- #198, #199: the heat sink (5× capacity, 3× conductivity, a destroyed
+  cell vents its heat to space) and the cofferdam (1×N, the hold's
+  factors; deferred by #201).
+- #201: the coolant-loop rules and constants, life support, the L2 v2
+  scenarios, the cofferdam deferred, the answers to the L2 engineer.
+- #202 (E, F): cell mass and heat capacity from one number at L3 (about
+  1 t per cell, a T1 corvette about 250 t); relative velocity checked at L5.
 
 ## Awaiting the owner
 
-1. **How harsh is a running reactor next to crew?** (#196, a feel
-   question, not blocking.) With the default, a reactor at a quarter of its
-   power kills the crew of quarters sharing its wall in about 2.4 min, and
-   a full reactor overheats in 1.5–5 min depending on its neighbours; an
-   empty hold between them saves the crew. Recommended: keep it (building
-   is a moral choice, #52). The softer option lowers `conduction.wall`
-   within its range, a constant change only.
+Four sense-check items (#202 A–D), each with a recommended answer:
+- **(A) Engines**: self-fuelled torches, fuel not tracked; electricity
+  runs their auxiliaries. Needed before L3 (thrust and mass).
+- **(B) Beams**: millimetre-wave masers instead of optical lasers.
+- **(C) Recoil**: kept in the physics, expected to matter only for the
+  spinal railgun; L3 measures it, E4 may cut it.
+- **(D) Kinetic damage and repair**: real naval calibres per tier, partial
+  damage per hit, repair of damaged (not destroyed) cells. Needed before L4.
 
 ## Next steps
 
-1. Engineer builds L2 on `m0/l2-clusters` (§13d).
+1. An engineer session on `m0/l2-clusters` lands #200/#201: the
+   coolant-loop rule, life support, the v2 scenarios (rows 1b, 2b, 3b,
+   12b, 16) and the heat sink (rows 13, 14), withdrawals under #188/#200.
 2. Physics checker blind on the pull request, then the reviewer; fixes;
    the lead designer merges when no blocking finding remains (#180).
 3. Then the L3 plan (minimal ship: rigid body, CoM, MoI, recoil spin,
@@ -117,7 +129,7 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Reviewer, L1 | session_01RYgtwmNTAS4VRWxefHDetg | sonnet-5-5 | 1.19 |
 | Engineer, L1 review fixes (#189) | session_014jtbGrQdvSycQU8E6stAeY | opus-5-5 | 4.97 |
 | Reviewer, L1 re-review | session_01GsfMyFUqaSXRsVGQhELH2U | sonnet-5-5 | 0.53 |
-| Engineer, L2 (`m0/l2-clusters`) | session_0111ENvC2XXCj4tA5T9zTZQ7 | opus-5-5 | not visible to the session |
+| Engineer, L2 rows 1–12 (PR #15) | session_0111ENvC2XXCj4tA5T9zTZQ7 | opus-5-5 | 11.48 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 
