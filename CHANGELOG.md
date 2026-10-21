@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.4 — 2026-10-21 — Answers to the L3 physics checker (#220)
+
+- `DESIGN.md` §13f: angular books 1e-9 × net + 1e-12 × gross; two v2
+  files assert the discrete turn and the discrete position; a feed keeps
+  angular momentum.
+
 ## 0.4.3 — 2026-10-21 — Answers to the L3 engineer (#219)
 
 - `DESIGN.md` §5.2, §13f.1: the shield generator may carry fittings.

@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#219, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#220, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -21,8 +21,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   reviewer 1.09).
 - **L3, the minimal ship** (`DESIGN.md` §13f, #208–#213, #216, #219): PR
   #35, head `1ba258b`: 65 of 68 cases PASS; seven scenarios withdrawn as
-  specification errors with v2 successors (#219), built by a fix engineer
-  session; physics checker (blind) in parallel; then the reviewer.
+  specification errors with v2 successors (#219, #220). Physics checker:
+  kernel matches its blind derivation in all nine (#220). A second fix
+  engineer session locks and records the v2s; then the reviewer.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -47,7 +48,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| #35 Mission 0, L3 | `m0/l3-ship` → `main` | head `1ba258b`; answers in #219; fix engineer and physics checker running |
+| #35 Mission 0, L3 | `m0/l3-ship` → `main` | head `6af9f33` (v2 files unlocked); answers in #219, #220; fix engineer 2 running; reviewer next |
 
 The D pass merged by PR #32 (`ea4e96f`).
 
@@ -61,6 +62,9 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #220: answers to the L3 physics checker and Q13 (angular books
+  1e-9 × net + 1e-12 × gross; crew capacity at L4; ship density to settle
+  before the prototype).
 - #219: answers to the L3 engineer (shield generator may carry fittings;
   seven L3 scenarios withdrawn as specification errors, five of them the
   engineer's invariant scales, two the lead designer's criteria; v2
@@ -97,7 +101,11 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
    §13f as its task; scenarios locked in their own commit; the engineer
    reproduces the estimates of #209 independently before the lock; then
    the physics checker (blind, §13f.1, §13f.2, §13f.4) and the reviewer.
-2. **The feel prototype** (#217, the owner): after L3 merges, write its
+2. **Ship density** (#220 (7)), before the prototype: 1 t per cell is
+   about 8 kg/m³ (real spacecraft 100–460). Estimate decoupling structural
+   mass from heat capacity, with thrust and RCS re-tuned for 1–2 g, and put
+   the choice to the owner.
+3. **The feel prototype** (#217, the owner): after L3 merges, write its
    plan as an *LD* row (scope, stand-ins for what L4–L5 have not built,
    what the owner judges on the phone, cost estimate), then one engineer
    session builds it in `proto/`.
@@ -143,6 +151,8 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Physics checker, D pass | session_01UFe2RUu58iTgEttPPf5dZ4 | sonnet-5-5 | 2.26 |
 | Reviewer, D pass | session_01TVQqxMbuhGDobwni8xCnqq | sonnet-5-5 | 1.09 |
 | Engineer, L3 (PR #35) | session_01LapPHkFEVnX7ADLbgrCENH | opus-5-5 | 13.09 |
+| Physics checker, L3 | session_014dyKkuWtmsZa9fcmrS8jkp | sonnet-5-5 | 3.22 |
+| Engineer, L3 fixes 1 (#219, stopped on Q13) | session_016VbwLzzv4YyZZL383cPXbx | opus-5-5 | 2.94 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
