@@ -3,12 +3,12 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.engine.thrust",
-  "code": "49355f3",
+  "code": "208955b",
   "criterionHash": "9be928bb",
   "lockedHash": "9be928bb",
   "runHash": "62d00ad7",
-  "dataHash": "bcc9b491",
-  "rowsHash": "8249b6fa",
+  "dataHash": "3d66afdf",
+  "rowsHash": "36c4fb6b",
   "rows": [
     {
       "case": {
@@ -85,17 +85,17 @@
         "controlled": true
       },
       "expected": {
-        "thrust": 4000000,
+        "thrust": 1000000,
         "draw": 5000000,
         "heatRate": 1500000,
-        "acceleration": 4,
+        "acceleration": 1,
         "hot": null,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "thrust": 4000000,
+        "thrust": 1000000,
         "draw": 5000000,
-        "acceleration": 4,
+        "acceleration": 1,
         "heatRate": 1500000,
         "hot": null,
         "books": {
@@ -118,17 +118,17 @@
         "controlled": true
       },
       "expected": {
-        "thrust": 4000000,
+        "thrust": 1000000,
         "draw": 5000000,
         "heatRate": 1500000,
-        "acceleration": 2.6666666666666665,
+        "acceleration": 0.6666666666666666,
         "hot": null,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "thrust": 4000000,
+        "thrust": 1000000,
         "draw": 5000000,
-        "acceleration": 2.6666666666666665,
+        "acceleration": 0.6666666666666666,
         "heatRate": 1500000,
         "hot": null,
         "books": {
@@ -151,17 +151,17 @@
         "controlled": true
       },
       "expected": {
-        "thrust": 8000000,
+        "thrust": 2000000,
         "draw": 10000000,
         "heatRate": 3000000,
-        "acceleration": 8,
+        "acceleration": 2,
         "hot": 372,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "thrust": 8000000,
+        "thrust": 2000000,
         "draw": 10000000,
-        "acceleration": 8,
+        "acceleration": 2,
         "heatRate": 3000000,
         "hot": 372,
         "books": {
@@ -184,17 +184,17 @@
         "controlled": true
       },
       "expected": {
-        "thrust": 8000000,
+        "thrust": 2000000,
         "draw": 10000000,
         "heatRate": 3000000,
-        "acceleration": 5.333333333333333,
+        "acceleration": 1.3333333333333333,
         "hot": 372,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "thrust": 8000000,
+        "thrust": 2000000,
         "draw": 10000000,
-        "acceleration": 5.333333333333333,
+        "acceleration": 1.3333333333333333,
         "heatRate": 3000000,
         "hot": 372,
         "books": {
@@ -283,17 +283,17 @@
         "controlled": true
       },
       "expected": {
-        "thrust": 18000000,
+        "thrust": 4500000,
         "draw": 22500000,
         "heatRate": 6750000,
-        "acceleration": 12,
+        "acceleration": 3,
         "hot": 558,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "thrust": 18000000,
+        "thrust": 4500000,
         "draw": 22500000,
-        "acceleration": 12,
+        "acceleration": 3,
         "heatRate": 6750000,
         "hot": 558,
         "books": {
@@ -316,17 +316,17 @@
         "controlled": true
       },
       "expected": {
-        "thrust": 32000000,
+        "thrust": 8000000,
         "draw": 40000000,
         "heatRate": 12000000,
-        "acceleration": 21.333333333333332,
+        "acceleration": 5.333333333333333,
         "hot": 744,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "thrust": 32000000,
+        "thrust": 8000000,
         "draw": 40000000,
-        "acceleration": 21.333333333333332,
+        "acceleration": 5.333333333333333,
         "heatRate": 12000000,
         "hot": 744,
         "books": {
@@ -349,17 +349,17 @@
         "controlled": true
       },
       "expected": {
-        "thrust": 72000000,
+        "thrust": 18000000,
         "draw": 90000000,
         "heatRate": 27000000,
-        "acceleration": 48,
+        "acceleration": 12,
         "hot": 1116,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "thrust": 72000000,
+        "thrust": 18000000,
         "draw": 90000000,
-        "acceleration": 48,
+        "acceleration": 12,
         "heatRate": 27000000,
         "hot": 1116,
         "books": {
@@ -382,17 +382,17 @@
         "controlled": true
       },
       "expected": {
-        "thrust": 128000000,
+        "thrust": 32000000,
         "draw": 160000000,
         "heatRate": 48000000,
-        "acceleration": 85.33333333333333,
+        "acceleration": 21.333333333333332,
         "hot": 1488,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "thrust": 128000000,
+        "thrust": 32000000,
         "draw": 160000000,
-        "acceleration": 85.33333333333333,
+        "acceleration": 21.333333333333332,
         "heatRate": 48000000,
         "hot": 1488,
         "books": {
@@ -415,17 +415,17 @@
         "controlled": true
       },
       "expected": {
-        "thrust": 288000000,
+        "thrust": 72000000,
         "draw": 360000000,
         "heatRate": 108000000,
-        "acceleration": 192,
+        "acceleration": 48,
         "hot": 2232,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "thrust": 288000000,
+        "thrust": 72000000,
         "draw": 360000000,
-        "acceleration": 192,
+        "acceleration": 48,
         "heatRate": 108000000,
         "hot": 2232,
         "books": {
