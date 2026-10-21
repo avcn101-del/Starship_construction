@@ -7,14 +7,19 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#207, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#212, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` on `main`: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
   checker 2.82, reviewer 1.34). The reviewer found no blocking defect; its
   three findings are answered by #207 (life support under routing is fixed
   in the D pass, scenario D5).
-- **Next: the D pass** (`DESIGN.md` §13e, #206, #207) on `m0/d-damage`.
+- **The D pass** (`DESIGN.md` §13e, #206, #207, #212): PR #24 on
+  `m0/d-damage`, head `36a3a1d`: D1–D4 PASS, `regress` 44 VERIFIED + 7
+  WITHDRAWN; D5 FAILed on a tolerance the lead designer set under the
+  kernel's Euler error (#212): withdrawn, successor D5b, plus a new
+  `L2.blast.split` (D6); a fix engineer session builds both. **The L3 plan is written** (`DESIGN.md` §13f, #208–#211);
+  L3 starts after the D pass merges.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -39,7 +44,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| — | — | none open (L2 merged through the lead designer's branch; PR #15 closes with it) |
+| #24 Mission 0 D pass | `m0/d-damage` → `main` | head `36a3a1d`; answers in #212; fix engineer session building D5b and D6 |
+
+L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -49,6 +56,14 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #212: answers to the D-pass engineer (D5 withdrawn for the lead
+  designer's tolerance error, successor D5b; new `L2.blast.split`; blast
+  kills crew in proportion; a destroyed cell resists no round, built at
+  L3).
+- #208–#211: the L3 plan (cell mass from heat capacity, rigid body,
+  debris and fragments, control, validation, reference ship R1, 8
+  scenarios with estimates; `engine.thrust` re-tuned 8 → 2 MN; new RCS,
+  radiator-mass and specific-heat constants).
 - #207: answers to the L2 reviewer (life support under power routing runs
   while the room is joined to a reactor able to produce, fixed in the D
   pass with scenario D5; §16 cleaned up); L2 merged.
@@ -58,7 +73,10 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Awaiting the owner
 
-Nothing.
+- **E8's budget** (an exit criterion's number, #180, #211): proposed 1 ms
+  per simulation step in Node for a T1 and a T6 1v1 (a quarter of a 60 Hz
+  phone frame is 4.2 ms; a phone runs JavaScript about 3–5× slower than
+  the container). Not blocking: L3 only measures the baseline.
 
 ## Next steps
 
@@ -70,20 +88,19 @@ Nothing.
    successors; D5 (#207) adds life support under routing; any other
    verdict change is a finding, not a withdrawal;
    then the physics checker (blind) and the reviewer.
-2. **The L3 plan** (minimal ship): rigid body; cell mass = heat capacity /
-   c_p, about 1 t per cell, a T1 corvette about 250 t (#202 E); engine
-   thrust re-tuned for torches (#203 A); CoM and moment of inertia; recoil
-   measured (#203 C; now 12× larger, about 0.35 °/s after 20 M shots);
-   split momentum; the control graph; SCRAM in a fragment; validation; the
-   L3 signal of #205 (8): radiator rooms must carry the heat life support
-   pumps into the coolant loop. Estimate every criterion over its whole run
-   with every rule of L0–L2 on before locking (#204).
+2. **L3** (`DESIGN.md` §13f, #208–#211), after the D pass merges: one
+   engineer session (opus) on `m0/l3-ship` from `main`, with the whole
+   §13f as its task; scenarios locked in their own commit; the engineer
+   reproduces the estimates of #209 independently before the lock; then
+   the physics checker (blind, §13f.1, §13f.2, §13f.4) and the reviewer.
 
 ## Scheduled tasks
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
+
+| Check-in on the D pass engineer | `trig_01Bodx8dpC9NPdRALjYgKsGr` | once, 2026-10-21 08:38 UTC | wakes the lead designer chat `session_013PTXKzyTQkpVaKYQyBhRP8` |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
@@ -113,6 +130,7 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, L2 heat v2 and heat sink | session_011dfRdXfFAYsLmAY2C9a6Qg | opus-5-5 | 8.25 |
 | Physics checker, L2 | session_01KdLbYYddDJgStcfriEdqsv | sonnet-5-5 | 2.82 |
 | Reviewer, L2 | session_01AKKABP9PxiAjtEkN1wcowa | sonnet-5-5 | 1.34 |
+| Engineer, D pass (PR #24) | session_012PgbFfMKtgaDjSpVz451eZ | opus-5-5 | 7.83 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -153,6 +171,10 @@ Sessions have reported a **seven-day usage limit warning**.
 - Sense-check every new mechanic against real magnitudes before it is
   locked (#200, #202): the first heat model passed its tests and was still
   about 160 times too harsh.
+- Check every tolerance against the kernel's own step error before
+  locking it (#212: D5's 1e-6 K sat under a 5e-5 K Euler error; #201 (2)
+  was the same mistake). Absolute temperature tolerances below 1e-4 K are
+  suspect.
 - `node tools/m0.js regress` takes several minutes since L2: give it a long
   timeout or run it in the background.
 - Documentation changes go through a pull request from the lead
