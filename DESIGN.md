@@ -1421,6 +1421,70 @@ consequences, not design signals (#220 (4)). The bridge's rise above its
 setpoint (life support overwhelmed by a hot reactor's passive leak plus
 its own draw) stays a signal (#219 (3)).
 
+**The mass pass: ships of real density** (2026-10-21; #221, #222; data
+`4786d79`, kernel `a01756b`, runner `22da3b6` and `7b0f40f`, every record
+re-recorded `05aae7f`; five v3 successors and `L3.fragment.rules` written at
+`5553e13`, locked at `74493af` before their first canonical run; T1 and T6,
+size M, SI; constants of §13g.2). **All six PASS** (5 v3 + `L3.fragment.rules`,
+52 cases, all PASS). The re-record moved results only where the new data reaches
+them: `L1.engine.thrust` and `L1.room.restart` (`engine.thrust` 2 → 15 MN,
+still PASS), `L3.fragment.scram` (its engine's thrust at half throttle,
+7.5 MN, and its momentum residues; still PASS) and `L3.ship.heat.v2` (its
+momentum residues only: every temperature, event time and peak is
+bit-identical; still PASS). Every other L0–L2, D-pass and L3 row is
+unchanged. The five L3 v2 scenarios whose expected values compute mass from
+`thermal.specificHeat` (`L3.mass.props.v2`, `L3.thrust.v2`,
+`L3.rcs.turn.v2`, `L3.recoil.v2`, `L3.split.momentum.v2`) fail: their
+`expected()` names a constant #221 removed (the runner now records that as
+a FAIL, like a `run()` that throws, #212 (7)); they are withdrawn as
+superseded by #221, and their v1 predecessors resolve through the chain
+v1 → v2 → v3 (the runner follows it). `L3.fragment.scram`,
+`L3.ship.heat.v2`, `L3.validation.v2` and `L3.kinetic.hole` needed no
+successor: none computes mass in its expected values. `regress`: **56 VERIFIED + 20 WITHDRAWN**.
+Each v3's actual rows hash exactly as its v2's (the same `run()`): only the
+expected mass changed. Margins before the lock (tolerance over the worst
+residue, every case): angular books `L3.mass.props.v3` 3.6e3 (R1 at T6 after
+20 shots; 454 before the mass pass), `L3.rcs.turn.v3` 1.6e4, `L3.recoil.v3`
+3.1e4, `L3.thrust.v3` 1.0e5, `L3.split.momentum.v3` 8.6e5,
+`L3.fragment.rules` 1.4e6; momentum books ≥ 9.9e4; heat books ≥ 9.9e3; the
+RK4 gap of `L3.thrust.v3` (b) 3.0 (heading at 5 s, dt / t, unchanged by
+mass) and 3.5 (position at 5 s).
+
+| Scenario | What the numbers say |
+|---|---|
+| `L3.mass.props.v3` | 34 cases match the cell sums to 1e-12. A T1 cell is **10 000 kg**, a heat sink cell 10 573.34 kg. **R1 is 448.267 t**, centre of mass (29.451, 16.376) m, I = 1.0803e8 kg·m² (§13g.3: 448 t, (29.45, 16.38), 1.08e8); after 20 rounds 448.147 t; after four cells 408.267 t; after the cut 242.074 t and 164.797 t. ×216 in mass and ×7776 in I at T6 for every room alone; R1 at T6 96 061 t against its own sums (`radiator.mass` k = 2). PASS |
+| `L3.thrust.v3` | (a) The symmetric ship (140 t) accelerates at exactly F / M = 107.14 m/s² (10.9 g) with ω = 0, on the discrete position to 5.7e-15. (b) R1's thrust line passes **1.376 m** below its centre of mass: α = 0.19110 rad/s² (**10.95 °/s²**), ω = α t at every step, readout **3.412 g**; against RK4 at 5 s and 10 s position 2.8e-3 and 1.1e-3, heading 3.3e-3 and 1.7e-3. PASS |
+| `L3.rcs.turn.v3` | One couple: α = **0.46285 rad/s²** both ways (arms 23.05 + 26.95 m); **111 + 111 firing steps** ending at 3.700 s against 2 √(θ / α) = **3.684 s** (0.93 of a step after it, inside the one-sided window); heading 1.584101 rad (90.76°) = 111² α dt²; |ω| ≈ 6e-17 rad/s; readout the same α and 3.684 s. PASS |
+| `L3.recoil.v3` | **One M shot broadside moves R1 by 0.01071 m/s and turns it by 0.03959 °/s**; 20 shots 0.7919 °/s (0.03959 to 0.03960 °/s each); forward 0.02196 °/s per shot. The railgun-sized fixture (25 000 N·s): **0.05577 m/s**, and 0.0663 °/s 5 m off the axis. Momentum change = −Σ round momenta to 1e-12. PASS |
+| `L3.split.momentum.v3` | The cut leaves a 242.074 t bow and a 164.797 t stern (with contents and fittings; cells alone 240.0 t and 161.1 t) and 5 pieces of debris, 41.397 t (the four cells and the radiator on (4,5)); at T1 the fragments move at (9.931, 0.529) and (10.147, −0.719) m/s, both at 0.05 rad/s, the parent's field after 31 steps of turning; |ΔP| 9.4e-10 N·s and |ΔL| 3.0e-8 kg·m²/s at the cut, kinetic energy to the last digit; T6 the same. PASS |
+| `L3.fragment.rules` (#222 (1)) | An RCS on a controlled host: one step of the stern RCS on R1 gives Δv = 0.03718 m/s and Δω = 4.158e-3 rad/s, 1000 J of heat in the engine. After the cut the stern has no bridge: its RCS, ordered to fire for 60 steps, changes neither v nor ω (both exactly 0) and puts no heat in the engine, while the bow RCS fired in the same steps gives the 242 t bow Δv = 0.06885 m/s and Δω = −7.757e-3 rad/s in its first step and 60 kJ of heat. A heat sink split evenly (2 of 4 cells destroyed on a diagonal) works in the fragment holding its lower-indexed survivor: k0 in the bridge's 92.87 t fragment ("low"), k1 in the 52.87 t one ("high", the lighter); its other cell counts in the other fragment's mass and carries nothing: heat sink C, joined only through that cell, keeps its heat bit for bit ("low"), and B and C together keep theirs to ten digits while their live wall carries 2.8e7 J from C to B in 10 s ("high"). PASS |
+
+`node tools/perf.js` (E8, #213): two R1s step in **0.05–0.08 ms without power routing and 0.15–0.16 ms with it, at T1 and at T6** (mass changes no cost), far under the 1 ms budget. Three kernel mutants (an RCS firing without control, dead-weight cells carrying flows, the tie broken by the highest index) each fail  in an exploratory run.
+
+Honest reading. The v3 successors restate the v2 measurements with the
+mass rule of #221, so they prove the new rule is built as written, not new
+physics; `L3.fragment.rules` closes the three kernel rules the L3
+reviewer's mutants survived (an RCS firing without control, dead-weight
+cells carrying heat, the tie rule), each against a closed form or an exact
+conservation. What real density changes in feel: R1 is 8.6 times heavier
+(448 t, 80 kg/m³) and its moment of inertia 8.2 times larger, while thrust
+went up 7.5 times and RCS force 10 times, so **acceleration falls only from
+3.9 g to 3.4 g and a 90° turn quickens from 4.1 s to 3.7 s**: a minimal
+ship still dodges and turns fast. **An engine off the centre of mass still
+spins R1 at 10.9 °/s²** (12.9 before): the thrust line's 1.4 m offset still
+needs RCS or a centred engine. **Recoil is now 8.6 times smaller**: an M
+shot turns R1 by 0.040 °/s (0.34 before), 0.79 °/s after 20 shots, which a
+couple cancels in 1.5 ms of firing per shot (30 ms for 20); even the railgun-sized
+impulse moves R1 by only 0.056 m/s and 0.066 °/s, so recoil now matters
+only for the railgun on light ships, as #203 C expected, and E4 for recoil
+stays open until L5 measures it in battle. Heat is untouched (heat capacity
+is the machinery's, #221): every heat race of L1–L3 records the same
+temperatures. A moving ship now carries about ten times the momentum and
+kinetic energy (22.5 MJ for R1 at 10 m/s and 0.05 rad/s), which will
+matter for debris and collisions (L4). Not tested here: masses at L or S
+size, and a split room's heat capacity (which share the dead cells keep),
+which no document states.
+
 ## 17. Open questions
 
 1. **Chapter design** waits for Mission 0 (#125).

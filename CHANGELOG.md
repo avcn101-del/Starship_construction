@@ -34,6 +34,8 @@
   canonical run: all six PASS. The five v2s are withdrawn as superseded by
   #221 (`mission0/withdrawn.json`); every L3 scenario re-run canonically
   through the new successors. `MISSION0.md` regenerated.
+- `DESIGN.md` §16: the measured mass-pass block. `regress`: 56 VERIFIED +
+  20 WITHDRAWN; `tools/perf.js` 0.05–0.16 ms per step.
 
 ## 0.5.1 — 2026-10-21 — L3 merged; reviewer answers (#222)
 
