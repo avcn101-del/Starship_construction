@@ -28,11 +28,16 @@ export const FIXED = {
   shieldFalloffExponent: { value: 2, unit: '', note: 'shield field strength g(r) = 1 / (1 + (r / radius)^n)' },
   simStep: { value: 1 / 60, unit: 's', note: 'simulation time step (#175)' },
   burnTimeLimit: { value: 3600, unit: 's', note: 'a beam burn gives up after this long (#175)' },
+  stefanBoltzmann: { value: 5.670374e-8, unit: 'W/(m^2*K^4)', note: 'real Stefan-Boltzmann constant (#143, #183)' },
+  restTemperature: { value: 290, unit: 'K', note: 'rooms start here; space (3 K) is taken as 0 (#182, #183)' },
+  radiatorEmissivity: { value: 0.9, unit: '', note: 'radiator.emissivity in DESIGN.md 13c.3: real, a dark panel (#182, #183)' },
+  repairFalloffExponent: { value: 2, unit: '', note: 'repair field strength g(r) = 1 / (1 + (r / radius)^n), like the shield (#99, #183)' },
 };
 
 const KINETIC = {
   roundMass: P(0.5, 0.2, 2, 3, 'kg', true, 'size M round at T1 (#166)'),
   muzzleVelocity: P(800, 500, 1000, 0, 'm/s', true, '#166'),
+  chargeEnergy: P(5e5, 2e5, 2e6, 3, 'J', true, 'propellant energy per M round; an AP magazine explodes by this alone, HE by this plus the warhead (#91, #183)'),
 };
 
 // One S round's sectional momentum (#171), with the same arithmetic as
@@ -72,7 +77,91 @@ export const PARAMS = {
     radius: P(40, 20, 80, 1, 'm', true, 'radius where the field is at half strength (#166)'),
     kineticStop: P(S_ROUND_STOP, 0.5 * S_ROUND_STOP, 2 * S_ROUND_STOP, 1, 'kg/(m*s)', true, 'sectional momentum the field stops per round at full strength: one S round at T1, computed (#166, #171)'),
     bufferSeconds: P(1, 0.2, 5, 0, 's', true, 'buffer for impulses (rounds, blasts) = budget x this; must show a measured effect by L2 or be cut (#177)'),
+    powerDraw: P(2e6, 5e5, 1e7, 2, 'W', true, 'size M generator while on; becomes heat, plus everything absorbed (#21, #183)'),
   },
+  // Per-room heat (#182, #183). The DESIGN.md names thermal.plant.hot etc.
+  // are flattened to plantHot etc. because overrides are group.name.
+  thermal: {
+    heatCapacityPerCell: P(6e5, 2e5, 2e6, 3, 'J/K', true, 'C = cells x this; sets the pace of every heat race (#182, #183)'),
+    plantHot: P(600, 450, 750, 0, 'K', true, 'reactor, beam bay, shield generator, engine: function degrades (#182, #183)'),
+    plantOverheated: P(800, 650, 950, 0, 'K', true, 'plant rooms shut down; restart below hot (#182, #183)'),
+    plantCritical: P(1000, 850, 1300, 0, 'K', true, 'plant rooms: crew at their stations die, a reactor melts down (#182, #183)'),
+    crewedHot: P(330, 320, 350, 0, 'K', true, 'bridge, quarters, turret, missile bay, hold (#182, #183)'),
+    crewedOverheated: P(350, 340, 380, 0, 'K', true, 'crewed rooms shut down; restart below hot (#182, #183)'),
+    crewedCritical: P(380, 360, 420, 0, 'K', true, 'crewed rooms: the crew die (#18b, #182, #183)'),
+    magazineHot: P(330, 320, 350, 0, 'K', true, 'magazine (#182, #183)'),
+    magazineOverheated: P(350, 340, 380, 0, 'K', true, 'magazine (#182, #183)'),
+    magazineCritical: P(450, 400, 500, 0, 'K', true, 'magazine cook-off (#91, #182, #183)'),
+  },
+  radiator: {
+    area: P(25, 10, 100, 2, 'm^2', true, 'one panel per hull segment; radiates emissivity x sigma x area x T^4 of its room (#143, #183)'),
+  },
+  reactor: {
+    power: P(2e7, 5e6, 5e7, 2, 'W', true, 'size M, electric, delivered on demand; k = 2 matches its consumers (#183)'),
+    heatPerPower: P(1, 0.5, 3, 0, '', true, 'waste heat per delivered watt (#183)'),
+    decayFraction: P(0.07, 0.03, 0.15, 0, '', true, 'decay heat at SCRAM as a fraction of the thermal power at SCRAM (#81, #183)'),
+    decayTime: P(900, 300, 1800, 0, 's', true, 'exponential decay time of the decay heat (#4, #81, #183)'),
+    breachFraction: P(0.5, 0.25, 0.75, 0, '', true, 'destroyed cells / total that start the breach countdown (#81, #183)'),
+    breachCountdown: P(10, 3, 30, 0, 's', true, 'from breach to explosion (#81, #183)'),
+    explosionEnergy: P(2e8, 5e7, 1e9, 3, 'J', true, 'breach and meltdown explosion (#81, #183)'),
+  },
+  beambay: {
+    efficiency: P(0.4, 0.2, 0.8, 0, '', true, 'draw = beam power / efficiency; the rest is heat (#183)'),
+  },
+  engine: {
+    thrust: P(8e6, 2e6, 3e7, 2, 'N', true, 'one engine; k = 2 makes big ships sluggish (#54, #183)'),
+    powerDraw: P(1e7, 2e6, 4e7, 2, 'W', true, 'at full throttle; ships have no propellant (#140, #183)'),
+    heatFraction: P(0.3, 0.1, 1, 0, '', true, 'heat per watt drawn (#183)'),
+  },
+  turret: {
+    fireRate: P(0.5, 0.2, 2, -1, '1/s', true, 'size M; big guns fire slower (#183)'),
+    powerDraw: P(2e5, 5e4, 1e6, 2, 'W', true, 'size M, while able to fire (#183)'),
+    heatPerShot: P(3e5, 1e5, 1e6, 3, 'J', true, 'size M (#183)'),
+  },
+  magazine: {
+    capacity: P(75, 25, 250, 3, 'kg', true, 'ammunition mass a magazine holds: 150 M rounds (#91, #183)'),
+  },
+  quarters: {
+    crewPerCell: P(3, 1, 8, 2, 'crew', true, 'crew housed per surviving cell: 18 in a T1 quarters (#60, #65, #183)'),
+    powerDraw: P(5e4, 1e4, 2e5, 2, 'W', true, '#183'),
+  },
+  repair: {
+    rate: P(0.02, 0.005, 0.1, 0, '1/s', true, 'integrity per second at the quarters with all cells surviving (#51, #183)'),
+    radius: P(30, 10, 80, 1, 'm', true, 'half-strength radius of the repair field (#99, #183)'),
+  },
+  bridge: {
+    powerDraw: P(1e5, 2e4, 5e5, 2, 'W', true, 'from the backup supply when the reactor is cut; the backup has no limit (#147, #183)'),
+  },
+  // Crew a room needs to be placed (#60, #183): measured at L3. Range 1-3x.
+  crewRequired: {
+    bridge: P(4, 4, 12, 2, 'crew', true, '#183'),
+    reactor: P(4, 4, 12, 2, 'crew', true, '#183'),
+    engine: P(2, 2, 6, 2, 'crew', true, '#183'),
+    magazine: P(2, 2, 6, 2, 'crew', true, '#183'),
+    shieldGenerator: P(2, 2, 6, 2, 'crew', true, '#183'),
+    beamBay: P(3, 3, 9, 2, 'crew', true, '#183'),
+    turret: P(3, 3, 9, 2, 'crew', true, '#183'),
+    railgun: P(4, 4, 12, 2, 'crew', true, '#183'),
+    missileBay: P(3, 3, 9, 2, 'crew', true, '#183'),
+  },
+};
+
+// Rooms (DESIGN.md 5.2, 13c). Footprints in cells per size (rate-like
+// constants of an L room are sizeLinear.L^2 = 9/4 of M, #183); placement;
+// threshold class (#182); crew: the crewRequired constant, or 'housed' for
+// the quarters; draws and powers name their PARAMS constant.
+export const ROOMS = {
+  bridge: { footprint: { M: [2, 2] }, placement: 'inside', thermalClass: 'crewed', crew: 'crewRequired.bridge', draw: 'bridge.powerDraw' },
+  reactor: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'plant', crew: 'crewRequired.reactor', power: 'reactor.power' },
+  engine: { footprint: { M: [2, 3] }, placement: 'aft hull, exhaust clear', thermalClass: 'plant', crew: 'crewRequired.engine', draw: 'engine.powerDraw' },
+  magazine: { footprint: { M: [2, 2] }, placement: 'inside', thermalClass: 'magazine', crew: 'crewRequired.magazine' },
+  shieldGenerator: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'plant', crew: 'crewRequired.shieldGenerator', draw: 'shield.powerDraw' },
+  quarters: { footprint: { M: [3, 2] }, placement: 'inside', thermalClass: 'crewed', crew: 'housed', draw: 'quarters.powerDraw' },
+  beamBay: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'plant', crew: 'crewRequired.beamBay', draw: 'beam.power / beambay.efficiency' },
+  turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed', crew: 'crewRequired.turret', draw: 'turret.powerDraw' },
+  railgun: { footprint: { M: [2, 'N'] }, placement: 'axis', thermalClass: 'crewed', crew: 'crewRequired.railgun' },
+  missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'crewed', crew: 'crewRequired.missileBay' },
+  hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'crewed', crew: null },
 };
 
 /** Value of a tunable constant at a cell edge. */
