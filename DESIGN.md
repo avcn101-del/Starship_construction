@@ -41,6 +41,14 @@ mourned.**
 **Six ways the weak beat the strong**, each must stay reachable: mission
 kill, cascade, information, time window, attrition, mechanism counter.
 
+**When play is not fun** (#223, the owner), in this order: (1) tune
+constants within their approved ranges; (2) find new play in combinations
+of the physics already built (rooms, presets or standing orders that reuse
+existing laws, each through `IDEAS.md` and the four gates); (3) only then
+change a law or the direction, which is the owner's. Combinations do not
+fix pacing (that is rung 1), and a combination the player cannot read on
+screen does not count.
+
 **Gates and rules**
 
 | Rule | Statement |
@@ -860,11 +868,15 @@ edges of the engine's column x = 0 and of the beam bay's column x = 10).
 No fitting on an engine's exhaust face. Coolant loop: engine, reactor, heat sink and shield generator; the
 beam bay sits outside it (passive walls only), on purpose.
 
-**Estimates for R1** (cells, contents, 17 radiators and 4 RCS): M ≈ 52.3 t,
+**Estimates for R1** (L3's 1 t cells, **superseded by the mass pass, §13g.3**: R1 is about 448 t) (cells, contents, 17 radiators and 4 RCS): M ≈ 52.3 t,
 centre of mass (28.73, 16.47) m, I ≈ 1.313e7 kg·m²; the engine's thrust
 line (y = 15 m) passes 1.47 m below the centre of mass.
 
 ### 13f.3 Scenarios (#209)
+
+The masses, accelerations, turn times and recoil numbers in rows 1–5 are
+L3's (1 t cells); the mass pass replaced them (§13g.3, #221) and rows
+1–5's v3 successors carry the new ones.
 
 Conventions as L2 (#177, #185 (2), #194): inputs from `data.js`, closed
 forms where they exist, otherwise the scenario's own reference integrator
@@ -892,7 +904,7 @@ ship + rounds + debris conserve momentum and angular momentum to 1e-9.
 reports milliseconds per step for two R1s at T1 and T6 stepping together
 (the E8 baseline; a 10-room cluster costs about 0.066 ms per step today).
 
-### 13f.4 Constants and approved ranges (#210)
+### 13f.4 Constants and approved ranges (#210; `thermal.specificHeat`, `engine.thrust` and `rcs.force` superseded by §13g.2, #221)
 
 | Constant | Value | Range | k |
 |---|---|---|---|
@@ -905,7 +917,7 @@ reports milliseconds per step for two R1s at T1 and T6 stepping together
 | `rcs.mass` | 200 kg | 50–1000 kg | 3 |
 | `radiator.mass` | 250 kg (10 kg/m², an ISS panel) | 100–1000 kg | 2 |
 
-Readings at T1: a 52 t minimal ship accelerates at 3.9 g on one engine; a
+Readings at T1 (L3's numbers; superseded by §13g.3): a 52 t minimal ship accelerates at 3.9 g on one engine; a
 250 t corvette with two engines at 1.6 g (dodging 1–2 g, #54); R1 turns 90°
 in 4 s on one RCS couple, a 250 t corvette (I ≈ 3.5e8 kg·m², two couples
 60 m out) in about 10 s; the same layout at T6 turns 6× slower (I ∝ edge⁵,
@@ -970,6 +982,65 @@ override; the physics readout (#58) works on a blueprint before the ship is
 enabled; `tools/perf.js` reads its masses from `data.js`.
 
 **Expected effect on locked scenarios**: every L0–L2 and D-pass scenario re-records with the new data and still passes (only `L1.engine.thrust` and `L1.room.restart` hold `engine.thrust`). The L3 scenarios whose expected values compute mass from `thermal.specificHeat` encode the replaced rule: they are **withdrawn as superseded by #221** (#188 as extended by #200) with v3 successors identical except the mass rule (expected: `L3.mass.props.v2`, `L3.thrust.v2`, `L3.rcs.turn.v2`, `L3.recoil.v2`, `L3.split.momentum.v2`; the engineer lists the real set). Every other L3 scenario re-records and must still pass; any other verdict change is a finding. A tolerance of a successor is checked against the kernel's step error and float resolution before its lock (#212, #219, #220).
+
+## 13h. The feel prototype (#217, #223, #224)
+
+Built after the mass pass merges, before L4, on branch `proto/feel` from
+`main`; throwaway, in `proto/` only (CLAUDE.md exception, #217).
+
+### 13h.1 What the owner judges (on the Android phone)
+
+1. **Pace** (E7): how long an R1-versus-R1 duel lasts and whether its
+   middle drags or rushes.
+2. **Heat**: how soon the ship must cool down, and whether that choice is
+   interesting or only a tax.
+3. **Readability**: whether the player sees why things happen (which room
+   is hot, what a hit did, why a gun stopped).
+4. **Choices**: whether targeting a room and switching a preset change the
+   outcome.
+
+The owner writes down **what** is not fun (slow, unclear, few choices, too
+harsh); each kind points to a rung of #223's ladder.
+
+### 13h.2 Scope
+
+| Part | Built as |
+|---|---|
+| Page | `proto/index.html`, `proto/proto.js`, `proto/proto.css`; canvas 2D, landscape, touch targets ≥ 44 px; loads the kernel's ES modules from `js/` unchanged |
+| Ships | two R1s (§13f.2) at 900 m (#54: 0.6–1.5 km), facing each other, at the mass pass's numbers |
+| Player | targets a room by tapping it; three presets: **Fire** (beam and turret on the target, shield on, engine half), **Cool** (weapons off, shield off, engine off), **Evade** (engine full, RCS turning, weapons hold); time ×1, ×2, ×4 |
+| Enemy | the same presets on a fixed, seeded script (Fire 60 s, Cool 30 s, repeat), aiming at the player's beam bay, then turret, then engine |
+| Ends | when one ship is Disabled (#82: no weapon able to fire and no thrust for 10 s) or destroyed; shows the time, crew lost and rooms wrecked |
+| View | each room tinted by temperature against its thresholds, its integrity, the shield's strength, rounds and beams as lines, a scrolling text log of events (cause, room, crew) |
+
+**Stand-ins** for what L4–L5 have not built, each labelled `STAND-IN` in
+the code and on screen: rounds fly in a straight line at 800 m/s from gun to
+the aimed point and resolve with the kernel's `fireRound` along the target's
+grid on arrival (no aiming error, no lead, no deflection); a beam heats the
+aimed room and burns its cells by the L0 rules at the field's strength
+there; both sides see the true layout (no scans: the information law is not
+in the prototype); no point defence, missiles or railgun.
+
+### 13h.3 Estimate (rough, for the owner to test, not a criterion)
+
+At the shield's strength where the guns hit (g ≈ 0.6 at the enemy's beam bay
+and turret, 30 m from its generator), a 5 MW beam is fully absorbed by a
+fresh shield (6 MW there), and an M round passes about 6 room cells instead
+of 10. So the first minutes are a **heat race**: the shield heats by what it
+absorbs, the beam bay (outside the coolant loop) shuts down after about 3
+minutes of firing (L3), the coolant loop reaches plant hot in about 3
+minutes at battle load; then the shield fails and the rounds and beams
+start wrecking rooms. Expected duel: **about 3–6 minutes** (E7), uncertain
+by a factor of two; the prototype measures it.
+
+### 13h.4 Process and cost
+
+One engineer session (opus); no scenarios (nothing in `proto/` counts for
+Mission 0); the reviewer checks only #217's rules (reads the kernel
+unchanged, no number outside `js/data.js` except layout and colours, every
+stand-in labelled) and a Playwright smoke test at a phone viewport with
+zero console errors. The owner plays it from a private hosted page.
+Estimated cost 10–15 USD.
 
 ## 14. Architecture
 
@@ -1459,7 +1530,7 @@ mass) and 3.5 (position at 5 s).
 | `L3.split.momentum.v3` | The cut leaves a 242.074 t bow and a 164.797 t stern (with contents and fittings; cells alone 240.0 t and 161.1 t) and 5 pieces of debris, 41.397 t (the four cells and the radiator on (4,5)); at T1 the fragments move at (9.931, 0.529) and (10.147, −0.719) m/s, both at 0.05 rad/s, the parent's field after 31 steps of turning; |ΔP| 9.4e-10 N·s and |ΔL| 3.0e-8 kg·m²/s at the cut, kinetic energy to the last digit; T6 the same. PASS |
 | `L3.fragment.rules` (#222 (1)) | An RCS on a controlled host: one step of the stern RCS on R1 gives Δv = 0.03718 m/s and Δω = 4.158e-3 rad/s, 1000 J of heat in the engine. After the cut the stern has no bridge: its RCS, ordered to fire for 60 steps, changes neither v nor ω (both exactly 0) and puts no heat in the engine, while the bow RCS fired in the same steps gives the 242 t bow Δv = 0.06885 m/s and Δω = −7.757e-3 rad/s in its first step and 60 kJ of heat. A heat sink split evenly (2 of 4 cells destroyed on a diagonal) works in the fragment holding its lower-indexed survivor: k0 in the bridge's 92.87 t fragment ("low"), k1 in the 52.87 t one ("high", the lighter); its other cell counts in the other fragment's mass and carries nothing: heat sink C, joined only through that cell, keeps its heat bit for bit ("low"), and B and C together keep theirs to ten digits while their live wall carries 2.8e7 J from C to B in 10 s ("high"). PASS |
 
-`node tools/perf.js` (E8, #213): two R1s step in **0.05–0.08 ms without power routing and 0.15–0.16 ms with it, at T1 and at T6** (mass changes no cost), far under the 1 ms budget. Three kernel mutants (an RCS firing without control, dead-weight cells carrying flows, the tie broken by the highest index) each fail `L3.fragment.rules` in an exploratory run.
+`node tools/perf.js` (E8, #213): two R1s step in **0.05–0.11 ms without power routing and 0.15–0.19 ms with it, at T1 and at T6, depending on the machine** (mass changes no cost), far under the 1 ms budget. Three kernel mutants (an RCS firing without control, dead-weight cells carrying flows, the tie broken by the highest index) each fail `L3.fragment.rules` in an exploratory run.
 
 Honest reading. The v3 successors restate the v2 measurements with the
 mass rule of #221, so they prove the new rule is built as written, not new

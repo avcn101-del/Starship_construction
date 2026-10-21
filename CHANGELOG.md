@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.6.1 — 2026-10-21 — The feel prototype (#217, #224), throwaway
+## 0.6.2 — 2026-10-21 — The feel prototype (#217, #224), throwaway
 
 - `proto/` (new, DESIGN.md §13h): a canvas page of two R1s at 900 m on the
   unchanged L3 kernel and the mass pass's masses: tap an enemy room to
@@ -11,6 +11,13 @@
 - `proto/measure.mjs`: one R1-versus-R1 battle headless, both sides
   scripted. `proto/smoke.mjs`: Playwright at 844 × 390, zero console errors.
 - No change to `js/`, `tools/`, `mission0/` or `data.js`.
+
+## 0.6.1 — 2026-10-21 — The mass pass merged; answers (#225, #226)
+
+- The mass pass (PR #40, head `24435a7`) merged into `main` after review
+  (#225); `regress`: 56 VERIFIED + 20 WITHDRAWN.
+- `DESIGN.md` §13f: L3's mass-dependent numbers marked superseded by §13g.
+- The prototype is hosted as a private claude.ai page (#226, the owner).
 
 ## 0.6.0 — 2026-10-21 — Mission 0: the mass pass, ships of real density (#221, #222)
 
@@ -48,6 +55,11 @@
   through the new successors. `MISSION0.md` regenerated.
 - `DESIGN.md` §16: the measured mass-pass block. `regress`: 56 VERIFIED +
   20 WITHDRAWN; `tools/perf.js` 0.05–0.16 ms per step.
+## 0.5.2 — 2026-10-21 — The prototype plan and the not-fun ladder (#223, #224)
+
+- `DESIGN.md` §2: when play is not fun, tune constants, then combine the
+  existing physics, only then change a law (the owner).
+- `DESIGN.md` §13h: the feel prototype's scope, stand-ins and estimate.
 
 ## 0.5.1 — 2026-10-21 — L3 merged; reviewer answers (#222)
 
