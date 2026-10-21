@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.3 — 2026-10-21 — The L3 plan (#208–#211)
+
+- `DESIGN.md` §13f: the minimal ship: cell mass from heat capacity, a 2D
+  rigid body, thrust, RCS, recoil, debris and fragments with momentum
+  conserved, control and SCRAM in a fragment, validation, the readout,
+  the reference ship R1 with estimates, 8 scenarios, the L3 constants
+  (`engine.thrust` re-tuned to 2 MN), and the E8 budget put to the owner.
+
 ## 0.3.2 — 2026-10-21 — Mission 0 L2 merged; reviewer answers (#207)
 
 - L2 (`m0/l2-clusters`, PR #15, head `e40d1af`) merged into `main` after
