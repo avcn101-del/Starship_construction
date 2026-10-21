@@ -80,7 +80,7 @@ export default {
   tolerance: 'energies and integrity 1e-12 relative; the 2 : 1 split 1e-12 relative; counts exact',
   criterion: 'the layout has exactly the walls magazine | hold 10 m and magazine | neighbour 5 m; the magazine fills to its capacity B = cells x room.blastResistance (2 MJ); the excess splits 2 : 1 by wall length with no neighbour saturated and nothing escaping, by the rule of 13d.1 computed in the scenario from data.js: (i) HE 4 / 2 MJ, AP 2.667 / 1.333 MJ; (ii) AP hold 2.667 MJ, bridge 1.333 MJ; absorbed + escaped = E exactly (1e-12); a neighbour keeps every cell, each at integrity 1 - absorbed / B (the bridge at 1/3); bridge crew deaths by the D-pass floor rule floor(crew x (cells - sum of integrity) / cells) = 2 of 4 (blast follows the D-pass crew rule, #212 (3)); one cell-damaged event per neighbour cell, channel blast, carrying that integrity (#169, #184, #193, #206, #212)',
   tunable: ['room.blastResistance', 'hold.blastFactor', 'kinetic.chargeEnergy', 'he.blastEnergy', 'kinetic.roundMass'],
-  locked: null,
+  locked: { date: '2026-10-21', hash: '0a800e30' },
   cases() {
     return [{ neighbour: 'i', round: 'HE' }, { neighbour: 'i', round: 'AP' }, { neighbour: 'ii', round: 'AP' }];
   },
