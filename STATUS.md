@@ -6,7 +6,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#188, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#189, current design in `DESIGN.md`.
 - **E1 amended by the owner (#188)**: a scenario withdrawn for a
   specification error, with a passing successor, does not block E1.
 - **Mission 0 L0 (materials) done and merged**: 12 scenarios, all locked
@@ -27,7 +27,7 @@ Updated 2026-10-21 by the lead designer chat (session
 
 | PR | Branch | State |
 |---|---|---|
-| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened 2026-10-21 03:33 UTC: 12 PASS, 1 recorded FAIL (`L1.radiator.steady`, a spec error, #185), 24/24 VERIFIED. Physics checker done: 12 match, 1 blocking (the same spec error), 6 non-blocking, answered in #187. Engineer fixes of #185 and #187 running (`session_01TQvnSvo7qZzJ4HBuas89nY`); reviewer after the fixes |
+| #5 Mission 0, L1: one room alone | `m0/l1-rooms` → `main` | opened 2026-10-21 03:33 UTC: 12 PASS, 1 recorded FAIL (`L1.radiator.steady`, a spec error, #185), 24/24 VERIFIED. Physics checker: 12 match, 1 blocking (the same spec error), answered in #187. Fixes of #185/#187 landed at `734064e`: 25 VERIFIED + 1 WITHDRAWN. Reviewer at `734064e`: 2 blocking (destroyed count after repair; lock-line bypass), 7 not blocking, all answered in #189; engineer fixing #189 now; reviewer re-check after |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -42,6 +42,9 @@ Updated 2026-10-21 by the lead designer chat (session
   a reactor keeps decay heat after an overheat, so without wall cooling it
   always melts down, a signal for L2; withdrawn scenarios listed in
   `mission0/withdrawn.json`).
+- #189: answers to the reviewer (two kernel and tool fixes that block the
+  merge, two new scenarios `L1.repair.breach` and `L1.room.restart`, and
+  five small fixes).
 
 ## Awaiting the owner
 
@@ -50,11 +53,11 @@ list above; a veto is a message in the chat.
 
 ## Next steps
 
-1. The engineer-fixes session lands #185 and #187 on `m0/l1-rooms`.
-2. Lead designer starts the **reviewer** (sonnet: Fable is out of limit,
-   and a model other than the engineer's opus) on the final head.
-3. Engineer fixes blocking findings; lead designer merges when none remain
-   (#180); `STATUS.md` and `DESIGN.md` §16 updated.
+1. The engineer lands #189 on `m0/l1-rooms`.
+2. A reviewer (sonnet: Fable is out of limit, and not the engineer's opus)
+   re-checks the final head against #189 and the earlier findings.
+3. Lead designer merges PR #5 when no blocking finding remains (#180);
+   `STATUS.md` updated; then the L2 plan.
 4. Before L2: resolve **shield budget double counting** (#170); add the
    blast closed forms to the L2 blast scenarios (#184); propose L2
    (conduction through walls, feed, shield overlap, shared repair budget).
@@ -85,7 +88,8 @@ third, with a plain `git clone` in the prompt, ran end to end:
 | Nightly regression, test 3 (works) | session_01RQvwmFsoF6vu1G5wzQJsnP | sonnet-5-5 | 0.09 |
 | Engineer, L1 (PR #5) | session_01NEZ3dFYvXRDcUQJWexkacC | opus-5-5 | 6.65 |
 | Physics checker, L1 | session_01GmQGV34nzAo394dCthy28J | sonnet-5-5 | 1.22 |
-| Engineer, L1 fixes (#185, #187) | session_01TQvnSvo7qZzJ4HBuas89nY | opus-5-5 | running |
+| Engineer, L1 fixes (#185, #187) | session_01TQvnSvo7qZzJ4HBuas89nY | opus-5-5 | 2.65 |
+| Reviewer, L1 | session_01RYgtwmNTAS4VRWxefHDetg | sonnet-5-5 | 1.19 |
 
 Sessions have reported a **seven-day usage limit warning**.
 
