@@ -10,6 +10,11 @@ import { createLog, emit } from './events.js';
 import { absorbBeamStep, shieldStrength } from './field.js';
 import { stepsAtLeast } from './util.js';
 
+// A time within 1e-9 of a step boundary counts as that boundary (as stepsAtLeast).
+const onStep = (time, dt) => Math.abs(time / dt - Math.round(time / dt)) <= 1e-9 * Math.max(1, Math.abs(time / dt));
+/** The step j with j dt <= time < (j + 1) dt. */
+const stepContaining = (time, dt) => (onStep(time, dt) ? Math.round(time / dt) : Math.floor(time / dt));
+
 /** A world of rooms stepped together: params from withOverrides, one tier. */
 export function createWorld({ params, edge = BASE_EDGE, dt = FIXED.simStep.value }) {
   return { params, edge, dt, step: 0, t: 0, rooms: [], log: createLog(), shipMass: null, repaired: [] };
@@ -34,7 +39,6 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
     id, type, size, def, position,
     footprintFactor: sizeLinear * sizeLinear, // rate-like constants: L = 9/4 of M (#183)
     cells: Array.from({ length: n }, () => ({ integrity: 1 })),
-    destroyedCount: 0, // cells destroyed so far (for crew deaths per cell)
     thresholds: { hot: th[`${cls}Hot`].value, overheated: th[`${cls}Overheated`].value, critical: th[`${cls}Critical`].value },
     heat: createHeat(C, T0),
     radiators: 0,
@@ -55,6 +59,8 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
 // ---------- shared state ----------
 export const survivingCells = (room) => room.cells.filter((c) => c.integrity > 0).length;
 export const survivingFraction = (room) => survivingCells(room) / room.cells.length;
+/** Cells currently at integrity 0: a repaired cell no longer counts (#189 (1)). */
+export const destroyedCells = (room) => room.cells.length - survivingCells(room);
 export const isDestroyed = (room) => room.exploded || survivingCells(room) === 0;
 export const roomTemperature = (room) => temperature(room.heat);
 /** IR brightness of the room's radiators (W), the same number they radiate (#102, #143). */
@@ -98,8 +104,9 @@ export function damageCell(world, room, index, loss, cause, channel) {
   if (cell.integrity <= 0 || room.exploded) return;
   cell.integrity = Math.max(0, cell.integrity - loss);
   if (cell.integrity > 0) return;
-  room.destroyedCount++;
-  const k = room.destroyedCount, N = room.cells.length;
+  // k = cells currently destroyed (#189 (1)); crew do not come back, and
+  // killCrew never takes more than are aboard, so deaths never exceed the crew.
+  const k = destroyedCells(room), N = room.cells.length;
   const deaths = room.crewPerCell !== undefined ? room.crewPerCell : Math.floor((k * room.crewTotal) / N) - Math.floor(((k - 1) * room.crewTotal) / N);
   event(world, room, 'cell-destroyed', cause, { channel, cell: index });
   killCrew(world, room, deaths, cause);
@@ -147,7 +154,7 @@ function onThreshold(world, room, x) {
     event(world, room, 'shutdown', 'heat');
     ON_SHUTDOWN[room.type]?.(world, room);
   }
-  if (x === 'critical') {
+  if (x === 'critical' && !room.exploded) { // an exploded room never explodes or melts down again (#189 (4))
     killCrew(world, room, room.crew, 'heat'); // #18b
     ON_CRITICAL[room.type]?.(world, room);
   }
@@ -198,7 +205,7 @@ const INIT = {
     room.magazine = { size: 'M', ap: 0, he: 0 };
   },
   turret(world, room) {
-    room.turret = { ammo: 0, shots: 0, impulse: 0, nextShotStep: 0, energyDrawn: 0, ceased: false };
+    room.turret = { ammo: 0, shots: 0, impulse: 0, energyDrawn: 0, ceased: false, anchor: 0, sinceAnchor: 0 };
   },
   shieldGenerator(world, room) {
     room.shield = { on: true, incoming: 0, strength: 1, absorbed: 0, passed: 0, em: 0, absorbedEnergy: 0, passedEnergy: 0, energyDrawn: 0, down: false };
@@ -239,20 +246,32 @@ const BEHAVIOUR = {
       }
       return 0;
     }
-    s.ceased = false;
-    let heat = 0;
-    if (world.step >= s.nextShotStep) {
+    // Shots on accumulated time (#189 (5)): since the turret last became able
+    // to fire (at s.anchor), shot k is due at anchor + k / rate, so the step
+    // remainder carries over and 1 + floor(rate t) holds at any rate. A shot
+    // is fired in the step that contains its due time, at that time.
+    if (s.ceased) { s.ceased = false; s.anchor = world.t; s.sinceAnchor = 0; }
+    const rate = tierScaled(world, p.turret.fireRate);
+    const due = s.anchor + s.sinceAnchor / rate;
+    let heat = 0, until = dt; // the part of this step during which a round is left
+    if (world.step >= stepContaining(due, dt)) {
+      // Offset of the shot within the step: 0 on a step boundary or when late.
+      const at = world.step === stepContaining(due, dt) && !onStep(due, dt) ? Math.min(dt, Math.max(0, due - world.t)) : 0;
       const m = tierScaled(world, p.kinetic.roundMass) * FIXED.sizeLinear.value[room.size] ** 3;
       const v = tierScaled(world, p.kinetic.muzzleVelocity);
       s.ammo--;
       s.shots++;
+      s.sinceAnchor++;
       s.impulse += m * v; // recoil (Newton 3); spin and CoM are L3
       heat += tierScaled(world, p.turret.heatPerShot);
-      s.nextShotStep = world.step + stepsAtLeast(1 / tierScaled(world, p.turret.fireRate), dt);
-      event(world, room, 'shot', `${room.id}:shot-${s.shots}`, { energy: 0.5 * m * v * v, channel: 'kinetic' });
+      event(world, room, 'shot', `${room.id}:shot-${s.shots}`, { t: world.t + at, energy: 0.5 * m * v * v, channel: 'kinetic' });
+      if (s.ammo <= 0) {
+        until = at;
+        s.ceased = true;
+        event(world, room, 'cease-fire', 'dry', { t: world.t + at });
+      }
     }
-    if (s.ammo > 0) s.energyDrawn += tierScaled(world, p.turret.powerDraw) * room.footprintFactor * survivingFraction(room) * dt;
-    else { s.ceased = true; event(world, room, 'cease-fire', 'dry'); }
+    if (until > 0) s.energyDrawn += tierScaled(world, p.turret.powerDraw) * room.footprintFactor * survivingFraction(room) * until;
     return heat;
   },
   shieldGenerator(world, room) {
@@ -346,7 +365,7 @@ const ON_CELL_DESTROYED = {
   reactor(world, room, cause) {
     const r = room.reactor, p = world.params.reactor;
     if (survivingCells(room) === 0) { r.breachStep = null; explode(world, room, explosionEnergy(world), cause); return; }
-    if (r.breachStep === null && room.destroyedCount / room.cells.length >= p.breachFraction.value) {
+    if (r.breachStep === null && destroyedCells(room) / room.cells.length >= p.breachFraction.value) {
       r.breachStep = world.step + stepsAtLeast(p.breachCountdown.value, world.dt);
       r.breachCause = cause;
       event(world, room, 'breach', cause);
@@ -369,8 +388,9 @@ const TIMERS = {
     // Control while any cell survives (#147: power cut does not matter). An
     // overheated or switched-off bridge gives no control (13c.1).
     const control = survivingCells(room) > 0 && !room.shutdown && room.active;
-    if (room.bridge.control && !control) { room.bridge.control = false; event(world, room, 'control-lost', room.active ? 'heat' : 'off'); }
-    else if (!room.bridge.control && control) room.bridge.control = true;
+    if (room.bridge.control && !control) { room.bridge.control = false; event(world, room, 'control-lost', room.active ? 'overheat' : 'off'); }
+    else if (!room.bridge.control && control) { room.bridge.control = true; event(world, room, 'control-restored', room.active && !room.bridge.wasOff ? 'restart' : 'on'); }
+    room.bridge.wasOff = !room.active;
   },
 };
 

@@ -23,6 +23,7 @@ export const EVENT_FIELDS = {
   'beam-stopped': [],
   'shield-down': [],
   'control-lost': [],
+  'control-restored': [], // the bridge gives control again after a restart (#189 (3))
 };
 
 export function createLog() {
