@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.reactor.cooled",
-  "code": "f220524",
+  "code": "f7bf5c6",
   "criterionHash": "6c5139ec",
   "lockedHash": "6c5139ec",
   "runHash": "11c148a7",
-  "dataHash": "70b16e4c",
+  "dataHash": "930a2386",
   "rowsHash": "4840cf96",
   "rows": [
     {

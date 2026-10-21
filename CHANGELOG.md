@@ -1,5 +1,50 @@
 # Changelog
 
+## 0.8.0 — 2026-10-21 — Prototype v2: a helm and physical misses (#237)
+
+- Data (`DESIGN.md` §13j.2, #236 (1)): `armour.kineticResistance`,
+  `beam.focusRange` and `FIXED.beamWaistPerHalfCell` removed from
+  `js/data.js`; the superseded pure functions (`penetrate`, `burnThrough`,
+  `beamDeliveredFraction`) stay. No other kernel change.
+- Mission 0: the five withdrawn L0 scenarios that read them
+  (`L0.kinetic.penetration`, `.v2`, `L0.beam.falloff`, `L0.beam.burn`,
+  `.v2`) are **retired** in `mission0/withdrawn.json` (`retired: true`,
+  `retiredDecision` #237, `retiredReason` naming the removed constant);
+  their files, locks and last records are unchanged. `tools/m0.js`:
+  `regress` and `verify` list a retired scenario as RETIRED without running
+  it and print the counts (VERIFIED + WITHDRAWN + RETIRED); `run` skips it
+  so its record stays; the ledger marks it.
+- Records: the data hash covers `PARAMS` and `FIXED`, so the 86 scenarios
+  `regress` runs were re-run canonically on the new data; verdicts, rows,
+  `run()` and criterion hashes are unchanged (only the data hash and the
+  code field moved). `MISSION0.md` regenerated.
+- Prototype v2 (`proto/`, `PROTO_VERSION` 'feel-3'; §13j.2): rounds and
+  beams on the path model's kernel (`shieldRound` at the hull entry point,
+  `fireRound` and `fireBeam` along the cells the line crosses, found by a
+  grid traversal in the target's body frame); a STAND-IN autopilot flying
+  three standing orders (range close 600 / hold 900 / open 1500 m, facing
+  bow-on / broadside, dodge off / on, in #40's order) with the engine and
+  the RCS fittings; rounds launched by the kernel's `shot` at the shooter's
+  velocity plus the muzzle velocity toward a lead point, tested each step
+  against the target's hull, culled 3 km from the midpoint; the spinal beam
+  along the ship's axis, possibly a miss. v1's Gaussian beam, `burnThrough`
+  and bow-armour stand-ins are gone. `proto/detmath.js` (STAND-IN): the
+  same `Math.sin` and `Math.cos` in every engine (Node's V8 and Chromium
+  141 differ in the last bit for about 3 % of arguments), so a phone export
+  replays MATCH. `proto/measure.mjs` runs seeds 1–10 at each range order.
+- The page: a world strip above v1's head-up grids (both ships to scale
+  with heading and velocity, rounds in flight, beams landing or missing,
+  the range, hits and misses); on each grid an arrow where rounds entered
+  and the beam where it lands; the loadout panel loses bow armour and gains
+  the range, facing and dodge orders and the seed (shown, +1 at every
+  Restart, editable, in the battle's corner and the export); the stand-ins
+  list names the enemy's script and every preset's throttle (#233).
+- Export and replay as v1 with the seed and the orders (and each side's
+  shots, hits and misses in the end); `replay.mjs --every` prints the helm;
+  `smoke.mjs` checks the seed on the panel, in the battle and in both
+  exports, and seed + 1 after Restart; `proto/README.md` rewritten (run,
+  loadout, play, the physics of the orders, the view, stand-ins, measure).
+
 ## 0.7.2 — 2026-10-21 — Prototype v2 planned (#237)
 
 - `DESIGN.md` §13j: the plan for prototype v2 (a helm as three standing

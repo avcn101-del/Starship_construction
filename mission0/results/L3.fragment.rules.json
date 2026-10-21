@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L3.fragment.rules",
-  "code": "f220524",
+  "code": "f7bf5c6",
   "criterionHash": "0691b010",
   "lockedHash": "0691b010",
   "runHash": "31fc5af6",
-  "dataHash": "70b16e4c",
+  "dataHash": "930a2386",
   "rowsHash": "89539cdc",
   "rows": [
     {

@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.shield.generator",
-  "code": "f220524",
+  "code": "f7bf5c6",
   "criterionHash": "cf7ea187",
   "lockedHash": "cf7ea187",
   "runHash": "014441cf",
-  "dataHash": "70b16e4c",
+  "dataHash": "930a2386",
   "rowsHash": "3ca22308",
   "rows": [
     {
