@@ -378,7 +378,7 @@ carry approved `min`–`max` ranges (#145).
 
 | | Criterion |
 |---|---|
-| E1 | Every L0–L6 scenario PASSes its locked criterion |
+| E1 | Every L0–L6 scenario PASSes its locked criterion, or is withdrawn for a specification error: still locked and recorded, listed in `mission0/withdrawn.json` with its decision, and replaced by a successor that PASSes (#188) |
 | E2 | Invariants on every sweep: same seed → same log hash; momentum conserved at splits; heat generated = radiated + stored; no NaN |
 | E3 | Every kept physics law has at least one passing proof scenario |
 | E4 | Every schema attribute has a measured effect, or it is cut |
@@ -500,6 +500,8 @@ carries time, room, cause id and the fields of #156.
 | 11 | `L1.quarters.repair` | quarters with c ∈ {6, 3, 1, 0} surviving cells; one target room with one destroyed cell at r ∈ {0, 0.5, 1, 2, 4} × radius | housed crew = crewPerCell × c, deaths per destroyed cell = crewPerCell; repair rate = `repair.rate` × (c / 6) × g(r), g(r) = 1 / (1 + (r / radius)²) (#99, as the shield); time to integrity 1 = 1 / rate', one-sided; c = 0 → no repair |
 | 12 | `L1.bridge.control` | bridge with reactor power on, cut, and destroyed cell by cell | control = true while any cell survives; power cut → still true (backup supply, #147); destroyed → false, event 'control-lost' with the destroying hit as cause; heat from its draw, time to hot one-sided |
 | 13 | `L1.beambay.heat` | beam bay firing at full; powered and unpowered; tiers | draw = beam.power / efficiency; heat rate = draw − beam.power; times to hot and overheated one-sided; at overheated the beam stops (power 0, draw 0, event); unpowered → no beam |
+| 14 | `L1.repair.breach` (#189) | crew quarters (all 6 cells) and an idle M reactor (demand 0) at r = 0.25 × repair.radius; hit-1 destroys reactor cell A at 1 s; when A's `cell-repaired` event comes, hit-2 destroys cell B 1 s later and hit-3 cell C 1 s after that; after the explosion, an external 1.1 MW heats the destroyed reactor for 2000 s | no `breach` after hit-2 (1 of 4 destroyed); `breach` at hit-3 (2 of 4); explosion at breach + countdown, one-sided; exactly **one** explosion and no meltdown in the whole run; crew deaths 1 per destroyed reactor cell (k = cells currently destroyed), cumulative reactor deaths ≤ its crew required; the destroyed count after A's repair is 0 |
+| 15 | `L1.room.restart` (#189) | (a) an M engine at full throttle with 2 radiators, powered and controlled, run 6000 s; (b) an M bridge with 2 radiators, heated by an external 1.1 MW until its overheated event, then the external source is off, run until its restart and 10 s more | (a) shutdown at overheated (thrust 0, draw 0 from the next step), restart at the first step with T < hot (thrust back to full), and the cycle repeats: shutdown and restart events alternate, at least 2 shutdowns; each restart time t_r after a shutdown at T_s matches the radiative cooling closed form t = (T_hot⁻³ − T_s⁻³) / (3 n εσA / C) within 1e-4 relative (about 1259 s from 800 K); (b) control false from the overheated step with `control-lost` cause `overheat`, control true again at restart with `control-restored`, restart time by the same closed form (about 1412 s from 350 K) within 1e-4 relative; no crew deaths |
 
 Scenarios 4–13 depend on 3 (the thresholds) and 1 (the integrator); 9 on
 `L0.shield.point.v2`; 8 on `L0.kinetic.penetration`. Expected formulas live
@@ -571,8 +573,14 @@ their heat has to reach a plant room or stay small, which L2 measures.
   fields of #156 where they apply (`energy`, `crew`, `channel`).
   `data.js` gains a `ROOMS` table and the groups above. `DESIGN.md` §14
   lists `rooms.js` under the kernel. The data hash of a record covers
-  `PARAMS`, `FIXED` and `ROOMS` (#185). The size rule, the crew rounding
-  and the kernel interpretations accepted after PR #5 are in #185.
+  `PARAMS`, `FIXED`, `ROOMS`, `TIERS` and `BASE_EDGE` (#185, #189). The
+  size rule, the crew rounding and the kernel interpretations accepted
+  after PR #5 are in #185; the reviewer's fixes (destroyed count after
+  repair, lock-line validation and folder-based lock rule, exploded rooms
+  never explode twice, turret on accumulated time, `withdrawn.json`
+  validation) are in #189. `data.js` flattens `thermal.plant.*` to
+  `thermal.plantHot` etc. and `rooms.<type>.crewRequired` to
+  `crewRequired.<type>`, because overrides address `group.name`.
 - `tools/m0.js`: from L1 the lock hash covers **the whole scenario file
   except its `locked:` line** (the v2 review's coverage gap); L0 locks stay
   as they are. `shield.kineticStop` is derived inside `withOverrides` so
