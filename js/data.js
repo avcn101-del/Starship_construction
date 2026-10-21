@@ -159,7 +159,7 @@ export const ROOMS = {
   quarters: { footprint: { M: [3, 2] }, placement: 'inside', thermalClass: 'crewed', crew: 'housed', draw: 'quarters.powerDraw' },
   beamBay: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'plant', crew: 'crewRequired.beamBay', draw: 'beam.power / beambay.efficiency' },
   turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed', crew: 'crewRequired.turret', draw: 'turret.powerDraw' },
-  railgun: { footprint: { M: [2, 'N'] }, placement: 'axis', thermalClass: 'crewed', crew: 'crewRequired.railgun' },
+  railgun: { footprint: { M: [2, 'N'] }, placement: 'axis', thermalClass: 'plant', crew: 'crewRequired.railgun' },
   missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'crewed', crew: 'crewRequired.missileBay' },
   hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'crewed', crew: null },
 };

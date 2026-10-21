@@ -14,7 +14,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { PARAMS, FIXED, TIERS, BASE_EDGE, scaled, withOverrides } from '../js/data.js';
+import { PARAMS, FIXED, ROOMS, TIERS, BASE_EDGE, scaled, withOverrides } from '../js/data.js';
 import { hash, stableStringify } from '../js/util.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -113,7 +113,8 @@ function execute(s, overrides) {
   const again = s.cases(ctx).map((c) => s.run(context(overrides), c));
   const rowsHash = hash(stableStringify(rows.map((r) => r.actual)));
   invariants.push({ name: 'deterministic (two runs, same hash)', ok: hash(stableStringify(again)) === rowsHash });
-  return { rows, invariants, rowsHash, dataHash: hash(stableStringify(ctx.params)) };
+  // The data hash covers PARAMS (with any overrides), FIXED and ROOMS (#185 (9)).
+  return { rows, invariants, rowsHash, dataHash: hash(stableStringify({ params: ctx.params, fixed: FIXED, rooms: ROOMS })) };
 }
 function verdictOf(s, res, deps) {
   if (!s.locked) return 'UNLOCKED';
