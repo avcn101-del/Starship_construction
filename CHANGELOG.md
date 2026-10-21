@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.3 — 2026-10-21 — L0 v2 scenarios
+
+- `he.coupling` in `data.js` (0.5, approved 0.2–0.8, k = 0): the fraction
+  of a contact burst's energy that enters the hull (#169, #176).
+- `blast()` takes the coupling as an explicit argument (default 1), so the
+  locked `L0.blast.surface` run is unaffected; it reports the vented
+  energy.
+- Five v2 scenarios beside the seven locked L0 scenarios (#176):
+  `L0.blast.surface.v2`, `L0.beam.burn.v2`, `L0.kinetic.penetration.v2`,
+  `L0.shield.point.v2`, `L0.shield.kinetic.v2`; inputs from `data.js`,
+  locked before their first canonical run; all PASS.
+- L0 re-run: 12/12 PASS; the seven locked hashes and results are
+  unchanged (the data hash moves with the new constant).
+- `DESIGN.md` §16: the v2 numbers and an honest reading; `README.md`
+  tweakable values include `he.coupling`; ledger regenerated.
+
 ## 0.1.2 — 2026-10-20 — L0 review fixes
 
 - `shield.kineticStop` is computed exactly in `data.js` as one S round's

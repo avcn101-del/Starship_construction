@@ -49,6 +49,7 @@ Keep this section in sync with `data.js`.
 | `armour.burnEnergy` | 30000000 | 10000000–100000000 | 3 | J | **no (provisional)** |
 | `room.kineticResistance` | 67500 | 30000–140000 | 1 | kg/(m*s) | **no (provisional)** |
 | `he.blastEnergy` | 2000000 | 500000–5000000 | 3 | J | yes |
+| `he.coupling` | 0.5 | 0.2–0.8 | 0 |  | yes |
 | `beam.power` | 5000000 | 1000000–20000000 | 2 | W | yes |
 | `beam.focusRange` | 600 | 300–1500 | 1 | m | yes |
 | `shield.budget` | 10000000 | 2000000–40000000 | 2 | W | yes |

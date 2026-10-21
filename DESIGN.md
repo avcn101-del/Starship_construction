@@ -473,6 +473,33 @@ the formula, an M shield fully stops an M beam inside its radius, which L2
 (overlap) and L5 (ship vs ship) must show is not a dominant defence. Heat
 invariants that hold by construction do not count towards E3 (#174).
 
+**L0 v2** (2026-10-21; five scenarios beside the seven, 81 cases, locked
+before their first canonical run, all PASS on it; inputs from `data.js`;
+`he.coupling` 0.5, approved 0.2–0.8 (#176)):
+
+| Scenario | What the numbers say |
+|---|---|
+| `L0.blast.surface.v2` | A contact burst vents exactly (1 − coupling) of its energy at the open face, and absorbed + escaped + vented = E in every case. At coupling 0.5 the M warhead (2 MJ) puts exactly 1 MJ (= one cell's provisional blast resistance) into the plate: **1 cell destroyed, 1 damaged** (v1 without venting: 1 destroyed, 4 damaged). At 0.2 it destroys none; at 0.8, 1 destroyed and 4 damaged. 10 MJ at 0.5: 4 destroyed, 9 damaged; 20 MJ at 0.8: 13 destroyed, 22 damaged. On every 11×11 case, damage is non-increasing with grid distance (no cell further out holds more than any cell nearer) and symmetric about the burst row; a 3×3 plate filled to capacity lets 1 MJ escape |
+| `L0.beam.burn.v2` | The stepped burn time lies in [t, t + dt) of the formula at 0 to 2.5 focus ranges (6.12 s at contact, 6.95 s at 600 m, 14.15 s at 1.5 km), and the heat in the target room exceeds the 30 MJ burn energy by less than one step's energy (1–56 kJ) |
+| `L0.kinetic.penetration.v2` | The continuous depth matches s0 / R within 1e-9 at every tier and size: S 1.691, M 2.537, L 3.805 cells, identical T1–T6 |
+| `L0.shield.point.v2` | The M beam itself (5 MW) is now run: **fully absorbed out to the radius** (40 m), 2 of 5 MW absorbed at 80 m, 0.59 MW at 160 m; at the generator the shield takes all of 10 MW and 10 of 30 MW (beams of 0.5×, 1×, 2×, 6× the M beam) |
+| `L0.shield.kinetic.v2` | With the computed `kineticStop` an S round stops exactly (0 m/s); swept 0.5×–2×, S is stopped only at ≥ 1× (400 m/s left at 0.5×); M is stopped at ≥ 1.5×, L slowed to 89 m/s at 2×; exit velocity never rises with `kineticStop` |
+
+Honest reading: v2 replaces the weak points named above with measurements.
+The blast's spreading is now constrained (falling with distance,
+symmetric), though both hold here by the plate's geometry and the wave
+front's equal shares; they are not a test of the wall-length law on an
+irregular room (L2). The burn is now one-sided. That the M shield absorbs
+an M beam completely inside its radius is now measured, so the dominance
+question for L2 and L5 stands on data. Two cautions: the default coupling
+puts the M warhead **exactly** on one cell's blast resistance, so the
+"1 destroyed" result sits on a knife edge (any lower coupling or higher
+resistance gives 0 destroyed); and `armour.blastResistance`,
+`armour.burnEnergy` and `shield.bufferSeconds` are still unapproved, so the
+blast, burn and shield-kinetic v2 verdicts hold only once the owner
+approves them. The shield buffer still never binds (a round costs at most
+0.53 MJ of 10 MJ).
+
 ## 17. Open questions
 
 1. **Chapter design** waits for Mission 0 (#125).
