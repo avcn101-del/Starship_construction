@@ -12,7 +12,7 @@ import { stepsAtLeast } from './util.js';
 
 /** A world of rooms stepped together: params from withOverrides, one tier. */
 export function createWorld({ params, edge = BASE_EDGE, dt = FIXED.simStep.value }) {
-  return { params, edge, dt, step: 0, t: 0, rooms: [], log: createLog(), shipMass: null };
+  return { params, edge, dt, step: 0, t: 0, rooms: [], log: createLog(), shipMass: null, repaired: [] };
 }
 
 const tierScaled = (world, p) => p.value * (world.edge / BASE_EDGE) ** p.k;
@@ -118,6 +118,9 @@ export function step(world) {
   }
   world.step++;
   world.t = world.step * dt;
+  // A state reached during the step is reported at its end, like the thresholds.
+  for (const r of world.repaired) event(world, r.room, 'cell-repaired', r.cause, { cell: r.cell });
+  world.repaired = [];
   for (const room of world.rooms) {
     for (const x of crossings(room.heat, room.thresholds)) onThreshold(world, room, x);
     TIMERS[room.type]?.(world, room);
@@ -291,7 +294,7 @@ const BEHAVIOUR = {
       other.cells.forEach((c, i) => {
         if (c.integrity >= 1 || rate <= 0) return;
         c.integrity = Math.min(1, c.integrity + rate * dt);
-        if (c.integrity >= 1) event(world, other, 'cell-repaired', room.id, { cell: i });
+        if (c.integrity >= 1) world.repaired.push({ room: other, cell: i, cause: room.id }); // reported at the end of the step
       });
     }
     const draw = tierScaled(world, p.quarters.powerDraw) * survivingFraction(room);
