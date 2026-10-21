@@ -410,7 +410,8 @@ beam itself against the shield, and an S round stopped exactly with
 §13c: nine rooms (the eight of #127 plus the beam bay), the per-room heat
 model with two threshold classes, 13 scenarios and their constants.
 
-**L2** (pairs and clusters; #192–#196): planned 2026-10-21, §13d: a cell
+**L2** (pairs and clusters; #192–#196): planned 2026-10-21, merged
+2026-10-21 after review (#204, #205, #207), §13d: a cell
 layout with shared walls, heat conduction, power and ammunition by wall
 length, blast between rooms, shield overlap with the budget counted once
 (#170), the shared repair budget, the size rule, 12 scenarios.
@@ -617,9 +618,9 @@ Numbers are T1, size M, SI.
 | Layout (`js/layout.js`) | A cluster has one cell grid at the tier's edge. A room occupies a rectangle of cells at an integer cell position, its footprint rotated by 0° or 90°. Rooms never overlap. Two rooms **share a wall** along every pair of edge-adjacent cells, one in each; the shared wall length L is (number of such cell pairs) × edge. An **open edge** is a room cell edge with no room cell beside it; a room carries at most one radiator per open edge (#15). The distance between two rooms (fields) is between their centres |
 | Live walls | A shared edge carries power, ammunition and heat only while **both** cells on it survive (a destroyed cell is a hole). Blast uses every shared edge (a hole lets blast through) |
 | Conduction (`js/heat.js`, **#200, #201**) | Heat flows through each live shared wall at G (T_a − T_b). **Coolant walls**: between two **coolant rooms** (the plant rooms: reactor, beam bay, shield generator, engine, spinal railgun; and the heat sink), the machinery's coolant loop runs through the bulkhead: G = `conduction.wall` × L × h(f_a, f_b), h the harmonic mean 2 f_a f_b / (f_a + f_b) of their coolant factors (1; the heat sink `heatsink.conductivityFactor`). **Passive walls**: every other wall (a crewed room, a magazine, a hold on either side) leaks only through the bulkhead: G = `conduction.passive` × L × h(p_a, p_b) with passive factors 1, and `conduction.holdFactor` for an empty hold (#18c). Explicit Euler at the step, flows computed from the temperatures at the start of the step, so the heat books close exactly: generated = radiated + stored + moved, Σ flows = 0 over the cluster |
-| Life support (#201) | Each crewed room (bridge, quarters, turret, missile bay) and each magazine keeps its own air cool: while it is powered (the bridge on its backup, #147) and above `FIXED.lifeSupportSetpoint` (295 K), it **pumps** heat out of itself into the coolant rooms sharing a live wall with it, split by wall length, at most `lifeSupport.capacityPerCell` × surviving cells W and never below the setpoint within a step. A heat pump works against the gradient, so it pushes into a hotter coolant room. With no coolant neighbour, or unpowered, it does nothing: the room has only its passive walls and its own radiators. It is ship service, not the room's machinery: it **keeps running while the room is shut down** (overheated or switched off), as long as the room is powered (#205). The pump's own work is not added as heat yet (a simplification; with power routing for life support at L3 it may be). Enemy beams that heat the room directly (#138) can overwhelm it; the heat it pumps loads the coolant loop, so a reactor beside crewed rooms runs hotter |
+| Life support (#201) | Each crewed room (bridge, quarters, turret, missile bay) and each magazine keeps its own air cool: while it is powered (the bridge on its backup, #147) and above `FIXED.lifeSupportSetpoint` (295 K), it **pumps** heat out of itself into the coolant rooms sharing a live wall with it, split by wall length, at most `lifeSupport.capacityPerCell` × surviving cells W and never below the setpoint within a step. A heat pump works against the gradient, so it pushes into a hotter coolant room. With no coolant neighbour, or unpowered, it does nothing: the room has only its passive walls and its own radiators. It is ship service, not the room's machinery: it **keeps running while the room is shut down** (overheated or switched off), as long as the room is powered (#205). Under power routing a room counts as powered for life support while it is joined through live walls (through any rooms) to a reactor able to produce (not shut down, not destroyed, demand above 0), whatever its own request: a switched-off or overheated room, or a turret with no rounds, keeps it (#207). The pump's own work is not added as heat yet (a simplification; with power routing for life support at L3 it may be). Enemy beams that heat the room directly (#138) can overwhelm it; the heat it pumps loads the coolant loop, so a reactor beside crewed rooms runs hotter |
 | Power (`js/graph.js`) | Reactors produce up to their output (L1); consumers draw their L1 draw. Power flows through any room (no conduit rooms, #12) along live walls, each with capacity `power.wallCapacity` × L. Consumers are served in **priority order** (the power-priority order of #38; at L2 a list given by the scenario, then room id): each consumer in turn gets the most additional flow the residual network allows (augmenting paths found by breadth-first search in room-id order, so the result is deterministic). A consumer that receives a fraction f of its draw works at f: every rate-like output and its heat × f (a beam at f × power, a turret at f × its fire rate, a shield at f × its budget). The bridge keeps its backup supply (#147); a reactor delivers only what is routed |
-| Ammunition | A magazine feeds only rooms that share a live wall with it, no routing through other rooms (#18; magazines must touch the guns they feed, so a bomb sits beside every gun). Each wall carries at most `ammo.wallFeed` × L kg/s of rounds of the consumer's size, in the magazine's loading order. A turret holds a **ready store** of `turret.readyRounds` × size rounds; it fires from the store and the feed refills it. Its sustained rate is min(fire rate, feed / round mass) |
+| Ammunition | A magazine feeds only rooms that share a live wall with it, no routing through other rooms (#18; magazines must touch the guns they feed, so a bomb sits beside every gun). Each wall carries at most `ammo.wallFeed` × L kg/s of rounds of the consumer's size, in the magazine's loading order. A turret holds a **ready store** of `turret.readyRounds` rounds of its own size (#201 (5), #207); it fires from the store and the feed refills it. Its sustained rate is min(fire rate, feed / round mass) |
 | Blast between rooms | An internal explosion of energy E (a magazine or reactor, L1) first fills its own room up to that room's blast capacity B = surviving cells × `room.blastResistance` (× `hold.blastFactor` for a hold); the excess then spreads as a wave front from the **whole damaged region** (#169, #205): in each round, the excess is split among every unsaturated room touching any saturated room, by shared wall length, each filling up to its capacity; what no room can take escapes to space. Within a room the energy spreads evenly over its cells; a cell is destroyed when its share reaches its resistance. Books: absorbed + escaped = E exactly; with every room reached, absorbed = min(E, Σ B), escaped = max(0, E − Σ B) (#184) |
 | Shield overlap (#170) | Fields add, each generator paying from its own budget (#99). In each step, a beam at point j asks generator i for a_ij = P_j × B_i g_ij / Σ_k B_k g_kj, capped so that Σ_i a_ij ≤ min(P_j, Σ_i B_i g_ij) (L0 for one generator). If a generator's asks Σ_j a_ij exceed its budget B_i (× its power fraction), every ask to it is scaled by B_i / Σ_j a_ij; the point then absorbs the sum of what it was granted, with no second round in the same step. **No generator ever absorbs more than its budget**: this removes the double counting of #170. Each generator heats by what it pays (L1). The impulse buffer of each generator is shared the same way |
 | Shield buffer (E4) | The buffer (budget × `shield.bufferSeconds`) pays the energy of rounds stopped (L0), drains when rounds arrive faster than it refills, and refills at the budget left unused by continuous beams. L2 shows it binding under a salvo; L5 decides whether real salvos ever reach it, or it is cut (#177, E4) |
@@ -757,7 +758,9 @@ what the enemy cuts.
 
 Built after L2 merges and before L3, on its own branch `m0/d-damage`,
 because it touches L0 constants and L1's repair. Estimates were made with
-every rule of L0–L2 switched on (#204).
+every rule of L0–L2 switched on (#204). It also carries the life-support
+fix of the L2 review (#207): the same kernel file, and L3 is the first
+level to route power through crewed rooms.
 
 ### 13e.1 Rules
 
@@ -766,6 +769,7 @@ every rule of L0–L2 switched on (#204).
 | Real round sizes | An M kinetic round at T1 is **6 kg** of solid steel at 800 m/s (62 mm, 250 mm long): a light naval gun, as a 1500–2500 t real corvette carries (the old 0.5 kg was a 27 mm cannon). Every quantity tied to the round scales by the same factor 12 in mass so that every penetration depth and feed ratio of L0–L2 is **unchanged**: the kinetic resistances scale by 12^(1/3) (sectional momentum ∝ m^(1/3) at fixed shape and speed), magazine capacity and wall feed by 12 (the magazine still holds 150 M rounds), the propellant charge by 12 (6 MJ per M round, about 1.5 kg of propellant). The HE warhead stays 2 MJ (≈ 0.5 kg TNT, 8 % of a 6 kg shell, a real filler fraction); the turret's heat per shot stays 0.3 MJ (most of a gun's heat stays in its barrel, outside the room) |
 | Partial kinetic damage | Kinetic damage stays momentum (#137): a round passing a room cell removes that cell's resistance R from its sectional momentum, as before, and takes **1 / `kinetic.hitsToWreck`** of the cell's integrity; the cell it stops in loses (sectional momentum left / R) / `kinetic.hitsToWreck`. A cell is destroyed when its integrity reaches 0 (#16). Crew die in proportion to the integrity lost: the room's cumulative deaths are floor(crew × (cells − Σ integrity) / cells), never more than its crew (#189) |
 | Repair | Repair restores **damaged** cells only (integrity between 0 and 1); a destroyed cell (integrity 0) is not repaired in battle and waits for the drydock (amends #51); it stays destroyed for the rest of the battle (this replaces #190 (1), which let a destroyed cell come back at integrity 1) |
+| Life support under routing (#207) | A room keeps life support while joined through live walls to a reactor able to produce, whatever its own power request (§13d.1); the kernel tied it to the room's routed fraction, so a shut-down room lost it under routing, against #205 (3) |
 | Shield buffer | Unchanged rule; with the real round, stopping an M round costs 1.71 MJ, so a 10 MJ buffer binds at the **6th** round of a salvo (the old 0.5 kg round: the 71st). E4 for `shield.bufferSeconds` is met at L2 by this effect |
 
 ### 13e.2 Constants and approved ranges (#206)
@@ -790,6 +794,7 @@ every rule of L0–L2 switched on (#204).
 | D2 | `L1.quarters.repair.v2` | the setup of `L1.quarters.repair` with the target cell damaged by 0.7123 (not destroyed), and a second target cell destroyed | time to integrity 1 = 0.7123 / (rate × c / 6 × g(r)), one-sided; the destroyed cell stays at 0 through 600 s and no `cell-repaired` event for it |
 | D3 | `L1.repair.breach.v2` | quarters and an idle M reactor at 0.25 radius; cell A damaged by 0.7123 at 1 s and repaired; then cells B and C destroyed 1 s apart; a destroyed cell D next to the quarters | no breach after B; breach at C (2 of 4 destroyed); explosion at breach + countdown, one-sided; exactly one explosion; D stays destroyed; reactor deaths ≤ its crew |
 | D4 | `L2.shield.salvo` | an M generator and a salvo of N ∈ {3, 5, 6, 7, 10} M rounds of 6 kg | stop cost 1.707 MJ per round (L0 formula); the buffer binds at round ⌈10 MJ / cost⌉ = 6; later rounds pass unstopped; refill at the unused budget |
+| D5 | `L2.lifesupport.routed` (#207) | (a) an M crew quarters at 320 K, powered and active, an idle M reactor sharing 5 m and an M heat sink sharing 10 m with it (not with each other), all else at 290 K, 600 s, no routing; (b) power routing on: the quarters beside an M reactor at demand 0.25 over 10 m, an external 0.2 MW and 1 MW on the quarters for 900 s, with the quarters active, switched off, and with the reactor switched off | (a) heat pumped into each neighbour in the ratio of their live wall lengths (1 : 2) within 1e-9 at every step; the quarters never below 295 K − 1e-9 K; time to within 1 mK of the setpoint against a reference integrator, 1e-3 (estimate 353 s; 39.6 and 79.1 MJ pumped); (b) the quarters' temperature against a reference integrator within 1e-6 K every second: active and switched off hold ≤ 295.01 K at 0.2 MW (estimates 295.0013 / 295.0010 K); reactor off pumps nothing (338.5 K, hot at about 738 s); at 1 MW crew die at about 438 s (active), 458 s (switched off) and 328 s (no supply), one-sided on the step grid |
 
 **Expected effect on locked scenarios**: every L0, L1 and L2 scenario
 whose criterion is a formula over `data.js` re-records with the new values
@@ -965,7 +970,11 @@ of decay heat to come against 0.48 GJ of margin to critical, so heat
 discipline must act before overheated (#18b), and L2 measures whether
 conduction through its walls to radiator rooms saves it.
 
-**L2 pairs and clusters** (2026-10-21; 12 scenarios, 95 cases, each
+**L2 pairs and clusters, first run** (2026-10-21; superseded where it
+concerns heat by #200 and #201, see the next block: of these 12 scenarios
+`L2.heat.pair`, `L2.heat.chain`, `L2.heat.neighbour` and
+`L2.bridge.conduction` are withdrawn and their numbers below describe the
+replaced wall rule; 12 scenarios, 95 cases, each
 locked before its first canonical run (commit `621f2c6`); **10 PASS, 2
 FAIL**; T1, size M, SI; constants of §13d.3; in review on
 `m0/l2-clusters`. The seven constants changed the data hash, so every L0
@@ -999,12 +1008,15 @@ algorithm unlike the kernel's augmenting paths), and the feed counts at 30
 times. Close restatements of their rules: the blast split, the shield
 overlap, the buffer, the repair sharing and the size rule; their value is
 locking the rules, and the engineer-added cases are what make the blast
-and buffer checks bite. What the numbers say for the design: **a running
-reactor cooks its neighbours within one battle, and one empty hold buys
-6–13 minutes rather than safety**; one cooled neighbour is enough to stop a
+and buffer checks bite. What the numbers said for the design under the
+replaced rule (no longer true since #200: crew beside a running reactor are
+safe while life support runs, see the next block): a running reactor
+cooked its neighbours within one battle, and one empty hold bought 6–13
+minutes rather than safety. Still true: one cooled neighbour is enough to stop a
 meltdown (#187 (5) answered), but the reactor then cycles between 600 and
 800 K; a 5 m wall starves a beam bay and an L turret; the shield buffer
-still has no effect at realistic salvo sizes. Signals for L3: power
+still had no effect at realistic salvo sizes (the D pass's 6 kg round
+makes it bind at the 6th, #206). Signals for L3: power
 routing, feed and conduction now depend on which cells survive, so
 fragments (L3) will change power and heat paths mid-battle; the reactor
 restart cycle (shut down, restart below 600 K) will need a control-path
@@ -1071,7 +1083,11 @@ reactor's expense (a reactor at half power without radiators reaches
 when already hot; losing it shortens the clock as the dependency law
 wants. Signals: whether life support should stop when its room shuts
 down, and whether it should draw power, are open (questions in the pull
-request); a full heat sink beside a cold reactor is a heat source.
+request); a full heat sink beside a cold reactor is a heat source. Answered by #205 (3)
+and #207: life support keeps running in a shut-down room while the room is
+powered (under routing: joined to a reactor able to produce); it draws
+no power until L3. Reviewer (#207): the split by wall length and the
+setpoint clamp moved no L2 criterion; D5 tests them.
 
 ## 17. Open questions
 

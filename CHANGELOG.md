@@ -1,6 +1,20 @@
 # Changelog
 
-## 0.3.1 — 2026-10-21 — Heat along the coolant loop, life support, the heat sink (#198, #200, #201; in review)
+## 0.3.2 — 2026-10-21 — Mission 0 L2 merged; reviewer answers (#207)
+
+- L2 (`m0/l2-clusters`, PR #15, head `e40d1af`) merged into `main` after
+  the physics checker (#205) and the reviewer (#207) reported no blocking
+  finding; `regress`: 42 VERIFIED + 5 WITHDRAWN.
+- `DESIGN.md` §13d.1: under power routing a room keeps life support while
+  joined through live walls to a reactor able to produce (#207); the ready
+  store is `turret.readyRounds` rounds of the turret's own size.
+- `DESIGN.md` §13e: the D pass also carries that fix and scenario D5
+  `L2.lifesupport.routed` (split by wall length, setpoint clamp, routed
+  life support), with estimates.
+- `DESIGN.md` §16: the first L2 block is marked superseded by #200 and
+  #201 where it states heat numbers of the replaced wall rule.
+
+## 0.3.1 — 2026-10-21 — Heat along the coolant loop, life support, the heat sink (#198, #200, #201)
 
 - Data: `conduction.passive` (25 W/(K·m), 5–100, k=1),
   `lifeSupport.capacityPerCell` (50 kW, 10–200 kW, k=2),
@@ -31,7 +45,7 @@
   and `L2.bridge.conduction` (superseded by #200).
 - `regress`: 42 VERIFIED + 5 WITHDRAWN.
 
-## 0.3.0 — 2026-10-21 — Mission 0 L2: pairs and clusters (in review)
+## 0.3.0 — 2026-10-21 — Mission 0 L2: pairs and clusters
 
 - Data (#195): `conduction.wall`, `conduction.holdFactor`,
   `power.wallCapacity`, `ammo.wallFeed`, `turret.readyRounds`,

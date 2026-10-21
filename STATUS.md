@@ -1,21 +1,20 @@
 # STATUS — hand-over between chats (#179)
 
-Updated 2026-10-21 ~07:50 UTC by the lead designer chat
-`session_01LozzrLAfpzaSd7wTt1AUec`, handing over to a new chat. Read this
+Updated 2026-10-21 by the lead designer chat
+`session_013PTXKzyTQkpVaKYQyBhRP8` (took over from
+`session_01LozzrLAfpzaSd7wTt1AUec`). Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#206, current design in `DESIGN.md`.
-- **Mission 0 L0 and L1 done and merged.** `regress` on `main`: 27
-  VERIFIED + 1 WITHDRAWN (`L1.radiator.steady`, #185). L1 cost 17.21 USD.
-- **L2 (pairs and clusters) in review**: PR #15, branch `m0/l2-clusters`,
-  head `e40d1af`. `regress` there: **42 VERIFIED + 5 WITHDRAWN** (verified
-  by the lead designer). Physics checker: all 15 live L2 scenarios matched
-  its blind derivation, no blocking finding (#205). **Reviewer
-  `session_01AKKABP9PxiAjtEkN1wcowa` (sonnet) was still running** at
-  hand-over; its review lands on PR #15. L2 cost so far 22.55 USD + the
-  reviewer.
+- Design settled: `DECISIONS.md` #1–#207, current design in `DESIGN.md`.
+- **Mission 0 L0, L1 and L2 done and merged.** `regress` on `main`: 42
+  VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
+  L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
+  checker 2.82, reviewer 1.34). The reviewer found no blocking defect; its
+  three findings are answered by #207 (life support under routing is fixed
+  in the D pass, scenario D5).
+- **Next: the D pass** (`DESIGN.md` §13e, #206, #207) on `m0/d-damage`.
 - **Heat is physical (#200, the owner)**: fast heat only along the
   machinery's coolant loop; crew rooms and magazines insulated and cooled
   by life support, which keeps running in a shut-down powered room (#201,
@@ -40,7 +39,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
-| #15 Mission 0, L2: pairs and clusters | `m0/l2-clusters` → `main` | head `e40d1af`; physics checker done (#205); reviewer running |
+| — | — | none open (L2 merged through the lead designer's branch; PR #15 closes with it) |
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
@@ -50,6 +49,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #207: answers to the L2 reviewer (life support under power routing runs
+  while the room is joined to a reactor able to produce, fixed in the D
+  pass with scenario D5; §16 cleaned up); L2 merged.
 - #206: the D pass specified (6 kg M rounds with every tied quantity
   scaled so L0–L2 ratios hold; three hits wreck a cell; repair of damaged
   cells only; the shield buffer now binds at the 6th round).
@@ -60,23 +62,15 @@ Nothing.
 
 ## Next steps
 
-1. **Read the L2 review** on PR #15 (reviewer
-   `session_01AKKABP9PxiAjtEkN1wcowa`). Blocking findings: decide them as
-   *LD* rows (docs PR merged first), then one engineer fix session on
-   `m0/l2-clusters`, then a short re-review. No blocking finding: verify
-   the head (`node tools/m0.js regress`, long timeout: 42 VERIFIED + 5
-   WITHDRAWN), answer the non-blocking findings in one *LD* row, merge
-   `m0/l2-clusters` into the lead designer's branch with a merge commit,
-   resolve `STATUS.md` there, open and merge one pull request into `main`
-   (as PR #12 did for L1).
-2. **The D pass** (`DESIGN.md` §13e, #206): one engineer session (opus) on
+1. **The D pass** (`DESIGN.md` §13e, #206): one engineer session (opus) on
    a new branch `m0/d-damage` from `main`; scenarios D1–D4 locked in their
    own commit before their first canonical run; L0/L1/L2 re-recorded with
    the new data and still passing; `L1.quarters.repair` and
    `L1.repair.breach` withdrawn as superseded by #203 with D2/D3 as
-   successors; any other verdict change is a finding, not a withdrawal;
+   successors; D5 (#207) adds life support under routing; any other
+   verdict change is a finding, not a withdrawal;
    then the physics checker (blind) and the reviewer.
-3. **The L3 plan** (minimal ship): rigid body; cell mass = heat capacity /
+2. **The L3 plan** (minimal ship): rigid body; cell mass = heat capacity /
    c_p, about 1 t per cell, a T1 corvette about 250 t (#202 E); engine
    thrust re-tuned for torches (#203 A); CoM and moment of inertia; recoil
    measured (#203 C; now 12× larger, about 0.35 °/s after 20 M shots);
@@ -118,10 +112,10 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Engineer, L2 rows 1–12 (PR #15) | session_0111ENvC2XXCj4tA5T9zTZQ7 | opus-5-5 | 11.48 |
 | Engineer, L2 heat v2 and heat sink | session_011dfRdXfFAYsLmAY2C9a6Qg | opus-5-5 | 8.25 |
 | Physics checker, L2 | session_01KdLbYYddDJgStcfriEdqsv | sonnet-5-5 | 2.82 |
-| Reviewer, L2 | session_01AKKABP9PxiAjtEkN1wcowa | sonnet-5-5 | running at hand-over |
+| Reviewer, L2 | session_01AKKABP9PxiAjtEkN1wcowa | sonnet-5-5 | 1.34 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
-L2 so far: 22.55 USD (engineers 19.73, physics checker 2.82) + the reviewer.
+L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
 
 Sessions have reported a **seven-day usage limit warning**.
 
