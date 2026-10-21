@@ -1,0 +1,388 @@
+{
+  "id": "L0.shield.point.v2",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.shield.point.v2",
+  "code": "de8576b",
+  "criterionHash": "48511feb",
+  "lockedHash": "48511feb",
+  "runHash": "a82d6757",
+  "dataHash": "e4fa91ea",
+  "rowsHash": "dca15cfc",
+  "rows": [
+    {
+      "case": {
+        "r": 0,
+        "P": 2500000,
+        "times": 0.5
+      },
+      "expected": {
+        "absorbed": 25000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 25000000.000000145,
+        "passed": 0,
+        "input": 25000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 0,
+        "P": 5000000,
+        "times": 1
+      },
+      "expected": {
+        "absorbed": 50000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 50000000.00000029,
+        "passed": 0,
+        "input": 50000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 0,
+        "P": 10000000,
+        "times": 2
+      },
+      "expected": {
+        "absorbed": 100000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 100000000.00000058,
+        "passed": 0,
+        "input": 100000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 0,
+        "P": 30000000,
+        "times": 6
+      },
+      "expected": {
+        "absorbed": 100000000,
+        "passed": 200000000
+      },
+      "actual": {
+        "absorbed": 100000000.00000058,
+        "passed": 200000000.00000116,
+        "input": 300000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 20,
+        "P": 2500000,
+        "times": 0.5
+      },
+      "expected": {
+        "absorbed": 25000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 25000000.000000145,
+        "passed": 0,
+        "input": 25000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 20,
+        "P": 5000000,
+        "times": 1
+      },
+      "expected": {
+        "absorbed": 50000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 50000000.00000029,
+        "passed": 0,
+        "input": 50000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 20,
+        "P": 10000000,
+        "times": 2
+      },
+      "expected": {
+        "absorbed": 80000000,
+        "passed": 20000000
+      },
+      "actual": {
+        "absorbed": 80000000.00000001,
+        "passed": 20000000.000000004,
+        "input": 100000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 20,
+        "P": 30000000,
+        "times": 6
+      },
+      "expected": {
+        "absorbed": 80000000,
+        "passed": 220000000
+      },
+      "actual": {
+        "absorbed": 80000000.00000001,
+        "passed": 219999999.99999842,
+        "input": 300000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 40,
+        "P": 2500000,
+        "times": 0.5
+      },
+      "expected": {
+        "absorbed": 25000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 25000000.000000145,
+        "passed": 0,
+        "input": 25000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 40,
+        "P": 5000000,
+        "times": 1
+      },
+      "expected": {
+        "absorbed": 50000000,
+        "passed": 0
+      },
+      "actual": {
+        "absorbed": 50000000.00000029,
+        "passed": 0,
+        "input": 50000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 40,
+        "P": 10000000,
+        "times": 2
+      },
+      "expected": {
+        "absorbed": 50000000,
+        "passed": 50000000
+      },
+      "actual": {
+        "absorbed": 50000000.00000029,
+        "passed": 50000000.00000029,
+        "input": 100000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 40,
+        "P": 30000000,
+        "times": 6
+      },
+      "expected": {
+        "absorbed": 50000000,
+        "passed": 250000000
+      },
+      "actual": {
+        "absorbed": 50000000.00000029,
+        "passed": 249999999.99999788,
+        "input": 300000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 80,
+        "P": 2500000,
+        "times": 0.5
+      },
+      "expected": {
+        "absorbed": 20000000,
+        "passed": 5000000
+      },
+      "actual": {
+        "absorbed": 20000000.000000004,
+        "passed": 5000000.000000001,
+        "input": 25000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 80,
+        "P": 5000000,
+        "times": 1
+      },
+      "expected": {
+        "absorbed": 20000000,
+        "passed": 30000000
+      },
+      "actual": {
+        "absorbed": 20000000.000000004,
+        "passed": 30000000,
+        "input": 50000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 80,
+        "P": 10000000,
+        "times": 2
+      },
+      "expected": {
+        "absorbed": 20000000,
+        "passed": 80000000
+      },
+      "actual": {
+        "absorbed": 20000000.000000004,
+        "passed": 80000000.00000001,
+        "input": 100000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 80,
+        "P": 30000000,
+        "times": 6
+      },
+      "expected": {
+        "absorbed": 20000000,
+        "passed": 280000000
+      },
+      "actual": {
+        "absorbed": 20000000.000000004,
+        "passed": 279999999.9999982,
+        "input": 300000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 160,
+        "P": 2500000,
+        "times": 0.5
+      },
+      "expected": {
+        "absorbed": 5882352.941176471,
+        "passed": 19117647.05882353
+      },
+      "actual": {
+        "absorbed": 5882352.941176481,
+        "passed": 19117647.058823656,
+        "input": 25000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 160,
+        "P": 5000000,
+        "times": 1
+      },
+      "expected": {
+        "absorbed": 5882352.941176471,
+        "passed": 44117647.058823526
+      },
+      "actual": {
+        "absorbed": 5882352.941176481,
+        "passed": 44117647.05882351,
+        "input": 50000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 160,
+        "P": 10000000,
+        "times": 2
+      },
+      "expected": {
+        "absorbed": 5882352.941176471,
+        "passed": 94117647.05882353
+      },
+      "actual": {
+        "absorbed": 5882352.941176481,
+        "passed": 94117647.05882369,
+        "input": 100000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "r": 160,
+        "P": 30000000,
+        "times": 6
+      },
+      "expected": {
+        "absorbed": 5882352.941176471,
+        "passed": 294117647.0588235
+      },
+      "actual": {
+        "absorbed": 5882352.941176481,
+        "passed": 294117647.0588215,
+        "input": 300000000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "energy in = absorbed + passed",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -23,7 +23,7 @@ export default {
   run(ctx, c) {
     const zR = ctx.scaled(ctx.params.beam.focusRange), a = ctx.baseEdge / 2;
     const f = beamDeliveredFraction(c.d, zR, a, a * ctx.fixed.beamWaistPerHalfCell.value);
-    const r = burnThrough(ctx.scaled(ctx.params.beam.power) * f, ctx.scaled(ctx.params.armour.burnEnergy), ctx.dt);
+    const r = burnThrough(ctx.scaled(ctx.params.beam.power) * f, ctx.scaled(ctx.params.armour.burnEnergy), ctx.dt, ctx.fixed.burnTimeLimit.value);
     return { time: r.time, delivered: r.delivered, heat: r.heat, burnt: r.burnt };
   },
   compare(e, a, c, ctx) {

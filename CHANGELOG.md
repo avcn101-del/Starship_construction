@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.1.3 — 2026-10-21 — L0 v2 scenarios
+
+- `he.coupling` in `data.js` (0.5, approved 0.2–0.8, k = 0): the fraction
+  of a contact burst's energy that enters the hull (#169, #176).
+- `blast()` takes the coupling as an explicit argument (default 1), so the
+  locked `L0.blast.surface` run is unaffected; it reports the vented
+  energy.
+- Five v2 scenarios beside the seven locked L0 scenarios (#176):
+  `L0.blast.surface.v2`, `L0.beam.burn.v2`, `L0.kinetic.penetration.v2`,
+  `L0.shield.point.v2`, `L0.shield.kinetic.v2`; inputs from `data.js`,
+  locked before their first canonical run; all PASS.
+- L0 re-run: 12/12 PASS; the seven locked hashes and results are
+  unchanged (the data hash moves with the new constant).
+- `DESIGN.md` §16: the v2 numbers and an honest reading; `README.md`
+  tweakable values include `he.coupling`; ledger regenerated.
+
+## 0.1.2 — 2026-10-20 — L0 review fixes
+
+- `shield.kineticStop` is computed exactly in `data.js` as one S round's
+  sectional momentum at T1, with the arithmetic of `projectile.js`; an S
+  round is stopped at full strength by definition (#171).
+- The simulation step (1/60 s) and the burn time limit (3600 s) move into
+  `data.js`; `burnThrough` takes the limit from its caller (#175).
+- `tools/m0.js`: records carry `runHash`, a hash of the scenario's
+  `run()`; `verify` checks it; the ledger shows it and the unapproved
+  constants each verdict depends on (#175).
+- `DESIGN.md` §16 corrected: the blast destroys 1 cell and damages 4; the
+  shield's full absorption of an M beam is an inference, not a measurement;
+  the first independent re-run was the reviewer's; L0's "AP" is the plain
+  steel round (#173); the blast criterion does not pin the spreading law.
+- `README.md` tweakable values regenerated from `data.js` (S and L size
+  factors shown exactly as 2/3 and 3/2).
+- L0 re-run: 7/7 PASS, verified; lock hashes unchanged.
+
 ## 0.1.1 — 2026-10-20 — review roles
 
 - Decisions #167–#168: four roles (lead designer, engineer, reviewer,

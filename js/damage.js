@@ -30,13 +30,17 @@ export function penetrate(s0, resistances) {
  * ([x, y]) with energy E; every cell absorbs up to `capacity` (J).
  * Excess flows from the damaged region to its unsaturated neighbours in
  * proportion to the shared wall length (#18, #141); with no neighbour left
- * the rest escapes to space. Returns per-cell absorption and the escape.
+ * the rest escapes to space. `coupling` is the fraction of E that enters
+ * the hull at a contact burst on an open face; the rest vents to space
+ * there (#169, #176). The caller passes it explicitly; 1 means all of E
+ * enters the plate. Returns per-cell absorption, the escape and the vent.
  */
-export function blast(w, h, origin, E, capacity) {
+export function blast(w, h, origin, E, capacity, coupling = 1) {
   const idx = (x, y) => y * w + x;
   const absorbed = new Float64Array(w * h);
   const inRegion = new Uint8Array(w * h); // cells the blast has reached
-  let excess = E;
+  const vented = E - coupling * E;
+  let excess = coupling * E;
   const take = (i, e) => {
     const a = Math.min(e, capacity - absorbed[i]);
     absorbed[i] += a;
@@ -68,15 +72,16 @@ export function blast(w, h, origin, E, capacity) {
     for (const [j, v] of weight) left += take(j, (excess * v) / total);
     excess = left;
   }
-  return { absorbed: Array.from(absorbed), escaped: excess, inRegion: Array.from(inRegion) };
+  return { absorbed: Array.from(absorbed), escaped: excess, vented, inRegion: Array.from(inRegion) };
 }
 
 /**
  * Beam burn-through (#138): a beam delivers `power` (W) to a cell; the cell
  * burns through when it has received `energy` (J). Every joule delivered
- * becomes heat in the target room. Stepped at dt until burnt or maxTime.
+ * becomes heat in the target room. Stepped at dt until burnt or maxTime
+ * (the caller passes FIXED.burnTimeLimit).
  */
-export function burnThrough(power, energy, dt, maxTime = 3600) {
+export function burnThrough(power, energy, dt, maxTime) {
   let delivered = 0;
   let steps = 0;
   while (delivered < energy && steps * dt < maxTime) {

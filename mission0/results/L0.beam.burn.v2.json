@@ -1,0 +1,132 @@
+{
+  "id": "L0.beam.burn.v2",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.beam.burn.v2",
+  "code": "de8576b",
+  "criterionHash": "2f23b6ac",
+  "lockedHash": "2f23b6ac",
+  "runHash": "d0b53db6",
+  "dataHash": "e4fa91ea",
+  "rowsHash": "c326b4ff",
+  "rows": [
+    {
+      "case": {
+        "d": 0
+      },
+      "expected": {
+        "time": 6.1119441621826445,
+        "dt": 0.016666666666666666,
+        "burnEnergy": 30000000,
+        "stepEnergy": 81807.03009260548
+      },
+      "actual": {
+        "time": 6.116666666666666,
+        "heat": 30023180.043988213,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 150
+      },
+      "expected": {
+        "time": 6.142345335056745,
+        "dt": 0.016666666666666666,
+        "burnEnergy": 30000000,
+        "stepEnergy": 81402.13106324489
+      },
+      "actual": {
+        "time": 6.15,
+        "heat": 30037386.362338945,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 300
+      },
+      "expected": {
+        "time": 6.254966208467334,
+        "dt": 0.016666666666666666,
+        "burnEnergy": 30000000,
+        "stepEnergy": 79936.48300180282
+      },
+      "actual": {
+        "time": 6.266666666666667,
+        "heat": 30056117.608678993,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 600
+      },
+      "expected": {
+        "time": 6.939105856497993,
+        "dt": 0.016666666666666666,
+        "burnEnergy": 30000000,
+        "stepEnergy": 72055.39306361561
+      },
+      "actual": {
+        "time": 6.95,
+        "heat": 30047098.90752822,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 900
+      },
+      "expected": {
+        "time": 8.475388180949999,
+        "dt": 0.016666666666666666,
+        "burnEnergy": 30000000,
+        "stepEnergy": 58994.348025715495
+      },
+      "actual": {
+        "time": 8.483333333333333,
+        "heat": 30028123.145089764,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 1500
+      },
+      "expected": {
+        "time": 14.149472597623543,
+        "dt": 0.016666666666666666,
+        "burnEnergy": 30000000,
+        "stepEnergy": 35337.006135760625
+      },
+      "actual": {
+        "time": 14.15,
+        "heat": 30001118.209261496,
+        "burnt": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

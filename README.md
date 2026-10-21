@@ -49,22 +49,28 @@ Keep this section in sync with `data.js`.
 | `armour.burnEnergy` | 30000000 | 10000000–100000000 | 3 | J | **no (provisional)** |
 | `room.kineticResistance` | 67500 | 30000–140000 | 1 | kg/(m*s) | **no (provisional)** |
 | `he.blastEnergy` | 2000000 | 500000–5000000 | 3 | J | yes |
+| `he.coupling` | 0.5 | 0.2–0.8 | 0 |  | yes |
 | `beam.power` | 5000000 | 1000000–20000000 | 2 | W | yes |
 | `beam.focusRange` | 600 | 300–1500 | 1 | m | yes |
 | `shield.budget` | 10000000 | 2000000–40000000 | 2 | W | yes |
 | `shield.radius` | 40 | 20–80 | 1 | m | yes |
-| `shield.kineticStop` | 457000 | 228500–914000 | 1 | kg/(m*s) | yes |
+| `shield.kineticStop` | 456644.8186993429 | 228322.40934967145–913289.6373986858 | 1 | kg/(m*s) | yes |
 | `shield.bufferSeconds` | 1 | 0.2–5 | 0 | s | **no (provisional)** |
 
 Fixed (not tunable):
 
-| Constant | Value | Note |
-|---|---|---|
-| `steelDensity` | 7850 | real density of steel; kinetic rounds are steel |
-| `roundLengthToDiameter` | 4 | shape of a kinetic round (a cylinder 4 diameters long) |
-| `sizeLinear` | S 0.667, M 1.000, L 1.500 | linear size of S and L relative to M (mass scales with its cube) |
-| `beamWaistPerHalfCell` | 0.7071067811865475 | beam waist radius as a fraction of the target aperture radius (half a cell edge) |
-| `shieldFalloffExponent` | 2 | shield field strength g(r) = 1 / (1 + (r / radius)^n) |
+| Constant | Value | Unit | Note |
+|---|---|---|---|
+| `steelDensity` | 7850 | kg/m^3 | real density of steel; kinetic rounds are steel |
+| `roundLengthToDiameter` | 4 |  | shape of a kinetic round (a cylinder 4 diameters long) |
+| `sizeLinear` | S 2/3, M 1, L 3/2 |  | linear size of S and L relative to M (mass scales with its cube) |
+| `beamWaistPerHalfCell` | 1/√2 (0.7071067811865475) |  | beam waist radius as a fraction of the target aperture radius (half a cell edge) |
+| `shieldFalloffExponent` | 2 |  | shield field strength g(r) = 1 / (1 + (r / radius)^n) |
+| `simStep` | 1/60 | s | simulation time step (#175) |
+| `burnTimeLimit` | 3600 | s | a beam burn gives up after this long (#175) |
+
+`shield.kineticStop` is computed in `data.js` as one S round's sectional
+momentum at T1 (#171); its range is 0.5×–2× of that value.
 
 ## Lineage
 
