@@ -947,7 +947,11 @@ channel, room, crew aboard).
 
 ## 15. Roadmap
 
-1. **Mission 0**, L0 to L6, one branch and PR per level (#151).
+1. **Mission 0**, L0 to L6, one branch and PR per level (#151). After L3
+   merges, a **rough feel prototype** (#217): a throwaway page in `proto/`
+   on the L3 kernel, played by the owner on the Android phone, to judge the
+   battle's pace (E7) and how harsh heat is before L4–L5 lock their
+   numbers; its plan is written after L3, with estimates, as an *LD* row.
 2. After Mission 0 exits: presentation (renderer, shipyard, report, phone
    UI, sound). Order to be decided then.
 3. Content: factions, named ships, chapters, story.

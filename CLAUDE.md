@@ -60,7 +60,10 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
 ## Mission 0 discipline
 
 - **No rendering code until Mission 0 exits** (`DESIGN.md` §13). Mission 0
-  is text only: a Node command-line runner and data.
+  is text only: a Node command-line runner and data. One exception (#217):
+  after L3 merges, a **rough, throwaway feel prototype** in `proto/`, which
+  only reads the kernel, adds no number outside `js/data.js` and never
+  counts as a Mission 0 result.
 - Levels L0–L6 are built bottom-up; a level runs only on levels that
   passed.
 - Every scenario follows the spec in `DESIGN.md` §13 and prints expected

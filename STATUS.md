@@ -7,7 +7,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#216, current design in `DESIGN.md`.
+- Design settled: `DECISIONS.md` #1–#218, current design in `DESIGN.md`.
 - **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
   VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
   L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
@@ -60,6 +60,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
   region; heat-sink venting relative to rest; life support runs in a
   shut-down powered room; stale estimates corrected; L3 signal: life
   support loads the coolant loop).
+- #218: one documentation pull request per working block; small fix
+  rounds get the reviewer only.
 - #216: answers to the D-pass reviewer (two #207 clauses get L3 cases;
   blast capacity counts remaining integrity from L4); the D pass merged.
 - #214: answers to the D-pass physics checker (crew round per cell; the
@@ -90,6 +92,10 @@ Nothing (the owner decided E8, #213, and the magazine wording, #215).
    §13f as its task; scenarios locked in their own commit; the engineer
    reproduces the estimates of #209 independently before the lock; then
    the physics checker (blind, §13f.1, §13f.2, §13f.4) and the reviewer.
+2. **The feel prototype** (#217, the owner): after L3 merges, write its
+   plan as an *LD* row (scope, stand-ins for what L4–L5 have not built,
+   what the owner judges on the phone, cost estimate), then one engineer
+   session builds it in `proto/`.
 
 ## Scheduled tasks
 
@@ -179,8 +185,8 @@ Sessions have reported a **seven-day usage limit warning**.
   suspect.
 - `node tools/m0.js regress` takes several minutes since L2: give it a long
   timeout or run it in the background.
-- Documentation changes go through a pull request from the lead
-  designer's branch, merged at once (the session pushes only to its own
+- Documentation changes go through **one** pull request per working
+  block from the lead designer's branch (#218), merged at once (the session pushes only to its own
   branch).
 - A check-in made with `send_later` fires into the chat that made it, not
   into a new chat: re-create check-ins after a hand-over.

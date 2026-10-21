@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.2 — 2026-10-21 — A feel prototype after L3; fewer docs PRs (#217, #218)
+
+- `CLAUDE.md`, `DESIGN.md` §15: after L3, a rough throwaway feel prototype
+  in `proto/` for the owner's phone (the owner).
+- Process: one documentation pull request per working block.
+
 ## 0.4.1 — 2026-10-21 — The D pass merged; reviewer answers (#216)
 
 - The D pass (PR #24, head `4b754b1`) merged into `main` after the physics
