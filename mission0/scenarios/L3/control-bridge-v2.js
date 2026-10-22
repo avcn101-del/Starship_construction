@@ -47,7 +47,7 @@ export default {
   tolerance: 'exact (events and steps)',
   criterion: '(routed) hand-worked: the bridge draws bridge.powerDraw = 1e5 W from its backup supply, never from the reactors: after 60 steps of 1/60 s its backup energy is 1e5 W x 1 s = 1e5 J (1e-12 relative), from the reactors 0, and it is not marked powered by the routing (#147); overheated: in the step the bridge shuts down (cause heat) it emits control-lost with cause overheat, and every one of the other nine rooms emits control-lost in that same step, the reactor scram with them; off: in the first step the bridge emits its own control-lost with cause off and the nine others lose control in that step, the reactor SCRAMs; switched on again it emits control-restored with cause on and the nine regain control in that step (#185 (6), #189 (3), #257 Q2)',
   tunable: ['thermal.crewedOverheated'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '0afd9bd2' },
   cases() {
     return [{ how: 'overheated' }, { how: 'off' }, { how: 'routed' }];
   },
