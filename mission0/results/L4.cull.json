@@ -1,0 +1,65 @@
+{
+  "id": "L4.cull",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.cull",
+  "code": "e5c67dc",
+  "criterionHash": "a196a230",
+  "lockedHash": "a196a230",
+  "runHash": "815bac9f",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "d9853b95",
+  "rows": [
+    {
+      "case": {
+        "aim": [
+          100,
+          0
+        ]
+      },
+      "expected": {
+        "D": 3000,
+        "bounds": [
+          4.8,
+          4.9
+        ]
+      },
+      "actual": {
+        "hits": 0,
+        "leftAt": {
+          "t": 4.85,
+          "now": 3001.5038718802775,
+          "before": 2988.1778651364702
+        },
+        "okBooks": true,
+        "left": {
+          "m": 6,
+          "P": [
+            579.6898423535605,
+            4764.867226552289
+          ],
+          "rounds": 1
+        },
+        "round": {
+          "m": 6,
+          "P": [
+            579.6898423535605,
+            4764.867226552289
+          ]
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

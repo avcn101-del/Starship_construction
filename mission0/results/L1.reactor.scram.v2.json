@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.reactor.scram.v2",
-  "code": "7399706",
+  "code": "e5c67dc",
   "criterionHash": "97297cd2",
   "lockedHash": "97297cd2",
   "runHash": "673931c3",
-  "dataHash": "7456430e",
+  "dataHash": "fbe6c09f",
   "rowsHash": "7f4c08aa",
   "rows": [
     {

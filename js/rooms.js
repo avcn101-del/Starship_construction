@@ -33,10 +33,14 @@
 // from remaining integrity; rounds in overlapping fields; one energy rule for
 // the field and the hull. Its fix round (#258): a plate burns by its mass, meets
 // a line at sigma / cos theta and adds its steel's heat capacity to its room.
+// L4b (13l.1): every event has an id and a parent (events.js), so the cascade
+// tree runs from each root (a shot, a beam, heat, launch) through every event
+// it caused; a room remembers the events that took its state (room.marks) for
+// the parents of events that follow later.
 // No DOM, no Math.random.
 import { ROOMS, FIXED, BASE_EDGE, scaled } from './data.js';
 import { createHeat, temperature, radiatorPower, heatStep, crossings, wallConductance, conductionFlows, ventCell, ventCapacity, addCapacity, depositHeat } from './heat.js';
-import { createLog, emit } from './events.js';
+import { createLog, emit, within } from './events.js';
 import { absorbBeamStep, shieldStrength, stopRound } from './field.js';
 import { stepsAtLeast, exp } from './util.js';
 import { createLayout, roomFootprint, placeRoom, openEdges, roomCentre, sharedWalls, byId, fittingProblem, plateProblem, segmentKey, edgeMidpoint, exhaustFace } from './layout.js';
@@ -102,6 +106,7 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
     active: true, // switched on; a room switched off has no function and no own heat
     powered: true, controlled: true, shutdown: false, exploded: false,
     crewTotal: 0, crew: 0,
+    marks: {}, // ids of the events that last changed its state (shutdown, control, destroyed, last shot ...): later events' parents (13l.1)
   };
   // Size rule (#185 (4), #187 (4)): per-cell quantities scale with the cell
   // count, L = 9/4 of M. Only in a cluster: a room alone keeps L1's values.
@@ -140,8 +145,28 @@ export function irBrightness(world, room) {
   return radiatorPower(temperature(room.heat), room.radiators, tierScaled(world, world.params.radiator.area), FIXED.radiatorEmissivity.value, FIXED.stefanBoltzmann.value);
 }
 
-function event(world, room, type, cause, extra = {}) {
-  return emit(world.log, { t: world.t, type, room: room.id, cause, crew: room.crew, ...extra });
+// Events that can cut a room off from its power (a wall, a reactor): the parent of a later 'no-power' (13l.1).
+const CUTS = new Set(['cell-destroyed', 'explosion', 'scram', 'shutdown', 'control-lost']);
+/** Emit an event of `room`; `parent` names its parent in the cascade tree (13l.1), else the event being handled or its cause. */
+function event(world, room, type, cause, extra = {}, parent = null) {
+  const e = emit(world.log, { t: world.t, type, room: room.id, cause, crew: room.crew, ...extra, ...(parent ? { parent } : {}) });
+  if (CUTS.has(type)) world.log.lastCut = e.id;
+  return e;
+}
+/**
+ * The parent (13l.1) of an event that reports a reason, not a cause: the event that took the state the reason
+ * names ('heat': the room's shutdown; 'no-control': its lost control; 'destroyed': what destroyed it; 'dry': its
+ * last shot; 'no-power': the last event that could cut power), or a root ('launch' for an order or the state at
+ * launch).
+ */
+function reasonParent(world, room, why) {
+  const m = room.marks;
+  if (why === 'heat' || why === 'overheat') return m.shutdown || 'heat';
+  if (why === 'no-control') return m.controlLost || 'launch';
+  if (why === 'destroyed') return m.destroyed || 'launch';
+  if (why === 'dry') return m.lastShot || 'launch';
+  if (why === 'no-power') return world.log.lastCut || 'launch';
+  return 'launch';
 }
 function killCrew(world, room, deaths, cause) {
   deaths = Math.min(deaths, room.crew);
@@ -194,17 +219,22 @@ export function damageCell(world, room, index, loss, cause, channel) {
   const left = cell.integrity - loss;
   cell.integrity = left > 1e-12 ? left : 0;
   if (cell.integrity > 0) {
-    event(world, room, 'cell-damaged', cause, { channel, cell: index, integrity: cell.integrity });
-    killByIntegrity(world, room, cause);
+    const ev = event(world, room, 'cell-damaged', cause, { channel, cell: index, integrity: cell.integrity });
+    cell.lastEvent = ev.id;
+    within(world.log, ev, () => killByIntegrity(world, room, cause));
     return;
   }
   cell.destroyed = true;
   if (world.beamPaths) world.beamPaths.clear(); // the deposit along any path through it changes (#236)
   if (world.plates) for (const f of world.plates.values()) if (f.room === room.id && f.k === index) releasePlate(world, f); // its plates leave with it (13l.1)
-  event(world, room, 'cell-destroyed', cause, { channel, cell: index });
-  killByIntegrity(world, room, cause);
-  ON_CELL_DESTROYED[room.type]?.(world, room, cause);
-  if (world.ship) { rebalance(world, cause); updateControl(world, cause); } // debris, fragments, control (13f.1)
+  const ev = event(world, room, 'cell-destroyed', cause, { channel, cell: index });
+  cell.lastEvent = ev.id;
+  if (survivingCells(room) === 0) room.marks.destroyed = ev.id;
+  within(world.log, ev, () => { // everything that follows from it is its child in the cascade tree (13l.1)
+    killByIntegrity(world, room, cause);
+    ON_CELL_DESTROYED[room.type]?.(world, room, cause);
+    if (world.ship) { rebalance(world, cause); updateControl(world, cause); } // debris, fragments, control (13f.1)
+  });
 }
 /**
  * Crew die in proportion to the integrity lost (#206, 13e.1): the room's
@@ -384,7 +414,7 @@ export function fireRound(world, { mass, velocity, area, direction = null }, pat
   const res = penetrateRound({ momentum: mass * velocity, area, strength }, r);
   const losses = res.taken.map((a, i) => (r[i] === 0 ? 0 : (i < res.passed ? 1 : a / r[i]) / hits));
   const taken = res.impulse.reduce((x, y) => x + y, 0);
-  let heat;
+  let heat, u0 = null, u1 = null;
   if (world.ship) {
     if (!direction) throw new Error('fireRound on a ship needs the round\'s direction (13k.1)');
     const first = path.findIndex((x, i) => i < res.impulse.length && res.impulse[i] > 0);
@@ -392,7 +422,8 @@ export function fireRound(world, { mass, velocity, area, direction = null }, pat
     else {
       const bodyOf = (x) => world.ship.bodies.find((b) => b.id === entryFragment(world, x));
       const b0 = bodyOf(path[first]), d0 = rotate(direction, b0.theta), hull = pointVelocity(b0, worldPoint(b0, entryPoint(world, path[first])));
-      const u0 = [hull[0] + velocity * d0[0], hull[1] + velocity * d0[1]], K0 = bodiesEnergy(world);
+      u0 = [hull[0] + velocity * d0[0], hull[1] + velocity * d0[1]];
+      const K0 = bodiesEnergy(world);
       const J = [0, 0];
       res.impulse.forEach((imp, i) => {
         if (!(imp > 0)) return;
@@ -400,7 +431,7 @@ export function fireRound(world, { mass, velocity, area, direction = null }, pat
         receive(world, b, Ji, entryPoint(world, path[i]));
         J[0] += Ji[0]; J[1] += Ji[1];
       });
-      const u1 = [u0[0] - J[0] / mass, u0[1] - J[1] / mass];
+      u1 = [u0[0] - J[0] / mass, u0[1] - J[1] / mass];
       heat = 0.5 * mass * (u0[0] * u0[0] + u0[1] * u0[1] - u1[0] * u1[0] - u1[1] * u1[1]) - (bodiesEnergy(world) - K0);
       const book = world.ship.received ??= { J: [0, 0], heat: 0, field: [0, 0] };
       book.J[0] += J[0]; book.J[1] += J[1]; book.heat += heat;
@@ -415,6 +446,7 @@ export function fireRound(world, { mass, velocity, area, direction = null }, pat
   return {
     s0, r, strength, p0: mass * velocity, passed: res.passed, stoppedIn: res.stoppedIn, wrecked: res.wrecked, f: res.f, area: res.area,
     residual: res.residual, momentum: res.momentum, stopMomentum: res.stopMomentum, absorbed: res.taken, impulse: res.impulse, losses, heats, heat,
+    u0, u1, // on a ship: the round's world velocity before and after the hull (L4b's battle flies it on, js/battle.js)
   };
 }
 /**
@@ -516,7 +548,7 @@ export function step(world) {
   world.step++;
   world.t = world.step * dt;
   // A state reached during the step is reported at its end, like the thresholds.
-  for (const r of world.repaired) event(world, r.room, 'cell-repaired', r.cause, { cell: r.cell });
+  for (const r of world.repaired) event(world, r.room, 'cell-repaired', r.cause, { cell: r.cell }, r.room.cells[r.cell].lastEvent || 'launch'); // its parent: the damage it repaired
   world.repaired = [];
   for (const room of world.rooms) {
     for (const x of crossings(room.heat, room.thresholds)) onThreshold(world, room, x);
@@ -536,18 +568,21 @@ export function runUntil(world, time, before) {
 
 function onThreshold(world, room, x) {
   if (x === 'cooled') {
-    if (room.shutdown) { room.shutdown = false; event(world, room, 'restart', 'heat'); }
+    if (room.shutdown) { room.shutdown = false; room.marks.restart = event(world, room, 'restart', 'heat').id; }
     return;
   }
-  event(world, room, x, 'heat');
+  const ev = event(world, room, x, 'heat');
   if (x === 'overheated' && !room.shutdown && !room.exploded) {
     room.shutdown = true;
-    event(world, room, 'shutdown', 'heat');
-    ON_SHUTDOWN[room.type]?.(world, room);
+    const sd = event(world, room, 'shutdown', 'heat', {}, ev.id);
+    room.marks.shutdown = sd.id;
+    within(world.log, sd, () => ON_SHUTDOWN[room.type]?.(world, room));
   }
   if (x === 'critical' && !room.exploded) { // an exploded room never explodes or melts down again (#189 (4))
-    killCrew(world, room, room.crew, 'heat'); // #18b
-    ON_CRITICAL[room.type]?.(world, room);
+    within(world.log, ev, () => {
+      killCrew(world, room, room.crew, 'heat'); // #18b
+      ON_CRITICAL[room.type]?.(world, room);
+    });
   }
 }
 
@@ -555,10 +590,13 @@ function explode(world, room, energy, cause) {
   const before = room.cells.reduce((x, c) => x + (c.destroyed ? 0 : c.integrity), 0); // its remaining integrity (13l.1, #216 (3))
   room.exploded = true;
   for (const c of room.cells) { c.integrity = 0; c.destroyed = true; }
-  event(world, room, 'explosion', cause, { energy, channel: 'blast' });
-  killCrew(world, room, room.crew, cause);
-  if (world.layout && room.placed) blastThroughWalls(world, room, energy, before);
-  if (world.ship) { rebalance(world, cause); updateControl(world, cause); }
+  const ev = event(world, room, 'explosion', cause, { energy, channel: 'blast' });
+  room.marks.destroyed = ev.id;
+  within(world.log, ev, () => {
+    killCrew(world, room, room.crew, cause);
+    if (world.layout && room.placed) blastThroughWalls(world, room, energy, before);
+    if (world.ship) { rebalance(world, cause); updateControl(world, cause); }
+  });
 }
 
 // ---------- reactor (#81, #183) ----------
@@ -586,7 +624,7 @@ function scram(world, room, cause) {
   if (r.scrammed || room.exploded) return;
   r.scrammed = true;
   const energy = room.shutdown ? 0 : startDecay(world, room);
-  event(world, room, 'scram', cause, { energy });
+  room.marks.scram = event(world, room, 'scram', cause, { energy }).id;
 }
 function explosionEnergy(world, room) {
   // Size rule only in a cluster (L1.reactor.breach locks 200 MJ for an L reactor alone).
@@ -640,12 +678,12 @@ const BEHAVIOUR = {
       if (!s.ceased) {
         s.ceased = true;
         const cause = s.ammo <= 0 ? 'dry' : !room.powered ? 'no-power' : room.shutdown ? 'heat' : !room.controlled ? 'no-control' : 'destroyed';
-        event(world, room, 'cease-fire', cause);
+        event(world, room, 'cease-fire', cause, {}, reasonParent(world, room, cause));
       }
       return 0;
     }
     if (s.hold) { // holding fire: ready to fire, drawing its power (#185 (6)), no shot
-      if (!s.ceased) { s.ceased = true; event(world, room, 'cease-fire', 'hold'); }
+      if (!s.ceased) { s.ceased = true; event(world, room, 'cease-fire', 'hold', {}, 'launch'); } // an order
       s.energyDrawn += tierScaled(world, p.turret.powerDraw) * room.footprintFactor * survivingFraction(room) * supply(world, room) * dt;
       return 0;
     }
@@ -671,11 +709,11 @@ const BEHAVIOUR = {
       if (world.ship) recoil(world, room, m, v, at, `${room.id}:shot-${s.shots}`); // on the ship's body (13f.1), launched at world.t + at (F20)
       s.lastShot = world.t + at;
       heat += world.sizeRule ? tierScaled(world, p.turret.heatPerShot) * FIXED.sizeLinear.value[room.size] ** 3 : tierScaled(world, p.turret.heatPerShot);
-      event(world, room, 'shot', `${room.id}:shot-${s.shots}`, { t: world.t + at, energy: 0.5 * m * v * v, channel: 'kinetic' });
+      room.marks.lastShot = event(world, room, 'shot', `${room.id}:shot-${s.shots}`, { t: world.t + at, energy: 0.5 * m * v * v, channel: 'kinetic' }).id; // a root: its parent is its own shot id
       if (s.ammo <= 0) {
         until = at;
         s.ceased = true;
-        event(world, room, 'cease-fire', 'dry', { t: world.t + at });
+        event(world, room, 'cease-fire', 'dry', { t: world.t + at }, room.marks.lastShot);
       }
     }
     if (until > 0) s.energyDrawn += tierScaled(world, p.turret.powerDraw) * room.footprintFactor * survivingFraction(room) * supply(world, room) * until;
@@ -685,7 +723,7 @@ const BEHAVIOUR = {
     const s = room.shield, dt = world.dt, p = world.params.shield;
     const able = s.on && room.powered && room.controlled && !room.shutdown && !isDestroyed(room);
     if (!able) {
-      if (!s.down) { s.down = true; event(world, room, 'shield-down', !s.on ? 'off' : !room.powered ? 'no-power' : room.shutdown ? 'heat' : !room.controlled ? 'no-control' : 'destroyed'); }
+      if (!s.down) { s.down = true; const why = !s.on ? 'off' : !room.powered ? 'no-power' : room.shutdown ? 'heat' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'shield-down', why, {}, reasonParent(world, room, why)); }
       s.absorbed = 0; s.em = 0; s.passed = s.incoming;
       s.passedEnergy += s.incoming * dt;
       return 0;
@@ -743,7 +781,7 @@ const BEHAVIOUR = {
     const able = s.firing && room.powered && room.controlled && !room.shutdown && !isDestroyed(room);
     if (!able) {
       // An overheated bay under routing asks for no power, so heat is named before power (#227 Q9, 13k.1).
-      if (s.firing && !s.stopped) { s.stopped = true; event(world, room, 'beam-stopped', room.shutdown ? 'heat' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'); }
+      if (s.firing && !s.stopped) { s.stopped = true; const why = room.shutdown ? 'heat' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped', why, {}, reasonParent(world, room, why)); }
       s.beam = 0; s.draw = 0;
       return 0;
     }
@@ -763,13 +801,13 @@ const ON_SHUTDOWN = {
 
 const ON_CRITICAL = {
   reactor(world, room) {
-    event(world, room, 'meltdown', 'heat');
-    explode(world, room, explosionEnergy(world, room), 'heat');
+    const ev = event(world, room, 'meltdown', 'heat');
+    within(world.log, ev, () => explode(world, room, explosionEnergy(world, room), 'heat'));
   },
   magazine(world, room) {
     if (magazineContents(world, room).energy <= 0) return;
-    event(world, room, 'cook-off', 'heat');
-    detonate(world, room, 'heat');
+    const ev = event(world, room, 'cook-off', 'heat');
+    within(world.log, ev, () => detonate(world, room, 'heat'));
   },
 };
 
@@ -780,14 +818,14 @@ const ON_CELL_DESTROYED = {
     if (r.breachStep === null && destroyedCells(room) / room.cells.length >= p.breachFraction.value) {
       r.breachStep = world.step + stepsAtLeast(p.breachCountdown.value, world.dt);
       r.breachCause = cause;
-      event(world, room, 'breach', cause);
+      r.breachEvent = event(world, room, 'breach', cause).id; // the parent of the explosion it leads to (13l.1)
     }
   },
   magazine(world, room, cause) {
     if (magazineContents(world, room).energy > 0) detonate(world, room, cause);
   },
   bridge(world, room, cause) {
-    if (survivingCells(room) === 0 && room.bridge.control) { room.bridge.control = false; event(world, room, 'control-lost', cause); }
+    if (survivingCells(room) === 0 && room.bridge.control) { room.bridge.control = false; room.marks.controlLost = world.log.bridgeChange = event(world, room, 'control-lost', cause).id; }
   },
   heatSink(world, room, cause) {
     // A destroyed cell vents its share of the heat above rest; the buffer shrinks, T is unchanged (#198).
@@ -799,20 +837,20 @@ const ON_CELL_DESTROYED = {
 const TIMERS = {
   reactor(world, room) {
     const r = room.reactor;
-    if (r.breachStep !== null && !room.exploded && world.step >= r.breachStep) explode(world, room, explosionEnergy(world, room), r.breachCause);
+    if (r.breachStep !== null && !room.exploded && world.step >= r.breachStep) within(world.log, { id: r.breachEvent }, () => explode(world, room, explosionEnergy(world, room), r.breachCause));
     // The SCRAM restart (#82, 13k.1): restartTime after control came back, once below hot.
     if (r.scrammed && !room.exploded && room.controlled && r.restartStep !== null && world.step >= r.restartStep && temperature(room.heat) < room.thresholds.hot) {
       r.scrammed = false;
       r.restartStep = null;
-      event(world, room, 'reactor-restart', 'restart');
+      event(world, room, 'reactor-restart', 'restart', {}, room.marks.controlRestored || 'launch');
     }
   },
   bridge(world, room) {
     // Control while any cell survives (#147: power cut does not matter). An
     // overheated or switched-off bridge gives no control (13c.1).
     const control = survivingCells(room) > 0 && !room.shutdown && room.active;
-    if (room.bridge.control && !control) { room.bridge.control = false; event(world, room, 'control-lost', room.active ? 'overheat' : 'off'); }
-    else if (!room.bridge.control && control) { room.bridge.control = true; event(world, room, 'control-restored', room.active && !room.bridge.wasOff ? 'restart' : 'on'); }
+    if (room.bridge.control && !control) { room.bridge.control = false; const why = room.active ? 'overheat' : 'off'; room.marks.controlLost = world.log.bridgeChange = event(world, room, 'control-lost', why, {}, reasonParent(world, room, why)).id; }
+    else if (!room.bridge.control && control) { room.bridge.control = true; const why = room.active && !room.bridge.wasOff ? 'restart' : 'on'; world.log.bridgeChange = event(world, room, 'control-restored', why, {}, why === 'restart' ? room.marks.restart || 'heat' : 'launch').id; }
     room.bridge.wasOff = !room.active;
   },
 };
@@ -1113,6 +1151,9 @@ export function shieldRound(world, round) {
         for (const i of list) heats[i] = q * (paid[i] / part);
         heat += q;
       }
+      // A paying generator whose body is not among the ship's bodies (B15, #260 NB2): the old fallback, its whole
+      // payment as its heat and no impulse.
+      gens.forEach((x, i) => { if (paid[i] > 0 && !world.ship.bodies.some((y) => y.id === x.body)) { heats[i] = paid[i]; heat += paid[i]; } });
     }
   }
   gens.forEach((x, i) => { x.shield.impulseHeat += heats[i]; });
@@ -1426,11 +1467,13 @@ function updateControl(world, cause) {
   const walls = liveWalls(world).filter((w) => w.live > 0);
   const bridges = world.rooms.filter((r) => r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !r.shutdown && r.active && !r.exploded);
   const reached = reachedThrough(walls, bridges);
+  // Outside any event (the step's own check), a change follows the bridge's last change (13l.1).
+  const parent = world.log.context.length ? null : world.log.bridgeChange || null;
   for (const room of world.rooms) {
     if (!room.placed || room.type === 'bridge') continue;
     const now = reached.has(room);
-    if (room.controlled && !now) { event(world, room, 'control-lost', cause); setControl(world, room, false, cause); }
-    else if (!room.controlled && now) { room.controlled = true; event(world, room, 'control-restored', cause); if (room.type === 'reactor') controlChanged(world, room, true); }
+    if (room.controlled && !now) { const ev = event(world, room, 'control-lost', cause, {}, parent); room.marks.controlLost = ev.id; within(world.log, ev, () => setControl(world, room, false, cause)); }
+    else if (!room.controlled && now) { room.controlled = true; room.marks.controlRestored = event(world, room, 'control-restored', cause, {}, parent).id; if (room.type === 'reactor') controlChanged(world, room, true); }
   }
 }
 
@@ -1484,13 +1527,15 @@ function shipStep(world) {
  * battle.cullDistance (k = 1) from every body of the ship leaves play; its
  * mass, momentum, angular momentum about the origin and kinetic energy are
  * booked in world.ship.left, so bodies + debris + rounds + left keep the
- * books. Called by its user (the prototype, a scenario), not by step().
- * Returns the number removed.
+ * books. Called by its user (the battle loop every step, js/battle.js, §17
+ * item 26; the prototype; a scenario), not by step(). `others`: the bodies of
+ * the other ships in the same frame (a battle), which a round or debris must
+ * also be farther than D from. Returns the number removed.
  */
-export function cull(world) {
+export function cull(world, others = []) {
   const ship = world.ship, D = tierScaled(world, world.params.battle.cullDistance);
   const left = ship.left ??= { m: 0, P: [0, 0], L: 0, K: 0, rounds: 0, debris: 0 };
-  const far = (x) => ship.bodies.every((b) => { const dx = x.x[0] - b.x[0], dy = x.x[1] - b.x[1]; return Math.sqrt(dx * dx + dy * dy) > D; });
+  const far = (x) => [...ship.bodies, ...others].every((b) => { const dx = x.x[0] - b.x[0], dy = x.x[1] - b.x[1]; return Math.sqrt(dx * dx + dy * dy) > D; });
   let n = 0;
   for (const kind of ['rounds', 'debris']) {
     ship[kind] = ship[kind].filter((x) => {

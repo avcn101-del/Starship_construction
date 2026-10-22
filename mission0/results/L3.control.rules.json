@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.control.rules",
-  "code": "7399706",
+  "code": "e5c67dc",
   "criterionHash": "e07f4002",
   "lockedHash": "e07f4002",
   "runHash": "a2b6c48a",
-  "dataHash": "7456430e",
+  "dataHash": "fbe6c09f",
   "rowsHash": "8a47d01a",
   "rows": [
     {

@@ -1,0 +1,23 @@
+# Mutation coverage (tools/mutate.js, #246 (1))
+
+head dd49d96+dirty, 2026-10-22
+command: node tools/mutate.js --only f1.ctl.noRestore,f1.ctl.noControlLossEvent,k1.beamStopped.cause,k1.ctl.restoreEventName,l1.bridge.offCause,a5.melt.noExplosion,a5.melt.noEvent --out mission0/mutations/2026-10-22-dd49d96-reanchored.txt
+baseline: 107 scenarios VERIFIED by regress, every one PASS with its recorded results in an unmutated copy
+wall time: 3.4 min
+classes: KILLED = some verdict is not PASS (a criterion noticed); CHANGED = every verdict PASS but some output moved from its record (not coverage: no criterion noticed, #257); SURVIVED = every verdict PASS, every output as recorded; STALE = the edit no longer applies; TIMEOUT
+
+id                         rule                                 class     first killing scenario, or the changed scenarios
+f1.ctl.noRestore           13f.1 Control                        KILLED    L3.control.bridge (FAIL)
+f1.ctl.noControlLossEvent  13f.1 Control                        KILLED    L3.control.bridge (FAIL)
+k1.beamStopped.cause       13k.1 Findings (beam-stopped cause)  KILLED    L2.beambay.cause (FAIL)
+k1.ctl.restoreEventName    13f.1 Control (S17)                  KILLED    L3.control.bridge (FAIL)
+l1.bridge.offCause         13l.4 A8 (#257 Q2)                   KILLED    L3.control.bridge (FAIL)
+a5.melt.noExplosion        13l.4 A5 Meltdown                    KILLED    L1.reactor.meltdown.coupled (FAIL)
+a5.melt.noEvent            13l.4 A5 Meltdown                    KILLED    L1.reactor.meltdown.coupled (FAIL)
+
+total 7: KILLED 7, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0
+
+per DESIGN section:
+  §13f.1   3: KILLED 3, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0
+  §13k.1   1: KILLED 1, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0
+  §13l.4   3: KILLED 3, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0

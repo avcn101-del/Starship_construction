@@ -1,0 +1,96 @@
+{
+  "id": "L4.disabled.rule",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.disabled.rule",
+  "code": "e5c67dc",
+  "criterionHash": "f403e373",
+  "lockedHash": "f403e373",
+  "runHash": "7f43dd02",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "fcc78c50",
+  "rows": [
+    {
+      "case": {
+        "name": "weapons lost"
+      },
+      "expected": {
+        "kind": "disabled",
+        "step": 600
+      },
+      "actual": {
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "step": 600,
+          "why": "destroyed"
+        },
+        "engine": {
+          "destroyed": false,
+          "controlled": true
+        },
+        "alwaysAble": false,
+        "shots": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "no engine"
+      },
+      "expected": {
+        "kind": null
+      },
+      "actual": {
+        "ended": null,
+        "engine": {
+          "destroyed": true,
+          "controlled": false
+        },
+        "alwaysAble": true,
+        "shots": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "cut off"
+      },
+      "expected": {
+        "kind": "disabled",
+        "step": 961,
+        "shots": 4,
+        "why": "dry",
+        "literal": 961
+      },
+      "actual": {
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "step": 961,
+          "why": "dry"
+        },
+        "engine": {
+          "destroyed": false,
+          "controlled": true
+        },
+        "alwaysAble": false,
+        "shots": 4
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

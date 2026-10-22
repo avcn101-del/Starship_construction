@@ -410,15 +410,17 @@
     "id": "f1.ctl.noRestore",
     "rule": "13f.1 Control",
     "file": "js/rooms.js",
-    "old": "else if (!room.controlled && now) { room.controlled = true; event(world, room, 'control-restored', cause); if (room.type === 'reactor') controlChanged(world, room, true); }",
-    "new": ""
+    "old": "else if (!room.controlled && now) { room.controlled = true; room.marks.controlRestored = event(world, room, 'control-restored', cause, {}, parent).id; if (room.type === 'reactor') controlChanged(world, room, true); }",
+    "new": "",
+    "note": "(old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "f1.ctl.noControlLossEvent",
     "rule": "13f.1 Control",
     "file": "js/rooms.js",
-    "old": "if (room.controlled && !now) { event(world, room, 'control-lost', cause); setControl(world, room, false, cause); }",
-    "new": "if (room.controlled && !now) { setControl(world, room, false, cause); }"
+    "old": "if (room.controlled && !now) { const ev = event(world, room, 'control-lost', cause, {}, parent); room.marks.controlLost = ev.id; within(world.log, ev, () => setControl(world, room, false, cause)); }",
+    "new": "if (room.controlled && !now) { setControl(world, room, false, cause); }",
+    "note": "(old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "f1.ctl.gunNeedsControl",
@@ -878,9 +880,9 @@
     "id": "k1.beamStopped.cause",
     "rule": "13k.1 Findings (beam-stopped cause)",
     "file": "js/rooms.js",
-    "old": "room.shutdown ? 'heat' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'); }",
-    "new": "!room.powered ? 'no-power' : room.shutdown ? 'heat' : !room.controlled ? 'no-control' : 'destroyed'); }",
-    "note": "an overheated routed beam bay reports no-power again (#227 Q9)"
+    "old": "const why = room.shutdown ? 'heat' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
+    "new": "const why = !room.powered ? 'no-power' : room.shutdown ? 'heat' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
+    "note": "an overheated routed beam bay reports no-power again (#227 Q9) (old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "k1.deposit.damageFirst",
@@ -902,9 +904,9 @@
     "id": "k1.ctl.restoreEventName",
     "rule": "13f.1 Control (S17)",
     "file": "js/rooms.js",
-    "old": "event(world, room, 'control-restored', cause);",
-    "new": "event(world, room, 'control-regained', cause);",
-    "note": "the control-restored event renamed"
+    "old": "room.marks.controlRestored = event(world, room, 'control-restored', cause, {}, parent).id;",
+    "new": "room.marks.controlRestored = event(world, room, 'control-regained', cause, {}, parent).id;",
+    "note": "the control-restored event renamed (old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "l1.plate.roundIgnored",
@@ -1030,9 +1032,9 @@
     "id": "l1.bridge.offCause",
     "rule": "13l.4 A8 (#257 Q2)",
     "file": "js/rooms.js",
-    "old": "event(world, room, 'control-lost', room.active ? 'overheat' : 'off');",
-    "new": "event(world, room, 'control-lost', 'overheat');",
-    "note": "a switched-off bridge reports overheat"
+    "old": "const why = room.active ? 'overheat' : 'off'; room.marks.controlLost",
+    "new": "const why = 'overheat'; room.marks.controlLost",
+    "note": "a switched-off bridge reports overheat (old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "k1.beamPaths.neverCleared",
@@ -1054,17 +1056,17 @@
     "id": "a5.melt.noExplosion",
     "rule": "13l.4 A5 Meltdown",
     "file": "js/rooms.js",
-    "old": "event(world, room, 'meltdown', 'heat');\n    explode(world, room, explosionEnergy(world, room), 'heat');",
-    "new": "event(world, room, 'meltdown', 'heat');",
-    "note": "a reactor at critical melts down without exploding (A5, reviewer N8 on PR #58)"
+    "old": "within(world.log, ev, () => explode(world, room, explosionEnergy(world, room), 'heat'));\n  },\n  magazine",
+    "new": "\n  },\n  magazine",
+    "note": "a reactor at critical melts down without exploding (A5, reviewer N8 on PR #58) (old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "a5.melt.noEvent",
     "rule": "13l.4 A5 Meltdown",
     "file": "js/rooms.js",
-    "old": "event(world, room, 'meltdown', 'heat');\n    explode(",
-    "new": "explode(",
-    "note": "the explosion at critical without its meltdown event"
+    "old": "const ev = event(world, room, 'meltdown', 'heat');\n    within(world.log, ev, () => explode(",
+    "new": "const ev = null;\n    within(world.log, ev, () => explode(",
+    "note": "the explosion at critical without its meltdown event (old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "l4f.plate.cosIgnored",
@@ -1161,5 +1163,117 @@
     "old": "const hull = pointVelocity(b, worldPoint(b, round.position)), d = rotate(round.direction, b.theta);",
     "new": "const f0 = [...groups.keys()][0], hull = pointVelocity(f0, worldPoint(f0, round.position)), d = rotate(round.direction, b.theta);",
     "note": "every body's share taken at the first body's hull velocity (the L4a books)"
+  },
+  {
+    "id": "l4b.hit.holesHit",
+    "rule": "13l.1 Battle (the loop's hit test: a path of holes is no hit)",
+    "file": "js/battle.js",
+    "old": "if (first < 0 || !path.some((x) => (x.plate ? !plateGone(w, x.plate) : !x.room.cells[x.cell].destroyed))) continue;",
+    "new": "if (first < 0) continue;"
+  },
+  {
+    "id": "l4b.hit.chordOne",
+    "rule": "13l.1 Battle (the chord rule on the loop's paths, #239)",
+    "file": "js/battle.js",
+    "old": "const chord = Math.min(1, (cells[k].t1 - cells[k].t0) / e);",
+    "new": "const chord = 1;"
+  },
+  {
+    "id": "l4b.hit.wholeRay",
+    "rule": "13l.1 Battle (the hit test along the step's segment)",
+    "file": "js/battle.js",
+    "old": "if (first < 0) { if (cells[k].t0 > L) break; first = k; }\n      path.push({ room: c.room, cell: c.index, chord });",
+    "new": "if (first < 0) { first = k; }\n      path.push({ room: c.room, cell: c.index, chord });"
+  },
+  {
+    "id": "l4b.tof.instant",
+    "rule": "13l.1 Battle (rounds with a time of flight)",
+    "file": "js/battle.js",
+    "old": "const hit = lineHit(r.other, r.prev, r.ref.x, null, before.get(r.other));",
+    "new": "const hit = lineHit(r.other, r.prev, null, [r.ref.v[0] / len(r.ref.v), r.ref.v[1] / len(r.ref.v)], before.get(r.other));"
+  },
+  {
+    "id": "l4b.rel.worldSpeed",
+    "rule": "13l.1 Battle (fireRound at the velocity relative to the hull, #242)",
+    "file": "js/battle.js",
+    "old": "rel = sub(r.ref.v, pointVelocity(b, q)), speed = len(rel);",
+    "new": "rel = r.ref.v, speed = len(rel);"
+  },
+  {
+    "id": "l4b.able.powerIgnored",
+    "rule": "13l.1 Able to fight (joined to a reactor that can produce)",
+    "file": "js/battle.js",
+    "old": "      : !reached.has(r) ? ['no-power', lastCut]\n",
+    "new": ""
+  },
+  {
+    "id": "l4b.able.fedThroughAnyRoom",
+    "rule": "13l.1 Able to fight (a magazine that feeds the turret over a live wall)",
+    "file": "js/battle.js",
+    "old": "const fed = (t) => walls.some((w) => { const mag = w.a === t ? w.b : w.b === t ? w.a : null; return mag && mag.type === 'magazine' && !mag.exploded && mag.magazine.size === t.size && mag.magazine.ap + mag.magazine.he > 0; });",
+    "new": "const fed = (t) => world.rooms.some((mag) => mag.type === 'magazine' && !mag.exploded && mag.magazine.ap + mag.magazine.he > 0);"
+  },
+  {
+    "id": "l4b.disabled.stepLate",
+    "rule": "13l.1 Able to fight (Disabled after battle.disabledSeconds)",
+    "file": "js/battle.js",
+    "old": "if (battle.step - s.sinceStep >= battle.disabledSteps) {",
+    "new": "if (battle.step - s.sinceStep > battle.disabledSteps) {"
+  },
+  {
+    "id": "l4b.destroyed.noExplosion",
+    "rule": "13l.1 Destroyed (a reactor's or a magazine's explosion, checked first)",
+    "file": "js/battle.js",
+    "old": "if (boom) { end(battle, s, 'destroyed', { by: 'explosion', room: boom.room, parent: boom.id }); continue; }",
+    "new": "if (boom && false) { end(battle, s, 'destroyed', { by: 'explosion', room: boom.room, parent: boom.id }); continue; }"
+  },
+  {
+    "id": "l4b.destroyed.piecesIgnored",
+    "rule": "13l.1 Destroyed (too many pieces)",
+    "file": "js/battle.js",
+    "old": "if (largestFraction(w, s.undock) < wreck) {",
+    "new": "if (largestFraction(w, s.undock) < 0) {"
+  },
+  {
+    "id": "l4b.wreck.fraction04",
+    "rule": "13l.1 Destroyed (battle.wreckFraction 0.5)",
+    "file": "js/data.js",
+    "old": "wreckFraction: P(0.5, 0.3, 0.8, 0,",
+    "new": "wreckFraction: P(0.4, 0.3, 0.8, 0,"
+  },
+  {
+    "id": "l4b.cause.noContext",
+    "rule": "13l.1 Cascade tree (a derived event's parent is the event that caused it)",
+    "file": "js/events.js",
+    "old": "event.parent = log.context.length ? log.context[log.context.length - 1] : event.cause;",
+    "new": "event.parent = event.cause;"
+  },
+  {
+    "id": "l4b.cause.noMarks",
+    "rule": "13l.1 Cascade tree (a later event's parent: the event that took the state)",
+    "file": "js/rooms.js",
+    "old": "if (room.controlled && !now) { const ev = event(world, room, 'control-lost', cause, {}, parent); room.marks.controlLost = ev.id;",
+    "new": "if (room.controlled && !now) { const ev = event(world, room, 'control-lost', cause, {}, parent);"
+  },
+  {
+    "id": "l4b.cull.ownBodiesOnly",
+    "rule": "13l.1 Battle (cull every step with both ships' bodies, §17 item 26)",
+    "file": "js/battle.js",
+    "old": "cull(s.world, s.other.world.ship.bodies);",
+    "new": "cull(s.world);"
+  },
+  {
+    "id": "l4b.cull.notCalled",
+    "rule": "13l.1 Battle (the loop calls cull every step)",
+    "file": "js/battle.js",
+    "old": "cull(s.world, s.other.world.ship.bodies);",
+    "new": "void 0;"
+  },
+  {
+    "id": "l4b.shield.noFallback",
+    "rule": "13l.4 B15 (shieldRound with no generator body, #260 NB2)",
+    "file": "js/rooms.js",
+    "old": "gens.forEach((x, i) => { if (paid[i] > 0 && !world.ship.bodies.some((y) => y.id === x.body)) { heats[i] = paid[i]; heat += paid[i]; } });",
+    "new": ""
   }
 ]

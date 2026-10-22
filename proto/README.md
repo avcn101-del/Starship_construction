@@ -35,9 +35,12 @@ their approved ranges, then layout and combinations of existing physics):
   (fractions of `magazine.capacity`), loaded as whole rounds by the
   kernel's `loadMagazine`. A magazine explodes when a cell of it is
   wrecked, with the charge energy of its rounds, plus the warhead for HE.
-- **Layout**: R1 (§13f.2) or **R1-B**: the hold moved to [9,11)×[2,4) and
-  the beam bay to [11,13)×[2,4), so the hold stands between the beam bay
-  and the magazine. Both pass the kernel's `validateShip` at every build.
+- **Layout**: **R1d** (default since L4b, #261, #264: R1 with a 0.2 m
+  steel citadel on the magazine's eight wall segments and five plates around
+  the turret, 1460.8 t, 1.05 g), R1 (§13f.2), **R1-B** (the hold moved to
+  [9,11)×[2,4) and the beam bay to [11,13)×[2,4), so the hold stands between
+  the beam bay and the magazine) or R1c (the citadel only). Each passes the
+  kernel's `validateShip` at every build.
 - **Shield budget**: 10 MW (default, `js/data.js`), 5 or 20 MW: a run-time
   override of `shield.budget` (approved 2–40 MW).
 - **Hits to wreck**: 3 (default) or 5: a run-time override of
@@ -72,9 +75,14 @@ override outside its constant's approved range. `PROTO_VERSION` is
 - The enemy runs a fixed script: Fire 60 s, Cool 30 s, repeat; it aims at
   your beam bay, then your turret, then your engine, each until wrecked;
   its orders are hold 900 m, bow-on, dodge on.
-- The battle ends when a ship is Disabled (no weapon able to fire and no
-  thrust for 10 s, #82) or destroyed (its reactor or magazine explodes), and
-  shows the time, crew lost and rooms wrecked.
+- The battle ends when a ship is Disabled (no weapon able to fire for 10 s,
+  whatever its engine does: the kernel's rule, `js/battle.js`
+  `weaponStates`, #255) or destroyed (its reactor or magazine explodes, or
+  its largest piece holds under half its mass, #83), and shows the time, the
+  crew lost and rooms wrecked (the KIA list first), then **why it ended**:
+  the cascade tree from the kernel's events (#41, #264): the root shot or
+  beam, then each event it caused, indented; the red row is the event that
+  took the last weapon, or the explosion.
 
 ### What the physics does with the orders (no new constant)
 
@@ -151,9 +159,13 @@ Each is marked `STAND-IN` in the code.
    waits for the next kernel pass).
 6. Both sides see the true layout: no scans.
 7. No point defence, no missiles, no railgun.
-8. Disabled is judged from room state (working, controlled, a reactor able
-   to power it, the gun fed), `battle.disabledSeconds` (10 s, `js/data.js`);
-   destroyed means a reactor or magazine explosion. A round flying farther
+8. Disabled is the kernel's rule (`js/battle.js` `weaponStates`: a weapon
+   not destroyed, controlled, not shut down, active, joined to a reactor that
+   can produce; the gun fed), `battle.disabledSeconds` (10 s, `js/data.js`);
+   destroyed means a reactor or magazine explosion or too many pieces
+   (`battle.wreckFraction`). The prototype keeps its own loop (lead aim, the
+   helm); the kernel's L4b loop (`js/battle.js`) is ship versus a static
+   target. A round flying farther
    than `battle.cullDistance` from every body leaves play (a miss).
 
 The kernel turns ships with `js/util.js`'s deterministic sin and cos (physics
@@ -190,7 +202,7 @@ and the shield's field pushes on its generator's ship (13k.1).
 ## Tools
 
 - `node proto/measure.mjs [--seeds N] [--first S] [--range close|hold|open]
-  [--facing bow|broadside] [--limit s] [--magazine ...] [--layout R1|R1B]
+  [--facing bow|broadside] [--limit s] [--magazine ...] [--layout R1D|R1|R1B|R1C]
   [--shield-budget W] [--hits N] [--turrets on|off]`: duels headless with
   both ships on the enemy's script (by default seeds 1–10 at each range
   order, on both ships); prints a table per duel (length, end, each side's

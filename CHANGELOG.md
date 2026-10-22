@@ -1,5 +1,46 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — Mission 0 L4b: the battle loop (#253, #255, #258, #261, #262, #264)
+
+- **`js/battle.js`** (§13l.1): two ship worlds in one frame, an attacker
+  (R1d) at rest 900 m from a static target on a named bearing, bow-on. The
+  target holds its heading on its RCS and never thrusts. Rounds are the
+  kernel's own (`world.ship.rounds`, moved by `step`): after each step a
+  round's segment is tested against the other hull; the cells its line
+  crosses (with chords, at most 1; a corner touch left out) and the plates
+  it crosses (`plateEntry`, σ / cos θ) make its path; `shieldRound` at the
+  entry point, then `fireRound` at the speed relative to the hull (#242). A
+  round that passes flies on with the velocity `fireRound` left it; one
+  stopped is booked in `battle.spent`. The spinal beam hits along the bay's
+  axis line, turned onto the aim by the attacker's RCS (time-optimal
+  bang-bang, no constant). `cull` every step with both ships' bodies.
+- **Able, Disabled, destroyed** (#255, #83): `weaponStates` (not destroyed,
+  controlled, not shut down, active, joined to a reactor that can produce;
+  a turret fed by its store or a magazine over a live wall); Disabled after
+  `battle.disabledSeconds` with no able weapon, whatever the engine does;
+  destroyed by a reactor's or magazine's explosion (checked first) or when
+  the largest piece holds under **`battle.wreckFraction`** (new, 0.5,
+  0.3–0.8, k = 0) of the undock mass. The end is an event (`disabled`,
+  `destroyed`) in the ship's log.
+- **Cascade tree** (#41): every event has an `id` and a `parent` (a root:
+  a shot id, a beam id, `heat`, `launch`; or an earlier event).
+  `events.js` `within`, `cascadeTree`, `treeLines`; rooms remember the
+  events that took their state (`room.marks`). `cause` keeps its meaning.
+- **Per-second log** (#129): one line per whole second per ship, an end
+  line; its hash is the battle's (`battleHash`, E2).
+  `node tools/battle.js <case>` prints a case's log and trees.
+- Kernel: `shieldRound`'s old fallback (no generator body: the payment as
+  heat, no impulse, #260 NB2); `fireRound` returns the round's world
+  velocity before and after (`u0`, `u1`); `cull(world, others)`.
+- **Targets** in `mission0/targets.js`: R1, R1c, R1d, T-neck, T-gun;
+  `tools/estimates/l4.mjs` reads them (its output unchanged) and prints the
+  loop's literals.
+- **Scenarios B1–B15** locked in `e5c67dc` before their first run: 107
+  PASS. E8 at T1: about 0.2–0.3 ms per step.
+- **Prototype** (#264): the kernel's end rules, R1d by default, the end
+  panel shows the cascade tree after the KIA list; `PROTO_VERSION` feel-5.
+- 16 mutations for L4b's rules in `tools/mutations.json`.
+
 ## Unreleased — 2026-10-22 — The L4b plan amended (#261, #262)
 
 - The owner chose R1d (R1c with its turret plated) as the pace lever and

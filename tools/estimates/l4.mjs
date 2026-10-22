@@ -27,21 +27,8 @@ for (let i = 0; i < args.length; i++) if (args[i] === '--set') { const [k, v] = 
 const params = withOverrides(overrides);
 const tier = TIERS.T1, edge = tier.edge;
 
-const R1_ROOMS = [
-  { id: 'engine', type: 'engine', cell: [0, 2], rotation: 90 }, { id: 'reactor', type: 'reactor', cell: [3, 2] },
-  { id: 'bridge', type: 'bridge', cell: [5, 2] }, { id: 'magazine', type: 'magazine', cell: [7, 2] },
-  { id: 'beamBay', type: 'beamBay', cell: [9, 2] }, { id: 'heatSink', type: 'heatSink', cell: [3, 4] },
-  { id: 'quarters', type: 'quarters', cell: [5, 4] }, { id: 'turret', type: 'turret', cell: [8, 4] },
-  { id: 'shield', type: 'shieldGenerator', cell: [3, 0] }, { id: 'hold', type: 'hold', cell: [7, 0] },
-];
-const R1_FITTINGS = [
-  ['radiator', 'engine', [1, 3], [0, 1]], ['radiator', 'engine', [2, 3], [0, 1]], ['radiator', 'engine', [1, 2], [0, -1]], ['radiator', 'engine', [2, 2], [0, -1]],
-  ['radiator', 'heatSink', [3, 5], [0, 1]], ['radiator', 'heatSink', [4, 5], [0, 1]], ['radiator', 'heatSink', [3, 4], [-1, 0]], ['radiator', 'heatSink', [3, 5], [-1, 0]],
-  ['radiator', 'shield', [3, 0], [0, -1]], ['radiator', 'shield', [4, 0], [0, -1]], ['radiator', 'shield', [3, 0], [-1, 0]], ['radiator', 'shield', [3, 1], [-1, 0]],
-  ['radiator', 'shield', [4, 0], [1, 0]], ['radiator', 'shield', [4, 1], [1, 0]],
-  ['radiator', 'beamBay', [10, 2], [1, 0]], ['radiator', 'beamBay', [10, 3], [1, 0]], ['radiator', 'beamBay', [9, 2], [0, -1]],
-  ['rcs', 'engine', [0, 3], [0, 1]], ['rcs', 'engine', [0, 2], [0, -1]], ['rcs', 'beamBay', [10, 3], [0, 1]], ['rcs', 'beamBay', [10, 2], [0, -1]],
-];
+// The targets as data (13l.2), shared with the L4b scenarios and tools/battle.js.
+import { R1_ROOMS, R1_FITTINGS, R1C_PLATES, R1D_PLATES, T_NECK_ROOMS, T_GUN_ROOMS } from '../../mission0/targets.js';
 
 function buildTarget({ shield = false, rooms = R1_ROOMS, fittings = R1_FITTINGS } = {}) {
   const world = createWorld({ params, edge, dt: FIXED.simStep.value, grid: tier.grid });
@@ -64,6 +51,7 @@ function line(world, side, k) {
     : side === '+x' ? [...Array(W).keys()].reverse().map((x) => [x, k]) : [...Array(W).keys()].map((x) => [x, k]);
   const dir = { '-y': [0, 1], '+y': [0, -1], '+x': [-1, 0], '-x': [1, 0] }[side];
   // The kernel's own path: room cells in order and, before each, the plate its segment carries (13l.1, #258).
+  // (The L4b scenarios use the battle loop, js/battle.js; this script keeps its axis-aligned schedule, 13l.3.)
   const path = pathAlong(world, cells, null, dir);
   let entry = null;
   for (const xy of cells) if (cellAt(world, xy)) { entry = xy; break; }
@@ -145,11 +133,8 @@ function route(name, { kinetic = [], beam = [], shield = false, limit = 900, bui
 }
 
 // R1c (13l.2, #256): eight plates around the magazine; R1d (#261): R1c plus five around the turret.
-const R1C_FITTINGS = [...R1_FITTINGS,
-  ['armour', 'magazine', [7, 2], [-1, 0]], ['armour', 'magazine', [7, 3], [-1, 0]], ['armour', 'magazine', [8, 2], [1, 0]], ['armour', 'magazine', [8, 3], [1, 0]],
-  ['armour', 'magazine', [7, 2], [0, -1]], ['armour', 'magazine', [8, 2], [0, -1]], ['armour', 'magazine', [7, 3], [0, 1]], ['armour', 'magazine', [8, 3], [0, 1]]];
-const R1D_FITTINGS = [...R1C_FITTINGS,
-  ['armour', 'turret', [8, 5], [0, 1]], ['armour', 'turret', [9, 5], [0, 1]], ['armour', 'turret', [9, 4], [1, 0]], ['armour', 'turret', [9, 5], [1, 0]], ['armour', 'turret', [9, 4], [0, -1]]];
+const R1C_FITTINGS = [...R1_FITTINGS, ...R1C_PLATES];
+const R1D_FITTINGS = [...R1C_FITTINGS, ...R1D_PLATES];
 for (const [name, fittings] of [['R1', R1_FITTINGS], ['R1c', R1C_FITTINGS], ['R1d', R1D_FITTINGS]]) {
   const { world } = buildTarget({ fittings });
   const b = world.ship.bodies[0];
@@ -183,16 +168,9 @@ const check = (name, rooms) => {
 // T-neck: an aft section (engine, reactor, shield, heat sink) joined to a forward section (bridge, magazine, beam bay,
 // quarters, turret) only through a 2 x 2 hold, open from -y and +y. Split there: the bridge half has no reactor, the
 // reactor half no bridge (SCRAM).
-const T_NECK = [
-  { id: 'engine', type: 'engine', cell: [0, 2], rotation: 90 }, { id: 'reactor', type: 'reactor', cell: [3, 2] },
-  { id: 'shield', type: 'shieldGenerator', cell: [3, 0] }, { id: 'heatSink', type: 'heatSink', cell: [3, 4] },
-  { id: 'hold', type: 'hold', cell: [5, 2] },
-  { id: 'bridge', type: 'bridge', cell: [7, 2] }, { id: 'magazine', type: 'magazine', cell: [9, 2] },
-  { id: 'beamBay', type: 'beamBay', cell: [11, 2] }, { id: 'quarters', type: 'quarters', cell: [7, 4] },
-  { id: 'turret', type: 'turret', cell: [10, 4] },
-];
+const T_NECK = T_NECK_ROOMS;
 // T-hot: R1 without its beam bay (the turret its only weapon, a crewed room with low thresholds); the bow cells are holds.
-const T_HOT = R1_ROOMS.map((r) => (r.id === 'beamBay' ? { id: 'bowHold', type: 'hold', cell: [9, 2] } : r));
+const T_HOT = T_GUN_ROOMS;
 // T-dry: an emplacement: R1 without engine and beam bay (a hold aft, a hold at the bow); it fires its turret until dry.
 const T_DRY = T_HOT; // under #255 one layout (T-gun) shows both: the turret is its only weapon
 console.log('--- variants');
@@ -267,3 +245,18 @@ route('R1d: magazine, beam (-y col 8)', { beam: [['-y', 8, 'magazine'], ['-y', 7
 route('R1d: mission kill, kinetic (turret plated)', { kinetic: mk, build: { fittings: R1D_FITTINGS } });
 route('R1d: mission kill, beam', { beam: mk, build: { fittings: R1D_FITTINGS } });
 route('R1d: reactor, kinetic (-y cols 3, 4)', { kinetic: [['-y', 3, 'reactor'], ['-y', 4, 'reactor']], build: { fittings: R1D_FITTINGS } });
+
+// ---------- L4b: the battle loop's own numbers (js/battle.js, 13l.1), with the time of flight ----------
+// The literals the L4b scenarios quote: the first round's arrival step (B1), the dry route's step (B5), the heat
+// sink's capacity after a cell (B14); and each route's end in the loop, attacker R1d at rest 900 m away.
+import { createBattle, runBattle } from '../../js/battle.js';
+import { TARGETS, ATTACKER } from '../../mission0/targets.js';
+{
+  const dt = FIXED.simStep.value, n = params.turret.readyRounds.value + Math.floor(scaled(params.magazine.capacity, edge) / roundMass);
+  console.log(`--- L4b literals: B5 n = ${n}, Disabled step ${Math.round((n - 1) * shotEvery / dt) + 1 + Math.round(disabledSeconds / dt)}; B14 heat sink ${4 * scaled(params.thermal.coupledHeatSink, edge) * params.heatsink.capacityFactor.value} J/K + plate ${0.2 * FIXED.steelDensity.value * edge * edge * 450} J/K, after one cell ${3 * scaled(params.thermal.coupledHeatSink, edge) * params.heatsink.capacityFactor.value + 0.2 * FIXED.steelDensity.value * edge * edge * 450} J/K`);
+  for (const [name, target, bearing, plan] of [['B1 decapitate', 'R1', '-y', { turret: ['bridge'] }], ['B2 mission kill', 'R1', '+y', { turret: ['beamBay', 'turret'] }], ['B3 split', 'T-neck', '-y', { turret: ['hold'] }], ['B4 overheat', 'T-gun', '+x', { beam: ['turret'] }], ['B6 R1 magazine', 'R1', '-y', { turret: ['magazine'] }], ['B6 R1 reactor', 'R1', '-y', { turret: ['reactor'] }], ['B6 R1d magazine', 'R1d', '-y', { turret: ['magazine'] }], ['B6 R1d beam', 'R1d', '-y', { beam: ['magazine'] }]]) {
+    const b = runBattle(createBattle({ params, attacker: ATTACKER, target: TARGETS[target], bearing, plan }), 300);
+    const first = b.hits[0];
+    console.log(`${name.padEnd(20)} ${b.ended ? `${b.ended.kind} at ${b.ended.t.toFixed(4)} s (step ${b.ended.step}${b.ended.why ? `, ${b.ended.why}` : ''})` : 'none by 300 s'}; shots ${b.shots}; first hit step ${first ? Math.round(first.t / dt) : '-'}`);
+  }
+}

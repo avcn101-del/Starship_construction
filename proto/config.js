@@ -53,8 +53,15 @@ export const R1C_FITTINGS = [
   ['armour', 'magazine', [7, 2], [-1, 0]], ['armour', 'magazine', [7, 3], [-1, 0]], ['armour', 'magazine', [8, 2], [1, 0]], ['armour', 'magazine', [8, 3], [1, 0]],
   ['armour', 'magazine', [7, 2], [0, -1]], ['armour', 'magazine', [8, 2], [0, -1]], ['armour', 'magazine', [7, 3], [0, 1]], ['armour', 'magazine', [8, 3], [0, 1]],
 ];
+// Prototype setting: R1d (DESIGN.md 13l.2, #261, #264), the default layout since L4b: R1c plus five plates around its
+// turret [8, 10) x [4, 6): its four hull segments and its wall to the beam bay (fitting ids 29-33).
+export const R1D_FITTINGS = [
+  ...R1C_FITTINGS,
+  ['armour', 'turret', [8, 5], [0, 1]], ['armour', 'turret', [9, 5], [0, 1]], ['armour', 'turret', [9, 4], [1, 0]], ['armour', 'turret', [9, 5], [1, 0]], ['armour', 'turret', [9, 4], [0, -1]],
+];
 // Prototype setting: the layouts the loadout panel offers.
 export const LAYOUTS = {
+  R1D: { label: 'R1d', rooms: R1_ROOMS, fittings: R1D_FITTINGS, size: R1_SIZE },
   R1: { label: 'R1', rooms: R1_ROOMS, fittings: R1_FITTINGS, size: R1_SIZE },
   R1B: { label: 'R1-B', rooms: R1B_ROOMS, fittings: R1B_FITTINGS, size: R1B_SIZE },
   R1C: { label: 'R1c', rooms: R1_ROOMS, fittings: R1C_FITTINGS, size: R1_SIZE },
@@ -76,7 +83,7 @@ export const LOADOUT = {
     { value: 'heFull', label: 'HE full', he: 1, ap: 0 }, { value: 'apFull', label: 'AP full', he: 0, ap: 1 },
     { value: 'heHalf', label: 'HE half', he: 0.5, ap: 0 }, { value: 'apQuarter', label: 'AP quarter', he: 0, ap: 0.25 },
   ] },
-  layout: { label: 'Layout', options: [{ value: 'R1', label: 'R1' }, { value: 'R1B', label: 'R1-B' }, { value: 'R1C', label: 'R1c' }] },
+  layout: { label: 'Layout', options: [{ value: 'R1D', label: 'R1d' }, { value: 'R1', label: 'R1' }, { value: 'R1B', label: 'R1-B' }, { value: 'R1C', label: 'R1c' }] },
   shieldBudget: { label: 'Shield budget', override: 'shield.budget', options: [{ value: null, label: `${PARAMS.shield.budget.value / 1e6} MW` }, { value: 5e6, label: '5 MW' }, { value: 2e7, label: '20 MW' }] },
   hitsToWreck: { label: 'Hits to wreck', override: 'kinetic.hitsToWreck', options: [{ value: null, label: `${PARAMS.kinetic.hitsToWreck.value}` }, { value: 5, label: '5' }] },
   turrets: { label: 'Turrets', options: [{ value: true, label: 'on' }, { value: false, label: 'off' }] },
@@ -106,7 +113,7 @@ export const SEED = 1;
 // Prototype setting: the version written in an export (proto/export.js). There is no build step to stamp a git hash,
 // so it is a constant: change it whenever proto/ or js/ changes what a battle does, so proto/replay.mjs can tell an
 // export of another version.
-export const PROTO_VERSION = 'feel-4';
+export const PROTO_VERSION = 'feel-5';
 
 // Prototype setting: the three presets (13j.2). throttle: the most the autopilot may open the engine (a stand-in
 // number, listed on screen, #233); orders: which standing orders the preset overrides (null: the ship's own).
@@ -184,5 +191,5 @@ export const STAND_INS = [
   'A cell the line clips at a corner counts as crossed whole: the kernel has the chord rule (13k.1), the prototype passes no chord yet.',
   'Both sides see the true layout: no scans.',
   'No point defence, no missiles, no railgun.',
-  `Disabled: no weapon able to fire and no thrust for ${PARAMS.battle.disabledSeconds.value} s (battle.disabledSeconds, #82), judged from room state. Destroyed: a reactor or magazine explodes.`,
+  `Disabled: no weapon able to fire for ${PARAMS.battle.disabledSeconds.value} s, whatever the engine does (the kernel's rule, js/battle.js weaponStates, #255). Destroyed: a reactor or magazine explodes, or the largest piece is under ${PARAMS.battle.wreckFraction.value} of the ship (#83).`,
 ];
