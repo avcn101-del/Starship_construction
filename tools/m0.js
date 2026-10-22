@@ -27,7 +27,10 @@ const LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
 // it as WITHDRAWN while it keeps the verdict it was recorded with. A
 // withdrawn scenario marked `retired` (#237: it reads a constant data.js no
 // longer holds) is listed as RETIRED and not run, its file, lock and last
-// record unchanged; verify and regress count it apart.
+// record unchanged; verify and regress count it apart. A withdrawn scenario
+// marked `frozen` keeps its withdrawal-time record (#245 guard (2)): run does
+// not overwrite it, and verify and regress check its lock and its run()
+// against that record instead of re-running it against today's data.
 const WITHDRAWN_FILE = path.join(ROOT, 'mission0', 'withdrawn.json');
 const WITHDRAWN = new Map((fs.existsSync(WITHDRAWN_FILE) ? JSON.parse(fs.readFileSync(WITHDRAWN_FILE, 'utf8')) : []).map((w) => [w.id, w]));
 /** The scenario that stands for `id`: itself, or the end of its chain of successors when it was withdrawn and its successor withdrawn in turn (#188, #221). */
@@ -51,6 +54,8 @@ function checkWithdrawn(all) {
       : !/^#\d+$/.test(String(w.decision)) ? `decision "${w.decision}" is not a decision number (#n)`
       : w.retired !== undefined && w.retired !== true ? 'retired must be true when present'
       : w.retired && (!/^#\d+$/.test(String(w.retiredDecision)) || !w.retiredReason) ? 'a retired scenario needs a retiredDecision (#n) and a retiredReason'
+      : w.frozen !== undefined && w.frozen !== true ? 'frozen must be true when present'
+      : w.frozen && !recorded(w.id) ? 'a frozen scenario needs its withdrawal-time record'
       : null;
     if (problem) throw new Error(`mission0/withdrawn.json, ${w.id}: ${problem}`);
   }
@@ -278,6 +283,7 @@ async function main() {
       console.log(show(s, res, canonical ? verdict : `${verdict} (exploratory, not recorded)`, command));
       if (deps.length) console.log(`  blocked by: ${deps.join(', ')}`);
       if (verdict !== 'PASS') failed++;
+      if (canonical && s.locked && retired && retired.frozen) { console.log(`  frozen (#245): its withdrawal-time record (${(recorded(s.id) || {}).verdict}) is kept, not overwritten`); continue; }
       if (canonical && s.locked) {
         fs.mkdirSync(RESULTS, { recursive: true });
         const record = {
@@ -303,6 +309,19 @@ async function main() {
       if (w && w.retired) { counts.RETIRED++; console.log(`RETIRED  ${s.id}  not run (${w.retiredDecision}; successor ${w.successor})`); continue; }
       const rec = recorded(s.id);
       if (!rec) { console.log(`${s.id}: no record to verify`); bad++; continue; }
+      if (w && w.frozen) {
+        const checks = [
+          ['criterion unchanged since lock', s.locked && criterionHash(s) === s.locked.hash && rec.lockedHash === s.locked.hash],
+          ['run() unchanged since record', !rec.runHash || runHash(s) === rec.runHash],
+          ['withdrawal-time record kept', rec.verdict === 'FAIL' || rec.verdict === 'PASS'],
+        ];
+        const ok = checks.every(([, v]) => v);
+        if (!ok) bad++;
+        const label = ok ? 'WITHDRAWN' : 'MISMATCH';
+        counts[label]++;
+        console.log(`${label}  ${s.id}  ${checks.map(([n, v]) => `${v ? 'ok' : 'NO'} ${n}`).join('; ')}  (frozen record ${rec.verdict} at data ${rec.dataHash}, #245; successor ${w.successor}, ${w.decision})`);
+        continue;
+      }
       const res = execute(s, {});
       const verdict = verdictOf(s, res, unmetDeps(s));
       const checks = [

@@ -535,5 +535,26 @@
     "successor": "L3.cull.v2",
     "decision": "#243",
     "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): its debris case runs R1's engine at full throttle with nothing holding its heading; the thrust 1.2 m below the centre of mass spins R1 up and it circles its debris, which never gets 3 km away. The round case passes. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L0.beam.tier",
+    "successor": "L0.beam.tier.v2",
+    "decision": "#248",
+    "reason": "Specification error of the lead designer in physics pass 2's plan (#248): the power law beam.gradient k = -0.41 was claimed to hold the beam's depth in cells within 1 % T1-T6, but the estimate script never printed the law's error; measured 2.15 % at T4 for N = 2 and -21 % for N = 8 at T6, because the nuclear interaction length is a constant of nature while a cell's areal density grows with the tier. Locked and recorded with that FAIL, frozen (#245). The successor checks #249's rule: the energy solved for T1's CSDA depth in armour cells.",
+    "frozen": true
+  },
+  {
+    "id": "L0.beam.burn.v4",
+    "successor": "L0.beam.burn.v5",
+    "decision": "#249",
+    "reason": "Superseded by #249: its expected T3 energy was beam.gradient scaled by the withdrawn power law (k = -0.41, now k = 0); the kernel now fires the energy whose CSDA depth in armour cells equals T1's. The successor solves that energy by its own bisection; nothing else changes. Recorded PASS on the power-law kernel.",
+    "frozen": true
+  },
+  {
+    "id": "L1.beambay.length.v2",
+    "successor": "L1.beambay.length.v3",
+    "decision": "#249",
+    "reason": "Superseded by #249: it expected E = beam.gradient (k = -0.41) x N x edge exactly at T3; the kernel now solves the energy of T1's CSDA depth in armour cells. The successor checks that depth within 1e-9 at T3 and the exact T1 energy; nothing else changes. Recorded PASS on the power-law kernel.",
+    "frozen": true
   }
 ]
