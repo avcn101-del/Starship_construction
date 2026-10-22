@@ -1,23 +1,29 @@
 # STATUS — hand-over between chats (#179)
 
-Updated 2026-10-21 by the lead designer chat
-`session_01Ld11QmhkPubc8PkfKtd7CT` (took over from
-`session_013PTXKzyTQkpVaKYQyBhRP8`). Read this
+Updated 2026-10-22 by the lead designer chat
+`session_014nrUDvPgiLEjm64scJFkyW` (took over from
+`session_01Ld11QmhkPubc8PkfKtd7CT` at the pass-2 boundary, #247 (2)). Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## For the owner (five lines, kept at every block, #246 (5))
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   consolidation (#242), **physics pass 2 (#243–#251)**.
-- **Running**: nothing. This chat is replaced at this boundary (#247
-  (2)); the new chat starts with the `tools/mutate.js` task and the L4
-  plan.
+- **Running**: L4a engineer (the owner said go, 2026-10-22; 45–70 USD
+  estimated). `tools/mutate` merged (PR #56, #257; 7.91 USD).
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.
 - **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93); pass 2 estimated 50–60, inside it.
-- **Next**: `tools/mutate.js` task (§17 item 21) → the L4 plan (under
-  #241's gate).
+- **Next**: L4a (§13l, #253, #256: obligations + armour on walls + #257's
+  survivors; 45–70 USD with the factors, the owner said go) → pace
+  re-measured on R1c with real mass, reported to the owner (#255) → L4b
+  (70–100 USD).
+- **Owner chose** #252 (L4: one target per route; EMP and surrender at L5).
+  The owner played v2: the magazine always wins in 7.1 s (#254). Pace
+  study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
+  The owner chose armour on walls and Disabled without thrust (#255);
+  plates on walls only, not decks (#256).
 
 ## Where we are
 
@@ -169,7 +175,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-Nothing (#249 answered S6).
+- Veto window on #253, #256.
 
 ## Next steps
 
@@ -201,7 +207,6 @@ Nothing (#249 answered S6).
 | Task | Id | Schedule | What |
 |---|---|---|---|
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
-
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):

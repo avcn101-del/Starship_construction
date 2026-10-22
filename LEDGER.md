@@ -58,6 +58,8 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, pass 2 fix round 1 (S6 successor, #249) | session_012dBdWLjk4QsAwftq8yQQY1 | opus-5-5 | 5.12 |
 | Engineer, pass 2 fix round 2 (frozen records, #250; the first session to notify the lead designer by trigger) | session_014Kqr2R7XYXWHmsaCNEqKfo | opus-5-5 | 2.31 |
 | Reviewer, pass 2 fix rounds 1–2 (light re-review; no blocking) | session_017FizntYRrBaAFYhdC4bsbW | sonnet-5-5 | 1.08 |
+| Engineer, `tools/mutate` (PR #56; 123 mutations) | session_01ELZUpkHg9fxfaMzLyCp5R5 | opus-5-5 | 6.96 |
+| Reviewer, `tools/mutate` (PR #56; no blocking, 6 notes) | session_01Fnct3X7paeLnNUSBXDGirU | sonnet-5-5 | 0.95 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -72,3 +74,4 @@ Consolidation: 4.12 USD (engineer 2.42, reviewer 1.70).
 Physics pass 2 total: 42.93 USD (engineer 29.34, physics checker 2.84, reviewer 2.24, fix rounds 5.12 + 2.31, re-review 1.08).
 
 Sessions have reported a **seven-day usage limit warning**.
+`tools/mutate` total: 7.91 USD (engineer 6.96, reviewer 0.95).

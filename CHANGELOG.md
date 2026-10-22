@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — The L4 plan (#252, #253)
+
+- `DESIGN.md` §13l: L4 (ship versus a static target) planned in two passes,
+  L4a (kernel obligations of §17) and L4b (the battle loop, Disabled and
+  destroyed as kernel rules, the per-second log, the cascade tree, one
+  target per capture route: R1, T-neck, T-hot, T-dry). EMP and surrender
+  move to L5 (the owner, #252).
+- `tools/estimates/l4.mjs`: the plan's estimates on a static R1 and the
+  three target variants (#241's plan gate).
+- Planned constants: `battle.wreckFraction` (new, 0.5), `armour.plateThickness`
+  (new, 0.2 m), `quarters.crewPerCell` 3 → 4; not yet in `data.js` (the L4
+  engineers enter them).
+- After the owner's playtest of prototype v2 (#254, #255, #256): armour is a
+  plate on any wall segment (walls only, not decks, in 2D); Disabled no
+  longer needs the engine to be lost; R1c (R1 with a 0.2 m citadel) is the
+  reference for the pace re-measure. `tools/estimates/pace.mjs` added.
+
 ## 0.9.1 — 2026-10-22 — Coverage by mutation as a tool (#246 (1)); the frozen record's hash
 
 - **`tools/mutate.js`** (`DESIGN.md` §17 item 21): applies each mutation of
