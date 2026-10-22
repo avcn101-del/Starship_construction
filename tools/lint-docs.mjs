@@ -35,7 +35,11 @@ const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : '
   for (const [g, o] of Object.entries(PARAMS)) for (const n of Object.keys(o)) names.add(`${g}.${n}`);
   for (const n of Object.keys(FIXED)) names.add(`FIXED.${n}`);
   const problems = [];
-  read('DESIGN.md').split('\n').forEach((l, i) => {
+  // A plan's constants exist only once its passes build them: §13n (the L5 plan) is skipped until L5 merges, as §13k was (#246 (2)).
+  const designText = read('DESIGN.md'), planStart = designText.indexOf('\n## 13n.'), planEnd = designText.indexOf('\n## 14.');
+  const planLines = planStart >= 0 && planEnd > planStart ? [designText.slice(0, planStart).split('\n').length, designText.slice(0, planEnd).split('\n').length] : null;
+  designText.split('\n').forEach((l, i) => {
+    if (planLines && i + 1 >= planLines[0] && i + 1 <= planLines[1]) return;
     if (/removed|superseded|replaced|\(new|new,|new\)|is new|becomes|replac|planned|§13k|pass 2/i.test(l)) return;
     for (const m of l.matchAll(/`((?:FIXED\.)?[a-z][a-zA-Z]+\.[a-z][a-zA-Z]+)`/g)) { const c = m[1]; if (/^(js|proto|tools|mission0|audit|checker|ctx|world|room|ship|battle|e|c|a|s|r)\./.test(c) || c.endsWith('.js') || c.endsWith('.mjs') || c.endsWith('.md') || c.endsWith('.json')) continue; if (!names.has(c) && !/^(thermal\.(plant|crewed|magazine)|crewRequired|cellMass|thermal\.coupled)/.test(c)) problems.push(`DESIGN.md:${i + 1} \`${c}\``); }
   });
@@ -69,7 +73,7 @@ const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : '
 }
 // 8. §13m (the coverage table, #269): every element row carries a status that names a level, 'proven', 'after Mission 0' or 'not built'; a row in no plan fails.
 {
-  const design = read('DESIGN.md'), start = design.indexOf('## 13m.'), end = design.indexOf('## 14.');
+  const design = read('DESIGN.md'), start = design.indexOf('## 13m.'), end = start < 0 ? -1 : design.indexOf('\n## ', start + 1);
   const problems = [];
   if (start < 0 || end < 0) problems.push('DESIGN.md: section 13m (the coverage table) is missing');
   else design.slice(start, end).split('\n').forEach((l, i) => {
@@ -83,7 +87,7 @@ const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : '
 }
 // 9. Every element the design's own tables name (DESIGN.md 5-7: rooms, fittings, weapons, round types, information topics) and every room type of js/data.js has a row in 13m (#275: the weapons were in 6 and in no level until PR #63).
 {
-  const design = read('DESIGN.md'), s5 = design.indexOf('## 5.'), s8 = design.indexOf('## 8.'), m0 = design.indexOf('## 13m.'), m1 = design.indexOf('## 14.');
+  const design = read('DESIGN.md'), s5 = design.indexOf('## 5.'), s8 = design.indexOf('## 8.'), m0 = design.indexOf('## 13m.'), m1 = m0 < 0 ? -1 : design.indexOf('\n## ', m0 + 1);
   const problems = [], table = design.slice(m0, m1).toLowerCase();
   const camel = (k) => k.replace(/([A-Z])/g, ' $1').toLowerCase().trim();
   const names = [];
