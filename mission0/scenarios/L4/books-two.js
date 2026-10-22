@@ -28,7 +28,7 @@ export default {
   tolerance: 'books 1e-9 x gross (#220), gross the largest over the run',
   criterion: 'in both cases the largest residual <= 1e-9 x the largest gross; case still: 12 hits (B1\'s count, #267 N8); case spin: at least one hit, at least one round passes the hull, and |omega| >= 1e-3 rad/s at some hit (the frame turns)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'e9fe5591' },
   cases() {
     return [{ name: 'still', omega: 0, v: [0, 0] }, { name: 'spin', omega: 0.05, v: [20, 0] }];
   },
