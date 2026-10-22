@@ -1131,6 +1131,16 @@ Each line names its decision and when it is due; a closed one is removed.
     estimated under the gate, decided at the L5 plan together with #261's
     R1d in one pace study. Due: the L5 plan.
 
+37. **Missiles, point defence and the railgun are built nowhere yet**
+    (the owner, #268): the kernel has no missile (seeker + warhead, §6,
+    #97, #98, #142 EMP), no point defence (#93), and the railgun is data
+    only (#236 (6)); the missile bay is a room with crew and mass. §13's
+    table names none of them, yet L5 (no dominant build; E5, E6), the
+    EMP and surrender routes moved there (#252), the Swarm named ship
+    (#121) and the information counters (#27, #149) all need them. Due:
+    the L5 plan builds them as room physics with scenarios before ship
+    versus ship, or Mission 0 cannot claim E3–E6.
+
 ## 18. Decisions in force
 
 One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (5)). **current**: stands as written; **superseded by #n**: replaced; **partly superseded by #n (what remains)**; **report**: the row records a result or a process step, not a rule; **owner question open**: waits for the owner; **current (unchecked)**: not checked against the current text. The log itself is append-only and unchanged, so a row there may still read as if it stood. Compiled from the documents audit (B1, H), the decisions' own "supersedes" words and the current text of this file; the lead designer reviews it.
@@ -1406,3 +1416,4 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 265 | Answers to the design partner: the information law is built at L5 (§17 item 33); the flat 1/hitsToWreck on passed cells is an oversight against #240 (1), a pass for the L5 plan (item 34) | current |
 | 266 | The owner: sensors and the knowledge model open the L5 plan; kinetic damage by the one law is a pass decided there; the magazine's detonation rule and the energy a passing round leaves go into that plan | current |
 | 267 | L4b merged (PR #62); answers to its engineer, checker and reviewer; the aim point, the feed clause, Disabled's parent | current |
+| 268 | Missiles, point defence and the railgun have no level (the owner's finding); the L5 plan builds them before ship versus ship | current |
