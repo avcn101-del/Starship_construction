@@ -9,17 +9,22 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   consolidation (#242), physics pass 2 (#243–#251), `tools/mutate` (#257),
-  **L4a (PR #58, #253–#258, #260)**: armour plates on walls, R1c, crew
-  capacity, the kernel obligations.
-- **Running**: nothing. L4a cost ≥ 17.57 USD (estimated 45–70).
-- **Waiting on you**: nothing (L4b go given, #264). Veto window on #253,
-  #256, #258–#264.
-- **Money**: 2026-10-21/22 about 112 USD (v2 13.85, audits 25.40,
-  consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57); L4a was
-  estimated 45–70.
-- **Next**: L4b (`m0/l4b`: the battle loop, Disabled and destroyed as
-  kernel rules, the per-second log, the cascade tree, targets R1, R1d,
-  T-neck, T-gun, B1–B15) once the owner says go.
+  L4a (PR #58, #253–#258, #260), **L4b (PR #62, #261–#264, #267): L4 is
+  done** (every capture route reaches Disabled; the cascade tree; E8
+  0.15–0.29 ms per step).
+- **Running**: nothing. L4b cost 23.98 USD (estimated 70–100 by the
+  rule, 25–40 expected); L4 in all ≥ 41.55 USD.
+- **Waiting on you**: nothing. Veto window on #253, #256, #258–#267
+  (#267 lowers the cost factors: ×1.5 repeated work, ×2.5 new, after
+  three passes within 1.5×). The prototype page is **republished on the
+  L4b kernel** (version 5, `main` `2a454c0`: R1d by default, the cascade
+  tree on the end panel): play it and say what is not fun (#223's ladder).
+- **Money**: 2026-10-21/22 about 136 USD (v2 13.85, audits 25.40,
+  consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98).
+- **Next**: the light audits before the L5 plan (#238: a–d, only what
+  L5 touches), then the L5 plan: `sensors.js` and the knowledge model
+  first (#266), the kinetic-damage pass and R1d in one pace study (§17
+  items 33–36), ship versus ship.
 - **Owner chose** #261 (R1d the pace lever) and #252 (L4: one target per route; EMP and surrender at L5).
   The owner played v2: the magazine always wins in 7.1 s (#254). Pace
   study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
@@ -54,7 +59,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   + 20 WITHDRAWN**. Cost 8.90 USD.
 - **The feel prototype is published** (private page
   https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d; since 2026-10-22 on the
-  L4a kernel, `main` `5a837af`, version 4): an R1 duel ends in about 11 s (#227); loadout panel and
+  L4b kernel, `main` `2a454c0`, version 5): an R1 duel ends in about 11 s (#227); loadout panel and
   Export / replay built. A light reviewer checks #217's rules.
 - **The path model is done and merged** (`DESIGN.md` §13i; #228–#236;
   PR #48): rounds are damaged and flatten, protection is the mass on the
@@ -207,6 +212,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
+| Check-in of this chat | `trig_01UnvcS4ZhoaXKWqpvarVzPS` | 2026-10-22 11:46 UTC, once | read the PR #62 reviewer; answers row; merge or fix round |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat

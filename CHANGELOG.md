@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — L4b merged; answers (#265–#267)
+
+- `DESIGN.md` §13l.1: the turret aims at the first surviving cell's
+  centre; a turret is fed by a magazine sharing a live wall; Disabled's
+  parent is the first failing condition of the able rule. §17 items 33–36
+  (the information law's level, kinetic damage by the one law, the loop
+  rules L4b leaves uncovered, fittings for T-neck and T-gun). #267 lowers
+  the cost factors to ×1.5 / ×2.5.
+
 ## Unreleased — 2026-10-22 — Mission 0 L4b: the battle loop (#253, #255, #258, #261, #262, #264)
 
 - **`js/battle.js`** (§13l.1): two ship worlds in one frame, an attacker
