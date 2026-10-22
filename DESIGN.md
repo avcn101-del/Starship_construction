@@ -925,6 +925,7 @@ printed by `node tools/estimates/l4.mjs` (#241 (1)); the checklist is
 | Rounds in overlapping fields (#205 (7), F18, §17 item 12, L4a) | The round meets the summed strength g = min(1, Σ g_i) and the summed buffers; the energy the field removes is charged to each generator in proportion to its buffer × g_i (the beam rule of §13d.1); no generator pays more than its buffer (the shortfall is solved once more with what was paid, no third round); each generator's ship takes the impulse of its share, at the generator. The kernel stops throwing on such a round |
 | Kernel fixes (L4a) | `shieldRound`'s heat books the ship's kinetic-energy gain J²/2M like `fireRound` (§17 item 25, one rule for both); `csdaRange`'s last step ends exactly at the stop energy, so the range is continuous in energy (§17 item 27); a reactor meltdown case from about 960 K at the coupled heat capacity (§17 item 22) |
 | Pace after armour (#255) | When L4a merges, the lead designer re-measures pace with `tools/estimates/pace.mjs` on R1c with the real plate mass, bow-on and broadside, under #255's Disabled, and reports to the owner before L4b is locked. `proto/battle.js` gets plates on its paths and R1c in L4a (a prototype change; §17 item 28's smoke-test race is fixed with it) |
+| Tools (L4a, #257) | `tools/mutate.js`: `--jobs 0` and negatives rejected (reviewer 1); the report's header says CHANGED means an output moved, not that a criterion noticed (reviewer 4); mutations for the `beamPaths` clearing and `csdaRange`'s material (reviewer 5); `recordHash` described as the record as it stood when the hash was added (reviewer 3). L4a's pull request runs `tools/mutate.js` once on its head (#246 (1)) |
 | Shipyard readout (#225 (5), §17 item 10, L4a) | `readout` on a blueprint before `enableShip` gives the same mass, centre and inertia as after it |
 | Moved to L5 (this plan, #253) | the EMP and surrender routes (#252); debris as an obstacle to shots (#9); magazines lasting a 3–6 minute battle (#92, needs both ships firing); life support's own draw and heat (§17 item 14: no L4 route depends on it); the outside blast field (§17 item 5) |
 
@@ -972,7 +973,7 @@ counted for E3; re-statements declared with a hand-worked literal).
 | A5 | L4a | `L1.reactor.meltdown.coupled` | a reactor alone held near 960 K at the coupled C | meltdown at the time t = C ΔT / P off the step grid, one-sided |
 | A6 | L4a | `L4.readout.blueprint` | R1's readout before and after `enableShip` | mass, centre, inertia equal within 1e-12 |
 | A7 | L4a | `L4.crew.capacity` | R1 at crewPerCell 3 and 4; a ship with no quarters | 3: rejected (20 > 18); 4: valid; no quarters: rejected |
-| A8 | L4a | survivors of `tools/mutate.js` that touch L4a's rules | as the mutation report names them | each listed rule killed by a scenario |
+| A8 | L4a | survivors of `tools/mutate.js` (`mission0/mutations/2026-10-22-b7c4290.txt`, #257) that L4a's rules touch or that #257 names: `k1.chord.beamIgnored`, `k1.deposit.damageFirst`, `f1.ctl.bridgeShutdown`, `f1.thrust.atCentre` (an engine whose exhaust centre is off its room centre's row), `e1.rep.crewBack`, `d1.shov.bufferOverlapAllowed` (A2), `f1.dest.damagedLosesMass`, `d1.cond.secondOrder` (a closed form that pins explicit Euler) | one scenario or case each; `node tools/mutate.js --only <ids>` reports each KILLED on the L4a head; the bridge switched off emits its own `control-lost` with cause `off` (#257 Q2, a kernel fault) |
 | A9 | L4a | `L0.armour.plate` | an M round and a 5 MW beam across a plate of 0.2 m on a hold wall, at chord 1 and 1/√2; three rounds | σ = 1570 kg/m² (hand-worked); the round after the plate by the round rule with r = c σ chord; the plate a hole after `hitsToWreck` passing rounds; the beam's deposit in the plate as heat in its room |
 | A10 | L4a | `L3.r1c.props` | R1c at T1 | mass 1 264 534 kg (R1's literal + 314 000 kg), 1.21 g, centre and inertia by the plates' segment centres; literals from `tools/estimates/l4.mjs` |
 | A11 | L4a | `L4.disabled.rule` | a ship whose weapons are all lost with its engine working; one with a turret left and no engine | Disabled after 10 s; not Disabled (#255) |
@@ -1092,10 +1093,6 @@ Each line names its decision and when it is due; a closed one is removed.
     the harness, not the kernel (PR #54 re-review, 1). Due: the next
     prototype change (`roomCentre` calls `layout()` first, or the test
     waits one frame).
-29. A frozen withdrawn record is checked only for its verdict and `run()`
-    hash; store the record's own hash in `withdrawn.json` so a later
-    re-record cannot pass `verify` (re-review, 4). Due: the `tools/mutate`
-    task (running, #253).
 27. `csdaRange` is continuous in energy only between changes of its step
     count (a jump of about 5e-6 relative); a tier's solved energy could
     fall in such a gap under another `armour.cellMass` or gradient within
@@ -1107,10 +1104,7 @@ Each line names its decision and when it is due; a closed one is removed.
 26. `cull()` is called by the kernel's consumer, not by `step()`; a
     consumer that never calls it keeps rounds forever (PR #54 reviewer 9).
     Due: L4b's battle loop calls it (§13l.1, B11).
-21. `tools/mutate.js`: the scenario audit's mutation driver kept as a tool
-    and run once per pass; a rule whose removal leaves `regress` green is a
-    finding (#246 (1)). Running on `tools/mutate` (the owner chose the full
-    scope, #253); its survivors feed L4a's A8.
+
 
 ## 18. Decisions in force
 
@@ -1376,3 +1370,4 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 254 | After v2's playtest: no v3 yet; pace measured first (scan time, armour over the magazine, layout); L4a goes ahead | current |
 | 255 | Armour on walls built (option A) and Disabled without the thrust condition (the design partner's (c)) | current (partly supersedes #82: the thrust condition) |
 | 256 | Armour plates on wall segments only, not decks (2D); R1c the reference with a 0.2 m citadel; pace re-measured after L4a | current |
+| 257 | `tools/mutate.js` merged (PR #56); answers to its engineer and reviewer; survivors for L4a | current |

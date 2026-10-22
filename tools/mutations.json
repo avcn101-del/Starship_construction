@@ -1,0 +1,908 @@
+[
+  {
+    "id": "c1.thr.turretWorksShutdown",
+    "rule": "13c.1 Thresholds",
+    "file": "js/rooms.js",
+    "old": "const able = room.powered && room.controlled && !room.shutdown && !isDestroyed(room) && s.ammo > 0;",
+    "new": "const able = room.powered && room.controlled && !isDestroyed(room) && s.ammo > 0;"
+  },
+  {
+    "id": "c1.thr.bridgeNoControlWhenOff",
+    "rule": "13c.1 Thresholds",
+    "file": "js/rooms.js",
+    "old": "const control = survivingCells(room) > 0 && !room.shutdown && room.active;",
+    "new": "const control = survivingCells(room) > 0 && !room.shutdown;"
+  },
+  {
+    "id": "c1.cls.crewed->plant.turret",
+    "rule": "13c.1 Two classes",
+    "file": "js/data.js",
+    "old": "turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed'",
+    "new": "turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'plant'"
+  },
+  {
+    "id": "c1.cls.crewed->plant.hold",
+    "rule": "13c.1 Two classes",
+    "file": "js/data.js",
+    "old": "hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'crewed'",
+    "new": "hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'plant'"
+  },
+  {
+    "id": "c1.cls.crewed->plant.missile",
+    "rule": "13c.1 Two classes",
+    "file": "js/data.js",
+    "old": "missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'crewed'",
+    "new": "missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'plant'"
+  },
+  {
+    "id": "d1.layout.noOverlapCheck",
+    "rule": "13d.1 Layout",
+    "file": "js/layout.js",
+    "old": "if (other !== undefined) throw new Error(`${id}: cell (${x}, ${y}) overlaps ${other.id}`);",
+    "new": ""
+  },
+  {
+    "id": "d1.layout.noGridCheck",
+    "rule": "13d.1 Layout",
+    "file": "js/layout.js",
+    "old": "if (x < 0 || y < 0 || x >= layout.grid[0] || y >= layout.grid[1]) throw new Error(`${id}: cell (${x}, ${y}) is outside the ${layout.grid[0]} x ${layout.grid[1]} grid`);",
+    "new": ""
+  },
+  {
+    "id": "d1.layout.noRotationCheck",
+    "rule": "13d.1 Layout",
+    "file": "js/layout.js",
+    "old": "if (rotation !== 0 && rotation !== 90) throw new Error(`${id}: rotation must be 0 or 90 degrees`);",
+    "new": ""
+  },
+  {
+    "id": "d1.layout.noIntegerCheck",
+    "rule": "13d.1 Layout",
+    "file": "js/layout.js",
+    "old": "if (!Number.isInteger(at[0]) || !Number.isInteger(at[1])) throw new Error(`${id}: a room sits at an integer cell position`);",
+    "new": ""
+  },
+  {
+    "id": "d1.layout.rotateTranspose",
+    "rule": "13d.1 Layout",
+    "file": "js/layout.js",
+    "old": "[at[0] + (h - 1 - j), at[1] + i]",
+    "new": "[at[0] + j, at[1] + i]"
+  },
+  {
+    "id": "d1.layout.wallLenCapped",
+    "rule": "13d.1 Layout",
+    "file": "js/layout.js",
+    "old": "length: wall.pairs.length * layout.edge",
+    "new": "length: Math.min(wall.pairs.length, 2) * layout.edge"
+  },
+  {
+    "id": "d1.layout.wallLenNoEdge",
+    "rule": "13d.1 Layout",
+    "file": "js/layout.js",
+    "old": "length: wall.pairs.length * layout.edge",
+    "new": "length: wall.pairs.length * 5"
+  },
+  {
+    "id": "d1.layout.onePerOpenEdge",
+    "rule": "13d.1 Layout",
+    "file": "js/rooms.js",
+    "old": "if (world && world.layout && room.placed && n > openEdges(world.layout, room.id)) throw",
+    "new": "if (false) throw"
+  },
+  {
+    "id": "d1.layout.radiatorCover",
+    "rule": "13d.1 Layout",
+    "file": "js/rooms.js",
+    "old": "if (cell) for (const r of world.rooms) if (r.placed && r.radiators > openEdges(world.layout, r.id)) throw new Error(`${r.id}: ${id} covers an open edge that carries a radiator`);",
+    "new": ""
+  },
+  {
+    "id": "d1.layout.openEdgeDef",
+    "rule": "13d.1 Layout",
+    "file": "js/layout.js",
+    "old": "for (const [x, y] of room.cells) for (const [dx, dy] of SIDES) if (!layout.occupied.has(key(x + dx, y + dy))) n++;",
+    "new": "for (const [x, y] of room.cells) for (const [dx, dy] of SIDES) n++;",
+    "note": "re-targeted: the audit's after-text is truncated before the change; now every cell edge counts as open"
+  },
+  {
+    "id": "d1.live.heatUsesFullPassive",
+    "rule": "13d.1 Live walls",
+    "file": "js/rooms.js",
+    "old": "wallConductance(passive, w.live,",
+    "new": "wallConductance(passive, w.length,"
+  },
+  {
+    "id": "d1.live.ammoFull",
+    "rule": "13d.1 Live walls",
+    "file": "js/graph.js",
+    "old": "feedPerMetre * w.live * world.dt",
+    "new": "feedPerMetre * w.length * world.dt"
+  },
+  {
+    "id": "d1.ls.capacityNotPerSurvivingCell",
+    "rule": "13d.1 Life support",
+    "file": "js/rooms.js",
+    "old": "const E = Math.min(perCell * survivingCells(room) * world.dt, excess);",
+    "new": "const E = Math.min(perCell * room.cells.length * world.dt, excess);"
+  },
+  {
+    "id": "d1.pow.noIdTiebreak",
+    "rule": "13d.1 Power",
+    "file": "js/rooms.js",
+    "old": "sort((a, b) => rank(a) - rank(b) || byId(a.id, b.id))",
+    "new": "sort((a, b) => rank(a) - rank(b))"
+  },
+  {
+    "id": "d1.pow.bfsInsertionOrder",
+    "rule": "13d.1 Power",
+    "file": "js/graph.js",
+    "old": "const ids = [...nodes].sort(byId);",
+    "new": "const ids = [...nodes];"
+  },
+  {
+    "id": "d1.pow.servedKeepsCap",
+    "rule": "13d.1 Power",
+    "file": "js/graph.js",
+    "old": "cap[c][T] = flow[c][T]; // served: no later sink can take it back",
+    "new": ""
+  },
+  {
+    "id": "d1.pow.turretNoFraction",
+    "rule": "13d.1 Power",
+    "file": "js/rooms.js",
+    "old": "/ FIXED.sizeLinear.value[room.size]) * supply(world, room) : tierScaled(world, p.turret.fireRate);",
+    "new": "/ FIXED.sizeLinear.value[room.size]) : tierScaled(world, p.turret.fireRate);"
+  },
+  {
+    "id": "d1.pow.shieldNoFraction",
+    "rule": "13d.1 Power",
+    "file": "js/rooms.js",
+    "old": "const f = room.footprintFactor * survivingFraction(room) * supply(world, room);",
+    "new": "const f = room.footprintFactor * survivingFraction(room);"
+  },
+  {
+    "id": "d1.pow.engineNoFraction",
+    "rule": "13d.1 Power",
+    "file": "js/rooms.js",
+    "old": "const f = able ? e.throttle * room.footprintFactor * survivingFraction(room) * supply(world, room) : 0;",
+    "new": "const f = able ? e.throttle * room.footprintFactor * survivingFraction(room) : 0;"
+  },
+  {
+    "id": "d1.pow.quartersNoFraction",
+    "rule": "13d.1 Power",
+    "file": "js/rooms.js",
+    "old": "const draw = tierScaled(world, p.quarters.powerDraw) * survivingFraction(room) * supply(world, room);",
+    "new": "const draw = tierScaled(world, p.quarters.powerDraw) * survivingFraction(room);"
+  },
+  {
+    "id": "d1.pow.repairNoFraction",
+    "rule": "13d.1 Power",
+    "file": "js/rooms.js",
+    "old": "const base = world.power ? p.repair.massRate.value * survivingFraction(room) * supply(world, room) : p.repair.massRate.value * survivingFraction(room);",
+    "new": "const base = p.repair.massRate.value * survivingFraction(room);",
+    "note": "re-targeted: repair.rate became repair.massRate in physics pass 2 (#240)"
+  },
+  {
+    "id": "d1.pow.turretHoldDrawNoFraction",
+    "rule": "13d.1 Power",
+    "file": "js/rooms.js",
+    "old": "s.energyDrawn += tierScaled(world, p.turret.powerDraw) * room.footprintFactor * survivingFraction(room) * supply(world, room) * dt;",
+    "new": "s.energyDrawn += tierScaled(world, p.turret.powerDraw) * room.footprintFactor * survivingFraction(room) * dt;",
+    "note": "the hold branch's draw (the audit's old text matches two lines; the hold one is the rule)"
+  },
+  {
+    "id": "d1.pow.shieldShieldedBeamNoFraction",
+    "rule": "13d.1 Power",
+    "file": "js/rooms.js",
+    "old": "const shieldBudget = (world, room) => tierScaled(world, world.params.shield.budget) * room.footprintFactor * survivingFraction(room) * supply(world, room);",
+    "new": "const shieldBudget = (world, room) => tierScaled(world, world.params.shield.budget) * room.footprintFactor * survivingFraction(room);",
+    "note": "the audit's after-text is truncated before the change; the same edit as d1.shov.budgetNoPowerFraction"
+  },
+  {
+    "id": "d1.pow.poweredFlag",
+    "rule": "13d.1 Power",
+    "file": "js/rooms.js",
+    "old": "r.powered = r.powerFraction > 0;",
+    "new": "r.powered = true;"
+  },
+  {
+    "id": "d1.ammo.noLoadingOrder",
+    "rule": "13d.1 Ammunition",
+    "file": "js/rooms.js",
+    "old": "for (const kind of mag.loadingOrder || ['ap', 'he'])",
+    "new": "for (const kind of ['ap', 'he'])"
+  },
+  {
+    "id": "d1.ammo.sizeMatch",
+    "rule": "13d.1 Ammunition",
+    "file": "js/graph.js",
+    "old": "if (!s || s.size !== mag.magazine.size) continue;",
+    "new": "if (!s) continue;"
+  },
+  {
+    "id": "d1.ammo.feedsAny",
+    "rule": "13d.1 Ammunition",
+    "file": "js/graph.js",
+    "old": "if (mag.type !== 'magazine' || mag.exploded) continue;",
+    "new": "if ((mag.type !== 'magazine' && mag.type !== 'hold') || mag.exploded) continue;"
+  },
+  {
+    "id": "d1.ammo.explodedMagFeeds",
+    "rule": "13d.1 Ammunition",
+    "file": "js/graph.js",
+    "old": "if (mag.type !== 'magazine' || mag.exploded) continue;",
+    "new": "if (mag.type !== 'magazine') continue;"
+  },
+  {
+    "id": "d1.blast.noHoleThrough",
+    "rule": "13d.1 Blast between rooms (hole lets blast through)",
+    "file": "js/rooms.js",
+    "old": "const walls = sharedWalls(world.layout).map((w) => ({ a: roomById(world, w.a), b: roomById(world, w.b), length: w.length }));",
+    "new": "const walls = liveWalls(world).map((w) => ({ a: w.a, b: w.b, length: w.live }));",
+    "note": "re-targeted: the audit's after-text is truncated before the change; blast now uses live walls only (a hole stops it)"
+  },
+  {
+    "id": "d1.shov.equalSplit",
+    "rule": "13d.1 Shield overlap",
+    "file": "js/rooms.js",
+    "old": "const a = bg.map((x) => (beam.power * x) / total);",
+    "new": "const a = bg.map(() => beam.power / bg.length);"
+  },
+  {
+    "id": "d1.shov.budgetNoPowerFraction",
+    "rule": "13d.1 Shield overlap",
+    "file": "js/rooms.js",
+    "old": "const shieldBudget = (world, room) => tierScaled(world, world.params.shield.budget) * room.footprintFactor * survivingFraction(room) * supply(world, room);",
+    "new": "const shieldBudget = (world, room) => tierScaled(world, world.params.shield.budget) * room.footprintFactor * survivingFraction(room);",
+    "note": "the audit's after-text is truncated before the change; the same edit as d1.pow.shieldShieldedBeamNoFraction"
+  },
+  {
+    "id": "d1.shov.bufferOverlapAllowed",
+    "rule": "13d.1 Shield overlap (impulse buffer shared)",
+    "file": "js/rooms.js",
+    "old": "if (gens.length > 1) throw new Error('a round in overlapping fields: how the buffers share it is a question for the designer (L2 pull request)');",
+    "new": ""
+  },
+  {
+    "id": "d1.shbuf.refillIgnoresBeams",
+    "rule": "13d.1 Shield buffer",
+    "file": "js/rooms.js",
+    "old": "s.buffer = Math.min(cap, s.buffer + Math.max(0, budget - absorbedRate) * world.dt);",
+    "new": "s.buffer = Math.min(cap, s.buffer + budget * world.dt);"
+  },
+  {
+    "id": "d1.size.turretDrawFootprint",
+    "rule": "13d.1 Size rule",
+    "file": "js/rooms.js",
+    "old": "turret: (world, room) => (room.turret.ammo > 0 ? tierScaled(world, world.params.turret.powerDraw) * room.footprintFactor * survivingFraction(room) : 0),",
+    "new": "turret: (world, room) => (room.turret.ammo > 0 ? tierScaled(world, world.params.turret.powerDraw) * survivingFraction(room) : 0),",
+    "note": "the audit's after-text is truncated before the change; the footprint factor dropped"
+  },
+  {
+    "id": "d1.size.engineThrustFootprint",
+    "rule": "13d.1 Size rule",
+    "file": "js/rooms.js",
+    "old": "const f = able ? e.throttle * room.footprintFactor * survivingFraction(room) * supply(world, room) : 0;",
+    "new": "const f = able ? e.throttle * survivingFraction(room) * supply(world, room) : 0;"
+  },
+  {
+    "id": "d1.size.shieldBudgetFootprint",
+    "rule": "13d.1 Size rule",
+    "file": "js/rooms.js",
+    "old": "const f = room.footprintFactor * survivingFraction(room) * supply(world, room);",
+    "new": "const f = survivingFraction(room) * supply(world, room);"
+  },
+  {
+    "id": "e1.pd.hitsIgnored",
+    "rule": "13e.1 Partial kinetic damage",
+    "file": "js/rooms.js",
+    "old": "(i < res.passed ? 1 : a / r[i]) / hits",
+    "new": "(i < res.passed ? 1 : a / r[i]) / 3"
+  },
+  {
+    "id": "e1.pd.crewNotCapped",
+    "rule": "13e.1 Partial kinetic damage",
+    "file": "js/rooms.js",
+    "old": "const due = Math.min(room.crewTotal, Math.abs(share - whole) <= 1e-9 * Math.max(1, share) ? whole : Math.floor(share));",
+    "new": "const due = Math.abs(share - whole) <= 1e-9 * Math.max(1, share) ? whole : Math.floor(share);"
+  },
+  {
+    "id": "e1.rep.destroyedRepairable",
+    "rule": "13e.1 Repair",
+    "file": "js/rooms.js",
+    "old": "if (c.destroyed || c.integrity >= 1 || rate <= 0) continue; // damaged cells only (#206)",
+    "new": "if (c.integrity >= 1 || rate <= 0) continue;"
+  },
+  {
+    "id": "f1.thrust.atCentre",
+    "rule": "13f.1 Thrust",
+    "file": "js/rooms.js",
+    "old": "forces.push({ F: [room.engine.thrust, 0], p: room.exhaust });",
+    "new": "forces.push({ F: [room.engine.thrust, 0], p: room.position });"
+  },
+  {
+    "id": "f1.thrust.survivingFraction",
+    "rule": "13f.1 Thrust",
+    "file": "js/rooms.js",
+    "old": "const f = able ? e.throttle * room.footprintFactor * survivingFraction(room) * supply(world, room) : 0;",
+    "new": "const f = able ? e.throttle * room.footprintFactor * supply(world, room) : 0;"
+  },
+  {
+    "id": "f1.rcs.hostPowerFraction",
+    "rule": "13f.1 RCS",
+    "file": "js/rooms.js",
+    "old": "  return supply(world, host);\n}",
+    "new": "  return 1;\n}"
+  },
+  {
+    "id": "f1.rcs.drawJoinsHost",
+    "rule": "13f.1 RCS",
+    "file": "js/rooms.js",
+    "old": "+ (room.rcs ? rcsRequest(world, room) : 0); // an RCS",
+    "new": "+ 0; // an RCS"
+  },
+  {
+    "id": "f1.rcs.hostShutdown",
+    "rule": "13f.1 RCS",
+    "file": "js/rooms.js",
+    "old": "if (!f.fired || !cellAlive(host, f.k) || host.exploded || !host.active || host.shutdown || !host.controlled || !host.powered || isDestroyed(host)) return 0;",
+    "new": "if (!f.fired || !cellAlive(host, f.k) || host.exploded || !host.active || !host.controlled || !host.powered || isDestroyed(host)) return 0;"
+  },
+  {
+    "id": "f1.rcs.deadHostCell",
+    "rule": "13f.1 RCS",
+    "file": "js/rooms.js",
+    "old": "if (!f.fired || !cellAlive(host, f.k) ||",
+    "new": "if (!f.fired ||"
+  },
+  {
+    "id": "f1.rcs.rcsRequestNeedsControl",
+    "rule": "13f.1 RCS",
+    "file": "js/rooms.js",
+    "old": "function rcsRequest(world, room) {\n  if (!room.controlled) return 0;",
+    "new": "function rcsRequest(world, room) {"
+  },
+  {
+    "id": "f1.dest.heatStays",
+    "rule": "13f.1 Destroyed cells (heat leaves)",
+    "file": "js/rooms.js",
+    "old": "{ ventCell(room.heat, room.heatCells, FIXED.restTemperature.value); room.heatCells--; }",
+    "new": "{ }"
+  },
+  {
+    "id": "f1.dest.damagedLosesMass",
+    "rule": "13f.1 Destroyed cells (damaged keeps whole mass)",
+    "file": "js/rooms.js",
+    "old": "if (!c.destroyed) items.set(`${room.id}:${k}`, { m, p:",
+    "new": "if (!c.destroyed) items.set(`${room.id}:${k}`, { m: m * c.integrity, p:"
+  },
+  {
+    "id": "f1.frag.roomInSmallest",
+    "rule": "13f.1 Structure and fragments",
+    "file": "js/rooms.js",
+    "old": "const most = Math.max(...count.values());",
+    "new": "const most = Math.min(...count.values());"
+  },
+  {
+    "id": "f1.frag.lightestKeepsId",
+    "rule": "13f.1 Structure and fragments",
+    "file": "js/rooms.js",
+    "old": "[...list].sort((a, b) => massOf(b) - massOf(a))",
+    "new": "[...list].sort((a, b) => massOf(a) - massOf(b))"
+  },
+  {
+    "id": "f1.ctl.bridgeShutdown",
+    "rule": "13f.1 Control",
+    "file": "js/rooms.js",
+    "old": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !r.shutdown && r.active && !r.exploded);",
+    "new": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && r.active && !r.exploded);"
+  },
+  {
+    "id": "f1.ctl.bridgeOff",
+    "rule": "13f.1 Control",
+    "file": "js/rooms.js",
+    "old": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !r.shutdown && r.active && !r.exploded);",
+    "new": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !r.shutdown && !r.exploded);"
+  },
+  {
+    "id": "f1.ctl.noRestore",
+    "rule": "13f.1 Control",
+    "file": "js/rooms.js",
+    "old": "else if (!room.controlled && now) { room.controlled = true; event(world, room, 'control-restored', cause); if (room.type === 'reactor') controlChanged(world, room, true); }",
+    "new": ""
+  },
+  {
+    "id": "f1.ctl.noControlLossEvent",
+    "rule": "13f.1 Control",
+    "file": "js/rooms.js",
+    "old": "if (room.controlled && !now) { event(world, room, 'control-lost', cause); setControl(world, room, false, cause); }",
+    "new": "if (room.controlled && !now) { setControl(world, room, false, cause); }"
+  },
+  {
+    "id": "f1.ctl.gunNeedsControl",
+    "rule": "13f.1 Control",
+    "file": "js/rooms.js",
+    "old": "const able = room.powered && room.controlled && !room.shutdown && !isDestroyed(room) && s.ammo > 0;",
+    "new": "const able = room.powered && !room.shutdown && !isDestroyed(room) && s.ammo > 0;"
+  },
+  {
+    "id": "f1.ctl.shieldNeedsControl",
+    "rule": "13f.1 Control",
+    "file": "js/rooms.js",
+    "old": "const able = s.on && room.powered && room.controlled && !room.shutdown && !isDestroyed(room);",
+    "new": "const able = s.on && room.powered && !room.shutdown && !isDestroyed(room);"
+  },
+  {
+    "id": "f1.ctl.reactorNeedsControl",
+    "rule": "13f.1 Control",
+    "file": "js/rooms.js",
+    "old": "return room.controlled && !room.shutdown && !room.reactor.scrammed && !isDestroyed(room);",
+    "new": "return !room.shutdown && !room.reactor.scrammed && !isDestroyed(room);"
+  },
+  {
+    "id": "f1.ctl.beamNeedsControl",
+    "rule": "13f.1 Control",
+    "file": "js/rooms.js",
+    "old": "const able = s.firing && room.powered && room.controlled && !room.shutdown && !isDestroyed(room);",
+    "new": "const able = s.firing && room.powered && !room.shutdown && !isDestroyed(room);"
+  },
+  {
+    "id": "f1.ctl.bridgeBackup",
+    "rule": "13f.1 Control / Power",
+    "file": "js/rooms.js",
+    "old": "for (const r of world.rooms) if (r.type === 'bridge') r.powered = false; // runs on its backup supply (#147)",
+    "new": ""
+  },
+  {
+    "id": "f1.val.exhaustFaceOpen",
+    "rule": "13f.1 Validation",
+    "file": "js/layout.js",
+    "old": "if (def.placement.includes('exhaust clear') && fitting.side[0] === -1 && fitting.cell[0] === exhaustFace(layout, room.id).x) return",
+    "new": "if (false) return"
+  },
+  {
+    "id": "f1.val.fittingOpenEdge",
+    "rule": "13f.1 Validation",
+    "file": "js/layout.js",
+    "old": "if (!isOpen(layout, fitting.cell, fitting.side)) return",
+    "new": "if (false) return"
+  },
+  {
+    "id": "f1.val.fittingCellInRoom",
+    "rule": "13f.1 Validation",
+    "file": "js/layout.js",
+    "old": "if (!room.cells.some((c) => c[0] === fitting.cell[0] && c[1] === fitting.cell[1])) return",
+    "new": "if (false) return"
+  },
+  {
+    "id": "f1.val.insideRoomsMayTouchHull",
+    "rule": "13f.1 Validation",
+    "file": "js/layout.js",
+    "old": "if (def.placement === 'inside') return",
+    "new": "if (def.placement === 'inside' && openEdges(layout, room.id) > 0) return"
+  },
+  {
+    "id": "f1.val.addFittingChecks",
+    "rule": "13f.1 Validation",
+    "file": "js/rooms.js",
+    "old": "if (problem) throw new Error(`${problem.rule}: ${problem.detail}`);",
+    "new": ""
+  },
+  {
+    "id": "f1.val.rcsUnknownType",
+    "rule": "13f.1 Validation",
+    "file": "js/rooms.js",
+    "old": "if (type !== 'radiator' && type !== 'rcs') throw new Error(`unknown fitting ${type}`);",
+    "new": ""
+  },
+  {
+    "id": "f1.ro.accelSurviving",
+    "rule": "13f.1 Readout",
+    "file": "js/rooms.js",
+    "old": "thrust += tierScaled(world, p.engine.thrust) * room.footprintFactor * survivingFraction(room);",
+    "new": "thrust += tierScaled(world, p.engine.thrust) * room.footprintFactor;"
+  },
+  {
+    "id": "f1.ro.torqueSign",
+    "rule": "13f.1 Readout",
+    "file": "js/rooms.js",
+    "old": "if (tau > 0) ccw += tau; else cw -= tau;",
+    "new": "if (tau > 0) cw += tau; else ccw -= tau;"
+  },
+  {
+    "id": "f1.ro.heatLoadTurret",
+    "rule": "13f.1 Readout",
+    "file": "js/rooms.js",
+    "old": "else if (room.type === 'turret' && !room.turret.hold && room.turret.ammo > 0) rate =",
+    "new": "else if (room.type === 'turret' && false) rate ="
+  },
+  {
+    "id": "f1.ro.heatLoadRcs",
+    "rule": "13f.1 Readout",
+    "file": "js/rooms.js",
+    "old": "for (const fit of world.fittings) if (fit.type === 'rcs' && fit.room === room.id && fit.fired && cellAlive(room, fit.k)) rate += tierScaled(world, p.rcs.powerDraw) * p.engine.heatFraction.value;",
+    "new": ""
+  },
+  {
+    "id": "g1.mass.structure",
+    "rule": "13g.1 Structural mass",
+    "file": "js/data.js",
+    "old": "cellMass: P(3e3, 2e3, 6e3, 3,",
+    "new": "cellMass: P(4e3, 2e3, 6e3, 3,"
+  },
+  {
+    "id": "g1.thrust.engine",
+    "rule": "13g.1 Thrust and RCS",
+    "file": "js/data.js",
+    "old": "thrust: P(1.5e7, 4e6, 6e7, 2,",
+    "new": "thrust: P(1.2e7, 4e6, 6e7, 2,"
+  },
+  {
+    "id": "g1.thrust.rcs",
+    "rule": "13g.1 Thrust and RCS",
+    "file": "js/data.js",
+    "old": "force: P(1e6, 3e5, 5e6, 2,",
+    "new": "force: P(8e5, 3e5, 5e6, 2,"
+  },
+  {
+    "id": "i1.mass.railgun",
+    "rule": "13i.1 Cell mass by room type",
+    "file": "js/data.js",
+    "old": "cellMass: 'cellMass.railgun'",
+    "new": "cellMass: 'structure.cellMass'"
+  },
+  {
+    "id": "i1.rd.noFlattenOnStop",
+    "rule": "13i.1 Round damage",
+    "file": "js/damage.js",
+    "old": "area: f < 1 ? area / (1 - f) : null,",
+    "new": "area: area,"
+  },
+  {
+    "id": "i1.rd.wreckMomentumToShip",
+    "rule": "13i.1 Round damage",
+    "file": "js/damage.js",
+    "old": "stopMomentum: p, momentum: 0,",
+    "new": "stopMomentum: 0, momentum: 0,"
+  },
+  {
+    "id": "i1.bb.requestGrowsWithN",
+    "rule": "13i.1 Beam bay",
+    "file": "js/rooms.js",
+    "old": "beamBay: (world, room) => (room.beamBay.firing ? (tierScaled(world, world.params.beam.power) * room.footprintFactor * survivingFraction(room)) / world.params.beambay.efficiency.value : 0),",
+    "new": "beamBay: (world, room) => (room.beamBay.firing ? (tierScaled(world, world.params.beam.power) * room.footprintFactor * survivingFraction(room) * room.length / 2) / world.params.beambay.efficiency.value : 0),",
+    "note": "re-targeted: the audit's after-text is truncated before the change; the request now grows with N (x N / 2)"
+  },
+  {
+    "id": "i1.bb.minLength",
+    "rule": "13i.1 Beam bay",
+    "file": "js/layout.js",
+    "old": "if (!Number.isInteger(length) || length < def.spinal.min) throw",
+    "new": "if (!Number.isInteger(length)) throw"
+  },
+  {
+    "id": "i1.bb.notSpinalGuard",
+    "rule": "13i.1 Beam bay",
+    "file": "js/layout.js",
+    "old": "if (!def.spinal) throw new Error(`${type} is not a spinal room and has no length (#234)`);",
+    "new": ""
+  },
+  {
+    "id": "i1.bb.axisSpan",
+    "rule": "13i.1 Beam bay",
+    "file": "js/layout.js",
+    "old": "if (spanX < spanY) reasons.push(",
+    "new": "if (false) reasons.push("
+  },
+  {
+    "id": "i1.bb.hullOpen",
+    "rule": "13i.1 Beam bay",
+    "file": "js/data.js",
+    "old": "placement: 'hull, axis, bow clear'",
+    "new": "placement: 'axis, bow clear'"
+  },
+  {
+    "id": "i1.bd.betheTmaxApprox",
+    "rule": "13i.1 Beam deposit",
+    "file": "js/damage.js",
+    "old": "const tMax = (2 * c.electronRest * bg2) / (1 + 2 * g * r + r * r);",
+    "new": "const tMax = (2 * c.electronRest * bg2);"
+  },
+  {
+    "id": "c1.rad.ownroom",
+    "rule": "13c.1 Radiator",
+    "file": "js/rooms.js",
+    "old": "if (conducted) heatStep(room.heat, own + external, irBrightness(world, room),",
+    "new": "if (conducted) heatStep(room.heat, own + external, irBrightness(world, world.rooms[0]),",
+    "note": "planned in Q6, written from its name: in a cluster a radiator radiates the first room's heat, not its own room's"
+  },
+  {
+    "id": "d1.cond.secondOrder",
+    "rule": "13d.1 Conduction",
+    "file": "js/heat.js",
+    "old": "return walls.map((w) => w.G * (temperature(w.a) - temperature(w.b)) * dt);",
+    "new": "return walls.map((w) => w.G * (temperature(w.a) - temperature(w.b)) * dt * (1 - 0.5 * w.G * dt * (1 / w.a.C + 1 / w.b.C)));",
+    "note": "planned in Q6, written from its name: a second-order (trapezoid) flow instead of explicit Euler from the start-of-step temperatures"
+  },
+  {
+    "id": "d1.pow.noThroughRooms",
+    "rule": "13d.1 Power",
+    "file": "js/rooms.js",
+    "old": "const edges = liveWalls(world).map((w) => ({ a: w.a.id, b: w.b.id, capacity: wall * w.live }));",
+    "new": "const edges = liveWalls(world).filter((w) => w.a.type === 'reactor' || w.b.type === 'reactor').map((w) => ({ a: w.a.id, b: w.b.id, capacity: wall * w.live }));",
+    "note": "planned in Q6, written from its name: power flows only over walls that touch a reactor"
+  },
+  {
+    "id": "d1.shov.secondRound",
+    "rule": "13d.1 Shield overlap",
+    "file": "js/rooms.js",
+    "old": "const granted = asks[j].map((x, i) => x * scale[i]);",
+    "new": "const granted = asks[j].map((x, i) => x * scale[i] + (scale[i] < 1 ? 0 : x * (1 - Math.min(...scale))));",
+    "note": "planned in Q6, written from its name: a second round in the step, in which a generator with budget left pays a share of what a scaled generator could not"
+  },
+  {
+    "id": "d1.shbuf.bufferSeconds",
+    "rule": "13k.1 Energy buffer (was 13d.1 Shield buffer)",
+    "file": "js/rooms.js",
+    "old": "const bufferCap = (world, room) => tierScaled(world, world.params.shield.buffer) *",
+    "new": "const bufferCap = (world, room) => tierScaled(world, world.params.shield.budget) * 1 *",
+    "note": "planned in Q6; re-targeted to physics pass 2 (#240, F15): the buffer as budget x 1 s again (equal at T1, not at other tiers)"
+  },
+  {
+    "id": "e1.rep.destroyedRestoredFully",
+    "rule": "13e.1 Repair",
+    "file": "js/rooms.js",
+    "old": "other.cells.forEach((c, i) => { if (!c.destroyed && c.integrity < 1 && rate > 0)",
+    "new": "other.cells.forEach((c, i) => { if (c.destroyed) { c.destroyed = false; c.integrity = 1; } if (c.integrity < 1 && rate > 0)",
+    "note": "planned in Q6, written from its name: a destroyed cell in a quarters' range comes back whole"
+  },
+  {
+    "id": "e1.rep.crewBack",
+    "rule": "13e.1 Partial kinetic damage (repair brings nobody back)",
+    "file": "js/rooms.js",
+    "old": "  if (due <= before) return;",
+    "new": "  if (due < before) { room.crew += before - due; room.damageDeaths = due; return; }\n  if (due === before) return;",
+    "note": "planned in Q6, written from its name: crew killed by lost integrity come back when the integrity does"
+  },
+  {
+    "id": "f1.thrust.alongBodyFrame",
+    "rule": "13f.1 Thrust",
+    "file": "js/body.js",
+    "old": "const Fw = rotate(f.F, body.theta), q = worldPoint(body, f.p);",
+    "new": "const Fw = f.F, q = worldPoint(body, f.p);",
+    "note": "planned in Q6, written from its name: a body-frame force applied in the world frame (thrust and RCS)"
+  },
+  {
+    "id": "i1.kres.armourConst",
+    "rule": "13i.1 Kinetic resistance",
+    "file": "js/rooms.js",
+    "old": "const r = path.map((x) => c * cellArealDensity(world, x.room, x.cell) * (x.chord ?? 1));",
+    "new": "const r = path.map((x) => c * (x.room.cells[x.cell].destroyed ? 0 : tierScaled(world, world.params.armour.cellMass) / (world.edge * world.edge)) * (x.chord ?? 1));",
+    "note": "planned in Q6, written from its name: every cell resists like an armour cell, whatever its mass"
+  },
+  {
+    "id": "i1.rd.stopsOnEqual",
+    "rule": "13i.1 Round damage",
+    "file": "js/damage.js",
+    "old": "if (s > r && f + r / strength < 1) {",
+    "new": "if (s >= r && f + r / strength < 1) {",
+    "note": "planned in Q6, written from its name: a round with s = r passes instead of stopping"
+  },
+  {
+    "id": "k1.burn.notByMass",
+    "rule": "13k.1 Burn by mass",
+    "file": "js/rooms.js",
+    "old": "const ruin = path.map((x) => q * cellMassOf(world, x.room));",
+    "new": "const ruin = path.map(() => q * 1e4);",
+    "note": "every cell ruined like a 10 t armour cell (the old one burn energy)"
+  },
+  {
+    "id": "k1.blast.notByMass",
+    "rule": "13k.1 Blast by mass",
+    "file": "js/rooms.js",
+    "old": "(r === origin ? survivorsBefore : survivingCells(r)) * qb * cellMassOf(world, r)",
+    "new": "(r === origin ? survivorsBefore : survivingCells(r)) * qb * 1e4",
+    "note": "every cell absorbs like a 10 t armour cell"
+  },
+  {
+    "id": "k1.repair.notByMass",
+    "rule": "13k.1 Repair by mass",
+    "file": "js/rooms.js",
+    "old": "for (const g of q.grants) g.rate = g.mass / cellMassOf(world, g.room);",
+    "new": "for (const g of q.grants) g.rate = g.mass / 1e4;",
+    "note": "integrity rate as if every cell weighed 10 t (the old rate)"
+  },
+  {
+    "id": "k1.heat.oneCapacity",
+    "rule": "13k.1 Heat capacity by coupled mass",
+    "file": "js/rooms.js",
+    "old": "const C = n * tierScaled(world, param(world, def.heatCapacity))",
+    "new": "const C = n * tierScaled(world, world.params.thermal.coupledCrewed)",
+    "note": "one heat capacity per cell for every room type"
+  },
+  {
+    "id": "k1.books.noTargetImpulse",
+    "rule": "13k.1 Books close at the target",
+    "file": "js/rooms.js",
+    "old": "        receive(world, b, Ji, cellCentre(world, path[i].room, path[i].cell));\n",
+    "new": "",
+    "note": "the hit cells' impulse is not applied to the target"
+  },
+  {
+    "id": "k1.books.noTargetHeat",
+    "rule": "13k.1 Books close at the target",
+    "file": "js/rooms.js",
+    "old": "heats.forEach((q, i) => { if (q !== 0) depositHeat(path[i].room.heat, q); });",
+    "new": "",
+    "note": "the round's lost kinetic energy does not become heat"
+  },
+  {
+    "id": "k1.shield.noImpulse",
+    "rule": "13k.1 The shield's books",
+    "file": "js/rooms.js",
+    "old": "      receive(world, b, J, g.position);\n",
+    "new": "",
+    "note": "the field's impulse is not applied to the generator's ship"
+  },
+  {
+    "id": "k1.shield.impulseAtCentre",
+    "rule": "13k.1 The shield's books",
+    "file": "js/rooms.js",
+    "old": "receive(world, b, J, g.position);",
+    "new": "receive(world, b, J, [0, 0]);",
+    "note": "the field's impulse applied at the grid origin instead of the generator"
+  },
+  {
+    "id": "k1.tier.noSolve",
+    "rule": "13k.1 Tier-invariant beam depth (CSDA solve)",
+    "file": "js/rooms.js",
+    "old": "const target = csdaRange(E1, c) * (sigma(world.edge) / sigma(BASE_EDGE));",
+    "new": "const target = csdaRange(E1, c);",
+    "note": "the same areal range at every tier instead of the same depth in cells"
+  },
+  {
+    "id": "k1.tier.looseSolve",
+    "rule": "13k.1 Tier-invariant beam depth (CSDA solve)",
+    "file": "js/rooms.js",
+    "old": "while (hi - lo > 1e-12 * hi) {",
+    "new": "while (hi - lo > 1e-6 * hi) {",
+    "note": "the bisection stops at 1e-6 instead of 1e-12"
+  },
+  {
+    "id": "k1.buffer.exponent",
+    "rule": "13k.1 Energy buffer",
+    "file": "js/data.js",
+    "old": "buffer: P(1e7, 2e6, 4e7, 3,",
+    "new": "buffer: P(1e7, 2e6, 4e7, 2,",
+    "note": "shield.buffer scales with k = 2 instead of 3"
+  },
+  {
+    "id": "k1.mass.engineNoMachinery",
+    "rule": "13k.1 Machinery mass",
+    "file": "js/data.js",
+    "old": "cellMass: ['structure.cellMass', 'engine.machineryMass']",
+    "new": "cellMass: 'structure.cellMass'",
+    "note": "an engine cell weighs only its structure"
+  },
+  {
+    "id": "k1.mass.beamBayNoMachinery",
+    "rule": "13k.1 Machinery mass",
+    "file": "js/data.js",
+    "old": "cellMass: ['structure.cellMass', 'beambay.machineryMass']",
+    "new": "cellMass: 'structure.cellMass'",
+    "note": "a beam bay cell weighs only its structure"
+  },
+  {
+    "id": "k1.mass.reactorCell",
+    "rule": "13k.1 Machinery mass (cellMass.reactor), S20",
+    "file": "js/data.js",
+    "old": "reactor: P(1.5e5,",
+    "new": "reactor: P(1.4e5,",
+    "note": "cellMass.reactor 1.5e5 -> 1.4e5 kg, inside its range"
+  },
+  {
+    "id": "k1.scram.noDelay",
+    "rule": "13k.1 SCRAM restart",
+    "file": "js/rooms.js",
+    "old": "room.reactor.restartStep = on ? world.step + stepsAtLeast(world.params.reactor.restartTime.value, world.dt) : null;",
+    "new": "room.reactor.restartStep = on ? world.step : null;",
+    "note": "restarts at once when control is back"
+  },
+  {
+    "id": "k1.scram.whileHot",
+    "rule": "13k.1 SCRAM restart",
+    "file": "js/rooms.js",
+    "old": " && world.step >= r.restartStep && temperature(room.heat) < room.thresholds.hot)",
+    "new": " && world.step >= r.restartStep)",
+    "note": "restarts while hot"
+  },
+  {
+    "id": "k1.scram.never",
+    "rule": "13k.1 SCRAM restart",
+    "file": "js/rooms.js",
+    "old": "      r.scrammed = false;\n      r.restartStep = null;\n",
+    "new": "      r.restartStep = null;\n",
+    "note": "the restart event fires but the reactor stays SCRAMmed"
+  },
+  {
+    "id": "k1.chord.roundIgnored",
+    "rule": "13k.1 Chord rule",
+    "file": "js/rooms.js",
+    "old": "const r = path.map((x) => c * cellArealDensity(world, x.room, x.cell) * (x.chord ?? 1));",
+    "new": "const r = path.map((x) => c * cellArealDensity(world, x.room, x.cell));",
+    "note": "a round resists the full cell whatever its chord"
+  },
+  {
+    "id": "k1.chord.beamIgnored",
+    "rule": "13k.1 Chord rule",
+    "file": "js/rooms.js",
+    "old": "const sigmas = path.map((x) => cellArealDensity(world, x.room, x.cell) * (x.chord ?? 1));",
+    "new": "const sigmas = path.map((x) => cellArealDensity(world, x.room, x.cell));",
+    "note": "a beam crosses the full cell whatever its chord"
+  },
+  {
+    "id": "k1.launch.wholeStep",
+    "rule": "13k.1 Launch time",
+    "file": "js/rooms.js",
+    "old": "cause, first: world.dt - at });",
+    "new": "cause, first: world.dt });",
+    "note": "a round moves a whole step in its first step"
+  },
+  {
+    "id": "k1.launch.timeAtStep",
+    "rule": "13k.1 Launch time",
+    "file": "js/rooms.js",
+    "old": "from: room.id, t: world.t + at,",
+    "new": "from: room.id, t: world.t,",
+    "note": "a round is stamped at the start of the step"
+  },
+  {
+    "id": "k1.cull.farther",
+    "rule": "13k.1 Culling",
+    "file": "js/rooms.js",
+    "old": "return Math.sqrt(dx * dx + dy * dy) > D; });",
+    "new": "return Math.sqrt(dx * dx + dy * dy) > 2 * D; });",
+    "note": "cull at twice battle.cullDistance"
+  },
+  {
+    "id": "k1.cull.momentumNotBooked",
+    "rule": "13k.1 Culling",
+    "file": "js/rooms.js",
+    "old": "left.m += x.m; left.P[0] += x.m * x.v[0]; left.P[1] += x.m * x.v[1];",
+    "new": "left.m += x.m;",
+    "note": "a culled item's momentum is not booked as left"
+  },
+  {
+    "id": "k1.beamStopped.cause",
+    "rule": "13k.1 Findings (beam-stopped cause)",
+    "file": "js/rooms.js",
+    "old": "room.shutdown ? 'heat' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'); }",
+    "new": "!room.powered ? 'no-power' : room.shutdown ? 'heat' : !room.controlled ? 'no-control' : 'destroyed'); }",
+    "note": "an overheated routed beam bay reports no-power again (#227 Q9)"
+  },
+  {
+    "id": "k1.deposit.damageFirst",
+    "rule": "13k.1 Deposit then damage",
+    "file": "js/rooms.js",
+    "old": "  path.forEach((x, i) => { if (energies[i] > 0) depositHeat(x.room.heat, energies[i]); });\n  path.forEach((x, i) => { if (energies[i] > 0) damageCell(world, x.room, x.cell, energies[i] / ruin[i], cause, 'thermal'); });",
+    "new": "  path.forEach((x, i) => { if (energies[i] > 0) damageCell(world, x.room, x.cell, energies[i] / ruin[i], cause, 'thermal'); });\n  path.forEach((x, i) => { if (energies[i] > 0) depositHeat(x.room.heat, energies[i]); });",
+    "note": "damage before deposit"
+  },
+  {
+    "id": "k1.det.mathSin",
+    "rule": "13k.1 Deterministic kernel",
+    "file": "js/body.js",
+    "old": "const c = cos(theta), s = sin(theta);",
+    "new": "const c = Math.cos(theta), s = Math.sin(theta);",
+    "note": "the engine's own sin and cos in rotate"
+  },
+  {
+    "id": "k1.ctl.restoreEventName",
+    "rule": "13f.1 Control (S17)",
+    "file": "js/rooms.js",
+    "old": "event(world, room, 'control-restored', cause);",
+    "new": "event(world, room, 'control-regained', cause);",
+    "note": "the control-restored event renamed"
+  }
+]

@@ -1,0 +1,142 @@
+# Mutation coverage (tools/mutate.js, #246 (1))
+
+head b7c4290, 2026-10-22
+command: node tools/mutate.js --out mission0/mutations/2026-10-22-b7c4290.txt
+baseline: 75 scenarios VERIFIED by regress, every one PASS with its recorded results in an unmutated copy
+wall time: 27.0 min
+
+id                                   rule                                                      class     first killing scenario, or the changed scenarios
+c1.thr.turretWorksShutdown           13c.1 Thresholds                                          SURVIVED  
+c1.thr.bridgeNoControlWhenOff        13c.1 Thresholds                                          SURVIVED  
+c1.cls.crewed->plant.turret          13c.1 Two classes                                         CHANGED   L1.room.thresholds.v3
+c1.cls.crewed->plant.hold            13c.1 Two classes                                         CHANGED   L1.room.thresholds.v3
+c1.cls.crewed->plant.missile         13c.1 Two classes                                         SURVIVED  data hash only
+d1.layout.noOverlapCheck             13d.1 Layout                                              KILLED    L2.layout.invalid (FAIL)
+d1.layout.noGridCheck                13d.1 Layout                                              KILLED    L2.layout.invalid (FAIL)
+d1.layout.noRotationCheck            13d.1 Layout                                              KILLED    L2.layout.invalid (FAIL)
+d1.layout.noIntegerCheck             13d.1 Layout                                              KILLED    L2.layout.invalid (FAIL)
+d1.layout.rotateTranspose            13d.1 Layout                                              CHANGED   L3.mass.props.v5, L3.recoil.v5, L0.determinism
+d1.layout.wallLenCapped              13d.1 Layout                                              SURVIVED  
+d1.layout.wallLenNoEdge              13d.1 Layout                                              SURVIVED  
+d1.layout.onePerOpenEdge             13d.1 Layout                                              SURVIVED  
+d1.layout.radiatorCover              13d.1 Layout                                              SURVIVED  
+d1.layout.openEdgeDef                13d.1 Layout                                              KILLED    L2.layout.invalid (FAIL)
+d1.live.heatUsesFullPassive          13d.1 Live walls                                          CHANGED   L3.fragment.rules.v3, L3.fragment.scram.v2, L3.split.momentum.v5
+d1.live.ammoFull                     13d.1 Live walls                                          SURVIVED  
+d1.ls.capacityNotPerSurvivingCell    13d.1 Life support                                        SURVIVED  
+d1.pow.noIdTiebreak                  13d.1 Power                                               CHANGED   L0.determinism
+d1.pow.bfsInsertionOrder             13d.1 Power                                               SURVIVED  
+d1.pow.servedKeepsCap                13d.1 Power                                               SURVIVED  
+d1.pow.turretNoFraction              13d.1 Power                                               KILLED    L2.power.fraction (FAIL)
+d1.pow.shieldNoFraction              13d.1 Power                                               KILLED    L2.power.fraction (FAIL)
+d1.pow.engineNoFraction              13d.1 Power                                               CHANGED   L2.power.flow
+d1.pow.quartersNoFraction            13d.1 Power                                               KILLED    L2.power.fraction (FAIL)
+d1.pow.repairNoFraction              13d.1 Power                                               KILLED    L2.power.fraction (FAIL)
+d1.pow.turretHoldDrawNoFraction      13d.1 Power                                               SURVIVED  
+d1.pow.shieldShieldedBeamNoFraction  13d.1 Power                                               SURVIVED  
+d1.pow.poweredFlag                   13d.1 Power                                               KILLED    L2.beambay.cause (FAIL)
+d1.ammo.noLoadingOrder               13d.1 Ammunition                                          SURVIVED  
+d1.ammo.sizeMatch                    13d.1 Ammunition                                          SURVIVED  
+d1.ammo.feedsAny                     13d.1 Ammunition                                          SURVIVED  
+d1.ammo.explodedMagFeeds             13d.1 Ammunition                                          SURVIVED  
+d1.blast.noHoleThrough               13d.1 Blast between rooms (hole lets blast through)       KILLED    L2.blast.mass (FAIL)
+d1.shov.equalSplit                   13d.1 Shield overlap                                      CHANGED   L0.determinism
+d1.shov.budgetNoPowerFraction        13d.1 Shield overlap                                      SURVIVED  
+d1.shov.bufferOverlapAllowed         13d.1 Shield overlap (impulse buffer shared)              SURVIVED  
+d1.shbuf.refillIgnoresBeams          13d.1 Shield buffer                                       SURVIVED  
+d1.size.turretDrawFootprint          13d.1 Size rule                                           SURVIVED  
+d1.size.engineThrustFootprint        13d.1 Size rule                                           SURVIVED  
+d1.size.shieldBudgetFootprint        13d.1 Size rule                                           SURVIVED  
+e1.pd.hitsIgnored                    13e.1 Partial kinetic damage                              SURVIVED  
+e1.pd.crewNotCapped                  13e.1 Partial kinetic damage                              SURVIVED  
+e1.rep.destroyedRepairable           13e.1 Repair                                              SURVIVED  
+f1.thrust.atCentre                   13f.1 Thrust                                              CHANGED   L3.fragment.scram.v2, L3.ship.heat.v3, L3.thrust.v5, L0.determinism
+f1.thrust.survivingFraction          13f.1 Thrust                                              SURVIVED  
+f1.rcs.hostPowerFraction             13f.1 RCS                                                 SURVIVED  
+f1.rcs.drawJoinsHost                 13f.1 RCS                                                 CHANGED   L0.determinism
+f1.rcs.hostShutdown                  13f.1 RCS                                                 SURVIVED  
+f1.rcs.deadHostCell                  13f.1 RCS                                                 SURVIVED  
+f1.rcs.rcsRequestNeedsControl        13f.1 RCS                                                 SURVIVED  
+f1.dest.heatStays                    13f.1 Destroyed cells (heat leaves)                       CHANGED   L3.fragment.rules.v3, L3.fragment.scram.v2, L3.mass.props.v5, L3.split.momentum.v5
+f1.dest.damagedLosesMass             13f.1 Destroyed cells (damaged keeps whole mass)          SURVIVED  
+f1.frag.roomInSmallest               13f.1 Structure and fragments                             SURVIVED  
+f1.frag.lightestKeepsId              13f.1 Structure and fragments                             CHANGED   L3.split.momentum.v5
+f1.ctl.bridgeShutdown                13f.1 Control                                             SURVIVED  
+f1.ctl.bridgeOff                     13f.1 Control                                             KILLED    L3.control.rules (FAIL)
+f1.ctl.noRestore                     13f.1 Control                                             KILLED    L3.control.rules (FAIL)
+f1.ctl.noControlLossEvent            13f.1 Control                                             KILLED    L3.control.rules (FAIL)
+f1.ctl.gunNeedsControl               13f.1 Control                                             KILLED    L3.control.rules (FAIL)
+f1.ctl.shieldNeedsControl            13f.1 Control                                             KILLED    L3.control.rules (FAIL)
+f1.ctl.reactorNeedsControl           13f.1 Control                                             SURVIVED  
+f1.ctl.beamNeedsControl              13f.1 Control                                             KILLED    L3.control.rules (FAIL)
+f1.ctl.bridgeBackup                  13f.1 Control / Power                                     SURVIVED  
+f1.val.exhaustFaceOpen               13f.1 Validation                                          KILLED    L2.layout.invalid (FAIL)
+f1.val.fittingOpenEdge               13f.1 Validation                                          KILLED    L2.layout.invalid (FAIL)
+f1.val.fittingCellInRoom             13f.1 Validation                                          SURVIVED  
+f1.val.insideRoomsMayTouchHull       13f.1 Validation                                          SURVIVED  
+f1.val.addFittingChecks              13f.1 Validation                                          SURVIVED  
+f1.val.rcsUnknownType                13f.1 Validation                                          SURVIVED  
+f1.ro.accelSurviving                 13f.1 Readout                                             SURVIVED  
+f1.ro.torqueSign                     13f.1 Readout                                             SURVIVED  
+f1.ro.heatLoadTurret                 13f.1 Readout                                             SURVIVED  
+f1.ro.heatLoadRcs                    13f.1 Readout                                             SURVIVED  
+g1.mass.structure                    13g.1 Structural mass                                     KILLED    L1.repair.mass.v2 (FAIL)
+g1.thrust.engine                     13g.1 Thrust and RCS                                      KILLED    L3.control.rules (FAIL)
+g1.thrust.rcs                        13g.1 Thrust and RCS                                      KILLED    L3.r1.pinned (FAIL)
+i1.mass.railgun                      13i.1 Cell mass by room type                              SURVIVED  data hash only
+i1.rd.noFlattenOnStop                13i.1 Round damage                                        KILLED    L0.kinetic.flatten (FAIL)
+i1.rd.wreckMomentumToShip            13i.1 Round damage                                        KILLED    L0.kinetic.flatten (FAIL)
+i1.bb.requestGrowsWithN              13i.1 Beam bay                                            SURVIVED  
+i1.bb.minLength                      13i.1 Beam bay                                            SURVIVED  
+i1.bb.notSpinalGuard                 13i.1 Beam bay                                            SURVIVED  
+i1.bb.axisSpan                       13i.1 Beam bay                                            SURVIVED  
+i1.bb.hullOpen                       13i.1 Beam bay                                            SURVIVED  data hash only
+i1.bd.betheTmaxApprox                13i.1 Beam deposit                                        CHANGED   L0.beam.depth, L0.beam.pstar, L0.beam.range, L0.beam.tier.v2, L1.beambay.length.v3
+c1.rad.ownroom                       13c.1 Radiator                                            KILLED    L2.bridge.conduction.v3 (FAIL)
+d1.cond.secondOrder                  13d.1 Conduction                                          CHANGED   L2.ammo.feed, L2.bridge.conduction.v3, L2.heat.chain.v4, L2.heat.neighbour.v3, L2.heat.pair.v3, L2.heatsink.buffer.v3, L2.heatsink.loss.v3, L2.lifesupport.routed.v3, L2.lifesupport.v2, L2.reactor.cooled.v2, L3.fragment.rules.v3, L3.fragment.scram.v2, L3.mass.props.v5, L3.rcs.turn.v5, L3.recoil.v5, L3.ship.heat.v3, L3.split.momentum.v5, L3.thrust.v5, L3.validation.v2
+d1.pow.noThroughRooms                13d.1 Power                                               KILLED    L2.beambay.cause (FAIL)
+d1.shov.secondRound                  13d.1 Shield overlap                                      SURVIVED  
+d1.shbuf.bufferSeconds               13k.1 Energy buffer (was 13d.1 Shield buffer)             KILLED    L0.shield.buffer.tier (FAIL)
+e1.rep.destroyedRestoredFully        13e.1 Repair                                              KILLED    L1.quarters.repair.v3 (FAIL)
+e1.rep.crewBack                      13e.1 Partial kinetic damage (repair brings nobody back)  SURVIVED  
+f1.thrust.alongBodyFrame             13f.1 Thrust                                              KILLED    L3.rcs.turn.v5 (FAIL)
+i1.kres.armourConst                  13i.1 Kinetic resistance                                  KILLED    L1.kinetic.damage.v2 (FAIL)
+i1.rd.stopsOnEqual                   13i.1 Round damage                                        SURVIVED  
+k1.burn.notByMass                    13k.1 Burn by mass                                        KILLED    L0.beam.burn.v5 (FAIL)
+k1.blast.notByMass                   13k.1 Blast by mass                                       KILLED    L2.blast.mass (FAIL)
+k1.repair.notByMass                  13k.1 Repair by mass                                      KILLED    L1.quarters.repair.v3 (FAIL)
+k1.heat.oneCapacity                  13k.1 Heat capacity by coupled mass                       KILLED    L1.beambay.heat.v2 (FAIL)
+k1.books.noTargetImpulse             13k.1 Books close at the target                           KILLED    L3.hit.books (FAIL)
+k1.books.noTargetHeat                13k.1 Books close at the target                           KILLED    L3.hit.books (FAIL)
+k1.shield.noImpulse                  13k.1 The shield's books                                  KILLED    L3.hit.books (FAIL)
+k1.shield.impulseAtCentre            13k.1 The shield's books                                  KILLED    L3.hit.books (FAIL)
+k1.tier.noSolve                      13k.1 Tier-invariant beam depth (CSDA solve)              KILLED    L0.beam.tier.v2 (FAIL)
+k1.tier.looseSolve                   13k.1 Tier-invariant beam depth (CSDA solve)              KILLED    L0.beam.tier.v2 (FAIL)
+k1.buffer.exponent                   13k.1 Energy buffer                                       KILLED    L0.shield.buffer.tier (FAIL)
+k1.mass.engineNoMachinery            13k.1 Machinery mass                                      KILLED    L3.fragment.rules.v3 (FAIL)
+k1.mass.beamBayNoMachinery           13k.1 Machinery mass                                      KILLED    L3.fragment.rules.v3 (FAIL)
+k1.mass.reactorCell                  13k.1 Machinery mass (cellMass.reactor), S20              KILLED    L0.beam.burn.v5 (FAIL)
+k1.scram.noDelay                     13k.1 SCRAM restart                                       KILLED    L1.reactor.restart (FAIL)
+k1.scram.whileHot                    13k.1 SCRAM restart                                       KILLED    L1.reactor.restart (FAIL)
+k1.scram.never                       13k.1 SCRAM restart                                       KILLED    L1.reactor.restart (FAIL)
+k1.chord.roundIgnored                13k.1 Chord rule                                          KILLED    L0.kinetic.chord (FAIL)
+k1.chord.beamIgnored                 13k.1 Chord rule                                          SURVIVED  
+k1.launch.wholeStep                  13k.1 Launch time                                         KILLED    L1.turret.timing.v2 (FAIL)
+k1.launch.timeAtStep                 13k.1 Launch time                                         KILLED    L1.turret.timing.v2 (FAIL)
+k1.cull.farther                      13k.1 Culling                                             KILLED    L3.cull.v2 (FAIL)
+k1.cull.momentumNotBooked            13k.1 Culling                                             KILLED    L3.cull.v2 (FAIL)
+k1.beamStopped.cause                 13k.1 Findings (beam-stopped cause)                       KILLED    L2.beambay.cause (FAIL)
+k1.deposit.damageFirst               13k.1 Deposit then damage                                 SURVIVED  
+k1.det.mathSin                       13k.1 Deterministic kernel                                KILLED    L0.determinism (FAIL)
+k1.ctl.restoreEventName              13f.1 Control (S17)                                       KILLED    L3.control.rules (FAIL)
+
+total 123: KILLED 55, CHANGED 13, SURVIVED 55, STALE 0, TIMEOUT 0
+
+per DESIGN section:
+  §13c.1   6: KILLED 1, CHANGED 2, SURVIVED 3, STALE 0, TIMEOUT 0
+  §13d.1  39: KILLED 12, CHANGED 6, SURVIVED 21, STALE 0, TIMEOUT 0
+  §13e.1   5: KILLED 1, CHANGED 0, SURVIVED 4, STALE 0, TIMEOUT 0
+  §13f.1  32: KILLED 10, CHANGED 4, SURVIVED 18, STALE 0, TIMEOUT 0
+  §13g.1   3: KILLED 3, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0
+  §13i.1  11: KILLED 3, CHANGED 1, SURVIVED 7, STALE 0, TIMEOUT 0
+  §13k.1  27: KILLED 25, CHANGED 0, SURVIVED 2, STALE 0, TIMEOUT 0
