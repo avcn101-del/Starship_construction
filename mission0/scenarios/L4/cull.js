@@ -27,7 +27,7 @@ export default {
   tolerance: 'distances exact; left = the round 1e-12; books: mass 1e-12, momentum 1e-9 x the gross (#220)',
   criterion: 'the round hits nothing and leaves play in the first step after which it is farther than battle.cullDistance (3000 m) from every body of both ships (at that step every distance > 3000 m, at the step before some distance <= 3000 m); left books its mass and momentum (1e-12); the attacker\'s books close with what left; hand-worked: the line passes 100 m from R1\'s centre, so the round is 3000 m from it about 885.7 + sqrt(3000^2 - 100^2) = 3884 m from the muzzle, 4.855 s at 800 m/s: it leaves between 4.8 and 4.9 s, when it is about 3884 m from the attacker (#222 (7))',
   tunable: ['battle.cullDistance', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'a196a230' },
   cases() {
     return [{ aim: [100, 0] }];
   },

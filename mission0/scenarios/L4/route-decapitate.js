@@ -20,7 +20,7 @@ export default {
   tolerance: 'step counts exact',
   criterion: 'the target is Disabled (not destroyed, no explosion) exactly battle.disabledSeconds / dt = 600 steps after the step in which the bridge\'s last cell is destroyed; that step is the arrival step of the shot whose id the cell-destroyed event carries, by the scenario\'s own count: a round launched at t0 from x0 with velocity v (both in R1\'s grid frame at launch) reaches the face y = 10 m at t0 + (10 - y0) / v_y, and arrives in the first step k with k dt >= that time (its segment of step k crosses the face); every shot launched has hit when it arrives, so the number of hits by that step is the number of shots that have arrived by it; hand-worked literal: the first round leaves R1d\'s turret 14.315 m ahead of its centre of mass, about 879.5 m from the face, and arrives in step 66 (1.0994 s / dt = 65.96); the Disabled event\'s chain of parents ends at a shot id (13l.1)',
   tunable: ['battle.disabledSeconds', 'kinetic.muzzleVelocity', 'kinetic.hitsToWreck'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'f9b416ea' },
   cases() {
     return [{ target: 'R1', bearing: '-y' }];
   },

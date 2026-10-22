@@ -54,7 +54,7 @@ export default {
   tolerance: 'step counts exact; the beam\'s time one-sided in [t, t + dt) (1e-9 relative slack, #185 (2))',
   criterion: 'every case ends destroyed (not Disabled) by the explosion, in the explosion\'s step; (R1 reactor) the explosion exactly reactor.breachCountdown / dt = 600 steps after the breach; (R1d, rounds) the magazine\'s first cell destroyed by shot-10 (literal 10 from tools/estimates/l4.mjs, 13l.3: the rounds weakened by the hold, then full rounds stopped in the plate until it is a hole, then rounds passing the cell, with repair between shots); (R1d, beam) re-statement: the scenario\'s own stepped sum along the kernel\'s beam line (each entry loses P F dt / (q m), F by the pure beamDeposit over sigma x chord, sigma / cos theta for the plate; repair as 13d.1) destroys the magazine\'s cell at t, and the explosion falls in [t, t + dt); hand-worked literal: with no repair and each entry taking the whole beam in turn, (2 x 9 MJ + 117.75 MJ + 9 MJ) / 5 MW = 28.95 s, so t lies in [28.95, 32] s; the beam\'s power is 0 (the first step) or 5 MW',
   tunable: ['reactor.breachCountdown', 'reactor.breachFraction', 'armour.plateThickness', 'matter.burnEnergyPerKg', 'kinetic.hitsToWreck'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'd184d01b' },
   cases() {
     return [{ target: 'R1', aim: 'magazine' }, { target: 'R1', aim: 'reactor' }, { target: 'R1d', aim: 'magazine' }, { target: 'R1d', aim: 'magazine', weapon: 'beam' }];
   },

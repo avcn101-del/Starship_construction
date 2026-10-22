@@ -16,7 +16,7 @@ export default {
   tolerance: 'exact: a count of steps (discrete by nature, 13l.4)',
   criterion: 'Disabled in step (n - 1) / (rate dt) + 1 + disabledSeconds / dt exactly, n = ready + magazine rounds = turret.readyRounds + floor(magazine.capacity / kinetic.roundMass) (shot k at k / rate from t = 0, the last in step (n - 1) / (rate dt); the store is empty at the end of that step; Disabled 600 steps later); hand-worked literal at T1: n = 4 + 900 / 6 = 154, step 153 x 120 + 1 + 600 = 18961, t = 316.0167 s (13l.3\'s 316.02 s); n shots fired, nothing left; the last ability lost because the turret ran dry (13l.1)',
   tunable: ['turret.fireRate', 'turret.readyRounds', 'magazine.capacity', 'kinetic.roundMass', 'ammo.wallFeed', 'battle.disabledSeconds'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'f172b965' },
   cases() {
     return [{ target: 'T-gun' }];
   },

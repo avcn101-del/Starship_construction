@@ -20,7 +20,7 @@ export default {
   tolerance: 'closed forms 1e-12 relative (13k.4)',
   criterion: 'the speed is 700 m/s (|800 d - 100 d|, 1e-12); re-statement: the round rule (the pure penetrateRound of js/damage.js) on fireRound\'s own r with momentum 6 kg x 700 m/s gives the same cells passed, the same stop, f and momentum (1e-12); hand-worked literal: the sectional momentum at 700 m/s is 700 / 800 x 1 568 183.48 = 1 372 160.548 kg/(m s) (1e-9), D = 62.43 mm, A = 3.0609e-3 m^2',
   tunable: ['kinetic.muzzleVelocity', 'kinetic.roundMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '2bac2da5' },
   cases() {
     return [{ drift: 100 }];
   },

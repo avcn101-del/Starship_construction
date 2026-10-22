@@ -28,7 +28,7 @@ export default {
   tolerance: 'momentum 1e-9 x the gross (#220); step counts exact',
   criterion: '(split) the neck\'s cut splits the target into exactly two bodies; its momentum is conserved across the split with the impulse the hits gave it (|dP - dJ| <= 1e-9 x the gross + 1e-12); the forward half loses its power and the aft half its bridge in that step, so the target is Disabled exactly 600 steps (battle.disabledSeconds / dt) after the split step, and no explosion; (naive) the beam bay destroyed, the turret still able: neither Disabled nor destroyed in 120 s (13l.3: "the naive order is not Disabled in 120 s")',
   tunable: ['battle.disabledSeconds', 'kinetic.hitsToWreck'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '12e05d28' },
   cases() {
     return [{ order: 'split', aim: 'hold' }, { order: 'naive', aim: 'beamBay' }];
   },

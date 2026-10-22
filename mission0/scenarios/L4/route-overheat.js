@@ -18,7 +18,7 @@ export default {
   tolerance: 'exact (states and events)',
   criterion: 'the target is Disabled (no explosion); the turret lost its ability by being shut down: the Disabled event\'s parent is the turret\'s shutdown event, whose cause is heat, and the turret is not destroyed when the target is Disabled (13l.4: "by shutdown (cause heat), not destruction"); how much integrity is left is not a criterion (13l.6)',
   tunable: ['thermal.crewedOverheated', 'beam.power', 'battle.disabledSeconds'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'c7ac0360' },
   cases() {
     return [{ target: 'T-gun', bearing: '+x' }];
   },

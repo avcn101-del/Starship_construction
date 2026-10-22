@@ -20,7 +20,7 @@ export default {
   tolerance: 'closed forms 1e-12 relative (13k.4)',
   criterion: 'hand-worked: a heat sink cell holds thermal.coupledHeatSink x heatsink.capacityFactor = 1.35e6 x 5 = 6.75e6 J/K, four of them 2.7e7 J/K; the plate adds 0.2 m x 7850 kg/m^3 x 25 m^2 x 450 J/(kg K) = 39 250 kg x 450 = 1.76625e7 J/K, so 4.46625e7 J/K before; after, 2.7e7 - 6.75e6 + 1.76625e7 = 3.79125e7 J/K (13l.4 writes "4 x 2.7e7 - 2.7e7 + 1.7663e7": its literal stands, its arithmetic is per cell), not (4.46625e7) x 3/4 = 3.34969e7 J/K (the plate vented with the cell); the temperature is unchanged (400 K) and the heat vented is the cell\'s share only, 6.75e6 x (400 - 290) = 7.425e8 J',
   tunable: ['thermal.coupledHeatSink', 'heatsink.capacityFactor', 'armour.plateThickness', 'thermal.coupledArmour'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '60b22653' },
   cases() {
     return [{ T: 400 }];
   },

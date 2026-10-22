@@ -16,7 +16,7 @@ export default {
   tolerance: 'exact',
   criterion: 'each ship has exactly one line for every whole second from 0 to floor(t_end), in order, and one end line (the battle ends off a whole second); the two runs\' logs and hashes are equal (E2)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'f91185ca' },
   cases() {
     return [{ battle: 'B1' }];
   },

@@ -15,7 +15,7 @@ export default {
   tolerance: 'exact',
   criterion: 'every event\'s parent is a root (a shot id, a beam id, heat, launch) or the id of an earlier event of the same log, on both ships (no error in js/events.js cascadeTree); (B1) the Disabled event\'s chain runs through the bridge\'s last cell-destroyed event to a shot id; that cell-destroyed event is the parent of a control-lost of every other placed room of R1 (the bridge\'s own included), and the reactor\'s scram is a child of the reactor\'s control-lost (13l.4: shot -> cell-destroyed (bridge) -> control-lost (each room) -> scram (reactor) -> Disabled; the Disabled event hangs from the control-lost of the last weapon to lose its ability, the first failing condition of 13l.1\'s able, a question in the pull request); (B6) the destroyed event\'s parent is the magazine\'s explosion, whose chain runs through a magazine cell-destroyed to a shot id',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'bfad5f3d' },
   cases() {
     return [{ battle: 'B1', aim: 'bridge' }, { battle: 'B6', aim: 'magazine' }];
   },
