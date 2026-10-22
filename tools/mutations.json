@@ -1309,5 +1309,138 @@
     "file": "js/data.js",
     "old": "openingRange: P(900, 500, 2000, 1,",
     "new": "openingRange: P(900, 500, 2000, 0,"
+  },
+  {
+    "id": "l5a.chord.flatLoss",
+    "rule": "13n.1 (b) A passed cell loses by its chord (#273 (b))",
+    "file": "js/rooms.js",
+    "old": "(i < res.passed ? (path[i].chord ?? 1) : a / r[i]) / hits",
+    "new": "(i < res.passed ? 1 : a / r[i]) / hits"
+  },
+  {
+    "id": "l5a.det.never",
+    "rule": "13n.1 (b) The magazine detonates by residual speed (#273 (c))",
+    "file": "js/rooms.js",
+    "old": "entry[i] / mass >= vd && !x.room.exploded",
+    "new": "entry[i] / mass >= Infinity && !x.room.exploded"
+  },
+  {
+    "id": "l5a.det.byPassedSpeed",
+    "rule": "13n.1 (b) The magazine detonates by residual speed (#273 (c)): the speed on entering, not on leaving",
+    "file": "js/rooms.js",
+    "old": "entry[i] / mass >= vd && !x.room.exploded",
+    "new": "(entry[i] - res.impulse[i]) / mass >= vd && !x.room.exploded"
+  },
+  {
+    "id": "l5a.det.destroyedCell",
+    "rule": "13n.1 (b) A destroyed cell alone no longer detonates a magazine",
+    "file": "js/rooms.js",
+    "old": "if (survivingCells(room) === 0) { room.magazine.ap = 0; room.magazine.he = 0; if (room.magazine.slugMass) room.magazine.slugMass = 0; }",
+    "new": "if (magazineContents(world, room).energy > 0) detonate(world, room, 'cell');"
+  },
+  {
+    "id": "l5a.det.roundsKept",
+    "rule": "13n.1 (b) A magazine whose last cell is destroyed loses its rounds as debris",
+    "file": "js/rooms.js",
+    "old": "if (survivingCells(room) === 0) { room.magazine.ap = 0; room.magazine.he = 0; if (room.magazine.slugMass) room.magazine.slugMass = 0; }",
+    "new": "if (survivingCells(room) === 0) { /* rounds kept */ }"
+  },
+  {
+    "id": "l5a.end.magazineEnds",
+    "rule": "13n.1 (b) A magazine's explosion is a blast (#274)",
+    "file": "js/battle.js",
+    "old": "e.type === 'explosion' && s.room(e.room)?.type === 'reactor');",
+    "new": "e.type === 'explosion' && ['reactor', 'magazine'].includes(s.room(e.room)?.type));"
+  },
+  {
+    "id": "l5a.unmanned.ignored",
+    "rule": "13n.1 (b) A room without crew",
+    "file": "js/rooms.js",
+    "old": "const down = (room) => room.shutdown || room.unmanned;",
+    "new": "const down = (room) => room.shutdown;"
+  },
+  {
+    "id": "l5a.unmanned.ableRule",
+    "rule": "13n.1 (b) A room without crew: unmanned in the able rule",
+    "file": "js/battle.js",
+    "old": "      : r.unmanned ? ['unmanned', m.unmanned || 'launch']\n",
+    "new": ""
+  },
+  {
+    "id": "l5a.unmanned.parent",
+    "rule": "13n.1 (b) A room without crew: its parent the crew-died event",
+    "file": "js/rooms.js",
+    "old": "room.marks.unmanned = ev.id;",
+    "new": "room.marks.unmanned = 'heat';"
+  },
+  {
+    "id": "l5a.feed.anyType",
+    "rule": "13n.1 (b) One magazine per weapon type: the feed",
+    "file": "js/rooms.js",
+    "old": "has: (mag) => magazineType(mag) === 'turret' && mag.magazine.ap + mag.magazine.he > 0,",
+    "new": "has: (mag) => mag.magazine.ap + mag.magazine.he > 0 || !!mag.magazine.slugMass,"
+  },
+  {
+    "id": "l5a.feed.ableAnyType",
+    "rule": "13n.1 (b) One magazine per weapon type: the able rule",
+    "file": "js/battle.js",
+    "old": "!mag.exploded && magazineType(mag) === 'turret' && mag.magazine.size === t.size",
+    "new": "!mag.exploded && mag.magazine.size === t.size"
+  },
+  {
+    "id": "l5a.slugs.explode",
+    "rule": "13n.1 (b) A railgun's magazine does not explode",
+    "file": "js/rooms.js",
+    "old": "if (magazineType(room) === 'railgun') return { ap: 0, he: 0, slugMass: g.slugMass, energy: 0 };",
+    "new": "if (magazineType(room) === 'railgun') return { ap: 0, he: 0, slugMass: g.slugMass, energy: g.slugMass * 1e6 };"
+  },
+  {
+    "id": "l5a.missile.loads",
+    "rule": "13n.1 (b) One magazine per weapon type: the missile TODO (L5c)",
+    "file": "js/rooms.js",
+    "old": "  if (type === 'missile') throw new Error(`TODO: ${MISSILE_TODO}`);\n  const capacity",
+    "new": "  const capacity"
+  },
+  {
+    "id": "l5a.line.centre",
+    "rule": "13n.1 (b) B2: the impulse on the line of action",
+    "file": "js/rooms.js",
+    "old": "const entryPoint = (world, x) => x.at || (x.plate ? x.plate.p : cellCentre(world, x.room, x.cell));",
+    "new": "const entryPoint = (world, x) => (x.plate ? x.plate.p : cellCentre(world, x.room, x.cell));"
+  },
+  {
+    "id": "l5a.line.noProjection",
+    "rule": "13n.1 (b) B2: the line through the round",
+    "file": "js/battle.js",
+    "old": "    lineOfAction(r.ref.x, u, bf, hit.path, x);\n",
+    "new": ""
+  },
+  {
+    "id": "l5a.embed.spent",
+    "rule": "13n.1 (b) B4: a stopped round joins the body",
+    "file": "js/battle.js",
+    "old": "if (stopped && res && res.u1 && res.stoppedIn >= 0) {",
+    "new": "if (false) {"
+  },
+  {
+    "id": "l5a.heat.byImpulse",
+    "rule": "13n.1 (b) L4: heat split by energy",
+    "file": "js/rooms.js",
+    "old": "const took = res.impulse.map((imp, i) => entry[i] * entry[i] - (entry[i] - imp) * (entry[i] - imp));",
+    "new": "const took = res.impulse.map((imp) => imp);"
+  },
+  {
+    "id": "l5a.energy.noRecoil",
+    "rule": "13n.1 (b) B3: muzzle energy includes the recoil's",
+    "file": "js/rooms.js",
+    "old": "world.ship.energy.shots += 0.5 * m * u * u + (Jr[0] * Jr[0] + Jr[1] * Jr[1]) / (2 * b.M) + (h * h) / (2 * b.I);",
+    "new": "world.ship.energy.shots += 0.5 * m * u * u;"
+  },
+  {
+    "id": "l5a.energy.noWork",
+    "rule": "13n.1 (b) B3: the work of thrust and RCS",
+    "file": "js/rooms.js",
+    "old": "ship.energy.work += 0.5 * b.M",
+    "new": "ship.energy.work += 0 * b.M"
   }
 ]

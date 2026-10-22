@@ -1,5 +1,37 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — L5a: the kinetic pass (#278)
+
+- `js/rooms.js`: a passed cell loses chord / `kinetic.hitsToWreck`
+  (#273 (b)); a magazine with rounds detonates when a round enters a
+  standing cell of it at `magazine.detonationSpeed` or more (#273 (c), a
+  `detonation` event, the explosion its child); a destroyed magazine cell
+  no longer detonates it and its last cell loses the rounds as debris;
+  `loadMagazine` takes a weapon type (`turret`, `railgun` slugs with no
+  energy, `missile` a TODO that throws until L5c); a room that requires
+  crew and has none is `unmanned` (no function, as if shut down; a new
+  `unmanned` event); B2 the impulse at each entry's point on the round's
+  line of action, B3 energy books (`world.ship.energy`), B4 `embedRound`
+  (a stopped round joins its body), L4 the heat split by the energy each
+  entry took.
+- `js/battle.js`: a magazine's explosion no longer ends the battle
+  (#274); `unmanned` in the able rule after `heat`, its parent the
+  `crew-died` event; a turret fed only by a turret magazine; `lineHit`
+  gives each entry its point, `strike` the line of action and B4;
+  `battleEnergy`, `battleAngular`.
+- `js/data.js`: `magazine.detonationSpeed` (400 m/s, 200–600, k = 0,
+  approved as the plan's); `CONSTANTS.md` regenerated.
+- `mission0/targets.js`: T-neck2 and T-gun2 (§17 item 36).
+- `proto/battle.js`: the end by the kernel's rules (a magazine's
+  explosion ends nothing by itself).
+- Scenarios K1–K6 (`L0.kinetic.chord.loss`, `L2.magazine.detonation`,
+  `L4.kill.v3`, `L2.magazine.types`, `L1.room.unmanned`,
+  `L4.books.energy`, `L4.books.angular`) and eleven K8 successors; twelve
+  scenarios withdrawn as superseded by #278; every other standing
+  scenario re-recorded on the new data hash.
+- `tools/mutations.json`: 19 `l5a.*` mutations; 15 stale ones
+  re-anchored on the new text (same edits).
+
 ## Unreleased — 2026-10-22 — The L5 plan (#277, #278)
 
 - `DECISIONS.md` #277 (the owner: O1–O5 as recommended, option A on the

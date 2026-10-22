@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `16334a0`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `d6aa4f4`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -74,6 +74,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | turret.heatPerShot | 300000 | J | 100000 | 1000000 | 3 | true | size M (#183) |
 | turret.readyRounds | 4 | rounds | 2 | 10 | 0 | true | rounds held in the turret, of its own size; it fires from this store and the magazine feed refills it (#193, #195) |
 | magazine.capacity | 900 | kg | 300 | 3000 | 3 | true | ammunition mass a magazine holds: 150 M rounds (#91, #183, #206) |
+| magazine.detonationSpeed | 400 | m/s | 200 | 600 | 0 | true | a magazine with rounds detonates when a round enters one of its cells at this speed or more (relative to the hull; the round rule's momentum on entering over the round's mass, whether it stops there or passes); a destroyed cell alone no longer detonates it: between an M round after one crewed cell (333 m/s) and after a shield generator cell (485 m/s), so a crewed screen protects against M rounds, not L; the first rung-1 lever of the L5 pace study (#273 (c), #278; approved as the plan's, #272 (2)) |
 | quarters.crewPerCell | 4 | crew | 1 | 8 | 2 | true | crew housed per surviving cell: 24 in a T1 quarters, 6 m^2 of a 25 m^2 cell per sleeper (a warship's berthing); 3 -> 4 so R1's 20 crew have berths (validateShip's crew rule) (#60, #65, #183, #220 (5), #253) |
 | quarters.powerDraw | 50000 | W | 10000 | 200000 | 2 | true | #183 |
 | repair.massRate | 200 | kg/s | 50 | 1000 | 0 | true | cell mass a quarters restores per second with all cells surviving: a cell regains massRate / cell mass of integrity per second; the old 0.02/s on a 10 t cell (#51, #183, #240 (1), #243, F13) |
