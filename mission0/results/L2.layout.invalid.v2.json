@@ -1,0 +1,396 @@
+{
+  "id": "L2.layout.invalid.v2",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.layout.invalid.v2",
+  "code": "7399706",
+  "criterionHash": "61e8868b",
+  "lockedHash": "61e8868b",
+  "runHash": "b14d0c52",
+  "dataHash": "7456430e",
+  "rowsHash": "8e237231",
+  "rows": [
+    {
+      "case": {
+        "kind": "place",
+        "name": "place-overlap"
+      },
+      "expected": {
+        "throws": true,
+        "says": "overlaps"
+      },
+      "actual": {
+        "threw": true,
+        "message": "second: cell (1, 1) overlaps first"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "place",
+        "name": "place-grid"
+      },
+      "expected": {
+        "throws": true,
+        "says": "outside"
+      },
+      "actual": {
+        "threw": true,
+        "message": "second: cell (30, 13) is outside the 30 x 14 grid"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "place",
+        "name": "place-rotation"
+      },
+      "expected": {
+        "throws": true,
+        "says": "rotation"
+      },
+      "actual": {
+        "threw": true,
+        "message": "second: rotation must be 0 or 90 degrees"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "place",
+        "name": "place-integer"
+      },
+      "expected": {
+        "throws": true,
+        "says": "integer"
+      },
+      "actual": {
+        "threw": true,
+        "message": "second: a room sits at an integer cell position"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "place",
+        "name": "place-valid"
+      },
+      "expected": {
+        "throws": false,
+        "says": null
+      },
+      "actual": {
+        "threw": false,
+        "message": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "valid"
+      },
+      "expected": {
+        "valid": true,
+        "rules": []
+      },
+      "actual": {
+        "valid": true,
+        "rules": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "grid"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "grid"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "grid"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "overlap"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "overlap"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "overlap"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "connected"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "connected"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "connected"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "hull"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "hull"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "hull"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "exhaust"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "exhaust"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "exhaust"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "axis"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "axis"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "axis"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "bow"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "bow"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "bow"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "fitting-open-edge"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "fitting-open-edge"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "fitting-open-edge"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "fitting-inside"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "fitting-inside"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "fitting-inside"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "fitting-exhaust"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "fitting-exhaust"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "fitting-exhaust"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "fitting-per-edge"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "fitting-per-edge"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "fitting-per-edge"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "crew"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "crew"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "crew"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "plate-wall"
+      },
+      "expected": {
+        "valid": false,
+        "rules": [
+          "plate-wall"
+        ]
+      },
+      "actual": {
+        "valid": false,
+        "rules": [
+          "plate-wall"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "validate",
+        "name": "valid R1c"
+      },
+      "expected": {
+        "valid": true,
+        "rules": []
+      },
+      "actual": {
+        "valid": true,
+        "rules": []
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

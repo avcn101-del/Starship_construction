@@ -1,14 +1,14 @@
 {
   "id": "L2.layout.invalid",
   "level": "L2",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L2.layout.invalid",
-  "code": "baf8d67+dirty",
+  "code": "6feb7e0",
   "criterionHash": "675ffe6b",
   "lockedHash": "675ffe6b",
   "runHash": "b14d0c52",
-  "dataHash": "b958ce58",
-  "rowsHash": "dc545b08",
+  "dataHash": "414d5e11",
+  "rowsHash": "d615a9df",
   "rows": [
     {
       "case": {
@@ -180,11 +180,12 @@
       "actual": {
         "valid": false,
         "rules": [
-          "hull"
+          "hull",
+          "crew"
         ]
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "rule not named as specified"
     },
     {
       "case": {

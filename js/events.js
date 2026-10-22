@@ -15,6 +15,8 @@ export const EVENT_FIELDS = {
   'cell-damaged': ['channel', 'cell', 'integrity'], // a hit left the cell with integrity above 0 (#206)
   'cell-destroyed': ['channel', 'cell'],
   'cell-repaired': ['cell'],
+  'plate-damaged': ['channel', 'plate', 'integrity'], // an armour plate on a wall segment (13l.1); room: the room it is mounted on
+  'plate-destroyed': ['channel', 'plate'], // the plate is a hole; its mass leaves as debris
   scram: ['energy'], // energy: decay heat still to come (J)
   breach: [], // reactor containment breached: the countdown starts
   meltdown: [],

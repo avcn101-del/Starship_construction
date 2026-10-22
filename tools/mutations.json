@@ -261,8 +261,9 @@
     "id": "d1.shov.bufferOverlapAllowed",
     "rule": "13d.1 Shield overlap (impulse buffer shared)",
     "file": "js/rooms.js",
-    "old": "if (gens.length > 1) throw new Error('a round in overlapping fields: how the buffers share it is a question for the designer (L2 pull request)');",
-    "new": ""
+    "old": "const strength = Math.min(1, g.reduce((x, y) => x + y, 0)), stop",
+    "new": "const strength = Math.max(...g), stop",
+    "note": "L4a (#257, A2): the kernel no longer throws on a round in overlapping fields; this id now mutates the overlap rule itself: the strongest field instead of the summed strength"
   },
   {
     "id": "d1.shbuf.refillIgnoresBeams",
@@ -367,7 +368,7 @@
     "id": "f1.dest.heatStays",
     "rule": "13f.1 Destroyed cells (heat leaves)",
     "file": "js/rooms.js",
-    "old": "{ ventCell(room.heat, room.heatCells, FIXED.restTemperature.value); room.heatCells--; }",
+    "old": "{ ventCell(room.heat, room.heatCells, FIXED.restTemperature.value, plateCapacityOf(world, room)); room.heatCells--; }",
     "new": "{ }"
   },
   {
@@ -486,8 +487,8 @@
     "id": "f1.val.addFittingChecks",
     "rule": "13f.1 Validation",
     "file": "js/rooms.js",
-    "old": "if (problem) throw new Error(`${problem.rule}: ${problem.detail}`);",
-    "new": ""
+    "old": "const problem = fittingProblem(world.layout, ROOMS, { room: roomId, cell, side }, world.fittings);\n  if (problem) throw new Error(`${problem.rule}: ${problem.detail}`);",
+    "new": "const problem = fittingProblem(world.layout, ROOMS, { room: roomId, cell, side }, world.fittings);\n  "
   },
   {
     "id": "f1.val.rcsUnknownType",
@@ -677,8 +678,8 @@
     "id": "i1.kres.armourConst",
     "rule": "13i.1 Kinetic resistance",
     "file": "js/rooms.js",
-    "old": "const r = path.map((x) => c * cellArealDensity(world, x.room, x.cell) * (x.chord ?? 1));",
-    "new": "const r = path.map((x) => c * (x.room.cells[x.cell].destroyed ? 0 : tierScaled(world, world.params.armour.cellMass) / (world.edge * world.edge)) * (x.chord ?? 1));",
+    "old": "const r = path.map((x) => c * entryArealDensity(world, x) * (x.chord ?? 1));",
+    "new": "const r = path.map((x) => c * (x.plate ? entryArealDensity(world, x) : x.room.cells[x.cell].destroyed ? 0 : tierScaled(world, world.params.armour.cellMass) / (world.edge * world.edge)) * (x.chord ?? 1));",
     "note": "planned in Q6, written from its name: every cell resists like an armour cell, whatever its mass"
   },
   {
@@ -693,7 +694,7 @@
     "id": "k1.burn.notByMass",
     "rule": "13k.1 Burn by mass",
     "file": "js/rooms.js",
-    "old": "const ruin = path.map((x) => q * cellMassOf(world, x.room));",
+    "old": "const ruin = path.map((x) => q * (x.plate ? x.plate.mass : cellMassOf(world, x.room)));",
     "new": "const ruin = path.map(() => q * 1e4);",
     "note": "every cell ruined like a 10 t armour cell (the old one burn energy)"
   },
@@ -701,8 +702,8 @@
     "id": "k1.blast.notByMass",
     "rule": "13k.1 Blast by mass",
     "file": "js/rooms.js",
-    "old": "(r === origin ? survivorsBefore : survivingCells(r)) * qb * cellMassOf(world, r)",
-    "new": "(r === origin ? survivorsBefore : survivingCells(r)) * qb * 1e4",
+    "old": "(r === origin ? integrityBefore : remainingIntegrity(r)) * qb * cellMassOf(world, r)",
+    "new": "(r === origin ? integrityBefore : remainingIntegrity(r)) * qb * 1e4",
     "note": "every cell absorbs like a 10 t armour cell"
   },
   {
@@ -725,7 +726,7 @@
     "id": "k1.books.noTargetImpulse",
     "rule": "13k.1 Books close at the target",
     "file": "js/rooms.js",
-    "old": "        receive(world, b, Ji, cellCentre(world, path[i].room, path[i].cell));\n",
+    "old": "        receive(world, b, Ji, entryPoint(world, path[i]));\n",
     "new": "",
     "note": "the hit cells' impulse is not applied to the target"
   },
@@ -741,7 +742,7 @@
     "id": "k1.shield.noImpulse",
     "rule": "13k.1 The shield's books",
     "file": "js/rooms.js",
-    "old": "      receive(world, b, J, g.position);\n",
+    "old": "          receive(world, b, J, gens[i].position);\n",
     "new": "",
     "note": "the field's impulse is not applied to the generator's ship"
   },
@@ -749,7 +750,7 @@
     "id": "k1.shield.impulseAtCentre",
     "rule": "13k.1 The shield's books",
     "file": "js/rooms.js",
-    "old": "receive(world, b, J, g.position);",
+    "old": "receive(world, b, J, gens[i].position);",
     "new": "receive(world, b, J, [0, 0]);",
     "note": "the field's impulse applied at the grid origin instead of the generator"
   },
@@ -829,16 +830,16 @@
     "id": "k1.chord.roundIgnored",
     "rule": "13k.1 Chord rule",
     "file": "js/rooms.js",
-    "old": "const r = path.map((x) => c * cellArealDensity(world, x.room, x.cell) * (x.chord ?? 1));",
-    "new": "const r = path.map((x) => c * cellArealDensity(world, x.room, x.cell));",
+    "old": "const r = path.map((x) => c * entryArealDensity(world, x) * (x.chord ?? 1));",
+    "new": "const r = path.map((x) => c * entryArealDensity(world, x));",
     "note": "a round resists the full cell whatever its chord"
   },
   {
     "id": "k1.chord.beamIgnored",
     "rule": "13k.1 Chord rule",
     "file": "js/rooms.js",
-    "old": "const sigmas = path.map((x) => cellArealDensity(world, x.room, x.cell) * (x.chord ?? 1));",
-    "new": "const sigmas = path.map((x) => cellArealDensity(world, x.room, x.cell));",
+    "old": "const sigmas = path.map((x) => entryArealDensity(world, x) * (x.chord ?? 1));",
+    "new": "const sigmas = path.map((x) => entryArealDensity(world, x));",
     "note": "a beam crosses the full cell whatever its chord"
   },
   {
@@ -885,8 +886,8 @@
     "id": "k1.deposit.damageFirst",
     "rule": "13k.1 Deposit then damage",
     "file": "js/rooms.js",
-    "old": "  path.forEach((x, i) => { if (energies[i] > 0) depositHeat(x.room.heat, energies[i]); });\n  path.forEach((x, i) => { if (energies[i] > 0) damageCell(world, x.room, x.cell, energies[i] / ruin[i], cause, 'thermal'); });",
-    "new": "  path.forEach((x, i) => { if (energies[i] > 0) damageCell(world, x.room, x.cell, energies[i] / ruin[i], cause, 'thermal'); });\n  path.forEach((x, i) => { if (energies[i] > 0) depositHeat(x.room.heat, energies[i]); });",
+    "old": "  path.forEach((x, i) => { if (energies[i] > 0) depositHeat(x.room.heat, energies[i]); });\n  path.forEach((x, i) => { if (energies[i] > 0) damageEntry(world, x, energies[i] / ruin[i], cause, 'thermal'); });",
+    "new": "  path.forEach((x, i) => { if (energies[i] > 0) damageEntry(world, x, energies[i] / ruin[i], cause, 'thermal'); });\n  path.forEach((x, i) => { if (energies[i] > 0) depositHeat(x.room.heat, energies[i]); });",
     "note": "damage before deposit"
   },
   {
@@ -904,5 +905,261 @@
     "old": "event(world, room, 'control-restored', cause);",
     "new": "event(world, room, 'control-regained', cause);",
     "note": "the control-restored event renamed"
+  },
+  {
+    "id": "l1.plate.roundIgnored",
+    "rule": "13l.1 Armour on walls",
+    "file": "js/rooms.js",
+    "old": "if (x.plate) return plateGone(world, x.plate) ? 0 : (x.plate.thickness * FIXED.steelDensity.value) / Math.max(x.cos ?? 1, x.plate.thickness / world.edge);",
+    "new": "if (x.plate) return 0;",
+    "note": "a plate on the path meets nothing (sigma 0)"
+  },
+  {
+    "id": "l1.plate.notOnPath",
+    "rule": "13l.1 Armour on walls",
+    "file": "js/rooms.js",
+    "old": "if (x) out.push(x);",
+    "new": "",
+    "note": "pathAlong leaves the plates out"
+  },
+  {
+    "id": "l1.plate.noMass",
+    "rule": "13l.1 Armour on walls (mass)",
+    "file": "js/rooms.js",
+    "old": "if (!c.destroyed && !f.destroyed) items.set(",
+    "new": "if (!c.destroyed && !f.destroyed && f.type !== 'armour') items.set(",
+    "note": "a plate's mass is not on the ship"
+  },
+  {
+    "id": "l1.plate.noDebris",
+    "rule": "13l.1 Armour on walls (debris)",
+    "file": "js/rooms.js",
+    "old": "if (!c.destroyed && !f.destroyed) items.set(",
+    "new": "if (!c.destroyed) items.set(",
+    "note": "a wrecked plate's mass stays on the ship"
+  },
+  {
+    "id": "l1.plate.noLoss",
+    "rule": "13l.1 Armour on walls (losses)",
+    "file": "js/rooms.js",
+    "old": "(x.plate ? damagePlate(world, x.plate, loss, cause, channel) :",
+    "new": "(x.plate ? null :",
+    "note": "a plate takes no losses and never becomes a hole"
+  },
+  {
+    "id": "l1.crew.noRule",
+    "rule": "13l.1 Crew capacity",
+    "file": "js/layout.js",
+    "old": "if (crew.required > crew.berths) reasons.push(",
+    "new": "if (false) reasons.push(",
+    "note": "validateShip without the crew rule"
+  },
+  {
+    "id": "l1.crew.berthsPerRoom",
+    "rule": "13l.1 Crew capacity",
+    "file": "js/layout.js",
+    "old": "berths += Math.round(scaled(params.quarters.crewPerCell, layout.edge)) * n;",
+    "new": "berths += Math.round(scaled(params.quarters.crewPerCell, layout.edge));",
+    "note": "a quarters berths crewPerCell, not per cell"
+  },
+  {
+    "id": "l1.blast.integrityIgnored",
+    "rule": "13l.1 Blast capacity from remaining integrity",
+    "file": "js/rooms.js",
+    "old": "(r === origin ? integrityBefore : remainingIntegrity(r)) * qb * cellMassOf(world, r)",
+    "new": "(r === origin ? integrityBefore : survivingCells(r)) * qb * cellMassOf(world, r)",
+    "note": "capacity by surviving cells, ignoring damage (before L4a)"
+  },
+  {
+    "id": "l1.blast.uniformLoss",
+    "rule": "13l.1 Blast capacity from remaining integrity",
+    "file": "js/rooms.js",
+    "old": "damageCell(world, r, i, frac === 1 ? 1 : c.integrity * frac, cause, 'blast')",
+    "new": "damageCell(world, r, i, frac, cause, 'blast')",
+    "note": "each cell loses the absorbed fraction of a whole cell, not of its remaining integrity"
+  },
+  {
+    "id": "l1.ov.equalShares",
+    "rule": "13l.1 Rounds in overlapping fields",
+    "file": "js/rooms.js",
+    "old": "let paid = w.map((wi) => (W > 0 ? r.energy * (wi / W) : 0));",
+    "new": "let paid = w.map(() => r.energy / w.length);",
+    "note": "the generators pay equal shares, not by buffer x g"
+  },
+  {
+    "id": "l1.ov.noCap",
+    "rule": "13l.1 Rounds in overlapping fields",
+    "file": "js/rooms.js",
+    "old": "if (paid.some((x, i) => x > buffers[i])) {",
+    "new": "if (false) {",
+    "note": "a generator may pay past its buffer"
+  },
+  {
+    "id": "l1.ov.impulseAtFirst",
+    "rule": "13l.1 Rounds in overlapping fields",
+    "file": "js/rooms.js",
+    "old": "receive(world, b, J, gens[i].position);",
+    "new": "receive(world, b, J, gens[0].position);",
+    "note": "every generator's share of the impulse acts at the first generator"
+  },
+  {
+    "id": "l1.shield.heatOmitsGain",
+    "rule": "13l.1 Kernel fixes (shieldRound's J^2/2M)",
+    "file": "js/rooms.js",
+    "old": "- u1[0] * u1[0] - u1[1] * u1[1]) - (bodiesEnergy(world) - K0);\n        for (const i of list)",
+    "new": "- u1[0] * u1[0] - u1[1] * u1[1]);\n        for (const i of list)",
+    "note": "the field's heat omits the ship's kinetic-energy gain (before L4a)"
+  },
+  {
+    "id": "l1.csda.fullLastStep",
+    "rule": "13l.1 Kernel fixes (csdaRange continuous)",
+    "file": "js/damage.js",
+    "old": "return { E: 0, stoppedAt: x + lo, steps };",
+    "new": "return { E: 0, stoppedAt: x + h, steps };",
+    "note": "the last step counted whole (before L4a)"
+  },
+  {
+    "id": "l1.readout.blueprintNoFittings",
+    "rule": "13l.1 Shipyard readout",
+    "file": "js/rooms.js",
+    "old": "const p = world.params, items = world.ship ? world.ship.items : shipItems(world);",
+    "new": "const p = world.params, items = world.ship ? world.ship.items : new Map([...shipItems(world)].filter(([k]) => !k.startsWith('fit:')));",
+    "note": "the blueprint readout leaves the fittings out"
+  },
+  {
+    "id": "l1.bridge.offCause",
+    "rule": "13l.4 A8 (#257 Q2)",
+    "file": "js/rooms.js",
+    "old": "event(world, room, 'control-lost', room.active ? 'overheat' : 'off');",
+    "new": "event(world, room, 'control-lost', 'overheat');",
+    "note": "a switched-off bridge reports overheat"
+  },
+  {
+    "id": "k1.beamPaths.neverCleared",
+    "rule": "13k.1 Findings (beamPaths cleared, #257 reviewer 5)",
+    "file": "js/rooms.js",
+    "old": "  if (world.beamPaths) world.beamPaths.clear(); // the deposit along any path through it changes (#236)\n",
+    "new": "",
+    "note": "the beam's deposit cache is never cleared"
+  },
+  {
+    "id": "k1.csda.materialIgnored",
+    "rule": "13k.1 Findings (csdaRange's material, #257 reviewer 5)",
+    "file": "js/damage.js",
+    "old": "return slowDown(E, Infinity, material ? { ...c, ZA: material.ZA, I: material.I } : c).stoppedAt;",
+    "new": "return slowDown(E, Infinity, c).stoppedAt;",
+    "note": "csdaRange ignores its material (always iron)"
+  },
+  {
+    "id": "a5.melt.noExplosion",
+    "rule": "13l.4 A5 Meltdown",
+    "file": "js/rooms.js",
+    "old": "event(world, room, 'meltdown', 'heat');\n    explode(world, room, explosionEnergy(world, room), 'heat');",
+    "new": "event(world, room, 'meltdown', 'heat');",
+    "note": "a reactor at critical melts down without exploding (A5, reviewer N8 on PR #58)"
+  },
+  {
+    "id": "a5.melt.noEvent",
+    "rule": "13l.4 A5 Meltdown",
+    "file": "js/rooms.js",
+    "old": "event(world, room, 'meltdown', 'heat');\n    explode(",
+    "new": "explode(",
+    "note": "the explosion at critical without its meltdown event"
+  },
+  {
+    "id": "l4f.plate.cosIgnored",
+    "rule": "#258 (2) sigma / cos theta",
+    "file": "js/rooms.js",
+    "old": "/ Math.max(x.cos ?? 1, x.plate.thickness / world.edge);",
+    "new": "/ Math.max(1, x.plate.thickness / world.edge);",
+    "note": "a plate meets sigma at any angle"
+  },
+  {
+    "id": "l4f.plate.noCap",
+    "rule": "#258 (2) the cap cos theta >= d / edge",
+    "file": "js/rooms.js",
+    "old": "/ Math.max(x.cos ?? 1, x.plate.thickness / world.edge);",
+    "new": "/ (x.cos ?? 1);",
+    "note": "sigma / cos theta without the cap"
+  },
+  {
+    "id": "l4f.pathAlong.cosOne",
+    "rule": "#258 (2) sigma / cos theta (pathAlong)",
+    "file": "js/rooms.js",
+    "old": "const cos = direction ? Math.abs(direction[0] * (b[0] - a[0]) + direction[1] * (b[1] - a[1])) / Math.hypot(direction[0], direction[1]) : 1;",
+    "new": "const cos = 1;",
+    "note": "pathAlong ignores the line's direction"
+  },
+  {
+    "id": "l4f.plate.chordIgnored",
+    "rule": "13l.1 Armour on walls (the plate entry's chord, reviewer N8)",
+    "file": "js/rooms.js",
+    "old": "const r = path.map((x) => c * entryArealDensity(world, x) * (x.chord ?? 1));",
+    "new": "const r = path.map((x) => c * entryArealDensity(world, x) * (x.plate ? 1 : x.chord ?? 1));",
+    "note": "a round ignores a plate entry's chord"
+  },
+  {
+    "id": "l4f.plate.notBurnt",
+    "rule": "#258 (1) plates burn by mass",
+    "file": "js/rooms.js",
+    "old": "path.forEach((x, i) => { if (energies[i] > 0) damageEntry(",
+    "new": "path.forEach((x, i) => { if (energies[i] > 0 && !x.plate) damageEntry(",
+    "note": "a beam does not burn a plate (L4a before #258)"
+  },
+  {
+    "id": "l4f.plate.burnByCell",
+    "rule": "#258 (1) plates burn by mass",
+    "file": "js/rooms.js",
+    "old": "q * (x.plate ? x.plate.mass : cellMassOf(world, x.room))",
+    "new": "q * cellMassOf(world, x.room)",
+    "note": "a plate burns by its mount room's cell mass, not its own"
+  },
+  {
+    "id": "l4f.plate.noCapacity",
+    "rule": "#258 (3) the plate's heat capacity",
+    "file": "js/rooms.js",
+    "old": "  addCapacity(roomById(world, roomId).heat, heatCapacity);\n",
+    "new": "",
+    "note": "a plate adds no heat capacity to its room"
+  },
+  {
+    "id": "l4f.plate.capacityStays",
+    "rule": "#258 (3) the plate's heat capacity leaves with it",
+    "file": "js/rooms.js",
+    "old": "  ventCapacity(roomById(world, f.room).heat, f.heatCapacity, FIXED.restTemperature.value);\n",
+    "new": "",
+    "note": "a gone plate's heat capacity stays in its room"
+  },
+  {
+    "id": "l4f.plate.cellVentsPlate",
+    "rule": "#258 (3) a cell's share excludes its room's plates",
+    "file": "js/rooms.js",
+    "old": "const plateCapacityOf = (world, room) => (world.plates ?",
+    "new": "const plateCapacityOf = (world, room) => (false ?",
+    "note": "a destroyed cell vents a share of the plates' capacity too"
+  },
+  {
+    "id": "l4f.plate.heatToNext",
+    "rule": "13l.1 the plate's heat in its mount room (reviewer N8)",
+    "file": "js/rooms.js",
+    "old": "const withRooms = (world, path) => path.map((x) => (x.plate ? { ...x, room: roomById(world, x.plate.room) } : x));",
+    "new": "const withRooms = (world, path) => path.map((x, i) => (x.plate ? { ...x, room: (path[i + 1] && path[i + 1].room) || roomById(world, x.plate.room) } : x));",
+    "note": "a plate's heat goes to the room of the next cell on the path"
+  },
+  {
+    "id": "l4f.plate.heatToPrevious",
+    "rule": "13l.1 the plate's heat in its mount room (reviewer N8)",
+    "file": "js/rooms.js",
+    "old": "const withRooms = (world, path) => path.map((x) => (x.plate ? { ...x, room: roomById(world, x.plate.room) } : x));",
+    "new": "const withRooms = (world, path) => path.map((x, i) => (x.plate ? { ...x, room: (i > 0 && path[i - 1].room) || roomById(world, x.plate.room) } : x));",
+    "note": "a plate's heat goes to the room of the cell before it on the path"
+  },
+  {
+    "id": "l4f.shield.oneFrame",
+    "rule": "#258 (11) generators on different bodies (reviewer N5)",
+    "file": "js/rooms.js",
+    "old": "const hull = pointVelocity(b, worldPoint(b, round.position)), d = rotate(round.direction, b.theta);",
+    "new": "const f0 = [...groups.keys()][0], hull = pointVelocity(f0, worldPoint(f0, round.position)), d = rotate(round.direction, b.theta);",
+    "note": "every body's share taken at the first body's hull velocity (the L4a books)"
   }
 ]

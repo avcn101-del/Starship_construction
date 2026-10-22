@@ -1,0 +1,47 @@
+{
+  "id": "L3.destroyed.mass",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.destroyed.mass",
+  "code": "7399706",
+  "criterionHash": "55c53d00",
+  "lockedHash": "55c53d00",
+  "runHash": "f43b466c",
+  "dataHash": "7456430e",
+  "rowsHash": "5855d125",
+  "rows": [
+    {
+      "case": {
+        "cell": 1
+      },
+      "expected": {
+        "M": 947534.0573339704,
+        "debris": 3000
+      },
+      "actual": {
+        "M": 947534.0573339704,
+        "debris": [
+          3000
+        ],
+        "left": [
+          0.6666666666666667,
+          0,
+          0.09999999999999998,
+          1
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

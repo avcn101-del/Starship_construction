@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.lifesupport.routed.v3",
-  "code": "baf8d67+dirty",
+  "code": "7399706",
   "criterionHash": "42816b06",
   "lockedHash": "42816b06",
   "runHash": "98b531b8",
-  "dataHash": "b958ce58",
-  "rowsHash": "c282a793",
+  "dataHash": "7456430e",
+  "rowsHash": "faa2c976",
   "rows": [
     {
       "case": {
@@ -984,7 +984,7 @@
         "pumped": 207119566.6410442,
         "reactorMax": 301.45435483627085,
         "supplied": true,
-        "crew": 18,
+        "crew": 24,
         "slack": 295.01,
         "reactorHot": 600
       },
@@ -2839,7 +2839,7 @@
         "pumped": 161673394.01666546,
         "reactorMax": 297.3634843980491,
         "supplied": true,
-        "crew": 18,
+        "crew": 24,
         "slack": 295.01,
         "reactorHot": 600
       },
@@ -4694,7 +4694,7 @@
         "pumped": 0,
         "reactorMax": 290.24959454874624,
         "supplied": false,
-        "crew": 18,
+        "crew": 24,
         "slack": 295.01,
         "reactorHot": 600
       },
@@ -6091,7 +6091,7 @@
         "pumped": 127470000,
         "reactorMax": 296.65675550408025,
         "supplied": true,
-        "crew": 18,
+        "crew": 24,
         "slack": 295.01,
         "reactorHot": 600
       },
@@ -6544,7 +6544,7 @@
         "reactorMax": 296.6567477563733,
         "hot": 186.35,
         "critical": 442.06666666666666,
-        "deaths": 18,
+        "deaths": 24,
         "diedAt": 442.06666666666666,
         "pumpedOut": 127470000,
         "pumpedIn": 127470000,
@@ -7050,7 +7050,7 @@
         "pumped": 133265000,
         "reactorMax": 296.2831240960893,
         "supplied": true,
-        "crew": 18,
+        "crew": 24,
         "slack": 295.01,
         "reactorHot": 600
       },
@@ -7523,7 +7523,7 @@
         "reactorMax": 296.28311631825386,
         "hot": 199.4,
         "critical": 462.23333333333335,
-        "deaths": 18,
+        "deaths": 24,
         "diedAt": 462.23333333333335,
         "pumpedOut": 133265000,
         "pumpedIn": 133265000,
@@ -7894,7 +7894,7 @@
         "pumped": 0,
         "reactorMax": 290.16800131229206,
         "supplied": false,
-        "crew": 18,
+        "crew": 24,
         "slack": 295.01,
         "reactorHot": 600
       },
@@ -8232,7 +8232,7 @@
         "reactorMax": 290.1679929175006,
         "hot": 144.73333333333332,
         "critical": 327.7,
-        "deaths": 18,
+        "deaths": 24,
         "diedAt": 327.7,
         "pumpedOut": 0,
         "pumpedIn": 0,

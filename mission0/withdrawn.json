@@ -728,5 +728,21 @@
     "recordHash": "e6ebd1c1",
     "reason": "Superseded by #249: it expected E = beam.gradient (k = -0.41) x N x edge exactly at T3; the kernel now solves the energy of T1's CSDA depth in armour cells. The successor checks that depth within 1e-9 at T3 and the exact T1 energy; nothing else changes. Recorded PASS on the power-law kernel.",
     "frozen": true
+  },
+  {
+    "id": "L2.layout.invalid",
+    "successor": "L2.layout.invalid.v2",
+    "decision": "#258",
+    "recordHash": "e86a6536",
+    "reason": "Superseded by #253's crew rule (#258 (5)): its hull blueprint (a bridge and a turret walled in by holds) has no quarters and now also fails crew, so it reports two rules where it expects one. Locked and recorded with that FAIL, frozen (#245). The successor adds a quarters beside the bridge and the cases crew, plate-wall and valid R1c.",
+    "frozen": true
+  },
+  {
+    "id": "L0.armour.plate",
+    "successor": "L0.armour.plate.v2",
+    "decision": "#258",
+    "recordHash": "6598c8f6",
+    "reason": "Specification error of the lead designer (#258 (1)): it asserts 'the plate is not burnt', while by #240 (1) a plate burns by its mass like a cell. Recorded PASS on the L4a kernel without the burn, frozen (#245). The successor asserts the burn and its ruin time, sigma / cos theta and the plate's heat capacity, with hand-worked literals for the thin-plate fractions.",
+    "frozen": true
   }
 ]

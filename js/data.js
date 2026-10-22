@@ -76,7 +76,8 @@ const S_ROUND_STOP = sRoundStop(KINETIC);
 export const PARAMS = {
   kinetic: KINETIC,
   armour: {
-    cellMass: P(1e4, 3e3, 3e4, 3, 'kg', true, 'one armour cell at T1: 5 cm of steel over 25 m^2, sigma 400 kg/m^2 (L0\'s armour cell; armour fittings come later, #15, #235)'),
+    cellMass: P(1e4, 3e3, 3e4, 3, 'kg', true, 'one armour cell at T1: 5 cm of steel over 25 m^2, sigma 400 kg/m^2 (L0\'s armour cell, #235); armour fittings are plates on wall segments (armour.plateThickness, #255, #256)'),
+    plateThickness: P(0.2, 0.01, 0.4, 1, 'm', true, 'a steel plate on a hull edge or a shared wall segment (walls only, never decks): a path crossing it meets sigma = this x FIXED.steelDensity once (1570 kg/m^2 at 0.2 m); its mass, this x steel density x edge^2, joins its room; 0.2 m is a heavy cruiser\'s belt (an Iowa\'s 0.31 m); k = 1, a plate scales with the cell like the round; approved by the lead designer (#255, #256)'),
   },
   // Protection is the mass on the path (#232): a cell resists c x sigma of
   // sectional momentum, sigma = cell mass / edge^2. c is armour steel's, from
@@ -128,7 +129,7 @@ export const PARAMS = {
     coupledMagazine: P(6e5, 2e5, 2e6, 3, 'J/K', true, 'per magazine cell: 900 kg of rounds (0.4 MJ/K) and racks (#243)'),
     coupledHold: P(1.35e6, 5e5, 3e6, 3, 'J/K', true, 'per hold cell: 3 t of structure, nothing else (#243)'),
     coupledHeatSink: P(1.35e6, 5e5, 3e6, 3, 'J/K', true, 'per heat sink cell before its water: 3 t of structure; x heatsink.capacityFactor, the water adding as before (#198, #243)'),
-    coupledArmour: P(4.5e6, 2e6, 8e6, 3, 'J/K', true, 'per armour cell: 10 t of steel; no kernel consumer yet (armour fittings come with #15) (#243)'),
+    coupledArmour: P(4.5e6, 2e6, 8e6, 3, 'J/K', true, 'per armour cell: 10 t of steel (450 J/(kg K)); an armour plate (#256) adds its mass x this / armour.cellMass to its room\'s heat capacity (#258, #248 Q13)'),
     coupledRailgun: P(4.5e6, 2e6, 8e6, 3, 'J/K', true, 'per railgun cell: 10 t of steel; the railgun stays data only until L5 (#243)'),
   },
   // Cell masses by room type (#221, #232, #234, #235): the low end of each
@@ -182,7 +183,7 @@ export const PARAMS = {
     capacity: P(900, 300, 3000, 3, 'kg', true, 'ammunition mass a magazine holds: 150 M rounds (#91, #183, #206)'),
   },
   quarters: {
-    crewPerCell: P(3, 1, 8, 2, 'crew', true, 'crew housed per surviving cell: 18 in a T1 quarters (#60, #65, #183)'),
+    crewPerCell: P(4, 1, 8, 2, 'crew', true, 'crew housed per surviving cell: 24 in a T1 quarters, 6 m^2 of a 25 m^2 cell per sleeper (a warship\'s berthing); 3 -> 4 so R1\'s 20 crew have berths (validateShip\'s crew rule) (#60, #65, #183, #220 (5), #253)'),
     powerDraw: P(5e4, 1e4, 2e5, 2, 'W', true, '#183'),
   },
   repair: {

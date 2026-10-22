@@ -73,7 +73,9 @@ try {
   const tag = await page.evaluate(() => document.getElementById('lo-tag').textContent);
   if (!tag.includes(`seed ${SEED}`)) errors.push(`the battle view does not show the seed: ${tag}`);
 
-  // Tap the enemy's beam bay, then check the target took.
+  // Tap the enemy's beam bay, then check the target took. Two animation frames first, so the battle view has been
+  // laid out and drawn and roomCentre reads its geometry, not the loadout panel's (§17 item 28).
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   const [x, y] = await page.evaluate(() => window.__proto.roomCentre('enemy', 'beamBay'));
   await page.touchscreen.tap(x, y);
   const target = await page.evaluate(() => window.__proto.battle.player.target);

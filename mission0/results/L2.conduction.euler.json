@@ -1,0 +1,46 @@
+{
+  "id": "L2.conduction.euler",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.conduction.euler",
+  "code": "7399706",
+  "criterionHash": "cac52d55",
+  "lockedHash": "cac52d55",
+  "runHash": "8bbbb856",
+  "dataHash": "7456430e",
+  "rowsHash": "8b6b5677",
+  "rows": [
+    {
+      "case": {
+        "steps": 2
+      },
+      "expected": {
+        "q1": 200000,
+        "q2": 199987.8787878788
+      },
+      "actual": {
+        "q1": [
+          -200000,
+          200000
+        ],
+        "q2": [
+          -199987.87878787878,
+          199987.87878787878
+        ],
+        "C": 22000000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

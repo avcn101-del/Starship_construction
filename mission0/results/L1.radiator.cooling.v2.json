@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.radiator.cooling.v2",
-  "code": "baf8d67+dirty",
+  "code": "7399706",
   "criterionHash": "bc2774d5",
   "lockedHash": "bc2774d5",
   "runHash": "c524d7c4",
-  "dataHash": "b958ce58",
+  "dataHash": "7456430e",
   "rowsHash": "ff52e197",
   "rows": [
     {
