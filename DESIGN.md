@@ -153,7 +153,9 @@ Three kinds of entity: **blocks** (rooms and fittings) store attributes,
 have only derived values (CoM, moment of inertia, acceleration, turn rate,
 heat and power balance, signatures, arcs, coverage). Every numeric
 attribute is a base value plus a **scaling exponent k** on the cell edge
-(mass k=3, area k=2, length k=1).
+(mass k=3, area k=2, length k=1). `CONSTANTS.md`, generated from
+`js/data.js`, is the only table of values and ranges; this document gives
+the rules and the reasons, not a second copy of the numbers.
 
 | # | Block group | Attributes |
 |---|---|---|
