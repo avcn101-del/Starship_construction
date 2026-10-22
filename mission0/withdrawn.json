@@ -896,5 +896,101 @@
     "recordHash": "f5aeedf0",
     "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds a routed R1 whose bridge draws from its backup supply, never from the reactors (the survivor f1.ctl.bridgeBackup, 13l.7's last row). Recorded PASS, frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L0.armour.plate.v2",
+    "successor": "L0.armour.plate.v3",
+    "decision": "#278",
+    "recordHash": "c434a079",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for the split of a round's heat between entries, now by the energy each took (L4); the mount cases read it. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L0.kinetic.chord",
+    "successor": "L0.kinetic.chord.v2",
+    "decision": "#278",
+    "recordHash": "a5a43e20",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for the loss of a passed cell, chord / kinetic.hitsToWreck (#273 (b)), not the flat 1 / hitsToWreck. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L1.kinetic.damage.v2",
+    "successor": "L1.kinetic.damage.v3",
+    "decision": "#278",
+    "recordHash": "5749492c",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for its id: its record moves by float residue only (the heat books, 1e-16 relative), the heat now split by energy (L4). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L1.magazine.cookoff.v2",
+    "successor": "L1.magazine.cookoff.v3",
+    "decision": "#278",
+    "recordHash": "bd6538b6",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for the hit (#273 (c)): a destroyed cell alone no longer sets the magazine off; a round entering a cell at magazine.detonationSpeed or more does. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.hit.books",
+    "successor": "L3.hit.books.v2",
+    "decision": "#278",
+    "recordHash": "60515d52",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for the heat split by energy (L4) and magazine.detonationSpeed held at 600 m/s (a run-time override) so the bow row's 431 m/s entry does not set R1's magazine off. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.kinetic.hole.v2",
+    "successor": "L3.kinetic.hole.v3",
+    "decision": "#278",
+    "recordHash": "01157769",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for its id: its record moves by float residue only (the heat books, 1e-16 relative), the heat now split by energy (L4). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.books.two",
+    "successor": "L4.books.two.v2",
+    "decision": "#278",
+    "recordHash": "622a9c53",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for its id: its record moves because a stopped round joins the body (B4) and a hit acts on its line of action (B2): the spin case's hits 12 -> 10, every residual and gross. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.cascade.v2",
+    "successor": "L4.cascade.v3",
+    "decision": "#278",
+    "recordHash": "f1e4ef03",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for the magazine routes: the destroyed chain runs through the reactor's explosion, the magazine's explosion and its detonation (B6, R1d rounds); R1d beam has no end (a destroyed cell no longer detonates the magazine). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.hit.oblique",
+    "successor": "L4.hit.oblique.v2",
+    "decision": "#278",
+    "recordHash": "beede653",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for the oblique battle's end (shot-11 crosses a magazine cell and detonates it: destroyed in step 1266 after 11 hits, kernel-read) and §17 item 39 (b)'s arithmetic. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.kill.v2",
+    "successor": "L4.kill.v3",
+    "decision": "#278",
+    "recordHash": "77ce70f9",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is K3: the magazine detonates by residual speed (R1: shot-1; R1d: shot-7) and its explosion ends nothing by itself (#274); the reactor case's checks kept; the beam case under the new rule (no end). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.log",
+    "successor": "L4.log.v2",
+    "decision": "#278",
+    "recordHash": "b45d6046",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for its id: its record moves because the per-second log's temperatures move (the heat split by energy, L4), so the log's hash is a new one. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.route.split.v2",
+    "successor": "L4.route.split.v3",
+    "decision": "#278",
+    "recordHash": "ab2c1077",
+    "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for its id: its record moves because a stopped round joins the body (B4), so the target's own books take the stopped rounds' momentum (the naive order's unchecked residual). Recorded PASS, frozen (#245).",
+    "frozen": true
   }
 ]
