@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 2026-10-22 — L4 fix round: B1 and the opening range (#269)
+## Unreleased — 2026-10-22 — L4 fix round: B1 and the opening range (the lead designer's decision 269, not yet in `DECISIONS.md`)
 
 - **`js/battle.js`** (finding B1 of `audit/2026-10-22-l4-physics.md`): a
   hit's momentum exchange runs along the round's velocity relative to the
@@ -16,7 +16,7 @@
   spinning (0.05 rad/s) and drifting across the line of fire (20 m/s);
   the two-ship book at 1e-9 × gross at every hit and at the end.
 - **`battle.openingRange`** (T2, §17 item 35): 900 m, 500–2000, k = 1,
-  approved (#269); `createBattle`'s default distance and the prototype's
+  approved (decision 269); `createBattle`'s default distance and the prototype's
   start separation read it. `CONSTANTS.md` regenerated; every passing
   scenario re-recorded on the new data hash.
 - Mutations `l4x.dir.bodyFrame`, `l4x.books.missingTerm`, `l4x.range.k0`.
