@@ -1,0 +1,77 @@
+{
+  "id": "L4.route.missionKill.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.missionKill.v2",
+  "code": "c998ff2",
+  "criterionHash": "c1897e49",
+  "lockedHash": "c1897e49",
+  "runHash": "c86ed201",
+  "dataHash": "ec2687f2",
+  "rowsHash": "95330a06",
+  "rows": [
+    {
+      "case": {
+        "target": "R1",
+        "bearing": "+y"
+      },
+      "expected": {
+        "kind": "disabled",
+        "must": [
+          "beamBay",
+          "turret"
+        ],
+        "why": "destroyed",
+        "shot": "shot-19",
+        "launched": 19,
+        "step": 2826,
+        "gap": 600
+      },
+      "actual": {
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "t": 47.1,
+          "step": 2826,
+          "why": "destroyed"
+        },
+        "turretCell": {
+          "cause": "shot-19",
+          "step": 2226
+        },
+        "launchedBy": 19,
+        "explosions": 0,
+        "engine": {
+          "destroyed": false,
+          "controlled": true,
+          "shutdown": false,
+          "active": true,
+          "powered": true
+        },
+        "destroyed": [
+          "beamBay",
+          "turret"
+        ],
+        "crossed": [
+          "beamBay",
+          "hold",
+          "magazine",
+          "turret"
+        ],
+        "able": []
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

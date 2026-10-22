@@ -1,0 +1,113 @@
+{
+  "id": "L2.repair.crew.v2",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.repair.crew.v2",
+  "code": "c998ff2",
+  "criterionHash": "f3ec1119",
+  "lockedHash": "f3ec1119",
+  "runHash": "a993c713",
+  "dataHash": "ec2687f2",
+  "rowsHash": "0f77a55d",
+  "rows": [
+    {
+      "case": {
+        "stage": "all"
+      },
+      "expected": {
+        "afterHits": 3,
+        "afterRepair": 3,
+        "afterThird": 3,
+        "deaths": 1
+      },
+      "actual": {
+        "afterHits": 3,
+        "afterRepair": 3,
+        "afterThird": 3,
+        "deaths": 1,
+        "repaired": [
+          1,
+          1
+        ],
+        "seconds": 88.8
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "stage": "loss",
+        "loss": 0.9
+      },
+      "expected": {
+        "deaths": 0,
+        "crew": 4,
+        "literal": 0
+      },
+      "actual": {
+        "parts": [
+          0.6,
+          0.30000000000000004,
+          0
+        ],
+        "crew": 4,
+        "deaths": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "stage": "loss",
+        "loss": 1.6
+      },
+      "expected": {
+        "deaths": 1,
+        "crew": 3,
+        "literal": 1
+      },
+      "actual": {
+        "parts": [
+          0.6,
+          0.6,
+          0.40000000000000013
+        ],
+        "crew": 3,
+        "deaths": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "stage": "destroyed"
+      },
+      "expected": {
+        "deaths": 1,
+        "crew": 3
+      },
+      "actual": {
+        "cell0": {
+          "integrity": 0,
+          "destroyed": true
+        },
+        "cell1": 1,
+        "crew": 3,
+        "deaths": 1,
+        "seconds": 43.43333333333333
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

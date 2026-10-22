@@ -744,5 +744,157 @@
     "recordHash": "6598c8f6",
     "reason": "Specification error of the lead designer (#258 (1)): it asserts 'the plate is not burnt', while by #240 (1) a plate burns by its mass like a cell. Recorded PASS on the L4a kernel without the burn, frozen (#245). The successor asserts the burn and its ruin time, sigma / cos theta and the plate's heat capacity, with hand-worked literals for the thin-plate fractions.",
     "frozen": true
+  },
+  {
+    "id": "L4.route.decapitate",
+    "successor": "L4.route.decapitate.v2",
+    "decision": "#271",
+    "recordHash": "6c36e13a",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds shot-12 (12 launched, 12 hits) hand-worked, the 600-step gap a literal, kinetic.hitsToWreck out of tunable (U1, N2). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.route.missionKill",
+    "successor": "L4.route.missionKill.v2",
+    "decision": "#271",
+    "recordHash": "258855df",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the turret's last cell by shot-19 (19 launched) and the Disabled step 2826, kernel-read (U1, N3). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.route.split",
+    "successor": "L4.route.split.v2",
+    "decision": "#271",
+    "recordHash": "2e41444c",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the split by shot-4 (4 launched, 4 hits), the naive case's beam bay destroyed and turret able at 120 s, momentum at 1e-12 x the gross (U1, C2, TOL1). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.route.overheat",
+    "successor": "L4.route.overheat.v2",
+    "decision": "#271",
+    "recordHash": "4d3ea956",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the target firing, no shot after its turret's shutdown step (the firing gate of turret()), the shutdown time one-sided against C_surv dT / (P_beam + P_own) = 13.98 s, the shutdown step 1344 kernel-read (U3, N3). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.kill",
+    "successor": "L4.kill.v2",
+    "decision": "#271",
+    "recordHash": "2f014b70",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds R1's magazine by shot-4, R1's reactor breached by shot-46 (51 in all), the 600-step countdown a literal, shot-10 relabelled kernel-read (U1, N1, N2). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.kill.pieces",
+    "successor": "L4.kill.pieces.v2",
+    "decision": "#271",
+    "recordHash": "9f380313",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds a third case at exactly 0.5 of the mass, not destroyed (the rule is 'less than'), 0.5 a literal (TH2, N2). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.disabled.rule",
+    "successor": "L4.disabled.rule.v2",
+    "decision": "#271",
+    "recordHash": "8fc05388",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the 600-step gap a literal (N2). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.e8",
+    "successor": "L4.e8.v2",
+    "decision": "#271",
+    "recordHash": "11b58bdc",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the mean time per step and the machine recorded in the row's note (C3). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.cascade",
+    "successor": "L4.cascade.v2",
+    "decision": "#271",
+    "recordHash": "50a74891",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds battleTree on B2-B5, R1d's rounds and the beam case; B1's Disabled event under the turret's control-lost (C1, #267 (3)). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.relative",
+    "successor": "L4.relative.v2",
+    "decision": "#271",
+    "recordHash": "95416ac5",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the 700 m/s round's own literals: path, r per entry, passed 1, stopped in entry 1, f 0.4073762457, momentum left 0 (T1). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.shield.nobody",
+    "successor": "L3.shield.nobody.v2",
+    "decision": "#271",
+    "recordHash": "22619ac6",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the heat check relabelled a consistency invariant, not hand-worked (T2). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L0.beam.csda.sweep",
+    "successor": "L0.beam.csda.sweep.v2",
+    "decision": "#271",
+    "recordHash": "37c76879",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the count 754 relabelled a regression pin; an independent check of csdaSteps 229 and 983 and the ranges at 10 and 400 MeV (T3). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L2.beam.chord",
+    "successor": "L2.beam.chord.v2",
+    "decision": "#271",
+    "recordHash": "46e4d093",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds a hand-worked F_2 = 0.620219371646 at chord 0.5 (N4). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L2.repair.crew",
+    "successor": "L2.repair.crew.v2",
+    "decision": "#271",
+    "recordHash": "e0adfca6",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds losses of 0.9 and 1.6 cells (floor, not round) and a destroyed cell beside a damaged one, not repaired (TH1, the survivor e1.rep.destroyedRepairable). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L2.shield.overlap.round",
+    "successor": "L2.shield.overlap.round.v2",
+    "decision": "#271",
+    "recordHash": "7bac7869",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the impulse books at 1e-12 x the gross (TOL1). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.shield.bodies",
+    "successor": "L3.shield.bodies.v2",
+    "decision": "#271",
+    "recordHash": "cdc92238",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds each body's momentum and angular momentum books at 1e-12 x the gross (TOL1). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.beam.deposit",
+    "successor": "L3.beam.deposit.v2",
+    "decision": "#271",
+    "recordHash": "e15f4b86",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the vented check at 1e-11 with its reason named (TOL2). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L0.kinetic.flatten",
+    "successor": "L0.kinetic.flatten.v2",
+    "decision": "#271",
+    "recordHash": "28f82f16",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds an exact-equality case of the round rule: a round whose sectional momentum equals the first cell's r stops there (the survivor i1.rd.stopsOnEqual, 13l.7's last row). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.control.bridge",
+    "successor": "L3.control.bridge.v2",
+    "decision": "#271",
+    "recordHash": "f5aeedf0",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds a routed R1 whose bridge draws from its backup supply, never from the reactors (the survivor f1.ctl.bridgeBackup, 13l.7's last row). Recorded PASS, frozen (#245).",
+    "frozen": true
   }
 ]

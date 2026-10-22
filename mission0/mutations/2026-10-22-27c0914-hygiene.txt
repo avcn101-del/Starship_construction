@@ -1,0 +1,21 @@
+# Mutation coverage (tools/mutate.js, #246 (1))
+
+head 27c0914, 2026-10-22
+command: node tools/mutate.js --only c1.thr.turretWorksShutdown,l4b.hit.holesHit,l4b.hit.chordOne,l4b.wreck.fraction04,e1.rep.destroyedRepairable --out mission0/mutations/2026-10-22-27c0914-hygiene.txt
+baseline: 109 scenarios VERIFIED by regress, every one PASS with its recorded results in an unmutated copy
+wall time: 8.8 min
+classes: KILLED = some verdict is not PASS (a criterion noticed); CHANGED = every verdict PASS but some output moved from its record (not coverage: no criterion noticed, #257); SURVIVED = every verdict PASS, every output as recorded; STALE = the edit no longer applies; TIMEOUT
+
+id                          rule                                                           class     first killing scenario, or the changed scenarios
+c1.thr.turretWorksShutdown  13c.1 Thresholds                                               SURVIVED  
+e1.rep.destroyedRepairable  13e.1 Repair                                                   SURVIVED  
+l4b.hit.holesHit            13l.1 Battle (the loop's hit test: a path of holes is no hit)  KILLED    L4.books.two (FAIL)
+l4b.hit.chordOne            13l.1 Battle (the chord rule on the loop's paths, #239)        KILLED    L4.hit.oblique (FAIL)
+l4b.wreck.fraction04        13l.1 Destroyed (battle.wreckFraction 0.5)                     KILLED    L4.kill.pieces.v2 (FAIL)
+
+total 5: KILLED 3, CHANGED 0, SURVIVED 2, STALE 0, TIMEOUT 0
+
+per DESIGN section:
+  §13c.1   1: KILLED 0, CHANGED 0, SURVIVED 1, STALE 0, TIMEOUT 0
+  §13e.1   1: KILLED 0, CHANGED 0, SURVIVED 1, STALE 0, TIMEOUT 0
+  §13l.1   3: KILLED 3, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0

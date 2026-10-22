@@ -1,0 +1,95 @@
+{
+  "id": "L3.control.bridge.v2",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.control.bridge.v2",
+  "code": "9a87d0f",
+  "criterionHash": "0afd9bd2",
+  "lockedHash": "0afd9bd2",
+  "runHash": "b243e71d",
+  "dataHash": "ec2687f2",
+  "rowsHash": "d977c366",
+  "rows": [
+    {
+      "case": {
+        "how": "overheated"
+      },
+      "expected": {
+        "bridgeLost": "overheat",
+        "others": 9,
+        "restored": null
+      },
+      "actual": {
+        "shutStep": 78,
+        "bridgeLost": "overheat",
+        "lostStep": 78,
+        "others": 9,
+        "othersSteps": [
+          78
+        ],
+        "scramStep": 78,
+        "restored": null,
+        "restoredStep": null,
+        "back": 0,
+        "backSteps": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "how": "off"
+      },
+      "expected": {
+        "bridgeLost": "off",
+        "others": 9,
+        "restored": "on"
+      },
+      "actual": {
+        "shutStep": null,
+        "bridgeLost": "off",
+        "lostStep": 1,
+        "others": 9,
+        "othersSteps": [
+          1
+        ],
+        "scramStep": 1,
+        "restored": "on",
+        "restoredStep": 4,
+        "back": 9,
+        "backSteps": [
+          4
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "how": "routed"
+      },
+      "expected": {
+        "fromBackup": 100000,
+        "fromReactor": 0,
+        "powered": false
+      },
+      "actual": {
+        "fromBackup": 100000.00000000006,
+        "fromReactor": 0,
+        "powered": false
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
