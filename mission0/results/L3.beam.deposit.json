@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.beam.deposit",
-  "code": "6feb7e0",
+  "code": "7399706",
   "criterionHash": "09b3a346",
   "lockedHash": "09b3a346",
   "runHash": "328c0146",
-  "dataHash": "414d5e11",
+  "dataHash": "7456430e",
   "rowsHash": "8e099f36",
   "rows": [
     {

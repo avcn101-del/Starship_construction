@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.reactor.power.v3",
-  "code": "6feb7e0",
+  "code": "7399706",
   "criterionHash": "62817dc2",
   "lockedHash": "62817dc2",
   "runHash": "099d6cda",
-  "dataHash": "414d5e11",
+  "dataHash": "7456430e",
   "rowsHash": "2aa8f4c5",
   "rows": [
     {

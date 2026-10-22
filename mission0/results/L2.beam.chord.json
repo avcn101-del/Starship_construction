@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.beam.chord",
-  "code": "6feb7e0",
+  "code": "7399706",
   "criterionHash": "afaa39c6",
   "lockedHash": "afaa39c6",
   "runHash": "84084fd9",
-  "dataHash": "414d5e11",
+  "dataHash": "7456430e",
   "rowsHash": "9adbaca7",
   "rows": [
     {
