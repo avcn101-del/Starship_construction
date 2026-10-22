@@ -493,15 +493,23 @@ export function battleTree(battle) {
     return { side: s.name, tree, lines: treeLines(tree), errors: tree.errors };
   });
 }
-/** Momentum of both ships (bodies, debris, rounds, what left play) and of the rounds spent in a hull or a field, with the external impulse that is not a hit (thrust, RCS). */
+/**
+ * Momentum of both ships (bodies, debris, rounds in flight, what left play) and of the rounds spent in a hull or a
+ * field, with the external impulse that is not a hit (thrust, RCS): the hits and the fields move momentum between a
+ * round and a hull (booked in ship.received, taken out of ship.external) and the recoil between a turret and its round
+ * (never booked), so P - J stays fixed. `gross`: the sum of the magnitudes of every term of P (debris, left and spent
+ * since the L4 fix round, #269).
+ */
 export function battleMomentum(battle) {
   const P = [0, 0], J = [0, 0];
-  let gross = 0;
+  let gross = len(battle.spent.P);
   for (const s of battle.sides) {
     const sh = s.world.ship, m = momentumOf(sh), left = sh.left || { P: [0, 0] }, rec = sh.received || { J: [0, 0], field: [0, 0] };
     P[0] += m.P[0] + left.P[0]; P[1] += m.P[1] + left.P[1];
     J[0] += sh.external.J[0] - rec.J[0] - rec.field[0]; J[1] += sh.external.J[1] - rec.J[1] - rec.field[1];
+    gross += len(left.P);
     for (const b of sh.bodies) gross += b.M * len(b.v);
+    for (const d of sh.debris) gross += d.m * len(d.v);
     for (const r of sh.rounds) gross += r.m * len(r.v);
   }
   P[0] += battle.spent.P[0]; P[1] += battle.spent.P[1];
