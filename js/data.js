@@ -212,11 +212,11 @@ export const PARAMS = {
   ammo: {
     wallFeed: P(0.72, 0.24, 3.6, 1, 'kg/(s*m)', true, 'rounds a live wall between a magazine and a room it feeds carries per second per metre: 5 m feeds 3.6 kg/s, 0.6 M rounds/s (#18, #193, #195, #206)'),
   },
-  // Battle-level rules (#82, #222 (7), #243): no kernel consumer yet beyond the cull
-  // function (rooms.js cull) and the prototype.
+  // Battle-level rules (#82, #83, #222 (7), #243, #253): the battle loop (js/battle.js, 13l.1).
   battle: {
     cullDistance: P(3000, 1000, 1e4, 1, 'm', true, 'a round or debris farther than this from every body leaves play, its momentum booked as left; twice the engagement band (#54, #222 (7), #243)'),
-    disabledSeconds: P(10, 3, 30, 0, 's', true, 'no weapon able to fire and no thrust for this long: Disabled (#82, #243)'),
+    disabledSeconds: P(10, 3, 30, 0, 's', true, 'no weapon able to fire for this long, whatever the engine does: Disabled (#82, #243, #255)'),
+    wreckFraction: P(0.5, 0.3, 0.8, 0, '', true, 'a ship whose largest fragment holds less than this fraction of its mass at undock has broken into too many pieces: destroyed (#83, #253)'),
   },
   // Crew a room needs to be placed (#60, #183): measured at L3. Range 1-3x.
   crewRequired: {
