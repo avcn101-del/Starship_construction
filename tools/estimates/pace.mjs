@@ -7,14 +7,25 @@
 // Both ships fly the prototype's enemy script (Fire 60 s / Cool 30 s, dodge on).
 import { createBattle, tick } from '../../proto/battle.js';
 import { SCRIPT, RANGES } from '../../proto/config.js';
+import { PARAMS, ROOMS } from '../../js/data.js';
 
 const argv = process.argv.slice(2), arg = (n, f) => { const i = argv.indexOf(n); return i < 0 ? f : argv[i + 1]; };
 const overrides = {};
 for (let i = 0; i < argv.length; i++) if (argv[i] === '--set') { const [k, v] = argv[++i].split('='); overrides[k] = Number(v); }
 const seeds = Number(arg('--seeds', 10)), limit = Number(arg('--limit', 1800));
 const facings = arg('--facing') ? [arg('--facing')] : ['bow', 'broadside'], ranges = arg('--range') ? [arg('--range')] : Object.keys(RANGES);
+// --citadel d (m): a steel citadel around the magazine, PATCHED IN THIS PROCESS ONLY (js/ unchanged): each magazine
+// cell carries d x 7850 kg/m^3 x edge^2 more mass, so a path through n magazine cells crosses n x d of steel (a
+// round entering the room meets one wall per cell it crosses, as a citadel's walls). The mass booked is that of the
+// walls a path crosses, not of the whole box (a box of six faces weighs about 4x more: the ship's acceleration is
+// overstated, stated with the result).
+const citadel = Number(arg('--citadel', 0));
+if (citadel > 0) {
+  PARAMS.magazine.armourMass = { ...PARAMS.structure.cellMass, value: citadel * 7850 * 25, note: 'pace study patch' };
+  ROOMS.magazine.cellMass = ['structure.cellMass', 'magazine.armourMass'];
+}
 const saved = SCRIPT.orders.facing;
-console.log(`overrides ${JSON.stringify(overrides)}; ${seeds} seeds; limit ${limit} s`);
+console.log(`citadel ${citadel} m; overrides ${JSON.stringify(overrides)}; ${seeds} seeds; limit ${limit} s`);
 for (const facing of facings) for (const range of ranges) {
   SCRIPT.orders.facing = facing;
   const ts = []; let shots = 0, hits = 0, ends = {};
