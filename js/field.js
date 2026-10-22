@@ -1,6 +1,6 @@
 // field.js — falloff fields: the Gaussian beam's delivered power and the
 // shield field (finite budget, falloff, #99).
-import { simpson } from './util.js';
+import { simpson, powi, exp } from './util.js';
 
 /**
  * Fraction of a Gaussian beam's power that lands inside a circular aperture
@@ -11,13 +11,13 @@ import { simpson } from './util.js';
 export function beamDeliveredFraction(d, focusRange, aperture, waist) {
   const w = waist * Math.sqrt(1 + (d / focusRange) ** 2);
   // intensity / power = (2 / (pi w^2)) exp(-2 r^2 / w^2); ring area 2 pi r dr
-  const density = (r) => ((4 * r) / (w * w)) * Math.exp((-2 * r * r) / (w * w));
+  const density = (r) => ((4 * r) / (w * w)) * exp((-2 * r * r) / (w * w));
   return simpson(density, 0, aperture, 2000);
 }
 
 /** Shield field strength at distance r from its generator, in [0, 1]. */
 export function shieldStrength(r, radius, exponent) {
-  return 1 / (1 + (r / radius) ** exponent);
+  return 1 / (1 + powi(r / radius, exponent));
 }
 
 /**

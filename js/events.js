@@ -10,6 +10,7 @@ export const EVENT_FIELDS = {
   critical: [], // reached critical
   shutdown: [], // the room shut itself down (overheated)
   restart: [], // cooled below hot after a shutdown
+  'reactor-restart': [], // a SCRAMmed reactor restarts reactor.restartTime after control is back, below hot (#82, 13k.1)
   'crew-died': ['deaths'],
   'cell-damaged': ['channel', 'cell', 'integrity'], // a hit left the cell with integrity above 0 (#206)
   'cell-destroyed': ['channel', 'cell'],

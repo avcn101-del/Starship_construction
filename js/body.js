@@ -10,13 +10,15 @@
 // momentum m v and angular momentum about the world origin x × m v (+ its
 // spin I omega); forces from outside (thrust, RCS) are booked as the
 // external impulse J and angular impulse H, so P - J and L - H stay fixed.
-// No DOM, no Math.random.
+// No DOM, no Math.random. Trigonometry by util.js's deterministic sin and cos
+// (#239 Q6, 13k.1), so a battle with turning replays across engines.
+import { sin, cos } from './util.js';
 
 /** 2D cross product a × b (a scalar). */
 export const cross = (a, b) => a[0] * b[1] - a[1] * b[0];
 /** Vector p rotated by theta. */
 export function rotate(p, theta) {
-  const c = Math.cos(theta), s = Math.sin(theta);
+  const c = cos(theta), s = sin(theta);
   return [c * p[0] - s * p[1], s * p[0] + c * p[1]];
 }
 
