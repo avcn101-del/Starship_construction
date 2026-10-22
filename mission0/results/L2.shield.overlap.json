@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.shield.overlap",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "fd488934",
   "lockedHash": "fd488934",
   "runHash": "bb6e7e18",
-  "dataHash": "930a2386",
-  "rowsHash": "5a6c17c5",
+  "dataHash": "913ab810",
+  "rowsHash": "7b7b7a59",
   "rows": [
     {
       "case": {
@@ -58,7 +58,7 @@
             "generated": 75000,
             "radiated": 0,
             "stored": 75000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -67,7 +67,7 @@
             "generated": 75000,
             "radiated": 0,
             "stored": 75000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -125,8 +125,8 @@
           {
             "generated": 166666.6666666667,
             "radiated": 0,
-            "stored": 166666.66666662693,
-            "initial": 696000000,
+            "stored": 166666.66666650772,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -134,8 +134,8 @@
           {
             "generated": 166666.6666666667,
             "radiated": 0,
-            "stored": 166666.66666662693,
-            "initial": 696000000,
+            "stored": 166666.66666650772,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -198,7 +198,7 @@
             "generated": 200000,
             "radiated": 0,
             "stored": 200000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -207,7 +207,7 @@
             "generated": 200000,
             "radiated": 0,
             "stored": 200000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -270,7 +270,7 @@
             "generated": 200000,
             "radiated": 0,
             "stored": 200000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -279,7 +279,7 @@
             "generated": 200000,
             "radiated": 0,
             "stored": 200000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -337,8 +337,8 @@
           {
             "generated": 116666.66666666666,
             "radiated": 0,
-            "stored": 116666.66666662693,
-            "initial": 696000000,
+            "stored": 116666.66666650772,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -347,7 +347,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -405,8 +405,8 @@
           {
             "generated": 166666.6666666667,
             "radiated": 0,
-            "stored": 166666.66666662693,
-            "initial": 696000000,
+            "stored": 166666.66666650772,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -415,7 +415,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -474,7 +474,7 @@
             "generated": 75000,
             "radiated": 0,
             "stored": 75000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -483,7 +483,7 @@
             "generated": 75000,
             "radiated": 0,
             "stored": 75000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -541,8 +541,8 @@
           {
             "generated": 116666.66666666666,
             "radiated": 0,
-            "stored": 116666.66666662693,
-            "initial": 696000000,
+            "stored": 116666.66666650772,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -550,8 +550,8 @@
           {
             "generated": 116666.66666666666,
             "radiated": 0,
-            "stored": 116666.66666662693,
-            "initial": 696000000,
+            "stored": 116666.66666650772,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -614,7 +614,7 @@
             "generated": 200000,
             "radiated": 0,
             "stored": 200000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -623,7 +623,7 @@
             "generated": 200000,
             "radiated": 0,
             "stored": 200000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -686,7 +686,7 @@
             "generated": 200000,
             "radiated": 0,
             "stored": 200000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -695,7 +695,7 @@
             "generated": 200000,
             "radiated": 0,
             "stored": 200000,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -753,8 +753,8 @@
           {
             "generated": 116666.66666666666,
             "radiated": 0,
-            "stored": 116666.66666662693,
-            "initial": 696000000,
+            "stored": 116666.66666650772,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -763,7 +763,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -821,8 +821,8 @@
           {
             "generated": 116666.66666666666,
             "radiated": 0,
-            "stored": 116666.66666662693,
-            "initial": 696000000,
+            "stored": 116666.66666650772,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -831,7 +831,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0

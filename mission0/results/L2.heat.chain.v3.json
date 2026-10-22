@@ -1,0 +1,173 @@
+{
+  "id": "L2.heat.chain.v3",
+  "level": "L2",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L2.heat.chain.v3",
+  "code": "c9224e2",
+  "criterionHash": "12b88063",
+  "lockedHash": "12b88063",
+  "runHash": "9e7ed5c3",
+  "dataHash": "913ab810",
+  "rowsHash": "66ab10bd",
+  "rows": [
+    {
+      "case": {
+        "middle": "beamBay",
+        "T0": 600
+      },
+      "expected": {
+        "T": [
+          401.0567051035635,
+          393.320580986911,
+          385.6227139095256
+        ],
+        "G": [
+          40000,
+          40000
+        ],
+        "heatToThird": 382490855.6381024,
+        "lambda": [
+          1.9393612452412902e-19,
+          0.030000000000000002,
+          0.010000000000000005
+        ],
+        "tolerance": 0.003,
+        "ratio": 0.001
+      },
+      "actual": {
+        "t": 300,
+        "T": [
+          401.05476154643213,
+          393.32060965698304,
+          385.62462879658824
+        ],
+        "heatToThird": 382498515.18635297,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -795780953.8142715,
+            "initial": 2400000000,
+            "conducted": -795780953.8142793,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 413282438.6279321,
+            "initial": 1160000000,
+            "conducted": 413282438.627914,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 382498515.18635297,
+            "initial": 1160000000,
+            "conducted": 382498515.18636113,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "middle": "hold",
+        "T0": 600
+      },
+      "expected": {
+        "T": [
+          598.9463102672818,
+          290.77952639477894,
+          290.00132909976725
+        ],
+        "G": [
+          45.45454545454545,
+          45.45454545454545
+        ],
+        "heatToThird": 5316.399068988176,
+        "lambda": [
+          -2.3273727304948286e-23,
+          0.00002819865319865322,
+          0.000011363636363636373
+        ],
+        "tolerance": 0.003,
+        "ratio": 0.001
+      },
+      "actual": {
+        "t": 300,
+        "T": [
+          598.9463100942895,
+          290.77952657718805,
+          290.0013290265081
+        ],
+        "heatToThird": 5316.106032371521,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -4214759.622841835,
+            "initial": 2400000000,
+            "conducted": -4214759.622845508,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 4209443.516815424,
+            "initial": 1566000000,
+            "conducted": 4209443.516799405,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 5316.106032371521,
+            "initial": 1160000000,
+            "conducted": 5316.1060460970575,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat reaching the third room through a hold < 1e-3 of that through a coolant room",
+      "ok": true,
+      "detail": "measured 1.390e-5, closed form 1.390e-5"
+    },
+    {
+      "name": "heat books: generated + conducted = radiated + vented + stored, 1e-9 relative, every room, every case",
+      "ok": false
+    },
+    {
+      "name": "conduction and life-support flows each sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

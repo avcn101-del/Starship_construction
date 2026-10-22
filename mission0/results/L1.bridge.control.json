@@ -1,13 +1,13 @@
 {
   "id": "L1.bridge.control",
   "level": "L1",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L1.bridge.control",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "afe034f9",
   "lockedHash": "afe034f9",
   "runHash": "71a858eb",
-  "dataHash": "930a2386",
+  "dataHash": "913ab810",
   "rowsHash": "66f8301b",
   "rows": [
     {
@@ -15,11 +15,7 @@
         "mode": "powered"
       },
       "expected": {
-        "control": true,
-        "heatRate": 100000,
-        "backup": false,
-        "hot": 960,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "control": true,
@@ -36,19 +32,15 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "mode": "cut"
       },
       "expected": {
-        "control": true,
-        "heatRate": 100000,
-        "backup": true,
-        "hot": 960,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "control": true,
@@ -65,24 +57,15 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "mode": "destroyed"
       },
       "expected": {
-        "controlAfterHits": [
-          true,
-          true,
-          true,
-          false
-        ],
-        "lost": {
-          "t": 4,
-          "cause": "hit-4"
-        }
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "controlAfterHits": [
@@ -105,8 +88,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
@@ -117,6 +100,11 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "3 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

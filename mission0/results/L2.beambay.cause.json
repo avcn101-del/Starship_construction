@@ -1,0 +1,56 @@
+{
+  "id": "L2.beambay.cause",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.beambay.cause",
+  "code": "c9224e2",
+  "criterionHash": "ed63a1be",
+  "lockedHash": "ed63a1be",
+  "runHash": "4e58f00a",
+  "dataHash": "913ab810",
+  "rowsHash": "26ee238b",
+  "rows": [
+    {
+      "case": {
+        "part": "heat"
+      },
+      "expected": {
+        "cause": "heat",
+        "atShutdown": true
+      },
+      "actual": {
+        "cause": "heat",
+        "t": 272.43333333333334,
+        "shutdown": 272.43333333333334
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "no-power"
+      },
+      "expected": {
+        "cause": "no-power",
+        "atShutdown": false
+      },
+      "actual": {
+        "cause": "no-power",
+        "t": 0,
+        "shutdown": null
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

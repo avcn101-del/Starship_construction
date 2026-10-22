@@ -1,0 +1,366 @@
+{
+  "id": "L2.lifesupport.v2",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.lifesupport.v2",
+  "code": "c9224e2",
+  "criterionHash": "cd74fc05",
+  "lockedHash": "cd74fc05",
+  "runHash": "9c1205a3",
+  "dataHash": "913ab810",
+  "rowsHash": "bdd8b56b",
+  "rows": [
+    {
+      "case": {
+        "P": 200000,
+        "powered": true
+      },
+      "expected": {
+        "setpoint": 72.20382535435334,
+        "critical": null,
+        "max": 295.00119926681776,
+        "shutdownAt": null,
+        "pumped": 210195182.56037495,
+        "crew": 18,
+        "slack": 295.01,
+        "tolerance": 0.001,
+        "row": {
+          "tSet": 72,
+          "rate": -0.013888888888888888,
+          "tCrit": null
+        }
+      },
+      "actual": {
+        "t": 900,
+        "setpoint": 72.21666666666667,
+        "critical": null,
+        "max": 295.0011992664201,
+        "deaths": 0,
+        "diedAt": null,
+        "pumpedOut": 210195112.0817927,
+        "pumpedIn": 210195112.0817927,
+        "bay": 331.16817210540387,
+        "books": [
+          {
+            "generated": 224999999.99984756,
+            "radiated": 0,
+            "stored": 18004317.359112263,
+            "initial": 1044000000,
+            "conducted": -206995682.6408836,
+            "pumped": -210195112.0817927,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 42322994.21926547,
+            "stored": 164672688.42161536,
+            "initial": 1160000000,
+            "conducted": 206995682.6408836,
+            "pumped": 210195112.0817927,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "P": 1000000,
+        "powered": true
+      },
+      "expected": {
+        "setpoint": 17.15338168008665,
+        "critical": 440.4892607063252,
+        "max": 380.0020418699453,
+        "shutdownAt": 283.2833333333333,
+        "pumped": 127000000,
+        "crew": 18,
+        "slack": 295.01,
+        "tolerance": 0.001,
+        "row": {
+          "tSet": 17.142857142857142,
+          "rate": 0.20833333333333334,
+          "tCrit": 425.14285714285717
+        }
+      },
+      "actual": {
+        "t": 440.5,
+        "setpoint": 17.166666666666668,
+        "critical": 440.5,
+        "max": 380.00184820287495,
+        "deaths": 18,
+        "diedAt": 440.5,
+        "pumpedOut": 127000000,
+        "pumpedIn": 127000000,
+        "bay": 317.8841491197596,
+        "books": [
+          {
+            "generated": 454663333.33352077,
+            "radiated": 0,
+            "stored": 324006653.53034973,
+            "initial": 1044000000,
+            "conducted": -130656679.80296862,
+            "pumped": -127000000,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 19120083.32393151,
+            "stored": 111536596.47903848,
+            "initial": 1160000000,
+            "conducted": 130656679.80296862,
+            "pumped": 127000000,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "P": 5000000,
+        "powered": true
+      },
+      "expected": {
+        "setpoint": 3.5648004471628805,
+        "critical": 68.38348249936381,
+        "max": 380.02146632858734,
+        "shutdownAt": 45.333333333333336,
+        "pumped": 19450000,
+        "crew": 18,
+        "slack": 295.01,
+        "tolerance": 0.001,
+        "row": {
+          "tSet": 3.5643564356435644,
+          "rate": 1.3194444444444444,
+          "tCrit": 67.9854090672225
+        }
+      },
+      "actual": {
+        "t": 68.4,
+        "setpoint": 3.5666666666666664,
+        "critical": 68.4,
+        "max": 380.0215156563181,
+        "deaths": 18,
+        "diedAt": 68.4,
+        "pumpedOut": 19450000,
+        "pumpedIn": 19450000,
+        "bay": 294.41234436838823,
+        "books": [
+          {
+            "generated": 344266666.6666453,
+            "radiated": 0,
+            "stored": 324077456.3627453,
+            "initial": 1044000000,
+            "conducted": -20189210.303922825,
+            "pumped": -19450000,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 2539832.8303763983,
+            "stored": 17649377.473552942,
+            "initial": 1160000000,
+            "conducted": 20189210.303922825,
+            "pumped": 19450000,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "P": 200000,
+        "powered": false
+      },
+      "expected": {
+        "setpoint": null,
+        "critical": null,
+        "max": 338.26144175923,
+        "shutdownAt": null,
+        "pumped": 0,
+        "crew": 18,
+        "slack": 295.01,
+        "tolerance": 0.001,
+        "row": {
+          "tSet": 90,
+          "rate": 0.05555555555555555,
+          "tCrit": null
+        }
+      },
+      "actual": {
+        "t": 900,
+        "setpoint": 90.33333333333333,
+        "critical": null,
+        "max": 338.26147126054167,
+        "deaths": 0,
+        "diedAt": null,
+        "pumpedOut": 0,
+        "pumpedIn": 0,
+        "bay": 283.8160202278244,
+        "books": [
+          {
+            "generated": 180000000.00005645,
+            "radiated": 0,
+            "stored": 173741296.53795004,
+            "initial": 1044000000,
+            "conducted": -6258703.462051815,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 30994622.550728615,
+            "stored": -24735919.0887022,
+            "initial": 1160000000,
+            "conducted": 6258703.462051815,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "P": 1000000,
+        "powered": false
+      },
+      "expected": {
+        "setpoint": null,
+        "critical": 327.7958214327512,
+        "max": 380.00113402741,
+        "shutdownAt": 217.68333333333334,
+        "pumped": 0,
+        "crew": 18,
+        "slack": 295.01,
+        "tolerance": 0.001,
+        "row": {
+          "tSet": 18,
+          "rate": 0.2777777777777778,
+          "tCrit": 324
+        }
+      },
+      "actual": {
+        "t": 327.8,
+        "setpoint": 18.016666666666666,
+        "critical": 327.8,
+        "max": 380.0011860856039,
+        "deaths": 18,
+        "diedAt": 327.8,
+        "pumpedOut": 0,
+        "pumpedIn": 0,
+        "bay": 288.0373198015274,
+        "books": [
+          {
+            "generated": 327800000.00000674,
+            "radiated": 0,
+            "stored": 324004269.90817404,
+            "initial": 1044000000,
+            "conducted": -3795730.0918275355,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 11646450.88571457,
+            "stored": -7850720.793890238,
+            "initial": 1160000000,
+            "conducted": 3795730.0918275355,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "P": 5000000,
+        "powered": false
+      },
+      "expected": {
+        "setpoint": null,
+        "critical": 64.94699145802478,
+        "max": 380.0041596430525,
+        "shutdownAt": 43.266666666666666,
+        "pumped": 0,
+        "crew": 18,
+        "slack": 295.01,
+        "tolerance": 0.001,
+        "row": {
+          "tSet": 3.6,
+          "rate": 1.3888888888888888,
+          "tCrit": 64.8
+        }
+      },
+      "actual": {
+        "t": 64.95,
+        "setpoint": 3.6166666666666667,
+        "critical": 64.95,
+        "max": 380.0042117359723,
+        "deaths": 18,
+        "diedAt": 64.95,
+        "pumpedOut": 0,
+        "pumpedIn": 0,
+        "bay": 289.59948309337244,
+        "books": [
+          {
+            "generated": 324749999.9999994,
+            "radiated": 0,
+            "stored": 324015162.2495003,
+            "initial": 1044000000,
+            "conducted": -734837.7505013539,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 2336905.3770092563,
+            "stored": -1602067.6265101433,
+            "initial": 1160000000,
+            "conducted": 734837.7505013539,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + vented + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction and life-support flows each sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

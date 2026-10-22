@@ -1,0 +1,126 @@
+{
+  "id": "L0.shield.buffer.tier",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.shield.buffer.tier",
+  "code": "c9224e2",
+  "criterionHash": "2840413d",
+  "lockedHash": "2840413d",
+  "runHash": "6a6e26b8",
+  "dataHash": "913ab810",
+  "rowsHash": "599f5889",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1"
+      },
+      "expected": {
+        "perBuffer": 5.859375,
+        "whole": 5
+      },
+      "actual": {
+        "buffer": 10000000,
+        "energy": 1706666.6666666663,
+        "perBuffer": 5.859375000000002,
+        "whole": 5
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2"
+      },
+      "expected": {
+        "perBuffer": 5.859375,
+        "whole": 5
+      },
+      "actual": {
+        "buffer": 33750000,
+        "energy": 5759999.999999999,
+        "perBuffer": 5.859375000000001,
+        "whole": 5
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3"
+      },
+      "expected": {
+        "perBuffer": 5.859375,
+        "whole": 5
+      },
+      "actual": {
+        "buffer": 80000000,
+        "energy": 13653333.33333333,
+        "perBuffer": 5.859375000000002,
+        "whole": 5
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4"
+      },
+      "expected": {
+        "perBuffer": 5.859375,
+        "whole": 5
+      },
+      "actual": {
+        "buffer": 270000000,
+        "energy": 46079999.99999999,
+        "perBuffer": 5.859375000000001,
+        "whole": 5
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5"
+      },
+      "expected": {
+        "perBuffer": 5.859375,
+        "whole": 5
+      },
+      "actual": {
+        "buffer": 640000000,
+        "energy": 109226666.66666664,
+        "perBuffer": 5.859375000000002,
+        "whole": 5
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6"
+      },
+      "expected": {
+        "perBuffer": 5.859375,
+        "whole": 5
+      },
+      "actual": {
+        "buffer": 2160000000,
+        "energy": 368639999.99999994,
+        "perBuffer": 5.859375000000001,
+        "whole": 5
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

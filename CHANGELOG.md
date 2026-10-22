@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.9.0 — 2026-10-22 — Physics pass 2: one law, closed books, tiers, determinism (#240, #243)
+
+- **One law for everything that resists** (`DESIGN.md` §13k.1): beam burn by
+  the cell's mass (`matter.burnEnergyPerKg`, 3000 J/kg), blast by the cell's
+  mass (`matter.blastPerKg`, 100 J/kg; the hold's blast factor is gone), heat
+  capacity by the room type's thermally coupled mass (`thermal.coupled*`,
+  named in `ROOMS` like the cell mass), repair by mass (`repair.massRate`,
+  200 kg/s).
+- **Books close at the target**: a round's impulse goes to the body holding
+  the hit cells, at those cells, and the energy the system lost is heat in
+  the rooms in proportion to the momentum each took; the shield's removed
+  momentum pushes the generator's ship.
+- **Tiers**: `beam.gradient` k = −0.41, `shield.buffer` in joules (k = 3),
+  engine and beam bay cells as structure + machinery
+  (`engine.machineryMass` k = 2, `beambay.machineryMass` k = 1), `rcs.mass`
+  k = 2, the reactor cell 150 t. R1 at T1: 950.5 t, 1.61 g, a 90° turn in
+  3.80 s.
+- **Determinism**: `js/util.js` has fdlibm's sin, cos, exp and log, an
+  integer power and a deterministic `pow`; `scaled()` and `body.js` use
+  them. `tools/determinism.mjs` hashes a fixed 60 s duel in Node (and in
+  Chromium with `--chromium`); `proto/smoke.mjs` checks the hashes MATCH.
+  `proto/detmath.js` is removed.
+- The SCRAM restart (`reactor.restartTime`, 60 s, automatic); the chord of a
+  path entry; a round launched at `world.t + at`; `cull()` and
+  `battle.cullDistance`, `battle.disabledSeconds` (read by the prototype);
+  the beam path cache cleared when a cell is destroyed; `csdaRange` takes its
+  material (water's Z/A and I in `FIXED`); an overheated beam bay reports
+  `beam-stopped` with cause `heat`; the ledger header reworded (E-F10).
+- Removed: `thermal.heatCapacityPerCell`, `armour.burnEnergy`,
+  `armour.blastResistance`, `room.blastResistance`, `hold.blastFactor`,
+  `repair.rate`, `shield.bufferSeconds`, `cellMass.engine`,
+  `cellMass.beamBay`.
+- Scenarios: S1–S22 (§13k.4) and 39 successors, locked at `4f39a0e`; 41
+  scenarios withdrawn as superseded by #240 (`mission0/withdrawn.json`).
+- `tools/estimates/pass2.mjs` runs on the new data (the removed constants as
+  literals) and prints R1 (section 8). The prototype is `feel-4`.
+
 ## 0.8.4 — 2026-10-22 — Documents consolidated (#241 (5), #242)
 
 - New `HISTORY.md`: the plans and measured results of each Mission 0 pass,

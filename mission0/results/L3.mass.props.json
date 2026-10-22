@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L3.mass.props",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "ce132775",
   "lockedHash": "ce132775",
   "runHash": "dab24409",
-  "dataHash": "930a2386",
-  "rowsHash": "eed1efbb",
+  "dataHash": "913ab810",
+  "rowsHash": "ea880acf",
   "rows": [
     {
       "case": {
@@ -20,13 +20,13 @@
       },
       "actual": {
         "cell": 3000,
-        "sinkCell": 3573.339703774486,
+        "sinkCell": 4290.014333492594,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1566000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -35,7 +35,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 3480000000,
+            "initial": 7830000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -112,12 +112,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 500000,
+            "M": 600000,
             "c": [
               5,
               5
             ],
-            "I": 8333333.333333334
+            "I": 10000000
           }
         ],
         "rounds": 0,
@@ -127,7 +127,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 6380000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -158,12 +158,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 36600,
+            "M": 34200,
             "c": [
               5,
               7.5
             ],
-            "I": 991250.0000000002
+            "I": 926250.0000000001
           }
         ],
         "rounds": 0,
@@ -173,7 +173,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1044000000,
+            "initial": 2436000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -311,7 +311,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -403,7 +403,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1160000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -541,7 +541,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1566000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -572,12 +572,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 14293.358815097945,
+            "M": 17160.057333970377,
             "c": [
               5,
-              4.999999999999999
+              5
             ],
-            "I": 238222.64691829908
+            "I": 286000.95556617295
           }
         ],
         "rounds": 0,
@@ -587,7 +587,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 3480000000,
+            "initial": 7830000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -617,12 +617,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 850067.3588150977,
+            "M": 950534.0573339704,
             "c": [
-              24.58901869310397,
-              16.290396080705854
+              24.135543560664708,
+              16.184166484783013
             ],
-            "I": 111713157.93311304
+            "I": 115001780.87470937
           }
         ],
         "rounds": 0,
@@ -632,6 +632,60 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
+            "initial": 2436000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 6380000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1160000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 7830000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
             "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
@@ -650,7 +704,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -659,61 +713,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 3480000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1044000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
+            "initial": 1566000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -743,12 +743,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 849947.3588150977,
+            "M": 950414.0573339704,
             "c": [
-              24.586842890405546,
-              16.290578265553044
+              24.133540502357615,
+              16.184315998541862
             ],
-            "I": 111684454.26512519
+            "I": 114971407.0527662
           }
         ],
         "rounds": 20,
@@ -756,91 +756,91 @@
         "books": [
           {
             "generated": 0,
-            "radiated": 1432482.1521852338,
-            "stored": 1445610.5499145985,
-            "initial": 1044000000,
-            "conducted": 2878092.702098375,
+            "radiated": 1430244.1366859544,
+            "stored": -1207304.884460926,
+            "initial": 2436000000,
+            "conducted": 222939.25223422996,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 10972383.611302853,
-            "initial": 696000000,
-            "conducted": 10972383.611302225,
+            "stored": 4065167.900252342,
+            "initial": 6380000000,
+            "conducted": 4065167.9002277413,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 3966666.6666665315,
             "radiated": 0,
-            "stored": 3963225.5613172054,
+            "stored": 3945570.1878632307,
             "initial": 696000000,
-            "conducted": -3441.105348183606,
+            "conducted": -21096.478805603318,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 13729.417702794075,
+            "stored": 14582.801913022995,
             "initial": 696000000,
-            "conducted": 13729.417702509674,
+            "conducted": 14582.801913317795,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 1070544.2205615,
-            "stored": -1060789.920993328,
-            "initial": 696000000,
-            "conducted": 9754.299572422096,
+            "radiated": 1071851.7614078675,
+            "stored": -1063412.3431077003,
+            "initial": 1160000000,
+            "conducted": 8439.41830319479,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 1432613.8700931412,
-            "stored": 2870821.9566497803,
-            "initial": 3480000000,
-            "conducted": 4303435.826739352,
+            "radiated": 1431285.6889584088,
+            "stored": -1219503.1500291824,
+            "initial": 7830000000,
+            "conducted": 211782.53895749926,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 1983333.3333332657,
             "radiated": 0,
-            "stored": 1995228.5575796366,
+            "stored": 1994543.6748819351,
             "initial": 1044000000,
-            "conducted": 11895.224246293137,
+            "conducted": 11210.341546816295,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 6000000,
             "radiated": 0,
-            "stored": 5975906.926738262,
+            "stored": 5976344.792340398,
             "initial": 696000000,
-            "conducted": -24093.073260344656,
+            "conducted": -23655.207659082676,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 79333333.3333335,
-            "radiated": 2577665.6249896926,
-            "stored": 58593907.327638984,
-            "initial": 696000000,
-            "conducted": -18161760.380704608,
+            "radiated": 2235052.5878163087,
+            "stored": 72608906.48465729,
+            "initial": 3712000000,
+            "conducted": -4489374.260854976,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 3.477652430534363,
-            "initial": 696000000,
-            "conducted": 3.4776519716998706,
+            "stored": 3.6941311359405518,
+            "initial": 1566000000,
+            "conducted": 3.694136860985359,
             "pumped": 0,
             "vented": 0
           }
@@ -850,8 +850,8 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 6.915300366811402e-11,
-          "dL": 0.0000012146774679422379
+          "dP": 1.5601015716585066e-10,
+          "dL": 2.6193447411060333e-7
         }
       },
       "pass": false,
@@ -869,12 +869,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 814467.3588150977,
+            "M": 914934.0573339704,
             "c": [
-              24.27883936941317,
-              15.984598804938768
+              23.84177960348563,
+              15.907814685311818
             ],
-            "I": 104035716.45712842
+            "I": 107040270.94057529
           }
         ],
         "rounds": 0,
@@ -884,7 +884,16 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1044000000,
+            "initial": 2436000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 6380000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -911,7 +920,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1160000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -920,25 +929,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 3480000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
+            "initial": 7830000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -965,7 +956,16 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 348000000,
+            "initial": 3712000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 783000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -995,12 +995,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 587396.6794075489,
+            "M": 686430.0286669852,
             "c": [
-              19.156461526104255,
-              14.425799944486076
+              19.316645467013753,
+              14.52952274836038
             ],
-            "I": 20566207.417451654
+            "I": 22099247.441068094
           },
           {
             "M": 225674,
@@ -1018,7 +1018,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1044000000,
+            "initial": 2436000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1027,7 +1027,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 6380000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1054,7 +1054,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1160000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1063,7 +1063,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1740000000,
+            "initial": 3915000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1090,7 +1090,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 3712000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1099,7 +1099,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1566000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1127,13 +1127,13 @@
       },
       "actual": {
         "cell": 648000,
-        "sinkCell": 771841.3760152891,
+        "sinkCell": 926643.0960344004,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 338256000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1142,7 +1142,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 751680000000,
+            "initial": 1691280000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1219,12 +1219,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 108000000,
+            "M": 129600000,
             "c": [
               30,
               30
             ],
-            "I": 64800000000
+            "I": 77760000000
           }
         ],
         "rounds": 0,
@@ -1234,7 +1234,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 1378080000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1265,12 +1265,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 7905600,
+            "M": 4471200,
             "c": [
               30,
               45
             ],
-            "I": 7707960000
+            "I": 4359420000
           }
         ],
         "rounds": 0,
@@ -1280,7 +1280,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 225504000000,
+            "initial": 526176000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1418,7 +1418,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 801792000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1495,12 +1495,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 4752000,
+            "M": 2652000,
             "c": [
               30,
               30
             ],
-            "I": 2851200000
+            "I": 1591200000
           }
         ],
         "rounds": 0,
@@ -1510,7 +1510,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 250560000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1648,7 +1648,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 338256000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1679,12 +1679,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 3087365.5040611564,
+            "M": 3706572.3841376016,
             "c": [
               30,
               30
             ],
-            "I": 1852419302.436694
+            "I": 2223943430.482561
           }
         ],
         "rounds": 0,
@@ -1694,7 +1694,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 751680000000,
+            "initial": 1691280000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1724,12 +1724,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 182849549.5040611,
+            "M": 199390356.38413763,
             "c": [
-              147.5791688504434,
-              97.8116843826949
+              144.65484634838177,
+              97.34998126100366
             ],
-            "I": 859776544574.6511
+            "I": 797970969969.1814
           }
         ],
         "rounds": 0,
@@ -1739,6 +1739,60 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
+            "initial": 526176000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1378080000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 250560000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1691280000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
             "initial": 225504000000,
             "conducted": 0,
             "pumped": 0,
@@ -1757,7 +1811,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 801792000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1766,61 +1820,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 150336000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 751680000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 225504000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 150336000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 150336000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 150336000000,
+            "initial": 338256000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1850,12 +1850,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 182823629.5040611,
+            "M": 199364436.38413763,
             "c": [
-              147.5660657961506,
-              97.81279189193619
+              144.64245022383983,
+              97.35093685527985
             ],
-            "I": 859553532728.4803
+            "I": 797733907995.3723
           }
         ],
         "rounds": 20,
@@ -1863,91 +1863,91 @@
         "books": [
           {
             "generated": 0,
-            "radiated": 309417219.8276187,
-            "stored": 312527766.80422974,
-            "initial": 225504000000,
-            "conducted": 621944986.6325402,
+            "radiated": 308932652.8582953,
+            "stored": -260750422.86090088,
+            "initial": 526176000000,
+            "conducted": 48182230.003745824,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 2370037750.8903503,
-            "initial": 150336000000,
-            "conducted": 2370037750.8908353,
+            "stored": 878314507.307373,
+            "initial": 1378080000000,
+            "conducted": 878314507.2964245,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 856800000,
             "radiated": 0,
-            "stored": 856057346.9597473,
+            "stored": 852241666.8758545,
             "initial": 150336000000,
-            "conducted": -742653.0390208092,
+            "conducted": -4558333.124903056,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 2967031.7710266113,
+            "stored": 3151419.6933288574,
             "initial": 150336000000,
-            "conducted": 2967031.7717963704,
+            "conducted": 3151419.6923476956,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 231237309.162093,
-            "stored": -229129199.3616333,
-            "initial": 150336000000,
-            "conducted": 2108109.801976006,
+            "radiated": 231519834.11712632,
+            "stored": -229695835.2418518,
+            "initial": 250560000000,
+            "conducted": 1823998.8766637873,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 309445148.7896962,
-            "stored": 620575181.461792,
-            "initial": 751680000000,
-            "conducted": 930020330.2491039,
+            "radiated": 309157684.53803873,
+            "stored": -263378207.64233398,
+            "initial": 1691280000000,
+            "conducted": 45779476.88385531,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 428400000,
             "radiated": 0,
-            "stored": 430971394.97262573,
+            "stored": 430823165.33947754,
             "initial": 225504000000,
-            "conducted": 2571394.972792052,
+            "conducted": 2423165.339314793,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 1296000000,
             "radiated": 0,
-            "stored": 1290792301.0942383,
+            "stored": 1290886911.9188538,
             "initial": 150336000000,
-            "conducted": -5207698.9059166275,
+            "conducted": -5113088.078382912,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 17136000000,
-            "radiated": 556799254.9949739,
-            "stored": 12655500740.497498,
-            "initial": 150336000000,
-            "conducted": -3923700004.507801,
+            "radiated": 482777510.99594164,
+            "stored": 15683218313.17688,
+            "initial": 801792000000,
+            "conducted": -970004175.8307823,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 752.1336364746094,
-            "initial": 150336000000,
-            "conducted": 752.1336876523403,
+            "stored": 798.9430541992188,
+            "initial": 338256000000,
+            "conducted": 798.9417126772993,
             "pumped": 0,
             "vented": 0
           }
@@ -1957,8 +1957,8 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 1.373811782258411e-8,
-          "dL": 0.0004204213619232178
+          "dP": 2.3487638672606846e-8,
+          "dL": 0.0019134283065795898
         }
       },
       "pass": false,
@@ -1976,12 +1976,12 @@
       "actual": {
         "bodies": [
           {
-            "M": 175159949.5040611,
+            "M": 191700756.38413763,
             "c": [
-              145.71194278573134,
-              95.97193007422865
+              142.83143104156346,
+              95.65044918694898
             ],
-            "I": 800148963468.9741
+            "I": 736078024197.4901
           }
         ],
         "rounds": 0,
@@ -1991,7 +1991,16 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 225504000000,
+            "initial": 526176000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1378080000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2018,7 +2027,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 250560000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2027,25 +2036,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 751680000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 150336000000,
+            "initial": 1691280000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2072,7 +2063,16 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 75168000000,
+            "initial": 801792000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 169128000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2102,20 +2102,20 @@
       "actual": {
         "bodies": [
           {
-            "M": 126292682.75203058,
+            "M": 144695886.19206882,
             "c": [
-              115.02756432442352,
-              86.61366735143419
+              117.4602851362807,
+              87.17274043345749
             ],
-            "I": 156857941642.7684
+            "I": 150073544993.5336
           },
           {
-            "M": 48610584,
+            "M": 46438584,
             "c": [
-              230.26032108563024,
-              126.25961457282637
+              226.97523852148464,
+              127.9555293934027
             ],
-            "I": 171793403247.20392
+            "I": 156247601160.51086
           }
         ],
         "rounds": 0,
@@ -2125,7 +2125,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 225504000000,
+            "initial": 526176000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2134,7 +2134,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 1378080000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2161,7 +2161,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 250560000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2170,7 +2170,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 375840000000,
+            "initial": 845640000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2197,7 +2197,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 801792000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2206,7 +2206,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 150336000000,
+            "initial": 338256000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0

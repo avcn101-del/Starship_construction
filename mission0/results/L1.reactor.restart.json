@@ -1,0 +1,100 @@
+{
+  "id": "L1.reactor.restart",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.reactor.restart",
+  "code": "c9224e2",
+  "criterionHash": "535a6312",
+  "lockedHash": "535a6312",
+  "runHash": "0e92781a",
+  "dataHash": "913ab810",
+  "rowsHash": "825e3004",
+  "rows": [
+    {
+      "case": {
+        "name": "cold"
+      },
+      "expected": {
+        "restart": 65,
+        "literal": 65,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "restarts": [
+          65
+        ],
+        "firstDelivery": 65,
+        "deliveredWhileOff": false,
+        "T": 292.42826086745214
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "never"
+      },
+      "expected": {
+        "restart": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "restarts": [],
+        "firstDelivery": null,
+        "deliveredWhileOff": false,
+        "T": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "hot"
+      },
+      "expected": {
+        "restart": 252.74417606968854,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "restarts": [
+          252.75
+        ],
+        "firstDelivery": 252.75,
+        "deliveredWhileOff": false,
+        "T": 600.0030052515971
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "again"
+      },
+      "expected": {
+        "restart": 100,
+        "literal": 100,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "restarts": [
+          100
+        ],
+        "firstDelivery": 100,
+        "deliveredWhileOff": false,
+        "T": 293.4455278514257
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

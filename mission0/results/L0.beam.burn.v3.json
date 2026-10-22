@@ -1,14 +1,14 @@
 {
   "id": "L0.beam.burn.v3",
   "level": "L0",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L0.beam.burn.v3",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "6e50b68a",
   "lockedHash": "6e50b68a",
   "runHash": "31977c16",
-  "dataHash": "930a2386",
-  "rowsHash": "c8017f89",
+  "dataHash": "913ab810",
+  "rowsHash": "a47e7d11",
   "rows": [
     {
       "case": {
@@ -17,14 +17,7 @@
         "range": 0
       },
       "expected": {
-        "times": [
-          6.000000000000019,
-          12.000000000000018,
-          18.000000000000018,
-          24.000000000000018
-        ],
-        "dt": 0.016666666666666666,
-        "P": 5000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "times": [
@@ -54,8 +47,8 @@
             "books": {
               "generated": 60000000.00000059,
               "radiated": 0,
-              "stored": 60000000.00002861,
-              "initial": 696000000
+              "stored": 60000000.00011444,
+              "initial": 3712000000
             }
           },
           {
@@ -64,15 +57,15 @@
             "books": {
               "generated": 60000000.00000059,
               "radiated": 0,
-              "stored": 60000000.00002861,
-              "initial": 696000000
+              "stored": 60000000.00011444,
+              "initial": 3712000000
             }
           }
         ],
         "escaped": 0
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -81,14 +74,7 @@
         "range": 1500
       },
       "expected": {
-        "times": [
-          6.000000000000019,
-          12.000000000000018,
-          18.000000000000018,
-          24.000000000000018
-        ],
-        "dt": 0.016666666666666666,
-        "P": 5000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "times": [
@@ -118,8 +104,8 @@
             "books": {
               "generated": 60000000.00000059,
               "radiated": 0,
-              "stored": 60000000.00002861,
-              "initial": 696000000
+              "stored": 60000000.00011444,
+              "initial": 3712000000
             }
           },
           {
@@ -128,15 +114,15 @@
             "books": {
               "generated": 60000000.00000059,
               "radiated": 0,
-              "stored": 60000000.00002861,
-              "initial": 696000000
+              "stored": 60000000.00011444,
+              "initial": 3712000000
             }
           }
         ],
         "escaped": 0
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -145,14 +131,7 @@
         "range": 0
       },
       "expected": {
-        "times": [
-          13.913410923941695,
-          18.165047645659836,
-          20.43879456020243,
-          30.1239147532201
-        ],
-        "dt": 0.016666666666666666,
-        "P": 5000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "times": [
@@ -182,8 +161,8 @@
             "books": {
               "generated": 60010510.93170534,
               "radiated": 0,
-              "stored": 60010510.93172729,
-              "initial": 696000000
+              "stored": 60010510.93162775,
+              "initial": 3712000000
             }
           },
           {
@@ -192,15 +171,15 @@
             "books": {
               "generated": 60044469.36848859,
               "radiated": 0,
-              "stored": 60044469.36850786,
-              "initial": 696000000
+              "stored": 60044469.368201256,
+              "initial": 3712000000
             }
           }
         ],
         "escaped": 30611686.366475876
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -209,14 +188,7 @@
         "range": 1500
       },
       "expected": {
-        "times": [
-          13.913410923941695,
-          18.165047645659836,
-          20.43879456020243,
-          30.1239147532201
-        ],
-        "dt": 0.016666666666666666,
-        "P": 5000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "times": [
@@ -246,8 +218,8 @@
             "books": {
               "generated": 60010510.93170534,
               "radiated": 0,
-              "stored": 60010510.93172729,
-              "initial": 696000000
+              "stored": 60010510.93162775,
+              "initial": 3712000000
             }
           },
           {
@@ -256,15 +228,15 @@
             "books": {
               "generated": 60044469.36848859,
               "radiated": 0,
-              "stored": 60044469.36850786,
-              "initial": 696000000
+              "stored": 60044469.368201256,
+              "initial": 3712000000
             }
           }
         ],
         "escaped": 30611686.366475876
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -273,14 +245,7 @@
         "range": 0
       },
       "expected": {
-        "times": [
-          12.000000000000039,
-          24.00000000000004,
-          36.00000000000004,
-          48.00000000000004
-        ],
-        "dt": 0.016666666666666666,
-        "P": 20000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "times": [
@@ -302,7 +267,7 @@
           "beam-1"
         ],
         "t": 48,
-        "energy": 3.204353268e-11,
+        "energy": 2.411671167106512e-11,
         "rooms": [
           {
             "id": "gen-1",
@@ -310,8 +275,8 @@
             "books": {
               "generated": 479999999.9999906,
               "radiated": 0,
-              "stored": 479999999.99954224,
-              "initial": 5568000000
+              "stored": 479999999.99816895,
+              "initial": 29696000000
             }
           },
           {
@@ -320,15 +285,15 @@
             "books": {
               "generated": 479999999.9999906,
               "radiated": 0,
-              "stored": 479999999.99954224,
-              "initial": 5568000000
+              "stored": 479999999.99816895,
+              "initial": 29696000000
             }
           }
         ],
         "escaped": 0
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -337,14 +302,7 @@
         "range": 1500
       },
       "expected": {
-        "times": [
-          12.000000000000039,
-          24.00000000000004,
-          36.00000000000004,
-          48.00000000000004
-        ],
-        "dt": 0.016666666666666666,
-        "P": 20000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "times": [
@@ -366,7 +324,7 @@
           "beam-1"
         ],
         "t": 48,
-        "energy": 3.204353268e-11,
+        "energy": 2.411671167106512e-11,
         "rooms": [
           {
             "id": "gen-1",
@@ -374,8 +332,8 @@
             "books": {
               "generated": 479999999.9999906,
               "radiated": 0,
-              "stored": 479999999.99954224,
-              "initial": 5568000000
+              "stored": 479999999.99816895,
+              "initial": 29696000000
             }
           },
           {
@@ -384,15 +342,15 @@
             "books": {
               "generated": 479999999.9999906,
               "radiated": 0,
-              "stored": 479999999.99954224,
-              "initial": 5568000000
+              "stored": 479999999.99816895,
+              "initial": 29696000000
             }
           }
         ],
         "escaped": 0
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -401,21 +359,14 @@
         "range": 0
       },
       "expected": {
-        "times": [
-          21.87207032694999,
-          33.374095023197256,
-          44.97227500445252,
-          56.47545863073144
-        ],
-        "dt": 0.016666666666666666,
-        "P": 20000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "times": [
-          21.883333333333333,
-          33.38333333333333,
-          44.983333333333334,
-          56.483333333333334
+          20.2,
+          31.03333333333333,
+          41.78333333333333,
+          54.63333333333333
         ],
         "channels": [
           "thermal",
@@ -429,34 +380,34 @@
           "beam-1",
           "beam-1"
         ],
-        "t": 56.483333333333334,
-        "energy": 1.2817413072e-10,
+        "t": 54.63333333333333,
+        "energy": 9.646684668426048e-11,
         "rooms": [
           {
             "id": "gen-1",
-            "left": 480224958.858102,
+            "left": 480312408.5878082,
             "books": {
-              "generated": 480224958.858102,
+              "generated": 480312408.5878082,
               "radiated": 0,
-              "stored": 480224958.85788727,
-              "initial": 5568000000
+              "stored": 480312408.58535004,
+              "initial": 29696000000
             }
           },
           {
             "id": "gen-2",
-            "left": 480207750.2261941,
+            "left": 480208178.8774978,
             "books": {
-              "generated": 480207750.2261941,
+              "generated": 480208178.8774978,
               "radiated": 0,
-              "stored": 480207750.2263756,
-              "initial": 5568000000
+              "stored": 480208178.8759842,
+              "initial": 29696000000
             }
           }
         ],
-        "escaped": 169233957.58241022
+        "escaped": 132146079.20133758
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -465,21 +416,14 @@
         "range": 1500
       },
       "expected": {
-        "times": [
-          21.87207032694999,
-          33.374095023197256,
-          44.97227500445252,
-          56.47545863073144
-        ],
-        "dt": 0.016666666666666666,
-        "P": 20000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "times": [
-          21.883333333333333,
-          33.38333333333333,
-          44.983333333333334,
-          56.483333333333334
+          20.2,
+          31.03333333333333,
+          41.78333333333333,
+          54.63333333333333
         ],
         "channels": [
           "thermal",
@@ -493,40 +437,45 @@
           "beam-1",
           "beam-1"
         ],
-        "t": 56.483333333333334,
-        "energy": 1.2817413072e-10,
+        "t": 54.63333333333333,
+        "energy": 9.646684668426048e-11,
         "rooms": [
           {
             "id": "gen-1",
-            "left": 480224958.858102,
+            "left": 480312408.5878082,
             "books": {
-              "generated": 480224958.858102,
+              "generated": 480312408.5878082,
               "radiated": 0,
-              "stored": 480224958.85788727,
-              "initial": 5568000000
+              "stored": 480312408.58535004,
+              "initial": 29696000000
             }
           },
           {
             "id": "gen-2",
-            "left": 480207750.2261941,
+            "left": 480208178.8774978,
             "books": {
-              "generated": 480207750.2261941,
+              "generated": 480208178.8774978,
               "radiated": 0,
-              "stored": 480207750.2263756,
-              "initial": 5568000000
+              "stored": 480208178.8759842,
+              "initial": 29696000000
             }
           }
         ],
-        "escaped": 169233957.58241022
+        "escaped": 132146079.20133758
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
     {
       "name": "the same destruction times at 0 and 1500 m (exact), every tier and length",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "8 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

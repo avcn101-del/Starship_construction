@@ -51,7 +51,7 @@
     "id": "L3.mass.props",
     "successor": "L3.mass.props.v2",
     "decision": "#219",
-    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Every case passed. The successor rescales the heat books to max(1e-9 x the largest flow, 1e-10 x the room's heat at the start) and the angular books to 1e-9 x net + 1e-12 x gross (#220 (1)). Locked and recorded with that FAIL."
+    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Every case passed. The successor rescales the heat books to max(1e-9 x the largest flow, 1e-10 x the room's heat at the start) and the angular books to 1e-9 x net + 1e-12 x gross (#220 (1)). Locked and recorded with that FAIL. Note (scenario audit E-F3, physics pass 2): the record that showed every case passing is the original run in the git history of this record; the record kept here is the re-record on later data (since #221 removed thermal.specificHeat), where expected() throws in every case and the failing invariant is 'expected() completes in every case'."
   },
   {
     "id": "L3.validation",
@@ -63,25 +63,25 @@
     "id": "L3.rcs.turn",
     "successor": "L3.rcs.turn.v2",
     "decision": "#219",
-    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J), and the angular books' scale leaves out the gross angular impulse of a couple fired one way then the other (residue 6.2e-9 of about 2e7 booked). Every case passed. Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on those two invariants. The successor carries the rescaled books (#219, #220 (1)) and asserts the discrete turn (#220 (2)). Locked and recorded with that FAIL."
+    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J), and the angular books' scale leaves out the gross angular impulse of a couple fired one way then the other (residue 6.2e-9 of about 2e7 booked). Every case passed. Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on those two invariants. The successor carries the rescaled books (#219, #220 (1)) and asserts the discrete turn (#220 (2)). Locked and recorded with that FAIL. Note (scenario audit E-F3, physics pass 2): the record that showed every case passing is the original run in the git history of this record; the record kept here is the re-record on later data (since #221 removed thermal.specificHeat), where expected() throws in every case and the failing invariant is 'expected() completes in every case'."
   },
   {
     "id": "L3.recoil",
     "successor": "L3.recoil.v2",
     "decision": "#219",
-    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Every case passed. Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on that invariant. The successor carries the rescaled heat and angular books (#219, #220 (1)). Locked and recorded with that FAIL."
+    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Every case passed. Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on that invariant. The successor carries the rescaled heat and angular books (#219, #220 (1)). Locked and recorded with that FAIL. Note (scenario audit E-F3, physics pass 2): the record that showed every case passing is the original run in the git history of this record; the record kept here is the re-record on later data (since #221 removed thermal.specificHeat), where expected() throws in every case and the failing invariant is 'expected() completes in every case'."
   },
   {
     "id": "L3.split.momentum",
     "successor": "L3.split.momentum.v2",
     "decision": "#219",
-    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Every case passed. Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on that invariant. The successor carries the rescaled heat and angular books (#219, #220 (1)). Locked and recorded with that FAIL."
+    "reason": "Specification error of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Every case passed. Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on that invariant. The successor carries the rescaled heat and angular books (#219, #220 (1)). Locked and recorded with that FAIL. Note (scenario audit E-F3, physics pass 2): the record that showed every case passing is the original run in the git history of this record; the record kept here is the re-record on later data (since #221 removed thermal.specificHeat), where expected() throws in every case and the failing invariant is 'expected() completes in every case'."
   },
   {
     "id": "L3.thrust",
     "successor": "L3.thrust.v2",
     "decision": "#219",
-    "reason": "Specification error of the lead designer (#219 (2)): (b)'s 1e-6 match of position and heading to the RK4 reference sits under the semi-implicit Euler error (about dt / t, 1.67e-2 at 1 s), as estimated before the lock; and of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on (b) and that invariant. The successor checks (b) at 1e-2 at 5 and 10 s, carries the rescaled books and asserts (a)'s discrete position (#219, #220). Locked and recorded with that FAIL."
+    "reason": "Specification error of the lead designer (#219 (2)): (b)'s 1e-6 match of position and heading to the RK4 reference sits under the semi-implicit Euler error (about dt / t, 1.67e-2 at 1 s), as estimated before the lock; and of the engineer (#219 (4)): the engineer's heat-books invariant (1e-9 relative to the heat moved) has no floor at the float resolution of the stored heat Q - Q0 (residues <= 5.2e-12 of a room's heat of about 1e9 J). Recorded BLOCKED behind L3.mass.props, re-run unchanged once its successor passed (#188): FAIL on (b) and that invariant. The successor checks (b) at 1e-2 at 5 and 10 s, carries the rescaled books and asserts (a)'s discrete position (#219, #220). Locked and recorded with that FAIL. Note (scenario audit E-F3, physics pass 2): the record that showed the FAIL on (b) and that invariant is the original run in the git history of this record; the record kept here is the re-record on later data (since #221 removed thermal.specificHeat), where expected() throws in every case and the failing invariant is 'expected() completes in every case'."
   },
   {
     "id": "L3.ship.heat",
@@ -217,5 +217,323 @@
     "successor": "L3.fragment.rules.v2",
     "decision": "#234",
     "reason": "Superseded by the owner's design decision #234 (real cell masses by room type, specified in #235): its expected fragment masses and RCS kicks give every cell structure.cellMass. The successor is identical except the masses of 13i.2. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L0.beam.burn.v3",
+    "successor": "L0.beam.burn.v4",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads armour.burnEnergy (burn is per kilogram of the cell, matter.burnEnergyPerKg, #240 (1)) and takes beam.gradient at its T1 value at T3 (k is now -0.41, #240 (4)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16); its successor is S1, the burn of 13k.4 on hold, crewed, armour and reactor columns. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L0.blast.surface",
+    "successor": "L0.blast.surface.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads armour.blastResistance (blast is per kilogram of the cell, matter.blastPerKg, #240 (6)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L0.blast.surface.v2",
+    "successor": "L0.blast.surface.v4",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads armour.blastResistance in run() (blast is per kilogram of the cell, matter.blastPerKg, #240 (6)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L0.shield.kinetic",
+    "successor": "L0.shield.kinetic.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads shield.bufferSeconds (the buffer is shield.buffer in joules, #240 (4)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L0.shield.kinetic.v2",
+    "successor": "L0.shield.kinetic.v4",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads shield.bufferSeconds (the buffer is shield.buffer in joules, #240 (4)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.beambay.heat",
+    "successor": "L1.beambay.heat.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws). Its race also lives on in S3 (L1.heat.coupled) at T1-T6."
+  },
+  {
+    "id": "L1.beambay.length",
+    "successor": "L1.beambay.length.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (4) as built in physics pass 2 (#243): its expected() takes beam.gradient at its T1 value at T3, where the gradient now scales with k = -0.41; the successor takes it at its tier (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.bridge.control",
+    "successor": "L1.bridge.control.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L1.engine.thrust",
+    "successor": "L1.engine.thrust.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws). Its race also lives on in S3 (L1.heat.coupled) at T1-T6."
+  },
+  {
+    "id": "L1.magazine.cookoff",
+    "successor": "L1.magazine.cookoff.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L1.quarters.repair.v2",
+    "successor": "L1.quarters.repair.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads repair.rate (repair restores repair.massRate kg/s, #240 (1)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.radiator.cooling",
+    "successor": "L1.radiator.cooling.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L1.reactor.power",
+    "successor": "L1.reactor.power.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws). Its race also lives on in S3 (L1.heat.coupled) at T1-T6."
+  },
+  {
+    "id": "L1.reactor.scram",
+    "successor": "L1.reactor.scram.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L1.repair.breach.v2",
+    "successor": "L1.repair.breach.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads repair.rate and thermal.heatCapacityPerCell (#240 (1)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16); the successor heats the wreck with 11 MW instead of 1.1 MW so that it still passes its critical temperature with the 9.2 x larger C. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.room.restart",
+    "successor": "L1.room.restart.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L1.room.thresholds",
+    "successor": "L1.room.thresholds.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L1.shield.generator",
+    "successor": "L1.shield.generator.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws). Its race also lives on in S3 (L1.heat.coupled) at T1-T6."
+  },
+  {
+    "id": "L2.blast.split",
+    "successor": "L2.blast.mass",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (6) as built in physics pass 2 (#243): it reads room.blastResistance and hold.blastFactor, which data.js no longer holds; with blast by mass one round (6 MJ) saturates its 1.2 MJ hold, so its 2 : 1 split with no neighbour saturated cannot be shown in its geometry. Its successor is S2 (L2.blast.mass), the same geometry with a hold or a reactor beside the magazine. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.blast.walls",
+    "successor": "L2.blast.walls.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads room.blastResistance and hold.blastFactor (blast is per kilogram of the cell, #240 (6)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.bridge.conduction.v2",
+    "successor": "L2.bridge.conduction.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L2.heat.chain.v2",
+    "successor": "L2.heat.chain.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L2.heat.neighbour.v2",
+    "successor": "L2.heat.neighbour.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L2.heat.pair.v2",
+    "successor": "L2.heat.pair.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L2.heatsink.buffer",
+    "successor": "L2.heatsink.buffer.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L2.heatsink.loss",
+    "successor": "L2.heatsink.loss.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L2.lifesupport",
+    "successor": "L2.lifesupport.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L2.lifesupport.routed.v2",
+    "successor": "L2.lifesupport.routed.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L2.reactor.cooled",
+    "successor": "L2.reactor.cooled.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws). Its n = 0 meltdown came 0.367 s before its reference (scenario audit B-F11): the exact crossing of overheated lands on step 3672 (510 K x 2.4 MJ/K / 20 MW = 61.2 s), the kernel's float sum reaches it one step later at 800.139 K, and the 0.333 MJ more heat costs 0.367 s at the decay power then; under the coupled C a lone reactor no longer melts down from decay heat, so the successor expects a meltdown only where its reference has one."
+  },
+  {
+    "id": "L2.repair.shared",
+    "successor": "L2.repair.shared.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads repair.rate (repair restores repair.massRate kg/s, #240 (1)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.shield.buffer",
+    "successor": "L2.shield.buffer.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads shield.bufferSeconds (the buffer is shield.buffer in joules, #240 (4)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.shield.salvo",
+    "successor": "L2.shield.salvo.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads shield.bufferSeconds (the buffer is shield.buffer in joules, #240 (4)), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.size.rule",
+    "successor": "L2.size.rule.v2",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L3.mass.props.v4",
+    "successor": "L3.mass.props.v5",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads cellMass.engine, cellMass.beamBay and thermal.heatCapacityPerCell (engine and beam bay cells are structure + machinery at their own exponents, F11, #243), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16); its successor is S8. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.thrust.v4",
+    "successor": "L3.thrust.v5",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads cellMass.engine, cellMass.beamBay and thermal.heatCapacityPerCell (F11, #243), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.rcs.turn.v4",
+    "successor": "L3.rcs.turn.v5",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads cellMass.engine, cellMass.beamBay and thermal.heatCapacityPerCell (F11, #243), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.recoil.v4",
+    "successor": "L3.recoil.v5",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads cellMass.engine, cellMass.beamBay and thermal.heatCapacityPerCell (F11, #243), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.split.momentum.v4",
+    "successor": "L3.split.momentum.v5",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads cellMass.engine, cellMass.beamBay and thermal.heatCapacityPerCell (F11, #243), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.fragment.rules.v2",
+    "successor": "L3.fragment.rules.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 as built in physics pass 2 (#243, DESIGN.md 13k): it reads cellMass.engine, cellMass.beamBay and thermal.heatCapacityPerCell (F11, #243), which data.js no longer holds; the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.ship.heat.v2",
+    "successor": "L3.ship.heat.v3",
+    "decision": "#240",
+    "reason": "Superseded by the owner's decision #240 (1) as built in physics pass 2 (#243, DESIGN.md 13k): its expected() reads thermal.heatCapacityPerCell, which data.js no longer holds (heat capacity is the room type's thermally coupled mass, thermal.coupled*); the successor is the same scenario with the new constants (13k.4 S16). Locked and recorded with that FAIL (expected() throws)."
+  },
+  {
+    "id": "L3.fragment.scram",
+    "successor": "L3.fragment.scram.v2",
+    "decision": "#240",
+    "reason": "Specification error exposed by the owner's decision #240 (1) as built in physics pass 2 (#243): its heat-books invariant (1e-9 relative to the largest flow) has no floor at the float resolution of the stored heat, the floor #219 (4) gave the L3 v2 scenarios; with the hold's coupled heat capacity (1.35 MJ/K per cell) the hold's residue in the kept case is 6.1e-7 J, 7.8e-16 of its 783 MJ but 1.3e-9 of its small flows. The successor carries #219 (4)'s floor; nothing else changes. Every case passes. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.room.thresholds.v2",
+    "successor": "L1.room.thresholds.v3",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): the copy kept L1's run cap of 5000 s, but with the coupled heat capacities the reactor reaches hot only at 6200 s and critical at 14 200 s under the 1.1 MW source, and the engine and shield generator do not reach critical either; its FAIL blocks every scenario that depends on L1.room.thresholds. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.engine.thrust.v2",
+    "successor": "L1.engine.thrust.v3",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): the copy kept the run cap of 5000 s; the T6 race to hot is 5208 s. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.reactor.power.v2",
+    "successor": "L1.reactor.power.v3",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): the copy kept the run cap of 3000 s; the T6 race to overheated is 3366 s. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.shield.generator.v2",
+    "successor": "L1.shield.generator.v3",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): the copy kept the run cap of 3000 s; the T5 and T6 races to overheated are 3730 s and 5595 s. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.heatsink.buffer.v2",
+    "successor": "L2.heatsink.buffer.v3",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): the copy kept the horizon of 2000 s, inside which the reactor no longer overheats at T3. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.heatsink.loss.v2",
+    "successor": "L2.heatsink.loss.v3",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): the copy kept the horizon of 1000 s after the reactor starts, inside which it no longer overheats for k = 0, 1, 2. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.blast.walls.v2",
+    "successor": "L2.blast.walls.v3",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): the copy kept the L2 crew rule floor(k crew / N) for k destroyed cells; with blast by mass a bridge is now partly damaged, and the kernel kills crew by the D-pass rule floor(crew x (cells - sum of integrity) / cells) (#206, #212 (3)). The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L2.heat.chain.v3",
+    "successor": "L2.heat.chain.v4",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): its heat-books invariant has no floor at the float resolution of the stored heat (#219 (4)), which the larger coupled heat capacities now reach. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.heat.coupled",
+    "successor": "L1.heat.coupled.v2",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): it checks the first step's heat rate, a difference of two stored heats of 1e9-1e11 J over one step, at 1e-12; the float resolution is up to about 1e-11. Every time check passes. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.repair.mass",
+    "successor": "L1.repair.mass.v2",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): it checks the first step's repair rate, a difference of two integrities near 0.67 over one step, at 1e-12; the float resolution is about 5e-12 for the reactor cell. Every time check passes. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L1.turret.timing",
+    "successor": "L1.turret.timing.v2",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): its literal 3.8095 m assumed the round leaves at 800 m/s; it leaves at 800 m/s plus the velocity the first shot's recoil gave the turret's point (799.959 m/s), 5e-5 off. Every other check passes. The successor changes only that. Locked and recorded with that FAIL."
+  },
+  {
+    "id": "L3.cull",
+    "successor": "L3.cull.v2",
+    "decision": "#243",
+    "reason": "Specification error of the engineer in physics pass 2 (#243), found at its first canonical run; the withdrawal waits for the lead designer's decision (named in the pull request): its debris case runs R1's engine at full throttle with nothing holding its heading; the thrust 1.2 m below the centre of mass spins R1 up and it circles its debris, which never gets 3 km away. The round case passes. The successor changes only that. Locked and recorded with that FAIL."
   }
 ]

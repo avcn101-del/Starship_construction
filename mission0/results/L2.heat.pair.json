@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.heat.pair",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "9f0da2d3",
   "lockedHash": "9f0da2d3",
   "runHash": "c7635b23",
-  "dataHash": "930a2386",
-  "rowsHash": "619b8abc",
+  "dataHash": "913ab810",
+  "rowsHash": "268b7b59",
   "rows": [
     {
       "case": {
@@ -18,42 +18,13 @@
         "pair": "ordinary"
       },
       "expected": {
-        "tau": 60,
-        "duration": 240,
-        "dT0": 110,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 240,
-        "dT": 2.013601092370436,
-        "maxDeviation": 0.000051100281358819966,
-        "maxEnergy": 0,
-        "tauFit": 59.99166628081513,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -129583678.68915546,
-            "initial": 960000000,
-            "conducted": -129583678.68915415,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 129583678.68915546,
-            "initial": 696000000,
-            "conducted": 129583678.68915415,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -63,42 +34,13 @@
         "pair": "hold"
       },
       "expected": {
-        "tau": 330,
-        "duration": 1320,
-        "dT0": 110,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 1320,
-        "dT": 107.28408989980551,
-        "maxDeviation": 0.9569942692913159,
-        "maxEnergy": 0,
-        "tauFit": 52799.99166667789,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -3259092.1202334166,
-            "initial": 960000000,
-            "conducted": -3259092.1202342566,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 3259092.1202334166,
-            "initial": 696000000,
-            "conducted": 3259092.1202342566,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "pass": false,
-      "note": "Delta T at every step"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -108,42 +50,13 @@
         "pair": "ordinary"
       },
       "expected": {
-        "tau": 30,
-        "duration": 120,
-        "dT0": 110,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 120,
-        "dT": 2.012482114340173,
-        "maxDeviation": 0.00010221239502331255,
-        "maxEnergy": 0,
-        "tauFit": 29.991665894844136,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -129585021.4627918,
-            "initial": 960000000,
-            "conducted": -129585021.46278927,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 129585021.4627918,
-            "initial": 696000000,
-            "conducted": 129585021.46278927,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -153,42 +66,13 @@
         "pair": "hold"
       },
       "expected": {
-        "tau": 165,
-        "duration": 660,
-        "dT0": 110,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 660,
-        "dT": 107.28408947649496,
-        "maxDeviation": 0.9569942654430381,
-        "maxEnergy": 0,
-        "tauFit": 26399.99166668453,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -3259092.6282060146,
-            "initial": 960000000,
-            "conducted": -3259092.6282082815,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 3259092.6282060146,
-            "initial": 696000000,
-            "conducted": 3259092.6282082815,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "pass": false,
-      "note": "Delta T at every step"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -198,42 +82,13 @@
         "pair": "ordinary"
       },
       "expected": {
-        "tau": 60,
-        "duration": 240,
-        "dT0": 310,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 240,
-        "dT": 5.67469398758783,
-        "maxDeviation": 0.00005110028136005352,
-        "maxEnergy": 1.0268965017483029e-14,
-        "tauFit": 59.99166628081095,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -365190367.21490145,
-            "initial": 1440000000,
-            "conducted": -365190367.2148865,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 365190367.21488774,
-            "initial": 696000000,
-            "conducted": 365190367.2148865,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -243,42 +98,13 @@
         "pair": "hold"
       },
       "expected": {
-        "tau": 330,
-        "duration": 1320,
-        "dT0": 310,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 1320,
-        "dT": 302.3460715358053,
-        "maxDeviation": 0.9569942692912831,
-        "maxEnergy": 1.3952398121580202e-14,
-        "tauFit": 52799.99166660672,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -9184714.15703988,
-            "initial": 1440000000,
-            "conducted": -9184714.157023435,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 9184714.157027364,
-            "initial": 696000000,
-            "conducted": 9184714.157023435,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "pass": false,
-      "note": "Delta T at every step"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -288,42 +114,13 @@
         "pair": "ordinary"
       },
       "expected": {
-        "tau": 30,
-        "duration": 120,
-        "dT0": 310,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 120,
-        "dT": 5.6715405040527,
-        "maxDeviation": 0.00010221239503099726,
-        "maxEnergy": 2.902098809288682e-15,
-        "tauFit": 29.991665894848264,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -365194151.3951359,
-            "initial": 1440000000,
-            "conducted": -365194151.39513963,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 365194151.39513755,
-            "initial": 696000000,
-            "conducted": 365194151.39513963,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -333,42 +130,13 @@
         "pair": "hold"
       },
       "expected": {
-        "tau": 165,
-        "duration": 660,
-        "dT0": 310,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 660,
-        "dT": 302.3460703428414,
-        "maxDeviation": 0.9569942654430124,
-        "maxEnergy": 8.483058057920764e-15,
-        "tauFit": 26399.991666656522,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -9184715.588583708,
-            "initial": 1440000000,
-            "conducted": -9184715.588587131,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 9184715.58859682,
-            "initial": 696000000,
-            "conducted": 9184715.588587131,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "pass": false,
-      "note": "Delta T at every step"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -378,42 +146,13 @@
         "pair": "ordinary"
       },
       "expected": {
-        "tau": 60,
-        "duration": 240,
-        "dT0": 710,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 240,
-        "dT": 12.996879778025914,
-        "maxDeviation": 0.0000511002813499077,
-        "maxEnergy": 1.3861545296602471e-15,
-        "tauFit": 59.991666280813455,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -836403744.2663696,
-            "initial": 2400000000,
-            "conducted": -836403744.2663709,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 836403744.2663684,
-            "initial": 696000000,
-            "conducted": 836403744.2663709,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -423,42 +162,13 @@
         "pair": "hold"
       },
       "expected": {
-        "tau": 330,
-        "duration": 1320,
-        "dT0": 710,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 1320,
-        "dT": 692.470034807834,
-        "maxDeviation": 0.9569942692913138,
-        "maxEnergy": 9.85709887758398e-15,
-        "tauFit": 52799.99166667331,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -21035958.23058796,
-            "initial": 2400000000,
-            "conducted": -21035958.23060168,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 21035958.23061037,
-            "initial": 696000000,
-            "conducted": 21035958.23060168,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "pass": false,
-      "note": "Delta T at every step"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -468,42 +178,13 @@
         "pair": "ordinary"
       },
       "expected": {
-        "tau": 30,
-        "duration": 120,
-        "dT0": 710,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 120,
-        "dT": 12.989657283471502,
-        "maxDeviation": 0.00010221239502901509,
-        "maxEnergy": 1.2321373596979974e-15,
-        "tauFit": 29.991665894845934,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -836412411.2598357,
-            "initial": 2400000000,
-            "conducted": -836412411.2598311,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 836412411.2598326,
-            "initial": 696000000,
-            "conducted": 836412411.2598311,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -513,42 +194,13 @@
         "pair": "hold"
       },
       "expected": {
-        "tau": 165,
-        "duration": 660,
-        "dT0": 710,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 660,
-        "dT": 692.4700320755434,
-        "maxDeviation": 0.956994265443017,
-        "maxEnergy": 5.236583778716489e-15,
-        "tauFit": 26399.991666661692,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -21035961.509340763,
-            "initial": 2400000000,
-            "conducted": -21035961.50934472,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 21035961.509355187,
-            "initial": 696000000,
-            "conducted": 21035961.50934472,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "pass": false,
-      "note": "Delta T at every step"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -559,42 +211,13 @@
         "sweep": "tier"
       },
       "expected": {
-        "tau": 30,
-        "duration": 120,
-        "dT0": 710,
-        "edgeRatio": 1,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 120,
-        "dT": 12.989657283471502,
-        "maxDeviation": 0.00010221239502901509,
-        "maxEnergy": 1.2321373596979974e-15,
-        "tauFit": 29.991665894845934,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -836412411.2598357,
-            "initial": 2400000000,
-            "conducted": -836412411.2598311,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 836412411.2598326,
-            "initial": 696000000,
-            "conducted": 836412411.2598311,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -605,42 +228,13 @@
         "sweep": "tier"
       },
       "expected": {
-        "tau": 45,
-        "duration": 180,
-        "dT0": 710,
-        "edgeRatio": 1.5,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 180,
-        "dT": 12.994472131099428,
-        "maxDeviation": 0.00006813633763054498,
-        "maxEnergy": 1.277772076723849e-15,
-        "tauFit": 44.991666152168925,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -2822872387.869054,
-            "initial": 8100000000,
-            "conducted": -2822872387.8690367,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 2822872387.8690405,
-            "initial": 2349000000,
-            "conducted": 2822872387.8690367,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -651,42 +245,13 @@
         "sweep": "tier"
       },
       "expected": {
-        "tau": 60,
-        "duration": 240,
-        "dT0": 710,
-        "edgeRatio": 2,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 240,
-        "dT": 12.996879778025914,
-        "maxDeviation": 0.0000511002813499077,
-        "maxEnergy": 1.3861545296602471e-15,
-        "tauFit": 59.991666280813455,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -6691229954.130957,
-            "initial": 19200000000,
-            "conducted": -6691229954.130967,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 6691229954.130947,
-            "initial": 5568000000,
-            "conducted": 6691229954.130967,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -697,42 +262,13 @@
         "sweep": "tier"
       },
       "expected": {
-        "tau": 90,
-        "duration": 360,
-        "dT0": 710,
-        "edgeRatio": 3,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 360,
-        "dT": 12.999287573661832,
-        "maxDeviation": 0.00003406553977620654,
-        "maxEnergy": 1.6428498129306631e-15,
-        "tauFit": 89.99166640943976,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -22582823082.613335,
-            "initial": 64800000000,
-            "conducted": -22582823082.612892,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 22582823082.61338,
-            "initial": 18792000000,
-            "conducted": 22582823082.612892,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -743,42 +279,13 @@
         "sweep": "tier"
       },
       "expected": {
-        "tau": 120,
-        "duration": 480,
-        "dT0": 710,
-        "edgeRatio": 4,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 480,
-        "dT": 13.000491527242957,
-        "maxDeviation": 0.000025548661941328787,
-        "maxEnergy": 2.6182918893582445e-15,
-        "tauFit": 119.9916664737504,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -53529562250.70795,
-            "initial": 153600000000,
-            "conducted": -53529562250.70757,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 53529562250.707535,
-            "initial": 44544000000,
-            "conducted": 53529562250.70757,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -789,48 +296,19 @@
         "sweep": "tier"
       },
       "expected": {
-        "tau": 180,
-        "duration": 720,
-        "dT0": 710,
-        "edgeRatio": 6,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "t": 720,
-        "dT": 13.001695517978419,
-        "maxDeviation": 0.000017032112720817424,
-        "maxEnergy": 3.2856996258613263e-15,
-        "tauFit": 179.9916665380008,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -180661960521.739,
-            "initial": 518400000000,
-            "conducted": -180661960521.7294,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 180661960521.74097,
-            "initial": 150336000000,
-            "conducted": 180661960521.7294,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
     {
       "name": "tau proportional to the edge across T1-T6 (fitted tau / T1 fitted tau = edge / 5 m, 1e-3)",
-      "ok": true
+      "ok": false
     },
     {
       "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
@@ -843,6 +321,11 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "18 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

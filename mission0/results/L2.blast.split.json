@@ -1,14 +1,14 @@
 {
   "id": "L2.blast.split",
   "level": "L2",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L2.blast.split",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "0a800e30",
   "lockedHash": "0a800e30",
   "runHash": "1cd4ef8d",
-  "dataHash": "930a2386",
-  "rowsHash": "84b46ea9",
+  "dataHash": "913ab810",
+  "rowsHash": "ee40eba3",
   "rows": [
     {
       "case": {
@@ -16,45 +16,7 @@
         "round": "HE"
       },
       "expected": {
-        "E": 8000000,
-        "absorbed": {
-          "magazine": 2000000,
-          "H": 4000000,
-          "N": 2000000
-        },
-        "escaped": 0,
-        "full": [
-          "magazine"
-        ],
-        "capMagazine": 2000000,
-        "rooms": {
-          "H": {
-            "absorbed": 4000000,
-            "destroyed": 0,
-            "integrity": 0.5,
-            "crew": 0,
-            "deaths": 0
-          },
-          "N": {
-            "absorbed": 2000000,
-            "destroyed": 0,
-            "integrity": 0.75,
-            "crew": 0,
-            "deaths": 0
-          }
-        },
-        "walls": [
-          [
-            "magazine",
-            "H",
-            10
-          ],
-          [
-            "magazine",
-            "N",
-            5
-          ]
-        ]
+        "error": "Cannot read properties of undefined (reading 'blastResistance')"
       },
       "actual": {
         "walls": [
@@ -71,78 +33,36 @@
         ],
         "energy": 8000000,
         "absorbed": {
-          "H": 4000000,
-          "N": 2000000,
-          "magazine": 2000000
+          "H": 1200000,
+          "N": 1200000,
+          "magazine": 1200000
         },
-        "escaped": 0,
+        "escaped": 4400000,
         "blasts": 1,
         "rooms": {
           "H": {
-            "destroyed": 0,
+            "destroyed": 4,
             "integrity": [
-              0.5,
-              0.5,
-              0.5,
-              0.5
+              0,
+              0,
+              0,
+              0
             ],
             "crewAboard": 0,
             "deaths": 0,
-            "damaged": [
-              {
-                "cell": 0,
-                "channel": "blast",
-                "integrity": 0.5
-              },
-              {
-                "cell": 1,
-                "channel": "blast",
-                "integrity": 0.5
-              },
-              {
-                "cell": 2,
-                "channel": "blast",
-                "integrity": 0.5
-              },
-              {
-                "cell": 3,
-                "channel": "blast",
-                "integrity": 0.5
-              }
-            ]
+            "damaged": []
           },
           "N": {
-            "destroyed": 0,
+            "destroyed": 4,
             "integrity": [
-              0.75,
-              0.75,
-              0.75,
-              0.75
+              0,
+              0,
+              0,
+              0
             ],
             "crewAboard": 0,
             "deaths": 0,
-            "damaged": [
-              {
-                "cell": 0,
-                "channel": "blast",
-                "integrity": 0.75
-              },
-              {
-                "cell": 1,
-                "channel": "blast",
-                "integrity": 0.75
-              },
-              {
-                "cell": 2,
-                "channel": "blast",
-                "integrity": 0.75
-              },
-              {
-                "cell": 3,
-                "channel": "blast",
-                "integrity": 0.75
-              }
-            ]
+            "damaged": []
           }
         },
         "books": [
@@ -159,7 +79,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1566000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -168,7 +88,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1566000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -176,8 +96,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
     },
     {
       "case": {
@@ -185,45 +105,7 @@
         "round": "AP"
       },
       "expected": {
-        "E": 6000000,
-        "absorbed": {
-          "magazine": 2000000,
-          "H": 2666666.6666666665,
-          "N": 1333333.3333333333
-        },
-        "escaped": 0,
-        "full": [
-          "magazine"
-        ],
-        "capMagazine": 2000000,
-        "rooms": {
-          "H": {
-            "absorbed": 2666666.6666666665,
-            "destroyed": 0,
-            "integrity": 0.6666666666666667,
-            "crew": 0,
-            "deaths": 0
-          },
-          "N": {
-            "absorbed": 1333333.3333333333,
-            "destroyed": 0,
-            "integrity": 0.8333333333333334,
-            "crew": 0,
-            "deaths": 0
-          }
-        },
-        "walls": [
-          [
-            "magazine",
-            "H",
-            10
-          ],
-          [
-            "magazine",
-            "N",
-            5
-          ]
-        ]
+        "error": "Cannot read properties of undefined (reading 'blastResistance')"
       },
       "actual": {
         "walls": [
@@ -240,78 +122,36 @@
         ],
         "energy": 6000000,
         "absorbed": {
-          "H": 2666666.6666666665,
-          "N": 1333333.3333333333,
-          "magazine": 2000000
+          "H": 1200000,
+          "N": 1200000,
+          "magazine": 1200000
         },
-        "escaped": 0,
+        "escaped": 2400000,
         "blasts": 1,
         "rooms": {
           "H": {
-            "destroyed": 0,
+            "destroyed": 4,
             "integrity": [
-              0.6666666666666667,
-              0.6666666666666667,
-              0.6666666666666667,
-              0.6666666666666667
+              0,
+              0,
+              0,
+              0
             ],
             "crewAboard": 0,
             "deaths": 0,
-            "damaged": [
-              {
-                "cell": 0,
-                "channel": "blast",
-                "integrity": 0.6666666666666667
-              },
-              {
-                "cell": 1,
-                "channel": "blast",
-                "integrity": 0.6666666666666667
-              },
-              {
-                "cell": 2,
-                "channel": "blast",
-                "integrity": 0.6666666666666667
-              },
-              {
-                "cell": 3,
-                "channel": "blast",
-                "integrity": 0.6666666666666667
-              }
-            ]
+            "damaged": []
           },
           "N": {
-            "destroyed": 0,
+            "destroyed": 4,
             "integrity": [
-              0.8333333333333334,
-              0.8333333333333334,
-              0.8333333333333334,
-              0.8333333333333334
+              0,
+              0,
+              0,
+              0
             ],
             "crewAboard": 0,
             "deaths": 0,
-            "damaged": [
-              {
-                "cell": 0,
-                "channel": "blast",
-                "integrity": 0.8333333333333334
-              },
-              {
-                "cell": 1,
-                "channel": "blast",
-                "integrity": 0.8333333333333334
-              },
-              {
-                "cell": 2,
-                "channel": "blast",
-                "integrity": 0.8333333333333334
-              },
-              {
-                "cell": 3,
-                "channel": "blast",
-                "integrity": 0.8333333333333334
-              }
-            ]
+            "damaged": []
           }
         },
         "books": [
@@ -328,7 +168,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1566000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -337,7 +177,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1566000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -345,8 +185,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
     },
     {
       "case": {
@@ -354,45 +194,7 @@
         "round": "AP"
       },
       "expected": {
-        "E": 6000000,
-        "absorbed": {
-          "magazine": 2000000,
-          "H": 2666666.6666666665,
-          "N": 1333333.3333333333
-        },
-        "escaped": 0,
-        "full": [
-          "magazine"
-        ],
-        "capMagazine": 2000000,
-        "rooms": {
-          "H": {
-            "absorbed": 2666666.6666666665,
-            "destroyed": 0,
-            "integrity": 0.6666666666666667,
-            "crew": 0,
-            "deaths": 0
-          },
-          "N": {
-            "absorbed": 1333333.3333333333,
-            "destroyed": 0,
-            "integrity": 0.33333333333333337,
-            "crew": 4,
-            "deaths": 2
-          }
-        },
-        "walls": [
-          [
-            "magazine",
-            "H",
-            10
-          ],
-          [
-            "magazine",
-            "N",
-            5
-          ]
-        ]
+        "error": "Cannot read properties of undefined (reading 'blastResistance')"
       },
       "actual": {
         "walls": [
@@ -409,53 +211,32 @@
         ],
         "energy": 6000000,
         "absorbed": {
-          "H": 2666666.6666666665,
-          "N": 1333333.3333333333,
-          "magazine": 2000000
+          "H": 1200000,
+          "N": 3600000,
+          "magazine": 1200000
         },
         "escaped": 0,
         "blasts": 1,
         "rooms": {
           "H": {
-            "destroyed": 0,
+            "destroyed": 4,
             "integrity": [
-              0.6666666666666667,
-              0.6666666666666667,
-              0.6666666666666667,
-              0.6666666666666667
+              0,
+              0,
+              0,
+              0
             ],
             "crewAboard": 0,
             "deaths": 0,
-            "damaged": [
-              {
-                "cell": 0,
-                "channel": "blast",
-                "integrity": 0.6666666666666667
-              },
-              {
-                "cell": 1,
-                "channel": "blast",
-                "integrity": 0.6666666666666667
-              },
-              {
-                "cell": 2,
-                "channel": "blast",
-                "integrity": 0.6666666666666667
-              },
-              {
-                "cell": 3,
-                "channel": "blast",
-                "integrity": 0.6666666666666667
-              }
-            ]
+            "damaged": []
           },
           "N": {
             "destroyed": 0,
             "integrity": [
-              0.33333333333333337,
-              0.33333333333333337,
-              0.33333333333333337,
-              0.33333333333333337
+              0.3918918918918919,
+              0.3918918918918919,
+              0.3918918918918919,
+              0.3918918918918919
             ],
             "crewAboard": 2,
             "deaths": 2,
@@ -463,22 +244,22 @@
               {
                 "cell": 0,
                 "channel": "blast",
-                "integrity": 0.33333333333333337
+                "integrity": 0.3918918918918919
               },
               {
                 "cell": 1,
                 "channel": "blast",
-                "integrity": 0.33333333333333337
+                "integrity": 0.3918918918918919
               },
               {
                 "cell": 2,
                 "channel": "blast",
-                "integrity": 0.33333333333333337
+                "integrity": 0.3918918918918919
               },
               {
                 "cell": 3,
                 "channel": "blast",
-                "integrity": 0.33333333333333337
+                "integrity": 0.3918918918918919
               }
             ]
           }
@@ -497,7 +278,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 696000000,
+            "initial": 1566000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -514,8 +295,8 @@
         ],
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
     }
   ],
   "invariants": [
@@ -530,6 +311,11 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "3 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

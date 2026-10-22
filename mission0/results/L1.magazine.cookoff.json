@@ -1,13 +1,13 @@
 {
   "id": "L1.magazine.cookoff",
   "level": "L1",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L1.magazine.cookoff",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "dac098d6",
   "lockedHash": "dac098d6",
   "runHash": "ce8eb1a8",
-  "dataHash": "930a2386",
+  "dataHash": "913ab810",
   "rowsHash": "520e1ab7",
   "rows": [
     {
@@ -19,12 +19,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 150,
-        "he": 0,
-        "energy": 900000000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 150,
@@ -45,8 +40,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -57,12 +52,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 0,
-        "he": 150,
-        "energy": 1200000000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 0,
@@ -83,8 +73,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -95,12 +85,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 75,
-        "he": 75,
-        "energy": 1050000000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 75,
@@ -121,8 +106,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -133,12 +118,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 0,
-        "he": 75,
-        "energy": 600000000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 0,
@@ -159,8 +139,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -171,12 +151,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 506,
-        "he": 0,
-        "energy": 899555555.5555553,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 506,
@@ -197,8 +172,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -209,12 +184,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 0,
-        "he": 506,
-        "energy": 1199407407.407407,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 0,
@@ -235,8 +205,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -247,12 +217,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 44,
-        "he": 0,
-        "energy": 891000000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 44,
@@ -273,8 +238,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -285,12 +250,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 0,
-        "he": 44,
-        "energy": 1188000000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 0,
@@ -311,8 +271,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -323,12 +283,7 @@
         "by": "hit"
       },
       "expected": {
-        "ap": 0,
-        "he": 150,
-        "energy": 1200000000,
-        "t": 1,
-        "cause": "hit-1",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 0,
@@ -349,8 +304,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -361,12 +316,7 @@
         "by": "hit"
       },
       "expected": {
-        "ap": 75,
-        "he": 75,
-        "energy": 1050000000,
-        "t": 1,
-        "cause": "hit-1",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 75,
@@ -387,8 +337,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -399,12 +349,7 @@
         "by": "hit"
       },
       "expected": {
-        "ap": 506,
-        "he": 0,
-        "energy": 899555555.5555553,
-        "t": 1,
-        "cause": "hit-1",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 506,
@@ -425,8 +370,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -437,12 +382,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 75,
-        "he": 75,
-        "energy": 3543750000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 75,
@@ -463,8 +403,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -475,12 +415,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 75,
-        "he": 75,
-        "energy": 8400000000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 75,
@@ -501,8 +436,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -513,12 +448,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 75,
-        "he": 75,
-        "energy": 28350000000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 75,
@@ -539,8 +469,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -551,12 +481,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 75,
-        "he": 75,
-        "energy": 67200000000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 75,
@@ -577,8 +502,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -589,12 +514,7 @@
         "by": "heat"
       },
       "expected": {
-        "ap": 75,
-        "he": 75,
-        "energy": 226800000000,
-        "t": 349.09090909090907,
-        "cause": "heat",
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "ap": 75,
@@ -615,22 +535,20 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
     {
-      "name": "full AP magazines at T1 hold 150 M, 506 S, 44 L rounds",
-      "ok": true
+      "name": "invariants",
+      "ok": false,
+      "detail": "Cannot read properties of undefined (reading 'actual')"
     },
     {
-      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
-      "ok": true
-    },
-    {
-      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
-      "ok": true
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "16 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

@@ -1,0 +1,330 @@
+{
+  "id": "L1.beambay.heat.v2",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.beambay.heat.v2",
+  "code": "c9224e2",
+  "criterionHash": "0974a53c",
+  "lockedHash": "0974a53c",
+  "runHash": "36707521",
+  "dataHash": "913ab810",
+  "rowsHash": "f58597a7",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "powered": true
+      },
+      "expected": {
+        "beam": 5000000,
+        "draw": 12500000,
+        "heatRate": 7500000,
+        "hot": 165.33333333333334,
+        "overheated": 272,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "beam": 5000000,
+        "draw": 12500000,
+        "heatRate": 7500000,
+        "hot": 165.33333333333334,
+        "overheated": 272,
+        "after": {
+          "beam": 0,
+          "draw": 0
+        },
+        "stopped": [
+          {
+            "t": 272,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 2040000000,
+          "radiated": 0,
+          "stored": 2040000000,
+          "initial": 1160000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "powered": true
+      },
+      "expected": {
+        "beam": 11250000,
+        "draw": 28125000,
+        "heatRate": 16875000,
+        "hot": 248,
+        "overheated": 408,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "beam": 11250000,
+        "draw": 28125000,
+        "heatRate": 16875000,
+        "hot": 248,
+        "overheated": 408,
+        "after": {
+          "beam": 0,
+          "draw": 0
+        },
+        "stopped": [
+          {
+            "t": 408,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 6885000000,
+          "radiated": 0,
+          "stored": 6885000000,
+          "initial": 3915000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "powered": true
+      },
+      "expected": {
+        "beam": 20000000,
+        "draw": 50000000,
+        "heatRate": 30000000,
+        "hot": 330.6666666666667,
+        "overheated": 544,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "beam": 20000000,
+        "draw": 50000000,
+        "heatRate": 30000000,
+        "hot": 330.6666666666667,
+        "overheated": 544,
+        "after": {
+          "beam": 0,
+          "draw": 0
+        },
+        "stopped": [
+          {
+            "t": 544,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 16320000000,
+          "radiated": 0,
+          "stored": 16320000000,
+          "initial": 9280000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "powered": true
+      },
+      "expected": {
+        "beam": 45000000,
+        "draw": 112500000,
+        "heatRate": 67500000,
+        "hot": 496,
+        "overheated": 816,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "beam": 45000000,
+        "draw": 112500000,
+        "heatRate": 67500000,
+        "hot": 496,
+        "overheated": 816,
+        "after": {
+          "beam": 0,
+          "draw": 0
+        },
+        "stopped": [
+          {
+            "t": 816,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 55080000000,
+          "radiated": 0,
+          "stored": 55080000000,
+          "initial": 31320000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "powered": true
+      },
+      "expected": {
+        "beam": 80000000,
+        "draw": 200000000,
+        "heatRate": 120000000,
+        "hot": 661.3333333333334,
+        "overheated": 1088,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "beam": 80000000,
+        "draw": 200000000,
+        "heatRate": 120000000,
+        "hot": 661.3333333333334,
+        "overheated": 1088,
+        "after": {
+          "beam": 0,
+          "draw": 0
+        },
+        "stopped": [
+          {
+            "t": 1088,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 130560000000,
+          "radiated": 0,
+          "stored": 130560000000,
+          "initial": 74240000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "powered": true
+      },
+      "expected": {
+        "beam": 180000000,
+        "draw": 450000000,
+        "heatRate": 270000000,
+        "hot": 992,
+        "overheated": 1632,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "beam": 180000000,
+        "draw": 450000000,
+        "heatRate": 270000000,
+        "hot": 992,
+        "overheated": 1632,
+        "after": {
+          "beam": 0,
+          "draw": 0
+        },
+        "stopped": [
+          {
+            "t": 1632,
+            "cause": "heat"
+          }
+        ],
+        "books": {
+          "generated": 440640000000,
+          "radiated": 0,
+          "stored": 440640000000,
+          "initial": 250560000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "powered": false
+      },
+      "expected": {
+        "beam": 0,
+        "draw": 0,
+        "heatRate": 0,
+        "hot": null,
+        "overheated": null,
+        "stopped": {
+          "t": 0,
+          "cause": "no-power"
+        }
+      },
+      "actual": {
+        "beam": 0,
+        "draw": 0,
+        "heatRate": 0,
+        "hot": null,
+        "overheated": null,
+        "after": null,
+        "stopped": [
+          {
+            "t": 0,
+            "cause": "no-power"
+          }
+        ],
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 1160000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

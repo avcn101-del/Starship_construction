@@ -1,26 +1,21 @@
 {
   "id": "L1.room.thresholds",
   "level": "L1",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L1.room.thresholds",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "44b1338a",
   "lockedHash": "44b1338a",
   "runHash": "71457c3f",
-  "dataHash": "930a2386",
-  "rowsHash": "3e82a529",
+  "dataHash": "913ab810",
+  "rowsHash": "6ff64a4e",
   "rows": [
     {
       "case": {
         "type": "bridge"
       },
       "expected": {
-        "hot": 87.27272727272727,
-        "overheated": 130.9090909090909,
-        "critical": 196.36363636363637,
-        "deaths": 4,
-        "explosion": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "hot": 87.28333333333333,
@@ -40,92 +35,71 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "type": "reactor"
       },
       "expected": {
-        "hot": 676.3636363636364,
-        "overheated": 1112.7272727272727,
-        "critical": 1549.090909090909,
-        "deaths": 4,
-        "explosion": 200000000,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "hot": 676.3666666666667,
-        "overheated": 1112.7333333333333,
-        "critical": 1549.1,
-        "ordered": true,
-        "shutdownAtOverheated": true,
-        "deathsAtCritical": 4,
-        "explosions": [
-          {
-            "t": 1549.1,
-            "energy": 200000000,
-            "cause": "heat"
-          }
-        ],
+        "hot": null,
+        "overheated": null,
+        "critical": null,
+        "ordered": false,
+        "shutdownAtOverheated": false,
+        "deathsAtCritical": 0,
+        "explosions": [],
         "cookOff": null,
-        "meltdown": 1549.1,
+        "meltdown": null,
         "books": {
-          "generated": 1705109999.998194,
+          "generated": 5499999999.9939995,
           "radiated": 0,
-          "stored": 1705109999.998363,
-          "initial": 696000000
+          "stored": 5500000000.075777,
+          "initial": 6380000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "type": "engine"
       },
       "expected": {
-        "hot": 1014.5454545454545,
-        "overheated": 1669.090909090909,
-        "critical": 2323.6363636363635,
-        "deaths": 2,
-        "explosion": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "hot": 1014.55,
-        "overheated": 1669.1,
-        "critical": 2323.65,
-        "ordered": true,
+        "hot": 2367.2833333333333,
+        "overheated": 3894.5499999999997,
+        "critical": null,
+        "ordered": false,
         "shutdownAtOverheated": true,
-        "deathsAtCritical": 2,
+        "deathsAtCritical": 0,
         "explosions": [],
         "cookOff": null,
         "meltdown": null,
         "books": {
-          "generated": 2557114999.999828,
+          "generated": 5499999999.9939995,
           "radiated": 0,
-          "stored": 2557115000.0080123,
-          "initial": 1044000000
+          "stored": 5499999999.952983,
+          "initial": 2436000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "type": "magazine"
       },
       "expected": {
-        "hot": 87.27272727272727,
-        "overheated": 130.9090909090909,
-        "critical": 349.09090909090907,
-        "deaths": 2,
-        "explosion": 1200000000,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "hot": 87.28333333333333,
@@ -151,53 +125,43 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "type": "shieldGenerator"
       },
       "expected": {
-        "hot": 676.3636363636364,
-        "overheated": 1112.7272727272727,
-        "critical": 1549.090909090909,
-        "deaths": 2,
-        "explosion": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "hot": 676.3666666666667,
-        "overheated": 1112.7333333333333,
-        "critical": 1549.1,
-        "ordered": true,
-        "shutdownAtOverheated": true,
-        "deathsAtCritical": 2,
+        "hot": 3607.2833333333333,
+        "overheated": null,
+        "critical": null,
+        "ordered": false,
+        "shutdownAtOverheated": false,
+        "deathsAtCritical": 0,
         "explosions": [],
         "cookOff": null,
         "meltdown": null,
         "books": {
-          "generated": 1705109999.998194,
+          "generated": 5499999999.9939995,
           "radiated": 0,
-          "stored": 1705109999.998363,
-          "initial": 696000000
+          "stored": 5499999999.952154,
+          "initial": 3712000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "type": "quarters"
       },
       "expected": {
-        "hot": 130.9090909090909,
-        "overheated": 196.36363636363637,
-        "critical": 294.54545454545456,
-        "deaths": 18,
-        "explosion": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "hot": 130.91666666666666,
@@ -217,25 +181,20 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "type": "beamBay"
       },
       "expected": {
-        "hot": 676.3636363636364,
-        "overheated": 1112.7272727272727,
-        "critical": 1549.090909090909,
-        "deaths": 3,
-        "explosion": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "hot": 676.3666666666667,
-        "overheated": 1112.7333333333333,
-        "critical": 1549.1,
+        "hot": 1127.2833333333333,
+        "overheated": 1854.55,
+        "critical": 2581.8333333333335,
         "ordered": true,
         "shutdownAtOverheated": true,
         "deathsAtCritical": 3,
@@ -243,27 +202,22 @@
         "cookOff": null,
         "meltdown": null,
         "books": {
-          "generated": 1705109999.998194,
+          "generated": 2841116666.6689568,
           "radiated": 0,
-          "stored": 1705109999.998363,
-          "initial": 696000000
+          "stored": 2841116666.678457,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "type": "turret"
       },
       "expected": {
-        "hot": 87.27272727272727,
-        "overheated": 130.9090909090909,
-        "critical": 196.36363636363637,
-        "deaths": 3,
-        "explosion": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "hot": 87.28333333333333,
@@ -283,25 +237,20 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
         "type": "hold"
       },
       "expected": {
-        "hot": 87.27272727272727,
-        "overheated": 130.9090909090909,
-        "critical": 196.36363636363637,
-        "deaths": 0,
-        "explosion": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "hot": 87.28333333333333,
-        "overheated": 130.91666666666666,
-        "critical": 196.36666666666667,
+        "hot": 196.36666666666667,
+        "overheated": 294.55,
+        "critical": 441.8333333333333,
         "ordered": true,
         "shutdownAtOverheated": true,
         "deathsAtCritical": 0,
@@ -309,15 +258,15 @@
         "cookOff": null,
         "meltdown": null,
         "books": {
-          "generated": 217103333.3333637,
+          "generated": 487116666.6664879,
           "radiated": 0,
-          "stored": 217103333.3338039,
-          "initial": 696000000
+          "stored": 487116666.6645551,
+          "initial": 1566000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
@@ -328,6 +277,11 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "9 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

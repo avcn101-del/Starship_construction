@@ -1,0 +1,335 @@
+{
+  "id": "L1.room.thresholds.v2",
+  "level": "L1",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L1.room.thresholds.v2",
+  "code": "c9224e2",
+  "criterionHash": "68ed60b4",
+  "lockedHash": "68ed60b4",
+  "runHash": "71457c3f",
+  "dataHash": "913ab810",
+  "rowsHash": "6ff64a4e",
+  "rows": [
+    {
+      "case": {
+        "type": "bridge"
+      },
+      "expected": {
+        "hot": 87.27272727272727,
+        "overheated": 130.9090909090909,
+        "critical": 196.36363636363637,
+        "deaths": 4,
+        "explosion": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hot": 87.28333333333333,
+        "overheated": 130.91666666666666,
+        "critical": 196.36666666666667,
+        "ordered": true,
+        "shutdownAtOverheated": true,
+        "deathsAtCritical": 4,
+        "explosions": [],
+        "cookOff": null,
+        "meltdown": null,
+        "books": {
+          "generated": 217103333.3333637,
+          "radiated": 0,
+          "stored": 217103333.3338039,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "reactor"
+      },
+      "expected": {
+        "hot": 6200,
+        "overheated": 10200,
+        "critical": 14200,
+        "deaths": 4,
+        "explosion": 200000000,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hot": null,
+        "overheated": null,
+        "critical": null,
+        "ordered": false,
+        "shutdownAtOverheated": false,
+        "deathsAtCritical": 0,
+        "explosions": [],
+        "cookOff": null,
+        "meltdown": null,
+        "books": {
+          "generated": 5499999999.9939995,
+          "radiated": 0,
+          "stored": 5500000000.075777,
+          "initial": 6380000000
+        },
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "hot, overheated, critical, order, shutdown, deaths, explosion"
+    },
+    {
+      "case": {
+        "type": "engine"
+      },
+      "expected": {
+        "hot": 2367.2727272727275,
+        "overheated": 3894.5454545454545,
+        "critical": 5421.818181818182,
+        "deaths": 2,
+        "explosion": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hot": 2367.2833333333333,
+        "overheated": 3894.5499999999997,
+        "critical": null,
+        "ordered": false,
+        "shutdownAtOverheated": true,
+        "deathsAtCritical": 0,
+        "explosions": [],
+        "cookOff": null,
+        "meltdown": null,
+        "books": {
+          "generated": 5499999999.9939995,
+          "radiated": 0,
+          "stored": 5499999999.952983,
+          "initial": 2436000000
+        },
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "critical, order, deaths"
+    },
+    {
+      "case": {
+        "type": "magazine"
+      },
+      "expected": {
+        "hot": 87.27272727272727,
+        "overheated": 130.9090909090909,
+        "critical": 349.09090909090907,
+        "deaths": 2,
+        "explosion": 1200000000,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hot": 87.28333333333333,
+        "overheated": 130.91666666666666,
+        "critical": 349.1,
+        "ordered": true,
+        "shutdownAtOverheated": true,
+        "deathsAtCritical": 2,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 1200000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": 349.1,
+        "meltdown": null,
+        "books": {
+          "generated": 385109999.99993175,
+          "radiated": 0,
+          "stored": 385110000.0007868,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "shieldGenerator"
+      },
+      "expected": {
+        "hot": 3607.2727272727275,
+        "overheated": 5934.545454545455,
+        "critical": 8261.818181818182,
+        "deaths": 2,
+        "explosion": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hot": 3607.2833333333333,
+        "overheated": null,
+        "critical": null,
+        "ordered": false,
+        "shutdownAtOverheated": false,
+        "deathsAtCritical": 0,
+        "explosions": [],
+        "cookOff": null,
+        "meltdown": null,
+        "books": {
+          "generated": 5499999999.9939995,
+          "radiated": 0,
+          "stored": 5499999999.952154,
+          "initial": 3712000000
+        },
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "overheated, critical, order, shutdown, deaths"
+    },
+    {
+      "case": {
+        "type": "quarters"
+      },
+      "expected": {
+        "hot": 130.9090909090909,
+        "overheated": 196.36363636363637,
+        "critical": 294.54545454545456,
+        "deaths": 18,
+        "explosion": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hot": 130.91666666666666,
+        "overheated": 196.36666666666667,
+        "critical": 294.55,
+        "ordered": true,
+        "shutdownAtOverheated": true,
+        "deathsAtCritical": 18,
+        "explosions": [],
+        "cookOff": null,
+        "meltdown": null,
+        "books": {
+          "generated": 325104999.9999968,
+          "radiated": 0,
+          "stored": 325104999.99878407,
+          "initial": 1044000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "beamBay"
+      },
+      "expected": {
+        "hot": 1127.2727272727273,
+        "overheated": 1854.5454545454545,
+        "critical": 2581.818181818182,
+        "deaths": 3,
+        "explosion": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hot": 1127.2833333333333,
+        "overheated": 1854.55,
+        "critical": 2581.8333333333335,
+        "ordered": true,
+        "shutdownAtOverheated": true,
+        "deathsAtCritical": 3,
+        "explosions": [],
+        "cookOff": null,
+        "meltdown": null,
+        "books": {
+          "generated": 2841116666.6689568,
+          "radiated": 0,
+          "stored": 2841116666.678457,
+          "initial": 1160000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "turret"
+      },
+      "expected": {
+        "hot": 87.27272727272727,
+        "overheated": 130.9090909090909,
+        "critical": 196.36363636363637,
+        "deaths": 3,
+        "explosion": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hot": 87.28333333333333,
+        "overheated": 130.91666666666666,
+        "critical": 196.36666666666667,
+        "ordered": true,
+        "shutdownAtOverheated": true,
+        "deathsAtCritical": 3,
+        "explosions": [],
+        "cookOff": null,
+        "meltdown": null,
+        "books": {
+          "generated": 217103333.3333637,
+          "radiated": 0,
+          "stored": 217103333.3338039,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "hold"
+      },
+      "expected": {
+        "hot": 196.36363636363637,
+        "overheated": 294.54545454545456,
+        "critical": 441.8181818181818,
+        "deaths": 0,
+        "explosion": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "hot": 196.36666666666667,
+        "overheated": 294.55,
+        "critical": 441.8333333333333,
+        "ordered": true,
+        "shutdownAtOverheated": true,
+        "deathsAtCritical": 0,
+        "explosions": [],
+        "cookOff": null,
+        "meltdown": null,
+        "books": {
+          "generated": 487116666.6664879,
+          "radiated": 0,
+          "stored": 487116666.6645551,
+          "initial": 1566000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

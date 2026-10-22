@@ -1,14 +1,14 @@
 {
   "id": "L0.shield.kinetic",
   "level": "L0",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L0.shield.kinetic",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "908651e6",
   "lockedHash": "908651e6",
   "runHash": "9707317d",
-  "dataHash": "930a2386",
-  "rowsHash": "3284b20a",
+  "dataHash": "913ab810",
+  "rowsHash": "f5fa9dc0",
   "rows": [
     {
       "case": {
@@ -16,18 +16,13 @@
         "r": 0
       },
       "expected": {
-        "velocity": 0,
-        "energy": 568888.8888888888
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "velocity": 0,
-        "energy": 568888.8888888888,
-        "heat": 568888.8888888888,
-        "mass": 1.7777777777777772,
-        "v0": 800
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -35,18 +30,13 @@
         "r": 40
       },
       "expected": {
-        "velocity": 400,
-        "energy": 426666.6666666665
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "velocity": 400,
-        "energy": 426666.6666666665,
-        "heat": 426666.6666666665,
-        "mass": 1.7777777777777772,
-        "v0": 800
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -54,18 +44,13 @@
         "r": 120
       },
       "expected": {
-        "velocity": 720,
-        "energy": 108088.88888888886
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "velocity": 720,
-        "energy": 108088.88888888886,
-        "heat": 108088.88888888886,
-        "mass": 1.7777777777777772,
-        "v0": 800
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -73,18 +58,13 @@
         "r": 0
       },
       "expected": {
-        "velocity": 266.6666666666669,
-        "energy": 1706666.6666666663
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "velocity": 266.6666666666669,
-        "energy": 1706666.6666666663,
-        "heat": 1706666.6666666663,
-        "mass": 6,
-        "v0": 800
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -92,18 +72,13 @@
         "r": 40
       },
       "expected": {
-        "velocity": 533.3333333333334,
-        "energy": 1066666.6666666665
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "velocity": 533.3333333333334,
-        "energy": 1066666.6666666665,
-        "heat": 1066666.6666666665,
-        "mass": 6,
-        "v0": 800
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -111,18 +86,13 @@
         "r": 120
       },
       "expected": {
-        "velocity": 746.6666666666666,
-        "energy": 247466.66666666698
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "velocity": 746.6666666666666,
-        "energy": 247466.66666666698,
-        "heat": 247466.66666666698,
-        "mass": 6,
-        "v0": 800
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -130,18 +100,13 @@
         "r": 0
       },
       "expected": {
-        "velocity": 444.4444444444446,
-        "energy": 4479999.999999998
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "velocity": 444.4444444444446,
-        "energy": 4479999.999999998,
-        "heat": 4479999.999999998,
-        "mass": 20.25,
-        "v0": 800
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -149,18 +114,13 @@
         "r": 40
       },
       "expected": {
-        "velocity": 622.2222222222223,
-        "energy": 2559999.999999999
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "velocity": 622.2222222222223,
-        "energy": 2559999.999999999,
-        "heat": 2559999.999999999,
-        "mass": 20.25,
-        "v0": 800
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -168,32 +128,25 @@
         "r": 120
       },
       "expected": {
-        "velocity": 764.4444444444445,
-        "energy": 563200.0000000002
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "velocity": 764.4444444444445,
-        "energy": 563200.0000000002,
-        "heat": 563200.0000000002,
-        "mass": 20.25,
-        "v0": 800
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
     {
-      "name": "energy paid = kinetic energy removed",
-      "ok": true
+      "name": "invariants",
+      "ok": false,
+      "detail": "Cannot read properties of undefined (reading 'actual')"
     },
     {
-      "name": "heat = energy paid",
-      "ok": true
-    },
-    {
-      "name": "an S round is stopped at full strength",
-      "ok": true
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "9 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

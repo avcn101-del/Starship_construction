@@ -1,0 +1,310 @@
+{
+  "id": "L3.rcs.turn.v5",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.rcs.turn.v5",
+  "code": "c9224e2",
+  "criterionHash": "3302e23d",
+  "lockedHash": "3302e23d",
+  "runHash": "16750328",
+  "dataHash": "913ab810",
+  "rowsHash": "587e7c83",
+  "rows": [
+    {
+      "case": {
+        "turn": "ccw"
+      },
+      "expected": {
+        "alpha": 0.434775875814248,
+        "sign": 1,
+        "T": 3.801519432783319,
+        "dt": 0.016666666666666666,
+        "brake": -0.434775875814248,
+        "n1": 115,
+        "n2": 114,
+        "end": 3.8166666666666664,
+        "theta": 1.5971974882342874
+      },
+      "actual": {
+        "first": 0.434775875814248,
+        "end": 3.8166666666666664,
+        "omega": 0.007246264596904122,
+        "theta": 1.5971974882342874,
+        "readout": {
+          "ccw": 0.434775875814248,
+          "cw": 0.434775875814248,
+          "turn90ccw": 3.801519432783319,
+          "turn90cw": 3.801519432783319
+        },
+        "steps": 229,
+        "n1": 115,
+        "n2": 114,
+        "books": [
+          {
+            "generated": 229000,
+            "radiated": 155822.4214472158,
+            "stored": 72308.15590190887,
+            "initial": 2436000000,
+            "conducted": -869.42264853811,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 56038.37170124054,
+            "initial": 6380000000,
+            "conducted": 56038.37170081192,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 431666.666666668,
+            "radiated": 0,
+            "stored": 431409.9109596014,
+            "initial": 696000000,
+            "conducted": -256.7557077149695,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 131.3316879272461,
+            "initial": 696000000,
+            "conducted": 131.33168726612786,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 229000,
+            "radiated": 116885.18327841477,
+            "stored": 112086.87610912323,
+            "initial": 1160000000,
+            "conducted": -27.94061196092285,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 155803.62983478798,
+            "stored": -154807.81584072113,
+            "initial": 7830000000,
+            "conducted": 995.8139960863033,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 215833.333333334,
+            "radiated": 0,
+            "stored": 215814.11598682404,
+            "initial": 1044000000,
+            "conducted": -19.217347046872746,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 41.541695952415466,
+            "initial": 696000000,
+            "conducted": 41.54169554914172,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 8633333.333333306,
+            "radiated": 234765.89553790333,
+            "stored": 8342533.711466789,
+            "initial": 3712000000,
+            "conducted": -56033.72632741785,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0.0035626888275146484,
+            "initial": 1566000000,
+            "conducted": 0.003562965257274161,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 6.542541086673737e-8,
+          "net": 833333.3333333975,
+          "gross": 216288165.69423774
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "turn": "cw"
+      },
+      "expected": {
+        "alpha": 0.434775875814248,
+        "sign": -1,
+        "T": 3.801519432783319,
+        "dt": 0.016666666666666666,
+        "brake": 0.434775875814248,
+        "n1": 115,
+        "n2": 114,
+        "end": 3.8166666666666664,
+        "theta": -1.5971974882342874
+      },
+      "actual": {
+        "first": -0.434775875814248,
+        "end": 3.8166666666666664,
+        "omega": -0.007246264596903987,
+        "theta": -1.597197488234287,
+        "readout": {
+          "ccw": 0.434775875814248,
+          "cw": 0.434775875814248,
+          "turn90ccw": 3.801519432783319,
+          "turn90cw": 3.801519432783319
+        },
+        "steps": 229,
+        "n1": 115,
+        "n2": 114,
+        "books": [
+          {
+            "generated": 229000,
+            "radiated": 155822.4214472158,
+            "stored": 72308.15590190887,
+            "initial": 2436000000,
+            "conducted": -869.42264853811,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 56038.37170124054,
+            "initial": 6380000000,
+            "conducted": 56038.37170081192,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 431666.666666668,
+            "radiated": 0,
+            "stored": 431409.9109596014,
+            "initial": 696000000,
+            "conducted": -256.7557077149695,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 131.3316879272461,
+            "initial": 696000000,
+            "conducted": 131.33168726612786,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 229000,
+            "radiated": 116885.18327841477,
+            "stored": 112086.87610912323,
+            "initial": 1160000000,
+            "conducted": -27.94061196092285,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 155803.62983478798,
+            "stored": -154807.81584072113,
+            "initial": 7830000000,
+            "conducted": 995.8139960863033,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 215833.333333334,
+            "radiated": 0,
+            "stored": 215814.11598682404,
+            "initial": 1044000000,
+            "conducted": -19.217347046872746,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 41.541695952415466,
+            "initial": 696000000,
+            "conducted": 41.54169554914172,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 8633333.333333306,
+            "radiated": 234765.89553790333,
+            "stored": 8342533.711466789,
+            "initial": 3712000000,
+            "conducted": -56033.72632741785,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0.0035626888275146484,
+            "initial": 1566000000,
+            "conducted": 0.003562965257274161,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 7.28759914636612e-8,
+          "net": 833333.3333333894,
+          "gross": 193559989.89207938
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + vented + stored, within max(1e-9 x the largest flow, 1e-10 x the room's heat at the start), every room, every case (#219)",
+      "ok": true
+    },
+    {
+      "name": "conduction and life-support flows each sum to 0 over the ship, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "momentum books: mass, momentum (1e-9) and angular momentum (1e-9 x net + 1e-12 x gross angular impulse booked, #219, #220) of ship + rounds + debris kept (with the external impulse), every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

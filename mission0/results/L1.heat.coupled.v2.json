@@ -1,0 +1,608 @@
+{
+  "id": "L1.heat.coupled.v2",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.heat.coupled.v2",
+  "code": "c9224e2",
+  "criterionHash": "a75e0d55",
+  "lockedHash": "a75e0d55",
+  "runHash": "9e5fdf40",
+  "dataHash": "913ab810",
+  "rowsHash": "ea611dc7",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "room": "reactor"
+      },
+      "expected": {
+        "time": 561,
+        "heatRate": 20000000,
+        "dt": 0.016666666666666666,
+        "literal": 561
+      },
+      "actual": {
+        "time": 561,
+        "heatRate": 19999999.999980927,
+        "books": {
+          "generated": 11220000000.00174,
+          "radiated": 0,
+          "stored": 11220000000.012672,
+          "initial": 6380000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "room": "beamBay"
+      },
+      "expected": {
+        "time": 165.33333333333334,
+        "heatRate": 7500000,
+        "dt": 0.016666666666666666,
+        "literal": 165.33333333333334
+      },
+      "actual": {
+        "time": 165.33333333333334,
+        "heatRate": 7500000,
+        "books": {
+          "generated": 1240000000,
+          "radiated": 0,
+          "stored": 1240000000,
+          "initial": 1160000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "room": "engine"
+      },
+      "expected": {
+        "time": 868,
+        "heatRate": 3000000,
+        "dt": 0.016666666666666666,
+        "literal": 868
+      },
+      "actual": {
+        "time": 868,
+        "heatRate": 3000000,
+        "books": {
+          "generated": 2604000000,
+          "radiated": 0,
+          "stored": 2604000000,
+          "initial": 2436000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "room": "shieldGenerator"
+      },
+      "expected": {
+        "time": 496,
+        "heatRate": 8000000,
+        "dt": 0.016666666666666666,
+        "literal": 496
+      },
+      "actual": {
+        "time": 496.01666666666665,
+        "heatRate": 8000000.000009537,
+        "books": {
+          "generated": 3968133333.3349915,
+          "radiated": 0,
+          "stored": 3968133333.3259573,
+          "initial": 3712000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "room": "reactor"
+      },
+      "expected": {
+        "time": 841.5,
+        "heatRate": 45000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 841.5,
+        "heatRate": 45000000,
+        "books": {
+          "generated": 37867500000,
+          "radiated": 0,
+          "stored": 37867500000,
+          "initial": 21532500000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "room": "beamBay"
+      },
+      "expected": {
+        "time": 248,
+        "heatRate": 16875000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 248,
+        "heatRate": 16875000,
+        "books": {
+          "generated": 4185000000,
+          "radiated": 0,
+          "stored": 4185000000,
+          "initial": 3915000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "room": "engine"
+      },
+      "expected": {
+        "time": 1302,
+        "heatRate": 6750000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 1302,
+        "heatRate": 6750000,
+        "books": {
+          "generated": 8788500000,
+          "radiated": 0,
+          "stored": 8788500000,
+          "initial": 8221500000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "room": "shieldGenerator"
+      },
+      "expected": {
+        "time": 744,
+        "heatRate": 18000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 744,
+        "heatRate": 18000000,
+        "books": {
+          "generated": 13392000000,
+          "radiated": 0,
+          "stored": 13392000000,
+          "initial": 12528000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "room": "reactor"
+      },
+      "expected": {
+        "time": 1122,
+        "heatRate": 80000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 1122.0166666666667,
+        "heatRate": 80000000.00015259,
+        "books": {
+          "generated": 89761333333.3055,
+          "radiated": 0,
+          "stored": 89761333333.13055,
+          "initial": 51040000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "room": "beamBay"
+      },
+      "expected": {
+        "time": 330.6666666666667,
+        "heatRate": 30000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 330.6666666666667,
+        "heatRate": 30000000,
+        "books": {
+          "generated": 9920000000,
+          "radiated": 0,
+          "stored": 9920000000,
+          "initial": 9280000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "room": "engine"
+      },
+      "expected": {
+        "time": 1736,
+        "heatRate": 12000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 1736,
+        "heatRate": 12000000,
+        "books": {
+          "generated": 20832000000,
+          "radiated": 0,
+          "stored": 20832000000,
+          "initial": 19488000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "room": "shieldGenerator"
+      },
+      "expected": {
+        "time": 992,
+        "heatRate": 32000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 992,
+        "heatRate": 31999999.999923706,
+        "books": {
+          "generated": 31743999999.97347,
+          "radiated": 0,
+          "stored": 31744000000.11801,
+          "initial": 29696000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "room": "reactor"
+      },
+      "expected": {
+        "time": 1683,
+        "heatRate": 180000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 1683,
+        "heatRate": 180000000,
+        "books": {
+          "generated": 302940000000,
+          "radiated": 0,
+          "stored": 302940000000,
+          "initial": 172260000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "room": "beamBay"
+      },
+      "expected": {
+        "time": 496,
+        "heatRate": 67500000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 496,
+        "heatRate": 67500000,
+        "books": {
+          "generated": 33480000000,
+          "radiated": 0,
+          "stored": 33480000000,
+          "initial": 31320000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "room": "engine"
+      },
+      "expected": {
+        "time": 2604,
+        "heatRate": 27000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 2604,
+        "heatRate": 27000000,
+        "books": {
+          "generated": 70308000000,
+          "radiated": 0,
+          "stored": 70308000000,
+          "initial": 65772000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "room": "shieldGenerator"
+      },
+      "expected": {
+        "time": 1488,
+        "heatRate": 72000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 1488,
+        "heatRate": 72000000,
+        "books": {
+          "generated": 107136000000,
+          "radiated": 0,
+          "stored": 107136000000,
+          "initial": 100224000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "room": "reactor"
+      },
+      "expected": {
+        "time": 2244,
+        "heatRate": 320000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 2244,
+        "heatRate": 319999999.9987793,
+        "books": {
+          "generated": 718080000000.4453,
+          "radiated": 0,
+          "stored": 718080000003.2444,
+          "initial": 408320000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "room": "beamBay"
+      },
+      "expected": {
+        "time": 661.3333333333334,
+        "heatRate": 120000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 661.3333333333334,
+        "heatRate": 120000000,
+        "books": {
+          "generated": 79360000000,
+          "radiated": 0,
+          "stored": 79360000000,
+          "initial": 74240000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "room": "engine"
+      },
+      "expected": {
+        "time": 3472,
+        "heatRate": 48000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 3472,
+        "heatRate": 48000000,
+        "books": {
+          "generated": 166656000000,
+          "radiated": 0,
+          "stored": 166656000000,
+          "initial": 155904000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "room": "shieldGenerator"
+      },
+      "expected": {
+        "time": 1984,
+        "heatRate": 128000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 1984.0166666666667,
+        "heatRate": 128000000.00061035,
+        "books": {
+          "generated": 253954133333.75784,
+          "radiated": 0,
+          "stored": 253954133331.4452,
+          "initial": 237568000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "room": "reactor"
+      },
+      "expected": {
+        "time": 3366,
+        "heatRate": 720000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 3366,
+        "heatRate": 720000000,
+        "books": {
+          "generated": 2423520000000,
+          "radiated": 0,
+          "stored": 2423520000000,
+          "initial": 1378080000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "room": "beamBay"
+      },
+      "expected": {
+        "time": 992,
+        "heatRate": 270000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 992,
+        "heatRate": 270000000,
+        "books": {
+          "generated": 267840000000,
+          "radiated": 0,
+          "stored": 267840000000,
+          "initial": 250560000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "room": "engine"
+      },
+      "expected": {
+        "time": 5208,
+        "heatRate": 108000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 5208,
+        "heatRate": 108000000,
+        "books": {
+          "generated": 562464000000,
+          "radiated": 0,
+          "stored": 562464000000,
+          "initial": 526176000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "room": "shieldGenerator"
+      },
+      "expected": {
+        "time": 2976,
+        "heatRate": 288000000,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 2976,
+        "heatRate": 288000000,
+        "books": {
+          "generated": 857088000000,
+          "radiated": 0,
+          "stored": 857088000000,
+          "initial": 801792000000
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "the race time grows with the edge: t(T_n) = t(T1) x edge / 5 m within dt x edge / 5 m",
+      "ok": true
+    },
+    {
+      "name": "consistency invariant (not counted for E3): heat books generated = radiated + stored",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

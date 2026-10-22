@@ -1,0 +1,148 @@
+{
+  "id": "L2.power.fraction",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.power.fraction",
+  "code": "c9224e2",
+  "criterionHash": "3777db12",
+  "lockedHash": "3777db12",
+  "runHash": "d3a47220",
+  "dataHash": "913ab810",
+  "rowsHash": "f3d8b1b3",
+  "rows": [
+    {
+      "case": {
+        "consumer": "turret",
+        "fraction": 0.5
+      },
+      "expected": {
+        "fraction": 0.5,
+        "powered": true,
+        "drawn": 1666.6666666666667,
+        "shots": 6
+      },
+      "actual": {
+        "fraction": 0.5,
+        "powered": true,
+        "drawn": 1666.6666666666667,
+        "shots": 6
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "consumer": "turret",
+        "fraction": 0
+      },
+      "expected": {
+        "fraction": 0,
+        "powered": false,
+        "drawn": 0,
+        "shots": 0
+      },
+      "actual": {
+        "fraction": 0,
+        "powered": false,
+        "drawn": 0,
+        "shots": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "consumer": "shieldGenerator",
+        "fraction": 0.5
+      },
+      "expected": {
+        "fraction": 0.5,
+        "powered": true,
+        "drawn": 16666.666666666668,
+        "absorbed": 5000000
+      },
+      "actual": {
+        "fraction": 0.5,
+        "powered": true,
+        "drawn": 16666.666666666668,
+        "absorbed": 5000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "consumer": "shieldGenerator",
+        "fraction": 0
+      },
+      "expected": {
+        "fraction": 0,
+        "powered": false,
+        "drawn": 0,
+        "absorbed": 0
+      },
+      "actual": {
+        "fraction": 0,
+        "powered": false,
+        "drawn": 0,
+        "absorbed": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "consumer": "quarters",
+        "fraction": 0.5
+      },
+      "expected": {
+        "fraction": 0.5,
+        "powered": true,
+        "drawn": 416.6666666666667,
+        "budget": 100,
+        "lifeSupport": true
+      },
+      "actual": {
+        "fraction": 0.5,
+        "powered": true,
+        "drawn": 416.6666666666667,
+        "budget": 100,
+        "lifeSupport": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "consumer": "quarters",
+        "fraction": 0
+      },
+      "expected": {
+        "fraction": 0,
+        "powered": false,
+        "drawn": 0,
+        "budget": 0,
+        "lifeSupport": false
+      },
+      "actual": {
+        "fraction": 0,
+        "powered": false,
+        "drawn": 0,
+        "budget": 0,
+        "lifeSupport": false
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

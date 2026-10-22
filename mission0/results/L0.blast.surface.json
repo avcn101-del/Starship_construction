@@ -1,14 +1,14 @@
 {
   "id": "L0.blast.surface",
   "level": "L0",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L0.blast.surface",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "f9738b67",
   "lockedHash": "f9738b67",
   "runHash": "4450a2b8",
-  "dataHash": "930a2386",
-  "rowsHash": "ab1f8aa0",
+  "dataHash": "913ab810",
+  "rowsHash": "c920c4a1",
   "rows": [
     {
       "case": {
@@ -19,21 +19,13 @@
         "times": 0.25
       },
       "expected": {
-        "absorbed": 500000,
-        "escaped": 0,
-        "minDamaged": 1,
-        "originDestroyed": false
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "absorbed": 500000,
-        "escaped": 0,
-        "damaged": 1,
-        "connected": true,
-        "originDestroyed": false,
-        "input": 500000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -44,21 +36,13 @@
         "times": 0.5
       },
       "expected": {
-        "absorbed": 1000000,
-        "escaped": 0,
-        "minDamaged": 1,
-        "originDestroyed": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "absorbed": 1000000,
-        "escaped": 0,
-        "damaged": 1,
-        "connected": true,
-        "originDestroyed": true,
-        "input": 1000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -69,21 +53,13 @@
         "times": 1
       },
       "expected": {
-        "absorbed": 2000000,
-        "escaped": 0,
-        "minDamaged": 2,
-        "originDestroyed": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "absorbed": 1999999.9999999998,
-        "escaped": 0,
-        "damaged": 4,
-        "connected": true,
-        "originDestroyed": true,
-        "input": 2000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -94,21 +70,13 @@
         "times": 1.5
       },
       "expected": {
-        "absorbed": 3000000,
-        "escaped": 0,
-        "minDamaged": 3,
-        "originDestroyed": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "absorbed": 2999999.9999999995,
-        "escaped": 0,
-        "damaged": 4,
-        "connected": true,
-        "originDestroyed": true,
-        "input": 3000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -119,21 +87,13 @@
         "times": 2.5
       },
       "expected": {
-        "absorbed": 5000000,
-        "escaped": 0,
-        "minDamaged": 5,
-        "originDestroyed": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "absorbed": 4999999.999999999,
-        "escaped": 0,
-        "damaged": 9,
-        "connected": true,
-        "originDestroyed": true,
-        "input": 5000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -144,27 +104,24 @@
         "times": 2.5
       },
       "expected": {
-        "absorbed": 4000000,
-        "escaped": 1000000,
-        "minDamaged": 4,
-        "originDestroyed": true
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "absorbed": 4000000,
-        "escaped": 1000000,
-        "damaged": 4,
-        "connected": true,
-        "originDestroyed": true,
-        "input": 5000000
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
     {
       "name": "energy in = absorbed + escaped",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "6 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

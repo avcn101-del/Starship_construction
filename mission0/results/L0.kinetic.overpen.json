@@ -3,77 +3,77 @@
   "level": "L0",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L0.kinetic.overpen",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "810e8a2c",
   "lockedHash": "810e8a2c",
   "runHash": "f75b211e",
-  "dataHash": "930a2386",
-  "rowsHash": "eff06508",
+  "dataHash": "913ab810",
+  "rowsHash": "791f5441",
   "rows": [
     {
       "case": {
         "cells": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'kineticResistance')"
     },
     {
       "case": {
         "cells": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'kineticResistance')"
     },
     {
       "case": {
         "cells": 4
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'kineticResistance')"
     },
     {
       "case": {
         "cells": 8
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'kineticResistance')"
     },
     {
       "case": {
         "cells": 12
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'kineticResistance')"
     }
   ],
   "invariants": [

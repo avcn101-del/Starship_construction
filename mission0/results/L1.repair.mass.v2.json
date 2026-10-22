@@ -1,0 +1,78 @@
+{
+  "id": "L1.repair.mass.v2",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.repair.mass.v2",
+  "code": "c9224e2",
+  "criterionHash": "c83463b8",
+  "lockedHash": "c83463b8",
+  "runHash": "b06d03fb",
+  "dataHash": "913ab810",
+  "rowsHash": "c2f9a06d",
+  "rows": [
+    {
+      "case": {
+        "target": "hold"
+      },
+      "expected": {
+        "rate": 0.06666666666666667,
+        "time": 5,
+        "literal": 5,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "rate": 0.06666666666666377,
+        "time": 5.016666666666667,
+        "integrity": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "target": "crewed"
+      },
+      "expected": {
+        "rate": 0.013513513513513514,
+        "time": 24.666666666666664,
+        "literal": 24.666666666666664,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "rate": 0.013513513513516706,
+        "time": 24.666666666666668,
+        "integrity": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "target": "reactor"
+      },
+      "expected": {
+        "rate": 0.0013333333333333333,
+        "time": 250,
+        "literal": 250,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "rate": 0.001333333333335407,
+        "time": 250,
+        "integrity": 1
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

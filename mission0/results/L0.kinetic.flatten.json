@@ -1,0 +1,74 @@
+{
+  "id": "L0.kinetic.flatten",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.kinetic.flatten",
+  "code": "c9224e2",
+  "criterionHash": "6f34436a",
+  "lockedHash": "6f34436a",
+  "runHash": "8c4a5e18",
+  "dataHash": "913ab810",
+  "rowsHash": "7dc69292",
+  "rows": [
+    {
+      "case": {
+        "part": "stop"
+      },
+      "expected": {
+        "passed": 2,
+        "stoppedIn": 2,
+        "taken": 102642.54,
+        "stopMomentum": 530.80474,
+        "f": 0.441999,
+        "area": 0.005485413108578659,
+        "p0": 4800
+      },
+      "actual": {
+        "passed": 2,
+        "stoppedIn": 2,
+        "taken": 102642.54017331814,
+        "stopMomentum": 530.8047403531914,
+        "impulseAtStop": 530.8047403531914,
+        "f": 0.4419991166452403,
+        "area": 0.005485414820172093,
+        "sum": 4800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "wreck"
+      },
+      "expected": {
+        "passed": 1,
+        "stoppedIn": 1,
+        "wrecked": true,
+        "f": 1,
+        "stopMomentum": 2907.9387,
+        "p0": 4800
+      },
+      "actual": {
+        "passed": 1,
+        "stoppedIn": 1,
+        "wrecked": true,
+        "f": 1,
+        "stopMomentum": 2907.938676582551,
+        "impulseAtStop": 2907.938676582551,
+        "sum": 4800
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

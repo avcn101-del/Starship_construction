@@ -1,0 +1,50 @@
+{
+  "id": "L0.beam.pstar",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.beam.pstar",
+  "code": "c9224e2",
+  "criterionHash": "bceca34b",
+  "lockedHash": "bceca34b",
+  "runHash": "9ada3a9a",
+  "dataHash": "913ab810",
+  "rowsHash": "e052d4ce",
+  "rows": [
+    {
+      "case": {
+        "MeV": 100
+      },
+      "expected": {
+        "range": 7.718
+      },
+      "actual": {
+        "range": 7.70857539347498
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "MeV": 200
+      },
+      "expected": {
+        "range": 25.96
+      },
+      "actual": {
+        "range": 25.94902105028396
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -1,14 +1,14 @@
 {
   "id": "L1.reactor.scram",
   "level": "L1",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L1.reactor.scram",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "a9f1c96a",
   "lockedHash": "a9f1c96a",
   "runHash": "673931c3",
-  "dataHash": "930a2386",
-  "rowsHash": "fc5152e3",
+  "dataHash": "913ab810",
+  "rowsHash": "7f4c08aa",
   "rows": [
     {
       "case": {
@@ -16,16 +16,7 @@
         "d": 1
       },
       "expected": {
-        "decay": [
-          81261198.86016162,
-          796471904.1239828,
-          927867605.9741845
-        ],
-        "melts": false,
-        "meltdown": null,
-        "energy": null,
-        "T0": 290,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "deliveredAfter": 0,
@@ -37,17 +28,17 @@
         ],
         "meltdown": null,
         "explosions": [],
-        "T": 813.6986551075446,
+        "T": 347.13076237537143,
         "books": {
           "generated": 1256876772.2581112,
           "radiated": 0,
-          "stored": 1256876772.258107,
-          "initial": 696000000
+          "stored": 1256876772.258171,
+          "initial": 6380000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -55,16 +46,7 @@
         "d": 1
       },
       "expected": {
-        "decay": [
-          81261198.86016162,
-          796471904.1239828,
-          927867605.9741845
-        ],
-        "melts": true,
-        "meltdown": 1291.57607276039,
-        "energy": 200000000,
-        "T0": 600,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "deliveredAfter": 0,
@@ -74,24 +56,19 @@
           796471904.1236583,
           927867605.9737382
         ],
-        "meltdown": 1291.5833333333333,
-        "explosions": [
-          {
-            "t": 1291.5833333333333,
-            "energy": 200000000
-          }
-        ],
-        "T": 1000.0010084086414,
+        "meltdown": null,
+        "explosions": [],
+        "T": 657.1307623753477,
         "books": {
-          "generated": 960002420.1807407,
+          "generated": 1256876772.2581112,
           "radiated": 0,
-          "stored": 960002420.1807394,
-          "initial": 1440000000
+          "stored": 1256876772.2576485,
+          "initial": 13200000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -99,16 +76,7 @@
         "d": 0
       },
       "expected": {
-        "decay": [
-          0,
-          0,
-          0
-        ],
-        "melts": false,
-        "meltdown": null,
-        "energy": null,
-        "T0": 290,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "deliveredAfter": 0,
@@ -125,12 +93,12 @@
           "generated": 0,
           "radiated": 0,
           "stored": 0,
-          "initial": 696000000
+          "initial": 6380000000
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
@@ -141,6 +109,11 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "3 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

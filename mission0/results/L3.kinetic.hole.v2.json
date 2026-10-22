@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.kinetic.hole.v2",
-  "code": "f7bf5c6",
+  "code": "c9224e2",
   "criterionHash": "69d0af68",
   "lockedHash": "69d0af68",
   "runHash": "1c8bd105",
-  "dataHash": "930a2386",
-  "rowsHash": "db58828d",
+  "dataHash": "913ab810",
+  "rowsHash": "1544cd05",
   "rows": [
     {
       "case": {
@@ -147,9 +147,9 @@
         ],
         "books": [
           {
-            "generated": 0,
+            "generated": 1920000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 1920000,
             "initial": 1044000000
           },
           {
@@ -330,9 +330,9 @@
         ],
         "books": [
           {
-            "generated": 0,
+            "generated": 1920000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 1920000,
             "initial": 1044000000
           },
           {
@@ -508,9 +508,9 @@
         ],
         "books": [
           {
-            "generated": 0,
+            "generated": 414720000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 414720000,
             "initial": 225504000000
           },
           {
@@ -691,9 +691,9 @@
         ],
         "books": [
           {
-            "generated": 0,
+            "generated": 414720000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 414720000,
             "initial": 225504000000
           },
           {

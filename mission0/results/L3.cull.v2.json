@@ -1,0 +1,100 @@
+{
+  "id": "L3.cull.v2",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.cull.v2",
+  "code": "c9224e2",
+  "criterionHash": "0b505ebf",
+  "lockedHash": "0b505ebf",
+  "runHash": "e29d3170",
+  "dataHash": "913ab810",
+  "rowsHash": "be5a7242",
+  "rows": [
+    {
+      "case": {
+        "item": "round"
+      },
+      "expected": {
+        "D": 3000,
+        "bounds": [
+          3.7,
+          3.8
+        ],
+        "kind": "rounds"
+      },
+      "actual": {
+        "leftAt": 3.75,
+        "farThen": 3008.907167265649,
+        "prevFar": 2995.5740717623703,
+        "item": {
+          "m": 6,
+          "P": [
+            0,
+            4800
+          ],
+          "d": 3008.907167265649
+        },
+        "left": {
+          "m": 6,
+          "P": [
+            0,
+            4800
+          ],
+          "count": 1
+        },
+        "okBooks": true,
+        "remaining": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "item": "debris"
+      },
+      "expected": {
+        "D": 3000,
+        "bounds": [
+          150,
+          165
+        ],
+        "kind": "debris"
+      },
+      "actual": {
+        "leftAt": 156.35,
+        "farThen": 3000.1303097230016,
+        "prevFar": 2999.810513583996,
+        "item": {
+          "m": 3000,
+          "P": [
+            41052.49945434904,
+            40093.369318005876
+          ],
+          "d": 3000.1303097230016
+        },
+        "left": {
+          "m": 3000,
+          "P": [
+            41052.49945434904,
+            40093.369318005876
+          ],
+          "count": 1
+        },
+        "okBooks": true,
+        "remaining": 0
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

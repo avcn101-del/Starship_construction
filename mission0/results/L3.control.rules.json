@@ -1,0 +1,110 @@
+{
+  "id": "L3.control.rules",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.control.rules",
+  "code": "c9224e2",
+  "criterionHash": "e07f4002",
+  "lockedHash": "e07f4002",
+  "runHash": "a2b6c48a",
+  "dataHash": "913ab810",
+  "rowsHash": "8a47d01a",
+  "rows": [
+    {
+      "case": {
+        "part": "timeline"
+      },
+      "expected": {
+        "restart": 64,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "workedWithout": [],
+        "alwaysUnder": [
+          "shield",
+          "beamBay"
+        ],
+        "turretBefore": true,
+        "turretAfter": true,
+        "reactorBefore": true,
+        "reactorGap": true,
+        "reactorAfter": true,
+        "restart": 64.01666666666667,
+        "lost": {
+          "turret": [
+            2.0166666666666666
+          ],
+          "shield": [
+            2.0166666666666666
+          ],
+          "reactor": [
+            2.0166666666666666
+          ],
+          "beamBay": [
+            2.0166666666666666
+          ]
+        },
+        "restored": {
+          "turret": [
+            4.016666666666667
+          ],
+          "shield": [
+            4.016666666666667
+          ],
+          "reactor": [
+            4.016666666666667
+          ],
+          "beamBay": [
+            4.016666666666667
+          ]
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "thrust"
+      },
+      "expected": {
+        "F": 15000000,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "dOmega": 0.0025742351026570697,
+        "arm": -1.1841664847830131,
+        "I": 115001780.87470937,
+        "F": 15000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "fixture"
+      },
+      "expected": {
+        "F": 15000000,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "dOmega": 0,
+        "arm": -1.1841664847830131,
+        "I": 115001780.87470937,
+        "F": 15000000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
