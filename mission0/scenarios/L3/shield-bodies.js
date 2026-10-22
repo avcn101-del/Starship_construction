@@ -35,7 +35,7 @@ export default {
   tolerance: 'closed forms 1e-12; impulse and energy books 1e-9 x the gross',
   criterion: 'two bodies, each holding one generator; the summed strength min(1, 1.1) = 1, the round slowed to 800 / 3 m/s and the payments 6/11 and 5/11 of 1 706 666.67 J (L2.shield.overlap.round\'s literals); each body\'s momentum changes by J_i = m (v - v1) x paid_i / paid along +y, and its angular momentum about its own centre by (q_i - x_i) x J_i, q_i the generator\'s centre (1e-9); each generator\'s heat is its body\'s books (re-statement): heat_i = 1/2 m s_i (|u_i|^2 - |u_i - (v - v1) y|^2) - dK_i, with s_i = paid_i / paid, u_i = the velocity of body i\'s hull at the round\'s point + v y, and dK_i body i\'s kinetic energy gain (translation and spin) from J_i, 1e-9 of the round\'s energy; shieldRound\'s heat is their sum (1e-12); kicked: the two hull velocities at the round\'s point differ, so the books in one body\'s frame would differ from these by more than 1e-6 of the heat',
   tunable: ['shield.kineticStop', 'shield.radius', 'shield.buffer', 'kinetic.roundMass', 'kinetic.muzzleVelocity', 'matter.kineticResistance'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'c206ee95' },
   cases() {
     return [{ kick: false }, { kick: true }];
   },

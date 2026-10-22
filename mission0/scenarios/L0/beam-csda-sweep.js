@@ -39,7 +39,7 @@ export default {
   tolerance: '1e-12 relative between the two floats around a change (the reviewer\'s sweep measured 1.0e-15 at worst; the jump before L4a was about 5e-6)',
   criterion: 'every change is of one step and upward (n -> n + 1 as the energy rises); the changes found number steps(400 MeV) - steps(10 MeV) (so none is missed: the count is monotone), 754 (hand-worked from tools/estimates/l4.mjs, the #258 section: 229 -> 983 steps); at every change the ranges at the two adjacent floats differ by at most 1e-12 relative (#251 (2), §17 item 27)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'acdffa67' },
   cases() {
     return [{ from: LO, to: HI }];
   },
