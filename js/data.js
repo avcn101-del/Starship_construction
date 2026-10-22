@@ -129,7 +129,7 @@ export const PARAMS = {
     coupledMagazine: P(6e5, 2e5, 2e6, 3, 'J/K', true, 'per magazine cell: 900 kg of rounds (0.4 MJ/K) and racks (#243)'),
     coupledHold: P(1.35e6, 5e5, 3e6, 3, 'J/K', true, 'per hold cell: 3 t of structure, nothing else (#243)'),
     coupledHeatSink: P(1.35e6, 5e5, 3e6, 3, 'J/K', true, 'per heat sink cell before its water: 3 t of structure; x heatsink.capacityFactor, the water adding as before (#198, #243)'),
-    coupledArmour: P(4.5e6, 2e6, 8e6, 3, 'J/K', true, 'per armour cell: 10 t of steel; no kernel consumer: an armour plate (#256) adds no heat capacity to its room (#243, #248 Q13)'),
+    coupledArmour: P(4.5e6, 2e6, 8e6, 3, 'J/K', true, 'per armour cell: 10 t of steel (450 J/(kg K)); an armour plate (#256) adds its mass x this / armour.cellMass to its room\'s heat capacity (#258, #248 Q13)'),
     coupledRailgun: P(4.5e6, 2e6, 8e6, 3, 'J/K', true, 'per railgun cell: 10 t of steel; the railgun stays data only until L5 (#243)'),
   },
   // Cell masses by room type (#221, #232, #234, #235): the low end of each

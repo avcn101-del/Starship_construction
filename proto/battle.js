@@ -12,7 +12,7 @@
 // setting from proto/config.js.
 // The kernel turns ships with js/util.js's deterministic sin and cos (#239 Q6, 13k.1), so a battle replays across
 // engines; this file uses them too.
-import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, setDemand, enablePowerRouting, setBeams, setRcs, shieldRound, fireRound, fireBeam, beamEnergy, step, readout, isDestroyed, survivingCells, survivingFraction, magazineContents, cellAt, plateBetween, cull } from '../js/rooms.js';
+import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, setDemand, enablePowerRouting, setBeams, setRcs, shieldRound, fireRound, fireBeam, beamEnergy, step, readout, isDestroyed, survivingCells, survivingFraction, magazineContents, cellAt, plateEntry, cull } from '../js/rooms.js';
 import { withOverrides, TIERS, FIXED, PARAMS, ROOMS, scaled } from '../js/data.js';
 import { rng, sin } from '../js/util.js';
 import { roundGeometry } from '../js/projectile.js';
@@ -175,7 +175,9 @@ const poseOf = (b) => ({ id: b.id, x: [...b.x], c: [...b.c], theta: b.theta });
 /**
  * The grid cells a ray crosses in order (Amanatides-Woo), in a grid of `grid` [columns, rows] cells of `edge` m:
  * origin o and unit direction d in grid metres, up to a distance `maxT` along it. Each: { cell: [i, j], t } with t
- * where the ray enters the cell. STAND-IN: a cell the line clips at a corner counts as crossed whole.
+ * where the ray enters the cell. STAND-IN: a cell the line clips at a corner counts as crossed whole. When the ray
+ * leaves the grid (not cut short by maxT), `exit` on the array is the cell off the grid it steps into, { cell, t },
+ * so a plate on the last cell's outer segment can be found (13l.1).
  */
 export function crossedCells(o, d, grid, edge, maxT = Infinity) {
   const W = grid[0] * edge, H = grid[1] * edge;
@@ -199,6 +201,7 @@ export function crossedCells(o, d, grid, edge, maxT = Infinity) {
     out.push({ cell: [i, j], t });
     if (tx <= ty) { t = tx; tx += dx; i += sx; } else { t = ty; ty += dy; j += sy; }
   }
+  if (out.length && !(i >= 0 && j >= 0 && i < grid[0] && j < grid[1])) out.exit = { cell: [i, j], t };
   return out;
 }
 
@@ -207,8 +210,9 @@ export function crossedCells(o, d, grid, edge, maxT = Infinity) {
  * of that body) to world point `to` (on its pose now), or the ray from `from` along `dir` (world) if `to` is null,
  * through the body's grid; the first room cell or armour plate of that body it crosses (a hole counts: a destroyed
  * cell stays on the path, #212 (5)) within the segment opens the path, which runs on to the grid's edge. An armour
- * plate (the kernel's plateBetween, 13l.1) enters the path where the line crosses its wall segment, before the next
- * cell, as { plate, chord: 1 } (STAND-IN chord, as the cells'). A path without a surviving cell is no hit. Returns
+ * plate (the kernel's plateEntry, 13l.1, #258) enters the path where the line crosses its wall segment, before the
+ * next cell, with the cosine of the line to its normal (sigma / cos theta in the kernel), a plate on the segment where
+ * the line leaves the grid included. A path without a surviving cell is no hit. Returns
  * the nearest hit { body, entry (grid m), dir (grid), path [{ room, cell } or { plate }], cells [[i, j]] (room
  * cells only), t (fraction of the segment, or distance along the ray), length (grid m of the segment) } or null.
  */
@@ -227,16 +231,20 @@ function lineHit(battle, ship, from, to, dir, before = null) {
       const [i, j] = cells[k].cell, e = battle.edge, p0 = [a[0] + d[0] * cells[k].t, a[1] + d[1] * cells[k].t];
       const on = (q, v) => Math.abs(q - v) < 1e-9;
       const prev = k > 0 ? cells[k - 1].cell : on(p0[0], i * e) ? [i - 1, j] : on(p0[0], (i + 1) * e) ? [i + 1, j] : on(p0[1], j * e) ? [i, j - 1] : on(p0[1], (j + 1) * e) ? [i, j + 1] : null;
-      const f = prev ? plateBetween(ship.world, prev, cells[k].cell) : null;
-      if (f && ship.room(f.room).cells[f.k].fragment === b.id) {
+      const x = prev ? plateEntry(ship.world, prev, cells[k].cell, d) : null;
+      if (x && ship.room(x.plate.room).cells[x.plate.k].fragment === b.id) {
         if (first < 0) { if (cells[k].t > L) break; first = k; }
-        path.push({ plate: f, chord: 1 });
+        path.push(x);
       }
       const c = cellAt(ship.world, cells[k].cell);
       if (!c || c.room.cells[c.index].fragment !== b.id) continue;
       if (first < 0) { if (cells[k].t > L) break; first = k; }
       path.push({ room: c.room, cell: c.index });
       at.push(cells[k].cell);
+    }
+    if (first >= 0 && cells.exit) { // the segment where the line leaves the grid (N6 of the L4a review)
+      const x = plateEntry(ship.world, cells[cells.length - 1].cell, cells.exit.cell, d);
+      if (x && ship.room(x.plate.room).cells[x.plate.k].fragment === b.id) path.push(x);
     }
     if (first < 0 || !path.some((x) => !x.plate && !x.room.cells[x.cell].destroyed)) continue;
     const t = cells[first].t;

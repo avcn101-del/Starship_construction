@@ -57,16 +57,30 @@ export function heatStep(h, generated, radiatedPower, dt, conducted, pumped = 0)
  * leaves the room. Its heat above rest, (C / n)(T - T_rest), vents to space;
  * its heat at rest leaves the books with the cell (Q0 falls by (C / n)
  * T_rest), so stored = Q - Q0 falls by exactly the vented energy and T is
- * unchanged. Returns the vented energy (J).
+ * unchanged. `keep` (J/K) is capacity that is not the cells' (an armour
+ * plate's steel, #258): the share is (C - keep) / n. Returns the vented
+ * energy (J).
  */
-export function ventCell(h, n, restTemperature) {
-  const share = h.C / n, T = h.Q / h.C, vented = share * (T - restTemperature);
+export function ventCell(h, n, restTemperature, keep = 0) {
+  const vented = ventCapacity(h, (h.C - keep) / n, restTemperature);
+  if (n === 1 && keep === 0) { h.Q = 0; h.C = 0; h.emptyTemperature = restTemperature; } // the last cell: nothing left (float residue cleared)
+  return vented;
+}
+/** Capacity `share` (J/K) leaves the room with its heat: the part above rest vents (ventCell's rule), T unchanged. Returns the vented energy (J). */
+export function ventCapacity(h, share, restTemperature) {
+  const T = h.Q / h.C, vented = share * (T - restTemperature);
   h.Q -= share * T;
   h.Q0 -= share * restTemperature;
   h.C -= share;
   h.vented += vented;
-  if (n === 1) { h.Q = 0; h.C = 0; h.emptyTemperature = restTemperature; } // the last cell: nothing left (float residue cleared)
   return vented;
+}
+/** Capacity C (J/K) joins the room at its temperature (an armour plate's steel, #258): T unchanged, nothing generated. */
+export function addCapacity(h, C) {
+  const T = h.Q / h.C;
+  h.C += C;
+  h.Q += C * T;
+  h.Q0 += C * T;
 }
 
 /** Conductance (W/K) of a wall of `length` (m) between rooms with factors fa, fb (#193): coolant or passive per metre (#201). */

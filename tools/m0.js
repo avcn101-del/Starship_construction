@@ -7,7 +7,8 @@
 //   node tools/m0.js verify <id|level>     independent re-run from the record
 //   node tools/m0.js regress               re-run every recorded PASS; check every withdrawn scenario
 //                                          against its frozen record, not run (#245, #250; a retired
-//                                          one is listed, not run, #237)
+//                                          one is listed, not run, #237); a recorded verdict other than
+//                                          PASS that is not withdrawn is printed as FAIL and counted (#258)
 //   node tools/m0.js ledger                regenerate MISSION0.md
 //   node tools/m0.js cov [--fail-fast] [--serial id,... --lock <dir>]
 //                                          coverage run for tools/mutate.js (#246 (1)): every scenario
@@ -339,13 +340,15 @@ async function main() {
   if (cmd === 'verify' || cmd === 'regress') {
     checkWithdrawn(all);
     const list = cmd === 'regress'
-      ? all.filter((s) => (recorded(s.id) || {}).verdict === 'PASS' || WITHDRAWN.has(s.id))
+      ? all.filter((s) => recorded(s.id) || WITHDRAWN.has(s.id))
       : select(all, sel);
     let bad = 0;
-    const counts = { VERIFIED: 0, WITHDRAWN: 0, RETIRED: 0, MISMATCH: 0 };
+    const counts = { VERIFIED: 0, WITHDRAWN: 0, RETIRED: 0, FAIL: 0, MISMATCH: 0 };
     for (const s of list) {
       const w = WITHDRAWN.get(s.id);
       const rec = recorded(s.id);
+      // A recorded FAIL (or any verdict but PASS) that is not withdrawn stays in regress's count (N9 of the L4a review, #258).
+      if (cmd === 'regress' && !w && rec && rec.verdict !== 'PASS') { counts.FAIL++; bad++; console.log(`FAIL  ${s.id}  recorded ${rec.verdict} and not withdrawn (${rec.command})`); continue; }
       if (w && w.retired) {
         if (rec && recordHash(rec) === w.recordHash) { counts.RETIRED++; console.log(`RETIRED  ${s.id}  not run; ok record unchanged since withdrawal (${w.retiredDecision}; successor ${w.successor})`); continue; }
         counts.MISMATCH++; bad++;
@@ -385,7 +388,8 @@ async function main() {
       const why = w ? `  (successor ${w.successor}, ${w.decision})` : '';
       console.log(`${label}  ${s.id}  ${checks.map(([n, v]) => `${v ? 'ok' : 'NO'} ${n}`).join('; ')}${why}`);
     }
-    console.log(`${counts.VERIFIED} VERIFIED + ${counts.WITHDRAWN} WITHDRAWN + ${counts.RETIRED} RETIRED${counts.MISMATCH ? ` + ${counts.MISMATCH} MISMATCH` : ''}${bad - counts.MISMATCH > 0 ? ` (${bad - counts.MISMATCH} without a record)` : ''}`);
+    const other = bad - counts.MISMATCH - counts.FAIL;
+    console.log(`${counts.VERIFIED} VERIFIED + ${counts.WITHDRAWN} WITHDRAWN + ${counts.RETIRED} RETIRED${counts.FAIL ? ` + ${counts.FAIL} FAIL` : ''}${counts.MISMATCH ? ` + ${counts.MISMATCH} MISMATCH` : ''}${other > 0 ? ` (${other} without a record)` : ''}`);
     process.exitCode = bad ? 1 : 0;
     return;
   }

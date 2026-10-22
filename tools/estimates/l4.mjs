@@ -222,3 +222,27 @@ import { readout } from '../../js/rooms.js';
   console.log(`--- R1c at T1: R1 ${r1.mass} kg + 8 plates x ${m} kg (d ${d} m) = ${M} kg (${(M - r1.mass).toFixed(6)} kg of plates); ${g.toPrecision(6)} g`);
   console.log(`    centre (${c[0].toPrecision(17)}, ${c[1].toPrecision(17)}) m; inertia ${I.toPrecision(17)} kg m^2 (R1: centre (${r1.centre.map((x) => x.toPrecision(17)).join(', ')}), inertia ${r1.inertia.toPrecision(17)})`);
 }
+
+// ---------- the L4a fix round (#258): literals of L0.armour.plate.v2 and L0.beam.csda.sweep ----------
+// Arithmetic from the constants, outside the kernel's plate code; the thin-plate fractions use the kernel's pure
+// beamDeposit (the checker's independent value is 0.5212 / 0.4788, checker/l4a-phase2.md).
+import { beamDeposit, csdaSteps } from '../../js/damage.js';
+{
+  const rho = FIXED.steelDensity.value, q = params.matter.burnEnergyPerKg.value, P = scaled(params.beam.power, edge), dt = FIXED.simStep.value;
+  const perKg = scaled(params.thermal.coupledArmour, edge) / scaled(params.armour.cellMass, edge), Chold = 4 * scaled(params.thermal.coupledHold, edge);
+  console.log(`--- #258 plates: steel ${perKg} J/(kg K); hold C ${Chold} J/K; beam ${P} W, dt ${dt} s, q ${q} J/kg`);
+  for (const d of [0.2, 0.15, 0.1, 0.01]) {
+    const m = d * rho * edge * edge, ruin = (q * m) / P;
+    console.log(`  d ${d} m: sigma ${d * rho} kg/m^2, mass ${m} kg, C ${m * perKg} J/K (hold with it ${Chold + m * perKg} J/K); burn per step at F = 1 ${(P * dt) / (q * m)}; ruin at F = 1 ${ruin} s = ${ruin / dt} steps`);
+  }
+  const d = 0.2, cap = edge / d;
+  console.log(`  sigma / cos: 45 deg ${(d * rho) / Math.SQRT1_2} kg/m^2 (0.1 m: ${(0.1 * rho) / Math.SQRT1_2}); cap (cos >= d / edge = ${d / edge}) ${d * rho * cap} kg/m^2 = rho x edge ${rho * edge}`);
+  const iron = { protonRest: FIXED.protonRestEnergy.value, electronRest: FIXED.electronRestEnergy.value, K: FIXED.betheK.value, ZA: FIXED.ironZOverA.value, I: FIXED.ironMeanExcitation.value, lambda: FIXED.ironInteractionLength.value };
+  const E = 100 * 1.602176634e-13, F = beamDeposit(E, [0.01 * rho, 120, 120], iron).fractions;
+  console.log(`  thin plate (0.01 m), 100 MeV: fractions ${F.map((x) => x.toPrecision(17)).join(', ')}; plate burn per step ${(P * F[0] * dt) / (q * 0.01 * rho * edge * edge)}`);
+  // csdaSteps' count changes between 10 and 400 MeV: a log scan of 4000 energies, each change bisected (the reviewer's sweep).
+  const MEV = 1.602176634e-13, N = 4000;
+  let changes = 0, prev = csdaSteps(10 * MEV, iron).steps;
+  for (let k = 1; k <= N; k++) { const n = csdaSteps(10 * MEV * 40 ** (k / N), iron).steps; changes += Math.abs(n - prev); prev = n; }
+  console.log(`  csdaSteps changes 10-400 MeV (4000-point scan): ${changes}; steps ${csdaSteps(10 * MEV, iron).steps} -> ${csdaSteps(400 * MEV, iron).steps}`);
+}

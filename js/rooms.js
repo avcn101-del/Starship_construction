@@ -31,9 +31,11 @@
 // chord. L4a (DESIGN.md 13l, #253, #255, #256): armour plates on wall segments
 // on every path that crosses them, with their mass on the ship; blast capacity
 // from remaining integrity; rounds in overlapping fields; one energy rule for
-// the field and the hull. No DOM, no Math.random.
+// the field and the hull. Its fix round (#258): a plate burns by its mass, meets
+// a line at sigma / cos theta and adds its steel's heat capacity to its room.
+// No DOM, no Math.random.
 import { ROOMS, FIXED, BASE_EDGE, scaled } from './data.js';
-import { createHeat, temperature, radiatorPower, heatStep, crossings, wallConductance, conductionFlows, ventCell, depositHeat } from './heat.js';
+import { createHeat, temperature, radiatorPower, heatStep, crossings, wallConductance, conductionFlows, ventCell, ventCapacity, addCapacity, depositHeat } from './heat.js';
 import { createLog, emit } from './events.js';
 import { absorbBeamStep, shieldStrength, stopRound } from './field.js';
 import { stepsAtLeast, exp } from './util.js';
@@ -198,6 +200,7 @@ export function damageCell(world, room, index, loss, cause, channel) {
   }
   cell.destroyed = true;
   if (world.beamPaths) world.beamPaths.clear(); // the deposit along any path through it changes (#236)
+  if (world.plates) for (const f of world.plates.values()) if (f.room === room.id && f.k === index) releasePlate(world, f); // its plates leave with it (13l.1)
   event(world, room, 'cell-destroyed', cause, { channel, cell: index });
   killByIntegrity(world, room, cause);
   ON_CELL_DESTROYED[room.type]?.(world, room, cause);
@@ -262,9 +265,13 @@ function cellCentre(world, room, index) {
 // it; fireRound and fireBeam give it its room (the room it is mounted on).
 /** A plate is gone when it is wrecked or the cell it is mounted on is destroyed (its mass left with that cell). */
 export const plateGone = (world, f) => f.destroyed || roomById(world, f.room).cells[f.k].destroyed;
-/** Areal density (kg/m^2) a path meets on entry x: a cell's (cellArealDensity), or a plate's d x FIXED.steelDensity (0 once gone). */
+/**
+ * Areal density (kg/m^2) a path meets on entry x: a cell's (cellArealDensity), or a plate's d x FIXED.steelDensity
+ * over cos theta, the line-of-sight thickness of a line crossing it at theta to its normal (x.cos, default 1),
+ * capped at the cell's edge length of steel (cos theta >= d / edge, #258); 0 once gone.
+ */
 export function entryArealDensity(world, x) {
-  if (x.plate) return plateGone(world, x.plate) ? 0 : x.plate.thickness * FIXED.steelDensity.value;
+  if (x.plate) return plateGone(world, x.plate) ? 0 : (x.plate.thickness * FIXED.steelDensity.value) / Math.max(x.cos ?? 1, x.plate.thickness / world.edge);
   return cellArealDensity(world, x.room, x.cell);
 }
 /** The plate on the wall segment between grid cells a and b (edge-adjacent; either may be empty or off the grid), or null. */
@@ -273,15 +280,27 @@ export function plateBetween(world, a, b) {
   return world.plates.get(segmentKey(a, [b[0] - a[0], b[1] - a[1]])) || null;
 }
 /**
+ * The path entry of the plate on the segment between edge-adjacent grid cells a and b, crossed by a line along
+ * `direction` (grid frame; null: along the segment's normal), or null: { plate, chord: 1, cos }, cos = |direction
+ * . (b - a)| / |direction|, the cosine of the angle to the plate's normal (#258).
+ */
+export function plateEntry(world, a, b, direction = null) {
+  const f = plateBetween(world, a, b);
+  if (!f) return null;
+  const cos = direction ? Math.abs(direction[0] * (b[0] - a[0]) + direction[1] * (b[1] - a[1])) / Math.hypot(direction[0], direction[1]) : 1;
+  return { plate: f, chord: 1, cos };
+}
+/**
  * The path along grid cells `cells` ([x, y] in order, each edge-adjacent to the next; empty cells and cells off
  * the grid included, so a hull edge plate is found where the line crosses it): each room cell as { room, cell,
- * chord }, and before it, where the line crosses a plated segment, { plate, chord: 1 } (13l.1). `chords` gives a
- * chord per grid cell (default 1).
+ * chord }, and before it, where the line crosses a plated segment, its plateEntry (13l.1, #258). `chords` gives a
+ * chord per grid cell (default 1); `direction` the line's direction in the grid frame (default: along each
+ * plate's normal, cos 1).
  */
-export function pathAlong(world, cells, chords = null) {
+export function pathAlong(world, cells, chords = null, direction = null) {
   const out = [];
   cells.forEach((xy, k) => {
-    if (k > 0) { const f = plateBetween(world, cells[k - 1], xy); if (f) out.push({ plate: f, chord: 1 }); }
+    if (k > 0) { const x = plateEntry(world, cells[k - 1], xy, direction); if (x) out.push(x); }
     const o = world.layout.occupied.get(`${xy[0]},${xy[1]}`);
     if (o) out.push({ room: roomById(world, o.id), cell: o.k, chord: chords ? chords[k] : 1 });
   });
@@ -304,8 +323,17 @@ function damagePlate(world, f, loss, cause, channel) {
   if (f.integrity > 0) { event(world, room, 'plate-damaged', cause, { channel, plate: f.id, integrity: f.integrity }); return; }
   f.destroyed = true;
   if (world.beamPaths) world.beamPaths.clear();
+  releasePlate(world, f);
   event(world, room, 'plate-destroyed', cause, { channel, plate: f.id });
   if (world.ship) rebalance(world, cause);
+}
+/** Heat capacity (J/K) of the plates still on `room` (#258): what is not its cells' when a cell vents its share. */
+const plateCapacityOf = (world, room) => (world.plates ? [...world.plates.values()].reduce((C, f) => C + (f.room === room.id && !f.released ? f.heatCapacity : 0), 0) : 0);
+/** A plate that is gone takes its steel's heat capacity out of its room, venting its heat above rest as a destroyed cell vents its share (#258); once. */
+function releasePlate(world, f) {
+  if (f.released) return;
+  f.released = true;
+  ventCapacity(roomById(world, f.room).heat, f.heatCapacity, FIXED.restTemperature.value);
 }
 /** Damage what an entry stands for. */
 const damageEntry = (world, x, loss, cause, channel) => (x.plate ? damagePlate(world, x.plate, loss, cause, channel) : damageCell(world, x.room, x.cell, loss, cause, channel));
@@ -343,7 +371,8 @@ function receive(world, b, J, p) {
  * as `residual`, the momentum on exit, the momentum left at the stop), the
  * loss applied to each cell reached, the heat each took and the total.
  * A path entry { plate, chord } is an armour plate (13l.1, #255, #256): it
- * resists r = c x thickness x FIXED.steelDensity x chord like a cell, takes
+ * resists r = c x its entryArealDensity (thickness x FIXED.steelDensity over
+ * cos theta, capped, #258) x chord like a cell, takes
  * the same losses (a hole at 0), its impulse acts at its segment's midpoint
  * on the body of the cell it is mounted on, its heat goes to that cell's room.
  */
@@ -436,10 +465,11 @@ export function beamEnergy(world, room) {
  * 'thermal', #240 (1)): the deposit comes first, the damage second, so a cell
  * destroyed in that step takes its share of the room's heat with it (F21). The
  * fractions are recomputed whenever a cell on the path has become a hole. What
- * is left after the path leaves the ship. A plate entry { plate, chord }
- * (13l.1) crosses thickness x FIXED.steelDensity x chord; its deposit is heat
- * in the room it is mounted on and it takes no integrity loss from the beam
- * (13l.1 names none). Returns the fractions and the energies of the step.
+ * is left after the path leaves the ship. A plate entry { plate, chord, cos }
+ * (13l.1) crosses its entryArealDensity x chord; its deposit is heat in the
+ * room it is mounted on, and it burns by the same law with its own mass:
+ * P F dt / (matter.burnEnergyPerKg x the plate's mass) (#240 (1), #258).
+ * Returns the fractions and the energies of the step.
  */
 export function fireBeam(world, { power, energy, range = 0 }, path, cause) {
   path = withRooms(world, path); // a plate's deposit is heat in the room it is mounted on (13l.1)
@@ -454,9 +484,9 @@ export function fireBeam(world, { power, energy, range = 0 }, path, cause) {
   }
   const dt = world.dt, q = world.params.matter.burnEnergyPerKg.value;
   const energies = dep.fractions.map((F) => power * F * dt);
-  const ruin = path.map((x) => q * cellMassOf(world, x.room));
+  const ruin = path.map((x) => q * (x.plate ? x.plate.mass : cellMassOf(world, x.room)));
   path.forEach((x, i) => { if (energies[i] > 0) depositHeat(x.room.heat, energies[i]); });
-  path.forEach((x, i) => { if (energies[i] > 0 && !x.plate) damageCell(world, x.room, x.cell, energies[i] / ruin[i], cause, 'thermal'); }); // a plate takes the deposit as heat only (13l.1)
+  path.forEach((x, i) => { if (energies[i] > 0) damageEntry(world, x, energies[i] / ruin[i], cause, 'thermal'); }); // a plate burns by its own mass (#258)
   return { power, range, energy, delivered: power, fractions: dep.fractions, exit: dep.exit, energies, escaped: power * dep.exit * dt };
 }
 export const destroyCell = (world, room, index, cause, channel = 'kinetic') => damageCell(world, room, index, 1, cause, channel);
@@ -761,7 +791,7 @@ const ON_CELL_DESTROYED = {
   },
   heatSink(world, room, cause) {
     // A destroyed cell vents its share of the heat above rest; the buffer shrinks, T is unchanged (#198).
-    const energy = ventCell(room.heat, survivingCells(room) + 1, FIXED.restTemperature.value);
+    const energy = ventCell(room.heat, survivingCells(room) + 1, FIXED.restTemperature.value, plateCapacityOf(world, room));
     event(world, room, 'heat-vented', cause, { energy });
   },
 };
@@ -1030,8 +1060,10 @@ export function shieldBuffer(world, room) {
  * is one rule with fireRound's (13l.1, §17 item 25): the round's kinetic
  * energy before less after (world frame: the hull's velocity where the round
  * is, plus its speed) less what the bodies gained (J^2 / 2M and the spin, for a
- * ship at rest), shared by payment; without a ship, the energy paid. Returns
- * the round after the field.
+ * ship at rest), shared by payment; without a ship, the energy paid. With
+ * generators on different bodies (fragments), each body keeps these books for
+ * its own generators' part of the round, at its own hull velocity and in its
+ * own frame (#258). Returns the round after the field.
  */
 export function shieldRound(world, round) {
   const gens = world.rooms.filter(shieldAble);
@@ -1050,26 +1082,40 @@ export function shieldRound(world, round) {
   const total = paid.reduce((x, y) => x + y, 0);
   gens.forEach((x, i) => { x.shield.buffer -= paid[i]; });
   let impulse = 0, heat = total;
+  let heats = gens.map((x, i) => (total > 0 ? heat * (paid[i] / total) : 0));
   if (world.ship) {
     impulse = round.mass * (round.velocity - r.velocity);
-    const bodies = gens.map((x) => world.ship.bodies.find((b) => b.id === x.body));
-    if (bodies[0] && impulse > 0 && total > 0) {
-      const b0 = bodies[0], hull = pointVelocity(b0, worldPoint(b0, round.position)), d0 = rotate(round.direction, b0.theta);
-      const u0 = [hull[0] + round.velocity * d0[0], hull[1] + round.velocity * d0[1]], K0 = bodiesEnergy(world), Jsum = [0, 0];
+    if (impulse > 0 && total > 0) {
+      // Each body holding paying generators keeps its own books (#258): its part of the round (mass x its
+      // generators' payment / the total) is taken at that body's hull velocity at the round's point, in its frame;
+      // each generator's share of the impulse acts at the generator; the body's heat (the part's lost kinetic
+      // energy less what the bodies gained) is shared among its generators by payment.
       const book = world.ship.received ??= { J: [0, 0], heat: 0, field: [0, 0] };
+      const groups = new Map();
       gens.forEach((x, i) => {
-        const b = bodies[i];
-        if (!b || !(paid[i] > 0)) return;
-        const share = impulse * (paid[i] / total), d = rotate(round.direction, b.theta), J = [share * d[0], share * d[1]];
-        receive(world, b, J, x.position);
-        book.field[0] += J[0]; book.field[1] += J[1];
-        Jsum[0] += J[0]; Jsum[1] += J[1];
+        const b = world.ship.bodies.find((y) => y.id === x.body);
+        if (b && paid[i] > 0) { if (!groups.has(b)) groups.set(b, []); groups.get(b).push(i); }
       });
-      const u1 = [u0[0] - Jsum[0] / round.mass, u0[1] - Jsum[1] / round.mass];
-      heat = 0.5 * round.mass * (u0[0] * u0[0] + u0[1] * u0[1] - u1[0] * u1[0] - u1[1] * u1[1]) - (bodiesEnergy(world) - K0);
+      heat = 0;
+      heats = gens.map(() => 0);
+      for (const [b, list] of groups) {
+        const part = list.reduce((x, i) => x + paid[i], 0), m = round.mass * (part / total);
+        const hull = pointVelocity(b, worldPoint(b, round.position)), d = rotate(round.direction, b.theta);
+        const u0 = [hull[0] + round.velocity * d[0], hull[1] + round.velocity * d[1]], K0 = bodiesEnergy(world), Jsum = [0, 0];
+        for (const i of list) {
+          const share = impulse * (paid[i] / total), J = [share * d[0], share * d[1]];
+          receive(world, b, J, gens[i].position);
+          book.field[0] += J[0]; book.field[1] += J[1];
+          Jsum[0] += J[0]; Jsum[1] += J[1];
+        }
+        const u1 = [u0[0] - Jsum[0] / m, u0[1] - Jsum[1] / m];
+        const q = 0.5 * m * (u0[0] * u0[0] + u0[1] * u0[1] - u1[0] * u1[0] - u1[1] * u1[1]) - (bodiesEnergy(world) - K0);
+        for (const i of list) heats[i] = q * (paid[i] / part);
+        heat += q;
+      }
     }
   }
-  gens.forEach((x, i) => { x.shield.impulseHeat += total > 0 ? heat * (paid[i] / total) : 0; });
+  gens.forEach((x, i) => { x.shield.impulseHeat += heats[i]; });
   return { velocity: r.velocity, energy: total, heat, by: gens.length === 1 ? gens[0].id : gens.map((x) => x.id), paid: Object.fromEntries(gens.map((x, i) => [x.id, paid[i]])), strength, impulse };
 }
 
@@ -1201,15 +1247,20 @@ export function addFitting(world, type, roomId, cell, side) {
  * `cell` of room `roomId`: a hull edge or a shared wall (layout.plateProblem). Its mass, thickness x
  * FIXED.steelDensity x edge^2 (the segment's area, one cell high), sits at the segment's midpoint and belongs to
  * the body of the cell it is mounted on. Every path built by pathAlong crosses it where its line crosses the segment.
+ * Its steel adds mass x thermal.coupledArmour / armour.cellMass of heat capacity to its room (450 J/(kg K), #258),
+ * which leaves again, with its heat above rest vented, when the plate is gone (releasePlate).
  */
 function addPlate(world, roomId, cell, side) {
   const problem = plateProblem(world.layout, ROOMS, { type: 'armour', room: roomId, cell, side }, world.fittings);
   if (problem) throw new Error(`${problem.rule}: ${problem.detail}`);
   const k = world.layout.rooms.get(roomId).cells.findIndex((c) => c[0] === cell[0] && c[1] === cell[1]);
   const thickness = tierScaled(world, world.params.armour.plateThickness), e = world.edge;
-  const f = { id: world.fittings.length, type: 'armour', room: roomId, k, cell: [...cell], side: [...side], p: edgeMidpoint(e, cell, side), mass: thickness * FIXED.steelDensity.value * e * e, thickness, integrity: 1, destroyed: false, fired: false };
+  const mass = thickness * FIXED.steelDensity.value * e * e, t = world.params.thermal;
+  const heatCapacity = (mass * tierScaled(world, t.coupledArmour)) / tierScaled(world, world.params.armour.cellMass); // the steel's, 450 J/(kg K) (#258)
+  const f = { id: world.fittings.length, type: 'armour', room: roomId, k, cell: [...cell], side: [...side], p: edgeMidpoint(e, cell, side), mass, heatCapacity, thickness, integrity: 1, destroyed: false, released: false, fired: false };
   world.fittings.push(f);
   world.plates.set(segmentKey(cell, side), f);
+  addCapacity(roomById(world, roomId).heat, heatCapacity);
   return f;
 }
 /** Fire (or stop) RCS fittings by id. */
@@ -1327,7 +1378,7 @@ function rebalance(world, cause) {
     ship.debris.push({ m: drop, x: q, v: pointVelocity(b, q), omega: b.omega, spin: now ? 0 : (drop * it.a * it.a) / 6, from: k, cause, t: world.t });
     const [rid, part] = k.split(':');
     const room = roomById(world, rid);
-    if (room && part !== 'contents' && !now && room.type !== 'heatSink' && room.heatCells > 0) { ventCell(room.heat, room.heatCells, FIXED.restTemperature.value); room.heatCells--; } // its heat leaves with it (#214 (9))
+    if (room && part !== 'contents' && !now && room.type !== 'heatSink' && room.heatCells > 0) { ventCell(room.heat, room.heatCells, FIXED.restTemperature.value, plateCapacityOf(world, room)); room.heatCells--; } // its heat leaves with it (#214 (9))
   }
   const next = [];
   const ids = [...new Set(comps.map((c) => assign.get(c)))];
