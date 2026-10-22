@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.8.3 — 2026-10-22 — Documents consolidated (#241 (5), #242)
+
+- New `HISTORY.md`: the plans and measured results of each Mission 0 pass,
+  moved verbatim from `DESIGN.md` (§13c.2–4, §13d.2–4, §13e.2–3, §13f.3–5,
+  §13g, §13h, §13i.2, §13i.4–5, §13j.1, §13j.3, §13j.5–6, §15, §16); each
+  moved section is one pointer line in `DESIGN.md`.
+- New `CONSTANTS.md`, generated from `js/data.js` by `tools/constants.mjs`:
+  the only table of values and ranges. `README.md` no longer copies it;
+  `DESIGN.md` §5.1 points to it.
+- New `LEDGER.md`: the sessions table, per-level totals and usage-limit
+  note, moved verbatim from `STATUS.md`.
+- `DESIGN.md`: the stale text the documents audit found is corrected where
+  it stands (status line, names, room sizes, decapitation, crew deaths,
+  who approves a wave, the accepted-risk line, the reactor-beside-magazine
+  example, shield buffers, the cell-matter row); the rules that lived only
+  in a decision row or the kernel are written into the rules tables;
+  §15 is three lines; §17 is the open obligations; new §18 is the table of
+  the decisions in force.
+- `IDEAS.md`: the blast-resistance row cites #232 and §13i.1; a row for the
+  tractor beam and mines (#20).
+- No code, no number, no decision changed.
+
 ## 0.8.2 — 2026-10-22 — The audits' answers (#240, #241)
 
 - #240 (the owner): one law for everything that resists, heat by the
