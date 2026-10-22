@@ -1,0 +1,263 @@
+{
+  "id": "L0.beam.tier",
+  "level": "L0",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L0.beam.tier",
+  "code": "c9224e2",
+  "criterionHash": "610e86dd",
+  "lockedHash": "610e86dd",
+  "runHash": "a1c37c5f",
+  "dataHash": "913ab810",
+  "rowsHash": "b64c78f3",
+  "rows": [
+    {
+      "case": {
+        "N": 2,
+        "tier": "T1"
+      },
+      "expected": {
+        "E0": 1.602176634e-11,
+        "F1": 1,
+        "depth": 0.2816841940346626,
+        "literal": {
+          "E": 1.602176634e-11,
+          "depth": 0.282
+        }
+      },
+      "actual": {
+        "E0": 1.602176634e-11,
+        "F1": 1,
+        "depth": 0.2816046550018365
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 2,
+        "tier": "T2"
+      },
+      "expected": {
+        "E0": 2.0351866096802505e-11,
+        "F1": 1,
+        "depth": 0.2849583764207796,
+        "literal": null
+      },
+      "actual": {
+        "E0": 2.0351866096802505e-11,
+        "F1": 1,
+        "depth": 0.28490514438715503
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 2,
+        "tier": "T3"
+      },
+      "expected": {
+        "E0": 2.411671167106512e-11,
+        "F1": 1,
+        "depth": 0.2866088386225753,
+        "literal": null
+      },
+      "actual": {
+        "E0": 2.411671167106512e-11,
+        "F1": 1,
+        "depth": 0.28656875530406867
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 2,
+        "tier": "T4"
+      },
+      "expected": {
+        "E0": 3.0634580245957544e-11,
+        "F1": 1,
+        "depth": 0.28768391566107815,
+        "literal": null
+      },
+      "actual": {
+        "E0": 3.0634580245957544e-11,
+        "F1": 1,
+        "depth": 0.2876572293806078
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 2,
+        "tier": "T5"
+      },
+      "expected": {
+        "E0": 3.63016018011213e-11,
+        "F1": 1,
+        "depth": 0.28735650094011816,
+        "literal": null
+      },
+      "actual": {
+        "E0": 3.63016018011213e-11,
+        "F1": 1,
+        "depth": 0.2873368145365562
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 2,
+        "tier": "T6"
+      },
+      "expected": {
+        "E0": 4.611260227353092e-11,
+        "F1": 1,
+        "depth": 0.2850397849553951,
+        "literal": null
+      },
+      "actual": {
+        "E0": 4.611260227353092e-11,
+        "F1": 1,
+        "depth": 0.2850266071359565
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 8,
+        "tier": "T1"
+      },
+      "expected": {
+        "E0": 6.408706536e-11,
+        "F1": 0.43123861092002314,
+        "depth": 2.910689125100871,
+        "literal": null
+      },
+      "actual": {
+        "E0": 6.408706536e-11,
+        "F1": 0.4312386109200207,
+        "depth": 2.9106099574040702
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 8,
+        "tier": "T2"
+      },
+      "expected": {
+        "E0": 8.140746438721002e-11,
+        "F1": 0.5200182583140247,
+        "depth": 2.8192411361429093,
+        "literal": null
+      },
+      "actual": {
+        "E0": 8.140746438721002e-11,
+        "F1": 0.5200182583140257,
+        "depth": 2.819187546671828
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 8,
+        "tier": "T3"
+      },
+      "expected": {
+        "E0": 9.646684668426048e-11,
+        "F1": 0.5945325239546708,
+        "depth": 2.7355944729691215,
+        "literal": null
+      },
+      "actual": {
+        "E0": 9.646684668426048e-11,
+        "F1": 0.5945325239546795,
+        "depth": 2.73555479699527
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 8,
+        "tier": "T4"
+      },
+      "expected": {
+        "E0": 1.2253832098383017e-10,
+        "F1": 0.7099372346340256,
+        "depth": 2.592129189536738,
+        "literal": null
+      },
+      "actual": {
+        "E0": 1.2253832098383017e-10,
+        "F1": 0.7099372346340398,
+        "depth": 2.592102700432897
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 8,
+        "tier": "T5"
+      },
+      "expected": {
+        "E0": 1.452064072044852e-10,
+        "F1": 0.7919890543333558,
+        "depth": 2.4737524423411994,
+        "literal": null
+      },
+      "actual": {
+        "E0": 1.452064072044852e-10,
+        "F1": 0.7919890543333699,
+        "depth": 2.4737327058449394
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 8,
+        "tier": "T6"
+      },
+      "expected": {
+        "E0": 1.8445040909412368e-10,
+        "F1": 0.8925111029816764,
+        "depth": 2.2874902214726105,
+        "literal": null
+      },
+      "actual": {
+        "E0": 1.8445040909412368e-10,
+        "F1": 0.8925111029816751,
+        "depth": 2.2874770663620736
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "the first cell's fraction within 2 % of T1's at every tier, N = 2 and 8",
+      "ok": false
+    },
+    {
+      "name": "the depth in cells within 2 % of T1's at every tier, N = 2 and 8",
+      "ok": false
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

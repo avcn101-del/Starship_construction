@@ -10,14 +10,15 @@
 // number comes from js/data.js (the loadout's shield budget and hits to wreck
 // as run-time overrides within their approved ranges); every prototype
 // setting from proto/config.js.
-import './detmath.js'; // STAND-IN: the same Math.sin and Math.cos in every engine, before any battle runs (replay)
-import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, setDemand, enablePowerRouting, setBeams, setRcs, shieldRound, fireRound, fireBeam, beamEnergy, step, readout, isDestroyed, survivingCells, survivingFraction, magazineContents, cellAt } from '../js/rooms.js';
+// The kernel turns ships with js/util.js's deterministic sin and cos (#239 Q6, 13k.1), so a battle replays across
+// engines; this file uses them too.
+import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, setDemand, enablePowerRouting, setBeams, setRcs, shieldRound, fireRound, fireBeam, beamEnergy, step, readout, isDestroyed, survivingCells, survivingFraction, magazineContents, cellAt, cull } from '../js/rooms.js';
 import { withOverrides, TIERS, FIXED, PARAMS, ROOMS, scaled } from '../js/data.js';
-import { rng } from '../js/util.js';
+import { rng, sin } from '../js/util.js';
 import { roundGeometry } from '../js/projectile.js';
 import { validateShip } from '../js/layout.js';
 import { rotate, worldPoint, pointVelocity } from '../js/body.js';
-import { LAYOUTS, LOADOUT, START_SEPARATION, TIER, SEED, PRESETS, SCRIPT, RANGES, AUTOPILOT, CULL_DISTANCE, DISABLED_SECONDS, defaultLoadout } from './config.js';
+import { LAYOUTS, LOADOUT, START_SEPARATION, TIER, SEED, PRESETS, SCRIPT, RANGES, AUTOPILOT, defaultLoadout } from './config.js';
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1];
@@ -62,7 +63,7 @@ function buildShip(params, side, loadout, orders, seed) {
   const random = rng(seed);
   const bay = world.layout.rooms.get('beamBay');
   return {
-    side, world, room, orders: { ...orders }, preset: 'fire', target: null, crewTotal, crewLost: 0, logIndex: 0, roundIndex: 0, size: L.size, rng: random,
+    side, world, room, orders: { ...orders }, preset: 'fire', target: null, crewTotal, crewLost: 0, logIndex: 0, size: L.size, rng: random,
     // The beam leaves along the ship's axis from the bay's bow face (#234), at the bay's centre row.
     bayFace: [(Math.max(...bay.cells.map((c) => c[0])) + 1) * edge, room('beamBay').position[1]],
     rcs: world.fittings.filter((f) => f.type === 'rcs'),
@@ -110,6 +111,8 @@ export function createBattle({ seed = SEED, overrides = {}, scripted = { player:
     seed, params, loadout: lo, player, enemy, ships: [player, enemy], scripted, scriptRange, beamOnly: lo.turrets === false, dt: player.world.dt, t: 0, steps: 0,
     round: { mass, velocity, area: A }, edge, grid: TIERS[TIER].grid,
     thrust: scaled(params.engine.thrust, edge), rcsForce: scaled(params.rcs.force, edge),
+    // Battle-level constants of js/data.js (#82, #222 (7), 13k.2): culling and Disabled.
+    cullDistance: scaled(params.battle.cullDistance, edge), disabledSeconds: scaled(params.battle.disabledSeconds, edge),
     rounds: [], hits: [], events: [], inputs: [], ended: null,
   };
   for (const s of battle.ships) if (scripted[s.side]) scriptUpdate(battle, s);
@@ -282,7 +285,7 @@ function helm(battle, ship) {
     heading = engine ? Math.atan2(dv[1], dv[0]) : err > 0 ? los : los + Math.PI;
   } else if (orders.facing === 'broadside') {
     mode = orders.dodge ? 'broadside, dodging' : 'broadside';
-    if (!orders.dodge) h.side = Math.sin(wrap(me.theta - los)) >= 0 ? 1 : -1; // the nearer broadside
+    if (!orders.dodge) h.side = sin(wrap(me.theta - los)) >= 0 ? 1 : -1; // the nearer broadside
     heading = los + (orders.dodge ? h.dodgeSign : h.side) * Math.PI / 2;
     engine = orders.dodge;
   } else {
@@ -373,29 +376,31 @@ function beamsOut(battle, shooter) {
   }
 }
 
-/** A kernel 'shot' launched a round (the kernel's recoil put it in the shooter's world: x, v); it flies on here. */
+/** A kernel 'shot' launched a round (the kernel's recoil put it in the shooter's world: x, v, x0, cause); it flies on here. */
 function launch(battle, shooter, e) {
-  const k = shooter.world.ship.rounds[shooter.roundIndex++];
+  const k = shooter.world.ship.rounds.find((x) => x.cause === e.cause);
   if (!k) return;
   shooter.stats.shots++;
-  // The kernel already moved it one step (its shipStep): it left the muzzle at x - v dt.
-  battle.rounds.push({ shooter, target: shooter.other, x: [...k.x], prev: [k.x[0] - k.v[0] * battle.dt, k.x[1] - k.v[1] * battle.dt], v: [...k.v], t0: e.t, cause: `${shooter.name}:${e.cause}` });
+  // The kernel already moved it in its first step (dt - at, F20): it left the muzzle at x0.
+  battle.rounds.push({ shooter, target: shooter.other, x: [...k.x], prev: [...k.x0], v: [...k.v], t0: e.t, cause: `${shooter.name}:${e.cause}` });
 }
 
 /**
  * Rounds after the step: each round's segment of the step, from where it was on the target's pose before the step
  * to where it is on its pose now, is tested against the target's hull cells. A hit: the kernel's shieldRound slows
- * it at the hull entry point, then its fireRound resolves it along the cells the line crosses from entry to exit,
- * at the speed of the round relative to the hull. A round that crosses nothing flies on; beyond the cull distance
- * from the midpoint between the ships it is a miss.
+ * it at the hull entry point (its impulse goes to the generator's ship), then its fireRound resolves it along the
+ * cells the line crosses from entry to exit, at the speed of the round relative to the hull, giving the hit ship its
+ * impulse and heat (13k.1). A round that crosses nothing flies on; farther than battle.cullDistance from every body
+ * of both ships it leaves play, a miss (the kernel's culling rule, #222 (7)). Each world's own record of the rounds
+ * it fired is culled by the kernel's cull().
  */
 function flyRounds(battle, before) {
   const keep = [];
-  const mid = (() => { const a = mainBody(battle.player).x, b = mainBody(battle.enemy).x; return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; })();
+  const bodies = battle.ships.flatMap((s) => s.world.ship.bodies);
   for (const r of battle.rounds) {
     const hit = lineHit(battle, r.target, r.prev, r.x, null, before.get(r.target.side));
     if (hit) { strike(battle, r, hit); continue; }
-    if (len(sub(r.x, mid)) > CULL_DISTANCE) {
+    if (bodies.every((b) => len(sub(r.x, b.x)) > battle.cullDistance)) {
       r.shooter.stats.misses++;
       battle.events.push({ side: r.target.side, t: battle.t, type: 'round-missed', room: '-', cause: r.cause, flight: battle.t - r.t0 });
       continue;
@@ -405,12 +410,13 @@ function flyRounds(battle, before) {
     keep.push(r);
   }
   battle.rounds = keep;
+  for (const s of battle.ships) cull(s.world);
 }
 function strike(battle, r, hit) {
   const w = r.target.world, speed = hit.length / battle.dt;
   const firstLive = hit.path.find((x) => !x.room.cells[x.cell].destroyed); // before the round changes it
-  const sh = shieldRound(w, { position: hit.entry, mass: battle.round.mass, velocity: speed, area: battle.round.area });
-  const res = sh.velocity > 0 ? fireRound(w, { mass: battle.round.mass, velocity: sh.velocity, area: battle.round.area }, hit.path, r.cause) : null;
+  const sh = shieldRound(w, { position: hit.entry, mass: battle.round.mass, velocity: speed, area: battle.round.area, direction: hit.dir });
+  const res = sh.velocity > 0 ? fireRound(w, { mass: battle.round.mass, velocity: sh.velocity, area: battle.round.area, direction: hit.dir }, hit.path, r.cause) : null;
   r.shooter.stats.hits++;
   const reached = res ? hit.path.slice(0, res.stoppedIn >= 0 ? res.stoppedIn + 1 : hit.path.length) : [];
   battle.events.push({ side: r.target.side, t: battle.t, type: 'round-hit', room: firstLive.room.id, cause: r.cause, speed, afterShield: sh.velocity, passed: res ? res.passed : 0, stoppedIn: res ? (res.stoppedIn >= 0 ? hit.path[res.stoppedIn].room.id : 'exit') : 'shield' });
@@ -432,7 +438,7 @@ function checkEnd(battle) {
     const a = abilities(s);
     if (a.beam || a.turret || a.thrust) s.disabledSince = null;
     else if (s.disabledSince === null) s.disabledSince = battle.t;
-    if (s.disabledSince !== null && battle.t - s.disabledSince >= DISABLED_SECONDS - 1e-9) s.disabled = true;
+    if (s.disabledSince !== null && battle.t - s.disabledSince >= battle.disabledSeconds - 1e-9) s.disabled = true;
   }
   const out = battle.ships.filter((s) => s.destroyed || s.disabled);
   if (!out.length) return;

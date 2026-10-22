@@ -91,9 +91,10 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
 
 ## Roles
 
-- **No AI checks its own work.** Four roles, each its own session, defined
-  in `.claude/agents/`: lead designer, engineer, reviewer, physics checker
-  (`DESIGN.md` §13b). Work is handed over through pull requests.
+- **No AI checks its own work.** Five roles, each its own session, defined
+  in `.claude/agents/`: lead designer, engineer, reviewer, physics checker,
+  and the owner's design partner, who decides nothing and writes only
+  `IDEAS.md` (`DESIGN.md` §13b, #247). Work is handed over through pull requests.
 - Give a reviewer the pull request and the documents, never your own
   summary or conclusions.
 - An engineer never changes the design: questions go in the pull request.
@@ -118,15 +119,22 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   error and float resolution, hardware sense-checked, numbers recomputed
   from the kernel). An estimate is never a canonical run: `node tools/m0.js
   run <id>` without `--set` re-records.
-- **Sessions** (#241): created with the model named explicitly, the whole
-  task in the first message, the fetch refspec, the reading order and the
-  file it may write; no sub-agents unless the task says so; cost estimates
-  carry a ×2.5 factor. Independent read-only **audits** at the milestones of
+- **Sessions** (#241, #250): created with the model named explicitly, the
+  whole task in the first message, the fetch refspec, the reading order and
+  the file it may write; no sub-agents unless the task says so; cost
+  estimates carry a ×2.5 factor (×4 for a kind of work not done before,
+  #246). A session's last act is to **notify the lead designer**: a one-shot
+  trigger into the lead designer's chat (`create_trigger` with
+  `persistent_session_id` from `STATUS.md`'s header, one minute ahead)
+  naming what it pushed; timed check-ins are the fallback. Independent read-only **audits** at the milestones of
   `DESIGN.md` §13b (#238), by `.claude/agents/auditor.md`.
-- **Documents** (#241): `DESIGN.md` is the current design with a table of
-  the decisions in force; plans and measured history live in `HISTORY.md`;
+- **Documents** (#241, #246): `DESIGN.md` is the current design with a
+  table of the decisions in force (§18, one row per decision, updated with
+  every new row); plans and measured history live in `HISTORY.md`;
   sessions and costs in `LEDGER.md`; `README.md` keeps no copy of the
-  constants table.
+  constants table. `node tools/lint-docs.mjs` passes before every
+  documentation pull request; a decision row that supersedes another
+  names it ("supersedes #n"); `tools/mutate.js` runs once per pass.
 - **`STATUS.md`** is the hand-over: read it first; update it at the end of
   every working block (open PRs, pending approvals, running sessions,
   scheduled tasks, next steps).

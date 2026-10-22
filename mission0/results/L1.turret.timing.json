@@ -1,0 +1,59 @@
+{
+  "id": "L1.turret.timing",
+  "level": "L1",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L1.turret.timing",
+  "code": "baf8d67+dirty",
+  "criterionHash": "45f33162",
+  "lockedHash": "45f33162",
+  "runHash": "69790012",
+  "dataHash": "b958ce58",
+  "rowsHash": "3a0f5c96",
+  "rows": [
+    {
+      "case": {
+        "shot": 2,
+        "rate": 0.7
+      },
+      "expected": {
+        "due": 1.4285714285714286,
+        "at": 0.011904761904761862,
+        "start": 1.4166666666666667,
+        "move": 3.809523809523843,
+        "literal": 3.8095238095,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "start": 1.4166666666666667,
+        "t": 1.4285714285714286,
+        "x0": [
+          14.942576297522399,
+          5
+        ],
+        "x": [
+          18.751907086197576,
+          5
+        ],
+        "v": [
+          799.9594656217805,
+          0
+        ],
+        "event": 1.4285714285714286,
+        "move": 3.8093307886751777,
+        "speed": 799.9594656217805
+      },
+      "pass": false,
+      "note": "hand-worked literal 3.8095 m"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

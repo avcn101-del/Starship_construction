@@ -1,0 +1,93 @@
+{
+  "id": "L3.cull",
+  "level": "L3",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L3.cull",
+  "code": "baf8d67+dirty",
+  "criterionHash": "bdaa4611",
+  "lockedHash": "bdaa4611",
+  "runHash": "b0dac3b6",
+  "dataHash": "b958ce58",
+  "rowsHash": "8e70b046",
+  "rows": [
+    {
+      "case": {
+        "item": "round"
+      },
+      "expected": {
+        "D": 3000,
+        "bounds": [
+          3.7,
+          3.8
+        ],
+        "kind": "rounds"
+      },
+      "actual": {
+        "leftAt": 3.75,
+        "farThen": 3008.907167265649,
+        "prevFar": 2995.5740717623703,
+        "item": {
+          "m": 6,
+          "P": [
+            0,
+            4800
+          ],
+          "d": 3008.907167265649
+        },
+        "left": {
+          "m": 6,
+          "P": [
+            0,
+            4800
+          ],
+          "count": 1
+        },
+        "okBooks": true,
+        "remaining": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "item": "debris"
+      },
+      "expected": {
+        "D": 3000,
+        "bounds": [
+          18,
+          21
+        ],
+        "kind": "debris"
+      },
+      "actual": {
+        "leftAt": null,
+        "farThen": null,
+        "prevFar": 1906.2175545293837,
+        "item": null,
+        "left": {
+          "m": 0,
+          "P": [
+            0,
+            0
+          ],
+          "count": 0
+        },
+        "okBooks": true,
+        "remaining": 1
+      },
+      "pass": false,
+      "note": "leaves play at the first step beyond the cull distance, left books its mass and momentum, hand-worked bounds on the time"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

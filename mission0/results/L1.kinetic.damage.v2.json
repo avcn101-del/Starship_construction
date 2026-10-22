@@ -3,12 +3,12 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.kinetic.damage.v2",
-  "code": "f7bf5c6",
+  "code": "baf8d67+dirty",
   "criterionHash": "0d067496",
   "lockedHash": "0d067496",
   "runHash": "c1e9045c",
-  "dataHash": "930a2386",
-  "rowsHash": "61da4c8a",
+  "dataHash": "b958ce58",
+  "rowsHash": "d4f7f6fd",
   "rows": [
     {
       "case": {
@@ -81,9 +81,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 568888.8888888888,
             "radiated": 0,
-            "stored": 0,
+            "stored": 568888.8888889551,
             "initial": 1044000000
           }
         ],
@@ -163,9 +163,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 1920000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 1920000,
             "initial": 1044000000
           }
         ],
@@ -247,9 +247,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 6479999.999999999,
             "radiated": 0,
-            "stored": 0,
+            "stored": 6480000.000000119,
             "initial": 1044000000
           }
         ],
@@ -357,9 +357,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 3840000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 3840000,
             "initial": 1044000000
           }
         ],
@@ -495,9 +495,9 @@
         "destroyed": 1,
         "books": [
           {
-            "generated": 0,
+            "generated": 5760000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 5760000,
             "initial": 1044000000
           }
         ],
@@ -577,9 +577,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 6480000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 6480000,
             "initial": 3523500000
           }
         ],
@@ -659,9 +659,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 15360000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 15360000,
             "initial": 8352000000
           }
         ],
@@ -741,9 +741,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 51840000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 51840000,
             "initial": 28188000000
           }
         ],
@@ -823,9 +823,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 122880000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 122880000,
             "initial": 66816000000
           }
         ],
@@ -905,9 +905,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 414720000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 414720000,
             "initial": 225504000000
           }
         ],
@@ -984,10 +984,10 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 345025.65096568444,
             "radiated": 0,
-            "stored": 0,
-            "initial": 696000000
+            "stored": 345025.6509656906,
+            "initial": 1566000000
           }
         ],
         "eventsOk": true
@@ -1063,10 +1063,10 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 823286.2945370642,
             "radiated": 0,
-            "stored": 0,
-            "initial": 696000000
+            "stored": 823286.2945370674,
+            "initial": 1566000000
           }
         ],
         "eventsOk": true
@@ -1142,10 +1142,10 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 1918875.564439199,
             "radiated": 0,
-            "stored": 0,
-            "initial": 696000000
+            "stored": 1918875.5644392967,
+            "initial": 1566000000
           }
         ],
         "eventsOk": true
@@ -1248,10 +1248,10 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 1646572.5890741283,
             "radiated": 0,
-            "stored": 0,
-            "initial": 696000000
+            "stored": 1646572.5890741348,
+            "initial": 1566000000
           }
         ],
         "eventsOk": true
@@ -1381,10 +1381,10 @@
         "destroyed": 2,
         "books": [
           {
-            "generated": 0,
+            "generated": 2469858.8836111925,
             "radiated": 0,
-            "stored": 0,
-            "initial": 696000000
+            "stored": 2469858.8836112022,
+            "initial": 1566000000
           }
         ],
         "eventsOk": true
@@ -1460,10 +1460,10 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 2778591.2440625904,
             "radiated": 0,
-            "stored": 0,
-            "initial": 2349000000
+            "stored": 2778591.2440624237,
+            "initial": 5285250000
           }
         ],
         "eventsOk": true
@@ -1539,10 +1539,10 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 6586290.356296513,
             "radiated": 0,
-            "stored": 0,
-            "initial": 5568000000
+            "stored": 6586290.356296539,
+            "initial": 12528000000
           }
         ],
         "eventsOk": true
@@ -1618,10 +1618,10 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 22228729.952500723,
             "radiated": 0,
-            "stored": 0,
-            "initial": 18792000000
+            "stored": 22228729.95249939,
+            "initial": 42282000000
           }
         ],
         "eventsOk": true
@@ -1697,10 +1697,10 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 52690322.850372106,
             "radiated": 0,
-            "stored": 0,
-            "initial": 44544000000
+            "stored": 52690322.850372314,
+            "initial": 100224000000
           }
         ],
         "eventsOk": true
@@ -1776,10 +1776,10 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 177829839.6200058,
             "radiated": 0,
-            "stored": 0,
-            "initial": 150336000000
+            "stored": 177829839.61999512,
+            "initial": 338256000000
           }
         ],
         "eventsOk": true
@@ -1948,9 +1948,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 568888.8888888888,
             "radiated": 0,
-            "stored": 0,
+            "stored": 568888.8888889551,
             "initial": 1044000000
           },
           {
@@ -2150,9 +2150,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 1920000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 1920000,
             "initial": 1044000000
           },
           {
@@ -2354,9 +2354,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 6479999.999999999,
             "radiated": 0,
-            "stored": 0,
+            "stored": 6480000.000000119,
             "initial": 1044000000
           },
           {
@@ -2599,9 +2599,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 3840000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 3840000,
             "initial": 1044000000
           },
           {
@@ -2887,9 +2887,9 @@
         "destroyed": 1,
         "books": [
           {
-            "generated": 0,
+            "generated": 5760000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 5760000,
             "initial": 1044000000
           },
           {
@@ -3089,9 +3089,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 6480000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 6480000,
             "initial": 3523500000
           },
           {
@@ -3291,9 +3291,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 15360000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 15360000,
             "initial": 8352000000
           },
           {
@@ -3493,9 +3493,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 51840000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 51840000,
             "initial": 28188000000
           },
           {
@@ -3695,9 +3695,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 122880000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 122880000,
             "initial": 66816000000
           },
           {
@@ -3897,9 +3897,9 @@
         "destroyed": 0,
         "books": [
           {
-            "generated": 0,
+            "generated": 414720000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 414720000,
             "initial": 225504000000
           },
           {

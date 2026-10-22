@@ -1,0 +1,52 @@
+{
+  "id": "L0.determinism",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.determinism",
+  "code": "baf8d67",
+  "criterionHash": "381f764c",
+  "lockedHash": "381f764c",
+  "runHash": "95f06978",
+  "dataHash": "b958ce58",
+  "rowsHash": "e45c9cb7",
+  "rows": [
+    {
+      "case": {
+        "part": "hash"
+      },
+      "expected": {
+        "verdict": "MATCH"
+      },
+      "actual": {
+        "node": "34804286",
+        "chromium": "34804286",
+        "verdict": "MATCH"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "grep"
+      },
+      "expected": {
+        "hits": []
+      },
+      "actual": {
+        "hits": []
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "id": "L2.size.rule.v2",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.size.rule.v2",
+  "code": "baf8d67+dirty",
+  "criterionHash": "0c5ee240",
+  "lockedHash": "0c5ee240",
+  "runHash": "4596ce6d",
+  "dataHash": "b958ce58",
+  "rowsHash": "a61fae88",
+  "rows": [
+    {
+      "case": {
+        "type": "reactor",
+        "size": "M"
+      },
+      "expected": {
+        "cells": 4,
+        "C": 22000000,
+        "power": 20000000,
+        "crew": 4,
+        "explosion": 200000000
+      },
+      "actual": {
+        "cells": 4,
+        "C": 22000000,
+        "crew": 4,
+        "power": 20000000,
+        "explosion": 200000000,
+        "books": [
+          {
+            "generated": 333333.3333333333,
+            "radiated": 0,
+            "stored": 333333.33333301544,
+            "initial": 6380000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "reactor",
+        "size": "L"
+      },
+      "expected": {
+        "cells": 9,
+        "C": 49500000,
+        "power": 45000000,
+        "crew": 9,
+        "explosion": 450000000
+      },
+      "actual": {
+        "cells": 9,
+        "C": 49500000,
+        "crew": 9,
+        "power": 45000000,
+        "explosion": 450000000,
+        "books": [
+          {
+            "generated": 750000,
+            "radiated": 0,
+            "stored": 750000,
+            "initial": 14355000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "magazine",
+        "size": "M"
+      },
+      "expected": {
+        "cells": 4,
+        "C": 2400000,
+        "capacity": 900,
+        "crew": 2
+      },
+      "actual": {
+        "cells": 4,
+        "C": 2400000,
+        "crew": 2,
+        "capacity": 900,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "magazine",
+        "size": "L"
+      },
+      "expected": {
+        "cells": 9,
+        "C": 5400000,
+        "capacity": 2025
+      },
+      "actual": {
+        "cells": 9,
+        "C": 5400000,
+        "crew": 5,
+        "capacity": 2025,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "turret",
+        "size": "M"
+      },
+      "expected": {
+        "cells": 4,
+        "C": 2400000,
+        "crew": 3,
+        "roundMass": 6,
+        "shots": 6,
+        "heatPerShot": 300000,
+        "draw": 200000
+      },
+      "actual": {
+        "cells": 4,
+        "C": 2400000,
+        "crew": 3,
+        "shots": 6,
+        "roundMass": 6,
+        "heatPerShot": 300000,
+        "draw": 199999.9999999982,
+        "books": [
+          {
+            "generated": 1800000,
+            "radiated": 0,
+            "stored": 1800000,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "turret",
+        "size": "L"
+      },
+      "expected": {
+        "cells": 9,
+        "C": 5400000,
+        "crew": 7,
+        "roundMass": 20.25,
+        "shots": 4,
+        "heatPerShot": 1012500,
+        "draw": 450000
+      },
+      "actual": {
+        "cells": 9,
+        "C": 5400000,
+        "crew": 7,
+        "shots": 4,
+        "roundMass": 20.25,
+        "heatPerShot": 1012500,
+        "draw": 450000,
+        "books": [
+          {
+            "generated": 4050000,
+            "radiated": 0,
+            "stored": 4050000,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "quarters",
+        "size": "M"
+      },
+      "expected": {
+        "cells": 6,
+        "C": 3600000,
+        "crew": 18
+      },
+      "actual": {
+        "cells": 6,
+        "C": 3600000,
+        "crew": 18,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "L reactor explosion = 9/4 x M (450 MJ at the default)",
+      "ok": true
+    },
+    {
+      "name": "L magazine capacity = 9/4 x M",
+      "ok": true
+    },
+    {
+      "name": "L turret round mass = (3/2)^3 x M",
+      "ok": true
+    },
+    {
+      "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction flows sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

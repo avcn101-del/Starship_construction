@@ -151,17 +151,16 @@ Each is marked `STAND-IN` in the code.
    waits for the next kernel pass).
 6. Both sides see the true layout: no scans.
 7. No point defence, no missiles, no railgun.
-8. A round's impact momentum is not given to the ship it hits (the kernel
-   has no call for it).
-9. Disabled is judged from room state (working, controlled, a reactor able
-   to power it, the gun fed), 10 s (`config.js`); destroyed means a reactor
-   or magazine explosion.
-10. **Deterministic trigonometry** (`detmath.js`): `Math.sin` and
-    `Math.cos` differ in their last bit between Node's V8 and a browser's
-    (Chromium 141: about 3 % of arguments), and the kernel turns ships with
-    them, so `battle.js` installs a port of fdlibm's sin and cos (within one
-    unit in the last place of the native ones) before any battle runs: the
-    same battle on the phone and in Node, so a phone export replays MATCH.
+8. Disabled is judged from room state (working, controlled, a reactor able
+   to power it, the gun fed), `battle.disabledSeconds` (10 s, `js/data.js`);
+   destroyed means a reactor or magazine explosion. A round flying farther
+   than `battle.cullDistance` from every body leaves play (a miss).
+
+The kernel turns ships with `js/util.js`'s deterministic sin and cos (physics
+pass 2, #239 Q6), so the prototype's own stand-in `detmath.js` is gone: the
+same battle on the phone and in Node, so a phone export replays MATCH. Since
+physics pass 2 a hit also gives the ship it hits its impulse and its heat,
+and the shield's field pushes on its generator's ship (13k.1).
 
 ## Export and replay
 
@@ -213,6 +212,6 @@ Each is marked `STAND-IN` in the code.
 ## Files
 
 `index.html`, `proto.css`, `proto.js` (the page), `battle.js` (the battle
-and the autopilot, no DOM), `detmath.js` (the trigonometry stand-in),
-`export.js` (the export and its event hash, no DOM), `config.js` (every
+and the autopilot, no DOM), `duel.js` (the fixed duel of the determinism
+test, no DOM), `export.js` (the export and its event hash, no DOM), `config.js` (every
 prototype setting), `measure.mjs`, `replay.mjs`, `smoke.mjs`, `screens/`.

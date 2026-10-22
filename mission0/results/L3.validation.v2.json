@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.validation.v2",
-  "code": "f7bf5c6",
+  "code": "baf8d67+dirty",
   "criterionHash": "66c78555",
   "lockedHash": "66c78555",
   "runHash": "51e87ff4",
-  "dataHash": "930a2386",
-  "rowsHash": "e8cc0458",
+  "dataHash": "b958ce58",
+  "rowsHash": "7b7a689e",
   "rows": [
     {
       "case": {
@@ -25,91 +25,91 @@
         "books": [
           {
             "generated": 0,
-            "radiated": 36693.98716652267,
-            "stored": -36404.22012543678,
-            "initial": 1044000000,
-            "conducted": 289.7670408074192,
+            "radiated": 36695.426578710314,
+            "stored": -36606.428991794586,
+            "initial": 2436000000,
+            "conducted": 88.99758723790303,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 15801.071449279785,
-            "initial": 696000000,
-            "conducted": 15801.07144950441,
+            "stored": 2958.9870500564575,
+            "initial": 6380000000,
+            "conducted": 2958.9870476728233,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 101666.66666666673,
             "radiated": 0,
-            "stored": 101653.09084022045,
+            "stored": 101652.55892908573,
             "initial": 696000000,
-            "conducted": -13.575826390110516,
+            "conducted": -14.10773688261339,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 4.743371367454529,
+            "stored": 5.316591858863831,
             "initial": 696000000,
-            "conducted": 4.7433708487966415,
+            "conducted": 5.316591672220802,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 27520.243544651592,
-            "stored": -27518.093398213387,
-            "initial": 696000000,
-            "conducted": 2.150146367354466,
+            "radiated": 27521.099746177642,
+            "stored": -27519.809509038925,
+            "initial": 1160000000,
+            "conducted": 1.2902369689611486,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 36695.753670485276,
-            "stored": -36471.85791015625,
-            "initial": 3480000000,
-            "conducted": 223.89576001663536,
+            "radiated": 36696.17425120948,
+            "stored": -36650.85100841522,
+            "initial": 7830000000,
+            "conducted": 45.32324106055156,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 50833.333333333365,
             "radiated": 0,
-            "stored": 50832.06960737705,
+            "stored": 50832.28079414368,
             "initial": 1044000000,
-            "conducted": -1.2637257633943004,
+            "conducted": -1.0525395080686433,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 1.0483715534210205,
+            "stored": 1.3350111246109009,
             "initial": 696000000,
-            "conducted": 1.0483714120194776,
+            "conducted": 1.335011062259757,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 2033333.3333333316,
-            "radiated": 55351.71251856454,
-            "stored": 1961673.7841982841,
-            "initial": 696000000,
-            "conducted": -16307.836616250786,
+            "radiated": 55102.44849734456,
+            "stored": 1975144.7953643799,
+            "initial": 3712000000,
+            "conducted": -3086.089472290533,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 0.000029206275939941406,
-            "initial": 696000000,
-            "conducted": 0.000029447650459505066,
+            "stored": 0.000032901763916015625,
+            "initial": 1566000000,
+            "conducted": 0.0000330064970264423,
             "pumped": 0,
             "vented": 0
           }

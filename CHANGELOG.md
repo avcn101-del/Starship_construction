@@ -1,5 +1,87 @@
 # Changelog
 
+## 0.9.0 — 2026-10-22 — Physics pass 2: one law, closed books, tiers, determinism (#240, #243)
+
+- **One law for everything that resists** (`DESIGN.md` §13k.1): beam burn by
+  the cell's mass (`matter.burnEnergyPerKg`, 3000 J/kg), blast by the cell's
+  mass (`matter.blastPerKg`, 100 J/kg; the hold's blast factor is gone), heat
+  capacity by the room type's thermally coupled mass (`thermal.coupled*`,
+  named in `ROOMS` like the cell mass), repair by mass (`repair.massRate`,
+  200 kg/s).
+- **Books close at the target**: a round's impulse goes to the body holding
+  the hit cells, at those cells, and the energy the system lost is heat in
+  the rooms in proportion to the momentum each took; the shield's removed
+  momentum pushes the generator's ship.
+- **Tiers**: `shield.buffer` in joules (k = 3),
+  engine and beam bay cells as structure + machinery
+  (`engine.machineryMass` k = 2, `beambay.machineryMass` k = 1), `rcs.mass`
+  k = 2, the reactor cell 150 t. R1 at T1: 950.5 t, 1.61 g, a 90° turn in
+  3.80 s.
+- **Determinism of sin, cos, exp, log and pow**: `js/util.js` has ports of
+  fdlibm's sin and cos (the y-form and the three reduction refinements:
+  within 1 ulp, deterministic), exp and log (equal to V8's on the reviewer's 2.1 M arguments), an
+  integer power and a deterministic `pow`; `scaled()` and `body.js` use
+  them. `tools/determinism.mjs` hashes a fixed 60 s **beam-only** duel in
+  Node (and in Chromium with `--chromium`); `proto/smoke.mjs` checks the
+  hashes MATCH. The hash does not cover `fireRound` or `shieldRound`, and
+  the kernel still calls `Math.hypot` and `Math.cbrt` (the prototype
+  `Math.atan2`): ported if a phone's hash differs (`DESIGN.md` §17 item 23).
+  `proto/detmath.js` is removed.
+- The SCRAM restart (`reactor.restartTime`, 60 s, automatic); the chord of a
+  path entry; a round launched at `world.t + at`; `cull()` and
+  `battle.cullDistance`, `battle.disabledSeconds` (read by the prototype);
+  the beam path cache cleared when a cell is destroyed; `csdaRange` takes its
+  material (water's Z/A and I in `FIXED`); an overheated beam bay reports
+  `beam-stopped` with cause `heat`; the ledger header reworded (E-F10).
+- Removed: `thermal.heatCapacityPerCell`, `armour.burnEnergy`,
+  `armour.blastResistance`, `room.blastResistance`, `hold.blastFactor`,
+  `repair.rate`, `shield.bufferSeconds`, `cellMass.engine`,
+  `cellMass.beamBay`.
+- Scenarios: S1–S22 (§13k.4) and 39 successors, locked at `4f39a0e`; 41
+  scenarios withdrawn as superseded by #240 (`mission0/withdrawn.json`).
+- **The engineer's twelve withdrawals** (#248; specification errors found at
+  the first canonical run): `L1.room.thresholds.v2`, `L1.engine.thrust.v2`,
+  `L1.reactor.power.v2`, `L1.shield.generator.v2`, `L1.heat.coupled`,
+  `L1.repair.mass`, `L1.turret.timing`, `L2.heatsink.buffer.v2`,
+  `L2.heatsink.loss.v2`, `L2.blast.walls.v2`, `L2.heat.chain.v3`,
+  `L3.cull`; their twelve successors, locked at `c9224e2`:
+  `L1.room.thresholds.v3`, `L1.engine.thrust.v3`, `L1.reactor.power.v3`,
+  `L1.shield.generator.v3`, `L1.heat.coupled.v2`, `L1.repair.mass.v2`,
+  `L1.turret.timing.v2`, `L2.heatsink.buffer.v3`, `L2.heatsink.loss.v3`,
+  `L2.blast.walls.v3`, `L2.heat.chain.v4`, `L3.cull.v2`.
+- `tools/estimates/pass2.mjs` runs on the new data (the removed constants as
+  literals) and prints R1 (section 8). The prototype is `feel-4`.
+- **Beam depth tier-invariant for electronic stopping only** (#248, #249;
+  fix round 1): `beam.gradient` back to k = 0 (its T1 meaning); `beamEnergy`
+  solves, by bisection on `csdaRange` to 1e-12 and cached per N on the
+  world, the energy whose CSDA range in iron, in armour cells of the tier,
+  equals the T1 bay's (N = 8: 400 MeV at T1, 1383 MeV at T6; the first cell
+  takes 43 % at T1 and 88 % at T6, reported). `L0.beam.tier` withdrawn
+  (#248), `L0.beam.burn.v4` and `L1.beambay.length.v2` superseded (#249);
+  successors `L0.beam.tier.v2`, `L0.beam.burn.v5`,
+  `L1.beambay.length.v3`. A withdrawn entry marked `frozen` keeps its
+  withdrawal-time record (#245 guard (2)).
+- **Every withdrawn record frozen** (#250; fix round 2): the 41 scenarios
+  superseded by #240 get back their PASS records of `f68185a` (re-recorded
+  FAIL in error, reviewer finding 1); the other 44 withdrawn entries are
+  frozen as they stand. `run`, `verify` and `regress` never re-run a
+  withdrawn scenario; `checkWithdrawn` refuses an unfrozen one. The twelve
+  #248 entries cite #248.
+
+## 0.8.5 — 2026-10-22 — E1 amended (#245), prevention (#246), the design partner (#247)
+
+- `.claude/agents/design-partner.md`: the owner's sounding board, read-only,
+  writing only `IDEAS.md`; `DESIGN.md` §13b and `CLAUDE.md` name the fifth
+  role; `STATUS.md` says when the lead designer's chat is replaced.
+
+- `DESIGN.md` §13 E1: withdrawal by a numbered decision whatever the
+  recorded verdict, the withdrawal-time record frozen, the retired state;
+  three guards against withdrawing a failing kernel.
+- `tools/lint-docs.mjs` (decision and section references, constants named
+  in DESIGN, §18 coverage, CONSTANTS.md, withdrawn.json, the supersedes
+  rule); run by the nightly regression. §18 rows 242–246; §17 item 21
+  (`tools/mutate.js`); `STATUS.md` opens with the owner's five lines.
+
 ## 0.8.4 — 2026-10-22 — Documents consolidated (#241 (5), #242)
 
 - New `HISTORY.md`: the plans and measured results of each Mission 0 pass,

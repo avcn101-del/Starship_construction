@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L1.repair.breach",
-  "code": "f7bf5c6",
+  "code": "baf8d67+dirty",
   "criterionHash": "75b5992c",
   "lockedHash": "75b5992c",
   "runHash": "5cbdde8f",
-  "dataHash": "930a2386",
+  "dataHash": "b958ce58",
   "rowsHash": "c6096ce0",
   "rows": [
     {
@@ -17,28 +17,13 @@
         "heatFor": 2000
       },
       "expected": {
-        "repairedAt": 54.12499999999999,
-        "destroyedAfterRepair": 0,
-        "breachAtHit2": false,
-        "breachAtHit3": true,
-        "countdown": 10,
-        "energy": 200000000,
-        "cause": "hit-3",
-        "deathsAtHits": [
-          1,
-          1,
-          1
-        ],
-        "crew": 4,
-        "critical": 1000,
-        "endTemperature": 1206.6666666666665,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "error": "Cannot read properties of null (reading 't')"
       },
       "pass": false,
-      "note": "run() threw: Cannot read properties of null (reading 't')"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
@@ -51,7 +36,7 @@
       "ok": true
     },
     {
-      "name": "run() completes in every case",
+      "name": "expected() completes in every case",
       "ok": false,
       "detail": "1 case(s) threw"
     },

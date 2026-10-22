@@ -1,0 +1,332 @@
+{
+  "id": "L2.repair.shared.v2",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.repair.shared.v2",
+  "code": "baf8d67+dirty",
+  "criterionHash": "9909673f",
+  "lockedHash": "9909673f",
+  "runHash": "4545aa78",
+  "dataHash": "b958ce58",
+  "rowsHash": "360f557a",
+  "rows": [
+    {
+      "case": {
+        "part": "two-cells",
+        "r1": 0.25
+      },
+      "expected": {
+        "perCell": 0.033333333333333326,
+        "time": 21.369000000000007,
+        "pays": [
+          {
+            "id": "Q1",
+            "perCell": 99.99999999999999,
+            "budget": 200,
+            "paid": 199.99999999999997
+          }
+        ],
+        "l1": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "firstRates": [
+          0.03333333333333188,
+          0.03333333333333188
+        ],
+        "firstPaid": [
+          199.99999999999997
+        ],
+        "withinBudget": true,
+        "repairedAt": [
+          21.383333333333333,
+          21.383333333333333
+        ],
+        "books": [
+          {
+            "generated": 1069166.6666666842,
+            "radiated": 0,
+            "stored": 1069166.6667176485,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "two-cells",
+        "r1": 1
+      },
+      "expected": {
+        "perCell": 0.03333333333333333,
+        "time": 21.369000000000003,
+        "pays": [
+          {
+            "id": "Q1",
+            "perCell": 100,
+            "budget": 200,
+            "paid": 200
+          }
+        ],
+        "l1": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "firstRates": [
+          0.03333333333333188,
+          0.03333333333333188
+        ],
+        "firstPaid": [
+          200
+        ],
+        "withinBudget": true,
+        "repairedAt": [
+          21.383333333333333,
+          21.383333333333333
+        ],
+        "books": [
+          {
+            "generated": 1069166.6666666842,
+            "radiated": 0,
+            "stored": 1069166.6667176485,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "one-cell",
+        "r1": 0.25
+      },
+      "expected": {
+        "perCell": 0.06274509803921569,
+        "time": 11.35228125,
+        "pays": [
+          {
+            "id": "Q1",
+            "perCell": 188.23529411764704,
+            "budget": 200,
+            "paid": 188.23529411764704
+          }
+        ],
+        "l1": 0.06274509803921569,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "firstRates": [
+          0.06274509803921413
+        ],
+        "firstPaid": [
+          188.23529411764704
+        ],
+        "withinBudget": true,
+        "repairedAt": [
+          11.366666666666667
+        ],
+        "books": [
+          {
+            "generated": 568333.3333333305,
+            "radiated": 0,
+            "stored": 568333.3333604336,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "one-cell",
+        "r1": 1
+      },
+      "expected": {
+        "perCell": 0.03333333333333333,
+        "time": 21.369000000000003,
+        "pays": [
+          {
+            "id": "Q1",
+            "perCell": 100,
+            "budget": 200,
+            "paid": 100
+          }
+        ],
+        "l1": 0.03333333333333333,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "firstRates": [
+          0.03333333333333188
+        ],
+        "firstPaid": [
+          100
+        ],
+        "withinBudget": true,
+        "repairedAt": [
+          21.383333333333333
+        ],
+        "books": [
+          {
+            "generated": 1069166.6666666842,
+            "radiated": 0,
+            "stored": 1069166.6667176485,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "overlap",
+        "r1": 0.25,
+        "r2": 1
+      },
+      "expected": {
+        "perCell": 0.09607843137254903,
+        "time": 7.413734693877551,
+        "pays": [
+          {
+            "id": "Q1",
+            "perCell": 188.23529411764704,
+            "budget": 200,
+            "paid": 188.23529411764704
+          },
+          {
+            "id": "Q2",
+            "perCell": 100,
+            "budget": 200,
+            "paid": 100
+          }
+        ],
+        "l1": null,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "firstRates": [
+          0.09607843137254601
+        ],
+        "firstPaid": [
+          188.23529411764704,
+          100
+        ],
+        "withinBudget": true,
+        "repairedAt": [
+          7.416666666666667
+        ],
+        "books": [
+          {
+            "generated": 370833.33333333203,
+            "radiated": 0,
+            "stored": 370833.33335101604,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 370833.33333333203,
+            "radiated": 0,
+            "stored": 370833.33335101604,
+            "initial": 1044000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction flows sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

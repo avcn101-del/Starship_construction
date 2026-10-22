@@ -1,0 +1,456 @@
+{
+  "id": "L0.blast.surface.v4",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.blast.surface.v4",
+  "code": "baf8d67",
+  "criterionHash": "a78c2613",
+  "lockedHash": "a78c2613",
+  "runHash": "7208fdef",
+  "dataHash": "b958ce58",
+  "rowsHash": "48f8a762",
+  "rows": [
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 0.5,
+        "coupling": 0.2
+      },
+      "expected": {
+        "vented": 800000,
+        "input": 1000000
+      },
+      "actual": {
+        "input": 1000000,
+        "vented": 800000,
+        "absorbed": 200000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 0,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 1,
+        "coupling": 0.2
+      },
+      "expected": {
+        "vented": 1600000,
+        "input": 2000000
+      },
+      "actual": {
+        "input": 2000000,
+        "vented": 1600000,
+        "absorbed": 400000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 0,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 2.5,
+        "coupling": 0.2
+      },
+      "expected": {
+        "vented": 4000000,
+        "input": 5000000
+      },
+      "actual": {
+        "input": 5000000,
+        "vented": 4000000,
+        "absorbed": 1000000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 1,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 5,
+        "coupling": 0.2
+      },
+      "expected": {
+        "vented": 8000000,
+        "input": 10000000
+      },
+      "actual": {
+        "input": 10000000,
+        "vented": 8000000,
+        "absorbed": 1999999.9999999998,
+        "escaped": 0,
+        "damaged": 4,
+        "destroyed": 1,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 10,
+        "coupling": 0.2
+      },
+      "expected": {
+        "vented": 16000000,
+        "input": 20000000
+      },
+      "actual": {
+        "input": 20000000,
+        "vented": 16000000,
+        "absorbed": 4000000,
+        "escaped": 0,
+        "damaged": 4,
+        "destroyed": 4,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 0.5,
+        "coupling": 0.5
+      },
+      "expected": {
+        "vented": 500000,
+        "input": 1000000
+      },
+      "actual": {
+        "input": 1000000,
+        "vented": 500000,
+        "absorbed": 500000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 0,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 1,
+        "coupling": 0.5
+      },
+      "expected": {
+        "vented": 1000000,
+        "input": 2000000
+      },
+      "actual": {
+        "input": 2000000,
+        "vented": 1000000,
+        "absorbed": 1000000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 1,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 2.5,
+        "coupling": 0.5
+      },
+      "expected": {
+        "vented": 2500000,
+        "input": 5000000
+      },
+      "actual": {
+        "input": 5000000,
+        "vented": 2500000,
+        "absorbed": 2500000,
+        "escaped": 0,
+        "damaged": 4,
+        "destroyed": 1,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 5,
+        "coupling": 0.5
+      },
+      "expected": {
+        "vented": 5000000,
+        "input": 10000000
+      },
+      "actual": {
+        "input": 10000000,
+        "vented": 5000000,
+        "absorbed": 4999999.999999999,
+        "escaped": 0,
+        "damaged": 9,
+        "destroyed": 4,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 10,
+        "coupling": 0.5
+      },
+      "expected": {
+        "vented": 10000000,
+        "input": 20000000
+      },
+      "actual": {
+        "input": 20000000,
+        "vented": 10000000,
+        "absorbed": 10000000,
+        "escaped": 0,
+        "damaged": 16,
+        "destroyed": 9,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 0.5,
+        "coupling": 0.8
+      },
+      "expected": {
+        "vented": 199999.99999999994,
+        "input": 1000000
+      },
+      "actual": {
+        "input": 1000000,
+        "vented": 200000,
+        "absorbed": 800000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 0,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 1,
+        "coupling": 0.8
+      },
+      "expected": {
+        "vented": 399999.9999999999,
+        "input": 2000000
+      },
+      "actual": {
+        "input": 2000000,
+        "vented": 400000,
+        "absorbed": 1600000,
+        "escaped": 0,
+        "damaged": 4,
+        "destroyed": 1,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 2.5,
+        "coupling": 0.8
+      },
+      "expected": {
+        "vented": 999999.9999999998,
+        "input": 5000000
+      },
+      "actual": {
+        "input": 5000000,
+        "vented": 1000000,
+        "absorbed": 4000000,
+        "escaped": 0,
+        "damaged": 4,
+        "destroyed": 4,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 5,
+        "coupling": 0.8
+      },
+      "expected": {
+        "vented": 1999999.9999999995,
+        "input": 10000000
+      },
+      "actual": {
+        "input": 10000000,
+        "vented": 2000000,
+        "absorbed": 8000000,
+        "escaped": 0,
+        "damaged": 13,
+        "destroyed": 6,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 11,
+        "h": 11,
+        "x": 0,
+        "y": 5,
+        "times": 10,
+        "coupling": 0.8
+      },
+      "expected": {
+        "vented": 3999999.999999999,
+        "input": 20000000
+      },
+      "actual": {
+        "input": 20000000,
+        "vented": 4000000,
+        "absorbed": 16000000.000000002,
+        "escaped": 0,
+        "damaged": 22,
+        "destroyed": 13,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "w": 3,
+        "h": 3,
+        "x": 0,
+        "y": 1,
+        "times": 10,
+        "coupling": 0.5
+      },
+      "expected": {
+        "vented": 10000000,
+        "input": 20000000
+      },
+      "actual": {
+        "input": 20000000,
+        "vented": 10000000,
+        "absorbed": 9000000,
+        "escaped": 1000000,
+        "damaged": 9,
+        "destroyed": 9,
+        "worstRise": 0,
+        "reachesEdge": true,
+        "asymmetry": 0
+      },
+      "pass": true,
+      "note": "reaches a plate edge: symmetry not checked"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

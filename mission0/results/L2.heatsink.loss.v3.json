@@ -1,0 +1,415 @@
+{
+  "id": "L2.heatsink.loss.v3",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.heatsink.loss.v3",
+  "code": "baf8d67+dirty",
+  "criterionHash": "76987712",
+  "lockedHash": "76987712",
+  "runHash": "54ff45f4",
+  "dataHash": "b958ce58",
+  "rowsHash": "53f91ba4",
+  "rows": [
+    {
+      "case": {
+        "k": 0
+      },
+      "expected": {
+        "vented": 2092500000,
+        "perCell": 6750000,
+        "heatPerCell": 4050000000,
+        "overheat": 1085.9,
+        "live": 10,
+        "d": 0.625,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "losses": [],
+        "overheat": 1085.9,
+        "sinkT": 687.1739461882795,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 2353696547.0835457,
+            "initial": 16200000000,
+            "conducted": 2353696547.083505,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 13573750000.009966,
+            "radiated": 0,
+            "stored": 11220053452.916336,
+            "initial": 6380000000,
+            "conducted": -2353696547.083505,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "k": 1
+      },
+      "expected": {
+        "vented": 2092500000,
+        "perCell": 6750000,
+        "heatPerCell": 4050000000,
+        "overheat": 1061.4333333333334,
+        "live": 10,
+        "d": 0.625,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "losses": [
+          {
+            "before": {
+              "T": 600,
+              "C": 27000000,
+              "Q": 16200000000,
+              "vented": 0
+            },
+            "after": {
+              "T": 600,
+              "C": 20250000,
+              "Q": 12150000000,
+              "vented": 2092500000
+            },
+            "event": 2092500000,
+            "last": false
+          }
+        ],
+        "overheat": 1061.4333333333334,
+        "sinkT": 701.1276457833907,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -44665172.88633919,
+            "initial": 14242500000,
+            "conducted": 2047834827.1136963,
+            "pumped": 0,
+            "vented": 2092500000
+          },
+          {
+            "generated": 13267916666.6757,
+            "radiated": 0,
+            "stored": 11220081839.553051,
+            "initial": 6380000000,
+            "conducted": -2047834827.1136963,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "k": 2
+      },
+      "expected": {
+        "vented": 2092500000,
+        "perCell": 6750000,
+        "heatPerCell": 4050000000,
+        "overheat": 1028.3166666666666,
+        "live": 10,
+        "d": 0.625,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "losses": [
+          {
+            "before": {
+              "T": 600,
+              "C": 27000000,
+              "Q": 16200000000,
+              "vented": 0
+            },
+            "after": {
+              "T": 600,
+              "C": 20250000,
+              "Q": 12150000000,
+              "vented": 2092500000
+            },
+            "event": 2092500000,
+            "last": false
+          },
+          {
+            "before": {
+              "T": 600,
+              "C": 20250000,
+              "Q": 12150000000,
+              "vented": 2092500000
+            },
+            "after": {
+              "T": 600,
+              "C": 13500000,
+              "Q": 8100000000,
+              "vented": 4185000000
+            },
+            "event": 2092500000,
+            "last": false
+          }
+        ],
+        "overheat": 1028.3166666666666,
+        "sinkT": 721.0243929271975,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -2551170695.482834,
+            "initial": 12285000000,
+            "conducted": 1633829304.5171835,
+            "pumped": 0,
+            "vented": 4185000000
+          },
+          {
+            "generated": 12853958333.341103,
+            "radiated": 0,
+            "stored": 11220129028.816242,
+            "initial": 6380000000,
+            "conducted": -1633829304.5171835,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "k": 3
+      },
+      "expected": {
+        "vented": 2092500000,
+        "perCell": 6750000,
+        "heatPerCell": 4050000000,
+        "overheat": 953.65,
+        "live": 5,
+        "d": 0.625,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "losses": [
+          {
+            "before": {
+              "T": 600,
+              "C": 27000000,
+              "Q": 16200000000,
+              "vented": 0
+            },
+            "after": {
+              "T": 600,
+              "C": 20250000,
+              "Q": 12150000000,
+              "vented": 2092500000
+            },
+            "event": 2092500000,
+            "last": false
+          },
+          {
+            "before": {
+              "T": 600,
+              "C": 20250000,
+              "Q": 12150000000,
+              "vented": 2092500000
+            },
+            "after": {
+              "T": 600,
+              "C": 13500000,
+              "Q": 8100000000,
+              "vented": 4185000000
+            },
+            "event": 2092500000,
+            "last": false
+          },
+          {
+            "before": {
+              "T": 600,
+              "C": 13500000,
+              "Q": 8100000000,
+              "vented": 4185000000
+            },
+            "after": {
+              "T": 600,
+              "C": 6750000,
+              "Q": 4050000000,
+              "vented": 6277500000
+            },
+            "event": 2092500000,
+            "last": false
+          }
+        ],
+        "overheat": 953.65,
+        "sinkT": 703.7812426118866,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -5576976612.369765,
+            "initial": 10327500000,
+            "conducted": 700523387.6302373,
+            "pumped": 0,
+            "vented": 6277500000
+          },
+          {
+            "generated": 11920625000.004921,
+            "radiated": 0,
+            "stored": 11220101612.369846,
+            "initial": 6380000000,
+            "conducted": -700523387.6302373,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "k": 4
+      },
+      "expected": {
+        "vented": 2092500000,
+        "perCell": 6750000,
+        "heatPerCell": 4050000000,
+        "overheat": 897.6,
+        "live": 0,
+        "d": 0.625,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "losses": [
+          {
+            "before": {
+              "T": 600,
+              "C": 27000000,
+              "Q": 16200000000,
+              "vented": 0
+            },
+            "after": {
+              "T": 600,
+              "C": 20250000,
+              "Q": 12150000000,
+              "vented": 2092500000
+            },
+            "event": 2092500000,
+            "last": false
+          },
+          {
+            "before": {
+              "T": 600,
+              "C": 20250000,
+              "Q": 12150000000,
+              "vented": 2092500000
+            },
+            "after": {
+              "T": 600,
+              "C": 13500000,
+              "Q": 8100000000,
+              "vented": 4185000000
+            },
+            "event": 2092500000,
+            "last": false
+          },
+          {
+            "before": {
+              "T": 600,
+              "C": 13500000,
+              "Q": 8100000000,
+              "vented": 4185000000
+            },
+            "after": {
+              "T": 600,
+              "C": 6750000,
+              "Q": 4050000000,
+              "vented": 6277500000
+            },
+            "event": 2092500000,
+            "last": false
+          },
+          {
+            "before": {
+              "T": 600,
+              "C": 6750000,
+              "Q": 4050000000,
+              "vented": 6277500000
+            },
+            "after": {
+              "T": 290,
+              "C": 0,
+              "Q": 0,
+              "vented": 8370000000
+            },
+            "event": 2092500000,
+            "last": true
+          }
+        ],
+        "overheat": 897.6,
+        "sinkT": 290,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -8370000000,
+            "initial": 8370000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 8370000000
+          },
+          {
+            "generated": 11220000000.002783,
+            "radiated": 0,
+            "stored": 11220000000.020279,
+            "initial": 6380000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "the reactor overheats sooner for every additional cell lost (k = 0..4)",
+      "ok": true,
+      "detail": "1085.900 > 1061.433 > 1028.317 > 953.650 > 897.600"
+    },
+    {
+      "name": "heat books: generated + conducted = radiated + vented + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction and life-support flows each sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

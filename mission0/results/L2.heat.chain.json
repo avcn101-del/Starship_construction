@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.heat.chain",
-  "code": "f7bf5c6",
+  "code": "baf8d67+dirty",
   "criterionHash": "a909375f",
   "lockedHash": "a909375f",
   "runHash": "35cbf822",
-  "dataHash": "930a2386",
-  "rowsHash": "b7e0e589",
+  "dataHash": "b958ce58",
+  "rowsHash": "66ab10bd",
   "rows": [
     {
       "case": {
@@ -16,115 +16,41 @@
         "T0": 600
       },
       "expected": {
-        "T": [
-          394.3777309231449,
-          393.3333017234268,
-          392.2889673534281
-        ],
-        "heatToThird": 245493521.64822748,
-        "lambda": [
-          1.2488076781254993e-18,
-          0.049999999999999996,
-          0.01666666666666667
-        ],
-        "tolerance": 0.001,
-        "ratio": 0.15
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "t": 300,
         "T": [
-          394.37700567701626,
-          393.3333019204812,
-          392.28969240250115
+          401.05476154643213,
+          393.32060965698304,
+          385.62462879658824
         ],
-        "heatToThird": 245495261.76600277,
+        "heatToThird": 382498515.18635297,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
-            "stored": -493495186.37516093,
-            "initial": 1440000000,
-            "conducted": -493495186.3751626,
+            "stored": -795780953.8142715,
+            "initial": 2400000000,
+            "conducted": -795780953.8142793,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 247999924.60915482,
-            "initial": 696000000,
-            "conducted": 247999924.60915878,
+            "stored": 413282438.6279321,
+            "initial": 1160000000,
+            "conducted": 413282438.627914,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 245495261.76600277,
-            "initial": 696000000,
-            "conducted": 245495261.7660082,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
-      },
-      "pass": true,
-      "note": ""
-    },
-    {
-      "case": {
-        "middle": "hold",
-        "T0": 600
-      },
-      "expected": {
-        "T": [
-          459.1601990038918,
-          386.5756016662478,
-          334.2641993298607
-        ],
-        "heatToThird": 106234078.39166562,
-        "lambda": [
-          -4.099326131768127e-21,
-          0.009090909090909089,
-          0.00303030303030303
-        ],
-        "tolerance": 0.001,
-        "ratio": 0.15
-      },
-      "actual": {
-        "t": 300,
-        "T": [
-          598.2485963660829,
-          291.7464377654264,
-          290.00496586848857
-        ],
-        "heatToThird": 11918.084372520447,
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": -4203368.721400976,
-            "initial": 1440000000,
-            "conducted": -4203368.721390699,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 4191450.6370233297,
-            "initial": 696000000,
-            "conducted": 4191450.6370158144,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 11918.084372520447,
-            "initial": 696000000,
-            "conducted": 11918.084374907648,
+            "stored": 382498515.18635297,
+            "initial": 1160000000,
+            "conducted": 382498515.18636113,
             "pumped": 0,
             "vented": 0
           }
@@ -132,14 +58,64 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "temperatures at 300 s"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+    },
+    {
+      "case": {
+        "middle": "hold",
+        "T0": 600
+      },
+      "expected": {
+        "error": "Cannot read properties of undefined (reading 'value')"
+      },
+      "actual": {
+        "t": 300,
+        "T": [
+          598.9463100942895,
+          290.77952657718805,
+          290.0013290265081
+        ],
+        "heatToThird": 5316.106032371521,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -4214759.622841835,
+            "initial": 2400000000,
+            "conducted": -4214759.622845508,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 4209443.516815424,
+            "initial": 1566000000,
+            "conducted": 4209443.516799405,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 5316.106032371521,
+            "initial": 1160000000,
+            "conducted": 5316.1060460970575,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
     {
       "name": "heat reaching the third room with a hold in the middle < 15 % of that without",
-      "ok": true,
-      "detail": "measured 0.00 %, closed form 43.27 %"
+      "ok": false,
+      "detail": ""
     },
     {
       "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
@@ -152,6 +128,11 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "2 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

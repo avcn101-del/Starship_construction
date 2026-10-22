@@ -5,6 +5,20 @@ Updated 2026-10-21 by the lead designer chat
 `session_013PTXKzyTQkpVaKYQyBhRP8`). Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
+## For the owner (five lines, kept at every block, #246 (5))
+
+- **Merged**: prototype v2 (#239), the audits block (#240–#244), the
+  consolidation (#242), **physics pass 2 (#243–#251)**.
+- **Running**: nothing. This chat is replaced at this boundary (#247
+  (2)); the new chat starts with the `tools/mutate.js` task and the L4
+  plan.
+- **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
+  on #242, #248 and §13k.2's constants.
+- **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
+  consolidation 4.12, pass 2 42.93); pass 2 estimated 50–60, inside it.
+- **Next**: `tools/mutate.js` task (§17 item 21) → the L4 plan (under
+  #241's gate).
+
 ## Where we are
 
 - Design settled: `DECISIONS.md` #1–#236, current design in `DESIGN.md`.
@@ -70,6 +84,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 | PR | Branch | State |
 |---|---|---|
 
+The audits block (#240–#244 and the consolidation) merged by PR #53 (`f68185a`; PR #52 closes with it); `regress`: 57 VERIFIED + 29 WITHDRAWN + 5 RETIRED.
+
 The prototype v2 block merged by PR #50 (`8116e8d`; PR #51 closes with it); `regress` on the merge: 57 VERIFIED + 29 WITHDRAWN + 5 RETIRED.
 
 The mass pass merged through the lead designer's branch (PR #40 closes with it).
@@ -82,6 +98,15 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #251: physics pass 2 merged; answers to the re-review.
+- #250: pass 2's fix rounds; every withdrawn record frozen; answers to the
+  reviewer; sessions notify the lead designer when done.
+- #249 is the owner's (beam depth tier-invariant for electronic stopping only).
+- #248: pass 2's first run; S6 withdrawn as the lead designer's error;
+  the engineer's twelve withdrawals accepted; answers.
+- #247 is the owner's (design partner, chat replacement, decision frame).
+- #246: prevention after the audits (lint, mutation tool, the supersedes
+  rule, ×4, this block for the owner). #245 is the owner's.
 - #242: the documents consolidated and merged; the kinetic velocity rule
   decided (relative to the hull) on the reviewer's blocking finding.
 - #244: answers to the scenario audit (S17–S22 and the conventions added
@@ -144,9 +169,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-- **E1 / #188 wording** (#244 (5)): amend #188 so a withdrawal covers a
-  scenario superseded by a decision whatever its recorded verdict, and the
-  'retired' state of #237 (7) (listed, not run, last record kept).
+Nothing (#249 answered S6).
 
 ## Next steps
 
@@ -186,6 +209,15 @@ the old chat's pending check-in was deleted at hand-over; the new chat
 creates its own (`send_later`, 20–45 min after starting a session).
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
+
+## When this chat is replaced (#247 (2))
+
+At a block boundary (a pass merged, the next not planned) or as soon as
+this chat's context is compressed or it repeats itself. Hand over through
+this file; the new chat re-creates the check-ins (`send_later`), which die
+with the chat that made them. The next natural boundary: **after physics
+pass 2 merges.** The owner's design partner (#247 (1)) is a separate chat
+and is not replaced with this one.
 
 ## Lessons for whoever continues
 

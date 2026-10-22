@@ -1,0 +1,149 @@
+{
+  "id": "L1.reactor.scram.v2",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.reactor.scram.v2",
+  "code": "baf8d67+dirty",
+  "criterionHash": "97297cd2",
+  "lockedHash": "97297cd2",
+  "runHash": "673931c3",
+  "dataHash": "b958ce58",
+  "rowsHash": "7f4c08aa",
+  "rows": [
+    {
+      "case": {
+        "T0": 290,
+        "d": 1
+      },
+      "expected": {
+        "decay": [
+          81261198.86016162,
+          796471904.1239828,
+          927867605.9741845
+        ],
+        "melts": false,
+        "meltdown": null,
+        "energy": null,
+        "T0": 290,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "deliveredAfter": 0,
+        "scramCause": "control-loss",
+        "decay": [
+          81261198.86015931,
+          796471904.1236583,
+          927867605.9737382
+        ],
+        "meltdown": null,
+        "explosions": [],
+        "T": 347.13076237537143,
+        "books": {
+          "generated": 1256876772.2581112,
+          "radiated": 0,
+          "stored": 1256876772.258171,
+          "initial": 6380000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "T0": 600,
+        "d": 1
+      },
+      "expected": {
+        "decay": [
+          81261198.86016162,
+          796471904.1239828,
+          927867605.9741845
+        ],
+        "melts": false,
+        "meltdown": null,
+        "energy": null,
+        "T0": 600,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "deliveredAfter": 0,
+        "scramCause": "control-loss",
+        "decay": [
+          81261198.86015931,
+          796471904.1236583,
+          927867605.9737382
+        ],
+        "meltdown": null,
+        "explosions": [],
+        "T": 657.1307623753477,
+        "books": {
+          "generated": 1256876772.2581112,
+          "radiated": 0,
+          "stored": 1256876772.2576485,
+          "initial": 13200000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "T0": 290,
+        "d": 0
+      },
+      "expected": {
+        "decay": [
+          0,
+          0,
+          0
+        ],
+        "melts": false,
+        "meltdown": null,
+        "energy": null,
+        "T0": 290,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "deliveredAfter": 0,
+        "scramCause": "control-loss",
+        "decay": [
+          0,
+          0,
+          0
+        ],
+        "meltdown": null,
+        "explosions": [],
+        "T": 290,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 6380000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

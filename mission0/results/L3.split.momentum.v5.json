@@ -1,0 +1,582 @@
+{
+  "id": "L3.split.momentum.v5",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.split.momentum.v5",
+  "code": "baf8d67+dirty",
+  "criterionHash": "78c87ef9",
+  "lockedHash": "78c87ef9",
+  "runHash": "7e399e39",
+  "dataHash": "b958ce58",
+  "rowsHash": "8e372512",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1"
+      },
+      "expected": {
+        "fragments": [
+          {
+            "rooms": [
+              "engine",
+              "heatSink",
+              "reactor",
+              "shield"
+            ],
+            "M": 686430.0286669852
+          },
+          {
+            "rooms": [
+              "beamBay",
+              "bridge",
+              "hold",
+              "magazine",
+              "quarters",
+              "turret"
+            ],
+            "M": 225674
+          }
+        ],
+        "debrisPieces": 5,
+        "debrisMass": 38430.02866698519,
+        "parentM": 950534.0573339704
+      },
+      "actual": {
+        "fragments": [
+          {
+            "id": "body-0",
+            "M": 686430.0286669852,
+            "v": [
+              10.088928299973507,
+              -0.2387275000759452
+            ],
+            "omega": 0.05,
+            "field": [
+              10.088928299973508,
+              -0.2387275000759452
+            ],
+            "rooms": [
+              "engine",
+              "heatSink",
+              "reactor",
+              "shield"
+            ]
+          },
+          {
+            "id": "body-1",
+            "M": 225674,
+            "v": [
+              9.739749880367361,
+              0.7075282341843997
+            ],
+            "omega": 0.05,
+            "field": [
+              9.739749880367363,
+              0.7075282341843997
+            ],
+            "rooms": [
+              "beamBay",
+              "bridge",
+              "hold",
+              "magazine",
+              "quarters",
+              "turret"
+            ]
+          }
+        ],
+        "debris": [
+          {
+            "m": 14800,
+            "v": [
+              10.179801588035994,
+              0.17292487816734817
+            ],
+            "omega": 0.05,
+            "field": [
+              10.179801588035994,
+              0.17292487816734817
+            ],
+            "from": "bridge:0"
+          },
+          {
+            "m": 14800,
+            "v": [
+              9.929885003535707,
+              0.16646726315013025
+            ],
+            "omega": 0.05,
+            "field": [
+              9.929885003535707,
+              0.16646726315013025
+            ],
+            "from": "bridge:2"
+          },
+          {
+            "m": 4290.014333492594,
+            "v": [
+              9.686426034052637,
+              -0.08990693636737497
+            ],
+            "omega": 0.05,
+            "field": [
+              9.686426034052637,
+              -0.08990693636737497
+            ],
+            "from": "heatSink:1"
+          },
+          {
+            "m": 4290.014333492594,
+            "v": [
+              9.436509449552348,
+              -0.0963645513845929
+            ],
+            "omega": 0.05,
+            "field": [
+              9.43650944955235,
+              -0.0963645513845929
+            ],
+            "from": "heatSink:3"
+          },
+          {
+            "m": 250,
+            "v": [
+              9.311551157302205,
+              -0.0995933588932017
+            ],
+            "omega": 0.05,
+            "field": [
+              9.311551157302207,
+              -0.0995933588932017
+            ],
+            "from": "fit:5"
+          }
+        ],
+        "K": {
+          "before": 47670455.09279191,
+          "after": 47670455.092791885,
+          "end": 47670455.092791885
+        },
+        "scale": 35,
+        "atCut": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 1.8661365231185844e-9,
+          "dL": 0,
+          "net": 159586103.37722808,
+          "gross": 0
+        },
+        "flight": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 4.470348358154297e-7,
+          "net": 152538561.64162812,
+          "gross": 0
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 55343.07814461342,
+            "stored": -55139.4279999733,
+            "initial": 2436000000,
+            "conducted": 203.650145015672,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 3613.7139711380005,
+            "initial": 6380000000,
+            "conducted": 3613.713966607198,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 102499.99999999981,
+            "radiated": 0,
+            "stored": 76650.52077275515,
+            "initial": 348000000,
+            "conducted": -17.939085380344604,
+            "pumped": 0,
+            "vented": 25831.540141484766
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 12.16014814376831,
+            "initial": 696000000,
+            "conducted": 12.160147824840374,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 41506.23161937246,
+            "stored": -41503.28013968468,
+            "initial": 1160000000,
+            "conducted": 2.9514793724739974,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 46170.70348002384,
+            "stored": -36786.00273370743,
+            "initial": 3915000000,
+            "conducted": 65.8097236344394,
+            "pumped": 0,
+            "vented": -9318.891022175536
+          },
+          {
+            "generated": 76666.66666666667,
+            "radiated": 0,
+            "stored": 76664.6045589447,
+            "initial": 1044000000,
+            "conducted": -2.062107373009188,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 3.053758978843689,
+            "initial": 696000000,
+            "conducted": 3.0537589829384846,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 1033333.3333333338,
+            "radiated": 83090.90975549752,
+            "stored": 946361.08543396,
+            "initial": 3712000000,
+            "conducted": -3881.3381438452557,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0.00011515617370605469,
+            "initial": 1566000000,
+            "conducted": 0.0001151610461671694,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 1.8661365231185844e-9,
+          "dL": 4.470348358154297e-7,
+          "net": 159586103.37722808,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6"
+      },
+      "expected": {
+        "fragments": [
+          {
+            "rooms": [
+              "engine",
+              "heatSink",
+              "reactor",
+              "shield"
+            ],
+            "M": 144695886.19206882
+          },
+          {
+            "rooms": [
+              "beamBay",
+              "bridge",
+              "hold",
+              "magazine",
+              "quarters",
+              "turret"
+            ],
+            "M": 46438584
+          }
+        ],
+        "debrisPieces": 5,
+        "debrisMass": 8255886.1920688,
+        "parentM": 199390356.38413763
+      },
+      "actual": {
+        "fragments": [
+          {
+            "id": "body-0",
+            "M": 144695886.19206882,
+            "v": [
+              10.543814654825427,
+              -1.3461302303820994
+            ],
+            "omega": 0.05,
+            "field": [
+              10.543814654825425,
+              -1.3461302303820994
+            ],
+            "rooms": [
+              "engine",
+              "heatSink",
+              "reactor",
+              "shield"
+            ]
+          },
+          {
+            "id": "body-1",
+            "M": 46438584,
+            "v": [
+              8.363914508654279,
+              4.075118479879226
+            ],
+            "omega": 0.05,
+            "field": [
+              8.363914508654279,
+              4.075118479879225
+            ],
+            "rooms": [
+              "beamBay",
+              "bridge",
+              "hold",
+              "magazine",
+              "quarters",
+              "turret"
+            ]
+          }
+        ],
+        "debris": [
+          {
+            "m": 3196800,
+            "v": [
+              11.090849962129434,
+              1.0457837772743148
+            ],
+            "omega": 0.05,
+            "field": [
+              11.090849962129434,
+              1.0457837772743148
+            ],
+            "from": "bridge:0"
+          },
+          {
+            "m": 3196800,
+            "v": [
+              9.59135045512771,
+              1.0070380871710085
+            ],
+            "omega": 0.05,
+            "field": [
+              9.59135045512771,
+              1.0070380871710085
+            ],
+            "from": "bridge:2"
+          },
+          {
+            "m": 926643.0960344004,
+            "v": [
+              8.13059663822929,
+              -0.531207109934023
+            ],
+            "omega": 0.05,
+            "field": [
+              8.13059663822929,
+              -0.531207109934023
+            ],
+            "from": "heatSink:1"
+          },
+          {
+            "m": 926643.0960344004,
+            "v": [
+              6.631097131227565,
+              -0.5699528000373277
+            ],
+            "omega": 0.05,
+            "field": [
+              6.631097131227564,
+              -0.5699528000373277
+            ],
+            "from": "heatSink:3"
+          },
+          {
+            "m": 9000,
+            "v": [
+              5.881347377726702,
+              -0.5893256450889808
+            ],
+            "omega": 0.05,
+            "field": [
+              5.881347377726701,
+              -0.5893256450889809
+            ],
+            "from": "fit:5"
+          }
+        ],
+        "K": {
+          "before": 10966981531.66836,
+          "after": 10966981531.668356,
+          "end": 10966981531.668356
+        },
+        "scale": 160,
+        "atCut": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 3.187496986356564e-7,
+          "dL": 0.000030517578125,
+          "net": 234005023074.6655,
+          "gross": 0
+        },
+        "flight": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 0,
+          "dL": 0.00018310546875,
+          "net": 184963743986.03275,
+          "gross": 0
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 1992425.2243772713,
+            "stored": -1991222.260192871,
+            "initial": 526176000000,
+            "conducted": 1202.9642086276908,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 21778.759033203125,
+            "initial": 1378080000000,
+            "conducted": 21778.759178515076,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 3690000,
+            "radiated": 0,
+            "stored": 2759903.105682373,
+            "initial": 75168000000,
+            "conducted": -107.657447664387,
+            "pumped": 0,
+            "vented": 929989.2369057488
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 72.97824096679688,
+            "initial": 150336000000,
+            "conducted": 72.97823839411473,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 1494312.477574731,
+            "stored": -1494294.7709350586,
+            "initial": 250560000000,
+            "conducted": 17.706692138354185,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 1662167.1608588279,
+            "stored": -1326138.9709472656,
+            "initial": 845640000000,
+            "conducted": 378.31788717284667,
+            "pumped": 0,
+            "vented": -335649.8719294905
+          },
+          {
+            "generated": 2760000,
+            "radiated": 0,
+            "stored": 2759987.628479004,
+            "initial": 225504000000,
+            "conducted": -12.371510349726123,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 18.322509765625,
+            "initial": 150336000000,
+            "conducted": 18.322469023959798,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 37200000,
+            "radiated": 2989096.2437381335,
+            "stored": 34187554.73706055,
+            "initial": 801792000000,
+            "conducted": -23349.01983103964,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 338256000000,
+            "conducted": 0.00011518170543405921,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 3.187496986356564e-7,
+          "dL": 0.000213623046875,
+          "net": 234005023074.6655,
+          "gross": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + vented + stored, within max(1e-9 x the largest flow, 1e-10 x the room's heat at the start), every room, every case (#219)",
+      "ok": true
+    },
+    {
+      "name": "conduction and life-support flows each sum to 0 over the ship, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "momentum books: mass, momentum (1e-9) and angular momentum (1e-9 x net + 1e-12 x gross angular impulse booked, #219, #220) of ship + rounds + debris kept (with the external impulse), every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
