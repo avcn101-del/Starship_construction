@@ -13,8 +13,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books.
-- **Running**: no session. The full mutation run on the L5a merge is recorded (#284: 138 of 193 killed; one new survivor, a gap for L5d). `regress` on L5a's head (= the merge's tree): 115 VERIFIED + 121 WITHDRAWN + 5 RETIRED.
-- **Waiting on you**: **the go for L5m** (#277 O5: each pass has its own go): the turret as structure plus a 7.9 t mount (#281); 13–20 USD by the rule, 7–10 expected; it re-pins R1 and R1d. After it the pace study and your threshold choice. Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#283. The prototype page is on the L4b kernel (version 5): play it and say what is not fun (#223's ladder).
+- **Running**: **L5m, the turret by its mount** (engineer on `m0/l5m-turret`, #285). The full mutation run on the L5a merge is recorded (#284).
+- **Waiting on you**: nothing. You chose L5m now (#285, option A, 25–38 USD by the rule, 12–18 expected); its engineer runs. After it: the pace study and your threshold choice. Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#285. The prototype page is on the L4b kernel (version 5): play it and say what is not fun (#223's ladder).
 - **Money**: L5a 23.54 USD (raw 11–16, ratio 1.74; the rule's 28–40, my 14–20). 2026-10-21/22 in all about 190 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,

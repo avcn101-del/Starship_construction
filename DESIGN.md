@@ -1130,7 +1130,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Shield generator | built | `L1.shield.generator.v3`, `L2.shield.*` | proven |
 | Crew quarters (berths, repair field) | built | `L1.quarters.repair.v3`, `L2.repair.*`, `L4.crew.capacity` | proven |
 | Beam bay (spinal accelerator) | built | `L1.beambay.*`, `L2.beambay.cause`, `L0.beam.tier.v2` | proven |
-| Kinetic turret | built | `L1.turret.fire`, `L1.turret.timing.v2`, `L4.route.*` | proven |
+| Kinetic turret | built | `L1.turret.fire`, `L1.turret.timing.v2`, `L4.route.*` | proven; its mass by its mount (structure + `turret.machineryMass`) planned L5m (#281, #285) |
 | **Spinal railgun** (#236 (6)) | **data only** | none | planned L5c (#268) |
 | **Missile bay** (#148: ready store, launch, explodes by its missiles) | **a room with crew and mass only** | none | planned L5c (#268) |
 | Empty hold (insulates; blast buffer gone, #240 (6)) | built | `L2.heat.*` (hold factor), `L2.blast.integrity` | proven |
@@ -1425,6 +1425,8 @@ is §13n.6.
 | E2 | L5e | `L5.e6.<path>` × 6 | the six pairs | wins with the tactic ≥ 3 of 4, loses without ≥ 3 of 4 |
 | E3 | L5e | `L5.e7.median` | the 24 reference ends | median in [180, 360] s |
 | E4 | L5e | `L5.e8.missiles` | a Swarm against R2 at T1 | under 1 ms per step |
+| M1 | L5m | successors of the 15 scenarios the probe of #285 fails (`L3.r1.pinned`, `L3.mass.props.v5`, `L3.r1c.props`, `L4.readout.blueprint`, `L3.recoil.v5`, `L3.thrust.v5`, `L3.rcs.turn.v5`, `L3.split.momentum.v5`, `L3.fragment.rules.v3`, `L3.destroyed.mass`, `L3.shield.energy`, `L4.cascade.v3`, `L4.hit.oblique.v2`, `L4.route.missionKill.v2`, `L4.route.overheat.v2`) | as each original, with the turret by its mount | every check of the original kept; mass, centre and inertia literals hand-worked from the cell masses (R1 911.2 t, R1c 1225.234 t, R1d 1421.484 t at T1: (9)); battle literals kernel-read and labelled; the 15 that move and still pass re-record (as pass 2 and #272) |
+| M2 | L5m | `L0.turret.mount` (new) | an M round through an M turret's two cells, and through R1d's turret plate first | σ = (3000 + 1975) / 25 = 199 kg/m² (hand-worked); the round passes both cells (exit speed by the round rule, hand-worked); the plate stops it |
 
 ### 13n.5 Process and cost
 
@@ -1433,12 +1435,12 @@ One engineer session (opus) per pass on `m0/l5a-kinetic`, `m0/l5b-senses`, `m0/l
 | Pass | Raw (USD) | Kind | Rule (#246 (4)) | Lead designer's expectation (#270 (2)) |
 |---|---|---|---|---|
 | L5a kinetic | 11–16 (engineer 8–11, checker 2–3, reviewer 1–2) | repeated (a kernel physics pass) | ×2.5: 28–40 | 14–20 |
-| L5m mass pass 2, the turret (#280, #281) | 5–8 (engineer 3–5, checker 1–2, reviewer 1) | repeated | ×2.5: 13–20 | 7–10 |
+| L5m mass pass 2, the turret (#280, #281, #285) | 10–15 (engineer 7–10, checker 2–3, reviewer 1–2; 15 successors, the probe of #285) | repeated | ×2.5: 25–38 | 12–18 |
 | L5b senses | 15–21 (12–16, 2–3, 1–2) | new | ×4: 60–84 | 20–30 |
 | L5c weapons | 26–37 (22–30, 3–5, 1–2) | new | ×4: 104–148 | 35–55 |
 | L5d helm and enemy, with `tools/play.mjs` | 26–36 (18–24, 3–4, 1–2; the play harness 4–6) | new | ×4: 104–144 | 36–51 |
 | L5e ship versus ship, with `tools/sweep.mjs` | 25–36 (16–22, 2–3, 1–2; the sweep 6–9) | new | ×4: 100–144 | 33–54 |
-| **L5** | **108–154** | | **409–580** | **145–220** (the ratios on record are 1.0–2.0 of raw; fix rounds included as 15–30 % of engineering; the two harnesses 10–15 raw, #277; mass pass 2 5–8 raw, #281) |
+| **L5** | **113–161** | | **421–598** | **150–228** (the ratios on record are 1.0–2.0 of raw; fix rounds included as 15–30 % of engineering; the two harnesses 10–15 raw, #277; mass pass 2 10–15 raw, #285) |
 
 Time: five sequential passes, each an engineer session of 2–4 hours plus a checker and a reviewer of about an hour, and the lead designer's answers and merge: about **three days** with the account's five-hour limit (#246; the hygiene round lost a session to it), two if nothing stalls.
 
@@ -1896,3 +1898,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 282 | Answers to L5a (PR #73): its engineer's ten questions, the blind checker's four discrepancies, the reviewer's findings; a fix round (K4's feed case, K1's stopping cell, B2's projection); the reactor's immediate explosion stated | current |
 | 283 | L5a merged (PR #73): the kinetic pass, its fix round; answers to the fix round's engineer and re-review; §17 items 34, 36, 41 closed; §13m rows proven L5a | current |
 | 284 | The full mutation run on the L5a merge: 138 killed, 9 changed, 46 survived; one new survivor, a coverage gap for L5d | report |
+| 285 | The owner chose L5m now at the corrected cost (option A); the L5m plan: `turret.machineryMass` (new), 15 successors, one new scenario | current (amends #281 (6)) |

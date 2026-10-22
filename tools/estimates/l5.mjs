@@ -246,5 +246,9 @@ line('\n# (9) Mass pass 2 (L5m, #281): the turret as structure plus its mount (O
   const { world } = buildShip(params, 'T1', TARGETS.R1);
   const r = world.rooms.find((x) => x.type === 'reactor'), M = readout(world).mass, Mr = 4 * scaled(params.cellMass.reactor, edge), M2 = M + 4 * (st + perCell) - 4 * cr;
   line(`  R1 ${f(M / 1e3, 1)} t -> ${f(M2 / 1e3, 1)} t; the reactor's share ${f(100 * Mr / M, 1)} % -> ${f(100 * Mr / M2, 1)} %; ${f(scaled(params.engine.thrust, edge) / M2 / g0, 3)} g`);
+  for (const name of ['R1c', 'R1d']) {
+    const { world: w } = buildShip(params, 'T1', TARGETS[name]), Mt = readout(w).mass, Mt2 = Mt + 4 * (st + perCell) - 4 * cr;
+    line(`  ${name} ${f(Mt / 1e3, 3)} t -> ${f(Mt2 / 1e3, 3)} t (${f(scaled(params.engine.thrust, edge) / Mt2 / g0, 4)} g); the probe of #285 (the change applied in a scratch copy, regress run there and discarded): 15 locked scenarios fail on it, 15 more move their results and still pass`);
+  }
   line(`  reactor check (#279, the sources): 600 t for 20 MWe = ${f(Mr / scaled(params.reactor.power, edge) * 1e3, 1)} kg/kWe against a shadow-shielded 10 MWe NEP system's 9.9 kg/kWe (NASA TM-105212) and a 4-pi shield of 35-45 t at SP-100 scale (TM-101403 Table III); the 1130 t compartment behind cellMass.reactor is secondary and contested (650 t elsewhere: ${f(150 * 650 / 1130, 0)} t per cell, below the range's floor)`);
 }

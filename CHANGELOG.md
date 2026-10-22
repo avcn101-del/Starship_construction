@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — L5m planned (#285)
+
+- `DECISIONS.md` #285: the owner chose L5m now at its corrected cost; the
+  plan (`turret.machineryMass`, M1's 15 successors, M2). `DESIGN.md` §13m's
+  turret row, §13n.4 M1–M2, §13n.5's cost table, §18. `tools/estimates/l5.mjs`
+  section (9) prints R1c and R1d.
+
 ## Unreleased — 2026-10-22 — The mutation run on the L5a merge (#284)
 
 - `mission0/mutations/2026-10-22-1048743.txt`: 193 mutations, 138 killed;
