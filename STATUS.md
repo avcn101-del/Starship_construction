@@ -8,17 +8,22 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 ## For the owner (five lines, kept at every block, #246 (5))
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
-  consolidation (#242), **physics pass 2 (#243–#251)**.
-- **Running**: L4a engineer (the owner said go, 2026-10-22; 45–70 USD
-  estimated). `tools/mutate` merged (PR #56, #257; 7.91 USD).
-- **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
-  on #242, #248 and §13k.2's constants.
-- **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
-  consolidation 4.12, pass 2 42.93); pass 2 estimated 50–60, inside it.
-- **Next**: L4a (§13l, #253, #256: obligations + armour on walls + #257's
-  survivors; 45–70 USD with the factors, the owner said go) → pace
-  re-measured on R1c with real mass, reported to the owner (#255) → L4b
-  (70–100 USD).
+  consolidation (#242), physics pass 2 (#243–#251), `tools/mutate` (#257),
+  **L4a (PR #58, #253–#258, #260)**: armour plates on walls, R1c, crew
+  capacity, the kernel obligations.
+- **Running**: nothing. L4a cost ≥ 17.57 USD (estimated 45–70).
+- **Waiting on you**: **the pace lever** (frame in the chat, #260): A R1d
+  (turret plated, 215–306 s broadside; recommended), B `turret.fireRate`
+  0.25, C `kinetic.hitsToWreck`. Then the phone test: play one duel on the
+  republished prototype page, Export, Copy, send the JSON (the lead
+  designer replays it in Node; §17 item 23). Veto window on #253, #256,
+  #258, #259, #260.
+- **Money**: 2026-10-21/22 about 112 USD (v2 13.85, audits 25.40,
+  consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57); L4a was
+  estimated 45–70.
+- **Next**: the owner's pace choice → the L4b plan (§13l; adds A11, the
+  `l4f.plate.cellVentsPlate` case, NB2's fallback, R1d if chosen; 70–100
+  USD estimated, probably high) → L4b.
 - **Owner chose** #252 (L4: one target per route; EMP and surrender at L5).
   The owner played v2: the magazine always wins in 7.1 s (#254). Pace
   study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
