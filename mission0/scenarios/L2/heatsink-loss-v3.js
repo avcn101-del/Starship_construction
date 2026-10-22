@@ -87,7 +87,7 @@ export default {
   tolerance: 'vented energy, capacity and heat 1e-12 relative; temperature unchanged 1e-12 relative; overheat time 1e-3 relative',
   criterion: 'each destroyed cell vents exactly (C / n)(T - T_rest) to space (heat-vented event and vented books), T unchanged while a cell survives, C and Q each fall by one cell\'s share (C / n, Q / n); the heat books include the vented energy; the reactor\'s overheat time from its start matches the reference integrator (RK4 at dt / 10) within 1e-3 relative, and it is shorter for every additional cell lost (#198, DESIGN.md 13d.2 row 14) Successor of L2.heatsink.loss (#240, #243, 13k.4 S16): C = cells x the room type\'s thermally coupled heat capacity per cell (13k.2; a heat sink x heatsink.capacityFactor as before) in place of thermal.heatCapacityPerCell; every expected value is the same rule computed in the scenario. Successor of L2.heatsink.loss.v2 (the engineer\'s specification error in physics pass 2, #243, found at its first canonical run; pending the lead designer\'s decision): the horizon after the reactor starts rises from 1000 s to 10 000 s: with the coupled heat capacities the reactor does not overheat within 1000 s for k = 0, 1, 2; nothing else changes.',
   tunable: ['heatsink.capacityFactor', 'heatsink.conductivityFactor', 'conduction.wall', 'thermal.coupledReactor', 'thermal.coupledBeamBay', 'thermal.coupledEngine', 'thermal.coupledShieldGenerator', 'thermal.coupledCrewed', 'thermal.coupledMagazine', 'thermal.coupledHold', 'thermal.coupledHeatSink', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '76987712' },
   cases() {
     return [0, 1, 2, 3, 4].map((k) => ({ k }));
   },

@@ -60,7 +60,7 @@ export default {
   tolerance: 'books: mass 1e-12, momentum 1e-9 x the gross, angular momentum 1e-9 x net + 1e-12 x gross (#220); left = the item\'s state before the cull 1e-12; distances exact',
   criterion: 'the item leaves play at the first step after which it is farther than battle.cullDistance (3000 m at T1, k = 1) from every body: at that step every distance > 3000 m and at the step before some distance <= 3000 m; world.ship.left books its mass and momentum (1e-12); mass, momentum and angular momentum of bodies + debris + rounds + left are kept with the external impulse through the run; hand-worked bounds: the round, from the turret about 22 m off the centre of mass at 800 m/s, leaves between 3.7 and 3.8 s; the debris, 19.13 m from the centre of mass (cell (37.5, 2.5) m, centre (24.14, 16.18) m) and flying off at 1 rad/s x 19.13 m = 19.13 m/s, is 19.13 sqrt(1 + t^2) m away: it leaves between 150 and 165 s (156.8 s) (#222 (7), #243) Successor of L3.cull (the engineer\'s specification error in physics pass 2, #243, found at its first canonical run; pending the lead designer\'s decision): the debris case spins R1 at 1 rad/s with no thrust: in L3.cull R1\'s full thrust 1.2 m below its centre of mass spun it up (1.6 rad/s after 10 s) with nothing holding its heading, so it circled and never left its debris 3 km behind; the bound becomes 150-165 s; the round case is unchanged.',
   tunable: ['battle.cullDistance', 'kinetic.muzzleVelocity', 'engine.thrust', 'structure.cellMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '0b505ebf' },
   cases() {
     return [{ item: 'round' }, { item: 'debris' }];
   },

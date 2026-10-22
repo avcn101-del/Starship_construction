@@ -28,7 +28,7 @@ export default {
   tolerance: 'relative 1e-9; time one-sided (expected <= actual < expected + dt)',
   criterion: 'thrust = u F; draw = u D; heat rate = u D h; a = u F / m, exact; no power or no control: thrust 0 and draw 0 (#4d); time to hot at full throttle t = C (T_hot - T_rest) / (D h) one-sided (#140, #181, #183) Successor of L1.engine.thrust (#240, #243, 13k.4 S16): C = cells x thermal.coupledEngine (1.4 MJ/K per cell, 13k.2) in place of thermal.heatCapacityPerCell; DESIGN.md 13k.3 estimates the race to hot at 868 s (372 before). Successor of L1.engine.thrust.v2 (the engineer\'s specification error in physics pass 2, #243, found at its first canonical run; pending the lead designer\'s decision): the run\'s cap rises from 5000 s to 50 000 s (the T6 race to hot is 5208 s); nothing else changes.',
   tunable: ['engine.thrust', 'engine.powerDraw', 'engine.heatFraction', 'thermal.coupledEngine', 'thermal.plantHot'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '9610ce09' },
   cases() {
     const out = [];
     for (const u of [0, 0.5, 1]) for (const m of [1e6, 1.5e6]) out.push({ tier: 'T1', u, m, powered: true, controlled: true });

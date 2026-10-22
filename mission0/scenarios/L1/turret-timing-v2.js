@@ -18,7 +18,7 @@ export default {
   tolerance: 'positions 1e-9 of the step\'s path v dt (13k.4 S15); times 1e-12; the literal 1e-6',
   criterion: 're-statement: the shot is due at t_1 + 1 / rate; at = due - the start of its step; the round\'s t = the event\'s t = that step\'s start + at; after the step x - x0 = v (dt - at) (not v dt) within 1e-9 x |v| dt; hand-worked literal: 1 / 0.7 = 1.4285714 s = 85.714 steps, so at = 0.7142857 dt and the round\'s first move lasts (1 - 0.7142857) / 60 = 0.0047619048 s: its move over its speed (1e-6) (F20, #243) Successor of L1.turret.timing (the engineer\'s specification error in physics pass 2, #243, found at its first canonical run; pending the lead designer\'s decision): the literal is the duration of the first move, (dt - at) = 0.0047619048 s, checked as the move over the round\'s speed: the round\'s speed is 800 m/s plus the velocity of the turret\'s point, which the first shot\'s recoil has set (799.959 m/s here), so the 3.8095 m literal was 5e-5 off; nothing else changes.',
   tunable: ['turret.fireRate', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'f9955ed2' },
   cases() {
     return [{ shot: SHOT, rate: RATE }];
   },

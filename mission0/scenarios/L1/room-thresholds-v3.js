@@ -37,7 +37,7 @@ export default {
   tolerance: 'times one-sided (expected <= actual < expected + dt); counts exact; energies relative 1e-9',
   criterion: 't_x = C (T_x - T_rest) / P for hot, overheated and critical of the room\'s class, one-sided; events in that order; the room shuts down at overheated; at critical the room\'s crew die (deaths = crew housed or required); the magazine cooks off (explosion of its contents) and the reactor melts down (explosion of reactor.explosionEnergy) at critical, with cause \'heat\'; no other room explodes (#18b, #181, #182) Successor of L1.room.thresholds (#240, #243, 13k.4 S16): C = cells x the room type\'s thermally coupled heat capacity per cell (13k.2) in place of thermal.heatCapacityPerCell. Successor of L1.room.thresholds.v2 (the engineer\'s specification error in physics pass 2, #243, found at its first canonical run; pending the lead designer\'s decision): the run\'s cap rises from 5000 s to 50 000 s: with the coupled heat capacities the reactor reaches critical at 14 200 s under the 1.1 MW external source; nothing else changes.',
   tunable: ['thermal.coupledReactor', 'thermal.coupledBeamBay', 'thermal.coupledEngine', 'thermal.coupledShieldGenerator', 'thermal.coupledCrewed', 'thermal.coupledMagazine', 'thermal.coupledHold', 'thermal.coupledHeatSink', 'thermal.plantHot', 'thermal.plantOverheated', 'thermal.plantCritical', 'thermal.crewedHot', 'thermal.crewedOverheated', 'thermal.crewedCritical', 'thermal.magazineHot', 'thermal.magazineOverheated', 'thermal.magazineCritical'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '23888c8c' },
   cases() {
     return TYPES.map((type) => ({ type }));
   },

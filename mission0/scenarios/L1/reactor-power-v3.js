@@ -28,7 +28,7 @@ export default {
   tolerance: 'relative 1e-9; time one-sided (expected <= actual < expected + dt)',
   criterion: 'delivered = d P exactly (demand-driven); heat rate = h d P; t_over = C (T_overheated - T_rest) / (h d P) one-sided (d = 0: never, the room stays at T_rest); in the step after overheated delivered = 0 and the decay heat has begun: f h d P tau (1 - e^(-dt/tau)) over that step, relative 1e-9 (#81, #181, #183) Successor of L1.reactor.power (#240, #243, 13k.4 S16): C = cells x thermal.coupledReactor (5.5 MJ/K per cell, 13k.2) in place of thermal.heatCapacityPerCell; DESIGN.md 13k.3 estimates the full-power race to overheated at 561 s (61 before); S3 (L1.heat.coupled) carries the same race at T1-T6. Successor of L1.reactor.power.v2 (the engineer\'s specification error in physics pass 2, #243, found at its first canonical run; pending the lead designer\'s decision): the run\'s cap rises from 3000 s to 30 000 s (the T6 race to overheated is 3366 s); nothing else changes.',
   tunable: ['reactor.power', 'reactor.heatPerPower', 'reactor.decayFraction', 'reactor.decayTime', 'thermal.coupledReactor', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '62817dc2' },
   cases() {
     const out = [0, 0.25, 0.5, 1].map((d) => ({ tier: 'T1', d }));
     for (const tier of ['T2', 'T3', 'T4', 'T5', 'T6']) out.push({ tier, d: 1 });

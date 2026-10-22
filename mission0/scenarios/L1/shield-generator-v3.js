@@ -28,7 +28,7 @@ export default {
   tolerance: 'relative 1e-9; time one-sided (expected <= actual < expected + dt)',
   criterion: 'absorbed = min(P_in, shield.budget) (L0); heat rate = shield.powerDraw + absorbed; t_over = C (T_overheated - T_rest) / (draw + absorbed) one-sided; after the shutdown passed = P_in and heat rate 0, shield-down with cause \'heat\'; unpowered: field off from the start (absorbed 0, passed P_in, heat 0, shield-down with cause \'no-power\' at 0); EM signature = absorbed power (#21, #139, #181, #183) Successor of L1.shield.generator (#240, #243, 13k.4 S16): C = cells x thermal.coupledShieldGenerator (3.2 MJ/K per cell, 13k.2) in place of thermal.heatCapacityPerCell. Successor of L1.shield.generator.v2 (the engineer\'s specification error in physics pass 2, #243, found at its first canonical run; pending the lead designer\'s decision): the run\'s cap rises from 3000 s to 30 000 s (the T5 and T6 races to overheated are 3730 s and 5595 s); nothing else changes.',
   tunable: ['shield.budget', 'shield.powerDraw', 'beam.power', 'thermal.coupledShieldGenerator', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '80e405cd' },
   cases() {
     const out = [];
     for (const powered of [true, false]) for (const x of [0.4, 1, 2, 6]) out.push({ tier: 'T1', x, powered });

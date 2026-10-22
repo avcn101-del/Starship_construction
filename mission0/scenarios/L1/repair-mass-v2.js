@@ -21,7 +21,7 @@ export default {
   tolerance: 'rate 1e-9 relative (measured as a difference of integrities near 2/3 over one step, float resolution about 5e-12); time one-sided in [t, t + dt) with the 1e-9 float slack of #185 (2)',
   criterion: 're-statement: rate = repair.massRate / the cell\'s mass (g(0) = 1, all 6 quarters cells surviving); full at (m / 3) / repair.massRate, one-sided, integrity 1; hand-worked literals hold 5 s, crewed 24.667 s, reactor 250 s (13k.3 quoted 208 s for the 125 t reactor cell; the cell is 150 t since 13k.2) (#51, #206, #240 (1), #243) Successor of L1.repair.mass (the engineer\'s specification error in physics pass 2, #243, found at its first canonical run; pending the lead designer\'s decision): the first step\'s rate is checked at 1e-9, not 1e-12: it is a difference of two integrities of about 0.67 over one step (float resolution about 5e-12 for the reactor cell), not a closed form; nothing else changes.',
   tunable: ['repair.massRate', 'structure.cellMass', 'cellMass.crewed', 'cellMass.reactor'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'c83463b8' },
   cases() {
     return Object.keys(TARGET).map((target) => ({ target }));
   },
