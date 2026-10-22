@@ -17,8 +17,11 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   scenario-audit finding fixed by successors; 25–38 USD by the rule, the
   lead designer expects 12–18): engineer `session_01L8hXHHD5QjjkMEFSnzGvw4` (opus,
   `m0/l4-hygiene` from `main` `41a417b`, 13:12 UTC; the first take
-  stopped at the usage limit at 12:48, the owner asked to re-wake); then
-  its blind checker and reviewer. The full mutation run on the merged L4 fix (#270 (5)) runs in
+  stopped at the usage limit at 12:48, the owner asked to re-wake): 20
+  scenarios locked (`c998ff2`, `9a87d0f`) and recorded, the pull request
+  not yet open at 13:44; the blind physics checker
+  `session_01Jyjqm388W1Vokm8gHDRcge` (sonnet, 13:44 UTC, from the locks);
+  the reviewer once the pull request is open. The full mutation run on the merged L4 fix (#270 (5)) runs in
   the lead designer's chat. The four light audits are answered (#270:
   6.91 USD; 81 findings).
 - **Waiting on you**: one question: does #83's "magazine explosion =
@@ -190,7 +193,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
-| Check-in of this chat | `trig_01X7e7Yjqy3FRiCh4SPAVM8a` | 2026-10-22 13:34 UTC, once | read the hygiene engineer; start its checker and reviewer; read the full mutation run |
+| Check-in of this chat | `trig_01SrRL2zm1jpWSrr5jM4SrKt` | 2026-10-22 14:13 UTC, once | the hygiene pull request; start its reviewer; read the full mutation run |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat

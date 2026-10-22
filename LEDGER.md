@@ -77,6 +77,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Reviewer, L4 fix (PR #64, light; 0 blocking, 4 notes; notified by trigger) | session_01UTmHgSuJy1TgUL28GNf5Lv | sonnet-5-5 | 0.42 |
 | Engineer, L4 scenario-hygiene round, take 1 (stopped at the account's five-hour usage limit before writing anything, 12:48 UTC) | session_01GCEtFEw9Yx3QSA9geWZgTH | opus-5-5 | not reported |
 | Engineer, L4 scenario-hygiene round, take 2 (`m0/l4-hygiene` from `41a417b`, §13l.7, #271) | session_01L8hXHHD5QjjkMEFSnzGvw4 | opus-5-5 | running |
+| Physics checker, L4 scenario-hygiene round (blind, from locks `c998ff2` and `9a87d0f`; `checker/l4-hygiene`) | session_01Jyjqm388W1Vokm8gHDRcge | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
