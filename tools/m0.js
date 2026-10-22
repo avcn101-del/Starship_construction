@@ -9,6 +9,10 @@
 //                                          against its frozen record, not run (#245, #250; a retired
 //                                          one is listed, not run, #237)
 //   node tools/m0.js ledger                regenerate MISSION0.md
+//   node tools/m0.js cov [--fail-fast] [--serial id,... --lock <dir>]
+//                                          coverage run for tools/mutate.js (#246 (1)): every scenario
+//                                          regress would report VERIFIED, run, never recorded; one line
+//                                          per scenario: COV {"id", "verdict", "rows", "data"}
 //
 // A run without --set is canonical and is recorded in mission0/results/.
 // A run with --set is exploratory: printed, never recorded.
@@ -32,7 +36,9 @@ const LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
 // marked `frozen` keeps its withdrawal-time record (#245 guard (2)): a
 // canonical run skips it, and verify and regress check its lock and its run()
 // against that record instead of re-running it against today's data. Every
-// withdrawn scenario that is not retired is frozen (#250).
+// withdrawn scenario that is not retired is frozen (#250). Every entry carries
+// `recordHash`, the hash of its record's stable JSON at withdrawal (§17 item
+// 29): verify and regress compare it, so a later re-record cannot pass.
 const WITHDRAWN_FILE = path.join(ROOT, 'mission0', 'withdrawn.json');
 const WITHDRAWN = new Map((fs.existsSync(WITHDRAWN_FILE) ? JSON.parse(fs.readFileSync(WITHDRAWN_FILE, 'utf8')) : []).map((w) => [w.id, w]));
 /** The scenario that stands for `id`: itself, or the end of its chain of successors when it was withdrawn and its successor withdrawn in turn (#188, #221). */
@@ -59,6 +65,8 @@ function checkWithdrawn(all) {
       : w.frozen !== undefined && w.frozen !== true ? 'frozen must be true when present'
       : w.frozen && !recorded(w.id) ? 'a frozen scenario needs its withdrawal-time record'
       : !w.retired && !w.frozen ? 'a withdrawn scenario must be frozen (#245, #250)'
+      : !recorded(w.id) ? 'a withdrawn scenario needs its record'
+      : !/^[0-9a-f]{8}$/.test(String(w.recordHash)) ? `recordHash must be the hash of its record (§17 item 29); the record today hashes to ${recordHash(recorded(w.id))}`
       : null;
     if (problem) throw new Error(`mission0/withdrawn.json, ${w.id}: ${problem}`);
   }
@@ -200,6 +208,8 @@ function recorded(id) {
   const f = path.join(RESULTS, `${id}.json`);
   return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null;
 }
+/** The hash of a record's stable JSON, kept in withdrawn.json as `recordHash` (§17 item 29). */
+const recordHash = (rec) => hash(stableStringify(rec));
 /** Dependencies not recorded PASS; a withdrawn dependency counts through its successor, and through that one's successor if it was withdrawn in turn (#188, #200, #221). */
 function unmetDeps(s) {
   return (s.dependsOn || []).filter((d) => (recorded(standing(d)) || {}).verdict !== 'PASS');
@@ -235,6 +245,29 @@ function show(s, res, verdict, command) {
   for (const i of res.invariants) lines.push(`  ${i.ok ? 'ok  ' : 'FAIL'}  invariant: ${i.name}${i.detail ? ' — ' + i.detail : ''}`);
   lines.push(`  => ${verdict}    reproduce: ${command}`);
   return lines.join('\n');
+}
+
+/**
+ * An exclusive lock shared by parallel cov runs: a directory created atomically, holding the owner's pid; a lock
+ * whose owner is gone (killed on a timeout) is taken over. Returns the release function.
+ */
+function acquire(dir) {
+  const wait = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+  for (;;) {
+    try {
+      fs.mkdirSync(dir);
+      fs.writeFileSync(path.join(dir, 'pid'), String(process.pid));
+      return () => { wait(300); fs.rmSync(dir, { recursive: true, force: true }); }; // 300 ms: the port is free again
+    } catch (e) {
+      if (e.code !== 'EEXIST') throw e;
+      let owner = null;
+      try { owner = Number(fs.readFileSync(path.join(dir, 'pid'), 'utf8')); } catch { /* being created or removed */ }
+      let alive = true;
+      if (owner) { try { process.kill(owner, 0); } catch { alive = false; } }
+      if (!alive) fs.rmSync(dir, { recursive: true, force: true });
+      else wait(200);
+    }
+  }
 }
 
 // ---------- commands ----------
@@ -309,14 +342,20 @@ async function main() {
     const counts = { VERIFIED: 0, WITHDRAWN: 0, RETIRED: 0, MISMATCH: 0 };
     for (const s of list) {
       const w = WITHDRAWN.get(s.id);
-      if (w && w.retired) { counts.RETIRED++; console.log(`RETIRED  ${s.id}  not run (${w.retiredDecision}; successor ${w.successor})`); continue; }
       const rec = recorded(s.id);
+      if (w && w.retired) {
+        if (rec && recordHash(rec) === w.recordHash) { counts.RETIRED++; console.log(`RETIRED  ${s.id}  not run; ok record unchanged since withdrawal (${w.retiredDecision}; successor ${w.successor})`); continue; }
+        counts.MISMATCH++; bad++;
+        console.log(`MISMATCH  ${s.id}  retired, NO record unchanged since withdrawal (recordHash ${w.recordHash}, record ${rec ? recordHash(rec) : 'missing'})`);
+        continue;
+      }
       if (!rec) { console.log(`${s.id}: no record to verify`); bad++; continue; }
       if (w && w.frozen) {
         const checks = [
           ['criterion unchanged since lock', s.locked && criterionHash(s) === s.locked.hash && rec.lockedHash === s.locked.hash],
           ['run() unchanged since record', !rec.runHash || runHash(s) === rec.runHash],
           ['withdrawal-time record kept', rec.verdict === 'FAIL' || rec.verdict === 'PASS'],
+          ['record unchanged since withdrawal', recordHash(rec) === w.recordHash],
         ];
         const ok = checks.every(([, v]) => v);
         if (!ok) bad++;
@@ -345,6 +384,35 @@ async function main() {
     }
     console.log(`${counts.VERIFIED} VERIFIED + ${counts.WITHDRAWN} WITHDRAWN + ${counts.RETIRED} RETIRED${counts.MISMATCH ? ` + ${counts.MISMATCH} MISMATCH` : ''}${bad - counts.MISMATCH > 0 ? ` (${bad - counts.MISMATCH} without a record)` : ''}`);
     process.exitCode = bad ? 1 : 0;
+    return;
+  }
+  if (cmd === 'cov') {
+    // Coverage run for tools/mutate.js (#246 (1)): the scenarios regress reports VERIFIED (recorded PASS, not
+    // withdrawn, #250), run against the code in this tree, nothing recorded. `rows` says whether the results
+    // match the record (rowsHash); `data` whether the data hash does (informational: a changed data hash alone
+    // is not a kill). --fail-fast stops at the first verdict that is not PASS. Scenarios named by --serial run
+    // last, each under an exclusive lock directory (--lock) shared by parallel runs: L0.determinism serves on a
+    // fixed port.
+    const args = [sel, ...rest].filter((x) => x !== undefined);
+    const opt = (name) => { const i = args.indexOf(name); return i < 0 ? null : args[i + 1]; };
+    const failFast = args.includes('--fail-fast'), serial = (opt('--serial') || '').split(',').filter(Boolean), lockDir = opt('--lock');
+    const list = all.filter((s) => (recorded(s.id) || {}).verdict === 'PASS' && !WITHDRAWN.has(s.id));
+    const ordered = [...list.filter((s) => !serial.includes(s.id)), ...list.filter((s) => serial.includes(s.id))];
+    let n = 0;
+    for (const s of ordered) {
+      const release = serial.includes(s.id) && lockDir ? acquire(lockDir) : () => {};
+      let line;
+      try {
+        const rec = recorded(s.id), res = execute(s, {}), verdict = verdictOf(s, res, unmetDeps(s));
+        line = { id: s.id, verdict, rows: res.rowsHash === rec.rowsHash ? 'same' : 'differ', data: res.dataHash === rec.dataHash ? 'same' : 'differ' };
+      } catch (e) {
+        line = { id: s.id, verdict: 'ERROR', rows: 'differ', data: 'unknown', error: String(e && e.message ? e.message : e) };
+      } finally { release(); }
+      console.log('COV ' + JSON.stringify(line));
+      n++;
+      if (failFast && line.verdict !== 'PASS') break;
+    }
+    console.log(`COV-END ${n} of ${ordered.length}`);
     return;
   }
   if (cmd === 'ledger') {
