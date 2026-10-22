@@ -1,0 +1,644 @@
+{
+  "id": "L1.magazine.cookoff.v2",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.magazine.cookoff.v2",
+  "code": "baf8d67+dirty",
+  "criterionHash": "69e8b4dc",
+  "lockedHash": "69e8b4dc",
+  "runHash": "ce8eb1a8",
+  "dataHash": "b958ce58",
+  "rowsHash": "520e1ab7",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M",
+        "ap": 1,
+        "he": 0,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 150,
+        "he": 0,
+        "energy": 900000000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 150,
+        "he": 0,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 900000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 385109999.99993175,
+          "radiated": 0,
+          "stored": 385110000.0007868,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M",
+        "ap": 0,
+        "he": 1,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 0,
+        "he": 150,
+        "energy": 1200000000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 0,
+        "he": 150,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 1200000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 385109999.99993175,
+          "radiated": 0,
+          "stored": 385110000.0007868,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M",
+        "ap": 0.5,
+        "he": 0.5,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 75,
+        "he": 75,
+        "energy": 1050000000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 75,
+        "he": 75,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 1050000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 385109999.99993175,
+          "radiated": 0,
+          "stored": 385110000.0007868,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M",
+        "ap": 0,
+        "he": 0.5,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 0,
+        "he": 75,
+        "energy": 600000000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 0,
+        "he": 75,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 600000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 385109999.99993175,
+          "radiated": 0,
+          "stored": 385110000.0007868,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "S",
+        "ap": 1,
+        "he": 0,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 506,
+        "he": 0,
+        "energy": 899555555.5555553,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 506,
+        "he": 0,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 899555555.5555553,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 385109999.99993175,
+          "radiated": 0,
+          "stored": 385110000.0007868,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "S",
+        "ap": 0,
+        "he": 1,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 0,
+        "he": 506,
+        "energy": 1199407407.407407,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 0,
+        "he": 506,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 1199407407.407407,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 385109999.99993175,
+          "radiated": 0,
+          "stored": 385110000.0007868,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "L",
+        "ap": 1,
+        "he": 0,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 44,
+        "he": 0,
+        "energy": 891000000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 44,
+        "he": 0,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 891000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 385109999.99993175,
+          "radiated": 0,
+          "stored": 385110000.0007868,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "L",
+        "ap": 0,
+        "he": 1,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 0,
+        "he": 44,
+        "energy": 1188000000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 0,
+        "he": 44,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 1188000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 385109999.99993175,
+          "radiated": 0,
+          "stored": 385110000.0007868,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M",
+        "ap": 0,
+        "he": 1,
+        "by": "hit"
+      },
+      "expected": {
+        "ap": 0,
+        "he": 150,
+        "energy": 1200000000,
+        "t": 1,
+        "cause": "hit-1",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 0,
+        "he": 150,
+        "explosions": [
+          {
+            "t": 1,
+            "energy": 1200000000,
+            "cause": "hit-1"
+          }
+        ],
+        "cookOff": false,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "M",
+        "ap": 0.5,
+        "he": 0.5,
+        "by": "hit"
+      },
+      "expected": {
+        "ap": 75,
+        "he": 75,
+        "energy": 1050000000,
+        "t": 1,
+        "cause": "hit-1",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 75,
+        "he": 75,
+        "explosions": [
+          {
+            "t": 1,
+            "energy": 1050000000,
+            "cause": "hit-1"
+          }
+        ],
+        "cookOff": false,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "size": "S",
+        "ap": 1,
+        "he": 0,
+        "by": "hit"
+      },
+      "expected": {
+        "ap": 506,
+        "he": 0,
+        "energy": 899555555.5555553,
+        "t": 1,
+        "cause": "hit-1",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 506,
+        "he": 0,
+        "explosions": [
+          {
+            "t": 1,
+            "energy": 899555555.5555553,
+            "cause": "hit-1"
+          }
+        ],
+        "cookOff": false,
+        "books": {
+          "generated": 0,
+          "radiated": 0,
+          "stored": 0,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T2",
+        "size": "M",
+        "ap": 0.5,
+        "he": 0.5,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 75,
+        "he": 75,
+        "energy": 3543750000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 75,
+        "he": 75,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 3543750000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 1299746250,
+          "radiated": 0,
+          "stored": 1299746250,
+          "initial": 2349000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "size": "M",
+        "ap": 0.5,
+        "he": 0.5,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 75,
+        "he": 75,
+        "energy": 8400000000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 75,
+        "he": 75,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 8400000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 3080879999.999454,
+          "radiated": 0,
+          "stored": 3080880000.0062943,
+          "initial": 5568000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T4",
+        "size": "M",
+        "ap": 0.5,
+        "he": 0.5,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 75,
+        "he": 75,
+        "energy": 28350000000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 75,
+        "he": 75,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 28350000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 10397970000,
+          "radiated": 0,
+          "stored": 10397970000,
+          "initial": 18792000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T5",
+        "size": "M",
+        "ap": 0.5,
+        "he": 0.5,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 75,
+        "he": 75,
+        "energy": 67200000000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 75,
+        "he": 75,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 67200000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 24647039999.995632,
+          "radiated": 0,
+          "stored": 24647040000.050354,
+          "initial": 44544000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T6",
+        "size": "M",
+        "ap": 0.5,
+        "he": 0.5,
+        "by": "heat"
+      },
+      "expected": {
+        "ap": 75,
+        "he": 75,
+        "energy": 226800000000,
+        "t": 349.09090909090907,
+        "cause": "heat",
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "ap": 75,
+        "he": 75,
+        "explosions": [
+          {
+            "t": 349.1,
+            "energy": 226800000000,
+            "cause": "heat"
+          }
+        ],
+        "cookOff": true,
+        "books": {
+          "generated": 83183760000,
+          "radiated": 0,
+          "stored": 83183760000,
+          "initial": 150336000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "full AP magazines at T1 hold 150 M, 506 S, 44 L rounds",
+      "ok": true
+    },
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "id": "L1.bridge.control.v2",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.bridge.control.v2",
+  "code": "baf8d67",
+  "criterionHash": "89553ba4",
+  "lockedHash": "89553ba4",
+  "runHash": "71a858eb",
+  "dataHash": "b958ce58",
+  "rowsHash": "66f8301b",
+  "rows": [
+    {
+      "case": {
+        "mode": "powered"
+      },
+      "expected": {
+        "control": true,
+        "heatRate": 100000,
+        "backup": false,
+        "hot": 960,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "control": true,
+        "heatRate": 99999.99999761581,
+        "fromBackup": 0,
+        "fromReactor": 96001666.66671278,
+        "hot": 960.0166666666667,
+        "lost": 0,
+        "books": {
+          "generated": 96001666.66671278,
+          "radiated": 0,
+          "stored": 96001666.66437781,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "mode": "cut"
+      },
+      "expected": {
+        "control": true,
+        "heatRate": 100000,
+        "backup": true,
+        "hot": 960,
+        "dt": 0.016666666666666666
+      },
+      "actual": {
+        "control": true,
+        "heatRate": 99999.99999761581,
+        "fromBackup": 96001666.66671278,
+        "fromReactor": 0,
+        "hot": 960.0166666666667,
+        "lost": 0,
+        "books": {
+          "generated": 96001666.66671278,
+          "radiated": 0,
+          "stored": 96001666.66437781,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "mode": "destroyed"
+      },
+      "expected": {
+        "controlAfterHits": [
+          true,
+          true,
+          true,
+          false
+        ],
+        "lost": {
+          "t": 4,
+          "cause": "hit-4"
+        }
+      },
+      "actual": {
+        "controlAfterHits": [
+          true,
+          true,
+          true,
+          false
+        ],
+        "lost": [
+          {
+            "t": 4,
+            "cause": "hit-4"
+          }
+        ],
+        "books": {
+          "generated": 250000.00000000006,
+          "radiated": 0,
+          "stored": 249999.9999976158,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

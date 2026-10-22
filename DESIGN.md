@@ -592,7 +592,7 @@ level to route power through crewed rooms.
 | Partial kinetic damage | Kinetic damage stays momentum (#137): a round passing a room cell removes that cell's resistance R from its sectional momentum, as before (until L3 a destroyed cell still resists; from L3 it is a hole and resists nothing, #212 (5), #216), and takes **1 / `kinetic.hitsToWreck`** of the cell's integrity; the cell it stops in loses (sectional momentum left / R) / `kinetic.hitsToWreck`. A cell is destroyed when its integrity reaches 0 (#16). Crew die in proportion to the integrity lost: the room's cumulative deaths are floor(crew × (cells − Σ integrity) / cells), never more than its crew (#189) |
 | Repair | Repair restores **damaged** cells only (integrity between 0 and 1); a destroyed cell (integrity 0) is not repaired in battle and waits for the drydock (amends #51); it stays destroyed for the rest of the battle (this replaces #190 (1), which let a destroyed cell come back at integrity 1) |
 | Life support under routing (#207) | A room keeps life support while joined through live walls to a reactor able to produce, whatever its own power request (§13d.1); the kernel tied it to the room's routed fraction, so a shut-down room lost it under routing, against #205 (3) |
-| Shield buffer | Unchanged rule; with the real round, stopping an M round costs 1.71 MJ, so a 10 MJ buffer binds at the **6th** round arriving in one step (the old 0.5 kg round: the 71st), or above 5.9 rounds/s for longer. One M turret fires 0.5/s, so the rule is proven but real salvos may never reach it: E4 for `shield.bufferSeconds` stays open until L5 (#214) |
+| Shield buffer | Unchanged rule; with the real round, stopping an M round costs 1.71 MJ, so a 10 MJ buffer binds at the **6th** round arriving in one step (the old 0.5 kg round: the 71st), or above 5.9 rounds/s for longer. One M turret fires 0.5/s, so the rule is proven but real salvos may never reach it: E4 for `shield.buffer` (physics pass 2; was budget × `shield.bufferSeconds`) stays open until L5 (#214) |
 
 §13e.2 Constants and approved ranges (#206) — moved to `HISTORY.md` (#241)
 
@@ -968,6 +968,15 @@ Each line names its decision and when it is due; a closed one is removed.
     determinism hash (#248 Q12). Due: the first phone smoke test.
 24. The PSTAR iron CSDA value at 200 MeV, cited, for S22's iron row (#248
     Q5). Due: when someone can reach NIST.
+28. `proto/smoke.mjs`'s first tap races the first frame (`roomCentre` reads
+    the pre-battle layout): the smoke test fails about two runs in three on
+    the harness, not the kernel (PR #54 re-review, 1). Due: the next
+    prototype change (`roomCentre` calls `layout()` first, or the test
+    waits one frame).
+29. A frozen withdrawn record is checked only for its verdict and `run()`
+    hash; store the record's own hash in `withdrawn.json` so a later
+    re-record cannot pass `verify` (re-review, 4). Due: the next tools
+    change.
 27. `csdaRange` is continuous in energy only between changes of its step
     count (a jump of about 5e-6 relative); a tier's solved energy could
     fall in such a gap under another `armour.cellMass` or gradient within
@@ -1241,3 +1250,4 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 248 | Pass 2's first run: S6 withdrawn (the plan's tier law false); the engineer's twelve withdrawals; answers | current |
 | 249 | Beam depth tier-invariant for electronic stopping only (CSDA-exact, drift reported) | current (amends #240 (4)) |
 | 250 | Pass 2's fix rounds: every withdrawn record frozen; answers to the reviewer; sessions notify the lead designer | current |
+| 251 | Physics pass 2 merged (PR #54); answers to the re-review | current |

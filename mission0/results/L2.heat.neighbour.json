@@ -3,12 +3,12 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.heat.neighbour",
-  "code": "f7bf5c6",
+  "code": "baf8d67+dirty",
   "criterionHash": "a28270cd",
   "lockedHash": "a28270cd",
   "runHash": "d8ad3308",
-  "dataHash": "930a2386",
-  "rowsHash": "61913d83",
+  "dataHash": "b958ce58",
+  "rowsHash": "ede7741c",
   "rows": [
     {
       "case": {
@@ -18,39 +18,33 @@
         "pairs": 1
       },
       "expected": {
-        "first": "neighbour",
-        "closedFormFirst": "neighbour",
-        "time": 211.8429636432595,
-        "reactorOverheat": 429.6465870865357,
-        "crit": 450,
-        "crew": null,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
-        "t": 246.38333333333333,
+        "first": "none",
+        "t": 900,
         "critical": null,
-        "overheat": 246.38333333333333,
-        "max": 293.2652306853196,
-        "end": 293.2652306853196,
+        "overheat": null,
+        "max": 294.7119400311675,
+        "end": 294.7119400311675,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1231916666.6667206,
+            "generated": 4500000000.002495,
             "radiated": 0,
-            "stored": 1224080113.021894,
-            "initial": 696000000,
-            "conducted": -7836553.644769107,
+            "stored": 4488691343.925335,
+            "initial": 6380000000,
+            "conducted": -11308656.074796818,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 7836553.644767046,
+            "stored": 11308656.074802041,
             "initial": 696000000,
-            "conducted": 7836553.644769107,
+            "conducted": 11308656.074796818,
             "pumped": 0,
             "vented": 0
           }
@@ -58,7 +52,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "neighbour critical first, time of the neighbour's critical, cook-off at critical"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -68,47 +62,41 @@
         "pairs": 2
       },
       "expected": {
-        "first": "neighbour",
-        "closedFormFirst": "neighbour",
-        "time": 183.53390084482132,
-        "reactorOverheat": 459.60000666391875,
-        "crit": 450,
-        "crew": null,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
-        "t": 247.21666666666667,
+        "first": "none",
+        "t": 900,
         "critical": null,
-        "overheat": 247.21666666666667,
-        "max": 295.00087673306706,
-        "end": 295.00087673306706,
+        "overheat": null,
+        "max": 295.00034547886975,
+        "end": 295.00034547886975,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1236083333.3333833,
+            "generated": 4500000000.002495,
             "radiated": 0,
-            "stored": 1224081229.174029,
-            "initial": 696000000,
-            "conducted": -12002104.159357456,
-            "pumped": 3654238.6203210354,
+            "stored": 4487999170.852676,
+            "initial": 6380000000,
+            "conducted": -12000829.149280338,
+            "pumped": 10368765.20070815,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 12002104.159361005,
+            "stored": 12000829.149287343,
             "initial": 696000000,
-            "conducted": 12002104.159357456,
-            "pumped": -3654238.6203210354,
+            "conducted": 12000829.149280338,
+            "pumped": -10368765.20070815,
             "vented": 0
           }
         ],
         "eventsOk": true
       },
       "pass": false,
-      "note": "neighbour critical first, time of the neighbour's critical, cook-off at critical"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -118,49 +106,42 @@
         "pairs": 1
       },
       "expected": {
-        "first": "reactor",
-        "belowCritical": true,
-        "overheat": 295.65,
-        "max": 404.160147565144,
-        "end": 404.160147565144,
-        "referenceCritical": null,
-        "crit": 450,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
+        "first": "none",
         "t": 900,
         "critical": null,
-        "overheat": 245.1,
-        "max": 290.0143261161719,
-        "end": 290.0143261161719,
+        "overheat": null,
+        "max": 290.0010958265399,
+        "end": 290.0010958265399,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1388344051.455257,
+            "generated": 4500000000.002495,
             "radiated": 0,
-            "stored": 1378825123.8892372,
-            "initial": 696000000,
-            "conducted": -9518927.565928787,
+            "stored": 4497911379.712427,
+            "initial": 6380000000,
+            "conducted": -2088620.287491695,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 9484544.887117267,
-            "initial": 696000000,
-            "conducted": 9484544.887113059,
+            "stored": 2085990.3037881851,
+            "initial": 1566000000,
+            "conducted": 2085990.3037929456,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 34382.678812503815,
+            "stored": 2629.983695745468,
             "initial": 696000000,
-            "conducted": 34382.678815609055,
+            "conducted": 2629.983698766011,
             "pumped": 0,
             "vented": 0
           }
@@ -168,7 +149,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "overheat time, neighbour highest temperature, neighbour final temperature"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -178,49 +159,42 @@
         "pairs": 2
       },
       "expected": {
-        "first": "reactor",
-        "belowCritical": true,
-        "overheat": 355.26666666666665,
-        "max": 450.00293649626167,
-        "end": 450.00293649626167,
-        "referenceCritical": 654.25,
-        "crit": 450,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
+        "first": "none",
         "t": 900,
         "critical": null,
-        "overheat": 245.38333333333333,
-        "max": 290.0567868703707,
-        "end": 290.0567868703707,
+        "overheat": null,
+        "max": 290.0043647293592,
+        "end": 290.0043647293592,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1389712809.6343935,
+            "generated": 4500000000.002495,
             "radiated": 0,
-            "stored": 1370794820.76451,
-            "initial": 696000000,
-            "conducted": -18917988.86983059,
+            "stored": 4495829300.320192,
+            "initial": 6380000000,
+            "conducted": -4170699.6799318236,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 18781700.380940795,
-            "initial": 696000000,
-            "conducted": 18781700.380937386,
+            "stored": 4160224.3294668198,
+            "initial": 1566000000,
+            "conducted": 4160224.3294798224,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 136288.488889575,
+            "stored": 10475.350462198257,
             "initial": 696000000,
-            "conducted": 136288.48889328638,
+            "conducted": 10475.35045199085,
             "pumped": 0,
             "vented": 0
           }
@@ -228,7 +202,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "overheat time, neighbour highest temperature, neighbour final temperature"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -238,47 +212,41 @@
         "pairs": 1
       },
       "expected": {
-        "first": "neighbour",
-        "closedFormFirst": "neighbour",
-        "time": 129.91694848731638,
-        "reactorOverheat": 187.43890185002726,
-        "crit": 450,
-        "crew": null,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
-        "t": 122.8,
+        "first": "none",
+        "t": 900,
         "critical": null,
-        "overheat": 122.8,
-        "max": 291.6290934982067,
-        "end": 291.6290934982067,
+        "overheat": null,
+        "max": 295.0003502929603,
+        "end": 295.0003502929603,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1227999999.9999712,
+            "generated": 9000000000.00499,
             "radiated": 0,
-            "stored": 1224090175.6042962,
-            "initial": 696000000,
-            "conducted": -3909824.395698277,
-            "pumped": 0,
+            "stored": 8987999159.30836,
+            "initial": 6380000000,
+            "conducted": -12000840.70310653,
+            "pumped": 10687994.14407134,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 3909824.395696163,
+            "stored": 12000840.703104734,
             "initial": 696000000,
-            "conducted": 3909824.395698277,
-            "pumped": 0,
+            "conducted": 12000840.70310653,
+            "pumped": -10687994.14407134,
             "vented": 0
           }
         ],
         "eventsOk": true
       },
       "pass": false,
-      "note": "neighbour critical first, time of the neighbour's critical, cook-off at critical"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -288,47 +256,41 @@
         "pairs": 2
       },
       "expected": {
-        "first": "neighbour",
-        "closedFormFirst": "neighbour",
-        "time": 105.92148182162975,
-        "reactorOverheat": 214.82329354326785,
-        "crit": 450,
-        "crew": null,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
-        "t": 123.2,
+        "first": "none",
+        "t": 900,
         "critical": null,
-        "overheat": 123.2,
-        "max": 293.2654534323507,
-        "end": 293.2654534323507,
+        "overheat": null,
+        "max": 295.0007005852462,
+        "end": 295.0007005852462,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1231999999.999973,
+            "generated": 9000000000.00499,
             "radiated": 0,
-            "stored": 1224162911.7623637,
-            "initial": 696000000,
-            "conducted": -7837088.237636018,
-            "pumped": 0,
+            "stored": 8987998318.602022,
+            "initial": 6380000000,
+            "conducted": -12001681.404596819,
+            "pumped": 33200013.791478515,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 7837088.237641573,
+            "stored": 12001681.404590845,
             "initial": 696000000,
-            "conducted": 7837088.237636018,
-            "pumped": 0,
+            "conducted": 12001681.404596819,
+            "pumped": -33200013.791478515,
             "vented": 0
           }
         ],
         "eventsOk": true
       },
       "pass": false,
-      "note": "neighbour critical first, time of the neighbour's critical, cook-off at critical"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -338,49 +300,42 @@
         "pairs": 1
       },
       "expected": {
-        "first": "reactor",
-        "belowCritical": true,
-        "overheat": 134.45,
-        "max": 414.1559031328228,
-        "end": 414.1559031328228,
-        "referenceCritical": null,
-        "crit": 450,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
+        "first": "none",
         "t": 900,
         "critical": null,
-        "overheat": 122.48333333333333,
-        "max": 290.0176163238367,
-        "end": 290.0176163238367,
+        "overheat": null,
+        "max": 290.0021916530824,
+        "end": 290.0021916530824,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1589280872.9718294,
+            "generated": 9000000000.00499,
             "radiated": 0,
-            "stored": 1578104788.3566008,
-            "initial": 696000000,
-            "conducted": -11176084.615222061,
+            "stored": 8995822759.42513,
+            "initial": 6380000000,
+            "conducted": -4177240.5749834715,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 11133805.43802309,
-            "initial": 696000000,
-            "conducted": 11133805.43801885,
+            "stored": 4171980.607575178,
+            "initial": 1566000000,
+            "conducted": 4171980.6075859624,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 42279.17720806599,
+            "stored": 5259.967397689819,
             "initial": 696000000,
-            "conducted": 42279.17720312621,
+            "conducted": 5259.96739756688,
             "pumped": 0,
             "vented": 0
           }
@@ -388,7 +343,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "overheat time, neighbour highest temperature, neighbour final temperature"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -398,49 +353,42 @@
         "pairs": 2
       },
       "expected": {
-        "first": "reactor",
-        "belowCritical": true,
-        "overheat": 147.83333333333334,
-        "max": 450.003234646147,
-        "end": 450.003234646147,
-        "referenceCritical": 623.7166666666667,
-        "crit": 450,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
+        "first": "none",
         "t": 900,
         "critical": null,
-        "overheat": 122.55,
-        "max": 290.069770412083,
-        "end": 290.069770412083,
+        "overheat": null,
+        "max": 290.0087294587094,
+        "end": 290.0087294587094,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1589927868.3573148,
+            "generated": 9000000000.00499,
             "radiated": 0,
-            "stored": 1567734078.1740417,
-            "initial": 696000000,
-            "conducted": -22193790.183307655,
+            "stored": 8991658600.640102,
+            "initial": 6380000000,
+            "conducted": -8341399.359863452,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 22026341.19431913,
-            "initial": 696000000,
-            "conducted": 22026341.194311604,
+            "stored": 8320448.658960342,
+            "initial": 1566000000,
+            "conducted": 8320448.658958977,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 167448.98899924755,
+            "stored": 20950.700902581215,
             "initial": 696000000,
-            "conducted": 167448.988996171,
+            "conducted": 20950.700904445308,
             "pumped": 0,
             "vented": 0
           }
@@ -448,7 +396,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "overheat time, neighbour highest temperature, neighbour final temperature"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -458,39 +406,33 @@
         "pairs": 1
       },
       "expected": {
-        "first": "neighbour",
-        "closedFormFirst": "neighbour",
-        "time": 173.53461094388518,
-        "reactorOverheat": 504.09834882034136,
-        "crit": 380,
-        "crew": 18,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
-        "t": 246.38333333333333,
+        "first": "none",
+        "t": 900,
         "critical": null,
-        "overheat": 246.38333333333333,
-        "max": 292.1799138625372,
-        "end": 292.1799138625372,
+        "overheat": null,
+        "max": 293.1575756187181,
+        "end": 293.1575756187181,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1231916666.6667206,
+            "generated": 4500000000.002495,
             "radiated": 0,
-            "stored": 1224068976.7615347,
-            "initial": 696000000,
-            "conducted": -7847689.905133847,
+            "stored": 4488632727.772524,
+            "initial": 6380000000,
+            "conducted": -11367272.227384843,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 7847689.905133963,
+            "stored": 11367272.227385163,
             "initial": 1044000000,
-            "conducted": 7847689.905133847,
+            "conducted": 11367272.227384843,
             "pumped": 0,
             "vented": 0
           }
@@ -498,7 +440,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "neighbour critical first, time of the neighbour's critical, all crew die at critical"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -508,39 +450,33 @@
         "pairs": 2
       },
       "expected": {
-        "first": "neighbour",
-        "closedFormFirst": "neighbour",
-        "time": 143.32821735280737,
-        "reactorOverheat": 558.0000100191104,
-        "crit": 380,
-        "crew": 18,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
-        "t": 247.96666666666667,
+        "first": "none",
+        "t": 900,
         "critical": null,
-        "overheat": 247.96666666666667,
-        "max": 294.3844461569448,
-        "end": 294.3844461569448,
+        "overheat": null,
+        "max": 296.2397536500871,
+        "end": 296.2397536500871,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1239833333.3333797,
+            "generated": 4500000000.002495,
             "radiated": 0,
-            "stored": 1224049327.1683316,
-            "initial": 696000000,
-            "conducted": -15784006.165000202,
+            "stored": 4477536886.85981,
+            "initial": 6380000000,
+            "conducted": -22463113.14032752,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 15784006.165001273,
+            "stored": 22463113.140313625,
             "initial": 1044000000,
-            "conducted": 15784006.165000202,
+            "conducted": 22463113.14032752,
             "pumped": 0,
             "vented": 0
           }
@@ -548,7 +484,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "neighbour critical first, time of the neighbour's critical, all crew die at critical"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -558,49 +494,42 @@
         "pairs": 1
       },
       "expected": {
-        "first": "reactor",
-        "belowCritical": true,
-        "overheat": 295.68333333333334,
-        "max": 374.5632398436725,
-        "end": 374.5632398436725,
-        "referenceCritical": null,
-        "crit": 380,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
+        "first": "none",
         "t": 900,
         "critical": null,
-        "overheat": 245.1,
-        "max": 290.0095585778787,
-        "end": 290.0095585778787,
+        "overheat": null,
+        "max": 290.0007310693156,
+        "end": 290.0007310693156,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1388344051.455257,
+            "generated": 4500000000.002495,
             "radiated": 0,
-            "stored": 1378825123.83656,
-            "initial": 696000000,
-            "conducted": -9518927.61864044,
+            "stored": 4497911379.711069,
+            "initial": 6380000000,
+            "conducted": -2088620.2889051945,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 9484516.738273382,
-            "initial": 696000000,
-            "conducted": 9484516.738276055,
+            "stored": 2085988.4393951893,
+            "initial": 1566000000,
+            "conducted": 2085988.439370382,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 34410.880363345146,
+            "stored": 2631.849536180496,
             "initial": 1044000000,
-            "conducted": 34410.88036438578,
+            "conducted": 2631.849534829152,
             "pumped": 0,
             "vented": 0
           }
@@ -608,7 +537,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "overheat time, neighbour highest temperature, neighbour final temperature"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -618,49 +547,42 @@
         "pairs": 2
       },
       "expected": {
-        "first": "reactor",
-        "belowCritical": true,
-        "overheat": 356.01666666666665,
-        "max": 380.001473575637,
-        "end": 380.001473575637,
-        "referenceCritical": 529.7,
-        "crit": 380,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
+        "first": "none",
         "t": 900,
         "critical": null,
-        "overheat": 245.38333333333333,
-        "max": 290.03791996319666,
-        "end": 290.03791996319666,
+        "overheat": null,
+        "max": 290.00291394399585,
+        "end": 290.00291394399585,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1389712809.6343935,
+            "generated": 4500000000.002495,
             "radiated": 0,
-            "stored": 1370794819.9304032,
-            "initial": 696000000,
-            "conducted": -18917989.703943077,
+            "stored": 4495829300.297802,
+            "initial": 6380000000,
+            "conducted": -4170699.702431247,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 18781477.836449504,
-            "initial": 696000000,
-            "conducted": 18781477.83644759,
+            "stored": 4160209.5040433407,
+            "initial": 1566000000,
+            "conducted": 4160209.5040473132,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 136511.86750805378,
+            "stored": 10490.198385000229,
             "initial": 1044000000,
-            "conducted": 136511.86749577438,
+            "conducted": 10490.198383926825,
             "pumped": 0,
             "vented": 0
           }
@@ -668,7 +590,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "overheat time, neighbour highest temperature, neighbour final temperature"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -678,39 +600,33 @@
         "pairs": 1
       },
       "expected": {
-        "first": "neighbour",
-        "closedFormFirst": "neighbour",
-        "time": 110.47817650889345,
-        "reactorOverheat": 204.32368593551143,
-        "crit": 380,
-        "crew": 18,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
-        "t": 122.8,
+        "first": "none",
+        "t": 900,
         "critical": null,
-        "overheat": 122.8,
-        "max": 291.086832698192,
-        "end": 291.086832698192,
+        "overheat": null,
+        "max": 296.3151512374335,
+        "end": 296.3151512374335,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1227999999.9999712,
+            "generated": 9000000000.00499,
             "radiated": 0,
-            "stored": 1224087402.2865083,
-            "initial": 696000000,
-            "conducted": -3912597.7134874575,
+            "stored": 8977265455.545229,
+            "initial": 6380000000,
+            "conducted": -22734544.454770032,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 3912597.713491082,
+            "stored": 22734544.45476055,
             "initial": 1044000000,
-            "conducted": 3912597.7134874575,
+            "conducted": 22734544.454770032,
             "pumped": 0,
             "vented": 0
           }
@@ -718,7 +634,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "neighbour critical first, time of the neighbour's critical, all crew die at critical"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -728,39 +644,33 @@
         "pairs": 2
       },
       "expected": {
-        "first": "neighbour",
-        "closedFormFirst": "neighbour",
-        "time": 86.76730547194259,
-        "reactorOverheat": 252.04917441017068,
-        "crit": 380,
-        "crew": 18,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
-        "t": 123.2,
+        "first": "none",
+        "t": 900,
         "critical": null,
-        "overheat": 123.2,
-        "max": 292.18006236540697,
-        "end": 292.18006236540697,
+        "overheat": null,
+        "max": 302.47950730017953,
+        "end": 302.47950730017953,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1231999999.999973,
+            "generated": 9000000000.00499,
             "radiated": 0,
-            "stored": 1224151775.484528,
-            "initial": 696000000,
-            "conducted": -7848224.515465765,
+            "stored": 8955073773.719326,
+            "initial": 6380000000,
+            "conducted": -44926226.28065251,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 7848224.51546514,
+            "stored": 44926226.280646324,
             "initial": 1044000000,
-            "conducted": 7848224.515465765,
+            "conducted": 44926226.28065251,
             "pumped": 0,
             "vented": 0
           }
@@ -768,7 +678,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "neighbour critical first, time of the neighbour's critical, all crew die at critical"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -778,49 +688,42 @@
         "pairs": 1
       },
       "expected": {
-        "first": "reactor",
-        "belowCritical": true,
-        "overheat": 134.45,
-        "max": 380.00163468095786,
-        "end": 380.00163468095786,
-        "referenceCritical": 879.0166666666667,
-        "crit": 380,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
+        "first": "none",
         "t": 900,
         "critical": null,
-        "overheat": 122.48333333333333,
-        "max": 290.01175433578146,
-        "end": 290.01175433578146,
+        "overheat": null,
+        "max": 290.00146213863053,
+        "end": 290.00146213863053,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1589280872.9718294,
+            "generated": 9000000000.00499,
             "radiated": 0,
-            "stored": 1578104788.2851973,
-            "initial": 696000000,
-            "conducted": -11176084.686644334,
+            "stored": 8995822759.422245,
+            "initial": 6380000000,
+            "conducted": -4177240.577810583,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 11133769.077829719,
-            "initial": 696000000,
-            "conducted": 11133769.077823147,
+            "stored": 4171976.8787226677,
+            "initial": 1566000000,
+            "conducted": 4171976.8787410473,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 42315.60881316662,
+            "stored": 5263.699069857597,
             "initial": 1044000000,
-            "conducted": 42315.60882115375,
+            "conducted": 5263.699069555402,
             "pumped": 0,
             "vented": 0
           }
@@ -828,7 +731,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "overheat time, neighbour highest temperature, neighbour final temperature"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -838,49 +741,42 @@
         "pairs": 2
       },
       "expected": {
-        "first": "reactor",
-        "belowCritical": true,
-        "overheat": 147.85,
-        "max": 380.00123889175507,
-        "end": 380.00123889175507,
-        "referenceCritical": 471.3333333333333,
-        "crit": 380,
-        "tolerance": 0.001
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
-        "first": "reactor",
+        "first": "none",
         "t": 900,
         "critical": null,
-        "overheat": 122.55,
-        "max": 290.04659370484234,
-        "end": 290.04659370484234,
+        "overheat": null,
+        "max": 290.00582788799267,
+        "end": 290.00582788799267,
         "cookOff": null,
         "deaths": 0,
         "books": [
           {
-            "generated": 1589927868.3573148,
+            "generated": 9000000000.00499,
             "radiated": 0,
-            "stored": 1567734077.0445857,
-            "initial": 696000000,
-            "conducted": -22193791.312722836,
+            "stored": 8991658600.595177,
+            "initial": 6380000000,
+            "conducted": -8341399.4048624,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 22026053.97529304,
-            "initial": 696000000,
-            "conducted": 22026053.975282248,
+            "stored": 8320419.008107662,
+            "initial": 1566000000,
+            "conducted": 8320419.008094448,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 167737.3374323845,
+            "stored": 20980.396773695946,
             "initial": 1044000000,
-            "conducted": 167737.33744099227,
+            "conducted": 20980.396767943166,
             "pumped": 0,
             "vented": 0
           }
@@ -888,7 +784,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "overheat time, neighbour highest temperature, neighbour final temperature"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
@@ -903,6 +799,11 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "16 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

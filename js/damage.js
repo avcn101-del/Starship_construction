@@ -4,7 +4,9 @@
 // the neutral particle beam's energy loss along its path (#229).
 // Every function here keeps exact books: what goes in = absorbed + left over.
 // penetrate and burnThrough are superseded by penetrateRound and beamDeposit
-// (#230); they stay for the withdrawn L0 scenarios (13i.1).
+// (#230); they stay for the withdrawn L0 scenarios (13i.1). exp and log are
+// util.js's deterministic ports (#239 Q6, 13k.1; bit for bit Node's own).
+import { exp, log } from './util.js';
 
 /**
  * Kinetic penetration along a path of cells (#137, #165).
@@ -150,7 +152,7 @@ const STOP_ENERGY = 1.602176634e-13; // J, 1 MeV
 export function betheStopping(E, c) {
   const g = 1 + E / c.protonRest, b2 = 1 - 1 / (g * g), bg2 = b2 * g * g, r = c.electronRest / c.protonRest;
   const tMax = (2 * c.electronRest * bg2) / (1 + 2 * g * r + r * r);
-  return ((c.K * c.ZA) / b2) * (0.5 * Math.log((2 * c.electronRest * bg2 * tMax) / (c.I * c.I)) - b2);
+  return ((c.K * c.ZA) / b2) * (0.5 * log((2 * c.electronRest * bg2 * tMax) / (c.I * c.I)) - b2);
 }
 
 /** A proton of energy E crossing X kg/m^2: its energy after, or 0 and where it stopped. */
@@ -169,9 +171,14 @@ function slowDown(E, X, c) {
   return { E, stoppedAt: null };
 }
 
-/** CSDA range (kg/m^2) of a proton of energy E in iron-equivalent matter (13i.4 P6), by the same integration. */
-export function csdaRange(E, c) {
-  return slowDown(E, Infinity, c).stoppedAt;
+/**
+ * CSDA range (kg/m^2) of a proton of energy E (13i.4 P6), by the same
+ * integration, in iron-equivalent matter or in `material` { ZA, I } (Z/A in
+ * mol/kg, I in J): FIXED.waterZOverA and waterMeanExcitation give water, so
+ * the integration can be checked against NIST PSTAR (13k.1, #236).
+ */
+export function csdaRange(E, c, material = null) {
+  return slowDown(E, Infinity, material ? { ...c, ZA: material.ZA, I: material.I } : c).stoppedAt;
 }
 
 /**
@@ -189,7 +196,7 @@ export function beamDeposit(E0, sigmas, c) {
   for (const sigma of sigmas) {
     if (sigma > 0 && E > 0) E = slowDown(E, sigma, c).E;
     X += sigma;
-    const left = E > 0 ? (Math.exp(-X / c.lambda) * E) / E0 : 0;
+    const left = E > 0 ? (exp(-X / c.lambda) * E) / E0 : 0;
     fractions.push(prev - left);
     prev = left;
   }

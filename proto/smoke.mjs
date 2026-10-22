@@ -9,9 +9,10 @@
 // Export from the top bar at 20 s), exports again at the end, runs
 // proto/replay.mjs on both exports (each must print MATCH; each carries the
 // seed), then checks that Restart brings the panel back with the seed plus
-// one; fails on any console error (a blocked font
+// one; computes the determinism duel's hash (proto/duel.js) in Chromium and
+// compares it with tools/determinism.mjs in Node (MATCH, 13k.1); fails on any console error (a blocked font
 // request is not a game error; the page loads no font), a touch target under
-// 44 px or a replay MISMATCH. Saves proto/screens/loadout.png, start.png,
+// 44 px, a replay MISMATCH or a determinism MISMATCH. Saves proto/screens/loadout.png, start.png,
 // end.png, export.png and restart.png.
 //
 //   NODE_PATH=/opt/node-tools/node_modules node proto/smoke.mjs
@@ -42,6 +43,13 @@ try {
   page.on('requestfailed', (r) => { if (!/fonts\.(googleapis|gstatic)\.com/.test(r.url())) errors.push(`request failed: ${r.url()}`); });
   await page.goto(URL);
   await page.waitForFunction(() => window.__proto && window.__proto.choosing);
+
+  // The determinism test (13k.1, #239 Q6, L0.determinism): the fixed duel of proto/duel.js in Chromium against
+  // tools/determinism.mjs in Node; the event hashes must MATCH.
+  const inPage = await page.evaluate(async () => (await import('/proto/duel.js')).duelHash());
+  const inNode = execFileSync('node', [path.join(root, 'tools', 'determinism.mjs')], { encoding: 'utf8' }).trim().split(/\s+/)[0];
+  const determinism = inPage.hash === inNode ? 'MATCH' : 'MISMATCH';
+  if (determinism !== 'MATCH') errors.push(`determinism: Chromium ${inPage.hash}, Node ${inNode}`);
 
   // The loadout panel: choose a non-default loadout (every button >= 44 px), then Start.
   const CHOICE = { Magazine: 'AP full', Layout: 'R1-B', 'Shield budget': '20 MW', 'Hits to wreck': '5', Turrets: 'on', 'Range order': 'close 600', 'Facing order': 'broadside', 'Dodge order': 'on' };
@@ -150,6 +158,7 @@ try {
   await page.screenshot({ path: path.join(here, 'screens', 'restart.png') });
   await browser.close();
 
+  console.log(`determinism: Chromium ${inPage.hash} (${inPage.steps} steps, ${inPage.events} events), Node ${inNode}: ${determinism}`);
   console.log(`loadout ${JSON.stringify(got)}; seed ${battleSeed}, after Restart ${nextSeed}`);
   console.log(`viewport ${VIEWPORT.width} x ${VIEWPORT.height}, touch; simulated ${state.t.toFixed(2)} s in ${((Date.now() - t0) / 1000).toFixed(1)} s real at x4`);
   console.log(`inputs ${inputs}`);

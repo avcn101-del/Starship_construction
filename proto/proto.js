@@ -9,7 +9,7 @@ import { createBattle, tick, setTarget, setPreset, drainEvents, abilities, mainB
 import { createRecorder, record, exportText } from './export.js';
 import { isDestroyed, roomTemperature, survivingFraction } from '../js/rooms.js';
 import { worldPoint } from '../js/body.js';
-import { PRESETS, PRESET_ORDER, SPEEDS, MAX_STEPS_PER_FRAME, LOG_LINES, COLOURS, LABELS, STAND_INS, DISABLED_SECONDS, LOADOUT, LOADOUT_ORDER, defaultLoadout, SEED } from './config.js';
+import { PRESETS, PRESET_ORDER, SPEEDS, MAX_STEPS_PER_FRAME, LOG_LINES, COLOURS, LABELS, STAND_INS, LOADOUT, LOADOUT_ORDER, defaultLoadout, SEED } from './config.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view'), ctx = canvas.getContext('2d');
@@ -196,7 +196,7 @@ function drawShip(ship) {
   ctx.fillText(`beam ${ok(a.beam)} gun ${ok(a.turret)} thrust ${ok(a.thrust)}`, o, by);
   ctx.fillText(`crew ${ship.crewTotal - ship.crewLost}/${ship.crewTotal}  reactor ${(reactor.delivered / 1e6).toFixed(1)} MW`, o, by + line);
   ctx.fillText(`shield ${up ? `${Math.round(frac * 100)}%` : 'OFF'}  absorbing ${(s.absorbed / 1e6).toFixed(1)} MW`, o, by + 2 * line);
-  if (ship.disabledSince !== null) { ctx.fillStyle = COLOURS.cross; ctx.font = 'bold 12px ui-monospace, Menlo, Consolas, monospace'; ctx.fillText(`DISABLED in ${Math.max(0, DISABLED_SECONDS - (battle.t - ship.disabledSince)).toFixed(1)} s`, o, by + 3 * line); }
+  if (ship.disabledSince !== null) { ctx.fillStyle = COLOURS.cross; ctx.font = 'bold 12px ui-monospace, Menlo, Consolas, monospace'; ctx.fillText(`DISABLED in ${Math.max(0, battle.disabledSeconds - (battle.t - ship.disabledSince)).toFixed(1)} s`, o, by + 3 * line); }
 }
 
 /** Screen point (px) of a world point q (m) in the world strip: the line of sight from the player to the enemy points right. */

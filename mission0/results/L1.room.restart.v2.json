@@ -1,0 +1,133 @@
+{
+  "id": "L1.room.restart.v2",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.room.restart.v2",
+  "code": "baf8d67+dirty",
+  "criterionHash": "b6ca62c6",
+  "lockedHash": "b6ca62c6",
+  "runHash": "ea075c7d",
+  "dataHash": "b958ce58",
+  "rowsHash": "31fb4c4b",
+  "rows": [
+    {
+      "case": {
+        "part": "engine",
+        "n": 2,
+        "duration": 6000
+      },
+      "expected": {
+        "hot": 600,
+        "n": 2,
+        "emissivity": 0.9,
+        "sigma": 5.670374e-8,
+        "area": 25,
+        "C": 8400000,
+        "tolerance": 0.0001,
+        "thrust": 15000000,
+        "minShutdowns": 2
+      },
+      "actual": {
+        "cycles": [
+          {
+            "shutdown": 1623.3166666666666,
+            "Ts": 800.0022529496985,
+            "restart": 4560.316666666667,
+            "Tr": 599.9997670191201,
+            "Tbefore": 600.0004231642482
+          },
+          {
+            "shutdown": 5277.116666666667,
+            "Ts": 800.0014932088883,
+            "restart": null
+          }
+        ],
+        "order": [
+          "shutdown",
+          "restart",
+          "shutdown"
+        ],
+        "offAfter": true,
+        "onAfter": [
+          15000000
+        ],
+        "books": {
+          "generated": 7020350000,
+          "radiated": 3356847103.395315,
+          "stored": 3663502896.6044884,
+          "initial": 2436000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "bridge",
+        "n": 2,
+        "P": 1100000,
+        "after": 10
+      },
+      "expected": {
+        "hot": 330,
+        "n": 2,
+        "emissivity": 0.9,
+        "sigma": 5.670374e-8,
+        "area": 25,
+        "C": 2400000,
+        "tolerance": 0.0001,
+        "lostCause": "overheat",
+        "deaths": 0
+      },
+      "actual": {
+        "overheated": 122.8,
+        "restart": 1534.8833333333332,
+        "Ts": 350.0054194505401,
+        "Tr": 329.9999041238068,
+        "controlOk": true,
+        "controlAtEnd": true,
+        "lost": [
+          {
+            "t": 122.8,
+            "cause": "overheat"
+          }
+        ],
+        "restored": [
+          {
+            "t": 1534.8833333333332,
+            "cause": "restart"
+          }
+        ],
+        "deaths": 0,
+        "books": {
+          "generated": 148359999.99999404,
+          "radiated": 51663369.6824352,
+          "stored": 96696630.31755352,
+          "initial": 696000000
+        },
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored, 1e-9 relative, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

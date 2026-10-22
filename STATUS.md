@@ -8,17 +8,16 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 ## For the owner (five lines, kept at every block, #246 (5))
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
-  documents' consolidation (#242); `main` `f68185a`.
-- **Running**: the light re-review of physics pass 2's fix rounds (PR
-  #54, head `5b12e52`: regress 75 + 85 + 5, no MISMATCH, 47 s); engineer
-  29.34 USD, checker 2.84, reviewer 2.24, fix rounds 5.12 + 2.31. Then the
-  merge, and this chat's replacement (#247 (2)).
+  consolidation (#242), **physics pass 2 (#243–#251)**.
+- **Running**: nothing. This chat is replaced at this boundary (#247
+  (2)); the new chat starts with the `tools/mutate.js` task and the L4
+  plan.
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.
-- **Money**: 2026-10-21/22 so far about 86 USD (v2 13.85, audits 25.40,
-  consolidation 4.12, pass 2 41.85 and a re-review running); pass 2
-  estimated 50–60, inside it.
-- **Next**: pass 2 merge → `tools/mutate.js` task → the L4 plan.
+- **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
+  consolidation 4.12, pass 2 42.93); pass 2 estimated 50–60, inside it.
+- **Next**: `tools/mutate.js` task (§17 item 21) → the L4 plan (under
+  #241's gate).
 
 ## Where we are
 
@@ -99,6 +98,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #251: physics pass 2 merged; answers to the re-review.
 - #250: pass 2's fix rounds; every withdrawn record frozen; answers to the
   reviewer; sessions notify the lead designer when done.
 - #249 is the owner's (beam depth tier-invariant for electronic stopping only).

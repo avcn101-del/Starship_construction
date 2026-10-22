@@ -1,0 +1,778 @@
+{
+  "id": "L2.heat.pair.v3",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.heat.pair.v3",
+  "code": "baf8d67+dirty",
+  "criterionHash": "d9b68bbb",
+  "lockedHash": "d9b68bbb",
+  "runHash": "ccee9b35",
+  "dataHash": "b958ce58",
+  "rowsHash": "3d225e63",
+  "rows": [
+    {
+      "case": {
+        "part": "a",
+        "tier": "T1",
+        "Ta": 400,
+        "pairs": 1,
+        "b": "beamBay"
+      },
+      "expected": {
+        "G": 20000,
+        "tau": 100,
+        "duration": 400,
+        "dT0": 110,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 400,
+        "dT": 2.0140487416484802,
+        "Tb": 343.99297562917576,
+        "maxDeviation": 0.00003065874921798116,
+        "maxEnergy": 0,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -215971902.51670313,
+            "initial": 1600000000,
+            "conducted": -215971902.51670635,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 215971902.51670313,
+            "initial": 1160000000,
+            "conducted": 215971902.51670635,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T1",
+        "Ta": 400,
+        "pairs": 2,
+        "b": "beamBay"
+      },
+      "expected": {
+        "G": 40000,
+        "tau": 50,
+        "duration": 200,
+        "dT0": 110,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 200,
+        "dT": 2.0133772801710847,
+        "Tb": 343.99331135991446,
+        "maxDeviation": 0.00006132175732861097,
+        "maxEnergy": 0,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -215973245.43965793,
+            "initial": 1600000000,
+            "conducted": -215973245.4396589,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 215973245.43965793,
+            "initial": 1160000000,
+            "conducted": 215973245.4396589,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T1",
+        "Ta": 600,
+        "pairs": 1,
+        "b": "beamBay"
+      },
+      "expected": {
+        "G": 20000,
+        "tau": 100,
+        "duration": 400,
+        "dT0": 310,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 400,
+        "dT": 5.675955544641795,
+        "Tb": 442.1620222276783,
+        "maxDeviation": 0.000030658749210396485,
+        "maxEnergy": 1.875202307540379e-15,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -608648088.9107196,
+            "initial": 2400000000,
+            "conducted": -608648088.9107058,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 608648088.9107132,
+            "initial": 1160000000,
+            "conducted": 608648088.9107058,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T1",
+        "Ta": 600,
+        "pairs": 2,
+        "b": "beamBay"
+      },
+      "expected": {
+        "G": 40000,
+        "tau": 50,
+        "duration": 200,
+        "dT0": 310,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 200,
+        "dT": 5.674063244119736,
+        "Tb": 442.1629683779403,
+        "maxDeviation": 0.0000613217573452806,
+        "maxEnergy": 2.9467464832777386e-15,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -608651873.51176,
+            "initial": 2400000000,
+            "conducted": -608651873.5117576,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 608651873.5117612,
+            "initial": 1160000000,
+            "conducted": 608651873.5117576,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T1",
+        "Ta": 1000,
+        "pairs": 1,
+        "b": "beamBay"
+      },
+      "expected": {
+        "G": 20000,
+        "tau": 100,
+        "duration": 400,
+        "dT0": 710,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 400,
+        "dT": 12.999769150638826,
+        "Tb": 638.5001154246802,
+        "maxDeviation": 0.00003065874920800627,
+        "maxEnergy": 4.250873890958091e-15,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -1394000461.6987238,
+            "initial": 4000000000,
+            "conducted": -1394000461.6987252,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 1394000461.698721,
+            "initial": 1160000000,
+            "conducted": 1394000461.6987252,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T1",
+        "Ta": 1000,
+        "pairs": 2,
+        "b": "beamBay"
+      },
+      "expected": {
+        "G": 40000,
+        "tau": 50,
+        "duration": 200,
+        "dT0": 710,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 200,
+        "dT": 12.995435172018801,
+        "Tb": 638.5022824139908,
+        "maxDeviation": 0.00006132175734039816,
+        "maxEnergy": 2.402667851411095e-15,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -1394009129.6559615,
+            "initial": 4000000000,
+            "conducted": -1394009129.6559827,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 1394009129.655963,
+            "initial": 1160000000,
+            "conducted": 1394009129.6559827,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T1",
+        "Ta": 1000,
+        "pairs": 2,
+        "b": "beamBay",
+        "sweep": "tier"
+      },
+      "expected": {
+        "G": 40000,
+        "tau": 50,
+        "duration": 200,
+        "dT0": 710,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 200,
+        "dT": 12.995435172018801,
+        "Tb": 638.5022824139908,
+        "maxDeviation": 0.00006132175734039816,
+        "maxEnergy": 2.402667851411095e-15,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -1394009129.6559615,
+            "initial": 4000000000,
+            "conducted": -1394009129.6559827,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 1394009129.655963,
+            "initial": 1160000000,
+            "conducted": 1394009129.6559827,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T2",
+        "Ta": 1000,
+        "pairs": 2,
+        "b": "beamBay",
+        "sweep": "tier"
+      },
+      "expected": {
+        "G": 90000,
+        "tau": 75,
+        "duration": 300,
+        "dT0": 710,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 300,
+        "dT": 12.998324437557699,
+        "Tb": 638.5008377812208,
+        "maxDeviation": 0.00004087927865325454,
+        "maxEnergy": 5.2571194013781225e-15,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -4704761310.046492,
+            "initial": 13500000000,
+            "conducted": -4704761310.046409,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 4704761310.04648,
+            "initial": 3915000000,
+            "conducted": 4704761310.046409,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T3",
+        "Ta": 1000,
+        "pairs": 2,
+        "b": "beamBay",
+        "sweep": "tier"
+      },
+      "expected": {
+        "G": 160000,
+        "tau": 100,
+        "duration": 400,
+        "dT0": 710,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 400,
+        "dT": 12.999769150638826,
+        "Tb": 638.5001154246802,
+        "maxDeviation": 0.00003065874920800627,
+        "maxEnergy": 4.250873890958091e-15,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -11152003693.58979,
+            "initial": 32000000000,
+            "conducted": -11152003693.589802,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 11152003693.589767,
+            "initial": 9280000000,
+            "conducted": 11152003693.589802,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T4",
+        "Ta": 1000,
+        "pairs": 2,
+        "b": "beamBay",
+        "sweep": "tier"
+      },
+      "expected": {
+        "G": 360000,
+        "tau": 150,
+        "duration": 600,
+        "dT0": 710,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 600,
+        "dT": 13.001213917234736,
+        "Tb": 638.4993930413807,
+        "maxDeviation": 0.00002043869297541329,
+        "maxEnergy": 8.761865668963537e-15,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -37637934448.46953,
+            "initial": 108000000000,
+            "conducted": -37637934448.46959,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 37637934448.46912,
+            "initial": 31320000000,
+            "conducted": 37637934448.46959,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T5",
+        "Ta": 1000,
+        "pairs": 2,
+        "b": "beamBay",
+        "sweep": "tier"
+      },
+      "expected": {
+        "G": 640000,
+        "tau": 200,
+        "duration": 800,
+        "dT0": 710,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 800,
+        "dT": 13.00193632060018,
+        "Tb": 638.4990318397032,
+        "maxDeviation": 0.000015328842301292932,
+        "maxEnergy": 5.359797514686289e-15,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -89215752150.96234,
+            "initial": 256000000000,
+            "conducted": -89215752150.962,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 89215752150.96402,
+            "initial": 74240000000,
+            "conducted": 89215752150.962,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "a",
+        "tier": "T6",
+        "Ta": 1000,
+        "pairs": 2,
+        "b": "beamBay",
+        "sweep": "tier"
+      },
+      "expected": {
+        "G": 1440000,
+        "tau": 300,
+        "duration": 1200,
+        "dT0": 710,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 1200,
+        "dT": 13.002658737354864,
+        "Tb": 638.4986706313184,
+        "maxDeviation": 0.000010219109920088568,
+        "maxEnergy": 7.00949253517083e-15,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -301102851425.4663,
+            "initial": 864000000000,
+            "conducted": -301102851425.45953,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 301102851425.4591,
+            "initial": 250560000000,
+            "conducted": 301102851425.45953,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "b",
+        "tier": "T1",
+        "Ta": 600,
+        "pairs": 1,
+        "b": "hold"
+      },
+      "expected": {
+        "G": 22.727272727272727,
+        "tau": 101106.38297872341,
+        "duration": 3600,
+        "dT0": 310,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 3600,
+        "dT": 299.156316350436,
+        "Tb": 294.6143334679066,
+        "maxDeviation": 2.831967732720753e-9,
+        "maxEnergy": 2.789365121107539e-14,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -24917400.726629734,
+            "initial": 2400000000,
+            "conducted": -24917400.726716258,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 24917400.726695538,
+            "initial": 1566000000,
+            "conducted": 24917400.726716258,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "b",
+        "tier": "T1",
+        "Ta": 600,
+        "pairs": 2,
+        "b": "hold"
+      },
+      "expected": {
+        "G": 45.45454545454545,
+        "tau": 50553.19148936171,
+        "duration": 3600,
+        "dT0": 310,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 3600,
+        "dT": 288.69193899053505,
+        "Tb": 299.0672600040299,
+        "maxDeviation": 1.0931955234956413e-8,
+        "maxEnergy": 1.370636309509739e-14,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -48963204.02174044,
+            "initial": 2400000000,
+            "conducted": -48963204.02173668,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 48963204.02176142,
+            "initial": 1566000000,
+            "conducted": 48963204.02173668,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "b",
+        "tier": "T1",
+        "Ta": 600,
+        "pairs": 1,
+        "b": "magazine"
+      },
+      "expected": {
+        "G": 125,
+        "tau": 12000,
+        "duration": 3600,
+        "dT0": 310,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 3600,
+        "dT": 229.65360056678043,
+        "Tb": 340.2164996457581,
+        "maxDeviation": 1.543372648836427e-7,
+        "maxEnergy": 1.879009473539446e-14,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -120519599.1498456,
+            "initial": 2400000000,
+            "conducted": -120519599.14982735,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 120519599.1498195,
+            "initial": 696000000,
+            "conducted": 120519599.14982735,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "b",
+        "tier": "T1",
+        "Ta": 600,
+        "pairs": 2,
+        "b": "magazine"
+      },
+      "expected": {
+        "G": 250,
+        "tau": 6000,
+        "duration": 3600,
+        "dT0": 310,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "t": 3600,
+        "dT": 170.13146541260346,
+        "Tb": 377.41783411710935,
+        "maxDeviation": 4.5734369274625e-7,
+        "maxEnergy": 2.7877107763167192e-14,
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": -209802801.88114882,
+            "initial": 2400000000,
+            "conducted": -209802801.8810956,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 209802801.8810625,
+            "initial": 696000000,
+            "conducted": 209802801.8810956,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + vented + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction and life-support flows each sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

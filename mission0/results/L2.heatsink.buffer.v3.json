@@ -1,0 +1,204 @@
+{
+  "id": "L2.heatsink.buffer.v3",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.heatsink.buffer.v3",
+  "code": "baf8d67+dirty",
+  "criterionHash": "2ff13f13",
+  "lockedHash": "2ff13f13",
+  "runHash": "afb04fb5",
+  "dataHash": "b958ce58",
+  "rowsHash": "f1df995d",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "neighbour": "beamBay"
+      },
+      "expected": {
+        "overheat": 1045.4154509007205,
+        "d": 0.625,
+        "S": 12500000,
+        "G": 40000,
+        "Cb": 4000000,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "overheat": 1045.4166666666667,
+        "neighbourT": 751.9238683519363,
+        "books": [
+          {
+            "generated": 13067708333.341755,
+            "radiated": 0,
+            "stored": 11220012859.925827,
+            "initial": 6380000000,
+            "conducted": -1847695473.4077559,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 1847695473.4077454,
+            "initial": 1160000000,
+            "conducted": 1847695473.4077559,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "neighbour": "heatSink"
+      },
+      "expected": {
+        "overheat": 1751.2834673279228,
+        "d": 0.625,
+        "S": 12500000,
+        "G": 60000,
+        "Cb": 27000000,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "overheat": 1751.3,
+        "neighbourT": 685.2280410906619,
+        "books": [
+          {
+            "generated": 21891249999.992214,
+            "radiated": 0,
+            "stored": 11220092890.552208,
+            "initial": 6380000000,
+            "conducted": -10671157109.447796,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 10671157109.447872,
+            "initial": 7830000000,
+            "conducted": 10671157109.447796,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "neighbour": "beamBay"
+      },
+      "expected": {
+        "overheat": 2090.830901801441,
+        "d": 0.625,
+        "S": 50000000,
+        "G": 160000,
+        "Cb": 32000000,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "overheat": 2090.8333333333335,
+        "neighbourT": 751.9238684584777,
+        "books": [
+          {
+            "generated": 104541666666.5319,
+            "radiated": 0,
+            "stored": 89760102875.99417,
+            "initial": 51040000000,
+            "conducted": -14781563790.671286,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 14781563790.671288,
+            "initial": 9280000000,
+            "conducted": 14781563790.671286,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "neighbour": "heatSink"
+      },
+      "expected": {
+        "overheat": 3502.5669346558457,
+        "d": 0.625,
+        "S": 50000000,
+        "G": 240000,
+        "Cb": 216000000,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "overheat": 3502.5833333333335,
+        "neighbourT": 685.2259171902635,
+        "books": [
+          {
+            "generated": 175129166666.7912,
+            "radiated": 0,
+            "stored": 89760368553.5662,
+            "initial": 51040000000,
+            "conducted": -85368798113.09853,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 85368798113.09692,
+            "initial": 62640000000,
+            "conducted": 85368798113.09853,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "beside a heat sink the reactor overheats later than beside an idle beam bay, at T1 and T3",
+      "ok": true
+    },
+    {
+      "name": "heat books: generated + conducted = radiated + vented + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction and life-support flows each sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

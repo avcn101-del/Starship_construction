@@ -3,12 +3,12 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.radiator.steady.v2",
-  "code": "f7bf5c6",
+  "code": "baf8d67+dirty",
   "criterionHash": "686ca4b0",
   "lockedHash": "686ca4b0",
   "runHash": "93cd6303",
-  "dataHash": "930a2386",
-  "rowsHash": "2bd97fcb",
+  "dataHash": "b958ce58",
+  "rowsHash": "c4beccb8",
   "rows": [
     {
       "case": {
@@ -30,7 +30,7 @@
           "generated": 59999999.99997059,
           "radiated": 59999999.99997059,
           "stored": 0,
-          "initial": 1269880007.9896805
+          "initial": 2116466679.982801
         },
         "eventsOk": true
       },
@@ -57,7 +57,7 @@
           "generated": 59999999.99997059,
           "radiated": 59999999.99997059,
           "stored": 0,
-          "initial": 1067837546.5208809
+          "initial": 1779729244.2014682
         },
         "eventsOk": true
       },
@@ -84,7 +84,7 @@
           "generated": 59999999.99997059,
           "radiated": 59999999.99997059,
           "stored": 0,
-          "initial": 897940764.9427303
+          "initial": 1496567941.5712173
         },
         "eventsOk": true
       },
@@ -111,7 +111,7 @@
           "generated": 300000000.00005275,
           "radiated": 300000000.00005275,
           "stored": 0,
-          "initial": 1898913522.2445626
+          "initial": 3164855870.4076047
         },
         "eventsOk": true
       },
@@ -138,7 +138,7 @@
           "generated": 300000000.00005275,
           "radiated": 300000000.00005275,
           "stored": 0,
-          "initial": 1596789573.7322576
+          "initial": 2661315956.220429
         },
         "eventsOk": true
       },
@@ -165,7 +165,7 @@
           "generated": 300000000.00005275,
           "radiated": 300000000.00005275,
           "stored": 0,
-          "initial": 1342734628.4659624
+          "initial": 2237891047.4432707
         },
         "eventsOk": true
       },
@@ -192,7 +192,7 @@
           "generated": 600000000.0001055,
           "radiated": 600000000.0001055,
           "stored": 0,
-          "initial": 2258201471.428112
+          "initial": 3763669119.046853
         },
         "eventsOk": true
       },
@@ -219,7 +219,7 @@
           "generated": 600000000.0001055,
           "radiated": 600000000.0001055,
           "stored": 0,
-          "initial": 1898913522.2445626
+          "initial": 3164855870.4076047
         },
         "eventsOk": true
       },
@@ -246,7 +246,7 @@
           "generated": 600000000.0001055,
           "radiated": 600000000.0001055,
           "stored": 0,
-          "initial": 1596789573.7322576
+          "initial": 2661315956.220429
         },
         "eventsOk": true
       },
@@ -273,7 +273,7 @@
           "generated": 1200000000.000211,
           "radiated": 1200000000.000211,
           "stored": 0,
-          "initial": 2258201471.428112
+          "initial": 3763669119.046853
         },
         "eventsOk": true
       },
@@ -300,7 +300,7 @@
           "generated": 1200000000.000211,
           "radiated": 1200000000.000211,
           "stored": 0,
-          "initial": 1898913522.2445626
+          "initial": 3164855870.4076047
         },
         "eventsOk": true
       },
@@ -320,18 +320,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 408.69948760219046,
-        "gap": 0.22758153205509163,
-        "minRise": 0.0004472457330848556,
+        "T": 366.1645691997859,
+        "gap": 0.3079700754792673,
+        "minRise": 0.0003211043360806798,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 360000000.0004515,
-          "radiated": 75121229.75473537,
-          "stored": 284878770.24525714,
-          "initial": 696000000
+          "radiated": 55341723.20081784,
+          "stored": 304658276.79914355,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
@@ -351,18 +351,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 385.28396798270035,
-        "gap": 0.13406161248854415,
-        "minRise": 0.0003039776495370461,
+        "T": 354.257188426889,
+        "gap": 0.20379531980812576,
+        "minRise": 0.0002492161697773554,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 360000000.0004515,
-          "radiated": 131318476.8415195,
-          "stored": 228681523.15848076,
-          "initial": 696000000
+          "radiated": 102971246.29245242,
+          "stored": 257028753.707556,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
@@ -382,18 +382,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 351.76223647219604,
-        "gap": 0.05981619223277553,
-        "minRise": 0.00015183440194732611,
+        "T": 334.65018739837353,
+        "gap": 0.10555297062683067,
+        "minRise": 0.0001499768186477013,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 360000000.0004515,
-          "radiated": 211770632.46672392,
-          "stored": 148229367.53327048,
-          "initial": 696000000
+          "radiated": 181399250.40653846,
+          "stored": 178600749.59349418,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
@@ -413,18 +413,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 754.4903872810826,
-        "gap": 0.046414221467960724,
-        "minRise": 0.0006011429074987973,
+        "T": 655.1028647270606,
+        "gap": 0.17202818510317902,
+        "minRise": 0.0011042536312970697,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 1799999999.995122,
-          "radiated": 685223070.5254062,
-          "stored": 1114776929.4745982,
-          "initial": 696000000
+          "radiated": 339588541.0917881,
+          "stored": 1460411458.9082422,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
@@ -444,18 +444,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 653.484026806716,
-        "gap": 0.017803165716878493,
-        "minRise": 0.0002407457939170854,
+        "T": 601.6986383854612,
+        "gap": 0.0956374240659695,
+        "minRise": 0.0006897687514992867,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 1799999999.995122,
-          "radiated": 927638335.6638799,
-          "stored": 872361664.3361182,
-          "initial": 696000000
+          "radiated": 553205446.4581435,
+          "stored": 1246794553.5418448,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
@@ -475,18 +475,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 556.4203932786802,
-        "gap": 0.0054557947950588225,
-        "minRise": 0.00007515889694786893,
+        "T": 534.8934068750899,
+        "gap": 0.04393306816935339,
+        "minRise": 0.00034268580202478915,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 1799999999.995122,
-          "radiated": 1160591056.131169,
-          "stored": 639408943.8688323,
-          "initial": 696000000
+          "radiated": 820426372.4996444,
+          "stored": 979573627.5003598,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
@@ -506,18 +506,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 936.4721545128552,
-        "gap": 0.004724246588375747,
-        "minRise": 0.00013030585216711188,
+        "T": 888.2642980114397,
+        "gap": 0.05595920372894837,
+        "minRise": 0.0008572600423804033,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 3599999999.990244,
-          "radiated": 2048466829.1690853,
-          "stored": 1551533170.8308525,
-          "initial": 696000000
+          "radiated": 1206942807.9543521,
+          "stored": 2393057192.0457587,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
@@ -537,18 +537,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 790.3261575283115,
-        "gap": 0.001122085946334511,
-        "minRise": 0.00003111772059583018,
+        "T": 773.3656125315871,
+        "gap": 0.02255819007393259,
+        "minRise": 0.00036344542695587734,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 3599999999.990244,
-          "radiated": 2399217221.932019,
-          "stored": 1200782778.0679476,
-          "initial": 696000000
+          "radiated": 1666537549.8736303,
+          "stored": 1933462450.1263485,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
@@ -568,18 +568,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 665.1950892133009,
-        "gap": 0.0002012535813245709,
-        "minRise": 0.0000055889231589389965,
+        "T": 660.4451273500139,
+        "gap": 0.007340521434410087,
+        "minRise": 0.00012100448748242343,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 3599999999.990244,
-          "radiated": 2699531785.888129,
-          "stored": 900468214.111922,
-          "initial": 696000000
+          "radiated": 2118219490.599957,
+          "stored": 1481780509.4000554,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
@@ -599,18 +599,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 940.909668347155,
-        "gap": 0.000008089355697859728,
-        "minRise": 4.4942976273887325e-7,
+        "T": 939.6692920567455,
+        "gap": 0.0013263522009967685,
+        "minRise": 0.000044125414319751144,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 7199999999.980488,
-          "radiated": 5637816795.966808,
-          "stored": 1562183204.0331721,
-          "initial": 696000000
+          "radiated": 4601322831.772944,
+          "stored": 2598677168.2269816,
+          "initial": 1160000000
         },
         "eventsOk": true
       },
@@ -630,18 +630,18 @@
         "gapShrinks": true
       },
       "actual": {
-        "T": 791.2135152087,
-        "gap": 5.717709996060079e-7,
-        "minRise": 3.1767285690875724e-8,
+        "T": 791.0188964571555,
+        "gap": 0.0002465466393835977,
+        "minRise": 0.000008215528396249283,
         "rises": true,
         "neverAbove": true,
         "gapShrinks": true,
         "steps": 216000,
         "books": {
           "generated": 7199999999.980488,
-          "radiated": 5997087563.499188,
-          "stored": 1202912436.50088,
-          "initial": 696000000
+          "radiated": 5195924414.171395,
+          "stored": 2004075585.8286219,
+          "initial": 1160000000
         },
         "eventsOk": true
       },

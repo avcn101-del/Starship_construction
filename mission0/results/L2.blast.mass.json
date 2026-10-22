@@ -1,0 +1,445 @@
+{
+  "id": "L2.blast.mass",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.blast.mass",
+  "code": "baf8d67+dirty",
+  "criterionHash": "c476e589",
+  "lockedHash": "c476e589",
+  "runHash": "5d8a243c",
+  "dataHash": "b958ce58",
+  "rowsHash": "e5f931d1",
+  "rows": [
+    {
+      "case": {
+        "neighbour": "hold",
+        "load": "6 MJ"
+      },
+      "expected": {
+        "E": 6000000,
+        "absorbed": {
+          "magazine": 1200000,
+          "H": 1200000,
+          "N": 1200000
+        },
+        "escaped": 2400000,
+        "rooms": {
+          "H": {
+            "destroyed": 4,
+            "integrity": 0,
+            "perCellCap": 300000,
+            "cells": 4
+          },
+          "N": {
+            "destroyed": 4,
+            "integrity": 0,
+            "perCellCap": 300000,
+            "cells": 4
+          }
+        },
+        "literal": null
+      },
+      "actual": {
+        "walls": [
+          [
+            "H",
+            "magazine",
+            10
+          ],
+          [
+            "N",
+            "magazine",
+            5
+          ]
+        ],
+        "energy": 6000000,
+        "absorbed": {
+          "H": 1200000,
+          "N": 1200000,
+          "magazine": 1200000
+        },
+        "escaped": 2400000,
+        "blasts": 1,
+        "rooms": {
+          "H": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "N": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "hold",
+        "load": "20 MJ"
+      },
+      "expected": {
+        "E": 20000000,
+        "absorbed": {
+          "magazine": 1200000,
+          "H": 1200000,
+          "N": 1200000
+        },
+        "escaped": 16400000,
+        "rooms": {
+          "H": {
+            "destroyed": 4,
+            "integrity": 0,
+            "perCellCap": 300000,
+            "cells": 4
+          },
+          "N": {
+            "destroyed": 4,
+            "integrity": 0,
+            "perCellCap": 300000,
+            "cells": 4
+          }
+        },
+        "literal": null
+      },
+      "actual": {
+        "walls": [
+          [
+            "H",
+            "magazine",
+            10
+          ],
+          [
+            "N",
+            "magazine",
+            5
+          ]
+        ],
+        "energy": 20000000,
+        "absorbed": {
+          "H": 1200000,
+          "N": 1200000,
+          "magazine": 1200000
+        },
+        "escaped": 16400000,
+        "blasts": 1,
+        "rooms": {
+          "H": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "N": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "reactor",
+        "load": "6 MJ"
+      },
+      "expected": {
+        "E": 6000000,
+        "absorbed": {
+          "magazine": 1200000,
+          "H": 1200000,
+          "N": 3600000
+        },
+        "escaped": 0,
+        "rooms": {
+          "H": {
+            "destroyed": 4,
+            "integrity": 0,
+            "perCellCap": 300000,
+            "cells": 4
+          },
+          "N": {
+            "destroyed": 0,
+            "integrity": 0.94,
+            "perCellCap": 15000000,
+            "cells": 4
+          }
+        },
+        "literal": {
+          "magazine": 1200000,
+          "H": 1200000,
+          "N": 3600000,
+          "escaped": 0
+        }
+      },
+      "actual": {
+        "walls": [
+          [
+            "H",
+            "magazine",
+            10
+          ],
+          [
+            "N",
+            "magazine",
+            5
+          ]
+        ],
+        "energy": 6000000,
+        "absorbed": {
+          "H": 1200000,
+          "N": 3600000,
+          "magazine": 1200000
+        },
+        "escaped": 0,
+        "blasts": 1,
+        "rooms": {
+          "H": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "N": {
+            "destroyed": 0,
+            "integrity": [
+              0.94,
+              0.94,
+              0.94,
+              0.94
+            ]
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 6380000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "neighbour": "reactor",
+        "load": "20 MJ"
+      },
+      "expected": {
+        "E": 20000000,
+        "absorbed": {
+          "magazine": 1200000,
+          "H": 1200000,
+          "N": 17600000
+        },
+        "escaped": 0,
+        "rooms": {
+          "H": {
+            "destroyed": 4,
+            "integrity": 0,
+            "perCellCap": 300000,
+            "cells": 4
+          },
+          "N": {
+            "destroyed": 0,
+            "integrity": 0.7066666666666667,
+            "perCellCap": 15000000,
+            "cells": 4
+          }
+        },
+        "literal": null
+      },
+      "actual": {
+        "walls": [
+          [
+            "H",
+            "magazine",
+            10
+          ],
+          [
+            "N",
+            "magazine",
+            5
+          ]
+        ],
+        "energy": 20000000,
+        "absorbed": {
+          "H": 1200000,
+          "N": 17600000,
+          "magazine": 1200000
+        },
+        "escaped": 0,
+        "blasts": 1,
+        "rooms": {
+          "H": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "N": {
+            "destroyed": 0,
+            "integrity": [
+              0.7066666666666667,
+              0.7066666666666667,
+              0.7066666666666667,
+              0.7066666666666667
+            ]
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 1566000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 6380000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "consistency invariant (not counted for E3): heat books of every room",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

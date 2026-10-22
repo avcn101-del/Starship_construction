@@ -1,0 +1,180 @@
+{
+  "id": "L0.beam.burn.v5",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.beam.burn.v5",
+  "code": "baf8d67",
+  "criterionHash": "7dbbfaf8",
+  "lockedHash": "7dbbfaf8",
+  "runHash": "71c04d78",
+  "dataHash": "b958ce58",
+  "rowsHash": "05ab30b7",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1",
+        "matter": "hold"
+      },
+      "expected": {
+        "time": 1.799999999999997,
+        "F1": 1,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 1.7999999999999998,
+        "channel": "thermal",
+        "cause": "beam-1"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "matter": "crewed"
+      },
+      "expected": {
+        "time": 8.880000000000004,
+        "F1": 1,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 8.883333333333335,
+        "channel": "thermal",
+        "cause": "beam-1"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "matter": "armour"
+      },
+      "expected": {
+        "time": 6.000000000000019,
+        "F1": 1,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 6,
+        "channel": "thermal",
+        "cause": "beam-1"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T1",
+        "matter": "reactor"
+      },
+      "expected": {
+        "time": 90.00000000000327,
+        "F1": 1,
+        "dt": 0.016666666666666666,
+        "literal": 90
+      },
+      "actual": {
+        "time": 90,
+        "channel": "thermal",
+        "cause": "beam-1"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "matter": "hold"
+      },
+      "expected": {
+        "time": 3.5999999999999894,
+        "F1": 1,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 3.6,
+        "channel": "thermal",
+        "cause": "beam-1"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "matter": "crewed"
+      },
+      "expected": {
+        "time": 17.760000000000005,
+        "F1": 1,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 17.766666666666666,
+        "channel": "thermal",
+        "cause": "beam-1"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "matter": "armour"
+      },
+      "expected": {
+        "time": 12.000000000000039,
+        "F1": 1,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 12,
+        "channel": "thermal",
+        "cause": "beam-1"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3",
+        "matter": "reactor"
+      },
+      "expected": {
+        "time": 179.99999999995322,
+        "F1": 1,
+        "dt": 0.016666666666666666,
+        "literal": null
+      },
+      "actual": {
+        "time": 180,
+        "channel": "thermal",
+        "cause": "beam-1"
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "square-cube: where F_1 = 1 (crewed, armour, reactor) the T3 time is 2 x the T1 time within 2 dt / t",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

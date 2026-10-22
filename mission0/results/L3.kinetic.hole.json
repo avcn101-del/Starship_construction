@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L3.kinetic.hole",
-  "code": "f7bf5c6",
+  "code": "baf8d67+dirty",
   "criterionHash": "f9f796a5",
   "lockedHash": "f9f796a5",
   "runHash": "525f54eb",
-  "dataHash": "930a2386",
-  "rowsHash": "c5fd5c49",
+  "dataHash": "b958ce58",
+  "rowsHash": "91c8d439",
   "rows": [
     {
       "case": {
@@ -16,7 +16,7 @@
         "line": "intact"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "actual": {
         "s0": 1568183.483259966,
@@ -85,9 +85,9 @@
         ],
         "books": [
           {
-            "generated": 0,
+            "generated": 1920000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 1920000,
             "initial": 1044000000
           },
           {
@@ -124,7 +124,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'kineticResistance')"
     },
     {
       "case": {
@@ -132,7 +132,7 @@
         "line": "hole"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "actual": {
         "s0": 1568183.483259966,
@@ -203,9 +203,9 @@
         ],
         "books": [
           {
-            "generated": 0,
+            "generated": 1920000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 1920000,
             "initial": 1044000000
           },
           {
@@ -242,7 +242,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'kineticResistance')"
     },
     {
       "case": {
@@ -250,7 +250,7 @@
         "line": "intact"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "actual": {
         "s0": 9409100.899559796,
@@ -319,9 +319,9 @@
         ],
         "books": [
           {
-            "generated": 0,
+            "generated": 414720000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 414720000,
             "initial": 225504000000
           },
           {
@@ -358,7 +358,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'kineticResistance')"
     },
     {
       "case": {
@@ -366,7 +366,7 @@
         "line": "hole"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "error": "Cannot read properties of undefined (reading 'kineticResistance')"
       },
       "actual": {
         "s0": 9409100.899559796,
@@ -437,9 +437,9 @@
         ],
         "books": [
           {
-            "generated": 0,
+            "generated": 414720000,
             "radiated": 0,
-            "stored": 0,
+            "stored": 414720000,
             "initial": 225504000000
           },
           {
@@ -476,7 +476,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'kineticResistance')"
     }
   ],
   "invariants": [

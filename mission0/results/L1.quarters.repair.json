@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L1.quarters.repair",
-  "code": "f7bf5c6",
+  "code": "baf8d67+dirty",
   "criterionHash": "2ad503bc",
   "lockedHash": "2ad503bc",
   "runHash": "60099027",
-  "dataHash": "930a2386",
+  "dataHash": "b958ce58",
   "rowsHash": "3e80b634",
   "rows": [
     {
@@ -16,12 +16,7 @@
         "x": 0
       },
       "expected": {
-        "housed": 18,
-        "deathsPerCell": 3,
-        "lost": 0,
-        "rate": 0.02,
-        "repaired": 50,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 18,
@@ -38,7 +33,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -46,12 +41,7 @@
         "x": 0.5
       },
       "expected": {
-        "housed": 18,
-        "deathsPerCell": 3,
-        "lost": 0,
-        "rate": 0.016,
-        "repaired": 62.5,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 18,
@@ -68,7 +58,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -76,12 +66,7 @@
         "x": 1
       },
       "expected": {
-        "housed": 18,
-        "deathsPerCell": 3,
-        "lost": 0,
-        "rate": 0.01,
-        "repaired": 100,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 18,
@@ -98,7 +83,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -106,12 +91,7 @@
         "x": 2
       },
       "expected": {
-        "housed": 18,
-        "deathsPerCell": 3,
-        "lost": 0,
-        "rate": 0.004,
-        "repaired": 250,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 18,
@@ -128,7 +108,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -136,12 +116,7 @@
         "x": 4
       },
       "expected": {
-        "housed": 18,
-        "deathsPerCell": 3,
-        "lost": 0,
-        "rate": 0.0011764705882352942,
-        "repaired": 849.9999999999999,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 18,
@@ -158,7 +133,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -166,12 +141,7 @@
         "x": 0
       },
       "expected": {
-        "housed": 9,
-        "deathsPerCell": 3,
-        "lost": 3,
-        "rate": 0.01,
-        "repaired": 100,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 9,
@@ -192,7 +162,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -200,12 +170,7 @@
         "x": 0.5
       },
       "expected": {
-        "housed": 9,
-        "deathsPerCell": 3,
-        "lost": 3,
-        "rate": 0.008,
-        "repaired": 125,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 9,
@@ -226,7 +191,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -234,12 +199,7 @@
         "x": 1
       },
       "expected": {
-        "housed": 9,
-        "deathsPerCell": 3,
-        "lost": 3,
-        "rate": 0.005,
-        "repaired": 200,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 9,
@@ -260,7 +220,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -268,12 +228,7 @@
         "x": 2
       },
       "expected": {
-        "housed": 9,
-        "deathsPerCell": 3,
-        "lost": 3,
-        "rate": 0.002,
-        "repaired": 500,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 9,
@@ -294,7 +249,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -302,12 +257,7 @@
         "x": 4
       },
       "expected": {
-        "housed": 9,
-        "deathsPerCell": 3,
-        "lost": 3,
-        "rate": 0.0005882352941176471,
-        "repaired": 1699.9999999999998,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 9,
@@ -328,7 +278,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -336,12 +286,7 @@
         "x": 0
       },
       "expected": {
-        "housed": 3,
-        "deathsPerCell": 3,
-        "lost": 5,
-        "rate": 0.003333333333333333,
-        "repaired": 300,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 3,
@@ -364,7 +309,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -372,12 +317,7 @@
         "x": 0.5
       },
       "expected": {
-        "housed": 3,
-        "deathsPerCell": 3,
-        "lost": 5,
-        "rate": 0.0026666666666666666,
-        "repaired": 375,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 3,
@@ -400,7 +340,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -408,12 +348,7 @@
         "x": 1
       },
       "expected": {
-        "housed": 3,
-        "deathsPerCell": 3,
-        "lost": 5,
-        "rate": 0.0016666666666666666,
-        "repaired": 600,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 3,
@@ -436,7 +371,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -444,12 +379,7 @@
         "x": 2
       },
       "expected": {
-        "housed": 3,
-        "deathsPerCell": 3,
-        "lost": 5,
-        "rate": 0.0006666666666666666,
-        "repaired": 1500,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 3,
@@ -472,7 +402,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -480,12 +410,7 @@
         "x": 4
       },
       "expected": {
-        "housed": 3,
-        "deathsPerCell": 3,
-        "lost": 5,
-        "rate": 0.000196078431372549,
-        "repaired": 5100,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 3,
@@ -508,7 +433,7 @@
         "eventsOk": true
       },
       "pass": false,
-      "note": "rate, repaired"
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -516,12 +441,7 @@
         "x": 0
       },
       "expected": {
-        "housed": 0,
-        "deathsPerCell": 3,
-        "lost": 6,
-        "rate": 0,
-        "repaired": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 0,
@@ -544,8 +464,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -553,12 +473,7 @@
         "x": 0.5
       },
       "expected": {
-        "housed": 0,
-        "deathsPerCell": 3,
-        "lost": 6,
-        "rate": 0,
-        "repaired": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 0,
@@ -581,8 +496,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -590,12 +505,7 @@
         "x": 1
       },
       "expected": {
-        "housed": 0,
-        "deathsPerCell": 3,
-        "lost": 6,
-        "rate": 0,
-        "repaired": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 0,
@@ -618,8 +528,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -627,12 +537,7 @@
         "x": 2
       },
       "expected": {
-        "housed": 0,
-        "deathsPerCell": 3,
-        "lost": 6,
-        "rate": 0,
-        "repaired": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 0,
@@ -655,8 +560,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     },
     {
       "case": {
@@ -664,12 +569,7 @@
         "x": 4
       },
       "expected": {
-        "housed": 0,
-        "deathsPerCell": 3,
-        "lost": 6,
-        "rate": 0,
-        "repaired": null,
-        "dt": 0.016666666666666666
+        "error": "Cannot read properties of undefined (reading 'value')"
       },
       "actual": {
         "housed": 0,
@@ -692,8 +592,8 @@
         },
         "eventsOk": true
       },
-      "pass": true,
-      "note": ""
+      "pass": false,
+      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
     }
   ],
   "invariants": [
@@ -704,6 +604,11 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
+    },
+    {
+      "name": "expected() completes in every case",
+      "ok": false,
+      "detail": "20 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

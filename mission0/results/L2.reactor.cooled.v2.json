@@ -1,0 +1,239 @@
+{
+  "id": "L2.reactor.cooled.v2",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.reactor.cooled.v2",
+  "code": "baf8d67+dirty",
+  "criterionHash": "31cb802e",
+  "lockedHash": "31cb802e",
+  "runHash": "11c148a7",
+  "dataHash": "b958ce58",
+  "rowsHash": "c2df8c0f",
+  "rows": [
+    {
+      "case": {
+        "n": 0
+      },
+      "expected": {
+        "overheat": 561.0166666666667,
+        "peak": 855.3313411522963,
+        "meltdown": false,
+        "meltdownAt": null,
+        "l1Meltdown": null,
+        "referenceShutdowns": 1,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "overheat": 561,
+        "peak": 855.3162258700652,
+        "meltdown": null,
+        "shutdowns": 1,
+        "end": 3600,
+        "books": [
+          {
+            "generated": 12436956969.130514,
+            "radiated": 0,
+            "stored": 12436956969.141434,
+            "initial": 6380000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "n": 1
+      },
+      "expected": {
+        "overheat": 656.4166666666666,
+        "peak": 800.0046348448121,
+        "meltdown": false,
+        "meltdownAt": null,
+        "l1Meltdown": null,
+        "referenceShutdowns": 1,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "overheat": 656.4166666666666,
+        "peak": 800.0050173554308,
+        "meltdown": null,
+        "shutdowns": 1,
+        "end": 3600,
+        "books": [
+          {
+            "generated": 14340476263.75149,
+            "radiated": 0,
+            "stored": 8703089655.12887,
+            "initial": 6380000000,
+            "conducted": -5637386608.617091,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 4141281055.9396644,
+            "stored": 1496105552.6773362,
+            "initial": 1160000000,
+            "conducted": 5637386608.617091,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "n": 2
+      },
+      "expected": {
+        "overheat": 762.8833333333333,
+        "peak": 800.0093400111385,
+        "meltdown": false,
+        "meltdownAt": null,
+        "l1Meltdown": null,
+        "referenceShutdowns": 1,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "overheat": 762.8666666666667,
+        "peak": 800.0001000296742,
+        "meltdown": null,
+        "shutdowns": 1,
+        "end": 3600,
+        "books": [
+          {
+            "generated": 16463467486.945114,
+            "radiated": 0,
+            "stored": 7205127023.753595,
+            "initial": 6380000000,
+            "conducted": -9258340463.182364,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 3371020924.9490614,
+            "stored": 1258149306.6422544,
+            "initial": 1160000000,
+            "conducted": 4629170231.591182,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 3371020924.9490614,
+            "stored": 1258149306.6422544,
+            "initial": 1160000000,
+            "conducted": 4629170231.591182,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "n": 4
+      },
+      "expected": {
+        "overheat": 1011.3166666666666,
+        "peak": 800.0040287330455,
+        "meltdown": false,
+        "meltdownAt": null,
+        "l1Meltdown": null,
+        "referenceShutdowns": 2,
+        "tolerance": 0.001
+      },
+      "actual": {
+        "overheat": 1011.3166666666666,
+        "peak": 800.0055282524626,
+        "meltdown": null,
+        "shutdowns": 2,
+        "end": 3600,
+        "books": [
+          {
+            "generated": 29828947429.352253,
+            "radiated": 0,
+            "stored": 10087284458.164196,
+            "initial": 6380000000,
+            "conducted": -19741662971.186623,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 3199588113.6668878,
+            "stored": 1735827629.1296606,
+            "initial": 1160000000,
+            "conducted": 4935415742.796656,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 3199588113.6668878,
+            "stored": 1735827629.1296606,
+            "initial": 1160000000,
+            "conducted": 4935415742.796656,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 3199588113.6668878,
+            "stored": 1735827629.1296606,
+            "initial": 1160000000,
+            "conducted": 4935415742.796656,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 3199588113.6668878,
+            "stored": 1735827629.1296606,
+            "initial": 1160000000,
+            "conducted": 4935415742.796656,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction flows sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -57,7 +57,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Reviewer, pass 2 (PR #54; no blocking, 12 notes) | session_01UCbwmbarXpLmZ8QbgMVQYK | sonnet-5-5 | 2.24 |
 | Engineer, pass 2 fix round 1 (S6 successor, #249) | session_012dBdWLjk4QsAwftq8yQQY1 | opus-5-5 | 5.12 |
 | Engineer, pass 2 fix round 2 (frozen records, #250; the first session to notify the lead designer by trigger) | session_014Kqr2R7XYXWHmsaCNEqKfo | opus-5-5 | 2.31 |
-| Reviewer, pass 2 fix rounds 1–2 (light re-review) | session_017FizntYRrBaAFYhdC4bsbW | sonnet-5-5 | running |
+| Reviewer, pass 2 fix rounds 1–2 (light re-review; no blocking) | session_017FizntYRrBaAFYhdC4bsbW | sonnet-5-5 | 1.08 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -69,5 +69,6 @@ Path model total: 18.24 USD (engineer 13.57, physics checker 4.08, reviewer 0.59
 Prototype v2 total: 13.85 USD (engineer 11.73, reviewer 1.00, mis-created session 1.12).
 Audits (2026-10-21): 25.40 USD (documents 6.59, physics 3.78, scenarios 15.03).
 Consolidation: 4.12 USD (engineer 2.42, reviewer 1.70).
+Physics pass 2 total: 42.93 USD (engineer 29.34, physics checker 2.84, reviewer 2.24, fix rounds 5.12 + 2.31, re-review 1.08).
 
 Sessions have reported a **seven-day usage limit warning**.

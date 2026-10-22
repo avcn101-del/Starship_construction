@@ -96,7 +96,7 @@ export const SEED = 1;
 // Prototype setting: the version written in an export (proto/export.js). There is no build step to stamp a git hash,
 // so it is a constant: change it whenever proto/ or js/ changes what a battle does, so proto/replay.mjs can tell an
 // export of another version.
-export const PROTO_VERSION = 'feel-3';
+export const PROTO_VERSION = 'feel-4';
 
 // Prototype setting: the three presets (13j.2). throttle: the most the autopilot may open the engine (a stand-in
 // number, listed on screen, #233); orders: which standing orders the preset overrides (null: the ship's own).
@@ -140,13 +140,8 @@ export const AUTOPILOT = {
   dodgeMax: 14, // s, PROTOTYPE SETTING, NOT A GAME NUMBER
 };
 
-// Prototype setting: a round that crosses no hull is culled this far from the midpoint between the ships
-// (13j.2, #222 (7)). PROTOTYPE SETTING, NOT A GAME NUMBER.
-export const CULL_DISTANCE = 3000; // m
-
-// Prototype setting: Disabled (#82): no weapon able to fire and no thrust for about 10 s. #82 says "~10 s"; no
-// constant in js/data.js holds it yet.
-export const DISABLED_SECONDS = 10;
+// Culling and Disabled are constants of js/data.js since physics pass 2 (battle.cullDistance,
+// battle.disabledSeconds, 13k.2); battle.js reads them there.
 
 // Prototype setting: time controls (13j.2) and the cap on steps per frame.
 export const SPEEDS = [1, 2, 4];
@@ -176,9 +171,8 @@ export const STAND_INS = [
   `Presets: Fire = weapons on the target, shield on, orders as set, engine up to ${pct(PRESETS.fire.throttle)}. Cool = weapons off, shield off, engine off (coasting, RCS holds heading, no dodge). Evade = weapons hold, shield on, broadside and dodge, engine up to ${pct(PRESETS.evade.throttle)}.`,
   `Enemy script: Fire 60 s, Cool 30 s, repeat; targets your beam bay, then turret, then engine, each until wrecked; orders hold 900 m, bow-on, dodge on.`,
   'Turret: free aim in any direction at the lead point (target room extrapolated at its ship\'s velocity over the time of flight): no traverse arc, no slew, no dispersion; its rounds never hit their own ship.',
-  'A cell the line clips at a corner counts as crossed whole (the chord rule waits for the next kernel pass).',
+  'A cell the line clips at a corner counts as crossed whole: the kernel has the chord rule (13k.1), the prototype passes no chord yet.',
   'Both sides see the true layout: no scans.',
   'No point defence, no missiles, no railgun.',
-  'A round\'s impact momentum is not given to the ship it hits (the kernel has no call for it yet).',
-  `Disabled: no weapon able to fire and no thrust for ${DISABLED_SECONDS} s (#82), judged from room state. Destroyed: a reactor or magazine explodes.`,
+  `Disabled: no weapon able to fire and no thrust for ${PARAMS.battle.disabledSeconds.value} s (battle.disabledSeconds, #82), judged from room state. Destroyed: a reactor or magazine explodes.`,
 ];
