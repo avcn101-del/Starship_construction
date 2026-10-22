@@ -26,7 +26,7 @@ export default {
   tolerance: 'step counts exact',
   criterion: '(every case) the gap of battle.disabledSeconds / dt is the literal 600 steps (10 s / (1/60) s, hand-worked; 13l.7 N2), not read from params; (weapons lost) Disabled in step 600 (battle.disabledSeconds / dt after the start, when no weapon is able) with the engine not destroyed and controlled (#255); (no engine) not Disabled in 30 s, the turret able at every step; (cut off) the magazine cannot feed it, so the turret fires its turret.readyRounds = 4 rounds (steps 0, 120, 240, 360) and the target is Disabled in step (4 - 1) x 120 + 1 + 600 = 961 because it ran dry',
   tunable: ['battle.disabledSeconds', 'turret.readyRounds', 'turret.fireRate'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'ea57e516' },
   cases() {
     return Object.keys(CASES).map((name) => ({ name }));
   },

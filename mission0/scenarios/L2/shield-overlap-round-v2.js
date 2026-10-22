@@ -36,7 +36,7 @@ export default {
   tolerance: 'closed forms 1e-12; impulse books 1e-12 x the gross (13l.7 TOL1: the residues on record are at most 8.2e-16 of it)',
   criterion: 'strength min(1, 0.6 + 0.5) = 1 (hand-worked): the round is slowed as by one field at g = 1, ds = kineticStop = 2/3 of an M round\'s sectional momentum (an S round\'s, #171), v1 = 800 / 3 m/s, energy 1/2 x 6 x (800^2 - (800/3)^2) = 1 706 666.67 J (literal), when the summed buffers hold it; each generator pays energy x B_i g_i / sum B_k g_k (full: 6/11 and 5/11 of 1.7067 MJ, literals 930 909.09 and 775 757.58 J; B nearly empty: 6e6 / (6e6 + 500) and 500 / (6e6 + 500)); A capped: the summed buffers (1.1 MJ) stop less than the round asks, A\'s share 1.1 MJ x 6e5 / 6.5e5 = 1.0154 MJ exceeds its 1 MJ, so A pays 1 MJ and B its share 84 615.38 J, and the round is solved once more against the 1 084 615.38 J paid: v1 = sqrt(800^2 - 2 x 1 084 615.38 / 6) (literal 527.70 m/s); no generator pays more than its buffer; the body\'s momentum change = m (v - v1) along +y within 1e-12, its angular momentum change = sum over generators of q_i x J_i with J_i = m (v - v1) x paid_i / paid (the impulse at each generator in proportion to its payment) within 1e-12 of the gross (13l.7 TOL1); heat shared by payment (re-statement: heat_i = heat x paid_i / paid, 1e-12); no throw (#205 (7), 13l.1)',
   tunable: ['shield.kineticStop', 'shield.radius', 'shield.buffer', 'kinetic.roundMass', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '1aa2fa08' },
   cases() {
     return Object.keys(BUFFERS).map((buffers) => ({ buffers }));
   },

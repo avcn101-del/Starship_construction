@@ -19,7 +19,7 @@ export default {
   tolerance: 'exact (states and sets)',
   criterion: 'the target is Disabled (no explosion) while its engine works: not destroyed, controlled, not shut down, active and joined through live walls to a reactor that can produce (#255: thrust does not count); the rooms destroyed are the beam bay and the turret and otherwise only rooms some hit\'s path crossed; the last weapon lost its ability by destruction (13l.1); (13l.7, U1, N3) kernel-read literals, pinned as regressions (read off the kernel by tools/estimates/hygiene.mjs (1), not derived): the turret\'s last cell is destroyed by shot-19 with 19 shots launched by that step, and the target is Disabled in step 2826, the literal 600 steps (battle.disabledSeconds / dt) after the step of that cell (hand-worked gap)',
   tunable: ['battle.disabledSeconds', 'kinetic.hitsToWreck'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'c1897e49' },
   cases() {
     return [{ target: 'R1', bearing: '+y' }];
   },

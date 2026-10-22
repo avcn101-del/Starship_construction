@@ -21,7 +21,7 @@ export default {
   tolerance: 'closed forms 1e-12 relative (13k.4)',
   criterion: 'the field acts on the round as with its body found: the same velocity after and the same energy paid (1e-12); (nobody) the generator\'s heat is the whole energy paid (heat = paid, 1e-12: a consistency invariant, 13k.4, since the kernel\'s fallback assigns the one to the other; it proves no law and does not count towards E3, 13l.7 T2) and no impulse: every body\'s velocity and spin unchanged, the external impulse and the field\'s booked impulse unchanged (exactly); (found) the field pushes (its booked impulse is not zero), so the two cases differ only in the fallback',
   tunable: ['shield.buffer', 'shield.kineticStop', 'shield.radius'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '485017b0' },
   cases() {
     return [{ point: [20, 2.5] }];
   },

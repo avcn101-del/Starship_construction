@@ -30,7 +30,7 @@ export default {
   tolerance: 'exact',
   criterion: 'in every case: every event\'s parent is a root (a shot id, a beam id, heat, launch) or the id of an earlier event of the same log, on both ships (no error in js/battle.js battleTree), the battle ends as its route does (Disabled or destroyed) and the end event\'s chain of parents ends at a root of the route\'s kind (kernel-read: a shot for B1, B2, B3, B6 and R1d rounds; heat for B4, the beam\'s shutdown by overheating; the target turret\'s own last shot for B5, run dry; the beam id for R1d beam); (B1) the Disabled event\'s chain runs through the bridge\'s last cell-destroyed event to a shot id; that cell-destroyed event is the parent of a control-lost of every other placed room of R1 (the bridge\'s own included), the reactor\'s scram is a child of the reactor\'s control-lost, and the Disabled event\'s parent is the turret\'s control-lost (#267 (3): the first failing condition of the able rule, control, for the last weapon to lose it; 13l.7 C1); (B6, R1d rounds, R1d beam) the destroyed event\'s parent is the magazine\'s explosion, whose chain runs through a magazine cell-destroyed to the root',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '620484ee' },
   cases() {
     return Object.keys(BATTLES).map((battle) => ({ battle }));
   },

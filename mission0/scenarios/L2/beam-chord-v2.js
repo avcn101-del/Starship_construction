@@ -16,7 +16,7 @@ export default {
   tolerance: '1e-12 (absolute, on fractions)',
   criterion: 'the fractions are beamDeposit(E, [120 x chord, 120 x chord]) (re-statement through the kernel\'s pure beamDeposit); hand-worked: the CSDA range of 100 MeV in iron is 112.6 kg/m^2 (L0.beam.csda.continuous), so at chord 1 the beam stops in the first cell (F = [1, 0]) and at chord 0.5 it crosses 60 kg/m^2 there and stops in the second (F_2 > 0) (#239); (13l.7 N4) hand-worked from the CSDA table (the blind checker derives it): at chord 0.5 the first cell takes F_1 = 0.379780628354 and the second F_2 = 0.620219371646 (1e-12)',
   tunable: ['beam.gradient', 'structure.cellMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '3d003e03' },
   cases() {
     return [{ chord: 1 }, { chord: 0.5 }];
   },

@@ -45,7 +45,7 @@ export default {
   tolerance: '1e-12; the vented heat 1e-11 relative (13l.7 TOL2: the vent is the departing cell\'s share of the hold\'s heat less that share at 290 K, a difference of two terms of about 4e8 J for a result of 2.1e4 J, so its float residue is of the order of 1e-12 of it, 1.05e-12 on record: 1e-12 would fail on the float, not on the law)',
   criterion: 'hand-worked: the beam stops in the cell (120 kg/m^2 beyond the 112.6 kg/m^2 CSDA range of 100 MeV in iron), so it deposits E = 5e6 / 60 = 83 333.33 J, which destroys the cell (E / (3000 J/kg x 3000 kg) = 0.0093 > 1e-6); the cell leaves with a quarter of the room\'s heat capacity and of its heat after the deposit, so the hold keeps Q = 3/4 (C x 290 + E) and vents (C / 4)(T - 290) = E / 4 = 20 833.33 J (C = 4 x thermal.coupledHold = 5.4e6 J/K) (F21, #214 (9))',
   tunable: ['beam.power', 'matter.burnEnergyPerKg', 'thermal.coupledHold'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '4798a841' },
   cases() {
     return [{ cell: 0 }];
   },

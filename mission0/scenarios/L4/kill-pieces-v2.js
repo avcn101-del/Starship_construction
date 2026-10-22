@@ -22,7 +22,7 @@ export default {
   tolerance: 'the share 1e-12 relative; the end exact',
   criterion: 'hand-worked: the shares are 36 x 3000 / 240 000 = 0.45, 44 x 3000 / 240 000 = 0.55 and 40 x 3000 / 240 000 = 0.5 (1e-12); with battle.wreckFraction 0.5 (a literal in expected(), 13l.7 N2), destroyed when the share is less than 0.5: (0.45) the target is destroyed by pieces in that step; (0.55) and (0.50, exactly at the threshold: the rule is "less than", 13l.7 TH2) it is not destroyed (nor yet Disabled: its 10 s without a weapon have not passed)',
   tunable: ['battle.wreckFraction'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'b6adb51e' },
   cases() {
     return [{ share: 0.45, cut: [9, 19] }, { share: 0.55, cut: [11] }, { share: 0.5, cut: [10] }];
   },

@@ -22,7 +22,7 @@ export default {
   tolerance: 'exact (whole crew, integrity of a destroyed cell)',
   criterion: '(all) hand-worked: after the two losses the bridge has lost floor(4 x 1.2 / 4) = 1 crew (3 aboard); the repair brings cells 0 and 1 back to 1 and nobody back (3 aboard); the third loss of 0.1 (0.1 of a cell lost now, 1.2 in all) kills nobody more: 3 aboard, one crew-died event in all (#206, 13e.1); (loss 0.9) hand-worked floor(4 x 0.9 / 4) = 0 deaths, 4 aboard (round would give 1); (loss 1.6) floor(4 x 1.6 / 4) = 1 death, 3 aboard (round would give 2) (13l.7 TH1); (destroyed) cell 1 is repaired to 1 while cell 0 stays destroyed at integrity 0 (repair restores damaged cells only, #206), and the destroyed cell\'s crew stays dead: floor(4 x (1 + 0.5) / 4) = 1 death, 3 aboard',
   tunable: ['repair.massRate', 'repair.radius', 'crewRequired.bridge'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'f3ec1119' },
   cases() {
     return [{ stage: 'all' }, { stage: 'loss', loss: 0.9 }, { stage: 'loss', loss: 1.6 }, { stage: 'destroyed' }];
   },

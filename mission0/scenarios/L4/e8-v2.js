@@ -21,7 +21,7 @@ export default {
   tolerance: 'the budget, 1 ms per step',
   criterion: 'the mean wall time per step of the whole battle is under 1 ms (E8 at T1; T6 at L6); the battle runs to its Disabled end (1987 steps at the time of the lock is not a criterion)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'caff0ba0' },
   cases() {
     return [{ tier: 'T1' }];
   },

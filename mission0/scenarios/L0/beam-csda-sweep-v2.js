@@ -41,7 +41,7 @@ export default {
   tolerance: '1e-12 relative between the two floats around a change (the reviewer\'s sweep measured 1.0e-15 at worst; the jump before L4a was about 5e-6)',
   criterion: 'every change is of one step and upward (n -> n + 1 as the energy rises); the changes found number steps(400 MeV) - steps(10 MeV) (so none is missed: the count is monotone; a consistency invariant, 13k.4: csdaSteps on both sides); 754 is a regression pin (kernel-read: csdaSteps run by tools/estimates/l4.mjs, the #258 section, not hand-worked; 13l.7 T3); independent check (13l.7 T3): csdaSteps gives 229 steps at 10 MeV and 983 at 400 MeV with ranges 1.9311 and 1164.24 kg/m^2 (to the digits quoted, 5e-5 relative; the step count follows from the integrator\'s rule in js/damage.js, which the blind checker derives by hand); at every change the ranges at the two adjacent floats differ by at most 1e-12 relative (#251 (2), §17 item 27)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'ce69b8ca' },
   cases() {
     return [{ from: LO, to: HI }];
   },
