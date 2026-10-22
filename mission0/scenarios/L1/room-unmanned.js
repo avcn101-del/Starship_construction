@@ -28,7 +28,7 @@ export default {
   tolerance: 'counts and event order exact',
   criterion: '(critical) the crew die in the deposit\'s step, the unmanned event in that step with the crew-died event as its parent; the room restarts (cooled below hot) and fires no shot after the crew-died step; at the end the able rule names unmanned with the crew-died event as its parent; every cell intact; 2 shots before (hand-worked); (overheated, the control) no crew died, no unmanned event, it restarts and fires again after the restart (it may run its magazine dry by the end), the able rule not naming unmanned; 2 shots before',
   tunable: ['thermal.crewedOverheated', 'thermal.crewedCritical', 'thermal.crewedHot', 'thermal.coupledCrewed', 'turret.fireRate', 'radiator.area'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'c98483b5' },
   cases() {
     return [{ heat: 'critical', Q: 4 * 6e5 * 100 }, { heat: 'overheated', Q: 4 * 6e5 * 70 }];
   },

@@ -45,7 +45,7 @@ export default {
   tolerance: 'taken, f, integrity and losses relative 1e-9 (1e-12 absolute at 0); counts exact; momentum books relative 1e-9',
   criterion: 'the destroyed cell takes nothing from the round (sectional momentum and momentum 0), loses no integrity and leaves the round\'s f unchanged; every other cell resists r = matter.kineticResistance x sigma and the round takes the same against S = matter.kineticResistance x rho_steel L (13i.1), a passed cell losing 1 / kinetic.hitsToWreck, the stopping cell (taken / r) / hitsToWreck, by the scenario\'s own loop: the round stops in cell 2 of the intact line and one cell deeper with the hole (cell 3), with the same stopping loss; deaths by the floor rule, floor(crew x (cells - sum of integrity) / cells); identical at T6; p0 = sum of the momentum each cell took + p on exit (#206, #212 (5), #230, #232, #235)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'kinetic.hitsToWreck', 'matter.kineticResistance', 'cellMass.crewed', 'quarters.crewPerCell'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '4b6c771f' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T6']) for (const line of ['intact', 'hole']) out.push({ tier, line });

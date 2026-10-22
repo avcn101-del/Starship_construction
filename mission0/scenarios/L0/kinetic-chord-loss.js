@@ -25,7 +25,7 @@ export default {
   tolerance: 'closed form against the kernel 1e-12 relative (13k.4 conventions); the four-digit hand-worked literals 5e-5 absolute',
   criterion: 'each passed cell loses chord / kinetic.hitsToWreck (the exact quotient at 1e-12; hand-worked 0.3333, 0.3258, 0.1667, 0.0167 at 5e-5) and is left at 1 minus that; the cells passed and the stopping cell by the round rule (re-statement, the scenario\'s own loop), the stopping cell losing (taken / r) / hitsToWreck at 1e-12; a cell the round does not reach loses nothing',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'matter.kineticResistance', 'structure.cellMass', 'kinetic.hitsToWreck'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'c0d79ac5' },
   cases() {
     return CHORDS.map((chord) => ({ chord }));
   },

@@ -34,7 +34,7 @@ export default {
   tolerance: 'momentum 1e-12 x the gross (13l.7 TOL1: the residues on record are 7.6e-18 and 8.3e-16 of the gross); step counts exact',
   criterion: '(split) the neck\'s cut splits the target into exactly two bodies; its momentum is conserved across the split with the impulse the hits gave it (|dP - dJ| <= 1e-12 x the gross + 1e-12, 13l.7 TOL1); the forward half loses its power and the aft half its bridge in that step, so the target is Disabled exactly 600 steps (battle.disabledSeconds / dt) after the split step, and no explosion; (split, 13l.7 U1) kernel-read literal, pinned as a regression (tools/estimates/hygiene.mjs (1); the blind checker re-derived 4 at L4b, #267 (11)): the split is made by shot-4, with 4 shots launched and 4 hits by that step; (N2) the gap is the literal 600 steps (10 s / (1/60) s); (naive) the beam bay destroyed, the turret still able: neither Disabled nor destroyed in 120 s (13l.3: "the naive order is not Disabled in 120 s"), and at 120 s the beam bay is destroyed and the turret is able (13l.1\'s rule, js/battle.js weaponStates) (13l.7 C2)',
   tunable: ['battle.disabledSeconds'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'b6859789' },
   cases() {
     return [{ order: 'split', aim: 'hold' }, { order: 'naive', aim: 'beamBay' }];
   },

@@ -45,7 +45,7 @@ export default {
   tolerance: 'detonation exact (yes or no); entry speed against the re-statement 1e-12, against the hand-worked literal 0.1 m/s; the debris mass 1e-12; the cook-off energy 1e-12',
   criterion: 'shot cases: the magazine detonates iff the entry speed >= the threshold (hand-worked entry speeds 705.4 / 333.3 / 488.9 m/s and none for the plate, so hold: all five; crewed M: 200, 300; crewed L: 200, 300, 400; plate: none), by a detonation event of cause the round whose speed is the entry speed, the explosion its child with the magazine\'s 1.2e9 J; destroyed cell: no explosion and 150 rounds aboard; last cell: no explosion, no rounds left, 900 kg of the magazine\'s contents in the debris; cook-off: one explosion, cause heat, 1.2e9 J',
   tunable: ['magazine.detonationSpeed', 'kinetic.roundMass', 'kinetic.muzzleVelocity', 'matter.kineticResistance', 'structure.cellMass', 'cellMass.crewed', 'armour.plateThickness', 'kinetic.chargeEnergy', 'he.blastEnergy', 'thermal.magazineCritical', 'thermal.coupledMagazine'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'b4fc16a7' },
   cases() {
     const out = [];
     for (const shot of Object.keys(SHOTS)) for (const vd of THRESHOLDS) out.push({ kind: 'shot', shot, vd });

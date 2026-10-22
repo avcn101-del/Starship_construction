@@ -36,7 +36,7 @@ export default {
   tolerance: 'books 1e-9 x gross (#220); masses 1e-12 relative; the split 1e-12 relative against the re-statement, the hand-worked shares 1e-5',
   criterion: 'still and spin: the largest residual <= 1e-9 x the largest gross; R1\'s mass at the end = undock + 6 kg x the rounds stopped in its hull (1e-12); still: 12 rounds stop, + 72 kg (hand-worked); spin: at least one hit (its rounds may all pass the drifting hull); split: each entry\'s heat = the round\'s heat x (p_i^2 - p_{i+1}^2) / sum (re-statement, 1e-12), shares 0.63298, 0.35479, 0.012229 (hand-worked, 1e-5)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'f1740cb6' },
   cases() {
     return [{ name: 'still', omega: 0, v: [0, 0] }, { name: 'spin', omega: 0.05, v: [20, 0] }, { name: 'split' }];
   },

@@ -74,7 +74,7 @@ export default {
   tolerance: 'step counts and shot counts exact; the entry speed 0.1 m/s against the hand-worked literal; the beam\'s time one-sided in [t, t + dt) (1e-9 relative slack, #185 (2))',
   criterion: '(R1 magazine) shot-1 detonates the magazine (one hit, 1 launched), entering at 604.6 m/s (hand-worked); (R1d magazine, rounds) shot-7 detonates it (7 launched), the column\'s two hold cells destroyed by shot-4 and the plate by shot-6 (kernel-read, labelled); in both: the battle ends destroyed (not Disabled) in the detonation\'s step, its end not the magazine\'s explosion, the largest fragment under battle.wreckFraction at the end (by pieces), and the end\'s event the reactor\'s explosion (kernel-read, labelled: the blast wrecks the reactor, checked before pieces, 13l.1); (R1 reactor, L4.kill.v2\'s checks) destroyed by the reactor\'s explosion in its step, 600 steps after the breach (reactor.breachCountdown 10 s / (1/60) s, hand-worked), breached by shot-46 with 46 launched, 51 in all (kernel-read); (R1d magazine, beam) no explosion, the magazine\'s four cells destroyed and its rounds gone, no end by 200 s (kernel-read, labelled), and its first cell destroyed in [t, t + dt) of the scenario\'s own stepped sum (re-statement as L4.kill.v2), t within the hand-worked bounds [28.95, 32] s',
   tunable: ['magazine.detonationSpeed', 'reactor.breachCountdown', 'reactor.breachFraction', 'armour.plateThickness', 'matter.burnEnergyPerKg', 'battle.wreckFraction'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '881043ad' },
   cases() {
     return [{ target: 'R1', aim: 'magazine' }, { target: 'R1', aim: 'reactor' }, { target: 'R1d', aim: 'magazine' }, { target: 'R1d', aim: 'magazine', weapon: 'beam' }];
   },
