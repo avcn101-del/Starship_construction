@@ -1,0 +1,87 @@
+{
+  "id": "L4.route.split.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.split.v2",
+  "code": "c998ff2",
+  "criterionHash": "5cb4ec9a",
+  "lockedHash": "5cb4ec9a",
+  "runHash": "e99a5476",
+  "dataHash": "ec2687f2",
+  "rowsHash": "91f8ff7a",
+  "rows": [
+    {
+      "case": {
+        "order": "split",
+        "aim": "hold"
+      },
+      "expected": {
+        "bodies": 2,
+        "gap": 600,
+        "shot": "shot-4",
+        "launched": 4,
+        "hits": 4
+      },
+      "actual": {
+        "split": {
+          "step": 426,
+          "bodies": 2,
+          "dP": 3.552713678800501e-14,
+          "gross": 4689.410894577607,
+          "cause": "shot-4",
+          "launched": 4,
+          "hits": 4
+        },
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "step": 1026,
+          "why": "no-power"
+        },
+        "explosions": 0,
+        "t": 17.1,
+        "beamBayDestroyed": false,
+        "turretAble": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "order": "naive",
+        "aim": "beamBay"
+      },
+      "expected": {
+        "limit": 120
+      },
+      "actual": {
+        "split": {
+          "step": 427,
+          "bodies": 2,
+          "dP": 1.5994328029932828e-11,
+          "gross": 19201.847239304192,
+          "cause": "shot-4",
+          "launched": 4,
+          "hits": 4
+        },
+        "ended": null,
+        "explosions": 0,
+        "t": 120,
+        "beamBayDestroyed": true,
+        "turretAble": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -22,7 +22,8 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L0.beam.burn.v5` | 7dbbfaf8 | PASS | 71c04d78 | 1d13489 | none | `node tools/m0.js run L0.beam.burn.v5` |
 | `L0.beam.burn` | 908664be | PASS, WITHDRAWN (successor `L0.beam.burn.v3`, #230), RETIRED (#237, not run) | 231d1090 | f220524 | none | `node tools/m0.js run L0.beam.burn` |
 | `L0.beam.csda.continuous` | 7708fbee | PASS | ffc2cd6d | 1d13489 | none | `node tools/m0.js run L0.beam.csda.continuous` |
-| `L0.beam.csda.sweep` | acdffa67 | PASS | 3d8f0cd0 | 1d13489+dirty | none | `node tools/m0.js run L0.beam.csda.sweep` |
+| `L0.beam.csda.sweep.v2` | ce69b8ca | PASS | a3899b15 | c998ff2 | none | `node tools/m0.js run L0.beam.csda.sweep.v2` |
+| `L0.beam.csda.sweep` | acdffa67 | PASS, WITHDRAWN (successor `L0.beam.csda.sweep.v2`, #271) | 3d8f0cd0 | 1d13489+dirty | none | `node tools/m0.js run L0.beam.csda.sweep` |
 | `L0.beam.depth` | bfc967a1 | PASS | 9b41a478 | 1d13489 | none | `node tools/m0.js run L0.beam.depth` |
 | `L0.beam.falloff` | b45fa911 | PASS, WITHDRAWN (successor `L0.beam.range`, #230), RETIRED (#237, not run) | 0c7856c4 | f220524 | none | `node tools/m0.js run L0.beam.falloff` |
 | `L0.beam.pstar` | bceca34b | PASS | 9ada3a9a | 1d13489 | none | `node tools/m0.js run L0.beam.pstar` |
@@ -36,7 +37,8 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L0.determinism` | 381f764c | PASS | 95f06978 | 1d13489+dirty | none | `node tools/m0.js run L0.determinism` |
 | `L0.kinetic.anchor` | 735e3d84 | PASS | f231b248 | 1d13489+dirty | none | `node tools/m0.js run L0.kinetic.anchor` |
 | `L0.kinetic.chord` | 8ef725b0 | PASS | 6568545f | 1d13489 | none | `node tools/m0.js run L0.kinetic.chord` |
-| `L0.kinetic.flatten` | 6f34436a | PASS | 8c4a5e18 | 1d13489 | none | `node tools/m0.js run L0.kinetic.flatten` |
+| `L0.kinetic.flatten.v2` | 4f96f651 | PASS | e33aaebf | 9a87d0f | none | `node tools/m0.js run L0.kinetic.flatten.v2` |
+| `L0.kinetic.flatten` | 6f34436a | PASS, WITHDRAWN (successor `L0.kinetic.flatten.v2`, #271) | 8c4a5e18 | 1d13489 | none | `node tools/m0.js run L0.kinetic.flatten` |
 | `L0.kinetic.overpen.v2` | 8d466bea | PASS | 7319a1a7 | 1d13489+dirty | none | `node tools/m0.js run L0.kinetic.overpen.v2` |
 | `L0.kinetic.overpen` | 810e8a2c | FAIL, WITHDRAWN (successor `L0.kinetic.overpen.v2`, #230) | f75b211e | baf8d67 | none | `node tools/m0.js run L0.kinetic.overpen` |
 | `L0.kinetic.penetration.v2` | de60d649 | PASS, WITHDRAWN (successor `L0.kinetic.penetration.v3`, #230), RETIRED (#237, not run) | cedce90a | f220524 | none | `node tools/m0.js run L0.kinetic.penetration.v2` |
@@ -108,7 +110,8 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
 | `L2.ammo.feed` | 5d541b7d | PASS | 0dcdb2ea | 1d13489+dirty | none | `node tools/m0.js run L2.ammo.feed` |
-| `L2.beam.chord` | afaa39c6 | PASS | 84084fd9 | 1d13489+dirty | none | `node tools/m0.js run L2.beam.chord` |
+| `L2.beam.chord.v2` | 3d003e03 | PASS | 84084fd9 | c998ff2 | none | `node tools/m0.js run L2.beam.chord.v2` |
+| `L2.beam.chord` | afaa39c6 | PASS, WITHDRAWN (successor `L2.beam.chord.v2`, #271) | 84084fd9 | 1d13489+dirty | none | `node tools/m0.js run L2.beam.chord` |
 | `L2.beambay.cause` | ed63a1be | PASS | 4e58f00a | 1d13489+dirty | none | `node tools/m0.js run L2.beambay.cause` |
 | `L2.blast.integrity` | 377ce996 | PASS | e1beebd1 | 1d13489+dirty | none | `node tools/m0.js run L2.blast.integrity` |
 | `L2.blast.mass` | c476e589 | PASS | 5d8a243c | 1d13489+dirty | none | `node tools/m0.js run L2.blast.mass` |
@@ -148,12 +151,14 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L2.power.fraction` | 3777db12 | PASS | d3a47220 | 8af82c8 | none | `node tools/m0.js run L2.power.fraction` |
 | `L2.reactor.cooled.v2` | 31cb802e | PASS | 11c148a7 | 8af82c8 | none | `node tools/m0.js run L2.reactor.cooled.v2` |
 | `L2.reactor.cooled` | 6c5139ec | PASS, WITHDRAWN (successor `L2.reactor.cooled.v2`, #240) | 11c148a7 | f7bf5c6 | none | `node tools/m0.js run L2.reactor.cooled` |
-| `L2.repair.crew` | 012ad5ff | PASS | e15e1a97 | 8af82c8 | none | `node tools/m0.js run L2.repair.crew` |
+| `L2.repair.crew.v2` | f3ec1119 | PASS | a993c713 | c998ff2 | none | `node tools/m0.js run L2.repair.crew.v2` |
+| `L2.repair.crew` | 012ad5ff | PASS, WITHDRAWN (successor `L2.repair.crew.v2`, #271) | e15e1a97 | 8af82c8 | none | `node tools/m0.js run L2.repair.crew` |
 | `L2.repair.shared.v2` | 9909673f | PASS | 4545aa78 | 8af82c8 | none | `node tools/m0.js run L2.repair.shared.v2` |
 | `L2.repair.shared` | 365a0ba8 | PASS, WITHDRAWN (successor `L2.repair.shared.v2`, #240) | 4545aa78 | f7bf5c6 | none | `node tools/m0.js run L2.repair.shared` |
 | `L2.shield.buffer.v2` | e507a5b2 | PASS | a85ed8de | 8af82c8 | none | `node tools/m0.js run L2.shield.buffer.v2` |
 | `L2.shield.buffer` | d0132a0f | PASS, WITHDRAWN (successor `L2.shield.buffer.v2`, #240) | a85ed8de | f7bf5c6 | none | `node tools/m0.js run L2.shield.buffer` |
-| `L2.shield.overlap.round` | 6054ba96 | PASS | a6f85d79 | 8af82c8 | none | `node tools/m0.js run L2.shield.overlap.round` |
+| `L2.shield.overlap.round.v2` | 1aa2fa08 | PASS | a6f85d79 | c998ff2 | none | `node tools/m0.js run L2.shield.overlap.round.v2` |
+| `L2.shield.overlap.round` | 6054ba96 | PASS, WITHDRAWN (successor `L2.shield.overlap.round.v2`, #271) | a6f85d79 | 8af82c8 | none | `node tools/m0.js run L2.shield.overlap.round` |
 | `L2.shield.overlap` | fd488934 | PASS | bb6e7e18 | 8af82c8 | none | `node tools/m0.js run L2.shield.overlap` |
 | `L2.shield.salvo.v2` | ef8f45b1 | PASS | 77202f9c | 8af82c8 | none | `node tools/m0.js run L2.shield.salvo.v2` |
 | `L2.shield.salvo` | d58b8a0f | PASS, WITHDRAWN (successor `L2.shield.salvo.v2`, #240) | 77202f9c | f7bf5c6 | none | `node tools/m0.js run L2.shield.salvo` |
@@ -164,8 +169,10 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
-| `L3.beam.deposit` | 09b3a346 | PASS | 328c0146 | 8af82c8 | none | `node tools/m0.js run L3.beam.deposit` |
-| `L3.control.bridge` | e518915b | PASS | e0310c65 | 8af82c8 | none | `node tools/m0.js run L3.control.bridge` |
+| `L3.beam.deposit.v2` | 4798a841 | PASS | 328c0146 | c998ff2 | none | `node tools/m0.js run L3.beam.deposit.v2` |
+| `L3.beam.deposit` | 09b3a346 | PASS, WITHDRAWN (successor `L3.beam.deposit.v2`, #271) | 328c0146 | 8af82c8 | none | `node tools/m0.js run L3.beam.deposit` |
+| `L3.control.bridge.v2` | 0afd9bd2 | PASS | b243e71d | 9a87d0f | none | `node tools/m0.js run L3.control.bridge.v2` |
+| `L3.control.bridge` | e518915b | PASS, WITHDRAWN (successor `L3.control.bridge.v2`, #271) | e0310c65 | 8af82c8 | none | `node tools/m0.js run L3.control.bridge` |
 | `L3.control.rules` | e07f4002 | PASS | a2b6c48a | 8af82c8 | none | `node tools/m0.js run L3.control.rules` |
 | `L3.cull.v2` | 0b505ebf | PASS | e29d3170 | 8af82c8 | none | `node tools/m0.js run L3.cull.v2` |
 | `L3.cull` | bdaa4611 | FAIL, WITHDRAWN (successor `L3.cull.v2`, #248) | b0dac3b6 | baf8d67+dirty | none | `node tools/m0.js run L3.cull` |
@@ -195,9 +202,11 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L3.recoil.v4` | cdc3a17a | PASS, WITHDRAWN (successor `L3.recoil.v5`, #240) | 2ff8c992 | f7bf5c6 | none | `node tools/m0.js run L3.recoil.v4` |
 | `L3.recoil.v5` | 6f9b8fce | PASS | 2ff8c992 | 8af82c8 | none | `node tools/m0.js run L3.recoil.v5` |
 | `L3.recoil` | 60e2e893 | FAIL, WITHDRAWN (successor `L3.recoil.v2`, #219) | 2ff8c992 | baf8d67+dirty | none | `node tools/m0.js run L3.recoil` |
-| `L3.shield.bodies` | c206ee95 | PASS | df357355 | 8af82c8 | none | `node tools/m0.js run L3.shield.bodies` |
+| `L3.shield.bodies.v2` | b2479f9a | PASS | df357355 | c998ff2 | none | `node tools/m0.js run L3.shield.bodies.v2` |
+| `L3.shield.bodies` | c206ee95 | PASS, WITHDRAWN (successor `L3.shield.bodies.v2`, #271) | df357355 | 8af82c8 | none | `node tools/m0.js run L3.shield.bodies` |
 | `L3.shield.energy` | 192e95a7 | PASS | 0674f6f6 | 8af82c8 | none | `node tools/m0.js run L3.shield.energy` |
-| `L3.shield.nobody` | 9efe0b04 | PASS | ed88fbdc | 8af82c8 | none | `node tools/m0.js run L3.shield.nobody` |
+| `L3.shield.nobody.v2` | 485017b0 | PASS | ed88fbdc | c998ff2 | none | `node tools/m0.js run L3.shield.nobody.v2` |
+| `L3.shield.nobody` | 9efe0b04 | PASS, WITHDRAWN (successor `L3.shield.nobody.v2`, #271) | ed88fbdc | 8af82c8 | none | `node tools/m0.js run L3.shield.nobody` |
 | `L3.ship.heat.v2` | 0667f5ed | PASS, WITHDRAWN (successor `L3.ship.heat.v3`, #240) | ca80d3ad | f7bf5c6 | none | `node tools/m0.js run L3.ship.heat.v2` |
 | `L3.ship.heat.v3` | 00e09a30 | PASS | ca80d3ad | 8af82c8 | none | `node tools/m0.js run L3.ship.heat.v3` |
 | `L3.ship.heat` | 384c519b | FAIL, WITHDRAWN (successor `L3.ship.heat.v2`, #219) | ca80d3ad | baf8d67+dirty | none | `node tools/m0.js run L3.ship.heat` |
@@ -219,21 +228,32 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
 | `L4.books.two` | e9fe5591 | PASS | d4490342 | 8af82c8 | none | `node tools/m0.js run L4.books.two` |
-| `L4.cascade` | bfad5f3d | PASS | 89b01e8a | 8af82c8 | none | `node tools/m0.js run L4.cascade` |
+| `L4.cascade.v2` | 620484ee | PASS | d878c2b5 | c998ff2 | none | `node tools/m0.js run L4.cascade.v2` |
+| `L4.cascade` | bfad5f3d | PASS, WITHDRAWN (successor `L4.cascade.v2`, #271) | 89b01e8a | 8af82c8 | none | `node tools/m0.js run L4.cascade` |
 | `L4.crew.capacity` | 709d5033 | PASS | 13ab4f53 | 8af82c8 | none | `node tools/m0.js run L4.crew.capacity` |
 | `L4.cull` | a196a230 | PASS | 815bac9f | 8af82c8 | none | `node tools/m0.js run L4.cull` |
-| `L4.disabled.rule` | f403e373 | PASS | 7f43dd02 | 8af82c8 | none | `node tools/m0.js run L4.disabled.rule` |
-| `L4.e8` | 07181e5c | PASS | a8aacd5b | 8af82c8 | none | `node tools/m0.js run L4.e8` |
-| `L4.kill.pieces` | cec35ad5 | PASS | 774b01f9 | 8af82c8 | none | `node tools/m0.js run L4.kill.pieces` |
-| `L4.kill` | d184d01b | PASS | ae766672 | 8af82c8 | none | `node tools/m0.js run L4.kill` |
+| `L4.disabled.rule.v2` | ea57e516 | PASS | 7f43dd02 | c998ff2 | none | `node tools/m0.js run L4.disabled.rule.v2` |
+| `L4.disabled.rule` | f403e373 | PASS, WITHDRAWN (successor `L4.disabled.rule.v2`, #271) | 7f43dd02 | 8af82c8 | none | `node tools/m0.js run L4.disabled.rule` |
+| `L4.e8.v2` | caff0ba0 | PASS | f107459e | c998ff2 | none | `node tools/m0.js run L4.e8.v2` |
+| `L4.e8` | 07181e5c | PASS, WITHDRAWN (successor `L4.e8.v2`, #271) | a8aacd5b | 8af82c8 | none | `node tools/m0.js run L4.e8` |
+| `L4.hit.oblique` | 9a4080f8 | PASS | a9474250 | c998ff2 | none | `node tools/m0.js run L4.hit.oblique` |
+| `L4.kill.pieces.v2` | b6adb51e | PASS | 774b01f9 | c998ff2 | none | `node tools/m0.js run L4.kill.pieces.v2` |
+| `L4.kill.pieces` | cec35ad5 | PASS, WITHDRAWN (successor `L4.kill.pieces.v2`, #271) | 774b01f9 | 8af82c8 | none | `node tools/m0.js run L4.kill.pieces` |
+| `L4.kill.v2` | 95c1e58f | PASS | 24da0258 | c998ff2 | none | `node tools/m0.js run L4.kill.v2` |
+| `L4.kill` | d184d01b | PASS, WITHDRAWN (successor `L4.kill.v2`, #271) | ae766672 | 8af82c8 | none | `node tools/m0.js run L4.kill` |
 | `L4.log` | f91185ca | PASS | f3ee00ad | 8af82c8 | none | `node tools/m0.js run L4.log` |
 | `L4.readout.blueprint` | ba211887 | PASS | a38be52c | 8af82c8 | none | `node tools/m0.js run L4.readout.blueprint` |
-| `L4.relative` | 2bac2da5 | PASS | b88a18c8 | 8af82c8 | none | `node tools/m0.js run L4.relative` |
-| `L4.route.decapitate` | f9b416ea | PASS | 5c16a046 | 8af82c8 | none | `node tools/m0.js run L4.route.decapitate` |
+| `L4.relative.v2` | c9a21db4 | PASS | cb227758 | c998ff2 | none | `node tools/m0.js run L4.relative.v2` |
+| `L4.relative` | 2bac2da5 | PASS, WITHDRAWN (successor `L4.relative.v2`, #271) | b88a18c8 | 8af82c8 | none | `node tools/m0.js run L4.relative` |
+| `L4.route.decapitate.v2` | 5c555257 | PASS | 0fbb3a3c | c998ff2 | none | `node tools/m0.js run L4.route.decapitate.v2` |
+| `L4.route.decapitate` | f9b416ea | PASS, WITHDRAWN (successor `L4.route.decapitate.v2`, #271) | 5c16a046 | 8af82c8 | none | `node tools/m0.js run L4.route.decapitate` |
 | `L4.route.dry` | f172b965 | PASS | c079d711 | 8af82c8 | none | `node tools/m0.js run L4.route.dry` |
-| `L4.route.missionKill` | 8066604a | PASS | a191305e | 8af82c8 | none | `node tools/m0.js run L4.route.missionKill` |
-| `L4.route.overheat` | c7ac0360 | PASS | a6be8e63 | 8af82c8 | none | `node tools/m0.js run L4.route.overheat` |
-| `L4.route.split` | 12e05d28 | PASS | c059b24a | 8af82c8 | none | `node tools/m0.js run L4.route.split` |
+| `L4.route.missionKill.v2` | c1897e49 | PASS | c86ed201 | c998ff2 | none | `node tools/m0.js run L4.route.missionKill.v2` |
+| `L4.route.missionKill` | 8066604a | PASS, WITHDRAWN (successor `L4.route.missionKill.v2`, #271) | a191305e | 8af82c8 | none | `node tools/m0.js run L4.route.missionKill` |
+| `L4.route.overheat.v2` | afe9a078 | PASS | d56a1d69 | c998ff2 | none | `node tools/m0.js run L4.route.overheat.v2` |
+| `L4.route.overheat` | c7ac0360 | PASS, WITHDRAWN (successor `L4.route.overheat.v2`, #271) | a6be8e63 | 8af82c8 | none | `node tools/m0.js run L4.route.overheat` |
+| `L4.route.split.v2` | 5cb4ec9a | PASS | e99a5476 | c998ff2 | none | `node tools/m0.js run L4.route.split.v2` |
+| `L4.route.split` | 12e05d28 | PASS, WITHDRAWN (successor `L4.route.split.v2`, #271) | c059b24a | 8af82c8 | none | `node tools/m0.js run L4.route.split` |
 
 ## L5
 

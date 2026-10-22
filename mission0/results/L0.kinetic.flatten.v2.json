@@ -1,0 +1,99 @@
+{
+  "id": "L0.kinetic.flatten.v2",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.kinetic.flatten.v2",
+  "code": "9a87d0f",
+  "criterionHash": "4f96f651",
+  "lockedHash": "4f96f651",
+  "runHash": "e33aaebf",
+  "dataHash": "ec2687f2",
+  "rowsHash": "aabed79c",
+  "rows": [
+    {
+      "case": {
+        "part": "stop"
+      },
+      "expected": {
+        "passed": 2,
+        "stoppedIn": 2,
+        "taken": 102642.54,
+        "stopMomentum": 530.80474,
+        "f": 0.441999,
+        "area": 0.005485413108578659,
+        "p0": 4800
+      },
+      "actual": {
+        "passed": 2,
+        "stoppedIn": 2,
+        "taken": 102642.54017331814,
+        "stopMomentum": 530.8047403531914,
+        "impulseAtStop": 530.8047403531914,
+        "f": 0.4419991166452403,
+        "area": 0.005485414820172093,
+        "sum": 4800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "wreck"
+      },
+      "expected": {
+        "passed": 1,
+        "stoppedIn": 1,
+        "wrecked": true,
+        "f": 1,
+        "stopMomentum": 2907.9387,
+        "p0": 4800
+      },
+      "actual": {
+        "passed": 1,
+        "stoppedIn": 1,
+        "wrecked": true,
+        "f": 1,
+        "stopMomentum": 2907.938676582551,
+        "impulseAtStop": 2907.938676582551,
+        "sum": 4800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "equal"
+      },
+      "expected": {
+        "passed": 0,
+        "stoppedIn": 0,
+        "taken": 1568183.48,
+        "f": 0.5176773150136619,
+        "stopMomentum": 4800,
+        "p0": 4800
+      },
+      "actual": {
+        "passed": 0,
+        "stoppedIn": 0,
+        "wrecked": false,
+        "taken": 1568183.483259966,
+        "f": 0.5176773124363252,
+        "stopMomentum": 4800,
+        "impulseAtStop": 4800,
+        "sum": 4800
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

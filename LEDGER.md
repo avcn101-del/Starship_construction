@@ -73,8 +73,12 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Audit before L5, process (light; `audit/l4-process`; 10 findings) | session_016xMPBjzauERJgfNVoFhTbE | sonnet-5-5 | 0.91 |
 | Audit before L5, physics (light; `audit/l4-physics`; 20 findings) | session_01PxqWgmGKWgnmYN4z3Sb9v7 | sonnet-5-5 | 2.33 |
 | Audit before L5, scenarios (light; `audit/l4-scenarios`; 19 findings; notified by trigger) | session_01KLRjP6m3agMAXhhbdn8thh | sonnet-5-5 | 1.97 |
-| Engineer, L4 fix (`m0/l4-fix`, PR #64: the physics audit's B1, `L4.books.two`, `battle.openingRange`; notification not on record) | session_01AFipcrRMycb5uqDDcB1fB9 | opus-5-5 | 4.51 |
+| Engineer, L4 fix (`m0/l4-fix`, PR #64: the physics audit's B1, `L4.books.two`, `battle.openingRange`; notification not on record) | session_01AFipcrRMycb5uqDDcB1fB9 | opus-5-5 | 6.41 (4.51 when #272 was written; the session resumed after the usage limit, re-anchored `l4b.rel.worldSpeed`, kept its partial mutation log and notified by trigger at 13:36 UTC) |
 | Reviewer, L4 fix (PR #64, light; 0 blocking, 4 notes; notified by trigger) | session_01UTmHgSuJy1TgUL28GNf5Lv | sonnet-5-5 | 0.42 |
+| Engineer, L4 scenario-hygiene round, take 1 (stopped at the account's five-hour usage limit before writing anything, 12:48 UTC) | session_01GCEtFEw9Yx3QSA9geWZgTH | opus-5-5 | not reported |
+| Engineer, L4 scenario-hygiene round, take 2 (`m0/l4-hygiene` from `41a417b`, §13l.7, #271) | session_01L8hXHHD5QjjkMEFSnzGvw4 | opus-5-5 | 10.58 (PR #67, head `4f34ecb`; 20 scenarios; notified by trigger) |
+| Physics checker, L4 scenario-hygiene round (blind, from locks `c998ff2` and `9a87d0f`; `checker/l4-hygiene`) | session_01Jyjqm388W1Vokm8gHDRcge | sonnet-5-5 | 4.06 (0 numeric mismatches, 4 label discrepancies, 7 gaps; notified by trigger) |
+| Reviewer, L4 scenario-hygiene round (PR #67; 0 blocking, 7 notes; notified by trigger) | session_01GiA5hCfSYz1org75B46PLC | sonnet-5-5 | 1.25 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -93,7 +97,8 @@ Sessions have reported a **seven-day usage limit warning**.
 L4a total: ≥ 17.57 USD (engineer ≥ 2.32 reported after a worker restart + fix round 8.01, physics checkers 2.83 + 1.62, reviewers 1.81 + 0.98).
 L4b total: 23.98 USD (engineer 19.06, physics checker 3.91, reviewer 1.01). L4 total (L4a + L4b): ≥ 41.55 USD.
 Audits before L5 (2026-10-22, light): 6.91 USD (documents 1.70, process 0.91, physics 2.33, scenarios 1.97).
-L4 fix round total: 4.93 USD (engineer 4.51, reviewer 0.42). L4 total (L4a + L4b + fix): ≥ 46.48 USD.
+L4 fix round total: 6.83 USD (engineer 6.41, reviewer 0.42).
+L4 scenario-hygiene round total: 15.89 USD (engineer 10.58, physics checker 4.06, reviewer 1.25). L4 total (L4a + L4b + fix + hygiene): ≥ 64.27 USD.
 
 The lead designer chat's own cost (planning, answers, checks, merges) is **not in this ledger** (#270 (7)): only the sessions it creates are costed.
 
@@ -107,7 +112,7 @@ One row per pass under the plan gate (#241): the raw range the plan stated, wher
 | `tools/mutate` | 3–5 | #241 (6) | 7.91 | 1.98 |
 | L4a | 10–14 | #253 | ≥ 17.57 (lower bound: the engineer's cost before a worker restart is not reported) | ≥ 1.46 |
 | L4b | 18–25 | #253, #262 | 23.98 | 1.12 |
-| L4 fix round | 3–5 | #270 (9) | 4.93 | 1.23 |
-| L4 scenario-hygiene round | 10–15 | #271, §13l.7 | planned | — |
+| L4 fix round | 3–5 | #270 (9) | 6.83 (#272 says 4.93: the engineer's cost rose after its last turn) | 1.71 |
+| L4 scenario-hygiene round | 10–15 | #271, §13l.7 | 15.89 | 1.27 |
 
 Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).

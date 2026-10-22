@@ -15,9 +15,10 @@ Rules:
   the designer" and build nothing that depends on the answer.
 - New constants enter `js/data.js` with `approved: false` and are listed in
   the pull request for the owner. Never mark a range approved yourself.
-- Follow the Mission 0 order: write scenarios, run them only for crashes
-  (hide results), commit, **lock**, commit the lock, then the first
-  canonical run. Never edit a locked criterion.
+- Follow the Mission 0 order: write scenarios, run them before the lock
+  for crashes and setup errors only (#273: every edit after that run is
+  listed in the pull request with its reason), commit, **lock**, commit
+  the lock, then the first canonical run. Never edit a locked criterion.
 - Before finishing: `node tools/m0.js regress` and report the output.
 - The pull request carries a **"Pre-lock runs"** section (#270 (4)): how
   many times each new scenario was run before its lock, what was edited

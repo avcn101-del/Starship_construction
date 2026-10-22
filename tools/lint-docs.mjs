@@ -81,5 +81,28 @@ const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : '
   });
   report('13m: every design element has a level or a decision', problems);
 }
+// 9. Every element the design's own tables name (DESIGN.md 5-7: rooms, fittings, weapons, round types, information topics) and every room type of js/data.js has a row in 13m (#275: the weapons were in 6 and in no level until PR #63).
+{
+  const design = read('DESIGN.md'), s5 = design.indexOf('## 5.'), s8 = design.indexOf('## 8.'), m0 = design.indexOf('## 13m.'), m1 = design.indexOf('## 14.');
+  const problems = [], table = design.slice(m0, m1).toLowerCase();
+  const camel = (k) => k.replace(/([A-Z])/g, ' $1').toLowerCase().trim();
+  const names = [];
+  let header = null;
+  for (const l of design.slice(s5, s8).split('\n')) {
+    if (!l.startsWith('|')) { header = null; continue; }
+    const first = l.split('|')[1].trim();
+    if (/^(Room|Fitting|Weapon|Kinetic round|Topic)$/.test(first)) { header = first; continue; }
+    if (/^-+$/.test(first) || !header) continue;
+    const name = first.replace(/\*\*/g, '').replace(/\s*\(.*$/, '').trim();
+    if (name) names.push([header, name]);
+  }
+  for (const k of Object.keys(ROOMS)) names.push(['data.js room', camel(k)]);
+  for (const [kind, name] of names) {
+    const key = name.toLowerCase();
+    const re = new RegExp(`(^|[^a-z])${key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^a-z]|$)`);
+    if (!re.test(table)) problems.push(`13m has no row naming "${name}" (${kind})`);
+  }
+  report('13m names every room, fitting, weapon, round type and information topic of DESIGN.md 5-7 and data.js', problems);
+}
 console.log(failed ? `${failed} check(s) failed` : 'all checks passed');
 process.exit(failed ? 1 : 0);

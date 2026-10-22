@@ -69,7 +69,11 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
 - Every scenario follows the spec in `DESIGN.md` §13 and prints expected
   (formula) vs actual and PASS/FAIL.
 - **Criteria are locked before running.** Never change a locked criterion
-  or an expected formula to make a scenario pass.
+  or an expected formula to make a scenario pass. A run before the lock is
+  for crashes and setup errors only; every edit made after it is listed
+  in the pull request with its reason; a hand-worked literal is derived
+  from the formula, never from a printed value; the blind physics checker
+  is mandatory on kernel physics (#273).
 - Tune constants with **run-time overrides**, never by editing files. Only
   the integrator writes `data.js` and the results ledger.
 - **A conclusion without a re-runnable command does not count.**
@@ -117,7 +121,8 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   (`tools/estimates/<pass>.mjs`, run-time overrides only) and ends with the
   checklist (every passed rule on, tolerances against the integrator's
   error and float resolution, hardware sense-checked, numbers recomputed
-  from the kernel). An estimate is never a canonical run: `node tools/m0.js
+  from the kernel, **the `DESIGN.md` §13m rows the pass proves**, #275). A
+  level exits only when no §13m row still says "planned" for it. An estimate is never a canonical run: `node tools/m0.js
   run <id>` without `--set` re-records.
 - **Sessions** (#241, #250): created with the model named explicitly, the
   whole task in the first message, the fetch refspec, the reading order and

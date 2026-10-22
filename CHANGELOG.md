@@ -1,5 +1,60 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — The scenario-hygiene round merged (#276)
+
+- `DECISIONS.md` #276: answers to the engineer, the blind checker and the
+  reviewer of PR #67; four wordings of `DESIGN.md` §13l.7 corrected (the
+  F literals are kernel-read pins, shot-12's mechanism, the oblique r
+  arithmetic and 19.37°, the csda step counts as pins); §13l.1 states the
+  overlapping-field shares and the Disabled timer's start; §17 item 39
+  closed with its residue; `LEDGER.md` costs and ratio.
+
+## Unreleased — 2026-10-22 — Prevention after the weapons gap (#275)
+
+- `tools/lint-docs.mjs` check 9: every room, fitting, weapon, round type
+  and information topic of `DESIGN.md` §5–§7 and every room type of
+  `js/data.js` must have a row in §13m. `CLAUDE.md`: the plan checklist
+  lists the §13m rows a pass proves; a level exits only when no row still
+  says "planned" for it. §13b: the documents audit reads §13m. `STATUS.md`:
+  the owner's "Not built yet" line.
+
+## Unreleased — 2026-10-22 — A magazine explosion is a blast (#274)
+
+- `DECISIONS.md` #274 (the owner, amending #83): a magazine's explosion is
+  a blast through its walls; the ship is destroyed only by the existing
+  rules; built at L5's kinetic pass. `DESIGN.md` §13l.1's Destroyed row,
+  §13m, §17 item 41, §18 rows 83 and 274.
+
+## Unreleased — 2026-10-22 — The owner's five answers (#273)
+
+- `CLAUDE.md`: the pre-lock rule reworded (a run before the lock for
+  crashes and setup errors only; edits after it listed in the pull request;
+  literals from the formula); `.claude/agents/engineer.md` follows.
+- `DESIGN.md` §17 items 38, 41, 42: one battle is the same battle in cells
+  (k = 1), detonation rule (c) and the chord-scaled passed-cell loss for the
+  kinetic pass, surrender once Disabled; §18 rows 86 and 273.
+## Unreleased — 2026-10-22 — The scenario-hygiene round built (#271, `m0/l4-hygiene`)
+
+- Seventeen `.v2` successors of §13l.7's table, each keeping every check
+  of its locked original: the key shot of each L4b route pinned (B1
+  shot-12 hand-worked; B2 shot-19, B3 shot-4, R1 shot-4 and shot-46,
+  R1d shot-10 kernel-read), the 600-step gaps and 0.5 as literals, B4
+  with the target firing and its shutdown bounded by C_surv ΔT / P, the
+  naive split's state, `battleTree` on every L4b battle, E8's time in
+  the row's note, the 700 m/s round's literals, T2 and T3 relabelled,
+  F₂ at chord 0.5, the crew floor at 0.9 and 1.6 cells and a destroyed
+  cell not repaired, the 0.50 share, impulse books at 1e-12 × gross,
+  `L3.beam.deposit`'s vent at a named 1e-11.
+- New `L4.hit.oblique`: a line 20° off the axis (the second entry's
+  chord 0.9774) and a line through holes only (no hit, 3 misses).
+- The last row's survivors: `L0.kinetic.flatten.v2` (a round with s = r
+  stops, `i1.rd.stopsOnEqual`) and `L3.control.bridge.v2` (a routed
+  bridge draws from its backup, `f1.ctl.bridgeBackup`);
+  `k1.beamPaths.neverCleared` is an equivalent mutant (the cache key
+  carries every entry's areal density, 0 for a hole).
+- Nineteen originals withdrawn under #271, frozen; `tools/mutate.js
+  --only` report in `mission0/mutations/`.
+
 ## Unreleased — 2026-10-22 — The scenario-hygiene round planned (#271)
 
 - `DESIGN.md` §13l.7: the L4 scenario audit's findings fixed by seventeen

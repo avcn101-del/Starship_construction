@@ -1,0 +1,144 @@
+{
+  "id": "L4.hit.oblique",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.hit.oblique",
+  "code": "c998ff2",
+  "criterionHash": "9a4080f8",
+  "lockedHash": "9a4080f8",
+  "runHash": "a9474250",
+  "dataHash": "ec2687f2",
+  "rowsHash": "8816c8d9",
+  "rows": [
+    {
+      "case": {
+        "line": "oblique"
+      },
+      "expected": {
+        "path": [
+          "bridge:0",
+          "bridge:2",
+          "reactor:3",
+          "heatSink:1",
+          "heatSink:3"
+        ],
+        "passed": 1,
+        "stoppedIn": 1,
+        "chord": 0.9774,
+        "r": [
+          914856,
+          894141
+        ],
+        "hits": 13,
+        "misses": 0,
+        "step": 2106
+      },
+      "actual": {
+        "first": {
+          "id": "shot-1",
+          "x0": [
+            319.77333041177513,
+            -818.7383121489428
+          ],
+          "v": [
+            -265.3638584060498,
+            754.7065805012263
+          ]
+        },
+        "hit": {
+          "path": [
+            "bridge:0",
+            "bridge:2",
+            "reactor:3",
+            "heatSink:1",
+            "heatSink:3"
+          ],
+          "r": [
+            914855.6226486228,
+            894140.5201766004,
+            766416.9318122086,
+            265185.38744857325,
+            265185.38744857325
+          ],
+          "passed": 1,
+          "stoppedIn": 1
+        },
+        "own": 0.9773569709152596,
+        "hits": 13,
+        "misses": 0,
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "step": 2106
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "line": "holes"
+      },
+      "expected": {
+        "shots": 6,
+        "hits": 0,
+        "misses": 3,
+        "step": 601,
+        "cull": 3000,
+        "tEnd": 10.016666666666667
+      },
+      "actual": {
+        "centre": [
+          5.864456439335292,
+          -1.1841664847830131
+        ],
+        "gridCentre": [
+          30,
+          15
+        ],
+        "shots": 6,
+        "hits": 0,
+        "misses": [
+          {
+            "id": "shot-1",
+            "t": 4.866666666666666,
+            "t0": 0,
+            "d0": 884.1697019240637,
+            "v": 800.0000000000001
+          },
+          {
+            "id": "shot-2",
+            "t": 6.866666666666666,
+            "t0": 2,
+            "d0": 884.2183213800477,
+            "v": 799.9955766286436
+          },
+          {
+            "id": "shot-3",
+            "t": 8.866666666666667,
+            "t0": 4,
+            "d0": 884.2311095314897,
+            "v": 800.0159150770031
+          }
+        ],
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "step": 601
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
