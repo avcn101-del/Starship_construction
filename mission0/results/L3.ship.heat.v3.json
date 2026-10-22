@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.ship.heat.v3",
-  "code": "7399706",
+  "code": "e5c67dc",
   "criterionHash": "00e09a30",
   "lockedHash": "00e09a30",
   "runHash": "ca80d3ad",
-  "dataHash": "7456430e",
+  "dataHash": "fbe6c09f",
   "rowsHash": "a16c1dfa",
   "rows": [
     {

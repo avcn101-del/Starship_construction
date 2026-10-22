@@ -3,12 +3,12 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.determinism",
-  "code": "7399706",
+  "code": "e5c67dc",
   "criterionHash": "381f764c",
   "lockedHash": "381f764c",
   "runHash": "95f06978",
-  "dataHash": "7456430e",
-  "rowsHash": "60f5a427",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "6ab233cb",
   "rows": [
     {
       "case": {
@@ -18,8 +18,8 @@
         "verdict": "MATCH"
       },
       "actual": {
-        "node": "c6204600",
-        "chromium": "c6204600",
+        "node": "189b62b4",
+        "chromium": "189b62b4",
         "verdict": "MATCH"
       },
       "pass": true,

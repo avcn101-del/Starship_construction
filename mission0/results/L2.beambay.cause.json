@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.beambay.cause",
-  "code": "7399706",
+  "code": "e5c67dc",
   "criterionHash": "ed63a1be",
   "lockedHash": "ed63a1be",
   "runHash": "4e58f00a",
-  "dataHash": "7456430e",
+  "dataHash": "fbe6c09f",
   "rowsHash": "26ee238b",
   "rows": [
     {

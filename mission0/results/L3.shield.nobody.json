@@ -1,0 +1,62 @@
+{
+  "id": "L3.shield.nobody",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.shield.nobody",
+  "code": "e5c67dc",
+  "criterionHash": "9efe0b04",
+  "lockedHash": "9efe0b04",
+  "runHash": "ed88fbdc",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "4f439080",
+  "rows": [
+    {
+      "case": {
+        "point": [
+          20,
+          2.5
+        ]
+      },
+      "expected": {
+        "heatIsPaid": true,
+        "impulse": 0
+      },
+      "actual": {
+        "found": {
+          "velocity": 268.7418936446176,
+          "paid": 1703333.383800915,
+          "heat": 1703327.283674552,
+          "moved": true,
+          "external": true,
+          "field": [
+            0,
+            3187.548638132294
+          ]
+        },
+        "nobody": {
+          "velocity": 268.7418936446176,
+          "paid": 1703333.383800915,
+          "heat": 1703333.383800915,
+          "moved": false,
+          "external": false,
+          "field": [
+            0,
+            0
+          ]
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

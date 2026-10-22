@@ -1,0 +1,67 @@
+{
+  "id": "L4.route.missionKill",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.missionKill",
+  "code": "e5c67dc",
+  "criterionHash": "8066604a",
+  "lockedHash": "8066604a",
+  "runHash": "a191305e",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "d30bb619",
+  "rows": [
+    {
+      "case": {
+        "target": "R1",
+        "bearing": "+y"
+      },
+      "expected": {
+        "kind": "disabled",
+        "must": [
+          "beamBay",
+          "turret"
+        ],
+        "why": "destroyed"
+      },
+      "actual": {
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "t": 47.1,
+          "why": "destroyed"
+        },
+        "explosions": 0,
+        "engine": {
+          "destroyed": false,
+          "controlled": true,
+          "shutdown": false,
+          "active": true,
+          "powered": true
+        },
+        "destroyed": [
+          "beamBay",
+          "turret"
+        ],
+        "crossed": [
+          "beamBay",
+          "hold",
+          "magazine",
+          "turret"
+        ],
+        "able": []
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

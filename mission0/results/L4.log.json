@@ -1,0 +1,125 @@
+{
+  "id": "L4.log",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.log",
+  "code": "e5c67dc",
+  "criterionHash": "f91185ca",
+  "lockedHash": "f91185ca",
+  "runHash": "f3ee00ad",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "0163a973",
+  "rows": [
+    {
+      "case": {
+        "battle": "B1"
+      },
+      "expected": {
+        "ships": [
+          "A",
+          "T"
+        ],
+        "equal": true
+      },
+      "actual": {
+        "tEnd": 33.11666666666667,
+        "per": {
+          "A": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33
+          ],
+          "T": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33
+          ]
+        },
+        "ends": [
+          1,
+          1
+        ],
+        "hashes": [
+          "f106b15f",
+          "f106b15f"
+        ],
+        "same": true,
+        "lines": 70
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
