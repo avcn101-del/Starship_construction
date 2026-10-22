@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.reactor.meltdown.coupled",
-  "code": "e5c67dc",
+  "code": "1d13489+dirty",
   "criterionHash": "4f6e49c7",
   "lockedHash": "4f6e49c7",
   "runHash": "949c973b",
-  "dataHash": "fbe6c09f",
+  "dataHash": "ec2687f2",
   "rowsHash": "2728fec7",
   "rows": [
     {

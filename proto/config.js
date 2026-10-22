@@ -101,9 +101,7 @@ export const loadoutText = (lo) => LOADOUT_ORDER.map((k) => `${LOADOUT[k].label}
 // centre of mass.
 export const RANGES = { close: 600, hold: 900, open: 1500 }; // m
 
-// Prototype setting: where the ships start (13j.2): the hold distance apart, facing each other, at rest. The
-// player's centre of mass sits at the origin facing +x; the enemy's at (START_SEPARATION, 0) facing -x.
-export const START_SEPARATION = RANGES.hold; // m
+// Prototype setting (13j.2): the ships start facing each other, at rest, `battle.openingRange` apart (proto/battle.js, #270 (9)).
 export const TIER = 'T1';
 
 // Prototype setting: the first battle's seed (the seeded RNG of js/util.js times each ship's dodge). The panel

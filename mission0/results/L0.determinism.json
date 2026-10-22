@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.determinism",
-  "code": "013caf1",
+  "code": "1d13489+dirty",
   "criterionHash": "381f764c",
   "lockedHash": "381f764c",
   "runHash": "95f06978",
-  "dataHash": "fbe6c09f",
+  "dataHash": "ec2687f2",
   "rowsHash": "79577f6b",
   "rows": [
     {

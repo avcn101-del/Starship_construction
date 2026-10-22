@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.r1c.props",
-  "code": "e5c67dc",
+  "code": "8af82c8",
   "criterionHash": "c26d3f06",
   "lockedHash": "c26d3f06",
   "runHash": "b4e66efa",
-  "dataHash": "fbe6c09f",
+  "dataHash": "ec2687f2",
   "rowsHash": "b910b515",
   "rows": [
     {

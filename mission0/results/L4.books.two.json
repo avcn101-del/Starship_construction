@@ -1,0 +1,76 @@
+{
+  "id": "L4.books.two",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.books.two",
+  "code": "8af82c8",
+  "criterionHash": "e9fe5591",
+  "lockedHash": "e9fe5591",
+  "runHash": "d4490342",
+  "dataHash": "ec2687f2",
+  "rowsHash": "a994af40",
+  "rows": [
+    {
+      "case": {
+        "name": "still",
+        "omega": 0,
+        "v": [
+          0,
+          0
+        ]
+      },
+      "expected": {
+        "tol": 1e-9,
+        "hits": 12
+      },
+      "actual": {
+        "worst": 5.923086614162181e-10,
+        "gross": 115214.6148815236,
+        "hits": 12,
+        "passed": 0,
+        "misses": 0,
+        "omega": 0.008900368798034968,
+        "t": 33.11666666666667,
+        "ended": "disabled"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "spin",
+        "omega": 0.05,
+        "v": [
+          20,
+          0
+        ]
+      },
+      "expected": {
+        "tol": 1e-9,
+        "hits": null
+      },
+      "actual": {
+        "worst": 1.0669847674233782e-8,
+        "gross": 19280512.730676293,
+        "hits": 12,
+        "passed": 12,
+        "misses": 16,
+        "omega": 0.006189636321267467,
+        "t": 60,
+        "ended": null
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
