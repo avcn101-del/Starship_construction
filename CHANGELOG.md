@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — The scenario-hygiene round planned (#271)
+
+- `DESIGN.md` §13l.7: the L4 scenario audit's findings fixed by seventeen
+  successors and one new scenario, under the plan gate;
+  `tools/estimates/hygiene.mjs` prints every number; §17 item 39 due now,
+  item 42 (what §13l.1 moved to L5 without an obligation); §18 row 271.
+
 ## Unreleased — 2026-10-22 — The four light audits before L5 answered (#270)
 
 - `DECISIONS.md` #270: #267's cost-factor change withdrawn (#246 (4)

@@ -106,5 +106,6 @@ One row per pass under the plan gate (#241): the raw range the plan stated, wher
 | L4a | 10–14 | #253 | ≥ 17.57 (lower bound: the engineer's cost before a worker restart is not reported) | ≥ 1.46 |
 | L4b | 18–25 | #253, #262 | 23.98 | 1.12 |
 | L4 fix round | 3–5 | #270 (9) | running | — |
+| L4 scenario-hygiene round | 10–15 | #271, §13l.7 | planned | — |
 
 Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).

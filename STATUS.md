@@ -18,7 +18,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   regress 108 VERIFIED; the engineer's full mutation run in the
   background) and its light reviewer `session_01UTmHgSuJy1TgUL28GNf5Lv`
   (sonnet, 12:16 UTC). The four light audits are in and answered (#270:
-  6.91 USD; 81 findings).
+  6.91 USD; 81 findings). **Next session**: the scenario-hygiene round
+  (§13l.7, #271: every scenario-audit finding fixed; 25–38 USD by the
+  rule, the lead designer expects 12–18) starts when PR #64 merges.
 - **Waiting on you**: **five questions** (the #247 (3) frame in the chat,
   #270): the magazine's detonation rule, the passed cell's loss, the tier
   scale of "one battle", the pre-lock rule's wording (a `CLAUDE.md` law),
@@ -166,6 +168,10 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Next steps
 
+0. **The scenario-hygiene round** (§13l.7, #271) right after PR #64
+   merges: the engineer's task is drafted in the lead designer's scratch
+   directory (`hygiene-task.md`); then the blind checker on the new
+   literals and the reviewer; the merge row answers both.
 1. **PR #64 (the L4 fix round)**: read its light reviewer; answer the
    engineer's Q1–Q4 in the merge row (Q1 accepted in #270 (9); Q3 a tier
    case at L6, item 38; Q4 `START_SEPARATION` removed with L5's prototype

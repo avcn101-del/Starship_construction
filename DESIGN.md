@@ -1025,6 +1025,61 @@ pass starts (#191: past 40 USD).
 - [x] Hardware: 4 berths per cell (6 m² each) against warship berthing; the neck is a 2 × 2 hold (10 m wide, 3 t per cell).
 - [ ] Open: overheat against burn in crewed rooms is narrow (0.17 integrity left): reported for L5's tuning; T-gun's case is a criterion on the cause of the last lost ability, not on how much is left. The citadel is five rounds thick against a deliberate shot (13l.2): a fact for L5, not an L4b criterion.
 
+### 13l.7 Scenario-hygiene round (#271; the L4 scenario audit of #270)
+
+The owner's direction (2026-10-22): every remaining audit finding is fixed,
+not filed. This round fixes the scenario audit's findings (§17 item 39)
+on one engineer session (opus) on `m0/l4-hygiene` from `main` after the
+L4 fix round (PR #64) merges; the blind physics checker (sonnet) derives
+the new hand-worked literals from the lock; the reviewer (sonnet). **No
+kernel physics and no constant changes**: a kernel change found necessary
+is a question in the pull request. Every number below is printed by `node
+tools/estimates/hygiene.mjs` from the kernel at `ec3d222`, a kernel
+reading unless marked hand-worked; the checker derives the physics ones
+blind. The first round under #270 (3)'s checklist lines and (4)'s "Pre-lock
+runs" section.
+
+**Lock discipline.** A locked scenario is never edited: each one below is
+withdrawn (frozen, #245, `mission0/withdrawn.json` naming #271 and the
+successor) and replaced by a `.v2` successor that keeps every check of the
+original and adds what the finding asks. A scenario that gains only a
+label still gets a successor (the lock is the file's hash).
+
+| Successor | Finding | What the successor adds (the original's checks kept) |
+|---|---|---|
+| `L4.route.decapitate.v2` | U1, N2 | the bridge's last cell is destroyed by **shot-12**, 12 shots launched and 12 hits by that step (hand-worked: four bridge cells × `kinetic.hitsToWreck` 3 hits, every round stopping in the bridge; the checker derives it); the 600-step gap a literal in `expected()`; `kinetic.hitsToWreck` leaves `tunable` |
+| `L4.route.mission.kill.v2` | U1, N3 | the turret's last cell by **shot-19** (19 launched); the Disabled step pinned as a literal (kernel-read, labelled) |
+| `L4.route.split.v2` | U1, C2, TOL1 | the split by **shot-4** (4 launched, 4 hits); the naive case asserts the beam bay destroyed and the turret able at 120 s; the momentum tolerance **1e-12 × gross** (residues on record 6.1e-18 and 6.1e-16 relative) |
+| `L4.route.overheat.v2` | U3, N3 | the target fires (`targetFire`, its turret fed): **no shot of the target after its turret's shutdown step** (the firing gate of `turret()`, the survivor `c1.thr.turretWorksShutdown`); the shutdown time t satisfies the hand-worked one-sided bound **t ≥ C_surv ΔT / (P_beam + P_own)** with C_surv the heat capacity of the cells surviving at the shutdown (a kernel reading: 2 of 4, C 1.2 MJ/K), ΔT 60 K (290 → `thermal.crewedOverheated` 350), P_beam 5 MW (the beam's whole deposit lands in the turret: fraction 1.000), P_own = `turret.heatPerShot` × `turret.fireRate` = 150 kW: **13.98 s**; with every cell 27.96 s, above the kernel's 22.88 s, which is why the surviving cells count; the step (1373 without the target firing; re-printed with it at the lock) pinned, labelled kernel-read |
+| `L4.kill.v2` | U1, N1, N2 | R1's magazine cell by **shot-4** (4 launched), R1's reactor breached by **shot-46** (46 launched; 51 in all); `reactor.breachCountdown`'s 600 steps a literal; `shot-10` relabelled kernel-read |
+| `L4.kill.pieces.v2` | TH2, N2 | a third case: column 10 cut, the largest fragment **exactly 0.5** of 80 cells (40 cells), **not destroyed** (the rule is "less than"); 0.5 a literal in `expected()` |
+| `L4.disabled.rule.v2` | N2 | the 600-step gap a literal |
+| `L4.e8.v2` | C3 | the mean ms per step and the machine recorded in the row (`actual`), the criterion unchanged (under 1 ms) |
+| `L4.cascade.v2` | C1 | `battleTree` on B2–B5, R1d and the beam case (no dangling parent); in B1 the Disabled event's parent is the turret's `control-lost` (#267 (3)) |
+| `L4.hit.oblique` (new) | U2 | B1's battle with the attacker on the numeric bearing [sin 20°, −cos 20°] (not axis-aligned): the first hit's path bridge:0 > bridge:2 > reactor:3 > heatSink:1 > heatSink:3 with the second entry's chord below 1 (r 894 141 against 914 856 kg/(m s) at chord 1: **chord 0.9774**, hand-worked from the line's geometry through the cell), the round passing one entry and stopping in the second; 13 hits and 0 misses to Disabled at step 2106 (kernel-read); and a **holes-only** case: the bridge and quarters destroyed before the first shot, the turret aimed at the bridge's centre as a world point: 6 shots, **0 hits, 3 misses** by step 601 (the survivor `l4b.hit.holesHit`; the misses hand-worked from the time of flight) |
+| `L4.relative.v2` | T1 | one literal for the 700 m/s round: passed 1, stopped in entry 1, f 0.4073762457, momentum left 0 on the path bridge:0 > bridge:2 > quarters:0 > quarters:3 with r 914 855.62 per entry and s₀ 1 372 160.548 (the checker derives f from the round rule) |
+| `L3.shield.nobody.v2` | T2 | the heat check relabelled a consistency invariant (§13k.4), not hand-worked |
+| `L0.beam.csda.sweep.v2` | T3 | the count 754 relabelled a regression pin; an independent check: `csdaSteps` is 229 at 10 MeV and 983 at 400 MeV with ranges 1.9311 and 1164.24 kg/m² (the checker derives the step count from the integrator's rule) |
+| `L2.beam.chord.v2` | N4 | the hand-worked F₂ at chord 0.5: **0.620219371646** (the second cell; the first 0.379780628354), 1e-12; the checker derives it from the CSDA table |
+| `L2.repair.crew.v2` | TH1, `e1.rep.destroyedRepairable` | losses of **0.9** (0 deaths) and **1.6** cells (1 death, floor), hand-worked floor(4 × loss / 4); a destroyed cell beside a damaged one is not repaired |
+| `L2.shield.overlap.round.v2`, `L3.shield.bodies.v2` | TOL1 | impulse tolerances 1e-12 × gross where the residue on record is 1e-14..1e-11 (the engineer reads the records) |
+| `L3.beam.deposit.v2` | TOL2 | the vented check keeps a stated tolerance: the value is a sum over steps (residue on record 1.05e-12 relative: 1e-12 would fail), so **1e-11 with the reason named** |
+| Survivors read, not necessarily fixed | — | `i1.rd.stopsOnEqual` (an exact-equality case where the round rule's L0 scenario lives, if one fits), `f1.ctl.bridgeBackup` (what it changes; a case in `L3.control.bridge`'s successor if a rule is uncovered), `k1.beamPaths.neverCleared` (**root cause reported** in the pull request; a scenario only if a real gap) |
+
+**Mutations**: `--only` on the rules touched before the review (`c1.thr.turretWorksShutdown`, `l4b.hit.holesHit`, `l4b.hit.chordOne`, `l4b.wreck.fraction04`, `e1.rep.destroyedRepairable` expected KILLED); the full run after the review (#270 (5)).
+
+**Cost**: raw 10–15 USD (engineer 7–10, checker 2–3, reviewer 1–2); with #246 (4)'s ×2.5 (a repeated kind of work: a scenario fix round) **25–38 USD**; the lead designer's own expectation 12–18 (#270 (2)). The owner was told before the round started.
+
+**Checklist** (#241 (1), with #270 (3)):
+
+- [x] Every number above is printed by `tools/estimates/hygiene.mjs` at `ec3d222`; kernel readings are labelled.
+- [x] Every passed rule on (the scenarios keep their originals' checks).
+- [x] Tolerances against the method's error and float resolution: 1e-12 × gross where the residue is 1e-14..1e-11; `L3.beam.deposit`'s 1e-11 named (a sum over steps); N3 one-sided.
+- [x] Damage channels × new resisting object: none (no new object).
+- [x] Locked scenarios against new validation rules: none (no new rule).
+- [x] The script line behind each number: the section numbers (1)–(9) of `hygiene.mjs`.
+- [x] Hardware sense-checked: nothing new.
+
 ## 13m. Coverage: every element of the design and the level that proves it (#269)
 
 One row per element the design names (§4–§9 and the exit criteria), with
@@ -1324,8 +1379,8 @@ Each line names its decision and when it is due; a closed one is removed.
     damaged one), `i1.rd.stopsOnEqual`, `f1.ctl.bridgeBackup`, and the
     survivor `k1.beamPaths.neverCleared` not root-caused. T1–T3 are
     consistency invariants, relabelled when touched, and no proof in §13m.
-    Due: each in the next pass that touches its file; U2, U3, C3 and the
-    root cause at L5's first pass.
+    Due: **the scenario-hygiene round** (§13l.7, #271; the owner's
+    direction that every audit finding is fixed).
 40. **Process after the L4 block** (the process audit, #270): the plan
     checklist's three new lines (a damage-channels table for every new
     resisting object; every locked scenario run against a new validation
@@ -1345,6 +1400,12 @@ Each line names its decision and when it is due; a closed one is removed.
     resistance (L3); item 32 rests on an aim model that does not exist
     (U4). Due: the L5 plan's kinetic pass, with the owner's answers to
     physics Q1 and Q2 (#270).
+42. **What §13l.1 moved to L5 without an obligation** (the documents
+    audit's 12, #271): the EMP route (a warhead, with item 37), the
+    surrender route (the enemy's personality; the owner's Q5 of #270 on
+    #86 against #255), debris as an obstacle to shots (#9) and magazines
+    lasting a 3–6 minute battle with both ships firing (#92, needed by
+    E7). Due: the L5 plan names the pass of each.
 
 ## 18. Decisions in force
 
@@ -1624,3 +1685,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 268 | Missiles, point defence and the railgun have no level (the owner's finding); the L5 plan builds them before ship versus ship | current |
 | 269 | §13m, the coverage table: every element of the design and the level that proves it (the owner's direction); lint check 8 | current |
 | 270 | Answers to the four light audits before L5: #267's factor change withdrawn, the ledger's ratio table, the plan checklist's three lines, the L4 fix round (B1, `L4.books.two`, `battle.openingRange`), stand-ins stated, §17 items 38–41, five questions to the owner | current |
+| 271 | The scenario-hygiene round (§13l.7): every finding of the L4 scenario audit fixed by successors, under the plan gate; §17 item 42 (the owner: fix every audit finding) | current |
