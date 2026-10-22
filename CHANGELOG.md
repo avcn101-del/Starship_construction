@@ -12,11 +12,12 @@
   `--rule`, `--out`, `--catalogue`, `--no-fail-fast`; it checks an
   unmutated baseline first. Exit code 0 unless the tool fails.
 - **The catalogue**: the scenario audit's 86 surviving mutations (Appendix 2)
-  with their `old` text recovered in full from today's source (six
-  re-targeted where the line changed or the audit's text stops before the
-  change), the ten planned-but-unrun mutations of its Q6, and 27 for
-  physics pass 2's rules (§13k.1) and S17–S21: 123 in all. The first run is
-  `mission0/mutations/`.
+  with their `old` text recovered in full from today's source (seven
+  rebuilt where the line changed or the audit's text stops before the
+  change, two disambiguated; each says so in a `note`), the ten planned-but-unrun mutations of its Q6, and 27 for
+  physics pass 2's rules (§13k.1) and S17–S21: 123 in all. The first run
+  (`mission0/mutations/2026-10-22-b7c4290.txt`): 55 killed, 13 changed a
+  recorded result, 55 survived, none stale.
 - **`node tools/m0.js cov [--fail-fast]`**: the coverage run `mutate.js`
   uses; nothing recorded, one `COV {...}` line per scenario (verdict,
   results as recorded, data hash as recorded). `L0.determinism` (a fixed
