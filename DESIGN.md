@@ -926,6 +926,7 @@ printed by `node tools/estimates/l4.mjs` (#241 (1)); the checklist is
 | Kernel fixes (L4a) | `shieldRound`'s heat books the ship's kinetic-energy gain J²/2M like `fireRound` (§17 item 25, one rule for both); `csdaRange`'s last step ends exactly at the stop energy, so the range is continuous in energy (§17 item 27); a reactor meltdown case from about 960 K at the coupled heat capacity (§17 item 22) |
 | Pace after armour (#255) | When L4a merges, the lead designer re-measures pace with `tools/estimates/pace.mjs` on R1c with the real plate mass, bow-on and broadside, under #255's Disabled, and reports to the owner before L4b is locked. `proto/battle.js` gets plates on its paths and R1c in L4a (a prototype change; §17 item 28's smoke-test race is fixed with it) |
 | Tools (L4a, #257) | `tools/mutate.js`: `--jobs 0` and negatives rejected (reviewer 1); the report's header says CHANGED means an output moved, not that a criterion noticed (reviewer 4); mutations for the `beamPaths` clearing and `csdaRange`'s material (reviewer 5); `recordHash` described as the record as it stood when the hash was added (reviewer 3). L4a's pull request runs `tools/mutate.js` once on its head (#246 (1)) |
+| Prototype (L4b, #264) | `proto/` runs on L4b's kernel: R1d is the default layout; the end panel shows the **cascade tree** of the battle (B8's tree, from the kernel's events: the root shot or beam, then each event it caused, indented; the KIA list stays first, #41), so the owner reads why a battle ended without the replay; `proto/measure.mjs` judges the end by the kernel's Disabled rule (#255) |
 | Shipyard readout (#225 (5), §17 item 10, L4a) | `readout` on a blueprint before `enableShip` gives the same mass, centre and inertia as after it |
 | Moved to L5 (this plan, #253) | the EMP and surrender routes (#252); debris as an obstacle to shots (#9); magazines lasting a 3–6 minute battle (#92, needs both ships firing); life support's own draw and heat (§17 item 14: no L4 route depends on it); the outside blast field (§17 item 5) |
 
@@ -1065,8 +1066,6 @@ Each line names its decision and when it is due; a closed one is removed.
 11. A culling rule for debris and rounds in flight (#222 (7)). Built in pass 2 (`cull`); the loop calls it in L4b (item 26).
 14. Life support's own draw and heat (#205 (3), #207 (1): promised for L3,
     not built). Due: L5 (the L4 plan moved it, #253: no L4 route depends on it).
-23. Port `hypot`, `cbrt` and `atan2` if the owner's phone gives a different
-    determinism hash (#248 Q12). Due: the first phone smoke test.
 24. The PSTAR iron CSDA value at 200 MeV, cited, for S22's iron row (#248
     Q5). Due: when someone can reach NIST.
 26. `cull()` is called by the kernel's consumer, not by `step()`; a
@@ -1360,3 +1359,5 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 260 | L4a merged (PR #58); answers to the fix round's checker and re-review; pace measured on R1c (65 s) and R1d (215–306 s) | current |
 | 261 | R1d (turret plated) is the pace lever and L4b's reference ship | current |
 | 262 | The L4b plan amended (R1d, B13–B15, the citadel's five rounds, §17 cleaned) | current |
+| 263 | The owner's phone replays MATCH (hash `fe22bc2511c8b573`): the kernel is deterministic across engines; §17 item 23 closed | current |
+| 264 | L4b go (the owner); the prototype's end panel shows the cascade tree | current |
