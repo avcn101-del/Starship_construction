@@ -189,8 +189,9 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
    reviewer (sonnet) → answers row → merge; `--only` mutations before the
    review, the full run after (#270 (5)); the pace study (`pace.mjs` on
    R1d) between L5a and L5b, reported before L5b's lock.
-4. Not found in the repository: `.claude/agents/lead-designer.md` (the
-   hand-over named it; the role's rules live in `CLAUDE.md` and §13b).
+4. `.claude/agents/lead-designer.md` was missing (the hand-over named it)
+   and is written on this branch (the owner asked); it goes to `main` with
+   this block's documentation pull request.
 
 ## Scheduled tasks
 

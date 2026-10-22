@@ -14,6 +14,8 @@
   dodges 6.5 m in a 900 m time of flight.
 - `tools/lint-docs.mjs`: §13m ends at the next heading (it read §13n as
   §13m); the constants check skips §13n until L5 builds them (as §13k).
+- `.claude/agents/lead-designer.md`: the lead designer's role file, which
+  `CLAUDE.md` named and the repository lacked (the owner asked, 2026-10-22).
 - `STATUS.md`: the new lead designer chat; the owner's block.
 
 ## Unreleased — 2026-10-22 — The scenario-hygiene round merged (#276)
