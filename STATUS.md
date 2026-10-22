@@ -2,7 +2,7 @@
 
 Updated 2026-10-22 by the lead designer chat
 `session_01VL5M5dKNeREUVf7y1y3P87` (took over from
-`session_014nrUDvPgiLEjm64scJFkyW` at the L4 block boundary, #247 (2); that chat took over from `session_01Ld11QmhkPubc8PkfKtd7CT`). Read this
+`session_014nrUDvPgiLEjm64scJFkyW` at the L4 block boundary, #247 (2); that chat took over from `session_01Ld11QmhkPubc8PkfKtd7CT`). The owner switched this chat to `claude-opus-5-5` at 15:40 UTC (`/model`). Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## For the owner (five lines, kept at every block, #246 (5))
@@ -13,30 +13,13 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**.
-- **Running**: no session. The previous lead designer chat
-  (`session_014nrUDvPgiLEjm64scJFkyW`) is running the full `tools/mutate.js`
-  on `29ce028` and merges its report (`mission0/mutations/2026-10-22-29ce028.txt`)
-  by a small pull request; this chat checks at 16:25 UTC and runs it itself if
-  it is not on `main` (#270 (5)). `regress` on `29ce028` re-run by this chat:
-  109 VERIFIED + 106 WITHDRAWN + 5 RETIRED.
-- **Waiting on you**: nothing. The L5 plan is recorded (#277 your five
-  answers and the two harnesses, #278 the plan, `DESIGN.md` §13n) and
-  **L5a (the kinetic pass) is running**. Next for you: the pace study's
-  threshold table after L5a merges (`magazine.detonationSpeed`, §13n.1 (b)).
-  Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor
-  clause is withdrawn by #270), #270–#272, #278. The prototype page is on
-  the L4b kernel (version 5): play it and say what is not fun (#223's
-  ladder).
+- **Running**: **L5a, the kinetic pass** (engineer `session_01SYb2ggvdzrs6Wkv4poedYu`, opus, `m0/l5a-kinetic`, created 15:12 UTC; the checker and reviewer follow its pull request). The previous chat's full mutation run on `29ce028` is merged (PR #70, #280 (2)): 131 killed, 21 changed, 58 survived, 12 stale; that chat is finished. `regress` on `29ce028`: 109 VERIFIED + 106 WITHDRAWN + 5 RETIRED.
+- **Waiting on you**: the **sources for mass pass 2** (#279 (4): the reactor's, turret's, railgun's and missile bay's contents, each figure verbatim with URL and page or table, checked by the design partner) before L5m is planned; and, after L5a merges, the pace study's threshold table (`magazine.detonationSpeed`, §13n.1 (b)). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280. The prototype page is on the L4b kernel (version 5): play it and say what is not fun (#223's ladder).
 - **Money**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
   L4 in all ≥ 64.27 (#191: past 40).
-- **Next**: L5a merges (engineer → blind checker → reviewer → answers row),
-  then the pace study on R1d with the threshold table for you, then L5b
-  senses, L5c weapons, L5d helm and enemy with `tools/play.mjs`, L5e ship
-  versus ship with `tools/sweep.mjs` (§13n). Cost: the rule's 396–560 USD
-  against the lead designer's expectation 138–210 for all of L5 (#270 (2);
-  L5a alone 28–40 / 14–20), about three days.
+- **Next**: L5a merges (engineer → blind checker → reviewer → answers row), then the pace study on R1d with the threshold table for you, then **L5m mass pass 2** (on your sources), then L5b senses, L5c weapons, L5d helm and enemy with `tools/play.mjs`, L5e ship versus ship with `tools/sweep.mjs` (§13n). Cost: the rule's 416–590 USD against the lead designer's expectation 148–225 for all of L5 (#270 (2); L5a alone 28–40 / 14–20; L5m 20–30 / 10–15), about three days.
 - **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
   surprised by a prototype): missiles (seekers, warheads, EMP), point
   defence, the railgun as a weapon, round types, the firing window, every
@@ -180,8 +163,9 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
    request: the blind physics checker (K1–K6), the reviewer, the answers
    row, `regress` on the merge, the full mutation run after the review,
    then the pace study K7 and the threshold frame for the owner.
-2. **The mutation report** on `29ce028` (step 2 of the hand-over): see
-   Running above; record it in `DECISIONS.md` with the plan's rows.
+2. **Mass pass 2 (L5m)** after L5a: plan it when the owner's sources arrive
+   (#279 (4)); values and ranges as an LD row before the lock; it re-pins
+   R1 and R1d (#280).
 3. Each L5 pass: engineer (opus) → blind physics checker (sonnet) →
    reviewer (sonnet) → answers row → merge; `--only` mutations before the
    review, the full run after (#270 (5)); the pace study (`pace.mjs` on
@@ -200,8 +184,8 @@ The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
 the old chat's pending check-in was deleted at hand-over; the new chat
 creates its own (`send_later`, 20–45 min after starting a session). This
-chat's pending check-in: `trig_01TGE3Yn54AG66d2VEMC2EZn` (16:25 UTC, the
-mutation report).
+chat's pending check-in: `trig_01PC4snmJDQZxDVm24Tz3xbT` (15:54 UTC, the
+L5a engineer).
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
 
