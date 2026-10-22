@@ -1089,6 +1089,25 @@ Each line names its decision and when it is due; a closed one is removed.
     decides (build variety for E5 and E6); not before, unless L4b's pace
     measure needs a lighter ship.
 
+33. **The information law has no level** (the design partner, #265): no
+    row of §13's table proves #24–#28 (passive d², active d⁴ that reveals
+    the scanner, scanning by zone with memory, layout variants), and E3
+    needs a proof scenario for every kept law. Decided: the **L5 plan**
+    builds `sensors.js` and the knowledge model first (the enemy of §9
+    reads only its knowledge model), with scenarios; §17 item 32 rests on
+    it. Due: the L5 plan.
+34. **A passed cell loses a flat 1 / `kinetic.hitsToWreck`** (#206, the D
+    pass), whatever its mass; only the stopping cell loses by what it took
+    (`js/rooms.js`, `fireRound`). The D pass predates the one law (#240
+    (1)) and physics pass 2 did not revisit it: a hold cell and a reactor
+    cell are dug through alike (the design partner's measure, #265). The
+    one-law reading is damage = the energy the cell took / (q × its mass),
+    as a beam burns: about 5 M rounds for a hold cell, 23 for a crewed
+    cell, 230 for a reactor cell, and `kinetic.hitsToWreck` goes. A pass
+    with withdrawals of the D-pass scenarios that assert 1/3; estimated
+    under the gate before it is built. Due: the L5 plan decides (it sets
+    the pace with #261's R1d and this at once).
+
 ## 18. Decisions in force
 
 One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (5)). **current**: stands as written; **superseded by #n**: replaced; **partly superseded by #n (what remains)**; **report**: the row records a result or a process step, not a rule; **owner question open**: waits for the owner; **current (unchecked)**: not checked against the current text. The log itself is append-only and unchanged, so a row there may still read as if it stood. Compiled from the documents audit (B1, H), the decisions' own "supersedes" words and the current text of this file; the lead designer reviews it.
@@ -1361,3 +1380,4 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 262 | The L4b plan amended (R1d, B13–B15, the citadel's five rounds, §17 cleaned) | current |
 | 263 | The owner's phone replays MATCH (hash `fe22bc2511c8b573`): the kernel is deterministic across engines; §17 item 23 closed | current |
 | 264 | L4b go (the owner); the prototype's end panel shows the cascade tree | current |
+| 265 | Answers to the design partner: the information law is built at L5 (§17 item 33); the flat 1/hitsToWreck on passed cells is an oversight against #240 (1), a pass for the L5 plan (item 34) | current |
