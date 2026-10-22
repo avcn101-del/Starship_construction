@@ -455,7 +455,8 @@ per-second log and the cascade tree; E8 0.15–0.29 ms per step.
 **Agentic operation** (#131–#136): parallel within a level, gated between
 levels; runner, verifier (independent, re-runs from the command line only),
 analyst, integrator (the only writer of `data.js` and the ledger); criteria
-locked before running; overrides instead of edits; no conclusion without a
+locked before running (a pre-lock run for crashes and setup errors only, every
+edit after it listed in the pull request, #273); overrides instead of edits; no conclusion without a
 re-runnable command; multi-agent waves only with the lead designer's go-ahead (#180);
 agents tune within approved ranges, the lead designer decides criteria and
 constants outside them, the owner decides direction and changes to a law (§13b); the feel and phone playtests are never
@@ -1359,9 +1360,9 @@ Each line names its decision and when it is due; a closed one is removed.
     `battle.disabledSeconds` k = 0 is five shot intervals at T1 and 0.83
     at T6; `repair.massRate` k = 0 against cell mass k = 3 makes repair
     dead at T6; the T6 citadel takes 11 rounds against T1's 10; and the
-    owner's "one battle" is undefined across tiers (the same metres, or
-    the same battle in cells). Due: L6 (tier scaling), the question with
-    the owner's five of #270.
+    owner's "one battle" is **the same battle in cells** (#273: k = 1 on
+    `battle.openingRange` stays; ranges scale with the edge). Due: L6
+    (tier scaling).
 39. **Scenario hygiene** (the L4 scenario audit, #270): U1 the kill shot
     counts read from the kernel (`L4.kill` shot-10, `route-decapitate`,
     `route-split`), U2 every L4b shot axis-aligned (the mutants
@@ -1398,12 +1399,18 @@ Each line names its decision and when it is due; a closed one is removed.
     1 / `hitsToWreck` is mass- and chord-blind while its resistance is
     neither (L2), so a grazed cell loses a full third at 1 % of the
     resistance (L3); item 32 rests on an aim model that does not exist
-    (U4). Due: the L5 plan's kinetic pass, with the owner's answers to
-    physics Q1 and Q2 (#270).
+    (U4). The owner decided (#273): the magazine detonates when a round
+    arrives with residual speed above a threshold (rule (c); the threshold
+    is the lead designer's constant), and a passed cell loses the flat
+    1 / `kinetic.hitsToWreck` **scaled by its chord** (rule (b)); whether
+    #83's "explosion = destroyed" becomes a blast with the ship destroyed
+    only by the existing rules is still the owner's. Due: the L5 plan's
+    kinetic pass.
 42. **What §13l.1 moved to L5 without an obligation** (the documents
     audit's 12, #271): the EMP route (a warhead, with item 37), the
-    surrender route (the enemy's personality; the owner's Q5 of #270 on
-    #86 against #255), debris as an obstacle to shots (#9) and magazines
+    surrender route (the enemy's personality; #273: a script may strike
+    its colours once Disabled by #255, the engine no longer counts),
+    debris as an obstacle to shots (#9) and magazines
     lasting a 3–6 minute battle with both ships firing (#92, needed by
     E7). Due: the L5 plan names the pass of each.
 
@@ -1500,7 +1507,7 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 83 | The loot is whatever is left; Destroyed defined | current |
 | 84 | The same condition defeats the player | current |
 | 85 | Puzzle ships have a kill route and a harder capture route | current |
-| 86 | Scripts may strike colours; personality per ship | current |
+| 86 | Scripts may strike colours; personality per ship | current; its "no weapons and no engines" read as Disabled (#255) by #273 |
 | 87 | A captured ship is commissioned only if the drydock has its tier | current |
 | 88 | Crew on a dark fragment are recovered after a win | current |
 | 89 | Ammunition is finite for kinetics and missiles | current |
@@ -1687,3 +1694,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 270 | Answers to the four light audits before L5: #267's factor change withdrawn, the ledger's ratio table, the plan checklist's three lines, the L4 fix round (B1, `L4.books.two`, `battle.openingRange`), stand-ins stated, §17 items 38–41, five questions to the owner | current |
 | 271 | The scenario-hygiene round (§13l.7): every finding of the L4 scenario audit fixed by successors, under the plan gate; §17 item 42 (the owner: fix every audit finding) | current |
 | 272 | The L4 fix round merged (PR #64): the hit's momentum along the relative velocity at the first entry with matter, `L4.books.two`, `battle.openingRange`; answers to its engineer and reviewer | current |
+| 273 | The owner's five answers: detonation rule (c), passed-cell loss by chord (b), one battle is the same battle in cells (k = 1), the pre-lock rule reworded, surrender once Disabled | current |

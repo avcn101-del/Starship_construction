@@ -69,7 +69,11 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
 - Every scenario follows the spec in `DESIGN.md` §13 and prints expected
   (formula) vs actual and PASS/FAIL.
 - **Criteria are locked before running.** Never change a locked criterion
-  or an expected formula to make a scenario pass.
+  or an expected formula to make a scenario pass. A run before the lock is
+  for crashes and setup errors only; every edit made after it is listed
+  in the pull request with its reason; a hand-worked literal is derived
+  from the formula, never from a printed value; the blind physics checker
+  is mandatory on kernel physics (#273).
 - Tune constants with **run-time overrides**, never by editing files. Only
   the integrator writes `data.js` and the results ledger.
 - **A conclusion without a re-runnable command does not count.**

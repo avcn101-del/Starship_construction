@@ -21,12 +21,11 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   its blind checker and reviewer. The full mutation run on the merged L4 fix (#270 (5)) runs in
   the lead designer's chat. The four light audits are answered (#270:
   6.91 USD; 81 findings).
-- **Waiting on you**: **five questions** (the #247 (3) frame in the chat,
-  #270): the magazine's detonation rule, the passed cell's loss, the tier
-  scale of "one battle", the pre-lock rule's wording (a `CLAUDE.md` law),
-  surrender (#86) against Disabled (#255). Veto window on #253, #256,
+- **Waiting on you**: one question: does #83's "magazine explosion =
+  destroyed" become a blast (the ship destroyed only by the existing
+  rules)? The five of #270 are decided (#273). Veto window on #253, #256,
   #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270),
-  #270. The prototype page is on the L4b kernel (version 5: R1d by
+  #270–#272. The prototype page is on the L4b kernel (version 5: R1d by
   default, the cascade tree on the end panel): play it and say what is not
   fun (#223's ladder).
 - **Money**: 2026-10-21/22 about 148 USD (v2 13.85, audits 25.40,
@@ -162,16 +161,13 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-- The five questions of #270 (the magazine's detonation rule, the passed
-  cell's loss, the tier scale of "one battle", the pre-lock rule's wording,
-  surrender against Disabled), put in the chat in the #247 (3) frame. The
-  owner added to the first (2026-10-22): with four weapon types on one
-  magazine, #83's "explosion = destroyed" one-shots a capital ship; the
-  lead designer's levers for the L5 plan are rule (c), one magazine per
-  weapon type (each its own blast by §13d), the information law; whether
-  #83 becomes "a blast, the ship destroyed only by the existing rules" is
-  the owner's (a law).
-- Veto window on #253, #256, #258–#263, #265, #267, #270.
+- **One question**: does #83's "a magazine explosion destroys the ship"
+  become a blast, the ship destroyed only by the existing rules (too many
+  pieces, the reactor, no crew)? The owner's expectation (2026-10-22):
+  four weapon types on one magazine one-shot a capital ship. The lead
+  designer's levers at L5 regardless: rule (c) (#273), one magazine per
+  weapon type (each its own blast by §13d), the information law.
+- Veto window on #253, #256, #258–#263, #265, #267, #270–#272.
 
 ## Next steps
 

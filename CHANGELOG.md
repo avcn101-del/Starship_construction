@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — The owner's five answers (#273)
+
+- `CLAUDE.md`: the pre-lock rule reworded (a run before the lock for
+  crashes and setup errors only; edits after it listed in the pull request;
+  literals from the formula); `.claude/agents/engineer.md` follows.
+- `DESIGN.md` §17 items 38, 41, 42: one battle is the same battle in cells
+  (k = 1), detonation rule (c) and the chord-scaled passed-cell loss for the
+  kinetic pass, surrender once Disabled; §18 rows 86 and 273.
+
 ## Unreleased — 2026-10-22 — The scenario-hygiene round planned (#271)
 
 - `DESIGN.md` §13l.7: the L4 scenario audit's findings fixed by seventeen
