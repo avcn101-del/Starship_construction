@@ -28,9 +28,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   #270–#272. The prototype page is on the L4b kernel (version 5: R1d by
   default, the cascade tree on the end panel): play it and say what is not
   fun (#223's ladder).
-- **Money**: 2026-10-21/22 about 148 USD (v2 13.85, audits 25.40,
+- **Money**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
-  audits before L5 6.91, L4 fix 4.93). L4 in all ≥ 46.48 (#191: past 40).
+  audits before L5 6.91, L4 fix 6.83). L4 in all ≥ 48.38 (#191: past 40).
 - **Next**: merge PR #64 when its reviewer reports, then the **L5 plan**
   under the plan gate: `sensors.js` and the knowledge model first (#266);
   missiles, point defence and the railgun as room physics (#268, §13m);
