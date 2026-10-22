@@ -1686,3 +1686,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 269 | §13m, the coverage table: every element of the design and the level that proves it (the owner's direction); lint check 8 | current |
 | 270 | Answers to the four light audits before L5: #267's factor change withdrawn, the ledger's ratio table, the plan checklist's three lines, the L4 fix round (B1, `L4.books.two`, `battle.openingRange`), stand-ins stated, §17 items 38–41, five questions to the owner | current |
 | 271 | The scenario-hygiene round (§13l.7): every finding of the L4 scenario audit fixed by successors, under the plan gate; §17 item 42 (the owner: fix every audit finding) | current |
+| 272 | The L4 fix round merged (PR #64): the hit's momentum along the relative velocity at the first entry with matter, `L4.books.two`, `battle.openingRange`; answers to its engineer and reviewer | current |

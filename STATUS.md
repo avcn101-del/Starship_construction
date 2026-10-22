@@ -11,16 +11,15 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   consolidation (#242), physics pass 2 (#243–#251), `tools/mutate` (#257),
   L4a (PR #58, #253–#258, #260), **L4b (PR #62, #261–#264, #267): L4 is
   done** (every capture route reaches Disabled; the cascade tree; E8
-  0.15–0.29 ms per step).
-- **Running**: **PR #64, the L4 fix round** (`m0/l4-fix`, head
-  `27732a3`; the physics audit's B1 fixed: the two-ship momentum book
-  closes at 5e-15; `L4.books.two`; `battle.openingRange` 900 m, k = 1;
-  regress 108 VERIFIED; the engineer's full mutation run in the
-  background) and its light reviewer `session_01UTmHgSuJy1TgUL28GNf5Lv`
-  (sonnet, 12:16 UTC). The four light audits are in and answered (#270:
-  6.91 USD; 81 findings). **Next session**: the scenario-hygiene round
-  (§13l.7, #271: every scenario-audit finding fixed; 25–38 USD by the
-  rule, the lead designer expects 12–18) starts when PR #64 merges.
+  0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
+  (PR #64, #272: the two-ship momentum book closes at 5e-15)**.
+- **Running**: the **scenario-hygiene round** (§13l.7, #271: every
+  scenario-audit finding fixed by successors; 25–38 USD by the rule, the
+  lead designer expects 12–18): one engineer session (opus, `m0/l4-hygiene` from
+  `main` at the L4 fix merge; its id in `LEDGER.md` at the next update);
+  then its blind checker and reviewer. The full mutation run on the merged L4 fix (#270 (5)) runs in
+  the lead designer's chat. The four light audits are answered (#270:
+  6.91 USD; 81 findings).
 - **Waiting on you**: **five questions** (the #247 (3) frame in the chat,
   #270): the magazine's detonation rule, the passed cell's loss, the tier
   scale of "one battle", the pre-lock rule's wording (a `CLAUDE.md` law),
@@ -29,8 +28,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   #270. The prototype page is on the L4b kernel (version 5: R1d by
   default, the cascade tree on the end panel): play it and say what is not
   fun (#223's ladder).
-- **Money**: 2026-10-21/22 about 136 USD (v2 13.85, audits 25.40,
-  consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98).
+- **Money**: 2026-10-21/22 about 148 USD (v2 13.85, audits 25.40,
+  consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
+  audits before L5 6.91, L4 fix 4.93). L4 in all ≥ 46.48 (#191: past 40).
 - **Next**: merge PR #64 when its reviewer reports, then the **L5 plan**
   under the plan gate: `sensors.js` and the knowledge model first (#266);
   missiles, point defence and the railgun as room physics (#268, §13m);
@@ -50,8 +50,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - Design settled: `DECISIONS.md` #1–#268, current design in `DESIGN.md`,
   decisions in force in its §18, open obligations in its §17.
 - **Mission 0 L0–L4 are merged**, with the D pass, the mass pass, the path
-  model, physics pass 2, `tools/mutate` and the armour plates (L4a). `regress`
-  on `main` at `2a454c0`: **107 VERIFIED + 87 WITHDRAWN + 5 RETIRED**.
+  model, physics pass 2, `tools/mutate`, the armour plates (L4a) and the L4
+  fix round (#272). `regress` on `main` at the L4 fix merge: **108 VERIFIED + 87 WITHDRAWN + 5 RETIRED**.
 - The feel prototype (`proto/`, throwaway, #217) runs on the L4b kernel at
   https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d (version 5): R1d by
   default, the cascade tree on the end panel; the enemy is a fixed script,
@@ -163,21 +163,21 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 - The five questions of #270 (the magazine's detonation rule, the passed
   cell's loss, the tier scale of "one battle", the pre-lock rule's wording,
-  surrender against Disabled), put in the chat in the #247 (3) frame.
+  surrender against Disabled), put in the chat in the #247 (3) frame. The
+  owner added to the first (2026-10-22): with four weapon types on one
+  magazine, #83's "explosion = destroyed" one-shots a capital ship; the
+  lead designer's levers for the L5 plan are rule (c), one magazine per
+  weapon type (each its own blast by §13d), the information law; whether
+  #83 becomes "a blast, the ship destroyed only by the existing rules" is
+  the owner's (a law).
 - Veto window on #253, #256, #258–#263, #265, #267, #270.
 
 ## Next steps
 
-0. **The scenario-hygiene round** (§13l.7, #271) right after PR #64
-   merges: the engineer's task is drafted in the lead designer's scratch
-   directory (`hygiene-task.md`); then the blind checker on the new
-   literals and the reviewer; the merge row answers both.
-1. **PR #64 (the L4 fix round)**: read its light reviewer; answer the
-   engineer's Q1–Q4 in the merge row (Q1 accepted in #270 (9); Q3 a tier
-   case at L6, item 38; Q4 `START_SEPARATION` removed with L5's prototype
-   change); re-point the '#269' citations in `js/data.js` and the changelog
-   to #270; merge; `regress` on the merge; the prototype needs no
-   republish unless `proto/` changed.
+1. **The scenario-hygiene round** (§13l.7, #271): read the engineer's
+   pull request; the blind checker on the new literals (from the lock);
+   the reviewer; the answers row; merge; `regress` on the merge; the full
+   mutation run's report recorded with it.
 2. **The L5 plan** (a new section of `DESIGN.md` §13 after §13m, the plan gate of #241 with #270 (3)'s
    three checklist lines; `tools/estimates/l5.mjs`): L5a senses
    (`sensors.js`, the knowledge model, numbers for the information law) and
