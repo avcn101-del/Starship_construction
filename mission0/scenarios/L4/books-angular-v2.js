@@ -45,7 +45,7 @@ export default {
   tolerance: 'books 1e-9 x gross + 1e-12 (#220); the impulse point on the line 1e-9 x the cell edge (#282 (7) (c))',
   criterion: 'in both cases the largest residual <= 1e-9 x the largest gross + 1e-12; still: 12 hits (B1\'s count, #267 N8); spin: at least one hit, at least one round passes the hull, and |omega| >= 1e-3 rad/s at some hit; fast: at least one hit, |omega| >= 0.5 rad/s at some hit; in every case at least one impulse booked and every impulse point within 1e-9 x the cell edge of the round\'s line of action',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'a9358bf4' },
   cases() {
     return [{ name: 'still', omega: 0, v: [0, 0] }, { name: 'spin', omega: 0.05, v: [20, 0] }, { name: 'fast', omega: 1, v: [20, 0] }];
   },
