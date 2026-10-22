@@ -1249,11 +1249,13 @@ kernel today (§13m, #265, #268). It is built in **five passes** and one
 mass pass, each its own branch and pull request on the one before, each
 under the plan gate (#241 (1) with #270 (3) and #275 (2)), in this order,
 because each reads the one before: **L5a** the kinetic pass (the damage law
-every later measure runs on), **L5m** mass pass 2 (#279, #280: the reactor,
-turret, railgun and missile bay as structure plus what they hold, each part
-with a cited source, as the engine and beam bay already are, #243 F11; it
-re-pins R1 and R1d and must precede every measure by mass, E5 and E6 above
-all, and every scenario that pins a penetration), **L5b** senses and the
+every later measure runs on), **L5m** mass pass 2 (#279, #280, #281: **the turret**
+as structure plus its mount, from a cited source, as the engine and beam
+bay already are, #243 F11; the reactor keeps its mass on the sources, the
+missile bay and the railgun get theirs in L5c with their rooms; it re-pins
+R1 and R1d, makes the turret a light room an M round passes whole (σ 592 →
+199 kg/m², (9)), and must precede the pace study, every measure by mass, E5
+and E6 above all, and every scenario that pins a penetration), **L5b** senses and the
 knowledge model (what the enemy and the seekers read), **L5c** weapons (missiles, point defence, the railgun, round types,
 the firing window, S footprints), **L5d** the helm and the enemy (the moving
 loop with both ships firing), **L5e** ship versus ship (the reference set,
@@ -1289,7 +1291,7 @@ is §13n.6.
 | The stand-ins of §17 item 35 (B2, B3, B4, L4) | B2: a hit's impulse acts **on the line of action** (the midpoint of the round's chord through the cell, or the plate's crossing point), not at the cell's centre, so the two-ship **angular** momentum book closes (1e-9 × gross like the linear one, #220); B3: the battle books **energy** across the two ships (muzzle energy = the round's kinetic energy + recoil energy; each hit's loss = heat + the hull's gain; a round's energy at `left`), closing at 1e-9 × gross; B4: a stopped round's mass **joins the body it stops in** (rebalance), `spent` keeps only what left play; L4: a round's heat is split between entries by the **energy each took** ((p_i² − p_{i+1}²) / 2m per entry), not by impulse. Successors of `L3.hit.books`, `L4.books.two`, `L3.shield.energy` where their records move (the engineer lists them; the originals withdrawn as superseded by this row's decision) |
 | Targets with fittings (§17 item 36) | `mission0/targets.js` gains **T-neck2** and **T-gun2**: the L4 layouts with four RCS and the radiators R1 carries where their rooms allow, for L5's cases that hold a heading or fire for long; T-neck and T-gun stay as locked (their records read them) |
 | Hygiene residue (§17 item 39) | Fixed in the successor of every scenario this pass withdraws ((b) `L4.kill.v2`'s magazine cases → `L4.kill.v3` under the two rules above, with the shot that detonates R1's magazine (1) and R1d's (7: the two hold cells, the plate at shot 6, the round through the hole at shot 7, (2)) and the end by pieces; (d), (f) when `L3.shield.energy` and `L3.shield.nobody.v2` get successors for B2–L4; (g) the tie-break stated in §13l.1 as the kernel's order, no code). (a), (c), (e) stay listed until their files are touched (L5c for (a)) |
-| The pace study (#266: one study for R1d and this pass) | After the merge the lead designer runs `tools/estimates/pace.mjs --layout R1D` (the prototype judged by the kernel's Disabled and destroyed rules, a `proto/` change in this pass: the magazine's explosion no longer ends it) with the two rules above, bow-on and broadside at 600 / 900 / 1500 m, and reports to the owner before L5b's lock: whether R1d with its citadel and the threshold keeps E7's band (L4b: broadside 215–306 s, bow-on 102–195 s, §13l.3); if not, `magazine.detonationSpeed` within its range and `armour.plateThickness` are the rung-1 levers (#223) |
+| The pace study (#266: one study for R1d and this pass) | After **L5m** merges (#281: the turret's new mass moves the mission-kill route) the lead designer runs `tools/estimates/pace.mjs --layout R1D` (the prototype judged by the kernel's Disabled and destroyed rules, a `proto/` change in this pass: the magazine's explosion no longer ends it) with the two rules above, bow-on and broadside at 600 / 900 / 1500 m, and reports to the owner before L5b's lock: whether R1d with its citadel and the threshold keeps E7's band (L4b: broadside 215–306 s, bow-on 102–195 s, §13l.3); if not, `magazine.detonationSpeed` within its range and `armour.plateThickness` are the rung-1 levers (#223) |
 
 **(c) Weapons (L5c; #93, #96, #97, #100, #142, #148, #236 (6), #268)**
 
@@ -1301,7 +1303,7 @@ is §13n.6.
 | Point defence (#93, two fittings) | Both engage **missiles only**, in the arc of their hull segment (the outward half-plane), the nearest incoming first (an automatic rule, §8). **Kinetic**: `pd.fireRate` M flak rounds (new, 2 /s, 1–4, k = −1) from its own store `pd.ammo` (new, 40, 20–100, k = 0; refilled between battles, #90), each a round with lead on the missile that bursts at closest approach with `he.blastEnergy` over a field of radius `flak.radius` (new, 10 m, 5–20, k = 1); the missile dies when the dose reaches its hp (within 15.3 m, (4)); its miss is physical (the missile's acceleration over the flak's flight, 3.75 m in 0.5 s). **Laser**: `pdLaser.power` (new, 1 MW, 0.3–3, k = 2) on the missile while in arc, no falloff (#230), draw at `beambay.efficiency`, heat in its room; a missile dies in hp / P = 0.6 s. Six missiles arriving over 2.6 s: one laser kills 4, one kinetic fitting 5 (the Swarm's law) |
 | Round types (#94, #96) | Five entries of one table `ROUNDS` in `data.js`, each the M round with **one parameter traded**: Standard (as today); AP (length × `rounds.apLength` 1.5, 1.2–2: thinner, higher s₀ and S, no burst); HE (steel × `rounds.heSteel` 0.5, 0.3–0.8 of the mass, the rest `he.blastEnergy` as a contact burst at the stopping cell: shallower, a blast); Sabot (mass × `rounds.sabotMass` 0.5, 0.3–0.8 at velocity × `rounds.sabotVelocity` 1.3, 1.1–1.6: less recoil, less momentum, a flatter flight); Flak (point defence's round). A magazine holds one type per load slot; **the shot's type is chosen automatically against a resolved target** (#95): HE on a room on the hull face, AP on a room behind at least one cell, Standard otherwise and on a zone. The estimate prints each type's depth in crewed cells and its magazine-entry speed |
 | Firing window (#100) | A round or beam leaving its own ship never meets its own field; while it crosses its own field's hull segment (one step for a round, every step for a firing beam) that segment is **open**: a round of the other side entering through it in that step meets no field. No constant |
-| Room size S (§17 item 30, #62, #259) | Every 2 × 2 room gets an **S footprint of one cell** (quarters and missile bay 2 × 1; engine 1 × 2 with the exhaust face; beam bay and railgun 1 × N): the kernel's size rule applies (`cellRatio` 1/4: power, crew, capacity, explosion; a turret's rounds and rate by `sizeLinear` as built: S rounds at 0.75 /s). Munition sizes keep `FIXED.sizeLinear` (2/3): the room's ratio is its cell count, the round's its linear size, two different things, stated (#259 (1)). **Mass by contents is mass pass 2 (L5m, #280)**, between L5a and L5b, not this pass: the reactor, turret, railgun and missile bay become structure plus what they hold, each part with a cited source gathered by the design partner (the reactor's 63 % of R1 came from #234 mixing a submarine compartment's density with space-station modules for every other room, the design partner's finding, #279); it re-pins R1 and R1d and withdraws by decision every scenario whose record moves. Numbers (6): S reactor 150 t and 5 MW; throughput per cell S 1.33, M 0.75, L 0.75 kg/s; an R1 on an S reactor weighs 500 t at 3.06 g: **E6's 60 %-budget ship exists only with S rooms** |
+| Room size S (§17 item 30, #62, #259) | Every 2 × 2 room gets an **S footprint of one cell** (quarters and missile bay 2 × 1; engine 1 × 2 with the exhaust face; beam bay and railgun 1 × N): the kernel's size rule applies (`cellRatio` 1/4: power, crew, capacity, explosion; a turret's rounds and rate by `sizeLinear` as built: S rounds at 0.75 /s). Munition sizes keep `FIXED.sizeLinear` (2/3): the room's ratio is its cell count, the round's its linear size, two different things, stated (#259 (1)). **Mass by contents** (#280, #281): the turret in L5m (structure plus `turret.mountMass`); the **missile bay** here, as structure plus a launcher of 13.5 t per M bay (range 12.2–15.2 t, the Mk 41 tactical module and its siblings; secondary only, flagged in its note, #281 (3)); the **railgun** here at `cellMass.railgun` as today (no source found for a launcher or its pulsed power; volume only: 32 MJ of pulsed power fits a 20 ft container, so the N = 2 gun's 67 MJ store fits its own cells, #281 (4)); the reactor unchanged (#281 (1)). Numbers (6): S reactor 150 t and 5 MW; throughput per cell S 1.33, M 0.75, L 0.75 kg/s; an R1 on an S reactor weighs 500 t at 3.06 g: **E6's 60 %-budget ship exists only with S rooms** |
 | Damage channels × new resisting objects (#270 (3)) | A **missile** in flight: kinetic (none: too fast for flak's lead, by design, no rule), beam (a PD laser or the spinal beam: energy / (q × mass)), blast (flak: dose ≥ hp), heat (none). A **railgun room**: as a plant cell of `cellMass.railgun` (every channel by mass, #240 (1)). A **slug**: the round rule (steel). The firing window: no object |
 
 **(d) The helm and the enemy (L5d; `js/helm.js`, `js/enemy.js`; #36–#40, #111–#117, #252, #273 (5))**
@@ -1431,12 +1433,12 @@ One engineer session (opus) per pass on `m0/l5a-kinetic`, `m0/l5b-senses`, `m0/l
 | Pass | Raw (USD) | Kind | Rule (#246 (4)) | Lead designer's expectation (#270 (2)) |
 |---|---|---|---|---|
 | L5a kinetic | 11–16 (engineer 8–11, checker 2–3, reviewer 1–2) | repeated (a kernel physics pass) | ×2.5: 28–40 | 14–20 |
-| L5m mass pass 2 (#280) | 8–12 (engineer 6–8, checker 1–2, reviewer 1–2; the mass pass of #221 cost 8.90) | repeated | ×2.5: 20–30 | 10–15 |
+| L5m mass pass 2, the turret (#280, #281) | 5–8 (engineer 3–5, checker 1–2, reviewer 1) | repeated | ×2.5: 13–20 | 7–10 |
 | L5b senses | 15–21 (12–16, 2–3, 1–2) | new | ×4: 60–84 | 20–30 |
 | L5c weapons | 26–37 (22–30, 3–5, 1–2) | new | ×4: 104–148 | 35–55 |
 | L5d helm and enemy, with `tools/play.mjs` | 26–36 (18–24, 3–4, 1–2; the play harness 4–6) | new | ×4: 104–144 | 36–51 |
 | L5e ship versus ship, with `tools/sweep.mjs` | 25–36 (16–22, 2–3, 1–2; the sweep 6–9) | new | ×4: 100–144 | 33–54 |
-| **L5** | **111–158** | | **416–590** | **148–225** (the ratios on record are 1.0–2.0 of raw; fix rounds included as 15–30 % of engineering; the two harnesses 10–15 raw, #277; mass pass 2 8–12 raw, #280) |
+| **L5** | **108–154** | | **409–580** | **145–220** (the ratios on record are 1.0–2.0 of raw; fix rounds included as 15–30 % of engineering; the two harnesses 10–15 raw, #277; mass pass 2 5–8 raw, #281) |
 
 Time: five sequential passes, each an engineer session of 2–4 hours plus a checker and a reviewer of about an hour, and the lead designer's answers and merge: about **three days** with the account's five-hour limit (#246; the hygiene round lost a session to it), two if nothing stalls.
 
@@ -1524,11 +1526,11 @@ Each line names its decision and when it is due; a closed one is removed.
     `kineticStop`; and whether a weapon room's mass follows its volume
     (118 kg/m³, a 59 t M turret) or its contents (structure + a mount, as
     the engine and beam bay already do, #243 F11). Decided at the L5 plan
-    (#278): S footprints of one cell in L5c; mass by contents is **mass
-    pass 2 (L5m, #279, #280)**, with the reactor added to the list (its
-    63 % of R1 came from #234 mixing two reference densities), between
-    L5a and L5b, each part's value from a cited source the design partner
-    gathers. Due: L5m's plan, when the sources arrive.
+    (#278): S footprints of one cell in L5c; mass by contents (#281, on
+    the sources the design partner checked): the turret in **L5m**
+    between L5a and L5b, the missile bay (secondary source, flagged) and
+    the railgun (no source found) in L5c, the reactor unchanged. Due:
+    L5m and L5c.
 
 33. **The information law has no level** (the design partner, #265): no
     row of §13's table proves #24–#28 (passive d², active d⁴ that reveals
@@ -1934,3 +1936,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 278 | The L5 plan (§13n): five passes L5a–L5e, 26 constants, 52 scenarios, the unmanned rule, `magazine.detonationSpeed` (new) as the first pace lever, the lint's §13n skip | current |
 | 279 | The owner: the budget of E5 and E6 is #74's price with the type factor proportional to the M-cell mass until Mission 0 ends (option A); the reactor's share stays a question: mass pass 2 before E5 and E6, its sources gathered by the design partner | current |
 | 280 | Mass pass 2 (L5m) planned between L5a and L5b: reactor, turret, railgun, missile bay as structure plus contents with cited sources; the full mutation run on `29ce028` recorded (131 killed, 21 changed, 58 survived, 12 stale) | current |
+| 281 | Mass pass 2 on the sources: the reactor kept (no split without a 20 MWe source), the turret by its mount in L5m, the missile bay by a secondary source and the railgun unchanged in L5c; a secondary source allowed only when no primary exists, flagged; the pace study after L5m | current (amends #279 (2) and #280 (1)) |

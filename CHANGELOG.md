@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — Mass pass 2 on the sources (#281)
+
+- `DECISIONS.md` #281: the reactor keeps its mass (no 20 MWe source to
+  split it); the turret becomes structure plus a 7.9 t mount in L5m (an M
+  round now passes it whole); the missile bay by a flagged secondary
+  source and the railgun unchanged in L5c; the pace study after L5m.
+  `DESIGN.md` §13n, §17 item 30, §18; `tools/estimates/l5.mjs` section (9).
+
 ## Unreleased — 2026-10-22 — Mass pass 2 planned; the budget by price ∝ mass (#279, #280)
 
 - `DECISIONS.md` #279 (the owner: #74's price with the type factor ∝ the
