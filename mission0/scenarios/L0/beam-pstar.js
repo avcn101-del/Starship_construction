@@ -18,7 +18,7 @@ export default {
   tolerance: '1 % relative (the kernel has no shell or density correction; 13i.3 found 0.12 % at 100 MeV)',
   criterion: 'the CSDA range is NIST PSTAR\'s for liquid water within 1 %: 7.718 g/cm^2 at 100 MeV, 25.96 g/cm^2 at 200 MeV (literals from the table, not a re-statement) (#229, #236, #243, #244)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'bceca34b' },
   cases() {
     return [{ MeV: 100 }, { MeV: 200 }];
   },

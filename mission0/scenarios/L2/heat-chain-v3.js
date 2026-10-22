@@ -90,7 +90,7 @@ export default {
   tolerance: 'temperatures 3e-3 K absolute at 300 s; the hold ratio strict',
   criterion: 'the 3 x 3 linear system C dT/dt = -K T with the walls of 13d.1 (coolant or passive), solved in the scenario by eigen-decomposition (closed form), gives every temperature within 3e-3 K at 300 s; the heat reaching the third room through a hold is < 1e-3 of that through a coolant room (#200, #201, DESIGN.md 13d.2 row 2b) Successor of L2.heat.chain.v2 (#240, #243, 13k.4 S16): C = cells x the room type\'s thermally coupled heat capacity per cell (13k.2; a heat sink x heatsink.capacityFactor as before) in place of thermal.heatCapacityPerCell; every expected value is the same rule computed in the scenario.',
   tunable: ['conduction.wall', 'conduction.passive', 'conduction.holdFactor', 'thermal.coupledReactor', 'thermal.coupledBeamBay', 'thermal.coupledEngine', 'thermal.coupledShieldGenerator', 'thermal.coupledCrewed', 'thermal.coupledMagazine', 'thermal.coupledHold', 'thermal.coupledHeatSink'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '12b88063' },
   cases() {
     return [{ middle: 'beamBay', T0: 600 }, { middle: 'hold', T0: 600 }];
   },

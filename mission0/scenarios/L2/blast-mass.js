@@ -60,7 +60,7 @@ export default {
   tolerance: 'energies and integrity 1e-12 relative (a closed form against the kernel\'s fill, 13k.4 conventions); counts exact',
   criterion: 're-statement: absorbed per room by the scenario\'s own fill of 13d.1 with B = cells x matter.blastPerKg x cell mass (13k.1), 1e-12; absorbed + escaped = E within 1e-12; no cell absorbs more than matter.blastPerKg x its mass (each room\'s absorbed / its cells <= q_b m); a saturated room loses every cell, an unsaturated one keeps them at 1 - absorbed / B. Hand-worked literals at T1: magazine and hold B = 4 x 100 x 3000 = 1.2 MJ, reactor B = 4 x 100 x 150 000 = 60 MJ; 6 MJ with a reactor neighbour: the magazine takes 1.2 MJ, the 4.8 MJ excess splits 2 : 1, the hold saturates at 1.2 MJ and passes 2.0 MJ on to the reactor, which holds 1.6 + 2.0 = 3.6 MJ; nothing escapes (#169, #240 (6), #243)',
   tunable: ['matter.blastPerKg', 'structure.cellMass', 'cellMass.reactor', 'kinetic.chargeEnergy', 'he.blastEnergy', 'kinetic.roundMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'c476e589' },
   cases() {
     const out = [];
     for (const neighbour of Object.keys(NEIGHBOUR)) for (const load of ['6 MJ', '20 MJ']) out.push({ neighbour, load });

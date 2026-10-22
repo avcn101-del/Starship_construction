@@ -57,7 +57,7 @@ export default {
   tolerance: 'exact',
   criterion: 'each bad placement throws with its message (overlaps, outside, rotation, integer) and the valid pair does not; R1 is valid with no reason; each broken blueprint is invalid and names its rule, exactly once, and no other rule (#57, #192, #208, #234, #244)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '675ffe6b' },
   cases() {
     return [...Object.keys(PLACEMENTS).map((name) => ({ kind: 'place', name })), ...Object.keys(BLUEPRINTS).map((name) => ({ kind: 'validate', name }))];
   },

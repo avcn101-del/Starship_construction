@@ -28,7 +28,7 @@ export default {
   tolerance: 'relative 1e-9; time one-sided (expected <= actual < expected + dt)',
   criterion: 'control = true while any cell survives; power cut -> still true (backup supply, #147), drawn from the backup; heat rate = bridge.powerDraw; time to hot t = C (T_hot - T_rest) / draw one-sided; destroyed -> false at the last cell, event control-lost with the destroying hit (hit-4) as cause, at its time (#82, #147, #181, #183) Successor of L1.bridge.control (#240, #243, 13k.4 S16): C = cells x thermal.coupledCrewed (0.6 MJ/K per cell, the old value, 13k.2) in place of thermal.heatCapacityPerCell; the times do not change.',
   tunable: ['bridge.powerDraw', 'thermal.coupledCrewed', 'thermal.crewedHot'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '89553ba4' },
   cases() {
     return [{ mode: 'powered' }, { mode: 'cut' }, { mode: 'destroyed' }];
   },

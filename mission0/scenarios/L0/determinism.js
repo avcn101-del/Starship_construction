@@ -18,7 +18,7 @@ export default {
   tolerance: 'exact',
   criterion: 'the Node and Chromium hashes are equal and the tool prints MATCH; js/ holds no Math.pow, Math.sin or Math.cos and no ** with a non-integer exponent (#239 Q6, #243)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '381f764c' },
   cases() {
     return [{ part: 'hash' }, { part: 'grep' }];
   },

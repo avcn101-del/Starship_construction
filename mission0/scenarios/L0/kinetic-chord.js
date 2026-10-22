@@ -19,7 +19,7 @@ export default {
   tolerance: 'closed form against the kernel\'s loop 1e-12 (13k.4 conventions); the literal 1e-6',
   criterion: 're-statement: the round rule of 13i.1 in the scenario\'s own loop with r = matter.kineticResistance x sigma x chord; depth, cells passed and f within 1e-12; p0 = sum of the momentum each cell took + p on exit within 1e-12; a passed cell loses 1 / kinetic.hitsToWreck, the stopping cell (taken / r) / hitsToWreck; hand-worked literal: at T1 a diagonal cell resists 2.7e5 x 12^(1/3) / sqrt 2 = 437 095.0 kg/(m s) (1e-6). The straight depth x sqrt 2 is not the diagonal depth (the round flattens cell by cell, so the ratio is about 1.39, not 1.414): not a criterion here (a question in the pull request) (#228, #232, #239, #243)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'matter.kineticResistance', 'cellMass.shieldGenerator', 'kinetic.hitsToWreck'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '8ef725b0' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T3']) for (const line of Object.keys(CHORD)) out.push({ tier, line });

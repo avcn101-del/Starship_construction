@@ -30,7 +30,7 @@ export default {
   tolerance: 'decay heat relative 1e-3; meltdown time one-sided (expected <= actual < expected + dt); energy relative 1e-9',
   criterion: 'delivered -> 0 within one step; SCRAM event with cause \'control-loss\'; decay heat P_d(t) = f h P e^(-t/tau), so heat added by t = f h P tau (1 - e^(-t/tau)) to 1e-3; no decay heat from an idle reactor (its temperature stays at T_s); meltdown iff C (T_crit - T_s) < f h P tau, at t = -tau ln(1 - C (T_crit - T_s) / (f h P tau)) one-sided (yes from 600 K, no from rest), and its explosion event carries reactor.explosionEnergy (#81, #82, #181, #183) Successor of L1.reactor.scram (#240, #243, 13k.4 S16): C = cells x thermal.coupledReactor (5.5 MJ/K per cell, 13k.2) in place of thermal.heatCapacityPerCell; with it C (T_crit - 600 K) = 8.8 GJ exceeds f h P tau = 1.26 GJ, so the 600 K case now expects no meltdown by the same formula (the "yes from 600 K" above was the old data\'s estimate); the control is never restored here, so the SCRAM restart (13k.1) does not act.',
   tunable: ['reactor.power', 'reactor.heatPerPower', 'reactor.decayFraction', 'reactor.decayTime', 'reactor.explosionEnergy', 'thermal.coupledReactor', 'thermal.plantCritical'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '97297cd2' },
   cases(ctx) {
     const rest = ctx.fixed.restTemperature.value;
     return [{ T0: rest, d: 1 }, { T0: 600, d: 1 }, { T0: rest, d: 0 }];

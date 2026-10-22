@@ -18,7 +18,7 @@ export default {
   tolerance: 'a bound: 100 mm <= depth <= 150 mm',
   criterion: 'the model\'s depth (about 2.166 cells x 50.96 mm = 110 mm, 13i.3) lies inside De Marre\'s 100-150 mm for this shot (#236), a bound, not a formula (#230, #232, #236, #244)',
   tunable: ['kinetic.roundMass', 'kinetic.muzzleVelocity', 'matter.kineticResistance', 'armour.cellMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '735e3d84' },
   cases() {
     return [{ tier: 'T1', size: 'M' }];
   },

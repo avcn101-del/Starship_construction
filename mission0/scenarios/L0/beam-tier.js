@@ -16,7 +16,7 @@ export default {
   tolerance: 'the kernel against the scenario\'s own integration: F_1 1e-3 absolute, depth 1e-3 relative (the integrators\' steps differ: 2 kg/m^2 and 1 % against 0.2 kg/m^2 and 0.1 %); across tiers: F_1 and depth within 2 % of T1\'s (the k = -0.41 fit\'s error, 13k.6); the T1 literal 1 %',
   criterion: 're-statement: E = beam.gradient x edge^-0.41 (relative to 5 m) x N x edge; F_1 and the CSDA range by the scenario\'s own Bethe integration (13i.1: iron, no shell or density correction, nuclear interactions over ironInteractionLength; steps at most 0.2 kg/m^2 and 0.1 % of the energy), the kernel\'s within 1e-3; across tiers the first cell\'s fraction and the depth in cells stay within 2 % of T1\'s for N = 2 and N = 8; hand-worked literal: at T1 an N = 2 bay gives 10 MeV/m x 10 m = 100 MeV and reaches 0.282 armour cells (13k.3) within 1 % (#229, #240 (4), #243)',
   tunable: ['beam.gradient', 'armour.cellMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '610e86dd' },
   cases(ctx) {
     const out = [];
     for (const N of [2, 8]) for (const tier of Object.keys(ctx.tiers)) out.push({ N, tier });

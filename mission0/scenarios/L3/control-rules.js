@@ -51,7 +51,7 @@ export default {
   tolerance: 'exact; the angular velocity 1e-9 relative (a closed form against the kernel\'s integration)',
   criterion: '(timeline) no room works in a step that starts without control; the shield absorbs and the beam bay beams in every step that starts with control; the turret fires before 2 s and again after 4 s; the reactor delivers before 2 s, not from the step after control is lost until it restarts at 4 + reactor.restartTime = 64 s (one-sided), and from then on; each of the four rooms raises control-lost once (after 2 s) and control-restored once (after 4 s), in that order. (thrust) re-statement: delta omega = (r x F) dt / I with r the exhaust\'s point (x = 0, y = 15 m) less the centre of mass, F = engine.thrust (15 MN, literal) along +x, 1e-9; (fixture) F dt at the centre of mass: delta omega = 0 exactly (#12, #14, #81, #82, #244)',
   tunable: ['engine.thrust', 'reactor.restartTime'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'e07f4002' },
   cases() {
     return [{ part: 'timeline' }, { part: 'thrust' }, { part: 'fixture' }];
   },

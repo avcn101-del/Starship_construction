@@ -77,7 +77,7 @@ export default {
   tolerance: '1e-3 relative',
   criterion: 'the two-room linear solution with a constant source (13d.1 coolant wall; the heat sink with heatsink.capacityFactor x the heat capacity and heatsink.conductivityFactor as its coolant factor) gives the reactor\'s overheat time as a root of the closed form, within 1e-3 relative; at each tier (b) overheats later than (a) (#198, #201, DESIGN.md 13d.2 row 13) Successor of L2.heatsink.buffer (#240, #243, 13k.4 S16): C = cells x the room type\'s thermally coupled heat capacity per cell (13k.2; a heat sink x heatsink.capacityFactor as before) in place of thermal.heatCapacityPerCell; every expected value is the same rule computed in the scenario.',
   tunable: ['heatsink.capacityFactor', 'heatsink.conductivityFactor', 'conduction.wall', 'thermal.coupledReactor', 'thermal.coupledBeamBay', 'thermal.coupledEngine', 'thermal.coupledShieldGenerator', 'thermal.coupledCrewed', 'thermal.coupledMagazine', 'thermal.coupledHold', 'thermal.coupledHeatSink', 'thermal.plantOverheated', 'reactor.heatPerPower'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'acfe5ce6' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T3']) for (const neighbour of ['beamBay', 'heatSink']) out.push({ tier, neighbour });

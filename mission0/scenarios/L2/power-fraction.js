@@ -21,7 +21,7 @@ export default {
   tolerance: '1e-9 relative (a closed form against the kernel\'s routing); counts exact',
   criterion: 'fraction 0.5: powered, fraction = 0.5 (1e-9); energy drawn per step = 0.5 x draw x dt; (turret) rate = 0.5 x turret.fireRate: shots by 20.25 s = 1 + floor(0.25 x 20.25) = 6 (full rate would give 11); (shield) absorbed = 0.5 x shield.budget = 5 MW (the 10 MW beam is above the halved budget); (quarters) repair budget = 0.5 x repair.massRate = 100 kg/s, and its life support runs (#207: joined to a reactor able to produce, whatever the fraction). Fraction 0: powered false, nothing drawn, no shot, nothing absorbed, no repair budget; life support does not run (the reactor at demand 0 is not able to produce, #207) (#193, #207, #244)',
   tunable: ['turret.powerDraw', 'turret.fireRate', 'shield.powerDraw', 'shield.budget', 'quarters.powerDraw', 'repair.massRate', 'reactor.power'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '3777db12' },
   cases() {
     const out = [];
     for (const consumer of ['turret', 'shieldGenerator', 'quarters']) for (const fraction of [0.5, 0]) out.push({ consumer, fraction });

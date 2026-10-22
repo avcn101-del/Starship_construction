@@ -64,7 +64,7 @@ export default {
   tolerance: 'Delta T: 1e-3 of Delta T0 at every step; energy: 1e-12 relative at every step',
   criterion: 'Delta T(t) = Delta T0 exp(-t / tau), tau = C_a C_b / ((C_a + C_b) G), G by the wall type of 13d.1 (coolant wall between two coolant rooms: conduction.wall x L x harmonic mean of the coolant factors; otherwise a passive wall: conduction.passive x L x harmonic mean of the passive factors, the hold conduction.holdFactor), |Delta T - closed form| <= 1e-3 Delta T0 at every step; C_a T_a + C_b T_b constant to 1e-12 relative at every step (#200, #201, DESIGN.md 13d.2 row 1b) Successor of L2.heat.pair.v2 (#240, #243, 13k.4 S16): C = cells x the room type\'s thermally coupled heat capacity per cell (13k.2; a heat sink x heatsink.capacityFactor as before) in place of thermal.heatCapacityPerCell; every expected value is the same rule computed in the scenario.',
   tunable: ['conduction.wall', 'conduction.passive', 'conduction.holdFactor', 'thermal.coupledReactor', 'thermal.coupledBeamBay', 'thermal.coupledEngine', 'thermal.coupledShieldGenerator', 'thermal.coupledCrewed', 'thermal.coupledMagazine', 'thermal.coupledHold', 'thermal.coupledHeatSink'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'd9b68bbb' },
   cases() {
     const out = [];
     for (const Ta of [400, 600, 1000]) for (const pairs of [1, 2]) out.push({ part: 'a', tier: 'T1', Ta, pairs, b: 'beamBay' });

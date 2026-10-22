@@ -16,7 +16,7 @@ export default {
   tolerance: 'rounds per buffer 1e-6 of the hand-worked 5.859375 at every tier (a ratio of two scaled constants, 13k.6); counts exact',
   criterion: 'hand-worked literal: an M round has 1.5 x the sectional momentum of an S round (kineticStop), so the field leaves v / 3 and takes 1/2 x 6 x (800^2 - (800 / 3)^2) = 1 706 666.67 J at T1; shield.buffer / that = 1e7 / 1 706 666.67 = 5.859375 (13k.3: 5.86); every tier the same within 1e-6, since the buffer (k = 3) and the round\'s energy (mass k = 3, speed k = 0) scale alike; 5 rounds stopped in full, the 6th paid in part (#139, #240 (4), #243)',
   tunable: ['shield.buffer', 'shield.kineticStop', 'kinetic.roundMass', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '2840413d' },
   cases(ctx) {
     return Object.keys(ctx.tiers).map((tier) => ({ tier }));
   },

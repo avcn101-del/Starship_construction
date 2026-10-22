@@ -64,7 +64,7 @@ export default {
   tolerance: 'relative 1e-9',
   criterion: 'stopping energy per round E from L0 (kineticStop at strength 1); the buffer shield.buffer binds at round k = ceil(buffer / E): rounds before k leave at the stopped speed, round k is slowed only by what is left, later rounds pass at their unstopped speed; the buffer after the salvo = buffer - sum of energies; refill at the unused budget (no beam: the whole budget) in closed form, b_n = min(buffer, b_0 + n budget dt) after n steps; the heat in the next step = draw dt + sum of energies (E4: the buffer has a measured effect) (#21, #139, #177, #193, #194) Successor of L2.shield.buffer (#240, #243, 13k.4 S16): the buffer is shield.buffer (1e7 J at T1, the same as budget x bufferSeconds was) in place of the removed shield.bufferSeconds; nothing else changes.',
   tunable: ['shield.budget', 'shield.buffer', 'shield.kineticStop', 'shield.powerDraw', 'kinetic.roundMass', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'e507a5b2' },
   cases() {
     return [5, 20, 40, 80].map((N) => ({ N }));
   },

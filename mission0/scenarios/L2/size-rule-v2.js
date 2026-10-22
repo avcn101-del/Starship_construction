@@ -56,7 +56,7 @@ export default {
   tolerance: 'relative 1e-9; counts exact',
   criterion: 'the scaled quantities of 13d.1 exactly: heat capacity = cells x the room type\'s thermally coupled heat capacity per cell; L reactor power 9/4 of M and explosion energy 9/4 of M (450 MJ); L magazine capacity 9/4 of M; L turret round mass (3/2)^3 of M at 2/3 the rate (shots = 1 + floor(rate t)), heat per shot (3/2)^3 of M, draw 9/4 of M; crew 9/4 of M rounded (reactor 9, turret 7); quarters crew = crewPerCell x cells (#185 (4), (5), #187 (4), #193, #194) Successor of L2.size.rule (#240, #243, 13k.4 S16): C = cells x the room type\'s coupled heat capacity (13k.2: reactor thermal.coupledReactor, magazine thermal.coupledMagazine, turret and quarters thermal.coupledCrewed) in place of thermal.heatCapacityPerCell; nothing else changes.',
   tunable: ['reactor.power', 'reactor.explosionEnergy', 'magazine.capacity', 'kinetic.roundMass', 'turret.fireRate', 'turret.heatPerShot', 'turret.powerDraw', 'thermal.coupledReactor', 'thermal.coupledMagazine', 'thermal.coupledCrewed'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '0c5ee240' },
   cases() {
     const out = [];
     for (const type of ['reactor', 'magazine', 'turret']) for (const size of ['M', 'L']) out.push({ type, size });

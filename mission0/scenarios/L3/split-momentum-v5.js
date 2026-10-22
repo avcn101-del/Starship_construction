@@ -175,7 +175,7 @@ export default {
   tolerance: 'conservation 1e-9 relative; each fragment\'s v and omega 1e-9 relative to the parent\'s speed at that point (omega relative)',
   criterion: 'two fragments (stern ~584 t of cells: engine, reactor, shield generator, half the heat sink; bow ~224 t: the bridge\'s other half, magazine, quarters, turret, beam bay, hold) and the 4 cells as debris (~37 t; the radiator on heat sink cell (4,5) leaves with its cell); mass, momentum, angular momentum about the origin and kinetic energy conserved at the cut (1e-9) and through the flight after it; each fragment\'s v and omega equal the parent\'s velocity field at its centre of mass (stern ~(10.10, -0.27) m/s, bow ~(9.74, 0.68) m/s from the cells alone), the fragments\' masses from the cell sums (13f.1) (#13, #208, #209, #219, #221, #234, #235) Successor of L3.split.momentum.v4 (#240, #243, 13k.4 S16): cell masses from 13k.2: the engine and beam bay cells are structure.cellMass (k = 3) + engine.machineryMass (k = 2) or beambay.machineryMass (k = 1) in place of the removed cellMass.engine and cellMass.beamBay, the reactor cell 150 t, rcs.mass k = 2, a heat sink cell\'s water from thermal.coupledHeatSink; R1 full is about 950.5 t (the estimates above are the old data\'s); every expected value is the same mass model computed in the scenario.',
   tunable: ['thermal.coupledHeatSink', 'structure.cellMass', 'cellMass.crewed', 'cellMass.reactor', 'engine.machineryMass', 'beambay.machineryMass', 'cellMass.shieldGenerator', 'heatsink.capacityFactor', 'radiator.mass', 'rcs.mass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '78c87ef9' },
   cases() {
     return [{ tier: 'T1' }, { tier: 'T6' }];
   },

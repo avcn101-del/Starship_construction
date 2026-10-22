@@ -87,7 +87,7 @@ export default {
   tolerance: 'overheat and restart times 1e-3 relative; events and control exact',
   criterion: 'control lost at overheat (control-lost, cause overheat, at the overheated step) and restored at the restart (control-restored, cause restart); control false in every step from the overheat to the restart, true before and after; overheat time and restart time after the overheat by the reference integrator (RK4 at dt / 10, the passive wall and life support of 13d.1, the L1 shutdown and restart on the step grid) within 1e-3 relative; no radiator on the bridge (setting one is refused); no crew deaths; the heat pumped out of the bridge arrives in the beam bay (#190 (2), #201, DESIGN.md 13d.2 row 12b) Successor of L2.bridge.conduction.v2 (#240, #243, 13k.4 S16): C = cells x the room type\'s thermally coupled heat capacity per cell (13k.2; a heat sink x heatsink.capacityFactor as before) in place of thermal.heatCapacityPerCell; every expected value is the same rule computed in the scenario.',
   tunable: ['lifeSupport.capacityPerCell', 'conduction.passive', 'radiator.area', 'thermal.coupledReactor', 'thermal.coupledBeamBay', 'thermal.coupledEngine', 'thermal.coupledShieldGenerator', 'thermal.coupledCrewed', 'thermal.coupledMagazine', 'thermal.coupledHold', 'thermal.coupledHeatSink', 'thermal.crewedHot', 'thermal.crewedOverheated', 'bridge.powerDraw'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '64e82346' },
   cases() {
     return [{ P: 1.1e6 }];
   },

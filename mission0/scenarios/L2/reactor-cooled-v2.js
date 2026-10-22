@@ -88,7 +88,7 @@ export default {
   tolerance: 'overheat time, peak temperature and a meltdown time 1e-3 relative',
   criterion: 'the reference integrator (RK4 at dt / 10, the shutdown, decay heat and restart of L1 on the step grid) gives the overheat time and the peak reactor temperature within 1e-3 relative; a case melts down at the reference time within 1e-3 relative if and only if the reference melts down in 3600 s (n = 0: L1.reactor.scram\'s closed form from the shutdown, when it melts down), and otherwise does not melt down (#187 (5), #193, #194) Successor of L2.reactor.cooled (#240, #243, 13k.4 S16): C = cells x the rooms\' coupled heat capacities (thermal.coupledReactor, thermal.coupledBeamBay, 13k.2) in place of thermal.heatCapacityPerCell. With C 9.2 x larger the decay heat of a lone reactor (f h P tau = 1.26 GJ) cannot take 22 MJ/K from 800 to 1000 K (4.4 GJ), so whether a case melts down is now the reference\'s answer, not the case\'s n (the n = 0 meltdown of L2.reactor.cooled was 0.367 s early because its exact crossing of overheated lands on step 3672, which the kernel\'s float sum reaches one step later, 0.333 MJ more heat: B-F11, explained in the pull request).',
   tunable: ['conduction.wall', 'radiator.area', 'thermal.coupledReactor', 'thermal.coupledBeamBay', 'reactor.power', 'reactor.heatPerPower', 'reactor.decayFraction', 'reactor.decayTime', 'thermal.plantHot', 'thermal.plantOverheated', 'thermal.plantCritical'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '31cb802e' },
   cases() {
     return [0, 1, 2, 4].map((n) => ({ n }));
   },

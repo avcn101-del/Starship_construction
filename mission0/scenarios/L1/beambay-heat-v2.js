@@ -28,7 +28,7 @@ export default {
   tolerance: 'relative 1e-9; times one-sided (expected <= actual < expected + dt)',
   criterion: 'draw = beam.power / beambay.efficiency; heat rate = draw - beam.power; t_hot and t_over = C (T_x - T_rest) / heat rate, one-sided; at overheated the beam stops (power 0, draw 0, event beam-stopped with cause \'heat\'); unpowered: no beam, no draw, beam-stopped with cause \'no-power\' at 0 (#181, #183) Successor of L1.beambay.heat (#240, #243, 13k.4 S16): C = cells x thermal.coupledBeamBay (1.0 MJ/K per cell, 13k.2) in place of thermal.heatCapacityPerCell; DESIGN.md 13k.3 estimates the race to hot at 165 s (99 before).',
   tunable: ['beam.power', 'beambay.efficiency', 'thermal.coupledBeamBay', 'thermal.plantHot', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '0974a53c' },
   cases() {
     return [...['T1', 'T2', 'T3', 'T4', 'T5', 'T6'].map((tier) => ({ tier, powered: true })), { tier: 'T1', powered: false }];
   },

@@ -16,7 +16,7 @@ export default {
   tolerance: 'exact',
   criterion: '(heat) the bay\'s first beam-stopped event has cause \'heat\' and comes at its shutdown (the same time), not \'no-power\' (#227 Q9: an overheated bay under routing asks for no power); (no-power) a bay with no reactor able to supply it stops at once with cause \'no-power\' (#156, #227, #243)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'ed63a1be' },
   cases() {
     return [{ part: 'heat' }, { part: 'no-power' }];
   },

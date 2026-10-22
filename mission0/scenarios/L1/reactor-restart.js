@@ -24,7 +24,7 @@ export default {
   tolerance: 'times one-sided in [t, t + dt) with the 1e-9 float slack of #185 (2); the hot case\'s crossing by the scenario\'s own bisection to 1e-9 s',
   criterion: 'it delivers nothing from the SCRAM until it restarts (not before); it restarts at the later of (the last time control came back + reactor.restartTime) and the first time its temperature falls below plant hot, one-sided, and delivers from then; never while control is lost; re-statement for (hot): T(t) = T0 + (h d P x 1 s + f h d P tau (1 - e^(-(t - 1 s) / tau)) - 5 MW x t) / C with C = 4 x thermal.coupledReactor, crossing 600 K by bisection; hand-worked literals: (cold) 5 + 60 = 65 s, (again) 40 + 60 = 100 s, (never) no restart (#81, #82, #243)',
   tunable: ['reactor.restartTime', 'reactor.power', 'reactor.decayFraction', 'reactor.decayTime', 'thermal.coupledReactor', 'thermal.plantHot'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '535a6312' },
   cases() {
     return Object.keys(CASES).map((name) => ({ name }));
   },

@@ -63,7 +63,7 @@ export default {
   tolerance: 'rates relative 1e-9; repair times one-sided (expected <= actual < expected + dt)',
   criterion: 'rates by the rule of 13d.1 in closed form: ask q_j = R g(r_j), scaled by R / sum q_j when the asks exceed R; time to repair = 0.7123 / rate, one-sided; one cell alone is repaired at L1\'s rate repair.massRate / its cell mass x g(r); with two quarters the rate is the sum of what each pays; the sum of a quarters\' payments never exceeds R, in any step (#99, #185 (6), #193, #194) Successor of L2.repair.shared (#240, #243, 13k.4 S16): repair by mass: R = repair.massRate (kg/s) in place of the removed repair.rate, a cell\'s rate in integrity = the kg/s it is granted / the hold cell\'s mass (structure.cellMass); what each quarters pays is in kg/s, as the kernel books it.',
   tunable: ['repair.massRate', 'structure.cellMass', 'repair.radius'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '9909673f' },
   cases() {
     const out = [];
     for (const r1 of [0.25, 1]) out.push({ part: 'two-cells', r1 });

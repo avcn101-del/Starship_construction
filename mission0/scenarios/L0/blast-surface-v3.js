@@ -10,7 +10,7 @@ export default {
   tolerance: 'energy relative 1e-9; cell counts as inequalities',
   criterion: 'absorbed = min(E, N B); escaped = max(0, E - N B); at least ceil(min(E, N B) / B) cells damaged; the damaged region is connected and contains the burst; the burst cell is destroyed whenever E >= B (#18, #141) Successor of L0.blast.surface (#240, #243, 13k.4 S16): B = matter.blastPerKg x armour.cellMass (1 MJ at T1, the same as armour.blastResistance was) in place of the removed armour.blastResistance; nothing else changes.',
   tunable: ['he.blastEnergy', 'matter.blastPerKg', 'armour.cellMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '6d566128' },
   cases() {
     return [
       { w: 10, h: 10, x: 0, y: 5, times: 0.25 },

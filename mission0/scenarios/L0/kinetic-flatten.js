@@ -18,7 +18,7 @@ export default {
   tolerance: 'literals 1e-6 relative (worked to 7-8 digits); the momentum books 1e-12',
   criterion: 'hand-worked: p0 = 6 x 800 = 4800 N s; D = (4 x 6 / (pi x 7850 x 4))^(1/3) = 0.0624277 m, A0 = pi D^2 / 4 = 0.00306087 m^2; r = 2.7e5 x 12^(1/3) = 618 145.69 kg/(m s); S = c m / A0 = 1545.364 x 6 / A0 = 3 029 268.3. (stop) cell 1: s = 1 568 186 > r, f + r / S = 0.204058 < 1: passes, p = 4800 - r A0 = 2907.9387, f = 0.204058, A = A0 / (1 - f) = 0.00384559; cell 2: s = 756 175.2 > r: passes, p = 2907.9387 - r A = 530.80474, f = 0.408116, A = 0.00517139; cell 3: s = p / A = 102 642.54 < r: stops, takes min(s, r) = 102 642.54 with the flattened area, f = 0.408116 + s / S = 0.441999, its impulse = 530.80474 N s; depth 2.166049 cells. (wreck, S = 1.5 r = 927 218.5) cell 1 passes (f = 2/3, p = 2907.9387, A = 3 A0); cell 2: s = 316 679.26 < r, f would be 2/3 + 0.341535 > 1: wrecked (f = 1), stopped in cell 2, which takes the remaining 2907.9387 N s; in both, the momentum the cells took sums to p0 (1e-12) (#228, #230, #232, #244)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '6f34436a' },
   cases() {
     return [{ part: 'stop' }, { part: 'wreck' }];
   },

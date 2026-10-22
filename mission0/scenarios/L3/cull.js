@@ -60,7 +60,7 @@ export default {
   tolerance: 'books: mass 1e-12, momentum 1e-9 x the gross, angular momentum 1e-9 x net + 1e-12 x gross (#220); left = the item\'s state before the cull 1e-12; distances exact',
   criterion: 'the item leaves play at the first step after which it is farther than battle.cullDistance (3000 m at T1, k = 1) from every body: at that step every distance > 3000 m and at the step before some distance <= 3000 m; world.ship.left books its mass and momentum (1e-12); mass, momentum and angular momentum of bodies + debris + rounds + left are kept with the external impulse through the run; hand-worked bounds: the round, from the turret about 22 m off the centre of mass at 800 m/s, leaves between 3.7 and 3.8 s; the debris, left behind by R1 at 15 MN / 950 t = 15.8 m/s^2, leaves between 18 and 21 s (sqrt(2 x 3000 / 15.8) = 19.5 s) (#222 (7), #243)',
   tunable: ['battle.cullDistance', 'kinetic.muzzleVelocity', 'engine.thrust'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'bdaa4611' },
   cases() {
     return [{ item: 'round' }, { item: 'debris' }];
   },

@@ -28,7 +28,7 @@ export default {
   tolerance: 'time one-sided in [t, t + dt) with the 1e-9 float slack of #185 (2); heat rate 1e-12 relative; the T1 literals one-sided in the same window',
   criterion: 're-statement: t = C (T_threshold - T_rest) / P with C = cells x thermal.coupled<type> at the tier (13k.2, k = 3) and P the room\'s heat rate at the tier (reactor reactor.heatPerPower x reactor.power; beam bay beam.power / beambay.efficiency - beam.power; engine engine.powerDraw x engine.heatFraction; shield generator shield.powerDraw + the absorbed 6 MW x edge^2 / 25 m^2), one-sided; the hand-worked T1 literals 561 s, 165.333 s, 868 s, 496 s (13k.3) in the same window; t grows with the edge (C k = 3 over P k = 2): t at T_n = t at T1 x edge / 5 m within dt / t. Successor of the race rows of L1.reactor.power, L1.beambay.heat, L1.engine.thrust and L1.shield.generator (#240, #243)',
   tunable: ['thermal.coupledReactor', 'thermal.coupledBeamBay', 'thermal.coupledEngine', 'thermal.coupledShieldGenerator', 'reactor.power', 'reactor.heatPerPower', 'beam.power', 'beambay.efficiency', 'engine.powerDraw', 'engine.heatFraction', 'shield.powerDraw', 'thermal.plantHot', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '5188162e' },
   cases(ctx) {
     const out = [];
     for (const tier of Object.keys(ctx.tiers)) for (const room of Object.keys(RACES)) out.push({ tier, room });

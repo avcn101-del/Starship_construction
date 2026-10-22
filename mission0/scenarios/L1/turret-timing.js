@@ -18,7 +18,7 @@ export default {
   tolerance: 'positions 1e-9 of the step\'s path v dt (13k.4 S15); times 1e-12; the literal 1e-6',
   criterion: 're-statement: the shot is due at t_1 + 1 / rate; at = due - the start of its step; the round\'s t = the event\'s t = that step\'s start + at; after the step x - x0 = v (dt - at) (not v dt) within 1e-9 x |v| dt; hand-worked literal: 1 / 0.7 = 1.4285714 s = 85.714 steps, so at = 0.7142857 dt and the round moves 800 x (1 - 0.7142857) / 60 = 3.8095 m in its first step (1e-6) (F20, #243)',
   tunable: ['turret.fireRate', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '45f33162' },
   cases() {
     return [{ shot: SHOT, rate: RATE }];
   },

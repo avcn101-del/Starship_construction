@@ -48,7 +48,7 @@ export default {
   tolerance: '1e-6 relative against the literals (13k.4 S20)',
   criterion: 'mass 950 534.057 kg, acceleration 1.60917361 g, 90 degree turn 3.80151943 s, recoil -0.0498977250 deg/s per M round broadside, each within 1e-6 relative of the literal printed by tools/estimates/pass2.mjs section 8 (#208, #221, #243, #244)',
   tunable: ['structure.cellMass', 'cellMass.crewed', 'cellMass.reactor', 'cellMass.shieldGenerator', 'engine.machineryMass', 'beambay.machineryMass', 'thermal.coupledHeatSink', 'heatsink.capacityFactor', 'radiator.mass', 'rcs.mass', 'rcs.force', 'engine.thrust', 'kinetic.roundMass', 'kinetic.muzzleVelocity', 'magazine.capacity'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'e364793c' },
   cases() {
     return [{ ship: 'R1', tier: 'T1' }];
   },

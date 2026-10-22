@@ -18,7 +18,7 @@ export default {
   tolerance: 'time one-sided in [t, t + dt) with the 1e-9 float slack of #185 (2); the T3 / T1 ratio 2 within 2 dt / t',
   criterion: 're-statement: the scenario\'s own stepped sum of the rule of 13k.1, F_1 by its own Bethe integration (13i.1; steps at most 0.2 kg/m^2 and 0.1 % of the energy), cell 1 losing P F_1 dt / (matter.burnEnergyPerKg x cell mass) per step and destroyed in the step it reaches 0, at t inside that step; the kernel destroys it in [t, t + dt); channel thermal, cause the beam. Hand-worked literal: the reactor cell at T1 stops the whole 100 MeV beam (F_1 = 1), so t = q m / P = 3000 x 150 000 / 5e6 = 90 s; where F_1 = 1 (crewed, armour, reactor) t at T3 = 2 x t at T1 (mass x 2^3, power x 2^2) within 2 dt / t (#138, #229, #240 (1), #243)',
   tunable: ['matter.burnEnergyPerKg', 'beam.power', 'beam.gradient', 'structure.cellMass', 'cellMass.crewed', 'cellMass.shieldGenerator', 'cellMass.reactor'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '94b1bd63' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T3']) for (const matter of Object.keys(MATTER)) out.push({ tier, matter });

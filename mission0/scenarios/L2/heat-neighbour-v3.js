@@ -95,7 +95,7 @@ export default {
   tolerance: 'life support on: setpoint + 0.01 K; life support off: highest temperature 1e-3 K absolute',
   criterion: 'life support on: the neighbour never exceeds FIXED.lifeSupportSetpoint + 0.01 K; life support off: the neighbour\'s highest temperature over 900 s matches the reference integrator (RK4 at dt / 10, passive wall of 13d.1, the shutdown, decay heat and restart of L1 on the step grid) within 1e-3 K, and it stays below its critical through 900 s (no cook-off, no crew deaths) (#200, #201, DESIGN.md 13d.2 row 3b) Successor of L2.heat.neighbour.v2 (#240, #243, 13k.4 S16): C = cells x the room type\'s thermally coupled heat capacity per cell (13k.2; a heat sink x heatsink.capacityFactor as before) in place of thermal.heatCapacityPerCell; every expected value is the same rule computed in the scenario.',
   tunable: ['conduction.passive', 'lifeSupport.capacityPerCell', 'thermal.coupledReactor', 'thermal.coupledBeamBay', 'thermal.coupledEngine', 'thermal.coupledShieldGenerator', 'thermal.coupledCrewed', 'thermal.coupledMagazine', 'thermal.coupledHold', 'thermal.coupledHeatSink', 'reactor.power', 'reactor.heatPerPower', 'thermal.magazineCritical', 'thermal.crewedCritical', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'ba4103a3' },
   cases() {
     const out = [];
     for (const neighbour of ['magazine', 'quarters']) for (const d of [0.25, 0.5]) for (const lifeSupport of ['on', 'off']) out.push({ neighbour, d, lifeSupport });
