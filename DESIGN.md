@@ -1180,12 +1180,12 @@ sit in no plan again. Each plan updates this table in the same commit.
 
 | Element | Today | Proof | Status |
 |---|---|---|---|
-| The outer silhouette always visible (#23) | the prototype shows both layouts whole (a stand-in) | none | planned L5 (§17 item 33) |
+| Free information: the outer silhouette always visible (#23) | the prototype shows both layouts whole (a stand-in) | none | planned L5 (§17 item 33) |
 | Passive IR and EM, distance² (#24, #102) | nothing | none | planned L5 |
 | Active scan by zone, distance⁴, reveals the scanner, remembered (#24, #25) | nothing | none | planned L5 |
 | Jamming, burn-through (#101) | nothing | none | after Mission 0 (#27: later module) |
 | Shields EM-bright while absorbing, do not block scans (#103) | `shield.em` is computed; nothing reads it | none | planned L5 |
-| One knowledge model per side; the renderer and the enemy read only theirs (#26, #42, #112) | nothing | none | planned L5 |
+| Symmetry: the enemy scans too; one knowledge model per side; the renderer and the enemy read only theirs (#26, #42, #112) | nothing | none | planned L5 |
 | Layout variants per named ship (#28) | nothing | none | after Mission 0 (content), the mechanism planned L5 |
 
 ### G. Battle (§8)
