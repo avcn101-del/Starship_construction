@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `0d44fb0`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `5f54594`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -12,7 +12,8 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | kinetic.muzzleVelocity | 800 | m/s | 500 | 1000 | 0 | true | #166 |
 | kinetic.chargeEnergy | 6000000 | J | 2000000 | 20000000 | 3 | true | propellant energy per M round (about 1.5 kg of propellant, x 12 with the round, #206); an AP magazine explodes by this alone, HE by this plus the warhead (#91, #183) |
 | kinetic.hitsToWreck | 3 | hits | 1 | 8 | 0 | true | a round passing a room cell takes 1 / this of its integrity; the cell it stops in loses (sectional momentum left / R) / this (#203 D, #206) |
-| armour.cellMass | 10000 | kg | 3000 | 30000 | 3 | true | one armour cell at T1: 5 cm of steel over 25 m^2, sigma 400 kg/m^2 (L0's armour cell; armour fittings come later, #15, #235) |
+| armour.cellMass | 10000 | kg | 3000 | 30000 | 3 | true | one armour cell at T1: 5 cm of steel over 25 m^2, sigma 400 kg/m^2 (L0's armour cell, #235); armour fittings are plates on wall segments (armour.plateThickness, #255, #256) |
+| armour.plateThickness | 0.2 | m | 0.01 | 0.4 | 1 | true | a steel plate on a hull edge or a shared wall segment (walls only, never decks): a path crossing it meets sigma = this x FIXED.steelDensity once (1570 kg/m^2 at 0.2 m); its mass, this x steel density x edge^2, joins its room; 0.2 m is a heavy cruiser's belt (an Iowa's 0.31 m); k = 1, a plate scales with the cell like the round; approved by the lead designer (#255, #256) |
 | matter.kineticResistance | 1545.364227446998 | m/s | 750 | 3125 | 0 | true | c: sectional momentum a cell resists per kg/m^2 of its matter, 1545.4 m/s; a round is as strong per kg of steel (S = c rho L) (#232, #235) |
 | matter.burnEnergyPerKg | 3000 | J/kg | 1000 | 10000 | 0 | true | q: beam energy that ruins a cell per kg of the cell; a cell loses P F_i dt / (q x cell mass) of its integrity per step; 30 MJ / 10 t on L0's armour cell; 1.2 MJ/kg melts steel, so ruin is 0.25 % of the cell melted along the channel (#240 (1), #243, F1) |
 | matter.blastPerKg | 100 | J/kg | 30 | 300 | 0 | true | q_b: blast energy a cell absorbs per kg of the cell before it is destroyed; 1 MJ / 10 t on L0's armour cell; a hold cell absorbs 0.3 MJ, a reactor cell 15 MJ (#240 (1), (6), #243, F3) |
@@ -42,7 +43,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | thermal.coupledMagazine | 600000 | J/K | 200000 | 2000000 | 3 | true | per magazine cell: 900 kg of rounds (0.4 MJ/K) and racks (#243) |
 | thermal.coupledHold | 1350000 | J/K | 500000 | 3000000 | 3 | true | per hold cell: 3 t of structure, nothing else (#243) |
 | thermal.coupledHeatSink | 1350000 | J/K | 500000 | 3000000 | 3 | true | per heat sink cell before its water: 3 t of structure; x heatsink.capacityFactor, the water adding as before (#198, #243) |
-| thermal.coupledArmour | 4500000 | J/K | 2000000 | 8000000 | 3 | true | per armour cell: 10 t of steel; no kernel consumer yet (armour fittings come with #15) (#243) |
+| thermal.coupledArmour | 4500000 | J/K | 2000000 | 8000000 | 3 | true | per armour cell: 10 t of steel; no kernel consumer: an armour plate (#256) adds no heat capacity to its room (#243, #248 Q13) |
 | thermal.coupledRailgun | 4500000 | J/K | 2000000 | 8000000 | 3 | true | per railgun cell: 10 t of steel; the railgun stays data only until L5 (#243) |
 | structure.cellMass | 3000 | kg | 2000 | 6000 | 3 | true | structure only (frames, decks, bulkheads): hold, magazine and heat sink before contents, and the structure under an engine's or a beam bay's machinery (#243); 24 kg/m^3 at T1, an estimate without a found source (#221, #235) |
 | cellMass.crewed | 14800 | kg | 11000 | 16500 | 3 | true | bridge, quarters, turret, missile bay: 118 kg/m^3, ISS Destiny (14.5 t in 8.5 m x 4.3 m), low end; ISS Harmony about 131 kg/m^3 (#234, #235) |
@@ -73,7 +74,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | turret.heatPerShot | 300000 | J | 100000 | 1000000 | 3 | true | size M (#183) |
 | turret.readyRounds | 4 | rounds | 2 | 10 | 0 | true | rounds held in the turret, of its own size; it fires from this store and the magazine feed refills it (#193, #195) |
 | magazine.capacity | 900 | kg | 300 | 3000 | 3 | true | ammunition mass a magazine holds: 150 M rounds (#91, #183, #206) |
-| quarters.crewPerCell | 3 | crew | 1 | 8 | 2 | true | crew housed per surviving cell: 18 in a T1 quarters (#60, #65, #183) |
+| quarters.crewPerCell | 4 | crew | 1 | 8 | 2 | true | crew housed per surviving cell: 24 in a T1 quarters, 6 m^2 of a 25 m^2 cell per sleeper (a warship's berthing); 3 -> 4 so R1's 20 crew have berths (validateShip's crew rule) (#60, #65, #183, #220 (5), #253) |
 | quarters.powerDraw | 50000 | W | 10000 | 200000 | 2 | true | #183 |
 | repair.massRate | 200 | kg/s | 50 | 1000 | 0 | true | cell mass a quarters restores per second with all cells surviving: a cell regains massRate / cell mass of integrity per second; the old 0.02/s on a 10 t cell (#51, #183, #240 (1), #243, F13) |
 | repair.radius | 30 | m | 10 | 80 | 1 | true | half-strength radius of the repair field (#99, #183) |
