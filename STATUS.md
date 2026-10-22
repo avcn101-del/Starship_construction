@@ -12,9 +12,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - **Running**: physics pass 2's reviewer (PR #54); the engineer (29.34
   USD) and the blind checker (2.84) are done: no physics error, one law
   of the plan false (S6).
-- **Waiting on you**: **one decision**, how far a beam's depth can be
-  tier-invariant (S6; the frame is in the chat and below); veto window on
-  #242, #248 and §13k.2's constants.
+- **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
+  on #242, #248 and §13k.2's constants.
 - **Money**: 2026-10-21/22 so far about 80 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 32.18 and the reviewer running); pass 2
   estimated 50–60, so far inside it.
@@ -99,6 +98,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #249 is the owner's (beam depth tier-invariant for electronic stopping only).
 - #248: pass 2's first run; S6 withdrawn as the lead designer's error;
   the engineer's twelve withdrawals accepted; answers.
 - #247 is the owner's (design partner, chat replacement, decision frame).
@@ -166,20 +166,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-**S6, how tier-invariant a beam's depth can be** (#248 (1)). What is
-decided: the rule that replaces "k = −0.41 keeps depth in cells at every
-tier". Options: (i) **exact for electronic stopping only**: the beam's
-energy per tier is solved so the bay's CSDA range in armour cells equals
-T1's (bisection, as the plan's script did); the drift from nuclear
-interactions is accepted and reported (N = 8 at T6: first cell 89 %
-against 43 % at T1); (ii) keep k = −0.41, widen S6 to 3 % for N = 2 only;
-(iii) scale the interaction length with the tier: unphysical, a
-correction factor, rejected under #228; (iv) drop beam tier invariance
-(k = 0, as real linacs): reverses #240 (4); at T6 an N = 2 beam reaches
-0.91 cells against 0.28 at T1, so big ships' beams reach relatively
-deeper than their rounds. Recommendation: (i). Reversible: yes (a kernel
-rule and one scenario). Cost: a small fix engineer, 8–12 USD with the
-factor, plus a light re-review.
+Nothing (#249 answered S6).
 
 ## Next steps
 
