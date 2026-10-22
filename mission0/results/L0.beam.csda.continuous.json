@@ -1,0 +1,138 @@
+{
+  "id": "L0.beam.csda.continuous",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.beam.csda.continuous",
+  "code": "7399706",
+  "criterionHash": "7708fbee",
+  "lockedHash": "7708fbee",
+  "runHash": "ffc2cd6d",
+  "dataHash": "7456430e",
+  "rowsHash": "ca9dbe0e",
+  "rows": [
+    {
+      "case": {
+        "MeV": 10
+      },
+      "expected": {
+        "jump": 1e-12
+      },
+      "actual": {
+        "at": 10.067301677125135,
+        "steps": [
+          229,
+          230
+        ],
+        "worst": 2.159015009894791e-14,
+        "range": 1.9540612150596521
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "MeV": 20
+      },
+      "expected": {
+        "jump": 1e-12
+      },
+      "actual": {
+        "at": 20.195545381745358,
+        "steps": [
+          298,
+          299
+        ],
+        "worst": 2.0659480791487862e-14,
+        "range": 6.663655124844575
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "MeV": 50
+      },
+      "expected": {
+        "jump": 1e-12
+      },
+      "actual": {
+        "at": 50.075875371914385,
+        "steps": [
+          388,
+          389
+        ],
+        "worst": 2.1358208766352347e-14,
+        "range": 33.26789917301445
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "MeV": 100
+      },
+      "expected": {
+        "jump": 1e-12
+      },
+      "actual": {
+        "at": 100.44748085360125,
+        "steps": [
+          457,
+          458
+        ],
+        "worst": 2.0904687194184132e-14,
+        "range": 113.52538860749993
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "MeV": 200
+      },
+      "expected": {
+        "jump": 1e-12
+      },
+      "actual": {
+        "at": 200.31231398052984,
+        "steps": [
+          587,
+          588
+        ],
+        "worst": 2.100096015423046e-14,
+        "range": 373.52538860749985
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "MeV": 400
+      },
+      "expected": {
+        "jump": 1e-12
+      },
+      "actual": {
+        "at": 400.27770258421657,
+        "steps": [
+          983,
+          984
+        ],
+        "worst": 2.1459081495252438e-14,
+        "range": 1165.525388607501
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

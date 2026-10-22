@@ -3,12 +3,12 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.beam.pstar",
-  "code": "baf8d67",
+  "code": "7399706",
   "criterionHash": "bceca34b",
   "lockedHash": "bceca34b",
   "runHash": "9ada3a9a",
-  "dataHash": "b958ce58",
-  "rowsHash": "e052d4ce",
+  "dataHash": "7456430e",
+  "rowsHash": "c6d3b39b",
   "rows": [
     {
       "case": {
@@ -18,7 +18,7 @@
         "range": 7.718
       },
       "actual": {
-        "range": 7.70857539347498
+        "range": 7.708552947213443
       },
       "pass": true,
       "note": ""
@@ -31,7 +31,7 @@
         "range": 25.96
       },
       "actual": {
-        "range": 25.94902105028396
+        "range": 25.948985331768164
       },
       "pass": true,
       "note": ""

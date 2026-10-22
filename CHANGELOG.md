@@ -1,5 +1,87 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — Mission 0 L4a fix round (#258)
+
+- **Plates burn by mass** (#258 (1)): a plate on a beam's path loses
+  P F dt / (`matter.burnEnergyPerKg` × its mass) of its integrity per step,
+  deposit first, then damage, like a cell; a 0.2 m plate (39 250 kg) under a
+  5 MW beam that stops in it is a hole in step 1413 (23.55 s).
+- **σ / cos θ** (#258 (2)): a line crossing a plate at θ to its normal meets
+  σ / cos θ, capped at cos θ ≥ d / edge. New `plateEntry` (rooms.js) gives
+  the entry with its `cos`; `pathAlong` takes the line's direction;
+  `entryArealDensity` applies it; the prototype's paths pass their
+  direction. Ricochet and tumble stay out.
+- **The plate's heat capacity** (#258 (3)): its mass × `thermal.coupledArmour`
+  / `armour.cellMass` (450 J/(kg·K)) joins its room's (`heat.addCapacity`)
+  and leaves again, venting its heat above rest (`heat.ventCapacity`), when
+  the plate is wrecked, ruined or its mount cell destroyed; a destroyed
+  cell's vented share leaves the plates' capacity out. The note of
+  `thermal.coupledArmour` names this consumer (data hash moved).
+- **`shieldRound` on two bodies** (#258 (11), reviewer N5): each body that
+  holds paying generators keeps its own books (its part of the round at its
+  own hull velocity, in its own frame); one body is unchanged to the bit.
+- **Prototype** (N6): `crossedCells` reports the cell where a line leaves
+  the grid, so a plate on that segment joins the path.
+- **`regress`** (N9): a recorded FAIL that is not withdrawn is printed as a
+  FAIL line and counted.
+- **Withdrawn** (#258): `L2.layout.invalid` (superseded by #253's crew rule;
+  successor `L2.layout.invalid.v2`) and `L0.armour.plate` (specification
+  error; successor `L0.armour.plate.v2`), each frozen with its record.
+- **New scenarios** (lock `7399706`): `L0.armour.plate.v2`,
+  `L0.beam.csda.sweep` (all 754 step-count changes, worst 1.0e-15),
+  `L3.shield.bodies`; `tools/estimates/l4.mjs` prints their literals.
+- **Mutations** (N8): 14 new (A5, the plate's chord, cos and cap, burn, heat
+  capacity, mount room, the two-body books); 9 entries rewritten for the new
+  code.
+
+## Unreleased — 2026-10-22 — Mission 0 L4a: armour on walls, R1c and the kernel obligations (#253, #255–#257)
+
+- **Armour plates** (`DESIGN.md` §13l.1, #255, #256): `addFitting(world,
+  'armour', room, cell, side)` puts a steel plate of `armour.plateThickness`
+  (new, 0.2 m, 0.01–0.4, k = 1, approved by the lead designer in #256) on a
+  hull edge (the fitting rules hold) or a shared wall segment (any room, so
+  the magazine's citadel; `layout.plateProblem`, rules `plate-wall` and
+  `fitting-per-edge`). `pathAlong` and `plateBetween` put a plate on a path
+  where the line crosses its segment, before the next cell; `fireRound`
+  resists it with r = c × d × steel density × chord and damages it like a
+  cell (`plate-damaged`, `plate-destroyed`); `fireBeam` deposits in it as
+  heat in the mounting room (no burn: §13l.1 names none, asked in the PR).
+  Its mass (d × 7850 × edge²) sits at the segment's midpoint on the body of
+  its cell and leaves as debris when wrecked. No deck plates.
+- **R1c** (§13l.2): R1 with the 8 plates around its magazine; 1 264 534.057
+  kg, 1.2096 g; `tools/estimates/l4.mjs` prints its centre and inertia
+  outside the kernel's plate code (A10's literals).
+- **Crew capacity** in `validateShip` (rule `crew`, `layout.crewCapacity`);
+  `quarters.crewPerCell` 3 → 4 (#253): R1 needs 20 and berths 24.
+- **Kernel fixes** (§17 items 8, 12, 25, 27): blast capacity from remaining
+  integrity (a room loses the absorbed fraction of each cell's remaining
+  integrity); rounds in overlapping fields (summed strength and buffers,
+  payment ∝ buffer × g, capped, solved once more; impulse by payment at each
+  generator; the kernel no longer throws); `shieldRound`'s heat is the
+  round's lost kinetic energy less the ship's gain, one rule with
+  `fireRound`; `csdaRange`'s last step is cut where it lands on the stop
+  energy (continuous: 2e-14 between neighbours at every sampled step-count
+  change), and `csdaSteps` reports the step count.
+- **Scenarios** (16, locked in `6feb7e0`, all PASS): A1 `L2.blast.integrity`,
+  A2 `L2.shield.overlap.round`, A3 `L3.shield.energy`, A4
+  `L0.beam.csda.continuous`, A5 `L1.reactor.meltdown.coupled`, A6
+  `L4.readout.blueprint`, A7 `L4.crew.capacity`, A9 `L0.armour.plate`, A10
+  `L3.r1c.props`; A8: `L3.control.bridge`, `L2.repair.crew`,
+  `L3.destroyed.mass`, `L2.conduction.euler`, `L2.beam.chord`,
+  `L3.beam.deposit`; and `L2.layout.invalid.v2`, the proposed successor of
+  `L2.layout.invalid` (re-recorded FAIL: its hull blueprint has no quarters
+  and now also fails the crew rule; the withdrawal is the lead designer's).
+  A11 (`L4.disabled.rule`) is not built: Disabled is an L4b kernel rule.
+- **Tools** (#257): `tools/mutate.js` rejects `--jobs 0` and negatives and
+  its report says CHANGED is an output that moved, not coverage; the
+  `recordHash` comment says it is the record as it stood when the hash was
+  added; stale catalogue entries rewritten for the new code (the overlap
+  survivor now mutates the overlap rule itself), 18 new mutations (every L4a
+  rule, the `beamPaths` clearing, `csdaRange`'s material).
+- **Prototype**: `proto/battle.js`'s paths cross plates; R1c is a layout of
+  the loadout panel; `proto/smoke.mjs` waits two frames before its first tap
+  (§17 item 28). The determinism hash moved with the crew counts.
+
 ## Unreleased — 2026-10-22 — The L4 plan (#252, #253)
 
 - `DESIGN.md` §13l: L4 (ship versus a static target) planned in two passes,

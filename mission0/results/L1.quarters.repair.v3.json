@@ -3,12 +3,12 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.quarters.repair.v3",
-  "code": "baf8d67+dirty",
+  "code": "7399706",
   "criterionHash": "ee090ddf",
   "lockedHash": "ee090ddf",
   "runHash": "4b8d2a9c",
-  "dataHash": "b958ce58",
-  "rowsHash": "23f1142a",
+  "dataHash": "7456430e",
+  "rowsHash": "cd4e867f",
   "rows": [
     {
       "case": {
@@ -16,15 +16,15 @@
         "x": 0
       },
       "expected": {
-        "housed": 18,
-        "deathsPerCell": 3,
+        "housed": 24,
+        "deathsPerCell": 4,
         "lost": 0,
         "rate": 0.06666666666666667,
         "repaired": 10.684500000000002,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 18,
+        "housed": 24,
         "deaths": [],
         "rate": 0.0666666666666671,
         "repaired": 10.7,
@@ -49,15 +49,15 @@
         "x": 0.5
       },
       "expected": {
-        "housed": 18,
-        "deathsPerCell": 3,
+        "housed": 24,
+        "deathsPerCell": 4,
         "lost": 0,
         "rate": 0.05333333333333334,
         "repaired": 13.355625,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 18,
+        "housed": 24,
         "deaths": [],
         "rate": 0.05333333333333301,
         "repaired": 13.366666666666667,
@@ -82,15 +82,15 @@
         "x": 1
       },
       "expected": {
-        "housed": 18,
-        "deathsPerCell": 3,
+        "housed": 24,
+        "deathsPerCell": 4,
         "lost": 0,
         "rate": 0.03333333333333333,
         "repaired": 21.369000000000003,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 18,
+        "housed": 24,
         "deaths": [],
         "rate": 0.03333333333333188,
         "repaired": 21.383333333333333,
@@ -115,15 +115,15 @@
         "x": 2
       },
       "expected": {
-        "housed": 18,
-        "deathsPerCell": 3,
+        "housed": 24,
+        "deathsPerCell": 4,
         "lost": 0,
         "rate": 0.013333333333333334,
         "repaired": 53.4225,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 18,
+        "housed": 24,
         "deaths": [],
         "rate": 0.013333333333334085,
         "repaired": 53.43333333333333,
@@ -148,15 +148,15 @@
         "x": 4
       },
       "expected": {
-        "housed": 18,
-        "deathsPerCell": 3,
+        "housed": 24,
+        "deathsPerCell": 4,
         "lost": 0,
         "rate": 0.00392156862745098,
         "repaired": 181.6365,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 18,
+        "housed": 24,
         "deaths": [],
         "rate": 0.003921568627449634,
         "repaired": 181.65,
@@ -181,19 +181,19 @@
         "x": 0
       },
       "expected": {
-        "housed": 9,
-        "deathsPerCell": 3,
+        "housed": 12,
+        "deathsPerCell": 4,
         "lost": 3,
         "rate": 0.03333333333333333,
         "repaired": 21.369000000000003,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 9,
+        "housed": 12,
         "deaths": [
-          3,
-          3,
-          3
+          4,
+          4,
+          4
         ],
         "rate": 0.03333333333333188,
         "repaired": 21.383333333333333,
@@ -218,19 +218,19 @@
         "x": 0.5
       },
       "expected": {
-        "housed": 9,
-        "deathsPerCell": 3,
+        "housed": 12,
+        "deathsPerCell": 4,
         "lost": 3,
         "rate": 0.02666666666666667,
         "repaired": 26.71125,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 9,
+        "housed": 12,
         "deaths": [
-          3,
-          3,
-          3
+          4,
+          4,
+          4
         ],
         "rate": 0.02666666666666817,
         "repaired": 26.716666666666665,
@@ -255,19 +255,19 @@
         "x": 1
       },
       "expected": {
-        "housed": 9,
-        "deathsPerCell": 3,
+        "housed": 12,
+        "deathsPerCell": 4,
         "lost": 3,
         "rate": 0.016666666666666666,
         "repaired": 42.73800000000001,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 9,
+        "housed": 12,
         "deaths": [
-          3,
-          3,
-          3
+          4,
+          4,
+          4
         ],
         "rate": 0.01666666666666594,
         "repaired": 42.75,
@@ -292,19 +292,19 @@
         "x": 4
       },
       "expected": {
-        "housed": 9,
-        "deathsPerCell": 3,
+        "housed": 12,
+        "deathsPerCell": 4,
         "lost": 3,
         "rate": 0.00196078431372549,
         "repaired": 363.273,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 9,
+        "housed": 12,
         "deaths": [
-          3,
-          3,
-          3
+          4,
+          4,
+          4
         ],
         "rate": 0.001960784313724817,
         "repaired": 363.2833333333333,
@@ -329,21 +329,21 @@
         "x": 0
       },
       "expected": {
-        "housed": 3,
-        "deathsPerCell": 3,
+        "housed": 4,
+        "deathsPerCell": 4,
         "lost": 5,
         "rate": 0.01111111111111111,
         "repaired": 64.10700000000001,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 3,
+        "housed": 4,
         "deaths": [
-          3,
-          3,
-          3,
-          3,
-          3
+          4,
+          4,
+          4,
+          4,
+          4
         ],
         "rate": 0.011111111111110628,
         "repaired": 64.11666666666666,
@@ -368,21 +368,21 @@
         "x": 0.5
       },
       "expected": {
-        "housed": 3,
-        "deathsPerCell": 3,
+        "housed": 4,
+        "deathsPerCell": 4,
         "lost": 5,
         "rate": 0.008888888888888889,
         "repaired": 80.13375,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 3,
+        "housed": 4,
         "deaths": [
-          3,
-          3,
-          3,
-          3,
-          3
+          4,
+          4,
+          4,
+          4,
+          4
         ],
         "rate": 0.0088888888888905,
         "repaired": 80.15,
@@ -407,21 +407,21 @@
         "x": 1
       },
       "expected": {
-        "housed": 3,
-        "deathsPerCell": 3,
+        "housed": 4,
+        "deathsPerCell": 4,
         "lost": 5,
         "rate": 0.005555555555555555,
         "repaired": 128.21400000000003,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 3,
+        "housed": 4,
         "deaths": [
-          3,
-          3,
-          3,
-          3,
-          3
+          4,
+          4,
+          4,
+          4,
+          4
         ],
         "rate": 0.005555555555555314,
         "repaired": 128.21666666666667,
@@ -446,21 +446,21 @@
         "x": 4
       },
       "expected": {
-        "housed": 3,
-        "deathsPerCell": 3,
+        "housed": 4,
+        "deathsPerCell": 4,
         "lost": 5,
         "rate": 0.00065359477124183,
         "repaired": 1089.8190000000002,
         "dt": 0.016666666666666666
       },
       "actual": {
-        "housed": 3,
+        "housed": 4,
         "deaths": [
-          3,
-          3,
-          3,
-          3,
-          3
+          4,
+          4,
+          4,
+          4,
+          4
         ],
         "rate": 0.0006535947712416057,
         "repaired": 1089.8333333333333,
@@ -486,7 +486,7 @@
       },
       "expected": {
         "housed": 0,
-        "deathsPerCell": 3,
+        "deathsPerCell": 4,
         "lost": 6,
         "rate": 0,
         "repaired": null,
@@ -495,12 +495,12 @@
       "actual": {
         "housed": 0,
         "deaths": [
-          3,
-          3,
-          3,
-          3,
-          3,
-          3
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
         ],
         "rate": 0,
         "repaired": null,
@@ -526,7 +526,7 @@
       },
       "expected": {
         "housed": 0,
-        "deathsPerCell": 3,
+        "deathsPerCell": 4,
         "lost": 6,
         "rate": 0,
         "repaired": null,
@@ -535,12 +535,12 @@
       "actual": {
         "housed": 0,
         "deaths": [
-          3,
-          3,
-          3,
-          3,
-          3,
-          3
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
         ],
         "rate": 0,
         "repaired": null,
@@ -566,7 +566,7 @@
       },
       "expected": {
         "housed": 0,
-        "deathsPerCell": 3,
+        "deathsPerCell": 4,
         "lost": 6,
         "rate": 0,
         "repaired": null,
@@ -575,12 +575,12 @@
       "actual": {
         "housed": 0,
         "deaths": [
-          3,
-          3,
-          3,
-          3,
-          3,
-          3
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
         ],
         "rate": 0,
         "repaired": null,
@@ -606,7 +606,7 @@
       },
       "expected": {
         "housed": 0,
-        "deathsPerCell": 3,
+        "deathsPerCell": 4,
         "lost": 6,
         "rate": 0,
         "repaired": null,
@@ -615,12 +615,12 @@
       "actual": {
         "housed": 0,
         "deaths": [
-          3,
-          3,
-          3,
-          3,
-          3,
-          3
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
         ],
         "rate": 0,
         "repaired": null,
@@ -646,7 +646,7 @@
       },
       "expected": {
         "housed": 0,
-        "deathsPerCell": 3,
+        "deathsPerCell": 4,
         "lost": 6,
         "rate": 0,
         "repaired": null,
@@ -655,12 +655,12 @@
       "actual": {
         "housed": 0,
         "deaths": [
-          3,
-          3,
-          3,
-          3,
-          3,
-          3
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
         ],
         "rate": 0,
         "repaired": null,

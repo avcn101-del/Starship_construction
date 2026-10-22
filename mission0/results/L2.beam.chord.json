@@ -1,0 +1,70 @@
+{
+  "id": "L2.beam.chord",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.beam.chord",
+  "code": "7399706",
+  "criterionHash": "afaa39c6",
+  "lockedHash": "afaa39c6",
+  "runHash": "84084fd9",
+  "dataHash": "7456430e",
+  "rowsHash": "9adbaca7",
+  "rows": [
+    {
+      "case": {
+        "chord": 1
+      },
+      "expected": {
+        "fractions": [
+          1,
+          0
+        ]
+      },
+      "actual": {
+        "fractions": [
+          1,
+          0
+        ],
+        "chords": [
+          1,
+          1
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "chord": 0.5
+      },
+      "expected": {
+        "fractions": [
+          0.3797806283540567,
+          0.6202193716459433
+        ]
+      },
+      "actual": {
+        "fractions": [
+          0.3797806283540567,
+          0.6202193716459433
+        ],
+        "chords": [
+          0.5,
+          0.5
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -7,7 +7,8 @@
 //   node tools/m0.js verify <id|level>     independent re-run from the record
 //   node tools/m0.js regress               re-run every recorded PASS; check every withdrawn scenario
 //                                          against its frozen record, not run (#245, #250; a retired
-//                                          one is listed, not run, #237)
+//                                          one is listed, not run, #237); a recorded verdict other than
+//                                          PASS that is not withdrawn is printed as FAIL and counted (#258)
 //   node tools/m0.js ledger                regenerate MISSION0.md
 //   node tools/m0.js cov [--fail-fast] [--serial id,... --lock <dir>]
 //                                          coverage run for tools/mutate.js (#246 (1)): every scenario
@@ -37,8 +38,11 @@ const LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
 // canonical run skips it, and verify and regress check its lock and its run()
 // against that record instead of re-running it against today's data. Every
 // withdrawn scenario that is not retired is frozen (#250). Every entry carries
-// `recordHash`, the hash of its record's stable JSON at withdrawal (§17 item
-// 29): verify and regress compare it, so a later re-record cannot pass.
+// `recordHash`, the hash of its record's stable JSON as the record stood when
+// the hash was added (§17 item 29, #257: for the entries withdrawn before then,
+// that is the frozen record as kept, not necessarily the record at the moment
+// of withdrawal): verify and regress compare it, so a later re-record cannot
+// pass.
 const WITHDRAWN_FILE = path.join(ROOT, 'mission0', 'withdrawn.json');
 const WITHDRAWN = new Map((fs.existsSync(WITHDRAWN_FILE) ? JSON.parse(fs.readFileSync(WITHDRAWN_FILE, 'utf8')) : []).map((w) => [w.id, w]));
 /** The scenario that stands for `id`: itself, or the end of its chain of successors when it was withdrawn and its successor withdrawn in turn (#188, #221). */
@@ -208,7 +212,7 @@ function recorded(id) {
   const f = path.join(RESULTS, `${id}.json`);
   return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null;
 }
-/** The hash of a record's stable JSON, kept in withdrawn.json as `recordHash` (§17 item 29). */
+/** The hash of a record's stable JSON, kept in withdrawn.json as `recordHash`: the record as it stood when the hash was added (§17 item 29, #257). */
 const recordHash = (rec) => hash(stableStringify(rec));
 /** Dependencies not recorded PASS; a withdrawn dependency counts through its successor, and through that one's successor if it was withdrawn in turn (#188, #200, #221). */
 function unmetDeps(s) {
@@ -336,13 +340,15 @@ async function main() {
   if (cmd === 'verify' || cmd === 'regress') {
     checkWithdrawn(all);
     const list = cmd === 'regress'
-      ? all.filter((s) => (recorded(s.id) || {}).verdict === 'PASS' || WITHDRAWN.has(s.id))
+      ? all.filter((s) => recorded(s.id) || WITHDRAWN.has(s.id))
       : select(all, sel);
     let bad = 0;
-    const counts = { VERIFIED: 0, WITHDRAWN: 0, RETIRED: 0, MISMATCH: 0 };
+    const counts = { VERIFIED: 0, WITHDRAWN: 0, RETIRED: 0, FAIL: 0, MISMATCH: 0 };
     for (const s of list) {
       const w = WITHDRAWN.get(s.id);
       const rec = recorded(s.id);
+      // A recorded FAIL (or any verdict but PASS) that is not withdrawn stays in regress's count (N9 of the L4a review, #258).
+      if (cmd === 'regress' && !w && rec && rec.verdict !== 'PASS') { counts.FAIL++; bad++; console.log(`FAIL  ${s.id}  recorded ${rec.verdict} and not withdrawn (${rec.command})`); continue; }
       if (w && w.retired) {
         if (rec && recordHash(rec) === w.recordHash) { counts.RETIRED++; console.log(`RETIRED  ${s.id}  not run; ok record unchanged since withdrawal (${w.retiredDecision}; successor ${w.successor})`); continue; }
         counts.MISMATCH++; bad++;
@@ -382,7 +388,8 @@ async function main() {
       const why = w ? `  (successor ${w.successor}, ${w.decision})` : '';
       console.log(`${label}  ${s.id}  ${checks.map(([n, v]) => `${v ? 'ok' : 'NO'} ${n}`).join('; ')}${why}`);
     }
-    console.log(`${counts.VERIFIED} VERIFIED + ${counts.WITHDRAWN} WITHDRAWN + ${counts.RETIRED} RETIRED${counts.MISMATCH ? ` + ${counts.MISMATCH} MISMATCH` : ''}${bad - counts.MISMATCH > 0 ? ` (${bad - counts.MISMATCH} without a record)` : ''}`);
+    const other = bad - counts.MISMATCH - counts.FAIL;
+    console.log(`${counts.VERIFIED} VERIFIED + ${counts.WITHDRAWN} WITHDRAWN + ${counts.RETIRED} RETIRED${counts.FAIL ? ` + ${counts.FAIL} FAIL` : ''}${counts.MISMATCH ? ` + ${counts.MISMATCH} MISMATCH` : ''}${other > 0 ? ` (${other} without a record)` : ''}`);
     process.exitCode = bad ? 1 : 0;
     return;
   }
