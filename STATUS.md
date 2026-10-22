@@ -14,8 +14,12 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   capacity, two withdrawals with successors; locked 3 scenarios at
   `7399706`; light blind checker `session_01Wr6puuwLsvDJzWzrQYRdPN`). Review of PR #58: 2 blocking,
   both the lead designer's, answered in #258.
-- **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
-  on #242, #248 and §13k.2's constants.
+- **Waiting on you**: nothing now. After L4a merges and the prototype page
+  is republished with its kernel: play one duel on the phone, tap Export,
+  Copy, and send the JSON; the lead designer replays it in Node
+  (`proto/replay.mjs`, MATCH or MISMATCH decides §17 item 23). That is the
+  whole 'phone test'; `proto/smoke.mjs` is Playwright in the sandbox, never
+  the owner's job. Veto window on #253, #256, #258.
 - **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93); pass 2 estimated 50–60, inside it.
 - **Next**: L4a (§13l, #253, #256: obligations + armour on walls + #257's
