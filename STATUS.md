@@ -16,8 +16,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   rule, 25–40 expected); L4 in all ≥ 41.55 USD.
 - **Waiting on you**: nothing. Veto window on #253, #256, #258–#267
   (#267 lowers the cost factors: ×1.5 repeated work, ×2.5 new, after
-  three passes within 1.5×). The prototype page will be republished on
-  the L4b kernel (R1d, the cascade tree on the end panel) for you to play.
+  three passes within 1.5×). The prototype page is **republished on the
+  L4b kernel** (version 5, `main` `2a454c0`: R1d by default, the cascade
+  tree on the end panel): play it and say what is not fun (#223's ladder).
 - **Money**: 2026-10-21/22 about 136 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98).
 - **Next**: the light audits before the L5 plan (#238: a–d, only what
@@ -58,7 +59,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   + 20 WITHDRAWN**. Cost 8.90 USD.
 - **The feel prototype is published** (private page
   https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d; since 2026-10-22 on the
-  L4a kernel, `main` `5a837af`, version 4): an R1 duel ends in about 11 s (#227); loadout panel and
+  L4b kernel, `main` `2a454c0`, version 5): an R1 duel ends in about 11 s (#227); loadout panel and
   Export / replay built. A light reviewer checks #217's rules.
 - **The path model is done and merged** (`DESIGN.md` §13i; #228–#236;
   PR #48): rounds are damaged and flatten, protection is the mass on the
