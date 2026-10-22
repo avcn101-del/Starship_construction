@@ -464,6 +464,7 @@ agent; nightly regression.
 | Engineer | builds a level as designed; one branch, one PR | changes the design (asks in the PR) |
 | Reviewer | reviews a PR against `DESIGN.md` and `CLAUDE.md`; re-runs; comments | edits, approves, merges |
 | Physics checker | derives expected results blind, posts them, then compares | sees the answer first |
+| Design partner (#247) | the owner's sounding board: discusses, computes with the kernel, writes `IDEAS.md` rows | decides, or touches anything else |
 
 Each role is its own session, defined in `.claude/agents/`; work is handed
 over through pull requests; reviewers get artifacts, not conclusions (#167).
@@ -1218,3 +1219,4 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 244 | Answers to the scenario audit; S17–S22 and the conventions | current |
 | 245 | E1 amended again: withdrawal by decision whatever the verdict; the record frozen; retired | current (amends #188, #200, #237 (7)) |
 | 246 | Prevention after the audits: lint, mutation tool, supersedes rule, ×4, the owner's page | current |
+| 247 | The design partner role; when the lead designer's chat is replaced; the decision frame | current |

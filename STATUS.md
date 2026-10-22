@@ -96,6 +96,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #247 is the owner's (design partner, chat replacement, decision frame).
 - #246: prevention after the audits (lint, mutation tool, the supersedes
   rule, ×4, this block for the owner). #245 is the owner's.
 - #242: the documents consolidated and merged; the kinetic velocity rule
@@ -200,6 +201,15 @@ the old chat's pending check-in was deleted at hand-over; the new chat
 creates its own (`send_later`, 20–45 min after starting a session).
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
+
+## When this chat is replaced (#247 (2))
+
+At a block boundary (a pass merged, the next not planned) or as soon as
+this chat's context is compressed or it repeats itself. Hand over through
+this file; the new chat re-creates the check-ins (`send_later`), which die
+with the chat that made them. The next natural boundary: **after physics
+pass 2 merges.** The owner's design partner (#247 (1)) is a separate chat
+and is not replaced with this one.
 
 ## Lessons for whoever continues
 

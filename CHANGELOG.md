@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.8.5 — 2026-10-22 — E1 amended (#245) and prevention (#246)
+## 0.8.5 — 2026-10-22 — E1 amended (#245), prevention (#246), the design partner (#247)
+
+- `.claude/agents/design-partner.md`: the owner's sounding board, read-only,
+  writing only `IDEAS.md`; `DESIGN.md` §13b and `CLAUDE.md` name the fifth
+  role; `STATUS.md` says when the lead designer's chat is replaced.
 
 - `DESIGN.md` §13 E1: withdrawal by a numbered decision whatever the
   recorded verdict, the withdrawal-time record frozen, the retired state;

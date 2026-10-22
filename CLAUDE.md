@@ -91,9 +91,10 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
 
 ## Roles
 
-- **No AI checks its own work.** Four roles, each its own session, defined
-  in `.claude/agents/`: lead designer, engineer, reviewer, physics checker
-  (`DESIGN.md` §13b). Work is handed over through pull requests.
+- **No AI checks its own work.** Five roles, each its own session, defined
+  in `.claude/agents/`: lead designer, engineer, reviewer, physics checker,
+  and the owner's design partner, who decides nothing and writes only
+  `IDEAS.md` (`DESIGN.md` §13b, #247). Work is handed over through pull requests.
 - Give a reviewer the pull request and the documents, never your own
   summary or conclusions.
 - An engineer never changes the design: questions go in the pull request.
