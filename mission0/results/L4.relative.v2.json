@@ -1,0 +1,75 @@
+{
+  "id": "L4.relative.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.relative.v2",
+  "code": "c998ff2",
+  "criterionHash": "c9a21db4",
+  "lockedHash": "c9a21db4",
+  "runHash": "cb227758",
+  "dataHash": "ec2687f2",
+  "rowsHash": "60f5c096",
+  "rows": [
+    {
+      "case": {
+        "drift": 100
+      },
+      "expected": {
+        "speed": 700,
+        "s0": 1372160.548,
+        "path": [
+          "bridge:0",
+          "bridge:2",
+          "quarters:0",
+          "quarters:3"
+        ],
+        "r": 914855.62,
+        "passed": 1,
+        "stoppedIn": 1,
+        "f": 0.4073762457,
+        "momentum": 0
+      },
+      "actual": {
+        "speed": 700,
+        "afterShield": 700,
+        "s0": 1372160.5478524703,
+        "path": [
+          "bridge:0",
+          "bridge:2",
+          "quarters:0",
+          "quarters:3"
+        ],
+        "r": [
+          914855.6226486228,
+          914855.6226486228,
+          914855.6226486228,
+          914855.6226486228
+        ],
+        "kernel": {
+          "passed": 1,
+          "stoppedIn": 1,
+          "f": 0.407376245719389,
+          "momentum": 0
+        },
+        "own": {
+          "passed": 1,
+          "stoppedIn": 1,
+          "f": 0.407376245719389,
+          "momentum": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

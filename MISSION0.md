@@ -37,7 +37,8 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L0.determinism` | 381f764c | PASS | 95f06978 | 1d13489+dirty | none | `node tools/m0.js run L0.determinism` |
 | `L0.kinetic.anchor` | 735e3d84 | PASS | f231b248 | 1d13489+dirty | none | `node tools/m0.js run L0.kinetic.anchor` |
 | `L0.kinetic.chord` | 8ef725b0 | PASS | 6568545f | 1d13489 | none | `node tools/m0.js run L0.kinetic.chord` |
-| `L0.kinetic.flatten` | 6f34436a | PASS | 8c4a5e18 | 1d13489 | none | `node tools/m0.js run L0.kinetic.flatten` |
+| `L0.kinetic.flatten.v2` | 4f96f651 | PASS | e33aaebf | 9a87d0f | none | `node tools/m0.js run L0.kinetic.flatten.v2` |
+| `L0.kinetic.flatten` | 6f34436a | PASS, WITHDRAWN (successor `L0.kinetic.flatten.v2`, #271) | 8c4a5e18 | 1d13489 | none | `node tools/m0.js run L0.kinetic.flatten` |
 | `L0.kinetic.overpen.v2` | 8d466bea | PASS | 7319a1a7 | 1d13489+dirty | none | `node tools/m0.js run L0.kinetic.overpen.v2` |
 | `L0.kinetic.overpen` | 810e8a2c | FAIL, WITHDRAWN (successor `L0.kinetic.overpen.v2`, #230) | f75b211e | baf8d67 | none | `node tools/m0.js run L0.kinetic.overpen` |
 | `L0.kinetic.penetration.v2` | de60d649 | PASS, WITHDRAWN (successor `L0.kinetic.penetration.v3`, #230), RETIRED (#237, not run) | cedce90a | f220524 | none | `node tools/m0.js run L0.kinetic.penetration.v2` |
@@ -170,7 +171,8 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 |---|---|---|---|---|---|---|
 | `L3.beam.deposit.v2` | 4798a841 | PASS | 328c0146 | c998ff2 | none | `node tools/m0.js run L3.beam.deposit.v2` |
 | `L3.beam.deposit` | 09b3a346 | PASS, WITHDRAWN (successor `L3.beam.deposit.v2`, #271) | 328c0146 | 8af82c8 | none | `node tools/m0.js run L3.beam.deposit` |
-| `L3.control.bridge` | e518915b | PASS | e0310c65 | 8af82c8 | none | `node tools/m0.js run L3.control.bridge` |
+| `L3.control.bridge.v2` | 0afd9bd2 | PASS | b243e71d | 9a87d0f | none | `node tools/m0.js run L3.control.bridge.v2` |
+| `L3.control.bridge` | e518915b | PASS, WITHDRAWN (successor `L3.control.bridge.v2`, #271) | e0310c65 | 8af82c8 | none | `node tools/m0.js run L3.control.bridge` |
 | `L3.control.rules` | e07f4002 | PASS | a2b6c48a | 8af82c8 | none | `node tools/m0.js run L3.control.rules` |
 | `L3.cull.v2` | 0b505ebf | PASS | e29d3170 | 8af82c8 | none | `node tools/m0.js run L3.cull.v2` |
 | `L3.cull` | bdaa4611 | FAIL, WITHDRAWN (successor `L3.cull.v2`, #248) | b0dac3b6 | baf8d67+dirty | none | `node tools/m0.js run L3.cull` |

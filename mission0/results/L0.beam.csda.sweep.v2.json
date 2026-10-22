@@ -1,0 +1,60 @@
+{
+  "id": "L0.beam.csda.sweep.v2",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.beam.csda.sweep.v2",
+  "code": "c998ff2",
+  "criterionHash": "ce69b8ca",
+  "lockedHash": "ce69b8ca",
+  "runHash": "a3899b15",
+  "dataHash": "ec2687f2",
+  "rowsHash": "7974a552",
+  "rows": [
+    {
+      "case": {
+        "from": 10,
+        "to": 400
+      },
+      "expected": {
+        "count": 754,
+        "jump": 1e-12,
+        "steps": [
+          229,
+          983
+        ],
+        "ranges": [
+          1.9311,
+          1164.24
+        ]
+      },
+      "actual": {
+        "changes": 754,
+        "steps": [
+          229,
+          983
+        ],
+        "ranges": [
+          1.9311238659846302,
+          1164.243509872195
+        ],
+        "oneUp": true,
+        "worst": 1.0104736552468911e-15,
+        "at": 188.6962263048939,
+        "first": 10.067301677125135,
+        "last": 399.8443891837906
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

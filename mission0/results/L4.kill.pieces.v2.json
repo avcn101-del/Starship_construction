@@ -1,0 +1,87 @@
+{
+  "id": "L4.kill.pieces.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.kill.pieces.v2",
+  "code": "c998ff2",
+  "criterionHash": "b6adb51e",
+  "lockedHash": "b6adb51e",
+  "runHash": "774b01f9",
+  "dataHash": "ec2687f2",
+  "rowsHash": "1f47cee3",
+  "rows": [
+    {
+      "case": {
+        "share": 0.45,
+        "cut": [
+          9,
+          19
+        ]
+      },
+      "expected": {
+        "share": 0.45,
+        "destroyed": true
+      },
+      "actual": {
+        "share": 0.45,
+        "bodies": 2,
+        "ended": {
+          "kind": "destroyed",
+          "side": "T",
+          "by": "pieces",
+          "step": 1
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "share": 0.55,
+        "cut": [
+          11
+        ]
+      },
+      "expected": {
+        "share": 0.55,
+        "destroyed": false
+      },
+      "actual": {
+        "share": 0.55,
+        "bodies": 2,
+        "ended": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "share": 0.5,
+        "cut": [
+          10
+        ]
+      },
+      "expected": {
+        "share": 0.5,
+        "destroyed": false
+      },
+      "actual": {
+        "share": 0.5,
+        "bodies": 2,
+        "ended": null
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -880,5 +880,21 @@
     "recordHash": "e15f4b86",
     "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds the vented check at 1e-11 with its reason named (TOL2). Recorded PASS, frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L0.kinetic.flatten",
+    "successor": "L0.kinetic.flatten.v2",
+    "decision": "#271",
+    "recordHash": "28f82f16",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds an exact-equality case of the round rule: a round whose sectional momentum equals the first cell's r stops there (the survivor i1.rd.stopsOnEqual, 13l.7's last row). Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.control.bridge",
+    "successor": "L3.control.bridge.v2",
+    "decision": "#271",
+    "recordHash": "f5aeedf0",
+    "reason": "Superseded by #271, the scenario-hygiene round (DESIGN.md 13l.7, the L4 scenario audit of #270): a locked scenario is not edited, so its successor keeps every check and adds a routed R1 whose bridge draws from its backup supply, never from the reactors (the survivor f1.ctl.bridgeBackup, 13l.7's last row). Recorded PASS, frozen (#245).",
+    "frozen": true
   }
 ]
