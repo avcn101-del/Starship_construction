@@ -14,8 +14,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - **Running**: L4b engineer `session_01MwEE8qKmDVhDfvqWe4UnWn` (opus, on
   `m0/l4b` from `main` `351604e`, 09:15 UTC; the owner said go, #264;
   70–100 USD by the rule, 25–40 expected); locked 15 scenarios at
-  `e5c67dc` (09:46 UTC); the blind physics checker runs from the lock
-  (session id in LEDGER).
+  `e5c67dc` (09:46 UTC); the blind physics checker (3.91 USD) found 0
+  discrepancies against the kernel and 4 notes (the turret aims at the
+  first surviving cell's centre, not the room's: a sentence for §13l.1).
 - **Waiting on you**: nothing (L4b go given, #264). Veto window on #253,
   #256, #258–#264.
 - **Money**: 2026-10-21/22 about 112 USD (v2 13.85, audits 25.40,
