@@ -79,7 +79,9 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, L4 scenario-hygiene round, take 2 (`m0/l4-hygiene` from `41a417b`, §13l.7, #271) | session_01L8hXHHD5QjjkMEFSnzGvw4 | opus-5-5 | 10.58 (PR #67, head `4f34ecb`; 20 scenarios; notified by trigger) |
 | Physics checker, L4 scenario-hygiene round (blind, from locks `c998ff2` and `9a87d0f`; `checker/l4-hygiene`) | session_01Jyjqm388W1Vokm8gHDRcge | sonnet-5-5 | 4.06 (0 numeric mismatches, 4 label discrepancies, 7 gaps; notified by trigger) |
 | Reviewer, L4 scenario-hygiene round (PR #67; 0 blocking, 7 notes; notified by trigger) | session_01GiA5hCfSYz1org75B46PLC | sonnet-5-5 | 1.25 |
-| Engineer, L5a the kinetic pass (`m0/l5a-kinetic`, #278; created 15:12 UTC by the lead designer chat `session_01VL5M5dKNeREUVf7y1y3P87`) | session_01SYb2ggvdzrs6Wkv4poedYu | opus-5-5 | running |
+| Engineer, L5a the kinetic pass (`m0/l5a-kinetic`, PR #73, head `d3314ff`; 18 scenarios, 12 withdrawn; notified by trigger) | session_01SYb2ggvdzrs6Wkv4poedYu | opus-5-5 | 16.82 |
+| Physics checker, L5a (blind, from lock `4e217c0`; `checker/l5a`; 4 discrepancies, none changing a verdict; notified by trigger) | session_01XkBuUzH7GYPyvKqtXN5Njc | sonnet-5-5 | 1.90 |
+| Reviewer, L5a (PR #73; 1 blocking, 3 decisions, 6 notes; notified by trigger) | session_01NDg1145HtJvSBDeUX9x453 | sonnet-5-5 | 1.03 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

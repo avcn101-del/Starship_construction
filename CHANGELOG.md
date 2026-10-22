@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — Answers to L5a (#282)
+
+- `DECISIONS.md` #282: answers to the L5a engineer, the blind checker and
+  the reviewer of PR #73; a fix round (K4's feed case, K1's stopping
+  cell, B2's projection); the reactor's immediate explosion stated in
+  `DESIGN.md` §13l.1; §13n.1 (b) and §17 item 35 reworded; §18 row 282.
+- `IDEAS.md`: the design partner's "reactor shield mass from the layout"
+  (waiting, #281). `LEDGER.md`: the L5a sessions.
+
 ## Unreleased — 2026-10-22 — Mass pass 2 on the sources (#281)
 
 - `DECISIONS.md` #281: the reactor keeps its mass (no 20 MWe source to
