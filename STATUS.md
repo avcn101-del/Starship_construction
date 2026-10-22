@@ -82,6 +82,9 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #244: answers to the scenario audit (S17–S22 and the conventions added
+  to §13k; #236's 'eight reasons' struck; Q4-1 resolved with the full
+  history).
 - #243: physics pass 2 planned (§13k), the first plan under #241's gate.
 - #241: process after the audits (plan gate, sessions, checker only on
   kernel physics, documents split). #240 is the owner's.
@@ -139,7 +142,9 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-Nothing (the owner chose the spinal beam bay and low-end masses, #234).
+- **E1 / #188 wording** (#244 (5)): amend #188 so a withdrawal covers a
+  scenario superseded by a decision whatever its recorded verdict, and the
+  'retired' state of #237 (7) (listed, not run, last record kept).
 
 ## Next steps
 
@@ -224,7 +229,9 @@ creates its own (`send_later`, 20–45 min after starting a session).
 | Reviewer, prototype v2 (PR #51; no blocking finding, 4 non-blocking) | session_01EjFiN5BcJedtsbn1K6ucc6 | sonnet-5-5 | 1.00 |
 | Docs audit (read-only; report on `audit/docs`, `audit/2026-10-21-docs.md`: 72 findings) | session_01RwaxZTmMVcMs2QbrF8KohP | sonnet-5-5 | 6.59 |
 | Physics system audit (read-only; `audit/physics`, `audit/2026-10-21-physics.md`: 29 findings) | session_01VxycQ6zZQf69yMEK5QXyJr | opus-5-5 | 3.78 |
-| Scenario quality audit (read-only; `audit/scenarios`; it spawned sub-agents) | session_01Pr1RKAyvUNZpe8ticEBuyF | sonnet-5-5 | running, 12.42 at 23:41 UTC |
+| Scenario quality audit (read-only; `audit/scenarios`; spawned sub-agents; stopped at the cap, 322/332 mutations) | session_01Pr1RKAyvUNZpe8ticEBuyF | sonnet-5-5 | 15.03 |
+| Engineer, documents consolidation (PR #52) | session_01HKAWbNEcwdtowpBUb7i2Jo | sonnet-5-5 | 2.42 |
+| Reviewer, consolidation (PR #52) | session_01JAdhmiLBQzzCJa8ZNjcMTE | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
