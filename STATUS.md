@@ -9,13 +9,14 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   consolidation (#242), **physics pass 2 (#243–#251)**.
-- **Running**: nothing. `tools/mutate` merged (PR #56, #257; 7.91 USD).
+- **Running**: L4a engineer (the owner said go, 2026-10-22; 45–70 USD
+  estimated). `tools/mutate` merged (PR #56, #257; 7.91 USD).
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.
 - **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93); pass 2 estimated 50–60, inside it.
 - **Next**: L4a (§13l, #253, #256: obligations + armour on walls + #257's
-  survivors; 45–70 USD with the factors, **needs the owner's go**) → pace
+  survivors; 45–70 USD with the factors, the owner said go) → pace
   re-measured on R1c with real mass, reported to the owner (#255) → L4b
   (70–100 USD).
 - **Owner chose** #252 (L4: one target per route; EMP and surrender at L5).
@@ -175,7 +176,6 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 ## Awaiting the owner
 
 - Veto window on #253, #256.
-- The go on L4a's cost (45–70 USD, replaces the 25–35 above).
 
 ## Next steps
 
