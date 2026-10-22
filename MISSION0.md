@@ -33,7 +33,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L0.blast.surface.v3` | 6d566128 | PASS | f46ef095 | e5c67dc | none | `node tools/m0.js run L0.blast.surface.v3` |
 | `L0.blast.surface.v4` | a78c2613 | PASS | 7208fdef | e5c67dc | none | `node tools/m0.js run L0.blast.surface.v4` |
 | `L0.blast.surface` | f9738b67 | PASS, WITHDRAWN (successor `L0.blast.surface.v3`, #240) | 4450a2b8 | f7bf5c6 | none | `node tools/m0.js run L0.blast.surface` |
-| `L0.determinism` | 381f764c | PASS | 95f06978 | e5c67dc | none | `node tools/m0.js run L0.determinism` |
+| `L0.determinism` | 381f764c | PASS | 95f06978 | 013caf1 | none | `node tools/m0.js run L0.determinism` |
 | `L0.kinetic.anchor` | 735e3d84 | PASS | f231b248 | e5c67dc | none | `node tools/m0.js run L0.kinetic.anchor` |
 | `L0.kinetic.chord` | 8ef725b0 | PASS | 6568545f | e5c67dc | none | `node tools/m0.js run L0.kinetic.chord` |
 | `L0.kinetic.flatten` | 6f34436a | PASS | 8c4a5e18 | e5c67dc | none | `node tools/m0.js run L0.kinetic.flatten` |
