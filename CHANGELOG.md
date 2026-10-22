@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — Prevention after the weapons gap (#275)
+
+- `tools/lint-docs.mjs` check 9: every room, fitting, weapon, round type
+  and information topic of `DESIGN.md` §5–§7 and every room type of
+  `js/data.js` must have a row in §13m. `CLAUDE.md`: the plan checklist
+  lists the §13m rows a pass proves; a level exits only when no row still
+  says "planned" for it. §13b: the documents audit reads §13m. `STATUS.md`:
+  the owner's "Not built yet" line.
+
 ## Unreleased — 2026-10-22 — A magazine explosion is a blast (#274)
 
 - `DECISIONS.md` #274 (the owner, amending #83): a magazine's explosion is

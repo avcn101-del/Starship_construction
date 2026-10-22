@@ -493,7 +493,8 @@ request. The current state for a new chat is in `STATUS.md` (#179).
 fixed milestones, each a session that decides nothing and reports with a
 location and a quote for every finding: (a) **documents** (`data.js`
 against `DESIGN.md` and `DECISIONS.md`; decisions against each other;
-rules living in one place only; sense), (b) **process** (where errors
+rules living in one place only; **§13m against §4–§9 and the kernel: every
+element the design names has a row and a true status**, #275; sense), (b) **process** (where errors
 were caught against where money went; the plan gate; what to streamline),
 (c) **physics as one system** (models resting on different assumptions,
 one law or several, exponents against the new masses, the shield's
@@ -1698,3 +1699,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 272 | The L4 fix round merged (PR #64): the hit's momentum along the relative velocity at the first entry with matter, `L4.books.two`, `battle.openingRange`; answers to its engineer and reviewer | current |
 | 273 | The owner's five answers: detonation rule (c), passed-cell loss by chord (b), one battle is the same battle in cells (k = 1), the pre-lock rule reworded, surrender once Disabled | current |
 | 274 | A magazine explosion is a blast through its walls, not a destroyer by itself (the owner; amends #83); built at L5's kinetic pass | current |
+| 275 | Prevention after the weapons gap (#268): lint check 9 (every room, fitting, weapon, round type and topic has a §13m row), the plan checklist's §13m line and the level-exit rule, the documents audit's §13m scope, the owner's "not built yet" line | current |

@@ -43,6 +43,13 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   battle of E7. Expect two passes (L5a senses and weapons, L5b enemy and
   ship versus ship), each costed with #246 (4)'s factor beside the lead
   designer's expectation (#270 (2)).
+- **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
+  surprised by a prototype): missiles (seekers, warheads, EMP), point
+  defence, the railgun as a weapon, round types, the firing window, every
+  sense (passive, active, jamming, the knowledge model), the enemy's
+  choices, standing orders and presets, the economy, the campaign, sound
+  and rendering. All planned L5 or after Mission 0; the line shrinks as
+  passes merge.
 - **Owner chose** #261 (R1d the pace lever) and #252 (L4: one target per route; EMP and surrender at L5).
   The owner played v2: the magazine always wins in 7.1 s (#254). Pace
   study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.

@@ -121,7 +121,8 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   (`tools/estimates/<pass>.mjs`, run-time overrides only) and ends with the
   checklist (every passed rule on, tolerances against the integrator's
   error and float resolution, hardware sense-checked, numbers recomputed
-  from the kernel). An estimate is never a canonical run: `node tools/m0.js
+  from the kernel, **the `DESIGN.md` §13m rows the pass proves**, #275). A
+  level exits only when no §13m row still says "planned" for it. An estimate is never a canonical run: `node tools/m0.js
   run <id>` without `--set` re-records.
 - **Sessions** (#241, #250): created with the model named explicitly, the
   whole task in the first message, the fetch refspec, the reading order and
