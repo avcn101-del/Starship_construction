@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.kinetic.hole.v2",
-  "code": "baf8d67+dirty",
+  "code": "6feb7e0",
   "criterionHash": "69d0af68",
   "lockedHash": "69d0af68",
   "runHash": "1c8bd105",
-  "dataHash": "b958ce58",
-  "rowsHash": "1544cd05",
+  "dataHash": "414d5e11",
+  "rowsHash": "53116e88",
   "rows": [
     {
       "case": {
@@ -50,27 +50,27 @@
         ],
         "rooms": [
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 1
           },
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 0
           }
         ]
@@ -115,33 +115,33 @@
         ],
         "rooms": [
           {
-            "crew": 18,
-            "aboard": 17,
+            "crew": 24,
+            "aboard": 23,
             "deaths": 1
           },
           {
-            "crew": 18,
-            "aboard": 18,
+            "crew": 24,
+            "aboard": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
-            "aboard": 18,
+            "crew": 24,
+            "aboard": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
-            "aboard": 18,
+            "crew": 24,
+            "aboard": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
-            "aboard": 18,
+            "crew": 24,
+            "aboard": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
-            "aboard": 18,
+            "crew": 24,
+            "aboard": 24,
             "deaths": 0
           }
         ],
@@ -230,27 +230,27 @@
         ],
         "rooms": [
           {
-            "crew": 18,
-            "deaths": 4
+            "crew": 24,
+            "deaths": 5
           },
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
+            "crew": 24,
             "deaths": 0
           }
         ]
@@ -298,33 +298,33 @@
         ],
         "rooms": [
           {
-            "crew": 18,
-            "aboard": 14,
-            "deaths": 4
+            "crew": 24,
+            "aboard": 19,
+            "deaths": 5
           },
           {
-            "crew": 18,
-            "aboard": 18,
+            "crew": 24,
+            "aboard": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
-            "aboard": 18,
+            "crew": 24,
+            "aboard": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
-            "aboard": 18,
+            "crew": 24,
+            "aboard": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
-            "aboard": 18,
+            "crew": 24,
+            "aboard": 24,
             "deaths": 0
           },
           {
-            "crew": 18,
-            "aboard": 18,
+            "crew": 24,
+            "aboard": 24,
             "deaths": 0
           }
         ],
@@ -411,27 +411,27 @@
         ],
         "rooms": [
           {
-            "crew": 648,
-            "deaths": 53
+            "crew": 864,
+            "deaths": 71
           },
           {
-            "crew": 648,
+            "crew": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
+            "crew": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
+            "crew": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
+            "crew": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
+            "crew": 864,
             "deaths": 0
           }
         ]
@@ -476,33 +476,33 @@
         ],
         "rooms": [
           {
-            "crew": 648,
-            "aboard": 595,
-            "deaths": 53
+            "crew": 864,
+            "aboard": 793,
+            "deaths": 71
           },
           {
-            "crew": 648,
-            "aboard": 648,
+            "crew": 864,
+            "aboard": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
-            "aboard": 648,
+            "crew": 864,
+            "aboard": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
-            "aboard": 648,
+            "crew": 864,
+            "aboard": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
-            "aboard": 648,
+            "crew": 864,
+            "aboard": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
-            "aboard": 648,
+            "crew": 864,
+            "aboard": 864,
             "deaths": 0
           }
         ],
@@ -591,27 +591,27 @@
         ],
         "rooms": [
           {
-            "crew": 648,
-            "deaths": 161
+            "crew": 864,
+            "deaths": 215
           },
           {
-            "crew": 648,
+            "crew": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
+            "crew": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
+            "crew": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
+            "crew": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
+            "crew": 864,
             "deaths": 0
           }
         ]
@@ -659,33 +659,33 @@
         ],
         "rooms": [
           {
-            "crew": 648,
-            "aboard": 487,
-            "deaths": 161
+            "crew": 864,
+            "aboard": 649,
+            "deaths": 215
           },
           {
-            "crew": 648,
-            "aboard": 648,
+            "crew": 864,
+            "aboard": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
-            "aboard": 648,
+            "crew": 864,
+            "aboard": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
-            "aboard": 648,
+            "crew": 864,
+            "aboard": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
-            "aboard": 648,
+            "crew": 864,
+            "aboard": 864,
             "deaths": 0
           },
           {
-            "crew": 648,
-            "aboard": 648,
+            "crew": 864,
+            "aboard": 864,
             "deaths": 0
           }
         ],

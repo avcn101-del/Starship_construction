@@ -1,0 +1,90 @@
+{
+  "id": "L1.reactor.meltdown.coupled",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.reactor.meltdown.coupled",
+  "code": "6feb7e0",
+  "criterionHash": "4f6e49c7",
+  "lockedHash": "4f6e49c7",
+  "runHash": "949c973b",
+  "dataHash": "414d5e11",
+  "rowsHash": "2728fec7",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1"
+      },
+      "expected": {
+        "t": 125.71428571428571,
+        "literal": 125.71428571428571,
+        "C": 22000000
+      },
+      "actual": {
+        "t": 125.71666666666667,
+        "explosion": {
+          "t": 125.71666666666667,
+          "cause": "heat"
+        },
+        "shutdown": true,
+        "C": 22000000,
+        "books": {
+          "generated": 2100000000.000553,
+          "radiated": 0,
+          "stored": 2100000000.0228882,
+          "initial": 21120000000
+        },
+        "eventsOk": true,
+        "offGrid": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "tier": "T3"
+      },
+      "expected": {
+        "t": 251.42857142857142,
+        "literal": 251.42857142857142,
+        "C": 176000000
+      },
+      "actual": {
+        "t": 251.43333333333334,
+        "explosion": {
+          "t": 251.43333333333334,
+          "cause": "heat"
+        },
+        "shutdown": true,
+        "C": 176000000,
+        "books": {
+          "generated": 8400000000.002212,
+          "radiated": 0,
+          "stored": 8399999999.816895,
+          "initial": 168960000000
+        },
+        "eventsOk": true,
+        "offGrid": null
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "heat books: generated = radiated + stored (1e-9), every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

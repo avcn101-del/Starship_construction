@@ -3,12 +3,12 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.beam.depth",
-  "code": "baf8d67",
+  "code": "6feb7e0",
   "criterionHash": "bfc967a1",
   "lockedHash": "bfc967a1",
   "runHash": "9b41a478",
-  "dataHash": "b958ce58",
-  "rowsHash": "cca43b82",
+  "dataHash": "414d5e11",
+  "rowsHash": "386fe3b4",
   "rows": [
     {
       "case": {
@@ -302,7 +302,7 @@
         "own": 372.57204097317833
       },
       "actual": {
-        "range": 372.5402501361118
+        "range": 372.539886359533
       },
       "pass": true,
       "note": ""

@@ -1,0 +1,151 @@
+{
+  "id": "L2.blast.integrity",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.blast.integrity",
+  "code": "6feb7e0",
+  "criterionHash": "377ce996",
+  "lockedHash": "377ce996",
+  "runHash": "e1beebd1",
+  "dataHash": "414d5e11",
+  "rowsHash": "79aed0a6",
+  "rows": [
+    {
+      "case": {
+        "hold": "full"
+      },
+      "expected": {
+        "E": 1777777.7777777778,
+        "magCap": 1200000,
+        "holdCap": 1200000,
+        "absorbed": 577777.7777777778,
+        "escaped": 0,
+        "after": 0.5185185185185185
+      },
+      "actual": {
+        "E": 1777777.7777777773,
+        "capacity": {
+          "hold": 1200000,
+          "magazine": 1200000
+        },
+        "absorbed": {
+          "hold": 577777.7777777773,
+          "magazine": 1200000
+        },
+        "escaped": 0,
+        "before": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "after": [
+          0.5185185185185189,
+          0.5185185185185189,
+          0.5185185185185189,
+          0.5185185185185189
+        ],
+        "destroyed": 0,
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "hold": "two thirds"
+      },
+      "expected": {
+        "E": 1777777.7777777778,
+        "magCap": 1200000,
+        "holdCap": 800000,
+        "absorbed": 577777.7777777778,
+        "escaped": 0,
+        "after": 0.18518518518518517
+      },
+      "actual": {
+        "E": 1777777.7777777773,
+        "capacity": {
+          "hold": 799999.9999999999,
+          "magazine": 1200000
+        },
+        "absorbed": {
+          "hold": 577777.7777777773,
+          "magazine": 1200000
+        },
+        "escaped": 0,
+        "before": [
+          0.6666666666666666,
+          0.6666666666666666,
+          0.6666666666666666,
+          0.6666666666666666
+        ],
+        "after": [
+          0.18518518518518545,
+          0.18518518518518545,
+          0.18518518518518545,
+          0.18518518518518545
+        ],
+        "destroyed": 0,
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "hold": "one third"
+      },
+      "expected": {
+        "E": 1777777.7777777778,
+        "magCap": 1200000,
+        "holdCap": 400000,
+        "absorbed": 400000,
+        "escaped": 177777.77777777775,
+        "after": 0
+      },
+      "actual": {
+        "E": 1777777.7777777773,
+        "capacity": {
+          "hold": 399999.99999999994,
+          "magazine": 1200000
+        },
+        "absorbed": {
+          "hold": 399999.99999999994,
+          "magazine": 1200000
+        },
+        "escaped": 177777.77777777734,
+        "before": [
+          0.33333333333333326,
+          0.33333333333333326,
+          0.33333333333333326,
+          0.33333333333333326
+        ],
+        "after": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "destroyed": 4,
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
+    },
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

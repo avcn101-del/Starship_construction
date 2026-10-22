@@ -1,0 +1,48 @@
+{
+  "id": "L2.repair.crew",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.repair.crew",
+  "code": "6feb7e0",
+  "criterionHash": "012ad5ff",
+  "lockedHash": "012ad5ff",
+  "runHash": "e15e1a97",
+  "dataHash": "414d5e11",
+  "rowsHash": "6b5aca15",
+  "rows": [
+    {
+      "case": {
+        "stage": "all"
+      },
+      "expected": {
+        "afterHits": 3,
+        "afterRepair": 3,
+        "afterThird": 3,
+        "deaths": 1
+      },
+      "actual": {
+        "afterHits": 3,
+        "afterRepair": 3,
+        "afterThird": 3,
+        "deaths": 1,
+        "repaired": [
+          1,
+          1
+        ],
+        "seconds": 88.8
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

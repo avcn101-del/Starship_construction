@@ -1,0 +1,84 @@
+{
+  "id": "L4.readout.blueprint",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.readout.blueprint",
+  "code": "6feb7e0",
+  "criterionHash": "ba211887",
+  "lockedHash": "ba211887",
+  "runHash": "a38be52c",
+  "dataHash": "414d5e11",
+  "rowsHash": "f936bf5b",
+  "rows": [
+    {
+      "case": {
+        "ship": "R1"
+      },
+      "expected": {
+        "mass": 950534.0573339704
+      },
+      "actual": {
+        "before": {
+          "mass": 950534.0573339704,
+          "centre": [
+            24.135543560664708,
+            16.184166484783013
+          ],
+          "inertia": 115001780.87470937,
+          "accelerationG": 1.6091736089467397
+        },
+        "after": {
+          "mass": 950534.0573339704,
+          "centre": [
+            24.135543560664708,
+            16.184166484783013
+          ],
+          "inertia": 115001780.87470937,
+          "accelerationG": 1.6091736089467397
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "ship": "R1c"
+      },
+      "expected": {
+        "mass": 1264534.0573339704
+      },
+      "actual": {
+        "before": {
+          "mass": 1264534.0573339704,
+          "centre": [
+            28.074891254038583,
+            15.89012278223079
+          ],
+          "inertia": 184549459.3201293,
+          "accelerationG": 1.2095951948433157
+        },
+        "after": {
+          "mass": 1264534.0573339704,
+          "centre": [
+            28.074891254038583,
+            15.89012278223079
+          ],
+          "inertia": 184549459.3201293,
+          "accelerationG": 1.2095951948433157
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

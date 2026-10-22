@@ -1,0 +1,43 @@
+{
+  "id": "L3.beam.deposit",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.beam.deposit",
+  "code": "6feb7e0",
+  "criterionHash": "09b3a346",
+  "lockedHash": "09b3a346",
+  "runHash": "328c0146",
+  "dataHash": "414d5e11",
+  "rowsHash": "8e099f36",
+  "rows": [
+    {
+      "case": {
+        "cell": 0
+      },
+      "expected": {
+        "E": 83333.33333333333,
+        "Q": 1174562500,
+        "vented": 20833.333333333332
+      },
+      "actual": {
+        "E": 83333.33333333333,
+        "Q": 1174562500,
+        "vented": 20833.333333311544,
+        "destroyed": true,
+        "C": 4050000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

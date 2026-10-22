@@ -1,0 +1,78 @@
+{
+  "id": "L3.control.bridge",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.control.bridge",
+  "code": "6feb7e0",
+  "criterionHash": "e518915b",
+  "lockedHash": "e518915b",
+  "runHash": "e0310c65",
+  "dataHash": "414d5e11",
+  "rowsHash": "3b87149c",
+  "rows": [
+    {
+      "case": {
+        "how": "overheated"
+      },
+      "expected": {
+        "bridgeLost": "overheat",
+        "others": 9,
+        "restored": null
+      },
+      "actual": {
+        "shutStep": 78,
+        "bridgeLost": "overheat",
+        "lostStep": 78,
+        "others": 9,
+        "othersSteps": [
+          78
+        ],
+        "scramStep": 78,
+        "restored": null,
+        "restoredStep": null,
+        "back": 0,
+        "backSteps": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "how": "off"
+      },
+      "expected": {
+        "bridgeLost": "off",
+        "others": 9,
+        "restored": "on"
+      },
+      "actual": {
+        "shutStep": null,
+        "bridgeLost": "off",
+        "lostStep": 1,
+        "others": 9,
+        "othersSteps": [
+          1
+        ],
+        "scramStep": 1,
+        "restored": "on",
+        "restoredStep": 4,
+        "back": 9,
+        "backSteps": [
+          4
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
