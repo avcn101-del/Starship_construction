@@ -12,19 +12,18 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   **L4a (PR #58, #253–#258, #260)**: armour plates on walls, R1c, crew
   capacity, the kernel obligations.
 - **Running**: nothing. L4a cost ≥ 17.57 USD (estimated 45–70).
-- **Waiting on you**: **the pace lever** (frame in the chat, #260): A R1d
-  (turret plated, 215–306 s broadside; recommended), B `turret.fireRate`
-  0.25, C `kinetic.hitsToWreck`. Then the phone test: play one duel on the
-  republished prototype page, Export, Copy, send the JSON (the lead
-  designer replays it in Node; §17 item 23). Veto window on #253, #256,
-  #258, #259, #260.
+- **Waiting on you**: **the go on L4b** (planned, §13l amended, #262:
+  70–100 USD by the rule's ×4, probably high; the lead designer's own
+  expectation 25–40). The phone test on the republished prototype page
+  (Export → Copy → send the JSON; §17 item 23). Veto window on #253,
+  #256, #258–#262.
 - **Money**: 2026-10-21/22 about 112 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57); L4a was
   estimated 45–70.
-- **Next**: the owner's pace choice → the L4b plan (§13l; adds A11, the
-  `l4f.plate.cellVentsPlate` case, NB2's fallback, R1d if chosen; 70–100
-  USD estimated, probably high) → L4b.
-- **Owner chose** #252 (L4: one target per route; EMP and surrender at L5).
+- **Next**: L4b (`m0/l4b`: the battle loop, Disabled and destroyed as
+  kernel rules, the per-second log, the cascade tree, targets R1, R1d,
+  T-neck, T-gun, B1–B15) once the owner says go.
+- **Owner chose** #261 (R1d the pace lever) and #252 (L4: one target per route; EMP and surrender at L5).
   The owner played v2: the magazine always wins in 7.1 s (#254). Pace
   study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
   The owner chose armour on walls and Disabled without thrust (#255);
@@ -57,8 +56,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   turn in 3.68 s, 0.04 °/s per M shot. `regress` on `main`: **56 VERIFIED
   + 20 WITHDRAWN**. Cost 8.90 USD.
 - **The feel prototype is published** (private page
-  https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d, PR #42 on `proto/feel`,
-  head `c1282d8`): an R1 duel ends in about 11 s (#227); loadout panel and
+  https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d; since 2026-10-22 on the
+  L4a kernel, `main` `5a837af`, version 4): an R1 duel ends in about 11 s (#227); loadout panel and
   Export / replay built. A light reviewer checks #217's rules.
 - **The path model is done and merged** (`DESIGN.md` §13i; #228–#236;
   PR #48): rounds are damaged and flatten, protection is the mass on the
