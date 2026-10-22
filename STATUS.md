@@ -9,15 +9,16 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   consolidation (#242), **physics pass 2 (#243–#251)**.
-- **Running**: nothing. This chat is replaced at this boundary (#247
-  (2)); the new chat starts with the `tools/mutate.js` task and the L4
-  plan.
+- **Running**: engineer `tools/mutate` (`session_01ELZUpkHg9fxfaMzLyCp5R5`,
+  opus, started 04:03 UTC; the owner chose scope A: mutation driver, the
+  audit's 96 mutations plus pass 2's rules, §17 item 29); the lead
+  designer drafts the L4 plan meanwhile.
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.
 - **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93); pass 2 estimated 50–60, inside it.
-- **Next**: `tools/mutate.js` task (§17 item 21) → the L4 plan (under
-  #241's gate).
+- **Next**: review of `tools/mutate` (estimated 28–44 USD with ×4,
+  the owner agreed) → the L4 plan (under #241's gate).
 
 ## Where we are
 
@@ -202,6 +203,8 @@ Nothing (#249 answered S6).
 |---|---|---|---|
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
+
+| Check-in of this chat | `trig_013Ys8k4WDJ6c7cAirTK9Su2` | 2026-10-22 04:44 UTC, once | read the `tools/mutate` engineer |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
