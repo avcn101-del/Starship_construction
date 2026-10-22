@@ -13,8 +13,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   capacity, the kernel obligations.
 - **Running**: L4b engineer `session_01MwEE8qKmDVhDfvqWe4UnWn` (opus, on
   `m0/l4b` from `main` `351604e`, 09:15 UTC; the owner said go, #264;
-  70–100 USD by the rule, 25–40 expected). The blind checker starts from
-  its lock.
+  70–100 USD by the rule, 25–40 expected); locked 15 scenarios at
+  `e5c67dc` (09:46 UTC); the blind physics checker runs from the lock
+  (session id in LEDGER).
 - **Waiting on you**: nothing (L4b go given, #264). Veto window on #253,
   #256, #258–#264.
 - **Money**: 2026-10-21/22 about 112 USD (v2 13.85, audits 25.40,
