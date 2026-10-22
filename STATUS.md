@@ -11,7 +11,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   consolidation (#242), **physics pass 2 (#243–#251)**.
 - **Running**: L4a fix round `session_013MRAhtyyGbE3gKKimEYvsH` (opus, on
   `m0/l4a`, 07:12 UTC; #258: plates burn by mass, σ / cos θ, plate heat
-  capacity, two withdrawals with successors). Review of PR #58: 2 blocking,
+  capacity, two withdrawals with successors; locked 3 scenarios at
+  `7399706`; light blind checker `session_01Wr6puuwLsvDJzWzrQYRdPN`). Review of PR #58: 2 blocking,
   both the lead designer's, answered in #258.
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.

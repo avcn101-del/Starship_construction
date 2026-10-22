@@ -64,6 +64,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Physics checker, L4a (blind, from lock `6feb7e0`; `checker/l4a`; 0 mismatches, 3 discrepancies) | session_017mYp4vpcVbLbTrXruRXDP5 | sonnet-5-5 | 2.83 |
 | Reviewer, L4a (PR #58; 2 blocking for the lead designer, 9 notes) | session_01JLq9WkPYXvq2MKY4iWZUxt | sonnet-5-5 | 1.81 |
 | Engineer, L4a fix round (#258) | session_013MRAhtyyGbE3gKKimEYvsH | opus-5-5 | running |
+| Physics checker, L4a fix round (blind, from lock `7399706`) | session_01Wr6puuwLsvDJzWzrQYRdPN | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
