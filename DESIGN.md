@@ -914,11 +914,13 @@ printed by `node tools/estimates/l4.mjs` (#241 (1)); the checklist is
 | Rule | Statement |
 |---|---|
 | Battle (`js/battle.js`, L4b) | Two ship worlds in one frame: an **attacker** and a **static target** (no helm: it holds its heading on its RCS and never thrusts; it fires only when its case says so). Rounds are kernel objects with a time of flight: launched by a turret, moved each step, tested against the target's hull along their segment; the cells a round's line crosses, in order, with the chord rule (#239), make its path; `shieldRound` at the hull entry point, then `fireRound` with the round's velocity **relative to the hull** (#242). A beam hits along the firing bay's axis line at once (#230). The loop calls `cull()` every step (§17 item 26). No `Math.random`; one seed per battle (#7); `helm.js` waits for L5 |
-| Placement of the attacker | at rest, 900 m from the target's centre of mass on a bearing the case names, bow-on to it (the #54 band; the beam is spinal, #234; the 900 m is a default of `createBattle` until L5's helm gives the opening range a constant, #267); its turret aims at **the centre of the target room's first surviving cell** (cell-index order; static: no lead): a room's centre is a grid vertex, so a line through it would cross two of its four cells and the route would stall (#267; the engineer and the blind checker found it alike); the spinal beam needs the bay's axis through the aim point, so a constant-free time-optimal heading controller turns the attacker there and holds both ships' headings (a stand-in for L5's `helm.js`) |
+| Placement of the attacker | at rest, 900 m from the target's centre of mass on a bearing the case names, bow-on to it (the #54 band; the beam is spinal, #234; the 900 m is `battle.openingRange`, 500–2000 m, k = 1, the L4 fix round of #270 (9); a case may still pass its own distance); its turret aims at **the centre of the target room's first surviving cell** (cell-index order; static: no lead): a room's centre is a grid vertex, so a line through it would cross two of its four cells and the route would stall (#267; the engineer and the blind checker found it alike); the spinal beam needs the bay's axis through the aim point, so a constant-free time-optimal heading controller turns the attacker there and holds both ships' headings (a stand-in for L5's `helm.js`) |
 | Able to fight (Disabled, #82 as amended by #255) | A weapon room is **able** while it is not destroyed, is controlled, is not shut down, is active, and is joined through live walls to a reactor that can produce (controlled, not SCRAMmed, not shut down, not destroyed); a turret also needs a round in its ready store or **a magazine with rounds of its size sharing a live wall with it** (the wall its feed crosses, `feedAmmo`; not any room path: a turret cut off from its magazine by a destroyed wall runs dry, B13, #267). The event that takes a ship's last able weapon is the one named by the **first failing condition of that rule in its order** (destroyed, control, shut down, active, power, ammunition): Disabled's parent in the cascade tree (#267). A ship with **no able weapon** for `battle.disabledSeconds` (10 s) is **Disabled**, whether or not its engine works (#255: a ship that cannot fire is a prize however it flies): the battle ends, the ship is captured, and the loot is what is left (#83) |
 | Armour on walls (#255, #256, L4a) | Armour (#15) is a steel plate of thickness d on a **hull edge segment or a shared wall segment** (one edge of one cell). A path that crosses the segment meets σ = d × `FIXED.steelDensity` once, with the chord rule (#239), before the next cell; the plate resists a round as a cell does (r = c σ chord), loses 1 / `kinetic.hitsToWreck` per round that passes it and becomes a hole at 0; a beam deposits in it (beamDeposit with σ), that heat goes to the room it is mounted on, and it **burns by the one law** like a cell: it loses P F dt / (`matter.burnEnergyPerKg` × its mass) of its integrity per step (#240 (1), #258; a 0.2 m plate lasts 23.5 s under a 5 MW beam). A line crossing a plate at an angle θ to its normal meets **σ / cos θ** (the line-of-sight thickness), capped at the cell's edge length of steel (cos θ ≥ d / edge) (#258); ricochet and tumble stay out (#6). A residue of integrity at or below 1e-12 counts as 0 (the snap `damageCell` uses; #260): a 0.2 m plate under a 5 MW beam is a hole in step 1413 exactly. The plate's steel **adds its heat capacity to its room's** (its mass × `thermal.coupledArmour` / `armour.cellMass`, 450 J/(kg·K), #258), the consumer `thermal.coupledArmour` lacked (#248 Q13). A plate belongs to the room it is mounted on and leaves with that cell; when another cell of its room is destroyed, the plate's steel stays with the room and only the cell's own share of the heat leaves (#260). In a **cluster** (L2, no ship) a destroyed cell keeps its heat capacity and heat; in a **ship**, and in a heat sink, the cell's share leaves with it as debris (#198, #219 Q6; stated here for both, #260). Its mass, d × steel density × edge × edge (the segment's area: edge long, one cell high), joins the body of the room it is mounted on (centre, inertia) and leaves as debris when it is wrecked. **Only walls carry plates, never decks**: the model is 2D and no path crosses a floor or a ceiling, so a deck plate would be mass that nothing in the model can meet (#256). Thickness `armour.plateThickness` (new, 0.2 m, 0.01–0.4, k = 1) |
 | Destroyed (#83) | A reactor's or a magazine's **explosion** ends the battle with the ship destroyed (checked before Disabled in the same step). **Too many pieces**: the ship is also destroyed when its largest fragment holds less than `battle.wreckFraction` (new, 0.5 of the ship's mass at undock, 0.3–0.8, k = 0) |
 | Per-second log (#129) | One line per whole second of battle time per ship: position, heading, velocity, each room's mean integrity, temperature, power fraction and state (controlled, shut down, SCRAMmed); and every event since the last line with its cause. `node tools/battle.js <case>` prints it; its hash is the battle's (E2: same seed and inputs → same hash) |
+| Books across two ships (the L4 fix round, the physics audit's B1–B4 and L4, #270) | The hit's momentum follows the round's velocity **relative to the hull** (#242) at the point each kernel call books the hull at: `shieldRound` at the entry point, `fireRound` at the first entry with matter. Summed over both ships (bodies, debris, rounds in flight, `ship.left`, `battle.spent`) the momentum book closes against thrust and RCS at 1e-9 of gross (`L4.books.two`, still and spinning target). **Stated stand-ins until L5's loop** (§17 item 35): the impulse acts at the cell's centre, not on the line, so a hit does not conserve angular momentum (B2); energy is not booked across the two ships, a shot creates its energy (B3); a stopped round's mass stays in `spent`, out of play (B4); a round's energy is split between cells by the impulse each took, not by the energy each lost (L4) |
+| Plate heat (the physics audit's U3, #270) | A plate's whole steel is coupled to its room's air in the step it is heated: the deposit and the burn go to the room's heat store at once. A stated stand-in (a 0.2 m plate's own thermal time is minutes) until a plate carries its own heat, with item 34's kinetic pass or later |
 | Cascade tree (#41) | Every event carries a cause that is either a **root** (a shot id, a beam id, `heat`, `launch`) or the id of an earlier event of the same battle (`explosion:magazine` already has this form; L4b gives every event an id and every derived event its parent's id). The tree is printed with the log; an event whose cause is neither is an error |
 | Crew capacity (#60, #220 (5), §17 item 9) | A build-time rule in `validateShip`: the crew the rooms require (Σ `crewRequired` of every crewed room) must not exceed the berths of the quarters (cells × `quarters.crewPerCell`). R1 needs 20 and has 18 berths: `quarters.crewPerCell` 3 → **4** (inside its approved 1–8; 6 m² of a 25 m² cell per sleeper, a warship's berthing) gives 24. The kernel's crew counts are otherwise unchanged |
 | Blast capacity from remaining integrity (#216 (3), §17 item 8, L4a) | A room's blast capacity is Σ over its surviving cells of integrity × `matter.blastPerKg` × cell mass (today: surviving cells × the same, ignoring damage). A damaged room absorbs less and passes more |
@@ -1011,7 +1013,8 @@ USD (a lower bound: the engineer's cost before a worker restart is not
 reported) against the plan's raw 10–14 (#253; the "15–22" that once stood
 here was a later re-estimate, not the plan's); L4b 23.98 USD against raw
 18–25 (1.1 on the midpoint). The cost factors are answered with the L4
-process audit (#270). Pass 2 cost 42.93 against 50–60 estimated. The owner is told before each
+process audit (#270: #267's factor change is withdrawn, #246 (4) stands; the
+ratio of actual to raw per pass is in `LEDGER.md`). Pass 2 cost 42.93 against 50–60 estimated. The owner is told before each
 pass starts (#191: past 40 USD).
 
 ### 13l.6 Checklist (#241 (1))
@@ -1276,9 +1279,12 @@ Each line names its decision and when it is due; a closed one is removed.
     and the engineer's Q12): a path of holes only is not a hit; the chord
     of an oblique line (every L4b line is within 0.01 rad of an axis);
     a grazed cell still loses a full 1 / `kinetic.hitsToWreck` (an exploit
-    for aim logic; with item 34); the opening range 900 m is a default of
-    `createBattle`, not a constant; one id space for shot events. Due:
-    L5's loop with moving ships (its plan carries cases for each).
+    for aim logic; with item 34); one id space for shot events; and the
+    four stand-ins of §13l.1's two-ship books row (B2 the line of action,
+    B3 energy across ships, B4 the stopped round's mass, L4 the split of a
+    round's energy; #270). The opening range is `battle.openingRange`
+    since the L4 fix round (#270 (9)). Due: L5's loop with moving ships
+    (its plan carries cases for each).
 36. T-neck and T-gun carry no fittings (as `tools/estimates/l4.mjs`
     builds them), so a T-gun spins under its own recoil (#267, engineer
     Q9): give them RCS and radiators when a target must hold its heading
@@ -1294,6 +1300,51 @@ Each line names its decision and when it is due; a closed one is removed.
     (#121) and the information counters (#27, #149) all need them. Due:
     the L5 plan builds them as room physics with scenarios before ship
     versus ship, or Mission 0 cannot claim E3–E6.
+38. **Tiers** (the L4 physics audit's T1, T3, T4 and Q3, #270):
+    `battle.disabledSeconds` k = 0 is five shot intervals at T1 and 0.83
+    at T6; `repair.massRate` k = 0 against cell mass k = 3 makes repair
+    dead at T6; the T6 citadel takes 11 rounds against T1's 10; and the
+    owner's "one battle" is undefined across tiers (the same metres, or
+    the same battle in cells). Due: L6 (tier scaling), the question with
+    the owner's five of #270.
+39. **Scenario hygiene** (the L4 scenario audit, #270): U1 the kill shot
+    counts read from the kernel (`L4.kill` shot-10, `route-decapitate`,
+    `route-split`), U2 every L4b shot axis-aligned (the mutants
+    `l4b.hit.holesHit`, `l4b.hit.chordOne` survive), U3 the able rule
+    written twice (`turret()`'s firing gate unproven: B4 with the target
+    firing; `c1.thr.turretWorksShutdown` survives), N1–N4 kernel output
+    quoted as hand-worked or constants read from `params` (`L4.kill.pieces`,
+    `L4.disabled.rule`, B7, `L2.beam.chord`'s F₂), TOL1–2 (tolerances 7–9
+    orders above the residue in `L4.route.split`, `L2.shield.overlap.round`,
+    `L3.shield.bodies`; `L3.beam.deposit`'s 1e-9), TH1–3 (a loss of 0.9
+    and 1.6 cells in `L2.repair.crew`; a 0.50 case in `L4.kill.pieces`; an
+    off-grid fire rate), C2 (`route-split`'s naive case asserts only no
+    end), C3 (E8 printed, not recorded), the cascade check on B2–B5 and
+    the beam case, `e1.rep.destroyedRepairable` (a destroyed cell beside a
+    damaged one), `i1.rd.stopsOnEqual`, `f1.ctl.bridgeBackup`, and the
+    survivor `k1.beamPaths.neverCleared` not root-caused. T1–T3 are
+    consistency invariants, relabelled when touched, and no proof in §13m.
+    Due: each in the next pass that touches its file; U2, U3, C3 and the
+    root cause at L5's first pass.
+40. **Process after the L4 block** (the process audit, #270): the plan
+    checklist's three new lines (a damage-channels table for every new
+    resisting object; every locked scenario run against a new validation
+    rule before the lock; the script line behind each quoted number) are
+    applied first in the L5 plan; the engineer's pull request carries a
+    "Pre-lock runs" section; the full mutation run goes after the review;
+    `LEDGER.md` carries the ratio table. Due: the L5 plan and its first
+    pass; the wording of the pre-lock rule is the owner's (F4).
+41. **Plates and the passed cell, inputs of item 34's pass** (the physics
+    audit, #270; the documents audit's 9): a damaged plate or cell resists,
+    deposits and weighs as if intact (L1); a cell clips an oblique path at
+    its edge, a plate does not (L5); the citadel's "five rounds" has no
+    anchor and reads two ways (U1: 10 shots on R1d, #262); a beam melts a
+    0.28 m hole and deposits in the first 7 % of the plate (U2); the flat
+    1 / `hitsToWreck` is mass- and chord-blind while its resistance is
+    neither (L2), so a grazed cell loses a full third at 1 % of the
+    resistance (L3); item 32 rests on an aim model that does not exist
+    (U4). Due: the L5 plan's kinetic pass, with the owner's answers to
+    physics Q1 and Q2 (#270).
 
 ## 18. Decisions in force
 
@@ -1569,6 +1620,7 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 264 | L4b go (the owner); the prototype's end panel shows the cascade tree | current |
 | 265 | Answers to the design partner: the information law is built at L5 (§17 item 33); the flat 1/hitsToWreck on passed cells is an oversight against #240 (1), a pass for the L5 plan (item 34) | current |
 | 266 | The owner: sensors and the knowledge model open the L5 plan; kinetic damage by the one law is a pass decided there; the magazine's detonation rule and the energy a passing round leaves go into that plan | current |
-| 267 | L4b merged (PR #62); answers to its engineer, checker and reviewer; the aim point, the feed clause, Disabled's parent | current |
+| 267 | L4b merged (PR #62); answers to its engineer, checker and reviewer; the aim point, the feed clause, Disabled's parent | current, except its cost-factor clause (withdrawn by #270; #246 (4) stands) |
 | 268 | Missiles, point defence and the railgun have no level (the owner's finding); the L5 plan builds them before ship versus ship | current |
 | 269 | §13m, the coverage table: every element of the design and the level that proves it (the owner's direction); lint check 8 | current |
+| 270 | Answers to the four light audits before L5: #267's factor change withdrawn, the ledger's ratio table, the plan checklist's three lines, the L4 fix round (B1, `L4.books.two`, `battle.openingRange`), stand-ins stated, §17 items 38–41, five questions to the owner | current |
