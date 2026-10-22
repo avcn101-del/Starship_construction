@@ -1,6 +1,6 @@
 # Duct Tape Navy: Mostly in One Piece — Design
 
-Status: designed 2026-10-20; **Mission 0 L0–L3, the D pass, the mass pass, the path model and prototype v2 are merged** (`regress`: 57 VERIFIED + 29 WITHDRAWN + 5 RETIRED); the documents' consolidation (#241 (5)) and physics pass 2 (§13k, #240) are merged; L4 is planned (§13l: L4a then L4b), no game yet. Mission 0 (§13) comes
+Status: designed 2026-10-20; **Mission 0 L0–L3, the D pass, the mass pass, the path model and prototype v2 are merged** (`regress`: 57 VERIFIED + 29 WITHDRAWN + 5 RETIRED); the documents' consolidation (#241 (5)) and physics pass 2 (§13k, #240) are merged; L4 is merged (§13l); **L5 is planned** (§13n: five passes, #277, #278), no game yet. Mission 0 (§13) comes
 before any content or rendering. Numbers in brackets (#n) point to the row
 in `DECISIONS.md` that records the decision and why. This file is the
 current design and the source of truth; `DECISIONS.md` is the dated log.
@@ -382,7 +382,7 @@ rendering** (#125, #126, #152).
 | L2 Pairs and clusters | flows through shared walls: power vs wall length, cook-off time, hold insulation, shield overlap |
 | L3 Minimal ship | CoM, moment of inertia, recoil spin, split momentum, SCRAM in a fragment |
 | L4 Ship vs static target | every capture route reaches Disabled (EMP and surrender at L5, #252); the cascade tree is right |
-| L5 Ship vs ship | no dominant build; degenerate builds punished |
+| L5 Ship vs ship | no dominant build; degenerate builds punished; everything §13m marks planned L5a–e (the senses, the weapons, the enemy, E5–E7); five passes, §13n (#277, #278) |
 | L6 Scaling | T1–T6: square–cube, small rounds vs capital armour |
 
 Each constant is tuned at the lowest level where it acts (#128). Output is
@@ -1101,19 +1101,19 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Element | Today | Proof | Status |
 |---|---|---|---|
 | Inertia, moment of inertia (#208) | `body.js`, rebuilt on loss | `L3.mass.props.v5`, `L3.r1.pinned`, `L3.destroyed.mass` | proven L3 |
-| Recoil, Newton 3 (#5, #203 C) | turret recoil, RCS | `L3.recoil.v5`, `L3.hit.books` | proven L3; E4 judged at L5 (§17 item 7) |
+| Recoil, Newton 3 (#5, #203 C) | turret recoil, RCS | `L3.recoil.v5`, `L3.hit.books` | proven L3; E4 judged at L5c (the railgun, §17 item 7) |
 | Centre-of-mass shift | `rebalance` | `L3.split.momentum.v5`, `L3.fragment.rules.v3` | proven L3 |
 | Heat and radiators, Stefan–Boltzmann (#143); the coolant loop (#200) | `heat.js`, conduction, life support | `L1.radiator.*`, `L2.heat.*`, `L2.lifesupport.*`, `L1.heat.coupled.v2` | proven L1–L2 |
-| Infrared seen from outside (#102): surfaces only | `irBrightness` radiates; nothing *sees* it | none | planned L5 (`sensors.js`, §17 item 33) |
-| Inverse-square passive, distance⁴ active (#24) | nothing | none | planned L5 (§17 item 33) |
+| Infrared seen from outside (#102): surfaces only | `irBrightness` radiates; nothing *sees* it | none | planned L5b (`sensors.js`, §17 item 33) |
+| Inverse-square passive, distance⁴ active (#24) | nothing | none | planned L5b (§17 item 33) |
 | Time of flight | `battle.js` rounds | `L4.route.decapitate` (arrival steps), `L4.relative` | proven L4 |
 | Square–cube, tiers (#63, #240 (4)) | `scaled(k)`; plates k = 1; `beamEnergy` | `L0.beam.tier.v2`, `L0.shield.buffer.tier`, `L3.mass.props.v5` (T6) | proven for the pass-2 rules; the rest planned L6 (the physics audit's T1–T4, #270) |
 | Fail-safe reactors: SCRAM, decay heat, restart (#81, #82) | built | `L1.reactor.scram.v2`, `L1.reactor.restart`, `L3.fragment.scram.v2` | proven L1, L3 |
-| Kinetic channel: momentum per cell, the path model, relative velocity (#137, #230, #242) | built | `L0.kinetic.*`, `L3.kinetic.hole.v2`, `L4.relative` | proven L0–L4; a passed cell's flat loss is §17 item 34 (planned L5) |
+| Kinetic channel: momentum per cell, the path model, relative velocity (#137, #230, #242) | built | `L0.kinetic.*`, `L3.kinetic.hole.v2`, `L4.relative` | proven L0–L4; a passed cell's flat loss is §17 item 34 (planned L5a) |
 | Thermal channel: beam deposit and burn (#229, #240 (1)) | built | `L0.beam.*`, `L3.beam.deposit`, `L0.armour.plate.v2` | proven L0–L4 |
 | Blast channel, inside (#141, #169) | built | `L0.blast.surface.v4`, `L2.blast.*` | proven L0–L2 |
-| Blast outside the hull (#141, §17 item 5) | nothing | none | planned L5 (with missiles: a warhead on a hull cell) |
-| EMP channel (#138, #142: a warhead) | nothing | none | planned L5 (with missiles) |
+| Blast outside the hull (#141, §17 item 5) | nothing | none | planned L5c (with missiles: a warhead on a hull cell) |
+| EMP channel (#138, #142: a warhead) | nothing | none | planned L5c (with missiles) |
 | Shields: absorb, buffer, the field (#21, #99, #139) | built | `L0.shield.*`, `L1.shield.generator.v3`, `L2.shield.*`, `L3.shield.*` | proven L0–L4 |
 | Engines as self-fuelled torches (#140, #203 A) | thrust, draw, heat | `L1.engine.thrust.v3`, `L3.thrust.v5` | proven L1, L3 |
 | Crew die per cell, by integrity, at critical heat (#49, #18b, #206) | built | `L1.kinetic.damage.v2`, `L2.repair.crew`, `L1.room.thresholds.v3` | proven L1–L2 |
@@ -1126,13 +1126,13 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Bridge (control, backup supply, decapitation) | built | `L1.bridge.control.v2`, `L3.control.rules`, `L3.control.bridge`, `L4.route.decapitate` | proven L1–L4 |
 | Reactor (power, SCRAM, breach, meltdown) | built | `L1.reactor.*`, `L4.kill` (reactor) | proven L1–L4 |
 | Engine | built | `L1.engine.thrust.v3`, `L3.thrust.v5` | proven |
-| Magazine (contents, feed, cook-off, detonation) | built | `L1.magazine.cookoff.v2`, `L2.ammo.feed`, `L4.kill` (magazine) | proven; the detonation rule is §17 item 34 (planned L5) |
+| Magazine (contents, feed, cook-off, detonation) | built | `L1.magazine.cookoff.v2`, `L2.ammo.feed`, `L4.kill` (magazine) | proven; the detonation rule is §17 item 34 (planned L5a) |
 | Shield generator | built | `L1.shield.generator.v3`, `L2.shield.*` | proven |
 | Crew quarters (berths, repair field) | built | `L1.quarters.repair.v3`, `L2.repair.*`, `L4.crew.capacity` | proven |
 | Beam bay (spinal accelerator) | built | `L1.beambay.*`, `L2.beambay.cause`, `L0.beam.tier.v2` | proven |
 | Kinetic turret | built | `L1.turret.fire`, `L1.turret.timing.v2`, `L4.route.*` | proven |
-| **Spinal railgun** (#236 (6)) | **data only** | none | planned L5 (#268) |
-| **Missile bay** (#148: ready store, launch, explodes by its missiles) | **a room with crew and mass only** | none | planned L5 (#268) |
+| **Spinal railgun** (#236 (6)) | **data only** | none | planned L5c (#268) |
+| **Missile bay** (#148: ready store, launch, explodes by its missiles) | **a room with crew and mass only** | none | planned L5c (#268) |
 | Empty hold (insulates; blast buffer gone, #240 (6)) | built | `L2.heat.*` (hold factor), `L2.blast.integrity` | proven |
 | Heat sink (#197, #198) | built | `L2.heatsink.*`, `L2.plate.vent` | proven |
 | Hangar bay (#107), jammer (#27), auxiliary bridge (#13) | nothing | none | after Mission 0 (carriers #110; counters #27) |
@@ -1144,9 +1144,9 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Armour plate (#15, #255, #256) | built, walls and hull | `L0.armour.plate.v2`, `L3.r1c.props`, `L4.kill` (R1d) | proven L4 |
 | Radiator | built | `L1.radiator.*` | proven |
 | RCS | built | `L3.rcs.turn.v5` | proven |
-| **Point defence, kinetic** (#93) | **nothing** | none | planned L5 (#268) |
-| **Point defence, laser** (#93) | **nothing** | none | planned L5 (#268) |
-| **Sensor antenna** (#24: scan, needs a control path) | **nothing** | none | planned L5 (§17 item 33) |
+| **Point defence, kinetic** (#93) | **nothing** | none | planned L5c (#268) |
+| **Point defence, laser** (#93) | **nothing** | none | planned L5c (#268) |
+| **Sensor antenna** (#24: scan, needs a control path) | **nothing** | none | planned L5b (§17 item 33) |
 | Scan-proof plating (#27), decoy launcher (#149) | nothing | none | after Mission 0 (#27, #149: later modules) |
 
 ### D. Shipyard and validation (§5.5)
@@ -1156,7 +1156,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Connected to the bridge, hull rooms on the hull, axis, bow clear, exhaust clear, fitting rules | `validateShip` | `L3.validation.v2`, `L2.layout.invalid.v2` | proven |
 | Crew capacity (#60) | `validateShip` | `L4.crew.capacity` | proven L4 |
 | Live readout before undock (#58) | `readout` | `L4.readout.blueprint` | proven L4 |
-| Room size S (#62) | **no S footprint** | none | planned L5 (§17 item 30, #259) |
+| Room size S (#62) | **no S footprint** | none | planned L5c (§17 item 30, #259, #278) |
 | Dry run against a dummy, templates, drag and drop, mirror, export (#56–#59) | nothing | none | after Mission 0 (presentation) |
 
 ### E. Weapons, defence, ammunition (§6)
@@ -1165,51 +1165,51 @@ sit in no plan again. Each plan updates this table in the same commit.
 |---|---|---|---|
 | Beam: no falloff, deposit along the path, heat | built | `L0.beam.*`, `L2.beambay.cause` | proven |
 | Kinetic: time of flight, momentum along the path, recoil | built | `L0.kinetic.*`, `L4.route.*` | proven |
-| **Missile = seeker + warhead** (#97): flight, guidance, impact | **nothing** | none | planned L5 (#268) |
-| Seekers IR, radar, anti-radiation, designated (#97) | nothing | none | planned L5 (after `sensors.js`) |
-| Warheads HE, penetrator, EMP (#97, #142) | nothing (HE blast and penetration exist as channels) | none | planned L5 |
-| **Point defence against munitions** | nothing | none | planned L5 (#268) |
-| Firing window in the shield (#100) | the shield stops a round at its entry point; no hole for one's own round | none | planned L5 (ship versus ship: the first time one's own round crosses one's own field) |
+| **Missile = seeker + warhead** (#97): flight, guidance, impact | **nothing** | none | planned L5c (#268) |
+| Seekers IR, radar, anti-radiation, designated (#97) | nothing | none | planned L5c (after `sensors.js`, L5b) |
+| Warheads HE, penetrator, EMP (#97, #142) | nothing (HE blast and penetration exist as channels) | none | planned L5c |
+| **Point defence against munitions** | nothing | none | planned L5c (#268) |
+| Firing window in the shield (#100) | the shield stops a round at its entry point; no hole for one's own round | none | planned L5c (ship versus ship: the first time one's own round crosses one's own field) |
 | Ammunition finite, reloaded between battles (#89, #90); running dry counts toward Disabled (#91) | built | `L2.ammo.feed`, `L4.route.dry` | proven |
-| Magazines last a disciplined 3–6 minute battle (#92) | measured only (T-gun 316 s) | none | planned L5 (the reference battle, E7) |
-| Round types Standard / AP / HE / Sabot / Flak (#96) | **one steel round**; AP and HE differ only in the magazine's explosion energy | none | planned L5 (#94's rule: one parameter traded, a best and a worst target) |
-| Each shot's type chosen against a scanned target (#95) | nothing | none | planned L5 (after `sensors.js`) |
+| Magazines last a disciplined 3–6 minute battle (#92) | measured only (T-gun 316 s) | none | planned L5e (the reference battle, E7) |
+| Round types Standard / AP / HE / Sabot / Flak (#96) | **one steel round**; AP and HE differ only in the magazine's explosion energy | none | planned L5c (#94's rule: one parameter traded, a best and a worst target) |
+| Each shot's type chosen against a scanned target (#95) | nothing | none | planned L5c (after `sensors.js`) |
 | Carriers (#104–#110) | nothing | none | after Mission 0 |
 
 ### F. Information (§7)
 
 | Element | Today | Proof | Status |
 |---|---|---|---|
-| Free information: the outer silhouette always visible (#23) | the prototype shows both layouts whole (a stand-in) | none | planned L5 (§17 item 33) |
-| Passive IR and EM, distance² (#24, #102) | nothing | none | planned L5 |
-| Active scan by zone, distance⁴, reveals the scanner, remembered (#24, #25) | nothing | none | planned L5 |
+| Free information: the outer silhouette always visible (#23) | the prototype shows both layouts whole (a stand-in) | none | planned L5b (§17 item 33) |
+| Passive IR and EM, distance² (#24, #102) | nothing | none | planned L5b |
+| Active scan by zone, distance⁴, reveals the scanner, remembered (#24, #25) | nothing | none | planned L5b |
 | Jamming, burn-through (#101) | nothing | none | after Mission 0 (#27: later module) |
-| Shields EM-bright while absorbing, do not block scans (#103) | `shield.em` is computed; nothing reads it | none | planned L5 |
-| Symmetry: the enemy scans too; one knowledge model per side; the renderer and the enemy read only theirs (#26, #42, #112) | nothing | none | planned L5 |
-| Layout variants per named ship (#28) | nothing | none | after Mission 0 (content), the mechanism planned L5 |
+| Shields EM-bright while absorbing, do not block scans (#103) | `shield.em` is computed; nothing reads it | none | planned L5b |
+| Symmetry: the enemy scans too; one knowledge model per side; the renderer and the enemy read only theirs (#26, #42, #112) | nothing | none | planned L5b (the model), L5d (the enemy reads it) |
+| Layout variants per named ship (#28) | nothing | none | after Mission 0 (content), the mechanism planned L5d (the wildcard draw) |
 
 ### G. Battle (§8)
 
 | Element | Today | Proof | Status |
 |---|---|---|---|
-| Standing orders, 12 slots (#38): movement (range, position, style, dodging) | the prototype's helm stand-in (range, facing, dodge) | none | planned L5 (`helm.js`) |
-| Standing orders: firepower (facing, firing style, open fire, target priority) | facing in the stand-in; the rest nothing | none | planned L5 |
-| Standing orders: energy (power and repair priority, heat discipline) | power priority list exists in `routePower`; the rest nothing | `L2.power.flow` (priority) | planned L5 |
-| Standing orders: emission (posture, auto-scan) | nothing | none | planned L5 (after `sensors.js`) |
-| Presets (#39) and the preset verb | the prototype's three presets (a stand-in) | none | planned L5 |
-| Helm conflicts: position, facing, dodging (#40) | the stand-in's order | none | planned L5 |
-| Verb: scan a zone | nothing | none | planned L5 |
+| Standing orders, 12 slots (#38): movement (range, position, style, dodging) | the prototype's helm stand-in (range, facing, dodge) | none | planned L5d (`helm.js`) |
+| Standing orders: firepower (facing, firing style, open fire, target priority) | facing in the stand-in; the rest nothing | none | planned L5d |
+| Standing orders: energy (power and repair priority, heat discipline) | power priority list exists in `routePower`; the rest nothing | `L2.power.flow` (priority) | planned L5d |
+| Standing orders: emission (posture, auto-scan) | nothing | none | planned L5d (after `sensors.js`) |
+| Presets (#39) and the preset verb | the prototype's three presets (a stand-in) | none | planned L5d |
+| Helm conflicts: position, facing, dodging (#40) | the stand-in's order | none | planned L5d |
+| Verb: scan a zone | nothing | none | planned L5b (a case input), L5d (the player and the enemy) |
 | Verb: target a room | the prototype (tap); the loop's aim at a room | `L4.route.*` (the attacker's aim) | proven L4 (the kernel side) |
-| Automatic rules: RCS recoil compensation, point-defence target, repair order, reactor containment first, dark fragments, each shot's ammunition type | RCS and repair order built; the rest nothing | `L3.rcs.turn.v5`, `L2.repair.shared.v2` | partly proven; point-defence target and the shot's type planned L5; containment first and dark fragments planned L5 |
+| Automatic rules: RCS recoil compensation, point-defence target, repair order, reactor containment first, dark fragments, each shot's ammunition type | RCS and repair order built; the rest nothing | `L3.rcs.turn.v5`, `L2.repair.shared.v2` | partly proven; point-defence target and the shot's type planned L5c; containment first and dark fragments planned L5d |
 | **Disabled** (#82, #255) | built | `L4.disabled.rule` | proven L4 |
 | Route: cut the power walls / split at a choke point (one mechanism, #253) | built | `L4.route.split` | proven L4 |
 | Route: decapitate | built | `L4.route.decapitate` | proven L4 |
 | Route: mission kill | built | `L4.route.missionKill` | proven L4 |
 | Route: overheat | built | `L4.route.overheat` | proven L4 |
 | Route: run it dry | built | `L4.route.dry` | proven L4 |
-| Route: EMP (forces a SCRAM, the enemy restarts) | the restart exists (`L1.reactor.restart`); no EMP | none | planned L5 (#252, with missiles) |
-| Route: surrender (strikes its colours, #85, #86) | nothing | none | planned L5 (#252, with the enemy's personality) |
-| Destroyed: a reactor explosion, too many pieces (#83); a magazine explosion as a blast only (#274) | built as #83 | `L4.kill`, `L4.kill.pieces` | proven L4 for #83; the magazine's blast planned L5 (the kinetic pass, item 41) |
+| Route: EMP (forces a SCRAM, the enemy restarts) | the restart exists (`L1.reactor.restart`); no EMP | none | planned L5d (#252, with missiles from L5c) |
+| Route: surrender (strikes its colours, #85, #86) | nothing | none | planned L5d (#252, with the enemy's personality) |
+| Destroyed: a reactor explosion, too many pieces (#83); a magazine explosion as a blast only (#274) | built as #83 | `L4.kill`, `L4.kill.pieces` | proven L4 for #83; the magazine's blast planned L5a (the kinetic pass, item 41) |
 | Loot: whatever is left (#83); the same condition for the player (#84); crew on a dark fragment recovered (#88) | nothing (campaign) | none | after Mission 0 (campaign, `run.js`) |
 | Report (#41): KIA list, cascade tree, timeline, what the enemy scanned, heat, salvage, kill-cam | the cascade tree and the log in the kernel; the prototype's end panel | `L4.cascade`, `L4.log` | the tree and the log proven L4; the rest after Mission 0 (presentation) |
 
@@ -1217,26 +1217,26 @@ sit in no plan again. Each plan updates this table in the same commit.
 
 | Element | Today | Proof | Status |
 |---|---|---|---|
-| The enemy runs the same automatic layer, orders, presets and verbs (#111) | a fixed script in the prototype | none | planned L5 (`enemy.js`) |
-| No information cheating, same delays, deterministic, no learning (#112–#116) | nothing | none | planned L5 |
-| Personality: aggression, patience, caution, resolve (#117) | nothing | none | planned L5 (the levers; their values are content) |
-| Factions, wildcard, named ships, difficulty (#118–#124) | nothing | none | after Mission 0 (content); the wildcard mechanism planned L5 |
-| Ship versus ship: no dominant build, degenerate builds punished (E5, E6) | the prototype duel only (measured, scripted) | none | planned L5 |
-| The reference battle (E7) | the prototype's R1d duel, measured | none | planned L5 |
+| The enemy runs the same automatic layer, orders, presets and verbs (#111) | a fixed script in the prototype | none | planned L5d (`enemy.js`) |
+| No information cheating, same delays, deterministic, no learning (#112–#116) | nothing | none | planned L5d |
+| Personality: aggression, patience, caution, resolve (#117) | nothing | none | planned L5d (the levers; their values are content) |
+| Factions, wildcard, named ships, difficulty (#118–#124) | nothing | none | after Mission 0 (content); the wildcard mechanism planned L5d |
+| Ship versus ship: no dominant build, degenerate builds punished (E5, E6) | the prototype duel only (measured, scripted) | none | planned L5e (`tools/sweep.mjs`, #277) |
+| The reference battle (E7) | the prototype's R1d duel, measured | none | planned L5e (#277 O2) |
 
 ### I. Exit criteria (§13)
 
 | Criterion | Status at L4 |
 |---|---|
 | E1 (every scenario passes or is withdrawn with a successor) | holds for L0–L4: 107 VERIFIED + 87 WITHDRAWN + 5 RETIRED |
-| E2 (invariants: hash, momentum, heat, no NaN) | proven per scenario at L0–L4; the two-ship momentum book is planned L4 (the L4 fix's `L4.books.two`, #270); energy across two ships is not booked (the physics audit's B3, planned L5) |
+| E2 (invariants: hash, momentum, heat, no NaN) | proven per scenario at L0–L4; the two-ship momentum book is planned L4 (the L4 fix's `L4.books.two`, #270); energy across two ships is not booked (the physics audit's B3, planned L5a) |
 | E3 (every kept law proven) | the rows above marked proven; **not yet**: the information law (F), missiles and point defence (E), the standing orders (G), the enemy (H) |
-| E4 (every attribute has a measured effect) | judged at L5 for recoil and the shield buffer (§17 items 6, 7); `thermal.coupledArmour` has its consumer since L4a |
-| E5, E6 (builds; underdog paths) | planned L5: needs E and F above, room size S (D) |
-| E7 (3–6 minutes median) | planned L5: the reference battle is not defined; R1d duels 104–306 s under the prototype's script |
+| E4 (every attribute has a measured effect) | judged at L5c for recoil and the shield buffer (§17 items 6, 7); `thermal.coupledArmour` has its consumer since L4a |
+| E5, E6 (builds; underdog paths) | planned L5e: needs E and F above, room size S (D); the budget is mass at undock (#277 O1) |
+| E7 (3–6 minutes median) | planned L5e: the reference battle is §13n.1 (e) (#277 O2); R1d duels 104–306 s under the prototype's script |
 | E8 (1 ms per step) | T1 proven (`L4.e8`, 0.15–0.29 ms); T6 planned L6 |
 
-## 13n. L5 plan: senses, the kinetic pass, weapons, the enemy, ship versus ship (proposed 2026-10-22; the owner's items are §13n.7)
+## 13n. L5 plan: senses, the kinetic pass, weapons, the enemy, ship versus ship (#277, #278; the owner's answers are §13n.7)
 
 L5 proves §13's level (**no dominant build; degenerate builds punished**,
 E5–E6), the median reference battle of E7, and everything §13m marks
@@ -1278,10 +1278,10 @@ is §13n.6.
 | Rule | Statement |
 |---|---|
 | A passed cell loses by its chord (#273 (b)) | A cell or plate a round passes loses **chord / `kinetic.hitsToWreck`** of its integrity (today the flat 1 / `hitsToWreck`); the cell it stops in loses (taken / r) / `hitsToWreck` as today, with r already chord-scaled. At chord 0.9774 (`L4.hit.oblique`) the loss is 0.3258 for 0.3333; a graze at chord 0.05 costs 0.0167 (2). A plate's chord is the line-of-sight reading of #258 (σ / cos θ), unchanged |
-| The magazine detonates by residual speed (#273 (c)) | A magazine with rounds detonates when a round **enters one of its cells at a speed at or above `magazine.detonationSpeed`** (new, 400 m/s, 200–600, k = 0; the round rule's momentum on entering that entry over the round's mass, whether it stops there or passes). A destroyed cell alone no longer detonates it; a magazine whose last cell is destroyed loses its rounds as debris, no explosion; cook-off at `thermal.magazineCritical` stays. At 400 m/s (2): an M round through a hold enters at 705 m/s (R1's column 8: **one shot**, against four today), through two holds 605, through a shield generator cell 485, down R1's bow row through the beam bay 431: all detonate; **through one crewed cell it enters at 333 m/s and does not**; a 0.2 m plate stops it (no entry). An L round enters at 489 m/s after a crewed cell: detonates. So the screens that work are a crewed room against M rounds and a plate against all, and the information law decides whether the shot is deliberate (item 32) |
-| A magazine's explosion is a blast (#274) | `checkEnd` no longer ends the battle on a magazine's explosion; the blast through walls (§13d.1) stands; the ship is destroyed by a reactor's explosion or by pieces (`battle.wreckFraction`). **Finding** (2, the kernel's blast): R1's full magazine (150 HE rounds, 1.2 GJ) against R1's whole blast capacity of 94 MJ wrecks every room, kills all 44 crew and leaves no fragment over 0.5: **destroyed by pieces** on R1 and R1d alike, and the ratio is tier-invariant (the charge and the cells both k = 3), so #274's "a capital ship loses a compartment" does not follow from today's constants at any tier: a full magazine is thirteen ships' worth of blast. What #274 does change: a magazine holding under about 12 rounds (94 MJ) wrecks neighbours, not the ship; the player's loadout (#95) and the S magazine (one cell, 37 rounds, 300 MJ) are the levers; `kinetic.chargeEnergy`'s range (2–20 MJ) does not reach it. Reported to the owner (§13n.7 O4); no constant changes here |
+| The magazine detonates by residual speed (#273 (c)) | A magazine with rounds detonates when a round **enters one of its cells at a speed at or above `magazine.detonationSpeed`** (new, 400 m/s, 200–600, k = 0; **the first rung-1 lever of the pace study K7**: the threshold decides which screens work, 400 a crewed cell, 500 also a shield generator cell and two beam bay cells, 650 also two holds, 750 also one hold, and the owner chooses it on K7's table before L5b's lock, #277; the round rule's momentum on entering that entry over the round's mass, whether it stops there or passes). A destroyed cell alone no longer detonates it; a magazine whose last cell is destroyed loses its rounds as debris, no explosion; cook-off at `thermal.magazineCritical` stays. At 400 m/s (2): an M round through a hold enters at 705 m/s (R1's column 8: **one shot**, against four today), through two holds 605, through a shield generator cell 485, down R1's bow row through the beam bay 431: all detonate; **through one crewed cell it enters at 333 m/s and does not**; a 0.2 m plate stops it (no entry). An L round enters at 489 m/s after a crewed cell: detonates. So the screens that work are a crewed room against M rounds and a plate against all, and the information law decides whether the shot is deliberate (item 32) |
+| A magazine's explosion is a blast (#274) | `checkEnd` no longer ends the battle on a magazine's explosion; the blast through walls (§13d.1) stands; the ship is destroyed by a reactor's explosion or by pieces (`battle.wreckFraction`). **Finding** (2, the kernel's blast): R1's full magazine (150 HE rounds, 1.2 GJ) against R1's whole blast capacity of 94 MJ wrecks every room, kills all 44 crew and leaves no fragment over 0.5: **destroyed by pieces** on R1 and R1d alike, and the ratio is tier-invariant (the charge and the cells both k = 3), so #274's "a capital ship loses a compartment" does not follow from today's constants at any tier: a full magazine is thirteen ships' worth of blast. What #274 does change: a magazine holding under about 12 rounds (94 MJ) wrecks neighbours, not the ship; the player's loadout (#95) and the S magazine (one cell, 37 rounds, 300 MJ) are the levers; `kinetic.chargeEnergy`'s range (2–20 MJ) does not reach it. The owner accepted it as the physics (#277 O4: HMS Hood); no constant changes here |
 | One magazine per weapon type (#274's lever) | `loadMagazine` takes a **weapon type** with the size: `turret` rounds (by round type, (c)), `railgun` slugs, `missile`s. A weapon is fed only by a magazine of its type sharing a live wall with it (`feedAmmo`, #267 (2)). A railgun's magazine holds steel slugs and **does not explode** (no propellant: `magazineContents` energy 0); a missile magazine explodes by its missiles' warheads plus fuel (`missile.warheadEnergy` + ½ m v_burnout² per missile, (c)). `magazineContents` energy stays `chargeEnergy` (+ `he.blastEnergy` for HE) per turret round |
-| A room without crew (new; #60, #18b) | A room that requires crew and has none left (its crew died at critical heat with its cells intact, or by blast) is **unmanned**: no function, as if shut down, and `unmanned` joins the able rule after `heat` (its parent the `crew-died` event). Today a crewless turret keeps firing (nothing in `rooms.js` reads `room.crew` for function): a gap the pass closes. A ship with no crew anywhere has no able weapon and is Disabled; it is **not** destroyed (§13n.7 O3 asks whether #274's "no crew" meant this) |
+| A room without crew (new; #60, #18b) | A room that requires crew and has none left (its crew died at critical heat with its cells intact, or by blast) is **unmanned**: no function, as if shut down, and `unmanned` joins the able rule after `heat` (its parent the `crew-died` event). Today a crewless turret keeps firing (nothing in `rooms.js` reads `room.crew` for function): a gap the pass closes. A ship with no crew anywhere has no able weapon and is Disabled; it is **not** destroyed (#277 O3: this is what #274's "no crew" meant) |
 | The stand-ins of §17 item 35 (B2, B3, B4, L4) | B2: a hit's impulse acts **on the line of action** (the midpoint of the round's chord through the cell, or the plate's crossing point), not at the cell's centre, so the two-ship **angular** momentum book closes (1e-9 × gross like the linear one, #220); B3: the battle books **energy** across the two ships (muzzle energy = the round's kinetic energy + recoil energy; each hit's loss = heat + the hull's gain; a round's energy at `left`), closing at 1e-9 × gross; B4: a stopped round's mass **joins the body it stops in** (rebalance), `spent` keeps only what left play; L4: a round's heat is split between entries by the **energy each took** ((p_i² − p_{i+1}²) / 2m per entry), not by impulse. Successors of `L3.hit.books`, `L4.books.two`, `L3.shield.energy` where their records move (the engineer lists them; the originals withdrawn as superseded by this row's decision) |
 | Targets with fittings (§17 item 36) | `mission0/targets.js` gains **T-neck2** and **T-gun2**: the L4 layouts with four RCS and the radiators R1 carries where their rooms allow, for L5's cases that hold a heading or fire for long; T-neck and T-gun stay as locked (their records read them) |
 | Hygiene residue (§17 item 39) | Fixed in the successor of every scenario this pass withdraws ((b) `L4.kill.v2`'s magazine cases → `L4.kill.v3` under the two rules above, with the shot that detonates R1's magazine (1) and R1d's (7: the two hold cells, the plate at shot 6, the round through the hole at shot 7, (2)) and the end by pieces; (d), (f) when `L3.shield.energy` and `L3.shield.nobody.v2` get successors for B2–L4; (g) the tie-break stated in §13l.1 as the kernel's order, no code). (a), (c), (e) stay listed until their files are touched (L5c for (a)) |
@@ -1310,18 +1310,20 @@ is §13n.6.
 | The enemy (#111–#117) | `enemy.js` is the **same automatic layer and orders** plus a decision each `enemy.decisionInterval` (new, 1 s, 0.25–5, k = 0): which zone to scan (the auto-scan rule), which room to target (the priority order, from its model), which preset (a when → do table on its own state: heat above its caution threshold → Cool; buffer below it → Evade; else Fire). **Personality** (#117) is four numbers in [0, 1] that set the thresholds: aggression → the engagement range and open-fire rule; patience → zones resolved before the first targeted shot (0 to 6); caution → the heat and buffer thresholds for Cool and Evade; resolve → the surrender rule below. Deterministic, no learning, same delays: its decisions draw from the seeded stream only for dodging (#240 (3)). The wildcard (#120) is a personality draw at battle start from the seed: the mechanism, no content |
 | Surrender (#85, #86, #273 (5)) | A ship with no able weapon strikes its colours at `battle.disabledSeconds` × (1 − resolve) after losing its last (resolve 1 fights the whole timer hoping a weapon comes back: an overheated turret cools, a cut wall is repaired); the event `surrender` ends the battle as a capture (the same loot, #83) with its own end kind. The route of #82 that L4 moved (#252) |
 | The EMP route (#252) | An EMP warhead on a ship with shields down SCRAMs its reactors; its weapons lose power and the ship is Disabled in `battle.disabledSeconds` unless a reactor restarts first (`reactor.restartTime` 60 s > 10 s: it never does, so EMP with shields down is a capture, the shield the counter) |
+| Play harness (`tools/play.mjs`, #277; L5d, after the knowledge model and the verbs exist) | A **text interface** on one side of a battle: every `n` seconds (an argument) it prints that side's knowledge model as text (the silhouette, the resolved zones and rooms, the sources resolved, its own heat, buffer, ammunition and able weapons) and reads one verb from stdin (`scan <zone>`, `target <room>`, `preset <name>`, or nothing); the other side is the enemy of this pass; at the end it prints the cascade tree and the per-second log and the replay line `tools/duel.js --seed … --inputs …`. No LLM in the code, no network, no key: the player is whoever types, so an agent session (the exploit hunter of #134, sonnet, 2–5 USD a hunt) plays it reading only the text of its knowledge model (#42), and the owner can play it before any rendering exists. A result without its replay line does not count (`CLAUDE.md`) |
 | Magazines lasting the battle (#92, §17 item 42) | Measured, not a criterion: the rounds each side fires in the reference battle (e) against `magazine.capacity`; tuned at L5e within its range if a disciplined battle runs dry before minute 3 |
 
 **(e) Ship versus ship (L5e; E5–E7; the reference set)**
 
 | Rule | Statement |
 |---|---|
-| Budget (E5, E6; §13n.7 O1) | A build's budget is its **mass at undock** (the readout's, plates and contents included), the one law's quantity: a 60 % ship is a 60 %-mass ship. R1d 1460.8 t, R1 950.5 t, R1 on an S reactor 500.5 t (6) |
+| Budget (E5, E6; #277 O1) | A build's budget is its **mass at undock** (the readout's, plates and contents included), the one law's quantity: a 60 % ship is a 60 %-mass ship. R1d 1460.8 t, R1 950.5 t, R1 on an S reactor 500.5 t (6) |
 | The reference set (E5) | Four builds on R1d's budget ± 5 %, each centred on one weapon and validated by `validateShip`, in `mission0/builds.js`: **R2** (R1d with an antenna and one point-defence fitting: the gunboat), **Lance** (an N = 4 railgun for the beam bay and turret, a slug magazine), **Swarm** (two missile bays, a missile magazine, two point-defence fittings, no turret), **Furnace** (an N = 6 beam bay, two shield generators, no turret). The exact layouts are the pass's first commit, printed by the estimate script with their masses; the lead designer locks them before the round-robin |
 | The degenerate four (E5) | **Brick** (plates on every wall, one S turret), **Glass** (a railgun and a reactor, the least quarters and no plates), **Porcupine** (four S turrets, two magazines), **Fortress** (three shield generators, one turret): each on R2's budget; each must **lose ≥ 3 of 4** against R2 (the 4 are the three ranges plus a broadside opening, under the standard enemy) |
 | The six underdog pairs (E6) | One pair per path, the 60 %-budget ship against R2 with the intended orders and with R2's own: mission kill (the beam bay first), cascade (the reactor's wall: T-neck's lesson), information (a cold ship with an antenna against a scanning one), time window (a heat sink and a long beam against a shield), attrition (a Porcupine of S turrets against a plated R2), mechanism counter (point defence against the Swarm). Each must win with the tactic and lose without it (4 variants as above) |
-| The reference battle (E7; §13n.7 O2) | R2 against each of the four, both on the standard enemy (personality 0.5 each), at the three ranges and both openings: the **median of the 24 ends** is in 3–6 minutes. The pace figures of §13l.3 (R1d 102–306 s under the prototype's script) are the prior |
-| Measures as scenarios | `L5.e5.reference`, `L5.e5.degenerate`, `L5.e6.<path>` × 6, `L5.e7.median`, `L5.e8.missiles` (a Swarm battle at T1 under 1 ms per step; (8): the L4 loop runs 0.18 ms); each prints its table and its PASS/FAIL against the exit criterion's number; `tools/duel.js <build> <build> [--range] [--seed]` replays any cell |
+| The reference battle (E7; #277 O2) | R2 against each of the four, both on the standard enemy (personality 0.5 each), at the three ranges and both openings: the **median of the 24 ends** is in 3–6 minutes. The pace figures of §13l.3 (R1d 102–306 s under the prototype's script) are the prior |
+| Search harness (`tools/sweep.mjs`, #277; L5e, before E1–E3 are locked) | A **deterministic best-response search** (no LLM, no `Math.random`; `worker_threads` for the cores): from the standard orders, each side in turn changes **one slot** of its twelve (the slot's values from `data.js`), keeps the set that wins most against the other's current set over the three ranges, two openings and the seeds, and the other side answers; three rounds; over every pair of the reference and degenerate builds. It reports every build's win rate, **flags any build or order set that wins above 75 %** (E5's number) and **any end under 60 s**, each with the cascade tree of its fastest win and its replay line: the prototype's "aim the magazine, 7 s" is what it must find on its own. E5's `L5.e5.reference` and `L5.e5.degenerate` run on its output; E6 keeps its fixed pairs (a tactic is designed, not searched). Size (8): about 8 builds × 16 single-slot variants × 3 ranges × 2 openings × 4 seeds × 3 rounds ≈ 9000 battles at about 3 s each on the L4 loop's 0.18 ms per step: 8 hours on one core, under an hour on eight. What it cannot see: an order set outside the slot grid and a sequence of preset switches in time (the play harness's hunter does) |
+| Measures as scenarios | `L5.e5.reference`, `L5.e5.degenerate`, `L5.e6.<path>` × 6, `L5.e7.median`, `L5.e8.missiles` (a Swarm battle at T1 under 1 ms per step; (8): the L4 loop runs 0.18 ms); each prints its table and its PASS/FAIL against the exit criterion's number; `tools/duel.js <build> <build> [--range] [--seed] [--inputs]` replays any cell of the sweep or any played battle |
 
 ### 13n.2 Constants (proposed by the lead designer, for veto; T1 values; `approved: true` as the plan's, #272 (2))
 
@@ -1427,9 +1429,9 @@ One engineer session (opus) per pass on `m0/l5a-kinetic`, `m0/l5b-senses`, `m0/l
 | L5a kinetic | 11–16 (engineer 8–11, checker 2–3, reviewer 1–2) | repeated (a kernel physics pass) | ×2.5: 28–40 | 14–20 |
 | L5b senses | 15–21 (12–16, 2–3, 1–2) | new | ×4: 60–84 | 20–30 |
 | L5c weapons | 26–37 (22–30, 3–5, 1–2) | new | ×4: 104–148 | 35–55 |
-| L5d helm and enemy | 22–30 (18–24, 3–4, 1–2) | new | ×4: 88–120 | 30–45 |
-| L5e ship versus ship | 19–27 (16–22, 2–3, 1–2) | new | ×4: 76–108 | 25–40 |
-| **L5** | **93–131** | | **356–500** | **124–190** (the ratios on record are 1.0–2.0 of raw; fix rounds included as 15–30 % of engineering) |
+| L5d helm and enemy, with `tools/play.mjs` | 26–36 (18–24, 3–4, 1–2; the play harness 4–6) | new | ×4: 104–144 | 36–51 |
+| L5e ship versus ship, with `tools/sweep.mjs` | 25–36 (16–22, 2–3, 1–2; the sweep 6–9) | new | ×4: 100–144 | 33–54 |
+| **L5** | **103–146** | | **396–560** | **138–210** (the ratios on record are 1.0–2.0 of raw; fix rounds included as 15–30 % of engineering; the two harnesses 10–15 raw, #277) |
 
 Time: five sequential passes, each an engineer session of 2–4 hours plus a checker and a reviewer of about an hour, and the lead designer's answers and merge: about **three days** with the account's five-hour limit (#246; the hygiene round lost a session to it), two if nothing stalls.
 
@@ -1442,16 +1444,18 @@ Time: five sequential passes, each an engineer session of 2–4 hours plus a che
 - [x] Locked scenarios against new validation rules: the S footprints add sizes, no rule; `L2.layout.invalid.v2` and `L3.validation.v2` are run against the pass's `validateShip` before W13's lock.
 - [x] The script line behind each number: the section numbers in §13n.3.
 - [x] Hardware sense-checked: a 10 kg slug at 2 km/s is the Navy prototype (32 MJ); 3 g for a missile is low for a real one (10–30 g) and chosen for #54's 8–15 s; 100 kW of scan power is a destroyer's radar at a tenth; a fusion torch at 10 km/s; the 1.2 GJ magazine is 225 kg of propellant, HMS Hood's lesson.
-- [x] §13m rows this plan proves (updated to "planned L5a–e" in the recording commit; each pass's exit turns its rows "proven"): A infrared, inverse-square, blast outside, EMP; B railgun, missile bay; C point defence (two), antenna; D room size S; E missiles, seekers, warheads, point defence, firing window, magazines lasting, round types, shot choice; F all seven; G standing orders (four rows), presets, helm conflicts, scan verb, automatic rules, EMP route, surrender route, destroyed by #274; H all five; I E2 energy, E3, E4, E5, E6, E7, E8 missiles. L5 exits only when none says "planned".
-- [ ] Open: the magazine's blast against #274's intent (O4); the penetrator warhead is weak at 3 g (0.59 × M), by design until the Swarm's measure says otherwise; `beambay.efficiency` as a laser PD's (#243 F26) unresolved; `sensor.sensitivity` has no source beyond the chosen band.
+- [x] §13m rows this plan proves (updated to "planned L5a–e" with #278; each pass's exit turns its rows "proven"): A infrared, inverse-square, blast outside, EMP; B railgun, missile bay; C point defence (two), antenna; D room size S; E missiles, seekers, warheads, point defence, firing window, magazines lasting, round types, shot choice; F all seven; G standing orders (four rows), presets, helm conflicts, scan verb, automatic rules, EMP route, surrender route, destroyed by #274; H all five; I E2 energy, E3, E4, E5, E6, E7, E8 missiles. L5 exits only when none says "planned".
+- [ ] Open: the threshold's value (K7, the owner's choice on the pace table, #277); the penetrator warhead is weak at 3 g (0.59 × M), by design until the Swarm's measure says otherwise; `beambay.efficiency` as a laser PD's (#243 F26) unresolved; `sensor.sensitivity` has no source beyond the chosen band.
 
-### 13n.7 What the owner decides (#247 (3); the lead designer decides the rest and records it)
+### 13n.7 What the owner decided (#277, 2026-10-22, each as recommended; the frame of #247 (3) as it was put)
+
+**Answers**: O1 (A) mass at undock; O2 (A) the median of R2 against the four; O3 the second reading (unmanned rooms; a crewless ship is Disabled and captured); O4 the physics accepted; O5 the go, pass by pass. Two of the estimate's findings read as absurd to the owner: the one-shot magazine (answered by the threshold table in §13n.1 (b): the threshold is chosen on K7's pace table) and the reactor at 63 % of R1 (option A chosen: every mass inside its approved range, #234; the S reactor is the underdog's choice; B, `cellMass.reactor` at its floor, and C, heavier rooms, each a small pass that re-pins R1, stay as levers). The two harnesses, `tools/sweep.mjs` and `tools/play.mjs`, were the owner's ask.
 
 - **O1 Budget for E5 and E6**: (A) **mass at undock** (recommended: the one law's quantity, the readout shows it, plates count; the reactor is 63 % of R1 so a 60 % ship needs an S reactor, which is the underdog's physics), (B) cell count (plates free: a Brick is cheap, the criterion weak), (C) a price formula now (economy design before Mission 0, §17 item 3). Reversible: the measures re-run under another budget (one session, 5–10 USD).
 - **O2 The reference battle for E7**: (A) **the median of R2 against the four reference builds** at three ranges and two openings, standard enemy (recommended: what "the reference set" means for E5 too), (B) R2 against R2 only (6 ends; a mirror says less). Reversible: a re-run.
 - **O3 "No crew" in #274**: did it mean a Destroyed rule (a crewless hulk is destroyed) or what the plan builds (a crewless room is unmanned, a crewless ship Disabled and captured, #83's loot)? The plan builds the second; a Destroyed rule is one line more.
 - **O4 The magazine's blast** (§13n.1 (b)): under today's constants a full magazine destroys any ship by pieces at every tier, so #274 changes the end only for a magazine under about 12 rounds; the levers are the loadout and the S magazine, both the player's, not a constant. Accept as the physics (recommended: HMS Hood), or direct a smaller `kinetic.chargeEnergy` range (a law's constant below its approved range is the owner's).
-- **O5 The go, pass by pass** (#191): L5a 28–40 by the rule, 14–20 expected; L5b 60–84 / 20–30; L5c 104–148 / 35–55; L5d 88–120 / 30–45; L5e 76–108 / 25–40; L5 in all 356–500 / 124–190 USD, about three days. Each pass has its own go; L5a can start on O3's answer alone.
+- **O5 The go, pass by pass** (#191): L5a 28–40 by the rule, 14–20 expected; L5b 60–84 / 20–30; L5c 104–148 / 35–55; L5d 104–144 / 36–51; L5e 100–144 / 33–54; L5 in all 396–560 / 138–210 USD, about three days. Each pass has its own go.
 
 ## 14. Architecture
 
@@ -1918,3 +1922,5 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 274 | A magazine explosion is a blast through its walls, not a destroyer by itself (the owner; amends #83); built at L5's kinetic pass | current |
 | 275 | Prevention after the weapons gap (#268): lint check 9 (every room, fitting, weapon, round type and topic has a §13m row), the plan checklist's §13m line and the level-exit rule, the documents audit's §13m scope, the owner's "not built yet" line | current |
 | 276 | The scenario-hygiene round merged (PR #67): 20 scenarios, 19 withdrawn; answers to its engineer, blind checker and reviewer; four plan wordings corrected; the residue in §17 item 39 | current |
+| 277 | The owner's answers to the L5 plan (budget by mass, the reference battle, unmanned rooms, the magazine's blast accepted, the go), option A on the reactor's share, two exploit harnesses, the lead designer's role file | current |
+| 278 | The L5 plan (§13n): five passes L5a–L5e, 26 constants, 52 scenarios, the unmanned rule, the new `magazine.detonationSpeed` as the first pace lever, the lint's §13n skip | current |

@@ -1,6 +1,14 @@
 # Changelog
 
-## Unreleased — 2026-10-22 — The L5 plan drafted (proposed; awaiting the owner's O1–O5)
+## Unreleased — 2026-10-22 — The L5 plan (#277, #278)
+
+- `DECISIONS.md` #277 (the owner: O1–O5 as recommended, option A on the
+  reactor's share, `tools/sweep.mjs` and `tools/play.mjs`) and #278 (the
+  plan, *LD*); `DESIGN.md` §13n recorded with the two harnesses and the
+  threshold table, §13m's rows marked planned L5a–e, §13's level table and
+  status line, §18 rows 277 and 278; `STATUS.md`.
+
+## Unreleased — 2026-10-22 — The L5 plan drafted
 
 - `DESIGN.md` §13n: L5 in five passes (L5a the kinetic pass, L5b senses
   and the knowledge model, L5c weapons, L5d the helm and the enemy, L5e
