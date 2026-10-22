@@ -20,7 +20,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
   L4 in all ≥ 64.27 (#191: past 40).
-- **Next**: L5a merges (engineer → blind checker → reviewer → answers row), then **L5m** (the turret by its mount), then the pace study on R1d with the threshold table for you, then L5b senses, L5c weapons, L5d helm and enemy with `tools/play.mjs`, L5e ship versus ship with `tools/sweep.mjs` (§13n). Cost: the rule's 409–580 USD against the lead designer's expectation 145–220 for all of L5 (#270 (2); L5a alone 28–40 / 14–20; L5m 13–20 / 7–10), about three days.
+- **Next**: L5m merges (engineer → blind checker → reviewer → answers row), then the pace study on R1d with the threshold table for you, then L5b senses, L5c weapons, L5d helm and enemy with `tools/play.mjs`, L5e ship versus ship with `tools/sweep.mjs` (§13n). Cost: the rule's 421–598 USD against the lead designer's expectation 150–228 for all of L5 (#270 (2); L5m 25–38 / 12–18), about three days.
 - **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
   surprised by a prototype): missiles (seekers, warheads, EMP), point
   defence, the railgun as a weapon, round types, the firing window, every
@@ -188,9 +188,7 @@ Sessions and costs (the sessions table, the per-level totals and the usage-limit
 At a block boundary (a pass merged, the next not planned) or as soon as
 this chat's context is compressed or it repeats itself. Hand over through
 this file; the new chat re-creates the check-ins (`send_later`), which die
-with the chat that made them. The next natural boundary: **after physics
-pass 2 merges.** The owner's design partner (#247 (1)) is a separate chat
-and is not replaced with this one.
+with the chat that made them. The next natural boundary: **after L5m merges and the pace study is reported** (the kinetic and mass passes closed, L5b not yet planned in detail).
 
 ## Lessons for whoever continues
 

@@ -180,7 +180,7 @@ signature, hp (for point defence), fuel, reusable, pilot.
 | Bridge | 2×2 | inside | provides control; little power, **own backup supply** (#147); destroyed, **overheated or switched off**: it gives no control and every reactor SCRAMs (decapitation includes heat, #185 (6)) |
 | Reactor | 2×2, 3×3 | inside | power and much heat; SCRAM on control loss, decay heat; breach when heavily damaged; meltdown when critical |
 | Engine | 2×3 | exhaust on the aft hull, **exhaust must be clear** | a self-fuelled torch (#203 A): thrust from its own fuel, auxiliary power and heat from the ship; exhaust very IR-bright; thrust through the CoM recommended, not required |
-| Magazine | 2×2, 3×3 (the L magazine, #201 (5)) | inside | ammunition by contents, fed through walls; explodes by the ammunition left: the propellant dominates, HE adds about a third (#215); **detonates when any of its cells is destroyed while it holds rounds** (#185 (6); the kernel tests the room's rounds), so with `kinetic.hitsToWreck` hits wrecking a cell this rule ended every duel of prototypes v1 and v2 (#233, §13j.6 in `HISTORY.md`) (#233) |
+| Magazine | 2×2, 3×3 (the L magazine, #201 (5)) | inside | ammunition by contents, fed through walls; explodes by the ammunition left: the propellant dominates, HE adds about a third (#215); **detonates when a round enters one of its standing cells at `magazine.detonationSpeed` or faster while it holds rounds** (#273 (c), built by L5a, #278, #283); a destroyed cell alone no longer detonates it (the rule of #185 (6), which ended every duel of prototypes v1 and v2, #233, §13j.6 in `HISTORY.md`, is superseded by #278); its explosion is a blast through its walls, not a destroyer by itself (#274); one magazine per weapon type, a railgun's inert |
 | Shield generator | 2×2, 3×3 | anywhere; a plant room that may carry fittings (#219) | shield field; EM-bright while absorbing; absorbing makes heat |
 | Crew quarters | 3×2 | inside | houses crew, sets crew capacity (#60; the rule that each room's crew must be housed is a build-time constraint built at L4, §5.5); repair field by surviving cells (#51) |
 | Beam bay | 2×N, 3×N (a linear accelerator, #234) | along the axis, bow face open | much power, very much heat; the longer, the deeper its beam reaches; its firing window stays open while firing; **its crew follows the size rule by its cell count** (12 for N = 8, #236 (4)) |
@@ -537,7 +537,7 @@ Furnace's whole mechanic. Numbers are T1, size M, SI.
 | Integration | Explicit Euler at `simStep`; stable while dt × 4εσAT³ / C ≪ 1 (2e-3 at 1000 K with the values below) |
 | Invariant (E2, counts for E3 now, #174) | Per room and per run: heat generated = heat radiated + heat stored (+ heat moved, from L2), within max(1e-9 × the largest flow, 1e-10 × the room's heat at the start): the second term is the float resolution of a large stored heat (#219 (4)) |
 | Decay heat (#81, #205 (6)) | A SCRAM adds a decay-heat term of `reactor.decayFraction` of the thermal power at SCRAM, decaying with `reactor.decayTime`. Decay heat from earlier shutdowns keeps running after a restart and each new SCRAM adds its own: the terms accumulate (physical, recorded) |
-| Magazine detonation (#91, #185 (6)) | Besides cooking off at its critical temperature, a magazine detonates when any of its cells is destroyed while it holds rounds (§5.2) |
+| Magazine detonation (#91, #185 (6), superseded by #278) | Besides cooking off at its critical temperature, a magazine detonates when a round enters one of its standing cells at `magazine.detonationSpeed` or faster (§5.2, #273 (c), L5a); until L5a it detonated when any of its cells was destroyed while it held rounds |
 
 Cells have an **integrity** in [0, 1]: a cell a round passes is 0
 (destroyed); a blast lowers it by absorbed energy / resistance (L0's
@@ -947,6 +947,7 @@ script. R1 is §13f.2's.
 | **R1d** (#261, the owner's pace lever) | R1c plus five plates around its turret: the four hull segments (8,5)+y, (9,5)+y, (9,4)+x, (9,5)+x and its wall to the beam bay (9,4)−y; 1 460 784.06 kg, **1.047 g**, centre (30.685, 17.248) m, I 2.707267e8 kg·m² (`tools/estimates/l4.mjs`) | **the reference ship of L4b and of the prototype**: the kill routes through a citadel (B6), the mission kill against a plated turret (B2), the pace measure. A note for L5: against a deliberate shot on a static R1d the citadel is **five M rounds thick** (a stopped round still costs the plate 0.215 of its integrity), so the magazine kill moves from 6 s to 18 s by rounds and 29.5 s by beam; in duels it held because no script aims at it. Thickness within its range (0.01–0.4 m) is the lever if that is too thin |
 | T-neck | engine [0,3)×[2,4) rotated 90°, reactor [3,5)×[2,4), shield generator [3,5)×[0,2), heat sink [3,5)×[4,6), **hold [5,7)×[2,4)** (the neck, open from −y and +y), bridge [7,9)×[2,4), magazine [9,11)×[2,4), beam bay [11,13)×[2,4), quarters [7,10)×[4,6), turret [10,12)×[4,6) | **split at a choke point** and **cut the power walls**: one cut through the neck leaves the bridge half without a reactor (no power) and the reactor half without a bridge (SCRAM). In this kernel the two routes of #82 are one mechanism, since power, control and structure share the live walls (#192): stated, not a defect |
 | T-gun | R1 with its beam bay replaced by a hold (the turret its only weapon, a crewed room with low heat thresholds, #182) | **overheat**: the beam held on the turret shuts it down by heat before it is ruined; **run it dry**: it fires its turret broadside until the ready store and the magazine are empty (#91). Under #255 the engine does not count, so one layout shows both |
+| From L5m (#286) | the turret by its mount (#285) | **mission kill on R1d** (+y, rounds at the beam bay then the turret: its plates stop the round before the citadel; Disabled at 61.1 s in the probe, engine working); **overheat through R1's bridge** (−y, the beam on the bridge: one cell burnt at 10.0 s, the bridge shut down by heat at 23.0 s, control lost, every reactor SCRAMmed, Disabled at 33.0 s with `heat` the root); R1 from +y is **destroyed** (a round passes the light turret into the magazine at 469 m/s) and T-gun's turret burns out before it overheats: both kept as recorded cases of what a layout costs |
 
 ### 13l.3 Estimates (T1; `node tools/estimates/l4.mjs`)
 
@@ -1204,8 +1205,8 @@ sit in no plan again. Each plan updates this table in the same commit.
 | **Disabled** (#82, #255) | built | `L4.disabled.rule` | proven L4 |
 | Route: cut the power walls / split at a choke point (one mechanism, #253) | built | `L4.route.split` | proven L4 |
 | Route: decapitate | built | `L4.route.decapitate` | proven L4 |
-| Route: mission kill | built | `L4.route.missionKill` | proven L4 |
-| Route: overheat | built | `L4.route.overheat` | proven L4 |
+| Route: mission kill | built | `L4.route.missionKill` | proven L4; on R1d from L5m (a light turret no longer screens R1's magazine: #286), planned L5m |
+| Route: overheat | built | `L4.route.overheat` | proven L4; through R1's bridge from L5m (a beam now burns a light turret out before it overheats: #286), planned L5m |
 | Route: run it dry | built | `L4.route.dry` | proven L4 |
 | Route: EMP (forces a SCRAM, the enemy restarts) | the restart exists (`L1.reactor.restart`); no EMP | none | planned L5d (#252, with missiles from L5c) |
 | Route: surrender (strikes its colours, #85, #86) | nothing | none | planned L5d (#252, with the enemy's personality) |
@@ -1899,3 +1900,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 283 | L5a merged (PR #73): the kinetic pass, its fix round; answers to the fix round's engineer and re-review; §17 items 34, 36, 41 closed; §13m rows proven L5a | current |
 | 284 | The full mutation run on the L5a merge: 138 killed, 9 changed, 46 survived; one new survivor, a coverage gap for L5d | report |
 | 285 | The owner chose L5m now at the corrected cost (option A); the L5m plan: `turret.machineryMass` (new), 15 successors, one new scenario | current (amends #281 (6)) |
+| 286 | Answers to L5m's route question: mission kill moves to R1d, overheat to R1's bridge; R1 from +y and T-gun's turret kept as cases; data.js notes corrected in the pass | current |

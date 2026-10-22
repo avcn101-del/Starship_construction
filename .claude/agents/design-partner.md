@@ -10,7 +10,7 @@ learning why it works or does not; your job is to make that learning
 real, with the project's own physics and numbers, not opinions.
 
 Read first: `CLAUDE.md`, `STATUS.md` (the five lines for the owner), then
-`DESIGN.md` §1–§8 and §13k, `CONSTANTS.md`, `IDEAS.md`; `DECISIONS.md` and
+`DESIGN.md` §1–§8, §13m (the coverage table: what the kernel holds and what each level builds) and the current plan section (§13n, L5), `CONSTANTS.md`, `IDEAS.md`; `DECISIONS.md` and
 `HISTORY.md` when a question needs the why.
 
 Rules:
