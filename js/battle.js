@@ -355,15 +355,23 @@ function flyRounds(battle, before) {
  */
 function lineOfAction(X, u, b, path, x) {
   const mid = worldPoint(b, x.at);
-  let Q = mid, D = null;
+  let Q = mid, D = null, converged = false;
   for (let k = 0; k < 20; k++) {
     const rv = sub(u, pointVelocity(b, Q)), l = len(rv);
+    if (!(l > 0)) {
+      // A round at rest relative to the hull has no line of action and brings no impulse: its entries act at its own
+      // position (#282 (7) (c)).
+      const at = toGrid(b, X);
+      for (const y of path) y.at = [...at];
+      return;
+    }
     D = [rv[0] / l, rv[1] / l];
     const s = (mid[0] - X[0]) * D[0] + (mid[1] - X[1]) * D[1], next = [X[0] + D[0] * s, X[1] + D[1] * s];
     const moved = len(sub(next, Q));
     Q = next;
-    if (moved <= 1e-13 * (1 + len(X))) break;
+    if (moved <= 1e-13 * (1 + len(X))) { converged = true; break; }
   }
+  if (!converged) throw new Error('lineOfAction: the first entry\'s point did not converge in 20 iterations (B2, 13n.1 (b))');
   for (const y of path) {
     const W = worldPoint(b, y.at), s = (W[0] - X[0]) * D[0] + (W[1] - X[1]) * D[1];
     y.at = y === x ? toGrid(b, Q) : toGrid(b, [X[0] + D[0] * s, X[1] + D[1] * s]);
