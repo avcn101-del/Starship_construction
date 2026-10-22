@@ -8,7 +8,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 ## For the owner (five lines, kept at every block, #246 (5))
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
-  consolidation (#242), **physics pass 2 (#243–#251)**.
+  consolidation (#242), **physics pass 2 (#243–#251)**; `main` `47a1696`.
 - **Running**: nothing. This chat is replaced at this boundary (#247
   (2)); the new chat starts with the `tools/mutate.js` task and the L4
   plan.
@@ -83,6 +83,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 | PR | Branch | State |
 |---|---|---|
+
+Physics pass 2's block merged by PR #55 (`47a1696`; PR #54 closes with it); `regress`: 75 VERIFIED + 85 WITHDRAWN + 5 RETIRED; lint clean.
 
 The audits block (#240–#244 and the consolidation) merged by PR #53 (`f68185a`; PR #52 closes with it); `regress`: 57 VERIFIED + 29 WITHDRAWN + 5 RETIRED.
 
