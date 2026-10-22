@@ -1,8 +1,8 @@
 # STATUS — hand-over between chats (#179)
 
-Updated 2026-10-21 by the lead designer chat
-`session_01Ld11QmhkPubc8PkfKtd7CT` (took over from
-`session_013PTXKzyTQkpVaKYQyBhRP8`). Read this
+Updated 2026-10-22 by the lead designer chat
+`session_014nrUDvPgiLEjm64scJFkyW` (took over from
+`session_01Ld11QmhkPubc8PkfKtd7CT` at the pass-2 boundary, #247 (2)). Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## For the owner (five lines, kept at every block, #246 (5))
