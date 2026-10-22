@@ -9,9 +9,10 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   documents' consolidation (#242); `main` `f68185a`.
-- **Running**: physics pass 2's reviewer (PR #54); the engineer (29.34
-  USD) and the blind checker (2.84) are done: no physics error, one law
-  of the plan false (S6).
+- **Running**: physics pass 2's reviewer (PR #54) and its fix engineer
+  (the S6 successor of #249); the first engineer (29.34 USD) and the
+  blind checker (2.84) are done: no physics error, one law of the plan
+  false (S6), now replaced.
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.
 - **Money**: 2026-10-21/22 so far about 80 USD (v2 13.85, audits 25.40,
