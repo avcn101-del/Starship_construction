@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.3 — 2026-10-22 — Physics pass 2 planned (#243)
+
+- `DESIGN.md` §13k and `tools/estimates/pass2.mjs`: one law for burn,
+  blast, heat capacity and repair; closed books at the target and at the
+  shield; tier-invariant beam depth and an energy buffer; machinery masses
+  split from structure; a deterministic kernel; the SCRAM restart; the
+  chord rule; culling. Sixteen scenarios with estimates.
+
 ## 0.8.2 — 2026-10-22 — The audits' answers (#240, #241)
 
 - #240 (the owner): one law for everything that resists, heat by the
