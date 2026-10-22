@@ -5,6 +5,18 @@ Updated 2026-10-21 by the lead designer chat
 `session_013PTXKzyTQkpVaKYQyBhRP8`). Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
+## For the owner (five lines, kept at every block, #246 (5))
+
+- **Merged**: prototype v2 (#239), the audits block (#240–#244), the
+  documents' consolidation (#242); `main` `f68185a`.
+- **Running**: physics pass 2 (engineer opus on `m0/pass2`, blind checker
+  in parallel); then its reviewer and merge.
+- **Waiting on you**: nothing (#245 recorded your E1 amendment; veto
+  window on #242 and §13k.2's constants).
+- **Money**: 2026-10-21/22 so far about 48 USD (v2 13.85, audits 25.40,
+  consolidation 4.12, lint 0); pass 2 estimated 50–60.
+- **Next**: pass 2 merge → `tools/mutate.js` task → the L4 plan.
+
 ## Where we are
 
 - Design settled: `DECISIONS.md` #1–#236, current design in `DESIGN.md`.
@@ -84,6 +96,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #246: prevention after the audits (lint, mutation tool, the supersedes
+  rule, ×4, this block for the owner). #245 is the owner's.
 - #242: the documents consolidated and merged; the kinetic velocity rule
   decided (relative to the hull) on the reviewer's blocking finding.
 - #244: answers to the scenario audit (S17–S22 and the conventions added
@@ -146,9 +160,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-- **E1 / #188 wording** (#244 (5)): amend #188 so a withdrawal covers a
-  scenario superseded by a decision whatever its recorded verdict, and the
-  'retired' state of #237 (7) (listed, not run, last record kept).
+Nothing (#245 amended E1 as asked).
 
 ## Next steps
 

@@ -123,10 +123,13 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   file it may write; no sub-agents unless the task says so; cost estimates
   carry a ×2.5 factor. Independent read-only **audits** at the milestones of
   `DESIGN.md` §13b (#238), by `.claude/agents/auditor.md`.
-- **Documents** (#241): `DESIGN.md` is the current design with a table of
-  the decisions in force; plans and measured history live in `HISTORY.md`;
+- **Documents** (#241, #246): `DESIGN.md` is the current design with a
+  table of the decisions in force (§18, one row per decision, updated with
+  every new row); plans and measured history live in `HISTORY.md`;
   sessions and costs in `LEDGER.md`; `README.md` keeps no copy of the
-  constants table.
+  constants table. `node tools/lint-docs.mjs` passes before every
+  documentation pull request; a decision row that supersedes another
+  names it ("supersedes #n"); `tools/mutate.js` runs once per pass.
 - **`STATUS.md`** is the hand-over: read it first; update it at the end of
   every working block (open PRs, pending approvals, running sessions,
   scheduled tasks, next steps).

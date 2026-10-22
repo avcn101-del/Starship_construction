@@ -404,7 +404,7 @@ carry approved `min`–`max` ranges (#145). The 1e-9 relative slack on both boun
 
 | | Criterion |
 |---|---|
-| E1 | Every L0–L6 scenario PASSes its locked criterion, or is withdrawn for a specification error or as superseded by an owner's design decision: still locked and recorded, listed in `mission0/withdrawn.json` with its decision, and replaced by a successor that PASSes (#188, #200); a withdrawn scenario counts through its **chain of successors** to the one that stands, each link locked, no loop, the last recorded PASS (#225 (2)); a **retired** scenario (a withdrawn one that tests a pure function removed from the kernel) is listed in `withdrawn.json`, not run, and counted apart (#237 (7)) |
+| E1 | Every L0–L6 scenario PASSes its locked criterion, or is **withdrawn** (#188, #200, #245): for a specification error named in a decision row, or as superseded by a numbered decision that changes a law, a model or a constant (never to escape a failing kernel: a withdrawal needs the row, and an LD row may supersede only what #180 lets the lead designer decide). A withdrawn scenario stays locked; its record **at the time of withdrawal** is kept with whatever verdict it had (PASS or FAIL) and is never re-recorded after; it is listed in `mission0/withdrawn.json` with its decision; a successor that tests the replacement law (or the same law, for a specification error) with the same setup where the law allows it PASSes its own locked criterion. A withdrawn scenario counts through its **chain of successors** to the one that stands, each link locked, no loop, the last recorded PASS (#225 (2)). A **retired** scenario (a withdrawn one whose constants or pure functions were removed from the kernel) is listed in `withdrawn.json` with the removal's decision, not run, its last record frozen, and counted apart, never in E1's pass count (#237 (7), #245) |
 | E2 | Invariants on every sweep: same seed → same log hash; momentum conserved at splits; heat generated = radiated + stored; no NaN |
 | E3 | Every kept physics law has at least one passing proof scenario |
 | E4 | Every schema attribute has a measured effect, or it is cut |
@@ -960,6 +960,9 @@ Each line names its decision and when it is due; a closed one is removed.
 19. The SCRAM restart of #82 (`reactor.restartTime`). Due: physics pass 2.
 20. #240's one law for burn, blast, heat capacity and repair; the shield's
     impulse; tier invariance (#240, #243). Due: physics pass 2.
+21. `tools/mutate.js`: the scenario audit's mutation driver kept as a tool
+    and run once per pass; a rule whose removal leaves `regress` green is a
+    finding (#246 (1)). Due: a small engineer task after physics pass 2.
 
 ## 18. Decisions in force
 
@@ -1210,3 +1213,8 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 239 | Prototype v2 merged; answers | current |
 | 240 | The audits’ seven questions | current (built as physics pass 2, §13k) |
 | 241 | Process after the audits: plan gate, sessions, documents | current |
+| 242 | The documents consolidated; the kinetic velocity relative to the hull | current (supersedes #137's clause and #202 F) |
+| 243 | Physics pass 2 planned (§13k) | current (being built) |
+| 244 | Answers to the scenario audit; S17–S22 and the conventions | current |
+| 245 | E1 amended again: withdrawal by decision whatever the verdict; the record frozen; retired | current (amends #188, #200, #237 (7)) |
+| 246 | Prevention after the audits: lint, mutation tool, supersedes rule, ×4, the owner's page | current |

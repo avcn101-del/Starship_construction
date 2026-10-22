@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.5 — 2026-10-22 — E1 amended (#245) and prevention (#246)
+
+- `DESIGN.md` §13 E1: withdrawal by a numbered decision whatever the
+  recorded verdict, the withdrawal-time record frozen, the retired state;
+  three guards against withdrawing a failing kernel.
+- `tools/lint-docs.mjs` (decision and section references, constants named
+  in DESIGN, §18 coverage, CONSTANTS.md, withdrawn.json, the supersedes
+  rule); run by the nightly regression. §18 rows 242–246; §17 item 21
+  (`tools/mutate.js`); `STATUS.md` opens with the owner's five lines.
+
 ## 0.8.4 — 2026-10-22 — Documents consolidated (#241 (5), #242)
 
 - New `HISTORY.md`: the plans and measured results of each Mission 0 pass,

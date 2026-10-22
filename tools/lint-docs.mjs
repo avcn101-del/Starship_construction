@@ -1,0 +1,71 @@
+// tools/lint-docs.mjs — the documents' consistency lint (#246). Read-only; prints
+// one line per check and exits 1 on any failure. Run by the nightly regression.
+//   node tools/lint-docs.mjs
+import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { PARAMS, FIXED, ROOMS, TIERS } from '../js/data.js';
+
+const read = (f) => fs.readFileSync(f, 'utf8');
+const decisions = read('DECISIONS.md');
+const rows = [...decisions.matchAll(/^\| (\d+) \|/gm)].map((m) => Number(m[1]));
+const maxRow = Math.max(...rows);
+const docs = ['DESIGN.md', 'CLAUDE.md', 'STATUS.md', 'IDEAS.md', 'HISTORY.md', 'LEDGER.md', 'README.md', 'CHANGELOG.md'];
+let failed = 0;
+const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : 'ok  '}  ${name}${problems.length ? `: ${problems.length}` : ''}`); for (const p of problems.slice(0, 40)) console.log(`      ${p}`); if (problems.length) failed++; };
+
+// 1. Every decision reference #n exists.
+{
+  const problems = [];
+  for (const f of docs) read(f).split('\n').forEach((l, i) => { for (const m of l.matchAll(/#(\d{1,3})\b/g)) { const n = Number(m[1]); if (n > maxRow) problems.push(`${f}:${i + 1} #${n} (last row is #${maxRow})`); } });
+  report('decision references exist', problems);
+}
+// 2. Every section reference §n / §13x exists in DESIGN.md or HISTORY.md.
+{
+  const design = read('DESIGN.md'), history = read('HISTORY.md');
+  const heads = new Set();
+  for (const text of [design, history]) for (const m of text.matchAll(/^#{2,3} (\d+[a-z]?(?:\.\d+)?)[. ]/gm)) heads.add(m[1]);
+  for (const m of design.matchAll(/^(\d+[a-z]\.\d+) .* — moved to `HISTORY.md`/gm)) heads.add(m[1]);
+  const problems = [];
+  for (const f of ['DESIGN.md', 'CLAUDE.md', 'STATUS.md', 'IDEAS.md']) read(f).split('\n').forEach((l, i) => { for (const m of l.matchAll(/§(\d+[a-z]?(?:\.\d+)?)/g)) { const s = m[1]; if (!heads.has(s) && !heads.has(s.replace(/\.\d+$/, ''))) problems.push(`${f}:${i + 1} §${s}`); } });
+  report('section references exist', problems);
+}
+// 3. Every constant named in DESIGN.md's current text exists in data.js (lines that say removed/superseded/replaced/new excepted).
+{
+  const names = new Set();
+  for (const [g, o] of Object.entries(PARAMS)) for (const n of Object.keys(o)) names.add(`${g}.${n}`);
+  for (const n of Object.keys(FIXED)) names.add(`FIXED.${n}`);
+  const problems = [];
+  read('DESIGN.md').split('\n').forEach((l, i) => {
+    if (/removed|superseded|replaced|\(new|new,|new\)|is new|becomes|replac|planned|§13k|pass 2/i.test(l)) return;
+    for (const m of l.matchAll(/`((?:FIXED\.)?[a-z][a-zA-Z]+\.[a-z][a-zA-Z]+)`/g)) { const c = m[1]; if (/^(js|proto|tools|mission0|audit|checker|ctx|world|room|ship|battle|e|c|a|s|r)\./.test(c) || c.endsWith('.js') || c.endsWith('.mjs') || c.endsWith('.md') || c.endsWith('.json')) continue; if (!names.has(c) && !/^(thermal\.(plant|crewed|magazine)|crewRequired|cellMass|thermal\.coupled)/.test(c)) problems.push(`DESIGN.md:${i + 1} \`${c}\``); }
+  });
+  report('constants named in DESIGN.md exist in data.js', problems);
+}
+// 4. §18 has a row for every decision.
+{
+  const design = read('DESIGN.md'), start = design.indexOf('## 18. Decisions in force');
+  const have = new Set([...design.slice(start).matchAll(/^\| (\d+)[a-z]? \|/gm)].map((m) => Number(m[1])));
+  const problems = []; for (let n = 1; n <= maxRow; n++) if (!have.has(n)) problems.push(`#${n} missing from §18`);
+  report('§18 covers every decision', problems);
+}
+// 5. CONSTANTS.md regenerates identically.
+{
+  const hash = execFileSync('git', ['log', '-1', '--format=%h', '--', 'js/data.js']).toString().trim();
+  const gen = execFileSync('node', ['tools/constants.mjs', hash]).toString();
+  report('CONSTANTS.md regenerates identically', gen === read('CONSTANTS.md') ? [] : ['run: node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md']);
+}
+// 6. withdrawn.json decisions exist.
+{
+  const w = JSON.parse(read('mission0/withdrawn.json'));
+  const problems = []; for (const e of w) { const n = Number(String(e.decision).replace('#', '')); if (!(n >= 1 && n <= maxRow)) problems.push(`${e.id}: decision ${e.decision}`); }
+  report('withdrawn.json decisions exist', problems);
+}
+// 7. From #246 on, a decision row that supersedes names the row it supersedes (#246 (3)); older rows are listed as info only.
+{
+  const problems = [], info = [];
+  decisions.split('\n').forEach((l, i) => { const m = l.match(/^\| (\d+) \|/); if (m && /supersed/i.test(l) && !/supersed\w*\s+(#\d|#n|the owner-approval parts of #|its earlier)/i.test(l)) (Number(m[1]) >= 246 ? problems : info).push(`DECISIONS.md:${i + 1} (#${m[1]})`); });
+  if (info.length) console.log(`info  ${info.length} rows before #246 use 'supersede' without a row number (history, not checked)`);
+  report('superseding rows name what they supersede', problems);
+}
+console.log(failed ? `${failed} check(s) failed` : 'all checks passed');
+process.exit(failed ? 1 : 0);
