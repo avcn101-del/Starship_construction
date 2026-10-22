@@ -172,7 +172,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
    change); re-point the '#269' citations in `js/data.js` and the changelog
    to #270; merge; `regress` on the merge; the prototype needs no
    republish unless `proto/` changed.
-2. **The L5 plan** (`DESIGN.md` §13n, the plan gate of #241 with #270 (3)'s
+2. **The L5 plan** (a new section of `DESIGN.md` §13 after §13m, the plan gate of #241 with #270 (3)'s
    three checklist lines; `tools/estimates/l5.mjs`): L5a senses
    (`sensors.js`, the knowledge model, numbers for the information law) and
    weapons (missiles, seekers, warheads, point defence, the railgun, round
