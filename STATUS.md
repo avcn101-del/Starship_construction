@@ -12,12 +12,12 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   L4a (PR #58, #253–#258, #260), **L4b (PR #62, #261–#264, #267): L4 is
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step).
-- **Running**: the four light audits before the L5 plan (#238; sonnet,
-  read-only, 8 USD cap each, 11:32 UTC): documents
-  `session_015MiuXbDJDY3ER7gYb4HMt3` (`audit/l4-docs`), process
-  `session_016xMPBjzauERJgfNVoFhTbE` (`audit/l4-process`), physics
-  `session_01PxqWgmGKWgnmYN4z3Sb9v7` (`audit/l4-physics`), scenarios
-  `session_01KLRjP6m3agMAXhhbdn8thh` (`audit/l4-scenarios`).
+- **Running**: the L4 fix engineer `session_01AFipcrRMycb5uqDDcB1fB9`
+  (opus, `m0/l4-fix`, 11:52 UTC; the physics audit's B1: the impulse
+  direction, a two-ship books scenario, `battle.openingRange` k = 1;
+  raw 3–5 USD) and the scenario audit (its mutation triage in the
+  background). Audits in: process (0.91 USD, 10 findings), documents
+  (1.70, 32), physics (2.33, 20).
 - **Waiting on you**: nothing. Veto window on #253, #256, #258–#267
   (#267 lowers the cost factors: ×1.5 repeated work, ×2.5 new, after
   three passes within 1.5×). The prototype page is **republished on the
