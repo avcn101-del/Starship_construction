@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — A magazine explosion is a blast (#274)
+
+- `DECISIONS.md` #274 (the owner, amending #83): a magazine's explosion is
+  a blast through its walls; the ship is destroyed only by the existing
+  rules; built at L5's kinetic pass. `DESIGN.md` §13l.1's Destroyed row,
+  §13m, §17 item 41, §18 rows 83 and 274.
+
 ## Unreleased — 2026-10-22 — The owner's five answers (#273)
 
 - `CLAUDE.md`: the pre-lock rule reworded (a run before the lock for

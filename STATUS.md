@@ -26,9 +26,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   and the reviewer `session_01GiA5hCfSYz1org75B46PLC` (sonnet, 13:54 UTC). The full mutation run on the merged L4 fix (#270 (5)) runs in
   the lead designer's chat. The four light audits are answered (#270:
   6.91 USD; 81 findings).
-- **Waiting on you**: one question: does #83's "magazine explosion =
-  destroyed" become a blast (the ship destroyed only by the existing
-  rules)? The five of #270 are decided (#273). Veto window on #253, #256,
+- **Waiting on you**: nothing. The five questions (#273) and #83 (#274:
+  a magazine explosion is a blast, not a destroyer) are decided. Veto window on #253, #256,
   #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270),
   #270–#272. The prototype page is on the L4b kernel (version 5: R1d by
   default, the cascade tree on the end panel): play it and say what is not
@@ -166,13 +165,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-- **One question**: does #83's "a magazine explosion destroys the ship"
-  become a blast, the ship destroyed only by the existing rules (too many
-  pieces, the reactor, no crew)? The owner's expectation (2026-10-22):
-  four weapon types on one magazine one-shot a capital ship. The lead
-  designer's levers at L5 regardless: rule (c) (#273), one magazine per
-  weapon type (each its own blast by §13d), the information law.
-- Veto window on #253, #256, #258–#263, #265, #267, #270–#272.
+- Nothing: the five questions (#273) and #83 (#274) are decided.
+- Veto window on #253, #256, #258–#263, #265, #267, #270–#272, #274 is yours.
 
 ## Next steps
 
