@@ -1,5 +1,31 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — Answers to L5a (#282)
+
+- `DECISIONS.md` #282: answers to the L5a engineer, the blind checker and
+  the reviewer of PR #73; a fix round (K4's feed case, K1's stopping
+  cell, B2's projection); the reactor's immediate explosion stated in
+  `DESIGN.md` §13l.1; §13n.1 (b) and §17 item 35 reworded; §18 row 282.
+- `IDEAS.md`: the design partner's "reactor shield mass from the layout"
+  (waiting, #281). `LEDGER.md`: the L5a sessions.
+
+## Unreleased — 2026-10-22 — Mass pass 2 on the sources (#281)
+
+- `DECISIONS.md` #281: the reactor keeps its mass (no 20 MWe source to
+  split it); the turret becomes structure plus a 7.9 t mount in L5m (an M
+  round now passes it whole); the missile bay by a flagged secondary
+  source and the railgun unchanged in L5c; the pace study after L5m.
+  `DESIGN.md` §13n, §17 item 30, §18; `tools/estimates/l5.mjs` section (9).
+
+## Unreleased — 2026-10-22 — Mass pass 2 planned; the budget by price ∝ mass (#279, #280)
+
+- `DECISIONS.md` #279 (the owner: #74's price with the type factor ∝ the
+  M-cell mass until Mission 0 ends; the reactor's share open; sources
+  for mass pass 2 through the design partner) and #280 (L5m between L5a
+  and L5b; the mutation run on `29ce028` recorded). `DESIGN.md` §13n's
+  pass list, budget and room-size rows, cost table; §17 item 30; §18.
+- `STATUS.md`: the previous chat finished; L5a running.
+
 ## Unreleased — 2026-10-22 — L5a: the kinetic pass (#278)
 
 - `js/rooms.js`: a passed cell loses chord / `kinetic.hitsToWreck`
