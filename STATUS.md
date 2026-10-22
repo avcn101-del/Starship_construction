@@ -9,15 +9,15 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   documents' consolidation (#242); `main` `f68185a`.
-- **Running**: physics pass 2's fix round 2 (freezing every withdrawn
-  record, #250); the engineer (29.34 USD), the blind checker (2.84), the
-  reviewer (2.24, no blocking finding) and fix round 1 (5.12, S6's
-  successor) are done. Then a light re-review and the merge.
+- **Running**: the light re-review of physics pass 2's fix rounds (PR
+  #54, head `5b12e52`: regress 75 + 85 + 5, no MISMATCH, 47 s); engineer
+  29.34 USD, checker 2.84, reviewer 2.24, fix rounds 5.12 + 2.31. Then the
+  merge, and this chat's replacement (#247 (2)).
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.
-- **Money**: 2026-10-21/22 so far about 80 USD (v2 13.85, audits 25.40,
-  consolidation 4.12, pass 2 32.18 and the reviewer running); pass 2
-  estimated 50–60, so far inside it.
+- **Money**: 2026-10-21/22 so far about 86 USD (v2 13.85, audits 25.40,
+  consolidation 4.12, pass 2 41.85 and a re-review running); pass 2
+  estimated 50–60, inside it.
 - **Next**: pass 2 merge → `tools/mutate.js` task → the L4 plan.
 
 ## Where we are

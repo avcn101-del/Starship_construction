@@ -56,7 +56,8 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Physics checker, pass 2 (blind, from the lock; `checker/pass2`) | session_01FgK1kvqH6KcixryHNyjJug | sonnet-5-5 | 2.84 |
 | Reviewer, pass 2 (PR #54; no blocking, 12 notes) | session_01UCbwmbarXpLmZ8QbgMVQYK | sonnet-5-5 | 2.24 |
 | Engineer, pass 2 fix round 1 (S6 successor, #249) | session_012dBdWLjk4QsAwftq8yQQY1 | opus-5-5 | 5.12 |
-| Engineer, pass 2 fix round 2 (frozen records, #250) | (started 03:10 UTC) | opus-5-5 | running |
+| Engineer, pass 2 fix round 2 (frozen records, #250; the first session to notify the lead designer by trigger) | session_014Kqr2R7XYXWHmsaCNEqKfo | opus-5-5 | 2.31 |
+| Reviewer, pass 2 fix rounds 1–2 (light re-review) | session_017FizntYRrBaAFYhdC4bsbW | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
