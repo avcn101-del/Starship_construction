@@ -95,8 +95,9 @@ export const PARAMS = {
   beam: {
     power: P(5e6, 1e6, 2e7, 2, 'W', true, 'size M beam (#166)'),
     // A neutral particle beam from a spinal accelerator (#229, #234): each
-    // atom's kinetic energy is gradient x the bay's length (N cells x edge).
-    gradient: P(10 * MEV, 5 * MEV, 20 * MEV, -0.41, 'J/m', true, '10 MeV/m (1.6022e-12 J/m) at T1, range 5-20 MeV/m: a 10 m bay gives 100 MeV, a 40 m bay 400 MeV (ESS: about 6 MeV/m, cavities 16.7-20 MV/m; #234, #235). k = -0.41: a bay of N cells reaches the same depth in cells at every tier (fit of the Bethe range, within 1 % T1-T6), a stylisation like #64 for rounds; real linacs do not scale (#240 (4), #243, F10)'),
+    // atom's kinetic energy is gradient x the bay's length (N cells x edge) at
+    // T1; at another tier the energy of the same depth in armour cells (#249).
+    gradient: P(10 * MEV, 5 * MEV, 20 * MEV, 0, 'J/m', true, '10 MeV/m (1.6022e-12 J/m) at T1, range 5-20 MeV/m: a 10 m bay gives 100 MeV, a 40 m bay 400 MeV (ESS: about 6 MeV/m, cavities 16.7-20 MV/m; #234, #235). k = 0, its T1 meaning: at another tier a bay of N cells fires the energy whose CSDA range in iron, in armour cells of that tier, equals the T1 bay\'s (rooms.js beamEnergy solves it; #249, the power law k = -0.41 withdrawn, #248)'),
   },
   shield: {
     budget: P(1e7, 2e6, 4e7, 2, 'W', true, 'size M absorption rate (#166)'),

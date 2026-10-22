@@ -37,7 +37,7 @@ import { stepsAtLeast, exp } from './util.js';
 import { createLayout, roomFootprint, placeRoom, openEdges, roomCentre, sharedWalls, byId, fittingProblem, edgeMidpoint, exhaustFace } from './layout.js';
 import { liveWalls, priorityMaxFlow, feedAmmo, cellComponents, reachedThrough } from './graph.js';
 import { massProperties, createBody, worldPoint, pointVelocity, applyImpulse, integrate, reshape, fragmentOf, redistribute, rotate, momentumOf, cross } from './body.js';
-import { penetrateRound, beamDeposit } from './damage.js';
+import { penetrateRound, beamDeposit, csdaRange } from './damage.js';
 import { sectionalMomentum } from './projectile.js';
 
 // A time within 1e-9 of a step boundary counts as that boundary (as stepsAtLeast).
@@ -326,9 +326,39 @@ export function fireRound(world, { mass, velocity, area, direction = null }, pat
     residual: res.residual, momentum: res.momentum, stopMomentum: res.stopMomentum, absorbed: res.taken, impulse: res.impulse, losses, heats, heat,
   };
 }
-/** Kinetic energy (J) of each atom a beam bay fires (#234): beam.gradient (k = -0.41, #240 (4)) x its length N x edge. */
+/**
+ * Kinetic energy (J) of each atom a beam bay of N = room.length cells fires
+ * (#234, #249): at T1, beam.gradient x N x edge; at the world's tier, the
+ * energy E whose CSDA range in iron (csdaRange, FIXED iron constants) is the
+ * T1 bay's range x sigma(tier) / sigma(T1), sigma = armour.cellMass at the
+ * tier over edge^2, so the bay reaches the same depth in armour cells at
+ * every tier (electronic stopping only; the nuclear part of the profile
+ * drifts, #249). Bisection from the T1 energy to a relative 1e-12; an exact
+ * hit returns at once, so at T1 the result is the T1 energy itself. Cached
+ * per N on the world (its params and edge are fixed).
+ */
 export function beamEnergy(world, room) {
-  return tierScaled(world, world.params.beam.gradient) * room.length * world.edge;
+  const N = room.length;
+  world.beamEnergies ??= new Map();
+  const known = world.beamEnergies.get(N);
+  if (known !== undefined) return known;
+  const p = world.params, f = FIXED;
+  const c = { protonRest: f.protonRestEnergy.value, electronRest: f.electronRestEnergy.value, K: f.betheK.value, ZA: f.ironZOverA.value, I: f.ironMeanExcitation.value };
+  const sigma = (edge) => scaled(p.armour.cellMass, edge) / (edge * edge);
+  const E1 = p.beam.gradient.value * N * BASE_EDGE;
+  const target = csdaRange(E1, c) * (sigma(world.edge) / sigma(BASE_EDGE));
+  let lo = E1, hi = E1, E = E1;
+  if (csdaRange(lo, c) !== target) {
+    while (csdaRange(lo, c) > target) { hi = lo; lo /= 2; }
+    while (csdaRange(hi, c) < target) { lo = hi; hi *= 2; }
+    while (hi - lo > 1e-12 * hi) {
+      const mid = (lo + hi) / 2;
+      if (csdaRange(mid, c) < target) lo = mid; else hi = mid;
+    }
+    E = (lo + hi) / 2;
+  }
+  world.beamEnergies.set(N, E);
+  return E;
 }
 /**
  * One step of a neutral particle beam (#229, 13i.1, 13k.1) along `path` ([{
