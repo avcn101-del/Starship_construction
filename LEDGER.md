@@ -61,7 +61,8 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, `tools/mutate` (PR #56; 123 mutations) | session_01ELZUpkHg9fxfaMzLyCp5R5 | opus-5-5 | 6.96 |
 | Reviewer, `tools/mutate` (PR #56; no blocking, 6 notes) | session_01Fnct3X7paeLnNUSBXDGirU | sonnet-5-5 | 0.95 |
 | Engineer, L4a (`m0/l4a`) | session_01FpUHAGXwS7MQ9fDiQV6M31 | opus-5-5 | running |
-| Physics checker, L4a (blind, from lock `6feb7e0`; `checker/l4a`) | session_017mYp4vpcVbLbTrXruRXDP5 | sonnet-5-5 | running |
+| Physics checker, L4a (blind, from lock `6feb7e0`; `checker/l4a`; 0 mismatches, 3 discrepancies) | session_017mYp4vpcVbLbTrXruRXDP5 | sonnet-5-5 | 2.83 |
+| Reviewer, L4a (PR #58) | session_01JLq9WkPYXvq2MKY4iWZUxt | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

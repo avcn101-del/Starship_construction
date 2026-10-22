@@ -9,10 +9,12 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   consolidation (#242), **physics pass 2 (#243–#251)**.
-- **Running**: L4a engineer `session_01FpUHAGXwS7MQ9fDiQV6M31` (opus, on
-  `m0/l4a`, 05:30 UTC; the owner said go; 45–70 USD estimated); locked 16
-  scenarios at `6feb7e0` (A11 not built: a question in its PR); the blind
-  physics checker `session_017mYp4vpcVbLbTrXruRXDP5` (sonnet) from the lock. `tools/mutate` merged (PR #56, #257; 7.91 USD).
+- **Running**: reviewer of PR #58 (L4a) `session_01JLq9WkPYXvq2MKY4iWZUxt`
+  (sonnet, 06:48 UTC). The L4a engineer finished (PR #58: 16 scenarios
+  PASS, regress 90 VERIFIED; `L2.layout.invalid` now FAILs on the new crew
+  rule, successor ready); the blind checker found 0 numeric mismatches and
+  3 discrepancies (plates are not burnt by a beam: the lead designer's
+  spec error, a fix round follows the review).
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.
 - **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
