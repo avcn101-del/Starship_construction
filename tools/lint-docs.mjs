@@ -89,7 +89,7 @@ const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : '
   const names = [];
   let header = null;
   for (const l of design.slice(s5, s8).split('\n')) {
-    if (!l.startsWith('| ')) { header = null; continue; }
+    if (!l.startsWith('|')) { header = null; continue; }
     const first = l.split('|')[1].trim();
     if (/^(Room|Fitting|Weapon|Kinetic round|Topic)$/.test(first)) { header = first; continue; }
     if (/^-+$/.test(first) || !header) continue;
