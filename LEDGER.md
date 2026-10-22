@@ -65,7 +65,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Reviewer, L4a (PR #58; 2 blocking for the lead designer, 9 notes) | session_01JLq9WkPYXvq2MKY4iWZUxt | sonnet-5-5 | 1.81 |
 | Engineer, L4a fix round (#258; head `fe32dc5`) | session_013MRAhtyyGbE3gKKimEYvsH | opus-5-5 | 8.01 |
 | Physics checker, L4a fix round (blind, from lock `7399706`; 0 mismatches, 3 wording gaps) | session_01Wr6puuwLsvDJzWzrQYRdPN | sonnet-5-5 | 1.62 |
-| Reviewer, L4a fix round (PR #58, light re-review) | session_01LQ9KUec9DtX8tjySLLvMur | sonnet-5-5 | running |
+| Reviewer, L4a fix round (PR #58, light re-review; 0 blocking, 3 notes) | session_01LQ9KUec9DtX8tjySLLvMur | sonnet-5-5 | 0.98 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -81,3 +81,4 @@ Physics pass 2 total: 42.93 USD (engineer 29.34, physics checker 2.84, reviewer 
 
 Sessions have reported a **seven-day usage limit warning**.
 `tools/mutate` total: 7.91 USD (engineer 6.96, reviewer 0.95).
+L4a total: ≥ 17.57 USD (engineer ≥ 2.32 reported after a worker restart + fix round 8.01, physics checkers 2.83 + 1.62, reviewers 1.81 + 0.98).
