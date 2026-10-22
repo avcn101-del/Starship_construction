@@ -63,8 +63,8 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, L4a (`m0/l4a`, PR #58; worker restarted, earlier cost not reported) | session_01FpUHAGXwS7MQ9fDiQV6M31 | opus-5-5 | ≥ 2.32 |
 | Physics checker, L4a (blind, from lock `6feb7e0`; `checker/l4a`; 0 mismatches, 3 discrepancies) | session_017mYp4vpcVbLbTrXruRXDP5 | sonnet-5-5 | 2.83 |
 | Reviewer, L4a (PR #58; 2 blocking for the lead designer, 9 notes) | session_01JLq9WkPYXvq2MKY4iWZUxt | sonnet-5-5 | 1.81 |
-| Engineer, L4a fix round (#258; head `fe32dc5`) | session_013MRAhtyyGbE3gKKimEYvsH | opus-5-5 | 6.56+ |
-| Physics checker, L4a fix round (blind, from lock `7399706`; 0 mismatches, 3 wording gaps) | session_01Wr6puuwLsvDJzWzrQYRdPN | sonnet-5-5 | pending |
+| Engineer, L4a fix round (#258; head `fe32dc5`) | session_013MRAhtyyGbE3gKKimEYvsH | opus-5-5 | 8.01 |
+| Physics checker, L4a fix round (blind, from lock `7399706`; 0 mismatches, 3 wording gaps) | session_01Wr6puuwLsvDJzWzrQYRdPN | sonnet-5-5 | 1.62 |
 | Reviewer, L4a fix round (PR #58, light re-review) | session_01LQ9KUec9DtX8tjySLLvMur | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
