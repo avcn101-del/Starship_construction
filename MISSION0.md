@@ -37,6 +37,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L0.blast.surface` | f9738b67 | PASS, WITHDRAWN (successor `L0.blast.surface.v3`, #240) | 4450a2b8 | f7bf5c6 | none | `node tools/m0.js run L0.blast.surface` |
 | `L0.determinism` | 381f764c | PASS | 95f06978 | 4e217c0 | none | `node tools/m0.js run L0.determinism` |
 | `L0.kinetic.anchor` | 735e3d84 | PASS | f231b248 | 4e217c0 | none | `node tools/m0.js run L0.kinetic.anchor` |
+| `L0.kinetic.chord.loss.v2` | 69aa0831 | PASS | defaec69 | f27238b | none | `node tools/m0.js run L0.kinetic.chord.loss.v2` |
 | `L0.kinetic.chord.loss` | c0d79ac5 | PASS | 559c79b1 | 4e217c0 | none | `node tools/m0.js run L0.kinetic.chord.loss` |
 | `L0.kinetic.chord.v2` | c0116528 | PASS | 6568545f | 4e217c0 | none | `node tools/m0.js run L0.kinetic.chord.v2` |
 | `L0.kinetic.chord` | 8ef725b0 | PASS, WITHDRAWN (successor `L0.kinetic.chord.v2`, #278) | 6568545f | 1d13489 | none | `node tools/m0.js run L0.kinetic.chord` |
@@ -153,6 +154,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L2.lifesupport.v2` | cd74fc05 | PASS | 9c1205a3 | 4e217c0 | none | `node tools/m0.js run L2.lifesupport.v2` |
 | `L2.lifesupport` | 84909130 | PASS, WITHDRAWN (successor `L2.lifesupport.v2`, #240) | 9c1205a3 | f7bf5c6 | none | `node tools/m0.js run L2.lifesupport` |
 | `L2.magazine.detonation` | b4fc16a7 | PASS | 4146f07c | 4e217c0 | none | `node tools/m0.js run L2.magazine.detonation` |
+| `L2.magazine.types.v2` | 3954370a | PASS | 61f1b7f5 | f27238b | none | `node tools/m0.js run L2.magazine.types.v2` |
 | `L2.magazine.types` | 29c95048 | PASS | 31808c1b | 4e217c0 | none | `node tools/m0.js run L2.magazine.types` |
 | `L2.plate.vent` | 60b22653 | PASS | 1bba112a | 4e217c0 | none | `node tools/m0.js run L2.plate.vent` |
 | `L2.power.flow` | 7c53e3b4 | PASS | ca1596f1 | 4e217c0 | none | `node tools/m0.js run L2.power.flow` |
@@ -237,6 +239,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
+| `L4.books.angular.v2` | a9358bf4 | PASS | 850e738e | f27238b | none | `node tools/m0.js run L4.books.angular.v2` |
 | `L4.books.angular` | 9aa05745 | PASS | 8ae147e6 | 4e217c0 | none | `node tools/m0.js run L4.books.angular` |
 | `L4.books.energy` | f1740cb6 | PASS | e18a2e6e | 4e217c0 | none | `node tools/m0.js run L4.books.energy` |
 | `L4.books.two.v2` | 8640465c | PASS | d4490342 | 4e217c0 | none | `node tools/m0.js run L4.books.two.v2` |
