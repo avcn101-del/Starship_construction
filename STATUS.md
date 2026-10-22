@@ -13,35 +13,41 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**.
-- **Running**: nothing. **The scenario-hygiene round is merged** (PR #67,
-  #276: 20 scenarios, 19 withdrawn and frozen; every number verified by the
-  blind checker; 15.89 USD against raw 10–15). The full mutation run on the
-  merge runs in the lead designer's chat (#270 (5)).
-- **Waiting on you**: nothing. The five questions (#273) and #83 (#274:
-  a magazine explosion is a blast, not a destroyer) are decided. Veto window on #253, #256,
-  #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270),
-  #270–#272. The prototype page is on the L4b kernel (version 5: R1d by
-  default, the cascade tree on the end panel): play it and say what is not
-  fun (#223's ladder).
+- **Running**: no session. The previous lead designer chat
+  (`session_014nrUDvPgiLEjm64scJFkyW`) is running the full `tools/mutate.js`
+  on `29ce028` and merges its report (`mission0/mutations/2026-10-22-29ce028.txt`)
+  by a small pull request; this chat checks at 16:25 UTC and runs it itself if
+  it is not on `main` (#270 (5)). `regress` on `29ce028` re-run by this chat:
+  109 VERIFIED + 106 WITHDRAWN + 5 RETIRED.
+- **Waiting on you**: **the L5 plan** (`DESIGN.md` §13n on branch
+  `ld/l5-plan`, not yet on `main`): five passes (L5a kinetic, L5b senses,
+  L5c weapons, L5d helm and enemy, L5e ship versus ship), estimates by
+  `tools/estimates/l5.mjs`; its five items O1–O5 (§13n.7: the budget for
+  E5/E6, the reference battle of E7, "no crew" in #274, the magazine's blast
+  against #274's intent, the go per pass) are yours. No session starts
+  before your answer. Veto window on #253, #256, #258–#263, #265, #267
+  (its cost-factor clause is withdrawn by #270), #270–#272. The prototype
+  page is on the L4b kernel (version 5): play it and say what is not fun
+  (#223's ladder).
 - **Money**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
   L4 in all ≥ 64.27 (#191: past 40).
-- **Next**: merge PR #64 when its reviewer reports, then the **L5 plan**
-  under the plan gate: `sensors.js` and the knowledge model first (#266);
-  missiles, point defence and the railgun as room physics (#268, §13m);
-  the enemy of §9; the kinetic-damage pass and R1d in one pace study (§17
-  items 34, 41); room size S (item 30); ship versus ship and the reference
-  battle of E7. Expect two passes (L5a senses and weapons, L5b enemy and
-  ship versus ship), each costed with #246 (4)'s factor beside the lead
-  designer's expectation (#270 (2)).
+- **Next**: your answers to O1–O5, then the plan is recorded (*LD* rows,
+  §13m updated, merged to `main`) and **L5a** (the kinetic pass: #273 (b)
+  (c), #274, the stand-ins of §17 item 35, the unmanned rule) starts; the
+  pace study on R1d between L5a and L5b; then L5b–L5e in order. Cost: the
+  rule's 356–500 USD against the lead designer's expectation 124–190 for
+  all of L5 (#270 (2); L5a alone 28–40 / 14–20), about three days.
 - **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
   surprised by a prototype): missiles (seekers, warheads, EMP), point
   defence, the railgun as a weapon, round types, the firing window, every
   sense (passive, active, jamming, the knowledge model), the enemy's
-  choices, standing orders and presets, the economy, the campaign, sound
-  and rendering. All planned L5 or after Mission 0; the line shrinks as
-  passes merge.
+  choices, standing orders and presets, room size S, the magazine's
+  detonation by residual speed (today: by a destroyed cell, and its
+  explosion still destroys the ship), a crewless room still works, the
+  economy, the campaign, sound and rendering. All planned L5a–L5e (§13n)
+  or after Mission 0; the line shrinks as passes merge.
 - **Owner chose** #261 (R1d the pace lever) and #252 (L4: one target per route; EMP and surrender at L5).
   The owner played v2: the magazine always wins in 7.1 s (#254). Pace
   study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
@@ -170,19 +176,21 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Next steps
 
-1. **Replace this chat** (#247 (2)): its context was compressed once and
-   the block (L4 and its rounds) is closed; the new lead designer chat
-   starts from this file and writes the L5 plan.
-2. **The L5 plan** (a new section of `DESIGN.md` §13 after §13m, the plan gate of #241 with #270 (3)'s
-   three checklist lines; `tools/estimates/l5.mjs`): L5a senses
-   (`sensors.js`, the knowledge model, numbers for the information law) and
-   weapons (missiles, seekers, warheads, point defence, the railgun, round
-   types, the firing window); L5b the enemy (`enemy.js`, `helm.js`,
-   standing orders and presets), ship versus ship, the reference battle of
-   E5–E7, the kinetic-damage pass with R1d in one pace study; room size S;
-   §13m updated in the plan's commit; the owner's five answers folded in.
-3. Each L5 pass: engineer (opus) → blind physics checker → reviewer →
-   answers row → merge; the full mutation run after the review (#270 (5)).
+1. **The L5 plan is drafted** (`DESIGN.md` §13n on `ld/l5-plan`,
+   `tools/estimates/l5.mjs`, this chat, 2026-10-22): five passes, 26 new
+   constants with ranges, 52 scenarios, the checklist with the §13m rows.
+   It waits on the owner's O1–O5 (§13n.7). On the answers: the *LD* rows in
+   `DECISIONS.md` (the plan; the lint's §13n skip; the unmanned rule), §13m's
+   statuses to "planned L5a–e", `CHANGELOG.md`, lint, one documentation pull
+   request to `main` (#218).
+2. **The mutation report** on `29ce028` (step 2 of the hand-over): see
+   Running above; record it in `DECISIONS.md` with the plan's rows.
+3. Each L5 pass: engineer (opus) → blind physics checker (sonnet) →
+   reviewer (sonnet) → answers row → merge; `--only` mutations before the
+   review, the full run after (#270 (5)); the pace study (`pace.mjs` on
+   R1d) between L5a and L5b, reported before L5b's lock.
+4. Not found in the repository: `.claude/agents/lead-designer.md` (the
+   hand-over named it; the role's rules live in `CLAUDE.md` and §13b).
 
 ## Scheduled tasks
 
@@ -193,7 +201,9 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
 the old chat's pending check-in was deleted at hand-over; the new chat
-creates its own (`send_later`, 20–45 min after starting a session).
+creates its own (`send_later`, 20–45 min after starting a session). This
+chat's pending check-in: `trig_01TGE3Yn54AG66d2VEMC2EZn` (16:25 UTC, the
+mutation report).
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
 

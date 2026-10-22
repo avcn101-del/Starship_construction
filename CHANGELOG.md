@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — The L5 plan drafted (proposed; awaiting the owner's O1–O5)
+
+- `DESIGN.md` §13n: L5 in five passes (L5a the kinetic pass, L5b senses
+  and the knowledge model, L5c weapons, L5d the helm and the enemy, L5e
+  ship versus ship), rules, 26 proposed constants with ranges and
+  exponents, estimates, 52 scenarios, process and cost, the checklist
+  with the §13m rows, and the five items for the owner (§13n.7).
+- `tools/estimates/l5.mjs`: the plan's estimate script (run-time overrides
+  and `--plan` for the proposed constants); findings: an M round through
+  one crewed cell enters a magazine at 333 m/s, through a hold at 705; a
+  full magazine's blast (1.2 GJ) destroys R1 by pieces under #274; R1d
+  dodges 6.5 m in a 900 m time of flight.
+- `tools/lint-docs.mjs`: §13m ends at the next heading (it read §13n as
+  §13m); the constants check skips §13n until L5 builds them (as §13k).
+- `STATUS.md`: the new lead designer chat; the owner's block.
+
 ## Unreleased — 2026-10-22 — The scenario-hygiene round merged (#276)
 
 - `DECISIONS.md` #276: answers to the engineer, the blind checker and the
