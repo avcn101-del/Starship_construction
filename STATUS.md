@@ -12,10 +12,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   **L4a (PR #58, #253–#258, #260)**: armour plates on walls, R1c, crew
   capacity, the kernel obligations.
 - **Running**: nothing. L4a cost ≥ 17.57 USD (estimated 45–70).
-- **Waiting on you**: **the go on L4b** (planned, §13l amended, #262:
-  70–100 USD by the rule's ×4, probably high; the lead designer's own
-  expectation 25–40). Phone test done: MATCH (#263). Veto window on #253,
-  #256, #258–#263.
+- **Waiting on you**: nothing (L4b go given, #264). Veto window on #253,
+  #256, #258–#264.
 - **Money**: 2026-10-21/22 about 112 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57); L4a was
   estimated 45–70.
