@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — L5a merged (#283)
+
+- `DECISIONS.md` #283: L5a merged (PR #73) with its fix round; answers to
+  the fix round's engineer and re-review. `DESIGN.md` §13m's kinetic,
+  magazine, destroyed and E2 rows proven L5a; §17 items 34, 36, 41
+  closed; §18. `LEDGER.md`: costs and the ratio row (1.74).
+
 ## Unreleased — 2026-10-22 — L5a fix round (#282 (7))
 
 - `js/battle.js` `lineOfAction`: a round at rest relative to the hull no

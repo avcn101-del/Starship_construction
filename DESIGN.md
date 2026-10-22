@@ -1109,7 +1109,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Time of flight | `battle.js` rounds | `L4.route.decapitate` (arrival steps), `L4.relative` | proven L4 |
 | Square–cube, tiers (#63, #240 (4)) | `scaled(k)`; plates k = 1; `beamEnergy` | `L0.beam.tier.v2`, `L0.shield.buffer.tier`, `L3.mass.props.v5` (T6) | proven for the pass-2 rules; the rest planned L6 (the physics audit's T1–T4, #270) |
 | Fail-safe reactors: SCRAM, decay heat, restart (#81, #82) | built | `L1.reactor.scram.v2`, `L1.reactor.restart`, `L3.fragment.scram.v2` | proven L1, L3 |
-| Kinetic channel: momentum per cell, the path model, relative velocity (#137, #230, #242) | built | `L0.kinetic.*`, `L3.kinetic.hole.v2`, `L4.relative` | proven L0–L4; a passed cell's flat loss is §17 item 34 (planned L5a) |
+| Kinetic channel: momentum per cell, the path model, relative velocity (#137, #230, #242) | built | `L0.kinetic.*`, `L3.kinetic.hole.v2`, `L4.relative` | proven L0–L4; a passed cell's loss by its chord proven L5a (`L0.kinetic.chord.loss.v2`, #273 (b), #283) |
 | Thermal channel: beam deposit and burn (#229, #240 (1)) | built | `L0.beam.*`, `L3.beam.deposit`, `L0.armour.plate.v2` | proven L0–L4 |
 | Blast channel, inside (#141, #169) | built | `L0.blast.surface.v4`, `L2.blast.*` | proven L0–L2 |
 | Blast outside the hull (#141, §17 item 5) | nothing | none | planned L5c (with missiles: a warhead on a hull cell) |
@@ -1126,7 +1126,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Bridge (control, backup supply, decapitation) | built | `L1.bridge.control.v2`, `L3.control.rules`, `L3.control.bridge`, `L4.route.decapitate` | proven L1–L4 |
 | Reactor (power, SCRAM, breach, meltdown) | built | `L1.reactor.*`, `L4.kill` (reactor) | proven L1–L4 |
 | Engine | built | `L1.engine.thrust.v3`, `L3.thrust.v5` | proven |
-| Magazine (contents, feed, cook-off, detonation) | built | `L1.magazine.cookoff.v2`, `L2.ammo.feed`, `L4.kill` (magazine) | proven; the detonation rule is §17 item 34 (planned L5a) |
+| Magazine (contents, feed, cook-off, detonation) | built | `L1.magazine.cookoff.v2`, `L2.ammo.feed`, `L4.kill` (magazine) | proven; detonation by a round's entry speed proven L5a (`L2.magazine.detonation`, `L1.magazine.cookoff.v3`, #273 (c), #283); one magazine per weapon type proven L5a (`L2.magazine.types.v2`) |
 | Shield generator | built | `L1.shield.generator.v3`, `L2.shield.*` | proven |
 | Crew quarters (berths, repair field) | built | `L1.quarters.repair.v3`, `L2.repair.*`, `L4.crew.capacity` | proven |
 | Beam bay (spinal accelerator) | built | `L1.beambay.*`, `L2.beambay.cause`, `L0.beam.tier.v2` | proven |
@@ -1209,7 +1209,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Route: run it dry | built | `L4.route.dry` | proven L4 |
 | Route: EMP (forces a SCRAM, the enemy restarts) | the restart exists (`L1.reactor.restart`); no EMP | none | planned L5d (#252, with missiles from L5c) |
 | Route: surrender (strikes its colours, #85, #86) | nothing | none | planned L5d (#252, with the enemy's personality) |
-| Destroyed: a reactor explosion, too many pieces (#83); a magazine explosion as a blast only (#274) | built as #83 | `L4.kill`, `L4.kill.pieces` | proven L4 for #83; the magazine's blast planned L5a (the kinetic pass, item 41) |
+| Destroyed: a reactor explosion, too many pieces (#83); a magazine explosion as a blast only (#274) | built as #83 | `L4.kill`, `L4.kill.pieces` | proven L4 for #83; the magazine's blast as a blast only proven L5a (`L4.kill.v3`: R1's full magazine wrecks the reactor, which ends the ship by its own explosion, #282 (1), #283) |
 | Loot: whatever is left (#83); the same condition for the player (#84); crew on a dark fragment recovered (#88) | nothing (campaign) | none | after Mission 0 (campaign, `run.js`) |
 | Report (#41): KIA list, cascade tree, timeline, what the enemy scanned, heat, salvage, kill-cam | the cascade tree and the log in the kernel; the prototype's end panel | `L4.cascade`, `L4.log` | the tree and the log proven L4; the rest after Mission 0 (presentation) |
 
@@ -1229,7 +1229,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Criterion | Status at L4 |
 |---|---|
 | E1 (every scenario passes or is withdrawn with a successor) | holds for L0–L4: 107 VERIFIED + 87 WITHDRAWN + 5 RETIRED |
-| E2 (invariants: hash, momentum, heat, no NaN) | proven per scenario at L0–L4; the two-ship momentum book is planned L4 (the L4 fix's `L4.books.two`, #270); energy across two ships is not booked (the physics audit's B3, planned L5a) |
+| E2 (invariants: hash, momentum, heat, no NaN) | proven per scenario at L0–L4; the two-ship momentum book is planned L4 (the L4 fix's `L4.books.two`, #270); energy and angular momentum across two ships proven L5a (`L4.books.energy`, `L4.books.angular.v2`, #283; a shield field's impulse at its generator stays a stand-in, §17 item 35) |
 | E3 (every kept law proven) | the rows above marked proven; **not yet**: the information law (F), missiles and point defence (E), the standing orders (G), the enemy (H) |
 | E4 (every attribute has a measured effect) | judged at L5c for recoil and the shield buffer (§17 items 6, 7); `thermal.coupledArmour` has its consumer since L4a |
 | E5, E6 (builds; underdog paths) | planned L5e: needs E and F above, room size S (D); the budget is mass at undock (#277 O1) |
@@ -1539,30 +1539,6 @@ Each line names its decision and when it is due; a closed one is removed.
     builds `sensors.js` and the knowledge model first (the enemy of §9
     reads only its knowledge model), with scenarios; §17 item 32 rests on
     it. The owner agreed (#266). Due: the L5 plan.
-34. **A passed cell loses a flat 1 / `kinetic.hitsToWreck`** (#206, the D
-    pass), whatever its mass; only the stopping cell loses by what it took
-    (`js/rooms.js`, `fireRound`). The D pass predates the one law (#240
-    (1)) and physics pass 2 did not revisit it: a hold cell and a reactor
-    cell are dug through alike (the design partner's measure, #265). The
-    one-law reading is damage = the energy the cell took / (q × its mass),
-    as a beam burns. **Measured on the kernel (#266)**: a passing M round
-    leaves a cell only the energy its resistance takes, 0.23 MJ in the
-    first of a column of hold cells (0.43 in the design partner's column),
-    1.12 MJ in a bridge cell, all 1.92 MJ in a reactor cell where it
-    stops; and since that energy is ∝ r ∝ the cell's mass, the energy
-    reading makes **every passed cell about 40 rounds to ruin whatever
-    its mass** (a reactor cell, stopping the round, 234): light cells
-    become nearly immune to rounds that pass them, and a magazine (3 t of
-    structure; its rounds do not count in the cell's mass) would take some
-    20–40 passing rounds while one through a real propellant store is
-    enough. So the pass must answer, before any estimate: what a passing
-    round ruins (the hole it makes is mass-blind; the machinery or
-    contents it crosses are not), and **whether a magazine detonates by a
-    destroyed cell (today) or by the energy deposited in its contents**
-    (the owner's question, #266). Decided by the owner: a pass of its own,
-    estimated under the gate, decided at the L5 plan together with #261's
-    R1d in one pace study. Due: the L5 plan.
-
 35. Loop rules no L4b scenario exercises (#267, the reviewer's N4, N5, N7
     and the engineer's Q12): a path of holes only is not a hit; the chord
     of an oblique line (every L4b line is within 0.01 rad of an axis);
@@ -1577,12 +1553,6 @@ Each line names its decision and when it is due; a closed one is removed.
     energy). **Still open**: a shield field's impulse acts at its generator,
     so the angular book closes only with shields down (#282 (9)); one id
     space for shot events. Due: L5d's symmetric loop.
-36. T-neck and T-gun carry no fittings (as `tools/estimates/l4.mjs`
-    builds them), so a T-gun spins under its own recoil (#267, engineer
-    Q9): give them RCS and radiators when a target must hold its heading
-    or fire for long. Due: the L5 plan, with the targets it reuses.
-
-
 37. **Missiles, point defence and the railgun are built nowhere yet**
     (the owner, #268): the kernel has no missile (seeker + warhead, §6,
     #97, #98, #142 EMP), no point defence (#93), and the railgun is data
@@ -1626,24 +1596,6 @@ Each line names its decision and when it is due; a closed one is removed.
     "Pre-lock runs" section; the full mutation run goes after the review;
     `LEDGER.md` carries the ratio table. Due: the L5 plan and its first
     pass; the wording of the pre-lock rule is the owner's (F4).
-41. **Plates and the passed cell, inputs of item 34's pass** (the physics
-    audit, #270; the documents audit's 9): a damaged plate or cell resists,
-    deposits and weighs as if intact (L1); a cell clips an oblique path at
-    its edge, a plate does not (L5); the citadel's "five rounds" has no
-    anchor and reads two ways (U1: 10 shots on R1d, #262); a beam melts a
-    0.28 m hole and deposits in the first 7 % of the plate (U2); the flat
-    1 / `hitsToWreck` is mass- and chord-blind while its resistance is
-    neither (L2), so a grazed cell loses a full third at 1 % of the
-    resistance (L3); item 32 rests on an aim model that does not exist
-    (U4). The owner decided (#273): the magazine detonates when a round
-    arrives with residual speed above a threshold (rule (c); the threshold
-    is the lead designer's constant), and a passed cell loses the flat
-    1 / `kinetic.hitsToWreck` **scaled by its chord** (rule (b)); and
-    (#274) a magazine's explosion is a blast, the ship destroyed only by
-    the existing rules; one magazine per weapon type is the lead
-    designer's lever there. Due: the L5 plan's kinetic pass, which
-    withdraws `L4.kill.v2`'s magazine cases (they record "destroyed by
-    the explosion").
 42. **What §13l.1 moved to L5 without an obligation** (the documents
     audit's 12, #271): the EMP route (a warhead, with item 37), the
     surrender route (the enemy's personality; #273: a script may strike
@@ -1942,3 +1894,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 280 | Mass pass 2 (L5m) planned between L5a and L5b: reactor, turret, railgun, missile bay as structure plus contents with cited sources; the full mutation run on `29ce028` recorded (131 killed, 21 changed, 58 survived, 12 stale) | current |
 | 281 | Mass pass 2 on the sources: the reactor kept (no split without a 20 MWe source), the turret by its mount in L5m, the missile bay by a secondary source and the railgun unchanged in L5c; a secondary source allowed only when no primary exists, flagged; the pace study after L5m | current (amends #279 (2) and #280 (1)) |
 | 282 | Answers to L5a (PR #73): its engineer's ten questions, the blind checker's four discrepancies, the reviewer's findings; a fix round (K4's feed case, K1's stopping cell, B2's projection); the reactor's immediate explosion stated | current |
+| 283 | L5a merged (PR #73): the kinetic pass, its fix round; answers to the fix round's engineer and re-review; §17 items 34, 36, 41 closed; §13m rows proven L5a | current |
