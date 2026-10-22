@@ -12,7 +12,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - **Running**: L4a fix round `session_013MRAhtyyGbE3gKKimEYvsH` (opus, on
   `m0/l4a`, 07:12 UTC; #258: plates burn by mass, σ / cos θ, plate heat
   capacity, two withdrawals with successors; locked 3 scenarios at
-  `7399706`; light blind checker `session_01Wr6puuwLsvDJzWzrQYRdPN`). Review of PR #58: 2 blocking,
+  `7399706`; canonical run `ca2b896`, regress 92 VERIFIED + 87 WITHDRAWN +
+  5 RETIRED; the light blind checker found 0 mismatches, 3 wording gaps for
+  §13l.1; the final mutation run takes about 75 min). Review of PR #58: 2 blocking,
   both the lead designer's, answered in #258.
 - **Waiting on you**: nothing now. After L4a merges and the prototype page
   is republished with its kernel: play one duel on the phone, tap Export,
