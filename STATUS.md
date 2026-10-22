@@ -9,12 +9,10 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   consolidation (#242), **physics pass 2 (#243–#251)**.
-- **Running**: reviewer of PR #58 (L4a) `session_01JLq9WkPYXvq2MKY4iWZUxt`
-  (sonnet, 06:48 UTC). The L4a engineer finished (PR #58: 16 scenarios
-  PASS, regress 90 VERIFIED; `L2.layout.invalid` now FAILs on the new crew
-  rule, successor ready); the blind checker found 0 numeric mismatches and
-  3 discrepancies (plates are not burnt by a beam: the lead designer's
-  spec error, a fix round follows the review).
+- **Running**: L4a fix round `session_013MRAhtyyGbE3gKKimEYvsH` (opus, on
+  `m0/l4a`, 07:12 UTC; #258: plates burn by mass, σ / cos θ, plate heat
+  capacity, two withdrawals with successors). Review of PR #58: 2 blocking,
+  both the lead designer's, answered in #258.
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.
 - **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
@@ -210,7 +208,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
-| Check-in of this chat | `trig_017GR49pi3gaG85M64EwBeRQ` | 2026-10-22 07:37 UTC, once | read the PR #58 reviewer; answers row and fix round |
+| Check-in of this chat | `trig_01TMz35tUMPeEYky6A6TnrbW` | 2026-10-22 07:58 UTC, once | read the L4a fix round; light checker and re-review |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
