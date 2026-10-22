@@ -1065,8 +1065,6 @@ Each line names its decision and when it is due; a closed one is removed.
 11. A culling rule for debris and rounds in flight (#222 (7)). Built in pass 2 (`cull`); the loop calls it in L4b (item 26).
 14. Life support's own draw and heat (#205 (3), #207 (1): promised for L3,
     not built). Due: L5 (the L4 plan moved it, #253: no L4 route depends on it).
-23. Port `hypot`, `cbrt` and `atan2` if the owner's phone gives a different
-    determinism hash (#248 Q12). Due: the first phone smoke test.
 24. The PSTAR iron CSDA value at 200 MeV, cited, for S22's iron row (#248
     Q5). Due: when someone can reach NIST.
 26. `cull()` is called by the kernel's consumer, not by `step()`; a
@@ -1360,3 +1358,4 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 260 | L4a merged (PR #58); answers to the fix round's checker and re-review; pace measured on R1c (65 s) and R1d (215–306 s) | current |
 | 261 | R1d (turret plated) is the pace lever and L4b's reference ship | current |
 | 262 | The L4b plan amended (R1d, B13–B15, the citadel's five rounds, §17 cleaned) | current |
+| 263 | The owner's phone replays MATCH (hash `fe22bc2511c8b573`): the kernel is deterministic across engines; §17 item 23 closed | current |
