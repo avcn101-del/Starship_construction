@@ -119,7 +119,7 @@ Deferred: sloped armour (#6), now with tumble in `IDEAS.md`, after prototype v2 
 | Topic | Decision |
 |---|---|
 | Hits | A shot enters the first cell on its path; over-penetration loses the remaining momentum; debris blocks shots (#9) |
-| Damage channels | **Kinetic** (momentum: each cell takes part by its resistance). `fireRound` receives the round's velocity **relative to the hull** it hits: ships at rest give the muzzle velocity; L4 and L5 pass the relative velocity, as prototype v2 does (#202 F, #237), **thermal** (absorbed beam energy, which also becomes heat in the target room), **blast**, **EMP** (#137, #138) |
+| Damage channels | **Kinetic** (momentum: each cell takes part by its resistance; `fireRound` receives the round's velocity **relative to the hull** it hits: ships at rest give the muzzle velocity, and L4 and L5 pass the relative velocity, as prototype v2 does, #202 F, #237), **thermal** (absorbed beam energy, which also becomes heat in the target room), **blast**, **EMP** (#137, #138) |
 | Shields | An energy screen: an absorption rate plus a small buffer; everything stopped, kinetic included, costs budget and becomes heat (#21, #139) |
 | Fields | One rule: each source has a finite budget spread over its coverage with falloff; overlaps add, each source paying from its own budget (#99) |
 | Explosions | Through shared walls inside a ship; a radial field outside it (#141) |
