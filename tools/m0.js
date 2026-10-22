@@ -332,8 +332,9 @@ async function main() {
       'Each row: the scenario, its locked criterion hash, the verdict of its last canonical run,',
       'the hash of its run() at that run, the code it ran on, the unapproved constants the verdict',
       'depends on (it holds only once the owner approves them), and the command that reproduces it',
-      '(`DESIGN.md` §13). A WITHDRAWN scenario failed for a specification error; it stays locked',
-      'with its FAIL and is listed in `mission0/withdrawn.json` with its successor (#187 (8)).',
+      '(`DESIGN.md` §13). A WITHDRAWN scenario is superseded by its successor (a later decision) or was',
+      'a specification error; it stays locked with the verdict it was recorded with and is listed in',
+      '`mission0/withdrawn.json` with its successor and decision (#187 (8), #188, E-F10 of the scenario audit).',
       'A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (#237).', ''];
     for (const level of LEVELS) {
       const ss = all.filter((s) => s.level === level);
