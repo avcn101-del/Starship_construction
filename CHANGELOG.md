@@ -1,5 +1,27 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — L5m, mass pass 2: the turret by its mount (#285)
+
+- `js/data.js`: `turret.machineryMass` (new, 1975 kg per cell, 1750–2500,
+  k = 3, approved as the plan's, #272 (2)): the OTO Melara 76/62 Super
+  Rapid's 7.9 t over an M turret's four cells; `ROOMS.turret.cellMass` is
+  `['structure.cellMass', 'turret.machineryMass']`, as the engine's. A turret
+  cell is 4975 kg (was 14 800), σ 199 kg/m²: an M round passes both turret
+  cells and exits at 468.5 m/s. R1 911 234.057 kg, R1c 1 225 234.057 kg,
+  R1d 1 421 484.057 kg at T1. The heat capacity stays
+  `thermal.coupledCrewed`.
+- Scenarios (`DESIGN.md` §13n.4 M1, M2): `L0.turret.mount` (new) and twelve
+  successors, literals hand-worked from the cell masses: `L3.r1.pinned.v2`,
+  `L3.mass.props.v6`, `L3.r1c.props.v2`, `L4.readout.blueprint.v2`,
+  `L3.recoil.v6`, `L3.thrust.v6`, `L3.rcs.turn.v6`, `L3.split.momentum.v6`,
+  `L3.fragment.rules.v4`, `L3.destroyed.mass.v2`, `L3.shield.energy.v2`,
+  `L4.hit.oblique.v3`; their originals withdrawn under #285; 100 scenarios
+  re-recorded. `L4.cascade.v3`, `L4.route.missionKill.v2` and
+  `L4.route.overheat.v2` fail on the change (their routes change) and wait
+  on the designer.
+- `tools/mutations.json`: `l5m.turret.crewed`, `l5m.turret.noMachinery`,
+  `l5m.turret.mountValue`. `CONSTANTS.md` regenerated.
+
 ## Unreleased — 2026-10-22 — L5m planned (#285)
 
 - `DECISIONS.md` #285: the owner chose L5m now at its corrected cost; the

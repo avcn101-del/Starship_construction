@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `d6aa4f4`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `edcf0bd`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -72,6 +72,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | turret.fireRate | 0.5 | 1/s | 0.2 | 2 | -1 | true | size M; big guns fire slower (#183) |
 | turret.powerDraw | 200000 | W | 50000 | 1000000 | 2 | true | size M, while able to fire (#183) |
 | turret.heatPerShot | 300000 | J | 100000 | 1000000 | 3 | true | size M (#183) |
+| turret.machineryMass | 1975 | kg | 1750 | 2500 | 3 | true | mount per turret cell: the OTO Melara 76/62 Super Rapid without ammunition, 7.9 t (the manufacturer's brochure through a mirror; 7.62 t on navweaps) over an M turret's four cells; the Bofors 57 Mk3's 7.0 t the floor; a cell is structure.cellMass + this, as the engine's (#281 (2), #285; approved as the plan's, #272 (2)) |
 | turret.readyRounds | 4 | rounds | 2 | 10 | 0 | true | rounds held in the turret, of its own size; it fires from this store and the magazine feed refills it (#193, #195) |
 | magazine.capacity | 900 | kg | 300 | 3000 | 3 | true | ammunition mass a magazine holds: 150 M rounds (#91, #183, #206) |
 | magazine.detonationSpeed | 400 | m/s | 200 | 600 | 0 | true | a magazine with rounds detonates when a round enters one of its cells at this speed or more (relative to the hull; the round rule's momentum on entering over the round's mass, whether it stops there or passes); a destroyed cell alone no longer detonates it: between an M round after one crewed cell (333 m/s) and after a shield generator cell (485 m/s), so a crewed screen protects against M rounds, not L; the first rung-1 lever of the L5 pace study (#273 (c), #278; approved as the plan's, #272 (2)) |
@@ -139,7 +140,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | shieldGenerator | M 2×2, L 3×3 | anywhere | plant | coolant | crewRequired.shieldGenerator | shield.powerDraw | cellMass.shieldGenerator |
 | quarters | M 3×2 | inside | crewed | passive | housed | quarters.powerDraw | cellMass.crewed |
 | beamBay | M 2×2, L 3×3 (spinal, N ≥ 2) | hull, axis, bow clear | plant | coolant | crewRequired.beamBay | beam.power / beambay.efficiency | structure.cellMass,beambay.machineryMass |
-| turret | M 2×2, L 3×3 | hull | crewed | passive | crewRequired.turret | turret.powerDraw | cellMass.crewed |
+| turret | M 2×2, L 3×3 | hull | crewed | passive | crewRequired.turret | turret.powerDraw | structure.cellMass,turret.machineryMass |
 | railgun | M 2×N | axis | plant | coolant | crewRequired.railgun | - | cellMass.railgun |
 | missileBay | M 3×2 | hull | crewed | passive | crewRequired.missileBay | - | cellMass.crewed |
 | hold | M 2×2 | anywhere | crewed | passive | - | - | structure.cellMass |

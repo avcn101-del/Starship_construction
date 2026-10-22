@@ -1,0 +1,23 @@
+# Mutation coverage (tools/mutate.js, #246 (1))
+
+head 7987d8a+dirty, 2026-10-22
+command: node tools/mutate.js --only l5m.turret.crewed,l5m.turret.noMachinery,l5m.turret.mountValue --out /tmp/claude-0/-home-user/9b05c047-8fb8-53a6-ac9e-cc24be1b0764/scratchpad/mut-report.txt
+baseline: 113 scenarios VERIFIED by regress, every one PASS with its recorded results in an unmutated copy
+wall time: 2.1 min
+classes: KILLED = some verdict is not PASS (a criterion noticed); CHANGED = every verdict PASS but some output moved from its record (not coverage: no criterion noticed, #257); SURVIVED = every verdict PASS, every output as recorded; STALE = the edit no longer applies; TIMEOUT
+
+id                      rule                                              class     first killing scenario, or the changed scenarios
+l5m.turret.crewed       13n.4 M1-M2 (#285): the turret by its mount       KILLED    L0.turret.mount (FAIL)
+l5m.turret.noMachinery  13n.4 M1-M2 (#285): the turret by its mount       KILLED    L0.turret.mount (FAIL)
+l5m.turret.mountValue   13n.4 M1-M2 (#285): turret.machineryMass 1975 kg  KILLED    L0.turret.mount (FAIL)
+
+total 3: KILLED 3, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0
+
+per DESIGN section:
+  §13n.4   3: KILLED 3, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0
+
+note (the engineer, L5m): run in a scratch worktree at 7987d8a with the records of L4.cascade.v3,
+L4.route.missionKill.v2 and L4.route.overheat.v2 deleted (hence "+dirty"): those three fail on #285 (their routes change, a
+question for the designer in the pull request) and m0.js cov counts every recorded PASS not withdrawn, so the tool refused
+the branch as it stands; the baseline is the 113 scenarios regress reports VERIFIED. The report was written to the scratchpad
+(--out) and copied here.
