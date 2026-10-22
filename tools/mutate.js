@@ -11,8 +11,9 @@
 //
 // Classes: STALE (`old` not found exactly once in `file`), KILLED (some
 // verdict is not PASS, or the run throws), CHANGED (every verdict PASS, some
-// result differs from its record), SURVIVED (every verdict PASS, every result
-// as recorded), TIMEOUT (the run took longer than --timeout, default 600 s).
+// result differs from its record: an output moved, which is not coverage, no
+// criterion noticed it, #257), SURVIVED (every verdict PASS, every result as
+// recorded), TIMEOUT (the run took longer than --timeout, default 600 s).
 // A changed data hash alone is not a kill: a data.js mutation that only
 // changes the data hash is not caught by physics.
 import fs from 'node:fs';
@@ -32,7 +33,7 @@ function parseArgs(argv) {
   const o = { jobs: os.cpus().length, timeout: 600, only: null, rule: null, out: null, catalogue: path.join(ROOT, 'tools', 'mutations.json'), failFast: true };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], next = () => { if (i + 1 >= argv.length) throw new Error(`${a} needs a value`); return argv[++i]; };
-    if (a === '--jobs') o.jobs = Math.max(1, Number(next()));
+    if (a === '--jobs') o.jobs = Number(next());
     else if (a === '--timeout') o.timeout = Number(next());
     else if (a === '--only') o.only = next().split(',').filter(Boolean);
     else if (a === '--rule') o.rule = next();
@@ -41,7 +42,7 @@ function parseArgs(argv) {
     else if (a === '--no-fail-fast') o.failFast = false;
     else throw new Error(`unknown option ${a}`);
   }
-  if (!(o.timeout > 0) || !Number.isInteger(o.jobs)) throw new Error('--jobs and --timeout take positive numbers');
+  if (!(o.timeout > 0) || !Number.isInteger(o.jobs) || !(o.jobs >= 1)) throw new Error('--jobs takes a whole number of at least 1 and --timeout a positive number (#257)');
   return o;
 }
 
@@ -124,7 +125,8 @@ function report(results, { head, date, command, baseline, seconds }) {
   lines.push(`# Mutation coverage (tools/mutate.js, #246 (1))`, '');
   lines.push(`head ${head}, ${date}`, `command: ${command}`);
   lines.push(`baseline: ${baseline} scenarios VERIFIED by regress, every one PASS with its recorded results in an unmutated copy`);
-  lines.push(`wall time: ${(seconds / 60).toFixed(1)} min`, '');
+  lines.push(`wall time: ${(seconds / 60).toFixed(1)} min`);
+  lines.push('classes: KILLED = some verdict is not PASS (a criterion noticed); CHANGED = every verdict PASS but some output moved from its record (not coverage: no criterion noticed, #257); SURVIVED = every verdict PASS, every output as recorded; STALE = the edit no longer applies; TIMEOUT', '');
   const w = { id: Math.max(2, ...results.map((r) => r.m.id.length)), rule: Math.max(4, ...results.map((r) => r.m.rule.length)) };
   lines.push(`${'id'.padEnd(w.id)}  ${'rule'.padEnd(w.rule)}  ${'class'.padEnd(8)}  first killing scenario, or the changed scenarios`);
   for (const r of results) lines.push(`${r.m.id.padEnd(w.id)}  ${r.m.rule.padEnd(w.rule)}  ${r.cls.padEnd(8)}  ${r.detail}`);

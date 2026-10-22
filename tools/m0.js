@@ -37,8 +37,11 @@ const LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
 // canonical run skips it, and verify and regress check its lock and its run()
 // against that record instead of re-running it against today's data. Every
 // withdrawn scenario that is not retired is frozen (#250). Every entry carries
-// `recordHash`, the hash of its record's stable JSON at withdrawal (§17 item
-// 29): verify and regress compare it, so a later re-record cannot pass.
+// `recordHash`, the hash of its record's stable JSON as the record stood when
+// the hash was added (§17 item 29, #257: for the entries withdrawn before then,
+// that is the frozen record as kept, not necessarily the record at the moment
+// of withdrawal): verify and regress compare it, so a later re-record cannot
+// pass.
 const WITHDRAWN_FILE = path.join(ROOT, 'mission0', 'withdrawn.json');
 const WITHDRAWN = new Map((fs.existsSync(WITHDRAWN_FILE) ? JSON.parse(fs.readFileSync(WITHDRAWN_FILE, 'utf8')) : []).map((w) => [w.id, w]));
 /** The scenario that stands for `id`: itself, or the end of its chain of successors when it was withdrawn and its successor withdrawn in turn (#188, #221). */
@@ -208,7 +211,7 @@ function recorded(id) {
   const f = path.join(RESULTS, `${id}.json`);
   return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null;
 }
-/** The hash of a record's stable JSON, kept in withdrawn.json as `recordHash` (§17 item 29). */
+/** The hash of a record's stable JSON, kept in withdrawn.json as `recordHash`: the record as it stood when the hash was added (§17 item 29, #257). */
 const recordHash = (rec) => hash(stableStringify(rec));
 /** Dependencies not recorded PASS; a withdrawn dependency counts through its successor, and through that one's successor if it was withdrawn in turn (#188, #200, #221). */
 function unmetDeps(s) {

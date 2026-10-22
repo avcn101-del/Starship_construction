@@ -12,7 +12,7 @@
 // setting from proto/config.js.
 // The kernel turns ships with js/util.js's deterministic sin and cos (#239 Q6, 13k.1), so a battle replays across
 // engines; this file uses them too.
-import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, setDemand, enablePowerRouting, setBeams, setRcs, shieldRound, fireRound, fireBeam, beamEnergy, step, readout, isDestroyed, survivingCells, survivingFraction, magazineContents, cellAt, cull } from '../js/rooms.js';
+import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, setDemand, enablePowerRouting, setBeams, setRcs, shieldRound, fireRound, fireBeam, beamEnergy, step, readout, isDestroyed, survivingCells, survivingFraction, magazineContents, cellAt, plateBetween, cull } from '../js/rooms.js';
 import { withOverrides, TIERS, FIXED, PARAMS, ROOMS, scaled } from '../js/data.js';
 import { rng, sin } from '../js/util.js';
 import { roundGeometry } from '../js/projectile.js';
@@ -205,10 +205,12 @@ export function crossedCells(o, d, grid, edge, maxT = Infinity) {
 /**
  * What a line meets on a ship: for each of its bodies, the line from world point `from` (on the pose `before`
  * of that body) to world point `to` (on its pose now), or the ray from `from` along `dir` (world) if `to` is null,
- * through the body's grid; the first room cell of that body it crosses (a hole counts: a destroyed cell stays on
- * the path, #212 (5)) within the segment opens the path, which runs on to the grid's edge. A path without a
- * surviving cell is no hit. Returns the nearest hit { body, entry (grid m), dir (grid), path [{ room, cell }],
- * cells [[i, j]], t (fraction of the segment, or distance along the ray), length (grid m of the segment) } or null.
+ * through the body's grid; the first room cell or armour plate of that body it crosses (a hole counts: a destroyed
+ * cell stays on the path, #212 (5)) within the segment opens the path, which runs on to the grid's edge. An armour
+ * plate (the kernel's plateBetween, 13l.1) enters the path where the line crosses its wall segment, before the next
+ * cell, as { plate, chord: 1 } (STAND-IN chord, as the cells'). A path without a surviving cell is no hit. Returns
+ * the nearest hit { body, entry (grid m), dir (grid), path [{ room, cell } or { plate }], cells [[i, j]] (room
+ * cells only), t (fraction of the segment, or distance along the ray), length (grid m of the segment) } or null.
  */
 function lineHit(battle, ship, from, to, dir, before = null) {
   let best = null;
@@ -221,13 +223,22 @@ function lineHit(battle, ship, from, to, dir, before = null) {
     let first = -1;
     const path = [], at = [];
     for (let k = 0; k < cells.length; k++) {
+      // The segment the line crosses into cell k: from cell k - 1, or for the first cell from outside the grid.
+      const [i, j] = cells[k].cell, e = battle.edge, p0 = [a[0] + d[0] * cells[k].t, a[1] + d[1] * cells[k].t];
+      const on = (q, v) => Math.abs(q - v) < 1e-9;
+      const prev = k > 0 ? cells[k - 1].cell : on(p0[0], i * e) ? [i - 1, j] : on(p0[0], (i + 1) * e) ? [i + 1, j] : on(p0[1], j * e) ? [i, j - 1] : on(p0[1], (j + 1) * e) ? [i, j + 1] : null;
+      const f = prev ? plateBetween(ship.world, prev, cells[k].cell) : null;
+      if (f && ship.room(f.room).cells[f.k].fragment === b.id) {
+        if (first < 0) { if (cells[k].t > L) break; first = k; }
+        path.push({ plate: f, chord: 1 });
+      }
       const c = cellAt(ship.world, cells[k].cell);
       if (!c || c.room.cells[c.index].fragment !== b.id) continue;
       if (first < 0) { if (cells[k].t > L) break; first = k; }
       path.push({ room: c.room, cell: c.index });
       at.push(cells[k].cell);
     }
-    if (first < 0 || !path.some((x) => !x.room.cells[x.cell].destroyed)) continue;
+    if (first < 0 || !path.some((x) => !x.plate && !x.room.cells[x.cell].destroyed)) continue;
     const t = cells[first].t;
     if (best && (to ? t / L : t) >= best.t) continue;
     best = { body: b.id, entry: [a[0] + d[0] * t, a[1] + d[1] * t], dir: d, path, cells: at, t: to ? t / L : t, length: L };
@@ -372,7 +383,8 @@ function beamsOut(battle, shooter) {
     const range = len(sub(worldPoint(mainBody(target), mainBody(target).c), b.from));
     const res = fireBeam(target.world, { power: b.passed, energy: beamEnergy(shooter.world, shooter.room('beamBay')), range }, b.hit.path, `${shooter.name}:beam`);
     b.landed = true;
-    b.deepest = res.fractions.reduce((k, F, i) => (F > 0 ? i : k), 0); // the deepest path cell it reached, for the view
+    const deepest = res.fractions.reduce((k, F, i) => (F > 0 ? i : k), 0);
+    b.deepest = b.hit.path.slice(0, deepest + 1).filter((x) => !x.plate).length - 1; // the deepest room cell it reached, for the view
   }
 }
 
@@ -414,13 +426,14 @@ function flyRounds(battle, before) {
 }
 function strike(battle, r, hit) {
   const w = r.target.world, speed = hit.length / battle.dt;
-  const firstLive = hit.path.find((x) => !x.room.cells[x.cell].destroyed); // before the round changes it
+  const firstLive = hit.path.find((x) => !x.plate && !x.room.cells[x.cell].destroyed); // before the round changes it
   const sh = shieldRound(w, { position: hit.entry, mass: battle.round.mass, velocity: speed, area: battle.round.area, direction: hit.dir });
   const res = sh.velocity > 0 ? fireRound(w, { mass: battle.round.mass, velocity: sh.velocity, area: battle.round.area, direction: hit.dir }, hit.path, r.cause) : null;
   r.shooter.stats.hits++;
   const reached = res ? hit.path.slice(0, res.stoppedIn >= 0 ? res.stoppedIn + 1 : hit.path.length) : [];
-  battle.events.push({ side: r.target.side, t: battle.t, type: 'round-hit', room: firstLive.room.id, cause: r.cause, speed, afterShield: sh.velocity, passed: res ? res.passed : 0, stoppedIn: res ? (res.stoppedIn >= 0 ? hit.path[res.stoppedIn].room.id : 'exit') : 'shield' });
-  battle.hits.push({ t: battle.t, shooter: r.shooter.side, target: r.target.side, entry: hit.entry, dir: hit.dir, cells: hit.cells.slice(0, Math.max(1, reached.length)), stopped: res ? res.stoppedIn >= 0 : true });
+  const stopEntry = res && res.stoppedIn >= 0 ? hit.path[res.stoppedIn] : null;
+  battle.events.push({ side: r.target.side, t: battle.t, type: 'round-hit', room: firstLive.room.id, cause: r.cause, speed, afterShield: sh.velocity, passed: res ? res.passed : 0, stoppedIn: res ? (stopEntry ? (stopEntry.plate ? `plate:${stopEntry.plate.room}` : stopEntry.room.id) : 'exit') : 'shield' });
+  battle.hits.push({ t: battle.t, shooter: r.shooter.side, target: r.target.side, entry: hit.entry, dir: hit.dir, cells: hit.cells.slice(0, Math.max(1, reached.filter((x) => !x.plate).length)), stopped: res ? res.stoppedIn >= 0 : true });
   if (battle.hits.length > 50) battle.hits.shift();
 }
 

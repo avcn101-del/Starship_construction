@@ -202,3 +202,23 @@ route('T-gun: beam on the turret (+x rows 5, 4)', { beam: [['+x', 5, 'turret'], 
   const mag = magazineContents(world, room('magazine'));
   console.log(`T-gun: fires until dry: last round gone at ${lostAt === null ? '-' : lostAt.toFixed(2)} s, Disabled at ${end === null ? '-' : end.toFixed(2)} s; magazine left ${mag.ap + mag.he}; expected (ready ${params.turret.readyRounds.value} + ${scaled(params.magazine.capacity, edge) / roundMass} rounds) x ${shotEvery} s = ${((params.turret.readyRounds.value + scaled(params.magazine.capacity, edge) / roundMass) * shotEvery).toFixed(0)} s`);
 }
+
+// ---------- R1c (13l.2, #256): A10's literals, from R1's readout and the plates as point masses ----------
+// Run-time only (#241 (1)): R1 is built by the kernel without plates; each plate of armour.plateThickness (0.2 m,
+// planned, unless data.js holds it) adds d x FIXED.steelDensity x edge^2 at its segment's midpoint, combined here by
+// the parallel-axis rule, so the literals do not come from the kernel's plate code.
+import { readout } from '../../js/rooms.js';
+{
+  const { world } = buildTarget();
+  const r1 = readout(world), d = params.armour.plateThickness ? scaled(params.armour.plateThickness, edge) : 0.2 * (edge / 5);
+  const m = d * FIXED.steelDensity.value * edge * edge;
+  const segments = [[[7, 2], [-1, 0]], [[7, 3], [-1, 0]], [[8, 2], [1, 0]], [[8, 3], [1, 0]], [[7, 2], [0, -1]], [[8, 2], [0, -1]], [[7, 3], [0, 1]], [[8, 3], [0, 1]]];
+  const pts = segments.map(([c, s]) => [(c[0] + 0.5 + s[0] / 2) * edge, (c[1] + 0.5 + s[1] / 2) * edge]);
+  const M = r1.mass + m * pts.length;
+  const c = [(r1.mass * r1.centre[0] + m * pts.reduce((x, p) => x + p[0], 0)) / M, (r1.mass * r1.centre[1] + m * pts.reduce((x, p) => x + p[1], 0)) / M];
+  const d2 = (p) => (p[0] - c[0]) ** 2 + (p[1] - c[1]) ** 2;
+  const I = r1.inertia + r1.mass * d2(r1.centre) + m * pts.reduce((x, p) => x + d2(p), 0);
+  const g = scaled(params.engine.thrust, edge) / M / FIXED.standardGravity.value;
+  console.log(`--- R1c at T1: R1 ${r1.mass} kg + 8 plates x ${m} kg (d ${d} m) = ${M} kg (${(M - r1.mass).toFixed(6)} kg of plates); ${g.toPrecision(6)} g`);
+  console.log(`    centre (${c[0].toPrecision(17)}, ${c[1].toPrecision(17)}) m; inertia ${I.toPrecision(17)} kg m^2 (R1: centre (${r1.centre.map((x) => x.toPrecision(17)).join(', ')}), inertia ${r1.inertia.toPrecision(17)})`);
+}

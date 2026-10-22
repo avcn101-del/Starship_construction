@@ -10,7 +10,11 @@
 // [x e, (x + 1) e] x [y e, (y + 1) e]. From L3 (13f.1, #57, #208): fittings on
 // open edges and the validation of a ship's blueprint. The path model (13i.1,
 // #234): a spinal room (the beam bay) is N cells long along the ship's axis,
-// on its axis rows, its bow face clear. No DOM, no Math.random.
+// on its axis rows, its bow face clear. L4a (13l.1, #255, #256): an armour
+// plate sits on one wall segment, a hull edge or a shared wall (never a deck),
+// and the crew the rooms require must have berths in the quarters. No DOM, no
+// Math.random.
+import { PARAMS, scaled } from './data.js';
 
 const SIDES = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 const key = (x, y) => `${x},${y}`;
@@ -141,6 +145,51 @@ export function fittingProblem(layout, defs, fitting, placed = []) {
 }
 
 /**
+ * The wall segment between grid cell `cell` and its neighbour on `side`, the same key from either side: the
+ * cell with the smaller x (side [1, 0]) or y (side [0, 1]) names it. Plates are found by it (13l.1).
+ */
+export function segmentKey(cell, side) {
+  return side[0] + side[1] > 0 ? edgeKey(cell, side) : edgeKey([cell[0] + side[0], cell[1] + side[1]], [-side[0], -side[1]]);
+}
+/**
+ * Why an armour plate { room, cell, side } cannot sit where it is asked to (null if it can), given the
+ * fittings and plates already placed (13l.1, #255, #256). A plate sits on one wall segment of a cell of its room:
+ * a hull edge (an open edge, where the fitting rules hold: not on an inside room, not on an exhaust face, one
+ * fitting per edge, #15) or a shared wall (the neighbour cell in another room; any room, the magazine's citadel
+ * included); never on an edge inside its own room, and at most one plate per segment ('plate-wall',
+ * 'fitting-per-edge').
+ */
+export function plateProblem(layout, defs, plate, placed = []) {
+  const room = layout.rooms.get(plate.room);
+  if (!room) return { rule: 'fitting-open-edge', detail: `no room ${plate.room}` };
+  if (!room.cells.some((c) => c[0] === plate.cell[0] && c[1] === plate.cell[1])) return { rule: 'fitting-open-edge', detail: `cell (${plate.cell}) is not in ${room.id}` };
+  const other = layout.occupied.get(key(plate.cell[0] + plate.side[0], plate.cell[1] + plate.side[1]));
+  if (!other) return fittingProblem(layout, defs, plate, placed); // a hull edge: a fitting like any other (#15)
+  if (other.id === room.id) return { rule: 'plate-wall', detail: `the edge (${plate.cell}) side (${plate.side}) lies inside ${room.id}: a plate sits on a hull edge or a shared wall` };
+  const k = segmentKey(plate.cell, plate.side);
+  if (placed.some((f) => f.type === 'armour' && segmentKey(f.cell, f.side) === k)) return { rule: 'fitting-per-edge', detail: `two plates on the wall segment (${plate.cell}) side (${plate.side})` };
+  return null;
+}
+
+/**
+ * Crew capacity (#60, #220 (5), 13l.1): the crew every room requires (its crewRequired constant at the edge, x
+ * its cell ratio, rounded, as rooms.js crews it) against the berths of the quarters (cells x
+ * quarters.crewPerCell at the edge, rounded). Returns { required, berths }.
+ */
+export function crewCapacity(layout, defs, params = PARAMS) {
+  let required = 0, berths = 0;
+  for (const room of layout.rooms.values()) {
+    const type = layout.types.get(room.id), def = defs[type], n = room.cells.length;
+    if (def.crew === 'housed') berths += Math.round(scaled(params.quarters.crewPerCell, layout.edge)) * n;
+    else if (def.crew) {
+      const [g, c] = def.crew.split('.'), ratio = n / (def.footprint.M[0] * def.footprint.M[1]);
+      required += Math.round(scaled(params[g][c], layout.edge) * ratio);
+    }
+  }
+  return { required, berths };
+}
+
+/**
  * Validation (#57, 13f.1): a blueprint { grid, edge, rooms: [{ id, type,
  * size, cell, rotation }], fittings: [{ type, room, cell, side }] } undocks
  * only if every rule holds. Returns { valid, reasons: [{ rule, room,
@@ -152,11 +201,13 @@ export function fittingProblem(layout, defs, fitting, placed = []) {
  * axis rows: its rows must hold the ship's centre line, the mean row of the
  * cells of the rooms joined to a bridge, strictly inside them), 'bow' (a room placed 'bow
  * clear' with a cell ahead of it in its rows, #234), and the fitting rules
- * of fittingProblem. A room's `length` is its N if it is spinal. A room that
- * leaves the grid or overlaps is not placed, so it is judged by that rule
- * alone.
+ * of fittingProblem; an armour plate (type 'armour') by plateProblem's; and
+ * 'crew' (13l.1, #60): the crew the rooms require exceeds the quarters'
+ * berths (crewCapacity, with `params`, PARAMS unless given). A room's `length`
+ * is its N if it is spinal. A room that leaves the grid or overlaps is not
+ * placed, so it is judged by that rule alone.
  */
-export function validateShip(blueprint, defs) {
+export function validateShip(blueprint, defs, params = PARAMS) {
   const layout = createLayout({ edge: blueprint.edge || 1, grid: blueprint.grid });
   const reasons = [];
   for (const r of blueprint.rooms) {
@@ -201,9 +252,11 @@ export function validateShip(blueprint, defs) {
       if (blocked) reasons.push({ rule: 'exhaust', room: id, detail: `${id}: a cell lies aft of its exhaust in row ${blocked[1]}` });
     }
   }
+  const crew = crewCapacity(layout, defs, params);
+  if (crew.required > crew.berths) reasons.push({ rule: 'crew', room: null, detail: `the rooms require ${crew.required} crew and the quarters have ${crew.berths} berths` });
   const placed = [];
   for (const f of blueprint.fittings || []) {
-    const p = fittingProblem(layout, defs, f, placed);
+    const p = f.type === 'armour' ? plateProblem(layout, defs, f, placed) : fittingProblem(layout, defs, f, placed);
     if (p) reasons.push({ ...p, room: f.room });
     else placed.push(f);
   }

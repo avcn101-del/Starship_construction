@@ -139,7 +139,10 @@ export function penetrateRound({ momentum, area, strength }, resistances) {
 // distance in which the energy would fall to zero at the current stopping
 // power (so an energy change of about 1 % per step); a particle below
 // STOP_ENERGY (1 MeV, a residual range of about 0.03 kg/m^2 of iron) has
-// stopped. Fourth-order Runge-Kutta in areal density.
+// stopped. Fourth-order Runge-Kutta in areal density. The step that would go
+// below STOP_ENERGY is cut where its own Runge-Kutta step lands exactly on it
+// (13l.1, §17 item 27), so the range is continuous in energy: when an energy
+// change adds a step, the cut step had already grown to the full step.
 const PATH_STEP_MAX = 2; // kg/m^2, 0.5 % of a T1 cell
 const PATH_STEP_REL = 0.01;
 const STOP_ENERGY = 1.602176634e-13; // J, 1 MeV
@@ -155,20 +158,33 @@ export function betheStopping(E, c) {
   return ((c.K * c.ZA) / b2) * (0.5 * log((2 * c.electronRest * bg2 * tMax) / (c.I * c.I)) - b2);
 }
 
-/** A proton of energy E crossing X kg/m^2: its energy after, or 0 and where it stopped. */
+/**
+ * A proton of energy E crossing X kg/m^2: its energy after, or 0 and where it stopped; `steps` counts the
+ * Runge-Kutta steps (the cut last one included).
+ */
 function slowDown(E, X, c) {
   const dE = (e) => -betheStopping(e, c);
-  let x = 0;
+  const rk4 = (E, h) => { const k1 = dE(E), k2 = dE(E + (h / 2) * k1), k3 = dE(E + (h / 2) * k2), k4 = dE(E + h * k3); return E + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4); };
+  let x = 0, steps = 0;
   while (x < X && E > 0) {
     const h = Math.min(X - x, PATH_STEP_MAX, (PATH_STEP_REL * E) / betheStopping(E, c));
     if (!(h > 0)) break;
-    const k1 = dE(E), k2 = dE(E + (h / 2) * k1), k3 = dE(E + (h / 2) * k2), k4 = dE(E + h * k3);
-    const next = E + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4);
+    const next = rk4(E, h);
+    steps++;
+    if (!(next >= STOP_ENERGY)) {
+      // The cut step: bisection on its length to the float resolution, the longest step that stays at or above STOP_ENERGY.
+      let lo = 0, hi = h;
+      for (;;) {
+        const mid = (lo + hi) / 2;
+        if (!(mid > lo && mid < hi)) break;
+        if (rk4(E, mid) >= STOP_ENERGY) lo = mid; else hi = mid;
+      }
+      return { E: 0, stoppedAt: x + lo, steps };
+    }
     x += h;
-    if (!(next >= STOP_ENERGY)) return { E: 0, stoppedAt: x };
     E = next;
   }
-  return { E, stoppedAt: null };
+  return { E, stoppedAt: null, steps };
 }
 
 /**
@@ -179,6 +195,11 @@ function slowDown(E, X, c) {
  */
 export function csdaRange(E, c, material = null) {
   return slowDown(E, Infinity, material ? { ...c, ZA: material.ZA, I: material.I } : c).stoppedAt;
+}
+/** csdaRange with the number of integration steps it took: { range, steps } (L0.beam.csda.continuous finds where the count changes). */
+export function csdaSteps(E, c, material = null) {
+  const r = slowDown(E, Infinity, material ? { ...c, ZA: material.ZA, I: material.I } : c);
+  return { range: r.stoppedAt, steps: r.steps };
 }
 
 /**

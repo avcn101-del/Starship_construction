@@ -44,10 +44,20 @@ export const R1B_FITTINGS = [
   ['rcs', 'engine', [0, 3], [0, 1]], ['rcs', 'engine', [0, 2], [0, -1]], ['rcs', 'beamBay', [12, 3], [0, 1]], ['rcs', 'beamBay', [12, 2], [0, -1]],
 ];
 export const R1B_SIZE = [13, 6];
+// Prototype setting: R1c (DESIGN.md 13l.2, #255, #256), a lever of the loadout panel: R1 with an armour plate of
+// armour.plateThickness (js/data.js) on each of the 8 wall segments around its magazine [7, 9) x [2, 4) (a
+// citadel): the walls to the bridge (x = 7), the beam bay (x = 9), the hold (y = 2) and the quarters and turret
+// (y = 4). The plates follow R1's 21 fittings (ids 21-28), so the RCS keep ids 17-20.
+export const R1C_FITTINGS = [
+  ...R1_FITTINGS,
+  ['armour', 'magazine', [7, 2], [-1, 0]], ['armour', 'magazine', [7, 3], [-1, 0]], ['armour', 'magazine', [8, 2], [1, 0]], ['armour', 'magazine', [8, 3], [1, 0]],
+  ['armour', 'magazine', [7, 2], [0, -1]], ['armour', 'magazine', [8, 2], [0, -1]], ['armour', 'magazine', [7, 3], [0, 1]], ['armour', 'magazine', [8, 3], [0, 1]],
+];
 // Prototype setting: the layouts the loadout panel offers.
 export const LAYOUTS = {
   R1: { label: 'R1', rooms: R1_ROOMS, fittings: R1_FITTINGS, size: R1_SIZE },
   R1B: { label: 'R1-B', rooms: R1B_ROOMS, fittings: R1B_FITTINGS, size: R1B_SIZE },
+  R1C: { label: 'R1c', rooms: R1_ROOMS, fittings: R1C_FITTINGS, size: R1_SIZE },
 };
 
 // Prototype setting: the loadout panel (#223's ladder: constants within approved ranges, then layout and
@@ -66,7 +76,7 @@ export const LOADOUT = {
     { value: 'heFull', label: 'HE full', he: 1, ap: 0 }, { value: 'apFull', label: 'AP full', he: 0, ap: 1 },
     { value: 'heHalf', label: 'HE half', he: 0.5, ap: 0 }, { value: 'apQuarter', label: 'AP quarter', he: 0, ap: 0.25 },
   ] },
-  layout: { label: 'Layout', options: [{ value: 'R1', label: 'R1' }, { value: 'R1B', label: 'R1-B' }] },
+  layout: { label: 'Layout', options: [{ value: 'R1', label: 'R1' }, { value: 'R1B', label: 'R1-B' }, { value: 'R1C', label: 'R1c' }] },
   shieldBudget: { label: 'Shield budget', override: 'shield.budget', options: [{ value: null, label: `${PARAMS.shield.budget.value / 1e6} MW` }, { value: 5e6, label: '5 MW' }, { value: 2e7, label: '20 MW' }] },
   hitsToWreck: { label: 'Hits to wreck', override: 'kinetic.hitsToWreck', options: [{ value: null, label: `${PARAMS.kinetic.hitsToWreck.value}` }, { value: 5, label: '5' }] },
   turrets: { label: 'Turrets', options: [{ value: true, label: 'on' }, { value: false, label: 'off' }] },
