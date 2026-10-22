@@ -82,6 +82,8 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, L5a the kinetic pass (`m0/l5a-kinetic`, PR #73, head `d3314ff`; 18 scenarios, 12 withdrawn; notified by trigger) | session_01SYb2ggvdzrs6Wkv4poedYu | opus-5-5 | 16.82 |
 | Physics checker, L5a (blind, from lock `4e217c0`; `checker/l5a`; 4 discrepancies, none changing a verdict; notified by trigger) | session_01XkBuUzH7GYPyvKqtXN5Njc | sonnet-5-5 | 1.90 |
 | Reviewer, L5a (PR #73; 1 blocking, 3 decisions, 6 notes; notified by trigger) | session_01NDg1145HtJvSBDeUX9x453 | sonnet-5-5 | 1.03 |
+| Engineer, L5a fix round (#282 (7), head `d9e55d1`; 3 successors; notified by trigger) | session_01SvoQV7Y7js179KxHYMir2p | opus-5-5 | 3.34 |
+| Reviewer, L5a fix round (PR #73, light; 0 blocking, 3 notes; notified by trigger) | session_01NwAEJ4ozPa3ZESrSXUBpbN | sonnet-5-5 | 0.45 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -102,6 +104,7 @@ L4b total: 23.98 USD (engineer 19.06, physics checker 3.91, reviewer 1.01). L4 t
 Audits before L5 (2026-10-22, light): 6.91 USD (documents 1.70, process 0.91, physics 2.33, scenarios 1.97).
 L4 fix round total: 6.83 USD (engineer 6.41, reviewer 0.42).
 L4 scenario-hygiene round total: 15.89 USD (engineer 10.58, physics checker 4.06, reviewer 1.25). L4 total (L4a + L4b + fix + hygiene): ≥ 64.27 USD.
+L5a total: 23.54 USD (engineers 16.82 + 3.34, physics checker 1.90, reviewers 1.03 + 0.45).
 
 The lead designer chat's own cost (planning, answers, checks, merges) is **not in this ledger** (#270 (7)): only the sessions it creates are costed.
 
@@ -117,5 +120,6 @@ One row per pass under the plan gate (#241): the raw range the plan stated, wher
 | L4b | 18–25 | #253, #262 | 23.98 | 1.12 |
 | L4 fix round | 3–5 | #270 (9) | 6.83 (#272 says 4.93: the engineer's cost rose after its last turn) | 1.71 |
 | L4 scenario-hygiene round | 10–15 | #271, §13l.7 | 15.89 | 1.27 |
+| L5a (the kinetic pass, with its fix round) | 11–16 | #278, §13n.5 | 23.54 | 1.74 |
 
 Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).
