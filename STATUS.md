@@ -13,9 +13,10 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**.
-- **Running**: **L5a, the kinetic pass** (engineer `session_01SYb2ggvdzrs6Wkv4poedYu`, opus, `m0/l5a-kinetic`, created 15:12 UTC; the checker and reviewer follow its pull request). The previous chat's full mutation run on `29ce028` is merged (PR #70, #280 (2)): 131 killed, 21 changed, 58 survived, 12 stale; that chat is finished. `regress` on `29ce028`: 109 VERIFIED + 106 WITHDRAWN + 5 RETIRED.
+- **Running**: the **L5a fix round** (#282 (7): K4's feed case, K1's stopping cell, B2's projection, `main` merged in) on `m0/l5a-kinetic`, PR #73; then a light re-review and the merge. L5a's review is done: `regress` on the head 115 VERIFIED + 118 WITHDRAWN + 5 RETIRED (verified by this chat); the blind checker reproduced every hand-worked number (4 discrepancies, none changing a verdict); the reviewer found 1 blocking gap (a check that passed whatever the code did).
 - **Waiting on you**: nothing now. Your sources are recorded (#281): the reactor keeps 150 t per cell, the turret becomes structure plus a 7.9 t mount in L5m, the missile bay and railgun are set in L5c. After L5m merges you choose `magazine.detonationSpeed` on the pace study's table (§13n.1 (b)). The shield-by-layout idea is for the design partner's `IDEAS.md`. Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280, #281. The prototype page is on the L4b kernel (version 5): play it and say what is not fun (#223's ladder).
-- **Money**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
+- **Money**: L5a so far 19.75 USD (engineer 16.82, checker 1.90, reviewer 1.03) against raw 11–16, the rule's 28–40 and my 14–20, before the fix round.
+- **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
   L4 in all ≥ 64.27 (#191: past 40).
