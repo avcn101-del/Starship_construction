@@ -1,5 +1,26 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — L4 fix round: B1 and the opening range (the lead designer's decision 269, not yet in `DECISIONS.md`)
+
+- **`js/battle.js`** (finding B1 of `audit/2026-10-22-l4-physics.md`): a
+  hit's momentum exchange runs along the round's velocity relative to the
+  hull, in the body frame, for `shieldRound` and `fireRound` alike;
+  `lineHit` still decides whether and where a round hits. Each call takes
+  the round's world velocity relative to the hull at the point it books
+  the hull at (the entry point for the field; the first entry with matter,
+  a cell's centre or a plate's midpoint, for `fireRound`), so the `u0` it
+  rebuilds is the round's own velocity and a passing round flies on with a
+  consistent `u1`. The two-ship linear book closes at 5e-15 of gross (was
+  2.2e-5). `battleMomentum`'s gross counts debris, left and spent.
+- **`L4.books.two`** (B16): B1's battle, and the same with the target
+  spinning (0.05 rad/s) and drifting across the line of fire (20 m/s);
+  the two-ship book at 1e-9 × gross at every hit and at the end.
+- **`battle.openingRange`** (T2, §17 item 35): 900 m, 500–2000, k = 1,
+  approved (decision 269); `createBattle`'s default distance and the prototype's
+  start separation read it. `CONSTANTS.md` regenerated; every passing
+  scenario re-recorded on the new data hash.
+- Mutations `l4x.dir.bodyFrame`, `l4x.books.missingTerm`, `l4x.range.k0`.
+
 ## Unreleased — 2026-10-22 — L4b merged; answers (#265–#267)
 
 - `DESIGN.md` §13l.1: the turret aims at the first surviving cell's

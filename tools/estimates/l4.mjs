@@ -248,7 +248,7 @@ route('R1d: reactor, kinetic (-y cols 3, 4)', { kinetic: [['-y', 3, 'reactor'], 
 
 // ---------- L4b: the battle loop's own numbers (js/battle.js, 13l.1), with the time of flight ----------
 // The literals the L4b scenarios quote: the first round's arrival step (B1), the dry route's step (B5), the heat
-// sink's capacity after a cell (B14); and each route's end in the loop, attacker R1d at rest 900 m away.
+// sink's capacity after a cell (B14); and each route's end in the loop, attacker R1d at rest battle.openingRange (900 m at T1) away.
 import { createBattle, runBattle } from '../../js/battle.js';
 import { TARGETS, ATTACKER } from '../../mission0/targets.js';
 {

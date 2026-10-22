@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.route.decapitate",
-  "code": "e5c67dc",
+  "code": "8af82c8",
   "criterionHash": "f9b416ea",
   "lockedHash": "f9b416ea",
   "runHash": "5c16a046",
-  "dataHash": "fbe6c09f",
+  "dataHash": "ec2687f2",
   "rowsHash": "8c06408a",
   "rows": [
     {

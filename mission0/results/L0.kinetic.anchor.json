@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.kinetic.anchor",
-  "code": "e5c67dc",
+  "code": "1d13489+dirty",
   "criterionHash": "735e3d84",
   "lockedHash": "735e3d84",
   "runHash": "f231b248",
-  "dataHash": "fbe6c09f",
+  "dataHash": "ec2687f2",
   "rowsHash": "44f94d24",
   "rows": [
     {
