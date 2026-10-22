@@ -37,63 +37,28 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#236, current design in `DESIGN.md`.
-- **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
-  VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
-  L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
-  checker 2.82, reviewer 1.34). The reviewer found no blocking defect; its
-  three findings are answered by #207 (life support under routing is fixed
-  in the D pass, scenario D5).
-- **The D pass is done and merged** (`DESIGN.md` §13e; #206, #207, #212,
-  #214, #216): 6 kg rounds, partial damage, repair of damaged cells only,
-  life support under routing. `regress` on `main`: **46 VERIFIED + 8
-  WITHDRAWN**. Cost 14.11 USD (engineers 10.76, physics checker 2.26,
-  reviewer 1.09).
-- **If play is not fun** (#223, the owner): tune constants, then combine
-  the existing physics, only then change a law.
-- **Ships get real density (#221, the owner)**: 10 t per cell instead of
-  1 t, heat unchanged; built as the mass pass after L3.
-- **L3, the minimal ship, is done and merged** (`DESIGN.md` §13f;
-  #208–#213, #216, #219, #220, #222): rigid body, thrust, RCS, recoil,
-  debris and fragments, control and SCRAM, validation. `regress` on
-  `main`: **55 VERIFIED + 15 WITHDRAWN**. Cost 23.82 USD.
-- **The mass pass is done and merged** (`DESIGN.md` §13g; #221, #222,
-  #225): 10 t per cell, thrust 15 MN, RCS 1 MN; R1 448 t, 3.41 g, a 90°
-  turn in 3.68 s, 0.04 °/s per M shot. `regress` on `main`: **56 VERIFIED
-  + 20 WITHDRAWN**. Cost 8.90 USD.
-- **The feel prototype is published** (private page
-  https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d; since 2026-10-22 on the
-  L4b kernel, `main` `2a454c0`, version 5): an R1 duel ends in about 11 s (#227); loadout panel and
-  Export / replay built. A light reviewer checks #217's rules.
-- **The path model is done and merged** (`DESIGN.md` §13i; #228–#236;
-  PR #48): rounds are damaged and flatten, protection is the mass on the
-  path, the beam is a spinal neutral particle beam (Bethe deposit, no
-  falloff). `regress` on `main`: **57 VERIFIED + 34 WITHDRAWN**. Cost
-  18.24 USD.
-- **Prototype v2 is planned** (`DESIGN.md` §13j, #237): a helm as three
-  standing orders run by a stand-in autopilot, physical misses, the path
-  model's kernel, a seed per Restart, the three superseded constants
-  removed. The owner said go; the engineer runs on `proto/v2`
-  (`session_013XH7jici9kFqQf6EJYqURu`, opus); the plan's docs are PR #50.
-- **Heat is physical (#200, the owner)**: fast heat only along the
-  machinery's coolant loop; crew rooms and magazines insulated and cooled
-  by life support, which keeps running in a shut-down powered room (#201,
-  #205). Heat sink built (#198); cofferdam deferred (#201 (4)).
-- **Sense check closed (#202, #203, the owner)**: engines are self-fuelled
-  torches; beams are millimetre-wave masers; recoil kept, measured at L3;
-  real round sizes, partial kinetic damage and repair of damaged cells only
-  in the **D pass** (#206, `DESIGN.md` §13e), now merged.
-- **E1 (#188, #200)**: a scenario withdrawn for a specification error or
-  superseded by an owner's decision, locked, recorded, listed in
-  `mission0/withdrawn.json`, with a passing successor, does not block E1.
-- **Approval tiers (#180, #191)**: the owner decides direction only; the
-  lead designer decides and records everything technical (*LD* rows),
-  merges after a clean review, and reports costs; 20 USD of sessions per
-  level is a soft guideline (the owner is on a Max plan until the end of
-  October); mention a level past about 40 USD.
-- Roles (#167): lead designer (the chat with the owner), engineer (opus),
-  reviewer and physics checker (sonnet; Fable is out of limit), each its own
-  session (`.claude/agents/`).
+- Design settled: `DECISIONS.md` #1–#268, current design in `DESIGN.md`,
+  decisions in force in its §18, open obligations in its §17.
+- **Mission 0 L0–L4 are merged**, with the D pass, the mass pass, the path
+  model, physics pass 2, `tools/mutate` and the armour plates (L4a). `regress`
+  on `main` at `2a454c0`: **107 VERIFIED + 87 WITHDRAWN + 5 RETIRED**.
+- The feel prototype (`proto/`, throwaway, #217) runs on the L4b kernel at
+  https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d (version 5): R1d by
+  default, the cascade tree on the end panel; the enemy is a fixed script,
+  not an AI (§13j.2), so the player wins by throughput; the owner's phone
+  replays MATCH (#263).
+- **What L5 must build before any ship-versus-ship measure** (#265, #266,
+  #268): `sensors.js` and the knowledge model; missiles, point defence and
+  the railgun as room physics; the enemy of §8b–§9; the kinetic-damage
+  pass (§17 item 34) and R1d in one pace study; room size S decided (item
+  30).
+- Approval tiers (#180, #191): the owner decides direction; the lead
+  designer decides and records everything technical (*LD* rows); 20 USD
+  of sessions per level is a soft guideline, a level past about 40 USD is
+  mentioned; cost estimates carry the factors of #246 (4) as amended by
+  #267 (under the process audit's finding F5, #269).
+- Roles (#167, #247): lead designer, engineer (opus), reviewer and physics
+  checker (sonnet), auditor (sonnet), the owner's design partner.
 
 ## Open pull requests
 
