@@ -1,14 +1,14 @@
 {
   "id": "L0.blast.surface.v2",
   "level": "L0",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L0.blast.surface.v2",
-  "code": "baf8d67",
+  "code": "f7bf5c6",
   "criterionHash": "188c60ea",
   "lockedHash": "188c60ea",
   "runHash": "943c8b42",
-  "dataHash": "b958ce58",
-  "rowsHash": "4949c21d",
+  "dataHash": "930a2386",
+  "rowsHash": "48f8a762",
   "rows": [
     {
       "case": {
@@ -24,10 +24,18 @@
         "input": 1000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 1000000,
+        "vented": 800000,
+        "absorbed": 200000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 0,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -43,10 +51,18 @@
         "input": 2000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 2000000,
+        "vented": 1600000,
+        "absorbed": 400000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 0,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -62,10 +78,18 @@
         "input": 5000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 5000000,
+        "vented": 4000000,
+        "absorbed": 1000000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 1,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -81,10 +105,18 @@
         "input": 10000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 10000000,
+        "vented": 8000000,
+        "absorbed": 1999999.9999999998,
+        "escaped": 0,
+        "damaged": 4,
+        "destroyed": 1,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -100,10 +132,18 @@
         "input": 20000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 20000000,
+        "vented": 16000000,
+        "absorbed": 4000000,
+        "escaped": 0,
+        "damaged": 4,
+        "destroyed": 4,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -119,10 +159,18 @@
         "input": 1000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 1000000,
+        "vented": 500000,
+        "absorbed": 500000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 0,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -138,10 +186,18 @@
         "input": 2000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 2000000,
+        "vented": 1000000,
+        "absorbed": 1000000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 1,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -157,10 +213,18 @@
         "input": 5000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 5000000,
+        "vented": 2500000,
+        "absorbed": 2500000,
+        "escaped": 0,
+        "damaged": 4,
+        "destroyed": 1,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -176,10 +240,18 @@
         "input": 10000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 10000000,
+        "vented": 5000000,
+        "absorbed": 4999999.999999999,
+        "escaped": 0,
+        "damaged": 9,
+        "destroyed": 4,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -195,10 +267,18 @@
         "input": 20000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 20000000,
+        "vented": 10000000,
+        "absorbed": 10000000,
+        "escaped": 0,
+        "damaged": 16,
+        "destroyed": 9,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -214,10 +294,18 @@
         "input": 1000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 1000000,
+        "vented": 200000,
+        "absorbed": 800000,
+        "escaped": 0,
+        "damaged": 1,
+        "destroyed": 0,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -233,10 +321,18 @@
         "input": 2000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 2000000,
+        "vented": 400000,
+        "absorbed": 1600000,
+        "escaped": 0,
+        "damaged": 4,
+        "destroyed": 1,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -252,10 +348,18 @@
         "input": 5000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 5000000,
+        "vented": 1000000,
+        "absorbed": 4000000,
+        "escaped": 0,
+        "damaged": 4,
+        "destroyed": 4,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -271,10 +375,18 @@
         "input": 10000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 10000000,
+        "vented": 2000000,
+        "absorbed": 8000000,
+        "escaped": 0,
+        "damaged": 13,
+        "destroyed": 6,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -290,10 +402,18 @@
         "input": 20000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 20000000,
+        "vented": 4000000,
+        "absorbed": 16000000.000000002,
+        "escaped": 0,
+        "damaged": 22,
+        "destroyed": 13,
+        "worstRise": 0,
+        "reachesEdge": false,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -309,18 +429,21 @@
         "input": 20000000
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "input": 20000000,
+        "vented": 10000000,
+        "absorbed": 9000000,
+        "escaped": 1000000,
+        "damaged": 9,
+        "destroyed": 9,
+        "worstRise": 0,
+        "reachesEdge": true,
+        "asymmetry": 0
       },
-      "pass": false,
-      "note": "run() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": "reaches a plate edge: symmetry not checked"
     }
   ],
   "invariants": [
-    {
-      "name": "run() completes in every case",
-      "ok": false,
-      "detail": "16 case(s) threw"
-    },
     {
       "name": "no NaN or infinity",
       "ok": true

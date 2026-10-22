@@ -1,14 +1,14 @@
 {
   "id": "L1.beambay.heat",
   "level": "L1",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L1.beambay.heat",
-  "code": "baf8d67",
+  "code": "f7bf5c6",
   "criterionHash": "503836e4",
   "lockedHash": "503836e4",
   "runHash": "36707521",
-  "dataHash": "b958ce58",
-  "rowsHash": "f58597a7",
+  "dataHash": "930a2386",
+  "rowsHash": "846bcbea",
   "rows": [
     {
       "case": {
@@ -16,34 +16,42 @@
         "powered": true
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "beam": 5000000,
+        "draw": 12500000,
+        "heatRate": 7500000,
+        "hot": 99.2,
+        "overheated": 163.2,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
       },
       "actual": {
         "beam": 5000000,
         "draw": 12500000,
         "heatRate": 7500000,
-        "hot": 165.33333333333334,
-        "overheated": 272,
+        "hot": 99.2,
+        "overheated": 163.2,
         "after": {
           "beam": 0,
           "draw": 0
         },
         "stopped": [
           {
-            "t": 272,
+            "t": 163.2,
             "cause": "heat"
           }
         ],
         "books": {
-          "generated": 2040000000,
+          "generated": 1224000000,
           "radiated": 0,
-          "stored": 2040000000,
-          "initial": 1160000000
+          "stored": 1224000000,
+          "initial": 696000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -51,34 +59,42 @@
         "powered": true
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "beam": 11250000,
+        "draw": 28125000,
+        "heatRate": 16875000,
+        "hot": 148.8,
+        "overheated": 244.8,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
       },
       "actual": {
         "beam": 11250000,
         "draw": 28125000,
         "heatRate": 16875000,
-        "hot": 248,
-        "overheated": 408,
+        "hot": 148.8,
+        "overheated": 244.79999999999998,
         "after": {
           "beam": 0,
           "draw": 0
         },
         "stopped": [
           {
-            "t": 408,
+            "t": 244.79999999999998,
             "cause": "heat"
           }
         ],
         "books": {
-          "generated": 6885000000,
+          "generated": 4131000000,
           "radiated": 0,
-          "stored": 6885000000,
-          "initial": 3915000000
+          "stored": 4131000000,
+          "initial": 2349000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -86,34 +102,42 @@
         "powered": true
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "beam": 20000000,
+        "draw": 50000000,
+        "heatRate": 30000000,
+        "hot": 198.4,
+        "overheated": 326.4,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
       },
       "actual": {
         "beam": 20000000,
         "draw": 50000000,
         "heatRate": 30000000,
-        "hot": 330.6666666666667,
-        "overheated": 544,
+        "hot": 198.4,
+        "overheated": 326.4,
         "after": {
           "beam": 0,
           "draw": 0
         },
         "stopped": [
           {
-            "t": 544,
+            "t": 326.4,
             "cause": "heat"
           }
         ],
         "books": {
-          "generated": 16320000000,
+          "generated": 9792000000,
           "radiated": 0,
-          "stored": 16320000000,
-          "initial": 9280000000
+          "stored": 9792000000,
+          "initial": 5568000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -121,34 +145,42 @@
         "powered": true
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "beam": 45000000,
+        "draw": 112500000,
+        "heatRate": 67500000,
+        "hot": 297.6,
+        "overheated": 489.6,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
       },
       "actual": {
         "beam": 45000000,
         "draw": 112500000,
         "heatRate": 67500000,
-        "hot": 496,
-        "overheated": 816,
+        "hot": 297.6,
+        "overheated": 489.59999999999997,
         "after": {
           "beam": 0,
           "draw": 0
         },
         "stopped": [
           {
-            "t": 816,
+            "t": 489.59999999999997,
             "cause": "heat"
           }
         ],
         "books": {
-          "generated": 55080000000,
+          "generated": 33048000000,
           "radiated": 0,
-          "stored": 55080000000,
-          "initial": 31320000000
+          "stored": 33048000000,
+          "initial": 18792000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -156,34 +188,42 @@
         "powered": true
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "beam": 80000000,
+        "draw": 200000000,
+        "heatRate": 120000000,
+        "hot": 396.8,
+        "overheated": 652.8,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
       },
       "actual": {
         "beam": 80000000,
         "draw": 200000000,
         "heatRate": 120000000,
-        "hot": 661.3333333333334,
-        "overheated": 1088,
+        "hot": 396.8,
+        "overheated": 652.8,
         "after": {
           "beam": 0,
           "draw": 0
         },
         "stopped": [
           {
-            "t": 1088,
+            "t": 652.8,
             "cause": "heat"
           }
         ],
         "books": {
-          "generated": 130560000000,
+          "generated": 78336000000,
           "radiated": 0,
-          "stored": 130560000000,
-          "initial": 74240000000
+          "stored": 78336000000,
+          "initial": 44544000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -191,34 +231,42 @@
         "powered": true
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "beam": 180000000,
+        "draw": 450000000,
+        "heatRate": 270000000,
+        "hot": 595.2,
+        "overheated": 979.2,
+        "stopped": {
+          "cause": "heat"
+        },
+        "dt": 0.016666666666666666
       },
       "actual": {
         "beam": 180000000,
         "draw": 450000000,
         "heatRate": 270000000,
-        "hot": 992,
-        "overheated": 1632,
+        "hot": 595.2,
+        "overheated": 979.1999999999999,
         "after": {
           "beam": 0,
           "draw": 0
         },
         "stopped": [
           {
-            "t": 1632,
+            "t": 979.1999999999999,
             "cause": "heat"
           }
         ],
         "books": {
-          "generated": 440640000000,
+          "generated": 264384000000,
           "radiated": 0,
-          "stored": 440640000000,
-          "initial": 250560000000
+          "stored": 264384000000,
+          "initial": 150336000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -253,7 +301,7 @@
           "generated": 0,
           "radiated": 0,
           "stored": 0,
-          "initial": 1160000000
+          "initial": 696000000
         },
         "eventsOk": true
       },
@@ -269,11 +317,6 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
-    },
-    {
-      "name": "expected() completes in every case",
-      "ok": false,
-      "detail": "6 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

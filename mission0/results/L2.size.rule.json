@@ -1,14 +1,14 @@
 {
   "id": "L2.size.rule",
   "level": "L2",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L2.size.rule",
-  "code": "baf8d67+dirty",
+  "code": "f7bf5c6",
   "criterionHash": "9e9d8cde",
   "lockedHash": "9e9d8cde",
   "runHash": "4596ce6d",
-  "dataHash": "b958ce58",
-  "rowsHash": "a61fae88",
+  "dataHash": "930a2386",
+  "rowsHash": "4f97e24d",
   "rows": [
     {
       "case": {
@@ -16,11 +16,15 @@
         "size": "M"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "cells": 4,
+        "C": 2400000,
+        "power": 20000000,
+        "crew": 4,
+        "explosion": 200000000
       },
       "actual": {
         "cells": 4,
-        "C": 22000000,
+        "C": 2400000,
         "crew": 4,
         "power": 20000000,
         "explosion": 200000000,
@@ -28,8 +32,8 @@
           {
             "generated": 333333.3333333333,
             "radiated": 0,
-            "stored": 333333.33333301544,
-            "initial": 6380000000,
+            "stored": 333333.33333337307,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -37,8 +41,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -46,11 +50,15 @@
         "size": "L"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "cells": 9,
+        "C": 5400000,
+        "power": 45000000,
+        "crew": 9,
+        "explosion": 450000000
       },
       "actual": {
         "cells": 9,
-        "C": 49500000,
+        "C": 5400000,
         "crew": 9,
         "power": 45000000,
         "explosion": 450000000,
@@ -59,7 +67,7 @@
             "generated": 750000,
             "radiated": 0,
             "stored": 750000,
-            "initial": 14355000000,
+            "initial": 1566000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -67,8 +75,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -76,7 +84,10 @@
         "size": "M"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "cells": 4,
+        "C": 2400000,
+        "capacity": 900,
+        "crew": 2
       },
       "actual": {
         "cells": 4,
@@ -96,8 +107,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -105,7 +116,9 @@
         "size": "L"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "cells": 9,
+        "C": 5400000,
+        "capacity": 2025
       },
       "actual": {
         "cells": 9,
@@ -125,8 +138,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -134,7 +147,13 @@
         "size": "M"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "cells": 4,
+        "C": 2400000,
+        "crew": 3,
+        "roundMass": 6,
+        "shots": 6,
+        "heatPerShot": 300000,
+        "draw": 200000
       },
       "actual": {
         "cells": 4,
@@ -157,8 +176,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -166,7 +185,13 @@
         "size": "L"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "cells": 9,
+        "C": 5400000,
+        "crew": 7,
+        "roundMass": 20.25,
+        "shots": 4,
+        "heatPerShot": 1012500,
+        "draw": 450000
       },
       "actual": {
         "cells": 9,
@@ -189,8 +214,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -198,7 +223,9 @@
         "size": "M"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "cells": 6,
+        "C": 3600000,
+        "crew": 18
       },
       "actual": {
         "cells": 6,
@@ -217,20 +244,34 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     }
   ],
   "invariants": [
     {
-      "name": "invariants",
-      "ok": false,
-      "detail": "Cannot read properties of undefined (reading 'actual')"
+      "name": "L reactor explosion = 9/4 x M (450 MJ at the default)",
+      "ok": true
     },
     {
-      "name": "expected() completes in every case",
-      "ok": false,
-      "detail": "7 case(s) threw"
+      "name": "L magazine capacity = 9/4 x M",
+      "ok": true
+    },
+    {
+      "name": "L turret round mass = (3/2)^3 x M",
+      "ok": true
+    },
+    {
+      "name": "heat books: generated + conducted = radiated + stored, 1e-9 relative, every room, every case",
+      "ok": true
+    },
+    {
+      "name": "conduction flows sum to 0 over the cluster, every case",
+      "ok": true
+    },
+    {
+      "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
+      "ok": true
     },
     {
       "name": "no NaN or infinity",

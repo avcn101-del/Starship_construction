@@ -17,10 +17,15 @@
   (`engine.machineryMass` k = 2, `beambay.machineryMass` k = 1), `rcs.mass`
   k = 2, the reactor cell 150 t. R1 at T1: 950.5 t, 1.61 g, a 90° turn in
   3.80 s.
-- **Determinism**: `js/util.js` has fdlibm's sin, cos, exp and log, an
+- **Determinism of sin, cos, exp, log and pow**: `js/util.js` has ports of
+  fdlibm's sin and cos (the y-form and the three reduction refinements:
+  within 1 ulp, deterministic), exp and log (equal to V8's on the reviewer's 2.1 M arguments), an
   integer power and a deterministic `pow`; `scaled()` and `body.js` use
-  them. `tools/determinism.mjs` hashes a fixed 60 s duel in Node (and in
-  Chromium with `--chromium`); `proto/smoke.mjs` checks the hashes MATCH.
+  them. `tools/determinism.mjs` hashes a fixed 60 s **beam-only** duel in
+  Node (and in Chromium with `--chromium`); `proto/smoke.mjs` checks the
+  hashes MATCH. The hash does not cover `fireRound` or `shieldRound`, and
+  the kernel still calls `Math.hypot` and `Math.cbrt` (the prototype
+  `Math.atan2`): ported if a phone's hash differs (`DESIGN.md` §17 item 23).
   `proto/detmath.js` is removed.
 - The SCRAM restart (`reactor.restartTime`, 60 s, automatic); the chord of a
   path entry; a round launched at `world.t + at`; `cull()` and
@@ -34,6 +39,16 @@
   `cellMass.beamBay`.
 - Scenarios: S1–S22 (§13k.4) and 39 successors, locked at `4f39a0e`; 41
   scenarios withdrawn as superseded by #240 (`mission0/withdrawn.json`).
+- **The engineer's twelve withdrawals** (#248; specification errors found at
+  the first canonical run): `L1.room.thresholds.v2`, `L1.engine.thrust.v2`,
+  `L1.reactor.power.v2`, `L1.shield.generator.v2`, `L1.heat.coupled`,
+  `L1.repair.mass`, `L1.turret.timing`, `L2.heatsink.buffer.v2`,
+  `L2.heatsink.loss.v2`, `L2.blast.walls.v2`, `L2.heat.chain.v3`,
+  `L3.cull`; their twelve successors, locked at `c9224e2`:
+  `L1.room.thresholds.v3`, `L1.engine.thrust.v3`, `L1.reactor.power.v3`,
+  `L1.shield.generator.v3`, `L1.heat.coupled.v2`, `L1.repair.mass.v2`,
+  `L1.turret.timing.v2`, `L2.heatsink.buffer.v3`, `L2.heatsink.loss.v3`,
+  `L2.blast.walls.v3`, `L2.heat.chain.v4`, `L3.cull.v2`.
 - `tools/estimates/pass2.mjs` runs on the new data (the removed constants as
   literals) and prints R1 (section 8). The prototype is `feel-4`.
 - **Beam depth tier-invariant for electronic stopping only** (#248, #249;
@@ -46,6 +61,12 @@
   successors `L0.beam.tier.v2`, `L0.beam.burn.v5`,
   `L1.beambay.length.v3`. A withdrawn entry marked `frozen` keeps its
   withdrawal-time record (#245 guard (2)).
+- **Every withdrawn record frozen** (#250; fix round 2): the 41 scenarios
+  superseded by #240 get back their PASS records of `f68185a` (re-recorded
+  FAIL in error, reviewer finding 1); the other 44 withdrawn entries are
+  frozen as they stand. `run`, `verify` and `regress` never re-run a
+  withdrawn scenario; `checkWithdrawn` refuses an unfrozen one. The twelve
+  #248 entries cite #248.
 
 ## 0.8.4 — 2026-10-22 — Documents consolidated (#241 (5), #242)
 

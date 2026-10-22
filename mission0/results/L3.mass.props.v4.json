@@ -1,14 +1,14 @@
 {
   "id": "L3.mass.props.v4",
   "level": "L3",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L3.mass.props.v4",
-  "code": "baf8d67+dirty",
+  "code": "f7bf5c6",
   "criterionHash": "79513725",
   "lockedHash": "79513725",
   "runHash": "dab24409",
-  "dataHash": "b958ce58",
-  "rowsHash": "df98abbd",
+  "dataHash": "930a2386",
+  "rowsHash": "9d7836c3",
   "rows": [
     {
       "case": {
@@ -16,17 +16,18 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "cell": 3000,
+        "sinkCell": 3573.339703774486
       },
       "actual": {
         "cell": 3000,
-        "sinkCell": 4290.014333492594,
+        "sinkCell": 3573.339703774486,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -35,7 +36,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 7830000000,
+            "initial": 3480000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -52,8 +53,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -63,7 +64,16 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 59200,
+            "c": [
+              5,
+              5
+            ],
+            "I": 986666.6666666667
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -100,8 +110,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -111,17 +121,26 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
-      },
-      "actual": {
         "bodies": [
           {
-            "M": 600000,
+            "M": 500000,
             "c": [
               5,
               5
             ],
-            "I": 10000000
+            "I": 8333333.333333334
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 500000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 8333333.333333334
           }
         ],
         "rounds": 0,
@@ -131,7 +150,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 6380000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -148,8 +167,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -159,17 +178,26 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
-      },
-      "actual": {
         "bodies": [
           {
-            "M": 34200,
+            "M": 36600,
             "c": [
               5,
               7.5
             ],
-            "I": 926250.0000000001
+            "I": 991250.0000000002
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 36600,
+            "c": [
+              5,
+              7.5
+            ],
+            "I": 991250.0000000002
           }
         ],
         "rounds": 0,
@@ -179,7 +207,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 2436000000,
+            "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -196,8 +224,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -207,7 +235,16 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 12000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 200000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -244,8 +281,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -255,7 +292,16 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 12900,
+            "c": [
+              5,
+              5
+            ],
+            "I": 200000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -292,8 +338,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -303,7 +349,16 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 40000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 666666.6666666667
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -323,7 +378,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 3712000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -340,8 +395,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -351,7 +406,16 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 88800,
+            "c": [
+              7.5,
+              5
+            ],
+            "I": 2405000.0000000005
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -388,8 +452,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -399,7 +463,16 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 22000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 366666.6666666667
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -419,7 +492,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1160000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -436,8 +509,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -447,7 +520,16 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 59200,
+            "c": [
+              5,
+              5
+            ],
+            "I": 986666.6666666667
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -484,8 +566,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -495,7 +577,16 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 59224,
+            "c": [
+              5,
+              5
+            ],
+            "I": 986666.6666666667
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -532,8 +623,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -543,7 +634,16 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 12000,
+            "c": [
+              5,
+              5
+            ],
+            "I": 200000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -563,7 +663,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -580,8 +680,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -591,17 +691,26 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 14293.358815097945,
+            "c": [
+              5,
+              4.999999999999999
+            ],
+            "I": 238222.64691829908
+          }
+        ]
       },
       "actual": {
         "bodies": [
           {
-            "M": 17160.057333970377,
+            "M": 14293.358815097945,
             "c": [
               5,
-              5
+              4.999999999999999
             ],
-            "I": 286000.95556617295
+            "I": 238222.64691829908
           }
         ],
         "rounds": 0,
@@ -611,7 +720,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 7830000000,
+            "initial": 3480000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -628,8 +737,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -638,17 +747,26 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 850067.3588150977,
+            "c": [
+              24.58901869310397,
+              16.290396080705854
+            ],
+            "I": 111713157.93311304
+          }
+        ]
       },
       "actual": {
         "bodies": [
           {
-            "M": 950534.0573339704,
+            "M": 850067.3588150977,
             "c": [
-              24.135543560664708,
-              16.184166484783013
+              24.58901869310397,
+              16.290396080705854
             ],
-            "I": 115001780.87470937
+            "I": 111713157.93311304
           }
         ],
         "rounds": 0,
@@ -658,16 +776,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 2436000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 6380000000,
+            "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -694,7 +803,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1160000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -703,7 +812,16 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 7830000000,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 3480000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -730,7 +848,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 3712000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -739,7 +857,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -756,8 +874,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -766,17 +884,26 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 849947.3588150977,
+            "c": [
+              24.586842890405546,
+              16.290578265553044
+            ],
+            "I": 111684454.26512519
+          }
+        ]
       },
       "actual": {
         "bodies": [
           {
-            "M": 950414.0573339704,
+            "M": 849947.3588150977,
             "c": [
-              24.133540502357615,
-              16.184315998541862
+              24.586842890405546,
+              16.290578265553044
             ],
-            "I": 114971407.0527662
+            "I": 111684454.26512519
           }
         ],
         "rounds": 20,
@@ -784,91 +911,91 @@
         "books": [
           {
             "generated": 0,
-            "radiated": 1430244.1366859544,
-            "stored": -1207304.884460926,
-            "initial": 2436000000,
-            "conducted": 222939.25223422996,
+            "radiated": 1432482.1521852338,
+            "stored": 1445610.5499145985,
+            "initial": 1044000000,
+            "conducted": 2878092.702098375,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 4065167.900252342,
-            "initial": 6380000000,
-            "conducted": 4065167.9002277413,
+            "stored": 10972383.611302853,
+            "initial": 696000000,
+            "conducted": 10972383.611302225,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 3966666.6666665315,
             "radiated": 0,
-            "stored": 3945570.1878632307,
+            "stored": 3963225.5613172054,
             "initial": 696000000,
-            "conducted": -21096.478805603318,
+            "conducted": -3441.105348183606,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 14582.801913022995,
+            "stored": 13729.417702794075,
             "initial": 696000000,
-            "conducted": 14582.801913317795,
+            "conducted": 13729.417702509674,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 1071851.7614078675,
-            "stored": -1063412.3431077003,
-            "initial": 1160000000,
-            "conducted": 8439.41830319479,
+            "radiated": 1070544.2205615,
+            "stored": -1060789.920993328,
+            "initial": 696000000,
+            "conducted": 9754.299572422096,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 1431285.6889584088,
-            "stored": -1219503.1500291824,
-            "initial": 7830000000,
-            "conducted": 211782.53895749926,
+            "radiated": 1432613.8700931412,
+            "stored": 2870821.9566497803,
+            "initial": 3480000000,
+            "conducted": 4303435.826739352,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 1983333.3333332657,
             "radiated": 0,
-            "stored": 1994543.6748819351,
+            "stored": 1995228.5575796366,
             "initial": 1044000000,
-            "conducted": 11210.341546816295,
+            "conducted": 11895.224246293137,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 6000000,
             "radiated": 0,
-            "stored": 5976344.792340398,
+            "stored": 5975906.926738262,
             "initial": 696000000,
-            "conducted": -23655.207659082676,
+            "conducted": -24093.073260344656,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 79333333.3333335,
-            "radiated": 2235052.5878163087,
-            "stored": 72608906.48465729,
-            "initial": 3712000000,
-            "conducted": -4489374.260854976,
+            "radiated": 2577665.6249896926,
+            "stored": 58593907.327638984,
+            "initial": 696000000,
+            "conducted": -18161760.380704608,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 3.6941311359405518,
-            "initial": 1566000000,
-            "conducted": 3.694136860985359,
+            "stored": 3.477652430534363,
+            "initial": 696000000,
+            "conducted": 3.4776519716998706,
             "pumped": 0,
             "vented": 0
           }
@@ -878,14 +1005,14 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 1.5601015716585066e-10,
-          "dL": 2.6193447411060333e-7,
-          "net": 8246953.68876761,
+          "dP": 6.915300366811402e-11,
+          "dL": 0.0000012146774679422379,
+          "net": 8243038.692350315,
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -894,17 +1021,26 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 814467.3588150977,
+            "c": [
+              24.27883936941317,
+              15.984598804938768
+            ],
+            "I": 104035716.45712842
+          }
+        ]
       },
       "actual": {
         "bodies": [
           {
-            "M": 914934.0573339704,
+            "M": 814467.3588150977,
             "c": [
-              23.84177960348563,
-              15.907814685311818
+              24.27883936941317,
+              15.984598804938768
             ],
-            "I": 107040270.94057529
+            "I": 104035716.45712842
           }
         ],
         "rounds": 0,
@@ -914,16 +1050,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 2436000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 6380000000,
+            "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -950,7 +1077,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1160000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -959,7 +1086,16 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 7830000000,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 3480000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -986,7 +1122,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 3712000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -995,7 +1131,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 783000000,
+            "initial": 348000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1012,8 +1148,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1022,17 +1158,34 @@
         "tier": "T1"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 587396.6794075489,
+            "c": [
+              19.156461526104255,
+              14.425799944486076
+            ],
+            "I": 20566207.417451654
+          },
+          {
+            "M": 225674,
+            "c": [
+              38.41583434511729,
+              21.02191656991944
+            ],
+            "I": 22268032.624863006
+          }
+        ]
       },
       "actual": {
         "bodies": [
           {
-            "M": 686430.0286669852,
+            "M": 587396.6794075489,
             "c": [
-              19.316645467013753,
-              14.52952274836038
+              19.156461526104255,
+              14.425799944486076
             ],
-            "I": 22099247.441068094
+            "I": 20566207.417451654
           },
           {
             "M": 225674,
@@ -1050,7 +1203,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 2436000000,
+            "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1059,7 +1212,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 6380000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1086,7 +1239,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1160000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1095,7 +1248,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 3915000000,
+            "initial": 1740000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1122,7 +1275,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 3712000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1131,7 +1284,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1148,8 +1301,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1157,17 +1310,18 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "cell": 648000,
+        "sinkCell": 771841.3760152891
       },
       "actual": {
         "cell": 648000,
-        "sinkCell": 926643.0960344004,
+        "sinkCell": 771841.3760152891,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 338256000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1176,7 +1330,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1691280000000,
+            "initial": 751680000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1193,8 +1347,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1204,7 +1358,16 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 12787200,
+            "c": [
+              30,
+              30
+            ],
+            "I": 7672320000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -1241,8 +1404,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1252,17 +1415,26 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
-      },
-      "actual": {
         "bodies": [
           {
-            "M": 129600000,
+            "M": 108000000,
             "c": [
               30,
               30
             ],
-            "I": 77760000000
+            "I": 64800000000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 108000000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 64800000000
           }
         ],
         "rounds": 0,
@@ -1272,7 +1444,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1378080000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1289,8 +1461,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1300,17 +1472,26 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
-      },
-      "actual": {
         "bodies": [
           {
-            "M": 4471200,
+            "M": 7905600,
             "c": [
               30,
               45
             ],
-            "I": 4359420000
+            "I": 7707960000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 7905600,
+            "c": [
+              30,
+              45
+            ],
+            "I": 7707960000
           }
         ],
         "rounds": 0,
@@ -1320,7 +1501,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 526176000000,
+            "initial": 225504000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1337,8 +1518,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1348,7 +1529,16 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 2592000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 1555200000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -1385,8 +1575,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1396,7 +1586,16 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 2786400,
+            "c": [
+              30,
+              30
+            ],
+            "I": 1555200000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -1433,8 +1632,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1444,7 +1643,16 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 8640000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 5184000000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -1464,7 +1672,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 801792000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1481,8 +1689,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1492,7 +1700,16 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 19180800,
+            "c": [
+              45,
+              30
+            ],
+            "I": 18701280000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -1529,8 +1746,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1540,17 +1757,26 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
-      },
-      "actual": {
         "bodies": [
           {
-            "M": 2652000,
+            "M": 4752000,
             "c": [
               30,
               30
             ],
-            "I": 1591200000
+            "I": 2851200000
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 4752000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 2851200000
           }
         ],
         "rounds": 0,
@@ -1560,7 +1786,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 250560000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1577,8 +1803,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1588,7 +1814,16 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 12787200,
+            "c": [
+              30,
+              30
+            ],
+            "I": 7672320000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -1625,8 +1860,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1636,7 +1871,16 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 12792384,
+            "c": [
+              30,
+              30
+            ],
+            "I": 7672320000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -1673,8 +1917,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1684,7 +1928,16 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 2592000,
+            "c": [
+              30,
+              30
+            ],
+            "I": 1555200000
+          }
+        ]
       },
       "actual": {
         "bodies": [
@@ -1704,7 +1957,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 338256000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1721,8 +1974,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1732,17 +1985,26 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
-      },
-      "actual": {
         "bodies": [
           {
-            "M": 3706572.3841376016,
+            "M": 3087365.5040611564,
             "c": [
               30,
               30
             ],
-            "I": 2223943430.482561
+            "I": 1852419302.436694
+          }
+        ]
+      },
+      "actual": {
+        "bodies": [
+          {
+            "M": 3087365.5040611564,
+            "c": [
+              30,
+              30
+            ],
+            "I": 1852419302.436694
           }
         ],
         "rounds": 0,
@@ -1752,7 +2014,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1691280000000,
+            "initial": 751680000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1769,8 +2031,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1779,17 +2041,26 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 182849549.5040611,
+            "c": [
+              147.5791688504434,
+              97.8116843826949
+            ],
+            "I": 859776544574.6511
+          }
+        ]
       },
       "actual": {
         "bodies": [
           {
-            "M": 199390356.38413763,
+            "M": 182849549.5040611,
             "c": [
-              144.65484634838177,
-              97.34998126100366
+              147.5791688504434,
+              97.8116843826949
             ],
-            "I": 797970969969.1814
+            "I": 859776544574.6511
           }
         ],
         "rounds": 0,
@@ -1799,16 +2070,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 526176000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1378080000000,
+            "initial": 225504000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1835,7 +2097,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 250560000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1844,7 +2106,16 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1691280000000,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 751680000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1871,7 +2142,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 801792000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1880,7 +2151,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 338256000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -1897,8 +2168,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1907,17 +2178,26 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 182823629.5040611,
+            "c": [
+              147.5660657961506,
+              97.81279189193619
+            ],
+            "I": 859553532728.4803
+          }
+        ]
       },
       "actual": {
         "bodies": [
           {
-            "M": 199364436.38413763,
+            "M": 182823629.5040611,
             "c": [
-              144.64245022383983,
-              97.35093685527985
+              147.5660657961506,
+              97.81279189193619
             ],
-            "I": 797733907995.3723
+            "I": 859553532728.4803
           }
         ],
         "rounds": 20,
@@ -1925,91 +2205,91 @@
         "books": [
           {
             "generated": 0,
-            "radiated": 308932652.8582953,
-            "stored": -260750422.86090088,
-            "initial": 526176000000,
-            "conducted": 48182230.003745824,
+            "radiated": 309417219.8276187,
+            "stored": 312527766.80422974,
+            "initial": 225504000000,
+            "conducted": 621944986.6325402,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 878314507.307373,
-            "initial": 1378080000000,
-            "conducted": 878314507.2964245,
+            "stored": 2370037750.8903503,
+            "initial": 150336000000,
+            "conducted": 2370037750.8908353,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 856800000,
             "radiated": 0,
-            "stored": 852241666.8758545,
+            "stored": 856057346.9597473,
             "initial": 150336000000,
-            "conducted": -4558333.124903056,
+            "conducted": -742653.0390208092,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 3151419.6933288574,
+            "stored": 2967031.7710266113,
             "initial": 150336000000,
-            "conducted": 3151419.6923476956,
+            "conducted": 2967031.7717963704,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 231519834.11712632,
-            "stored": -229695835.2418518,
-            "initial": 250560000000,
-            "conducted": 1823998.8766637873,
+            "radiated": 231237309.162093,
+            "stored": -229129199.3616333,
+            "initial": 150336000000,
+            "conducted": 2108109.801976006,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 309157684.53803873,
-            "stored": -263378207.64233398,
-            "initial": 1691280000000,
-            "conducted": 45779476.88385531,
+            "radiated": 309445148.7896962,
+            "stored": 620575181.461792,
+            "initial": 751680000000,
+            "conducted": 930020330.2491039,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 428400000,
             "radiated": 0,
-            "stored": 430823165.33947754,
+            "stored": 430971394.97262573,
             "initial": 225504000000,
-            "conducted": 2423165.339314793,
+            "conducted": 2571394.972792052,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 1296000000,
             "radiated": 0,
-            "stored": 1290886911.9188538,
+            "stored": 1290792301.0942383,
             "initial": 150336000000,
-            "conducted": -5113088.078382912,
+            "conducted": -5207698.9059166275,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 17136000000,
-            "radiated": 482777510.99594164,
-            "stored": 15683218313.17688,
-            "initial": 801792000000,
-            "conducted": -970004175.8307823,
+            "radiated": 556799254.9949739,
+            "stored": 12655500740.497498,
+            "initial": 150336000000,
+            "conducted": -3923700004.507801,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 798.9430541992188,
-            "initial": 338256000000,
-            "conducted": 798.9417126772993,
+            "stored": 752.1336364746094,
+            "initial": 150336000000,
+            "conducted": 752.1336876523403,
             "pumped": 0,
             "vented": 0
           }
@@ -2019,14 +2299,14 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 2.3487638672606846e-8,
-          "dL": 0.0019134283065795898,
-          "net": 10617034288.131508,
+          "dP": 1.373811782258411e-8,
+          "dL": 0.0004204213619232178,
+          "net": 10676960861.39864,
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -2035,17 +2315,26 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 175159949.5040611,
+            "c": [
+              145.71194278573134,
+              95.97193007422865
+            ],
+            "I": 800148963468.9741
+          }
+        ]
       },
       "actual": {
         "bodies": [
           {
-            "M": 191700756.38413763,
+            "M": 175159949.5040611,
             "c": [
-              142.83143104156346,
-              95.65044918694898
+              145.71194278573134,
+              95.97193007422865
             ],
-            "I": 736078024197.4901
+            "I": 800148963468.9741
           }
         ],
         "rounds": 0,
@@ -2055,16 +2344,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 526176000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1378080000000,
+            "initial": 225504000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2091,7 +2371,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 250560000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2100,7 +2380,16 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1691280000000,
+            "initial": 150336000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 751680000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2127,7 +2416,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 801792000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2136,7 +2425,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 169128000000,
+            "initial": 75168000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2153,8 +2442,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -2163,25 +2452,42 @@
         "tier": "T6"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "bodies": [
+          {
+            "M": 126292682.75203058,
+            "c": [
+              115.02756432442352,
+              86.61366735143419
+            ],
+            "I": 156857941642.7684
+          },
+          {
+            "M": 48610584,
+            "c": [
+              230.26032108563024,
+              126.25961457282637
+            ],
+            "I": 171793403247.20392
+          }
+        ]
       },
       "actual": {
         "bodies": [
           {
-            "M": 144695886.19206882,
+            "M": 126292682.75203058,
             "c": [
-              117.4602851362807,
-              87.17274043345749
+              115.02756432442352,
+              86.61366735143419
             ],
-            "I": 150073544993.5336
+            "I": 156857941642.7684
           },
           {
-            "M": 46438584,
+            "M": 48610584,
             "c": [
-              226.97523852148464,
-              127.9555293934027
+              230.26032108563024,
+              126.25961457282637
             ],
-            "I": 156247601160.51086
+            "I": 171793403247.20392
           }
         ],
         "rounds": 0,
@@ -2191,7 +2497,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 526176000000,
+            "initial": 225504000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2200,7 +2506,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1378080000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2227,7 +2533,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 250560000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2236,7 +2542,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 845640000000,
+            "initial": 375840000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2263,7 +2569,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 801792000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2272,7 +2578,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 338256000000,
+            "initial": 150336000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -2289,8 +2595,8 @@
           "gross": 0
         }
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     }
   ],
   "invariants": [
@@ -2313,11 +2619,6 @@
     {
       "name": "mass x 6^3 and moment of inertia x 6^5 from T1 to T6: one cell, each room alone, each full room",
       "ok": true
-    },
-    {
-      "name": "expected() completes in every case",
-      "ok": false,
-      "detail": "34 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

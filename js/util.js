@@ -58,8 +58,10 @@ export function stepsAtLeast(duration, dt) {
 // phone's browser disagree on some arguments, so a battle would not replay
 // across engines. These are ports of fdlibm (FreeBSD msun: k_sin.c, k_cos.c,
 // e_rem_pio2.c, e_exp.c, e_log.c) written with + - * /, Math.floor and the
-// exponent bits read through a DataView, all exact in IEEE 754. sin and cos
-// come from proto/detmath.js (prototype v2).
+// exponent bits read through a DataView, all exact in IEEE 754. The sin and
+// cos ports keep only the y-form of k_sin.c (no iy == 0 branch) and always
+// apply the three refinements of the pi/2 reduction: within 1 ulp of
+// Math.sin and Math.cos, and deterministic.
 
 const SIN1 = -1.66666666666666324348e-01, SIN2 = 8.33333333332248946124e-03, SIN3 = -1.98412698298579493134e-04;
 const SIN4 = 2.75573137070700676789e-06, SIN5 = -2.50507602534068634195e-08, SIN6 = 1.58969099521155010221e-10;

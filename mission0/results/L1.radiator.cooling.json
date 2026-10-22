@@ -1,13 +1,13 @@
 {
   "id": "L1.radiator.cooling",
   "level": "L1",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L1.radiator.cooling",
-  "code": "baf8d67",
+  "code": "f7bf5c6",
   "criterionHash": "d33a4cfc",
   "lockedHash": "d33a4cfc",
   "runHash": "c524d7c4",
-  "dataHash": "b958ce58",
+  "dataHash": "930a2386",
   "rowsHash": "ff52e197",
   "rows": [
     {
@@ -17,7 +17,8 @@
         "n": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 399.18678398379853,
+        "initial": 960000000
       },
       "actual": {
         "T": 399.1867830680943,
@@ -31,8 +32,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -41,7 +42,8 @@
         "n": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 398.3801410937033,
+        "initial": 960000000
       },
       "actual": {
         "T": 398.3801374714227,
@@ -55,8 +57,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -65,7 +67,8 @@
         "n": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 595.9223555383383,
+        "initial": 1440000000
       },
       "actual": {
         "T": 595.9223402991748,
@@ -79,8 +82,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -89,7 +92,8 @@
         "n": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 591.9533465466872,
+        "initial": 1440000000
       },
       "actual": {
         "T": 591.953287792437,
@@ -103,8 +107,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -113,7 +117,8 @@
         "n": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 787.3465411619493,
+        "initial": 1920000000
       },
       "actual": {
         "T": 787.3464325924081,
@@ -127,8 +132,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -137,7 +142,8 @@
         "n": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 775.4574538763743,
+        "initial": 1920000000
       },
       "actual": {
         "T": 775.4570545639655,
@@ -151,8 +157,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -161,7 +167,8 @@
         "n": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 969.9985600105884,
+        "initial": 2400000000
       },
       "actual": {
         "T": 969.99808215493,
@@ -175,8 +182,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -185,7 +192,8 @@
         "n": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 943.3014259188176,
+        "initial": 2400000000
       },
       "actual": {
         "T": 943.2997879766049,
@@ -199,8 +207,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -209,7 +217,8 @@
         "n": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 1140.3268610929254,
+        "initial": 2880000000
       },
       "actual": {
         "T": 1140.3253327419761,
@@ -223,8 +232,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -233,7 +242,8 @@
         "n": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 1090.9921001441896,
+        "initial": 2880000000
       },
       "actual": {
         "T": 1090.9873182466984,
@@ -247,8 +257,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -257,7 +267,8 @@
         "n": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 979.597797073079,
+        "initial": 8100000000
       },
       "actual": {
         "T": 979.5975728322618,
@@ -271,8 +282,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -281,7 +292,8 @@
         "n": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 960.7648522503373,
+        "initial": 8100000000
       },
       "actual": {
         "T": 960.7640464626039,
@@ -295,8 +307,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -305,7 +317,8 @@
         "n": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 984.542541889482,
+        "initial": 19200000000
       },
       "actual": {
         "T": 984.5424122038472,
@@ -319,8 +332,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -329,7 +342,8 @@
         "n": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 969.9985600105884,
+        "initial": 19200000000
       },
       "actual": {
         "T": 969.99808215493,
@@ -343,8 +357,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -353,7 +367,8 @@
         "n": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 989.5886621034753,
+        "initial": 64800000000
       },
       "actual": {
         "T": 989.5886028190755,
@@ -367,8 +382,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -377,7 +392,8 @@
         "n": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 979.597797073079,
+        "initial": 64800000000
       },
       "actual": {
         "T": 979.5975728322618,
@@ -391,8 +407,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -401,7 +417,8 @@
         "n": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 992.1508848779459,
+        "initial": 153600000000
       },
       "actual": {
         "T": 992.1508510522895,
@@ -415,8 +432,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -425,7 +442,8 @@
         "n": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 984.542541889482,
+        "initial": 153600000000
       },
       "actual": {
         "T": 984.5424122038472,
@@ -439,8 +457,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -449,7 +467,8 @@
         "n": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 994.7398516979065,
+        "initial": 518400000000
       },
       "actual": {
         "T": 994.739836447086,
@@ -463,8 +482,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -473,7 +492,8 @@
         "n": 2
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": 989.5886621034753,
+        "initial": 518400000000
       },
       "actual": {
         "T": 989.5886028190755,
@@ -487,8 +507,8 @@
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     }
   ],
   "invariants": [
@@ -499,11 +519,6 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
-    },
-    {
-      "name": "expected() completes in every case",
-      "ok": false,
-      "detail": "20 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

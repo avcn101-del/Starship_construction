@@ -1,14 +1,14 @@
 {
   "id": "L2.repair.shared",
   "level": "L2",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L2.repair.shared",
-  "code": "baf8d67+dirty",
+  "code": "f7bf5c6",
   "criterionHash": "365a0ba8",
   "lockedHash": "365a0ba8",
   "runHash": "4545aa78",
-  "dataHash": "b958ce58",
-  "rowsHash": "360f557a",
+  "dataHash": "930a2386",
+  "rowsHash": "e6c677a1",
   "rows": [
     {
       "case": {
@@ -16,26 +16,37 @@
         "r1": 0.25
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "perCell": 0.01,
+        "time": 71.23,
+        "pays": [
+          {
+            "id": "Q1",
+            "perCell": 0.01,
+            "budget": 0.02,
+            "paid": 0.02
+          }
+        ],
+        "l1": null,
+        "dt": 0.016666666666666666
       },
       "actual": {
         "firstRates": [
-          0.03333333333333188,
-          0.03333333333333188
+          0.009999999999998899,
+          0.009999999999998899
         ],
         "firstPaid": [
-          199.99999999999997
+          0.02
         ],
         "withinBudget": true,
         "repairedAt": [
-          21.383333333333333,
-          21.383333333333333
+          71.23333333333333,
+          71.23333333333333
         ],
         "books": [
           {
-            "generated": 1069166.6666666842,
+            "generated": 3561666.666666861,
             "radiated": 0,
-            "stored": 1069166.6667176485,
+            "stored": 3561666.6668365,
             "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
@@ -45,7 +56,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -53,8 +64,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -62,26 +73,37 @@
         "r1": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "perCell": 0.01,
+        "time": 71.23,
+        "pays": [
+          {
+            "id": "Q1",
+            "perCell": 0.01,
+            "budget": 0.02,
+            "paid": 0.02
+          }
+        ],
+        "l1": null,
+        "dt": 0.016666666666666666
       },
       "actual": {
         "firstRates": [
-          0.03333333333333188,
-          0.03333333333333188
+          0.009999999999998899,
+          0.009999999999998899
         ],
         "firstPaid": [
-          200
+          0.02
         ],
         "withinBudget": true,
         "repairedAt": [
-          21.383333333333333,
-          21.383333333333333
+          71.23333333333333,
+          71.23333333333333
         ],
         "books": [
           {
-            "generated": 1069166.6666666842,
+            "generated": 3561666.666666861,
             "radiated": 0,
-            "stored": 1069166.6667176485,
+            "stored": 3561666.6668365,
             "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
@@ -91,7 +113,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -99,8 +121,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -108,24 +130,35 @@
         "r1": 0.25
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "perCell": 0.018823529411764708,
+        "time": 37.840937499999995,
+        "pays": [
+          {
+            "id": "Q1",
+            "perCell": 0.018823529411764708,
+            "budget": 0.02,
+            "paid": 0.018823529411764708
+          }
+        ],
+        "l1": 0.018823529411764708,
+        "dt": 0.016666666666666666
       },
       "actual": {
         "firstRates": [
-          0.06274509803921413
+          0.01882352941176557
         ],
         "firstPaid": [
-          188.23529411764704
+          0.018823529411764708
         ],
         "withinBudget": true,
         "repairedAt": [
-          11.366666666666667
+          37.85
         ],
         "books": [
           {
-            "generated": 568333.3333333305,
+            "generated": 1892499.9999999409,
             "radiated": 0,
-            "stored": 568333.3333604336,
+            "stored": 1892500.0000902414,
             "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
@@ -135,7 +168,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -143,8 +176,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -152,24 +185,35 @@
         "r1": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "perCell": 0.01,
+        "time": 71.23,
+        "pays": [
+          {
+            "id": "Q1",
+            "perCell": 0.01,
+            "budget": 0.02,
+            "paid": 0.01
+          }
+        ],
+        "l1": 0.01,
+        "dt": 0.016666666666666666
       },
       "actual": {
         "firstRates": [
-          0.03333333333333188
+          0.009999999999998899
         ],
         "firstPaid": [
-          100
+          0.01
         ],
         "withinBudget": true,
         "repairedAt": [
-          21.383333333333333
+          71.23333333333333
         ],
         "books": [
           {
-            "generated": 1069166.6666666842,
+            "generated": 3561666.666666861,
             "radiated": 0,
-            "stored": 1069166.6667176485,
+            "stored": 3561666.6668365,
             "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
@@ -179,7 +223,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -187,8 +231,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -197,34 +241,51 @@
         "r2": 1
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "perCell": 0.028823529411764706,
+        "time": 24.712448979591837,
+        "pays": [
+          {
+            "id": "Q1",
+            "perCell": 0.018823529411764708,
+            "budget": 0.02,
+            "paid": 0.018823529411764708
+          },
+          {
+            "id": "Q2",
+            "perCell": 0.01,
+            "budget": 0.02,
+            "paid": 0.01
+          }
+        ],
+        "l1": null,
+        "dt": 0.016666666666666666
       },
       "actual": {
         "firstRates": [
-          0.09607843137254601
+          0.02882352941176447
         ],
         "firstPaid": [
-          188.23529411764704,
-          100
+          0.018823529411764708,
+          0.01
         ],
         "withinBudget": true,
         "repairedAt": [
-          7.416666666666667
+          24.716666666666665
         ],
         "books": [
           {
-            "generated": 370833.33333333203,
+            "generated": 1235833.3333333354,
             "radiated": 0,
-            "stored": 370833.33335101604,
+            "stored": 1235833.3333922625,
             "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
           },
           {
-            "generated": 370833.33333333203,
+            "generated": 1235833.3333333354,
             "radiated": 0,
-            "stored": 370833.33335101604,
+            "stored": 1235833.3333922625,
             "initial": 1044000000,
             "conducted": 0,
             "pumped": 0,
@@ -234,7 +295,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -242,8 +303,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     }
   ],
   "invariants": [
@@ -258,11 +319,6 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
-    },
-    {
-      "name": "expected() completes in every case",
-      "ok": false,
-      "detail": "5 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

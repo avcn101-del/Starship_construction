@@ -1,72 +1,77 @@
 {
   "id": "L2.bridge.conduction.v2",
   "level": "L2",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L2.bridge.conduction.v2",
-  "code": "baf8d67+dirty",
+  "code": "f7bf5c6",
   "criterionHash": "5045c746",
   "lockedHash": "5045c746",
   "runHash": "bfc72471",
-  "dataHash": "b958ce58",
-  "rowsHash": "a88c8f6a",
+  "dataHash": "930a2386",
+  "rowsHash": "312e4ff2",
   "rows": [
     {
       "case": {
         "P": 1100000
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "overheat": 142.95,
+        "restartAfter": 230.63333333333333,
+        "lostCause": "overheat",
+        "restoredCause": "restart",
+        "deaths": 0,
+        "tolerance": 0.001
       },
       "actual": {
-        "overheated": 143,
-        "restart": 371.73333333333335,
+        "overheated": 142.95,
+        "restart": 373.5833333333333,
         "controlOk": true,
         "controlAtEnd": true,
         "lost": [
           {
-            "t": 143,
+            "t": 142.95,
             "cause": "overheat"
           }
         ],
         "restored": [
           {
-            "t": 371.73333333333335,
+            "t": 373.5833333333333,
             "cause": "restart"
           }
         ],
         "radiators": 0,
         "refused": true,
         "end": [
-          329.5574275764061,
-          305.5897772431585
+          329.567116814017,
+          315.4664969151678
         ],
-        "pumpedOut": 74343333.33334255,
-        "pumpedIn": 74343333.33334255,
+        "pumpedOut": 74713333.333342,
+        "pumpedIn": 74713333.333342,
         "deaths": 0,
         "books": [
           {
-            "generated": 172599999.99999404,
+            "generated": 172539999.99999404,
             "radiated": 0,
-            "stored": 94937826.18337464,
+            "stored": 94961080.35364091,
             "initial": 696000000,
-            "conducted": -77662173.81662324,
-            "pumped": -74343333.33334255,
+            "conducted": -77578919.64635894,
+            "pumped": -74713333.333342,
             "vented": 0
           },
           {
             "generated": 0,
-            "radiated": 15303064.843993606,
-            "stored": 62359108.97263408,
-            "initial": 1160000000,
-            "conducted": 77662173.81662324,
-            "pumped": 74343333.33334255,
+            "radiated": 16459327.049961371,
+            "stored": 61119592.596402764,
+            "initial": 696000000,
+            "conducted": 77578919.64635894,
+            "pumped": 74713333.333342,
             "vented": 0
           }
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     }
   ],
   "invariants": [
@@ -81,11 +86,6 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
-    },
-    {
-      "name": "expected() completes in every case",
-      "ok": false,
-      "detail": "1 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

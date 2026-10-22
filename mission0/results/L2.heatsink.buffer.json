@@ -1,14 +1,14 @@
 {
   "id": "L2.heatsink.buffer",
   "level": "L2",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L2.heatsink.buffer",
-  "code": "baf8d67+dirty",
+  "code": "f7bf5c6",
   "criterionHash": "80a7fdb1",
   "lockedHash": "80a7fdb1",
   "runHash": "afb04fb5",
-  "dataHash": "b958ce58",
-  "rowsHash": "e9e2aac5",
+  "dataHash": "930a2386",
+  "rowsHash": "4bc35c0d",
   "rows": [
     {
       "case": {
@@ -16,13 +16,40 @@
         "neighbour": "beamBay"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "overheat": 165.95874691103933,
+        "d": 0.625,
+        "S": 12500000,
+        "G": 40000,
+        "Cb": 2400000,
+        "tolerance": 0.001
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "overheat": 165.96666666666667,
+        "neighbourT": 644.3885413350412,
+        "books": [
+          {
+            "generated": 2074583333.3330333,
+            "radiated": 0,
+            "stored": 1224050834.12925,
+            "initial": 696000000,
+            "conducted": -850532499.204105,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 850532499.2040987,
+            "initial": 696000000,
+            "conducted": 850532499.204105,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -30,13 +57,40 @@
         "neighbour": "heatSink"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "overheat": 420.85388112220056,
+        "d": 0.625,
+        "S": 12500000,
+        "G": 60000,
+        "Cb": 12000000,
+        "tolerance": 0.001
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "overheat": 420.8666666666667,
+        "neighbourT": 626.4005577290253,
+        "books": [
+          {
+            "generated": 5260833333.33317,
+            "radiated": 0,
+            "stored": 1224026640.5850468,
+            "initial": 696000000,
+            "conducted": -4036806692.748278,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 4036806692.7483044,
+            "initial": 3480000000,
+            "conducted": 4036806692.748278,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -44,13 +98,40 @@
         "neighbour": "beamBay"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "overheat": 331.91749382207865,
+        "d": 0.625,
+        "S": 50000000,
+        "G": 160000,
+        "Cb": 19200000,
+        "tolerance": 0.001
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "overheat": 331.93333333333334,
+        "neighbourT": 644.3887787369491,
+        "books": [
+          {
+            "generated": 16596666666.671465,
+            "radiated": 0,
+            "stored": 9792402114.91731,
+            "initial": 5568000000,
+            "conducted": -6804264551.749295,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 6804264551.749422,
+            "initial": 5568000000,
+            "conducted": 6804264551.749295,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -58,19 +139,46 @@
         "neighbour": "heatSink"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "overheat": 841.7077622444011,
+        "d": 0.625,
+        "S": 50000000,
+        "G": 240000,
+        "Cb": 96000000,
+        "tolerance": 0.001
       },
       "actual": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "overheat": 841.7166666666667,
+        "neighbourT": 626.3933241062165,
+        "books": [
+          {
+            "generated": 42085833333.33594,
+            "radiated": 0,
+            "stored": 9792074219.136127,
+            "initial": 5568000000,
+            "conducted": -32293759114.196888,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 32293759114.196777,
+            "initial": 27840000000,
+            "conducted": 32293759114.196888,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     }
   ],
   "invariants": [
     {
       "name": "beside a heat sink the reactor overheats later than beside an idle beam bay, at T1 and T3",
-      "ok": false
+      "ok": true
     },
     {
       "name": "heat books: generated + conducted = radiated + vented + stored, 1e-9 relative, every room, every case",
@@ -83,11 +191,6 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
-    },
-    {
-      "name": "expected() completes in every case",
-      "ok": false,
-      "detail": "4 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

@@ -1,14 +1,14 @@
 {
   "id": "L1.beambay.length",
   "level": "L1",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L1.beambay.length",
-  "code": "baf8d67",
+  "code": "f7bf5c6",
   "criterionHash": "37d3386a",
   "lockedHash": "37d3386a",
   "runHash": "cc120232",
-  "dataHash": "b958ce58",
-  "rowsHash": "49e0b12b",
+  "dataHash": "930a2386",
+  "rowsHash": "79bc9aaf",
   "rows": [
     {
       "case": {
@@ -32,7 +32,7 @@
           "generated": 125000,
           "radiated": 0,
           "stored": 125000,
-          "initial": 1160000000
+          "initial": 696000000
         },
         "eventsOk": true
       },
@@ -61,7 +61,7 @@
           "generated": 125000,
           "radiated": 0,
           "stored": 125000,
-          "initial": 2320000000
+          "initial": 1392000000
         },
         "eventsOk": true
       },
@@ -90,7 +90,7 @@
           "generated": 125000,
           "radiated": 0,
           "stored": 125000,
-          "initial": 4640000000
+          "initial": 2784000000
         },
         "eventsOk": true
       },
@@ -119,7 +119,7 @@
           "generated": 281250,
           "radiated": 0,
           "stored": 281250,
-          "initial": 1740000000
+          "initial": 1044000000
         },
         "eventsOk": true
       },
@@ -148,7 +148,7 @@
           "generated": 281250,
           "radiated": 0,
           "stored": 281250,
-          "initial": 3480000000
+          "initial": 2088000000
         },
         "eventsOk": true
       },
@@ -177,7 +177,7 @@
           "generated": 281250,
           "radiated": 0,
           "stored": 281250,
-          "initial": 6960000000
+          "initial": 4176000000
         },
         "eventsOk": true
       },
@@ -198,7 +198,7 @@
       },
       "actual": {
         "cells": 4,
-        "E": 2.3873312990266624e-11,
+        "E": 3.204353268e-11,
         "beam": 20000000,
         "draw": 50000000,
         "heatRate": 30000000,
@@ -206,12 +206,12 @@
           "generated": 500000,
           "radiated": 0,
           "stored": 500000,
-          "initial": 9280000000
+          "initial": 5568000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "E = gradient x N x edge exactly"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -227,7 +227,7 @@
       },
       "actual": {
         "cells": 8,
-        "E": 4.8579736079451355e-11,
+        "E": 6.408706536e-11,
         "beam": 20000000,
         "draw": 50000000,
         "heatRate": 30000000,
@@ -235,12 +235,12 @@
           "generated": 500000,
           "radiated": 0,
           "stored": 500000,
-          "initial": 18560000000
+          "initial": 11136000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "E = gradient x N x edge exactly"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -256,7 +256,7 @@
       },
       "actual": {
         "cells": 16,
-        "E": 1.005581431843555e-10,
+        "E": 1.2817413072e-10,
         "beam": 20000000,
         "draw": 50000000,
         "heatRate": 30000000,
@@ -264,12 +264,12 @@
           "generated": 500000,
           "radiated": 0,
           "stored": 500000,
-          "initial": 37120000000
+          "initial": 22272000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "E = gradient x N x edge exactly"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -285,7 +285,7 @@
       },
       "actual": {
         "cells": 6,
-        "E": 2.3873312990266624e-11,
+        "E": 3.204353268e-11,
         "beam": 45000000,
         "draw": 112500000,
         "heatRate": 67500000,
@@ -293,12 +293,12 @@
           "generated": 1125000,
           "radiated": 0,
           "stored": 1125000,
-          "initial": 13920000000
+          "initial": 8352000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "E = gradient x N x edge exactly"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -314,7 +314,7 @@
       },
       "actual": {
         "cells": 12,
-        "E": 4.8579736079451355e-11,
+        "E": 6.408706536e-11,
         "beam": 45000000,
         "draw": 112500000,
         "heatRate": 67500000,
@@ -322,12 +322,12 @@
           "generated": 1125000,
           "radiated": 0,
           "stored": 1125000,
-          "initial": 27840000000
+          "initial": 16704000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "E = gradient x N x edge exactly"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -343,7 +343,7 @@
       },
       "actual": {
         "cells": 24,
-        "E": 1.005581431843555e-10,
+        "E": 1.2817413072e-10,
         "beam": 45000000,
         "draw": 112500000,
         "heatRate": 67500000,
@@ -351,12 +351,12 @@
           "generated": 1125000,
           "radiated": 0,
           "stored": 1125000,
-          "initial": 55680000000
+          "initial": 33408000000
         },
         "eventsOk": true
       },
-      "pass": false,
-      "note": "E = gradient x N x edge exactly"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {

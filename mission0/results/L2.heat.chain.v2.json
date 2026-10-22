@@ -1,14 +1,14 @@
 {
   "id": "L2.heat.chain.v2",
   "level": "L2",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L2.heat.chain.v2",
-  "code": "baf8d67+dirty",
+  "code": "f7bf5c6",
   "criterionHash": "407c65f5",
   "lockedHash": "407c65f5",
   "runHash": "9e7ed5c3",
-  "dataHash": "b958ce58",
-  "rowsHash": "66ab10bd",
+  "dataHash": "930a2386",
+  "rowsHash": "b7e0e589",
   "rows": [
     {
       "case": {
@@ -16,49 +16,65 @@
         "T0": 600
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": [
+          394.3777309231449,
+          393.3333017234268,
+          392.2889673534281
+        ],
+        "G": [
+          40000,
+          40000
+        ],
+        "heatToThird": 245493521.64822748,
+        "lambda": [
+          1.2488076781254993e-18,
+          0.049999999999999996,
+          0.01666666666666667
+        ],
+        "tolerance": 0.003,
+        "ratio": 0.001
       },
       "actual": {
         "t": 300,
         "T": [
-          401.05476154643213,
-          393.32060965698304,
-          385.62462879658824
+          394.37700567701626,
+          393.3333019204812,
+          392.28969240250115
         ],
-        "heatToThird": 382498515.18635297,
+        "heatToThird": 245495261.76600277,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
-            "stored": -795780953.8142715,
-            "initial": 2400000000,
-            "conducted": -795780953.8142793,
+            "stored": -493495186.37516093,
+            "initial": 1440000000,
+            "conducted": -493495186.3751626,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 413282438.6279321,
-            "initial": 1160000000,
-            "conducted": 413282438.627914,
+            "stored": 247999924.60915482,
+            "initial": 696000000,
+            "conducted": 247999924.60915878,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 382498515.18635297,
-            "initial": 1160000000,
-            "conducted": 382498515.18636113,
+            "stored": 245495261.76600277,
+            "initial": 696000000,
+            "conducted": 245495261.7660082,
             "pumped": 0,
             "vented": 0
           }
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -66,56 +82,72 @@
         "T0": 600
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "T": [
+          598.2485969142381,
+          291.74643694553856,
+          290.0049661402227
+        ],
+        "G": [
+          45.45454545454545,
+          45.45454545454545
+        ],
+        "heatToThird": 11918.736534425989,
+        "lambda": [
+          -1.2302088708788668e-21,
+          0.00005681818181818182,
+          0.00001893939393939394
+        ],
+        "tolerance": 0.003,
+        "ratio": 0.001
       },
       "actual": {
         "t": 300,
         "T": [
-          598.9463100942895,
-          290.77952657718805,
-          290.0013290265081
+          598.2485963660829,
+          291.7464377654264,
+          290.00496586848857
         ],
-        "heatToThird": 5316.106032371521,
+        "heatToThird": 11918.084372520447,
         "books": [
           {
             "generated": 0,
             "radiated": 0,
-            "stored": -4214759.622841835,
-            "initial": 2400000000,
-            "conducted": -4214759.622845508,
+            "stored": -4203368.721400976,
+            "initial": 1440000000,
+            "conducted": -4203368.721390699,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 4209443.516815424,
-            "initial": 1566000000,
-            "conducted": 4209443.516799405,
+            "stored": 4191450.6370233297,
+            "initial": 696000000,
+            "conducted": 4191450.6370158144,
             "pumped": 0,
             "vented": 0
           },
           {
             "generated": 0,
             "radiated": 0,
-            "stored": 5316.106032371521,
-            "initial": 1160000000,
-            "conducted": 5316.1060460970575,
+            "stored": 11918.084372520447,
+            "initial": 696000000,
+            "conducted": 11918.084374907648,
             "pumped": 0,
             "vented": 0
           }
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     }
   ],
   "invariants": [
     {
       "name": "heat reaching the third room through a hold < 1e-3 of that through a coolant room",
-      "ok": false,
-      "detail": ""
+      "ok": true,
+      "detail": "measured 4.855e-5, closed form 4.855e-5"
     },
     {
       "name": "heat books: generated + conducted = radiated + vented + stored, 1e-9 relative, every room, every case",
@@ -128,11 +160,6 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
-    },
-    {
-      "name": "expected() completes in every case",
-      "ok": false,
-      "detail": "2 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

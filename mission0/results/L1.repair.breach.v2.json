@@ -1,14 +1,14 @@
 {
   "id": "L1.repair.breach.v2",
   "level": "L1",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L1.repair.breach.v2",
-  "code": "baf8d67+dirty",
+  "code": "f7bf5c6",
   "criterionHash": "36bc0f9d",
   "lockedHash": "36bc0f9d",
   "runHash": "fa414645",
-  "dataHash": "b958ce58",
-  "rowsHash": "5d735ece",
+  "dataHash": "930a2386",
+  "rowsHash": "25ae504f",
   "rows": [
     {
       "case": {
@@ -17,64 +17,79 @@
         "heatFor": 2000
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'value')"
+        "repairedAt": 38.840937499999995,
+        "destroyedAfterRepair": 0,
+        "breachAtHit2": false,
+        "breachAtHit3": true,
+        "countdown": 10,
+        "energy": 200000000,
+        "cause": "hit-3",
+        "deathsAtHits": [
+          0,
+          1,
+          1
+        ],
+        "crew": 4,
+        "critical": 1000,
+        "endTemperature": 1206.6666666666665,
+        "dt": 0.016666666666666666
       },
       "actual": {
-        "repairedAt": 568.6166666666667,
+        "repairedAt": 38.85,
         "destroyedAfterRepair": 0,
         "hits": [
           1,
-          569.6166666666667,
-          570.6166666666667
+          39.85,
+          40.85
         ],
         "breachesAfterHit2": 0,
         "breachesAfterHit3": 1,
         "breach": {
-          "t": 570.6166666666667,
+          "t": 40.85,
           "cause": "hit-3"
         },
         "explosions": [
           {
-            "t": 580.6166666666667,
+            "t": 50.85,
             "energy": 200000000,
             "cause": "hit-3"
           }
         ],
         "meltdowns": 0,
-        "critical": 0,
+        "critical": 1,
         "deathsAtHits": [
           0,
           1,
           1
         ],
         "totalDeaths": 4,
-        "endTemperature": 389.99999999826605,
+        "endTemperature": 1206.6666666677722,
         "wreckD": 0,
         "wreckDRepaired": false,
         "books": [
           {
-            "generated": 129030833.33304425,
+            "generated": 102542499.9998688,
             "radiated": 0,
-            "stored": 129030833.32528257,
+            "stored": 102542499.99447536,
             "initial": 1044000000
           },
           {
             "generated": 2199999999.9967318,
             "radiated": 0,
-            "stored": 2199999999.961853,
-            "initial": 6380000000
+            "stored": 2200000000.0026536,
+            "initial": 696000000
           },
           {
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000
+            "initial": 696000000
           }
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'value')"
+      "pass": true,
+      "note": ""
     }
   ],
   "invariants": [
@@ -85,11 +100,6 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
-    },
-    {
-      "name": "expected() completes in every case",
-      "ok": false,
-      "detail": "1 case(s) threw"
     },
     {
       "name": "no NaN or infinity",

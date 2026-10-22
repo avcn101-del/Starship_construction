@@ -1,14 +1,14 @@
 {
   "id": "L2.blast.walls",
   "level": "L2",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L2.blast.walls",
-  "code": "baf8d67+dirty",
+  "code": "f7bf5c6",
   "criterionHash": "a10a083d",
   "lockedHash": "a10a083d",
   "runHash": "c6841d1c",
-  "dataHash": "b958ce58",
-  "rowsHash": "a87a6f41",
+  "dataHash": "930a2386",
+  "rowsHash": "05069e5e",
   "rows": [
     {
       "case": {
@@ -16,17 +16,53 @@
         "load": "full-HE"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
+        "E": 1200000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000
+        },
+        "escaped": 1192000000,
+        "sumB": 8000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
       },
       "actual": {
         "energy": 1200000000,
         "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "B3": 5920000,
-          "magazine": 1200000
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "magazine": 2000000
         },
-        "escaped": 1181040000,
+        "escaped": 1192000000,
         "blasts": 1,
         "rooms": {
           "B1": {
@@ -100,8 +136,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -109,17 +145,53 @@
         "load": "half-AP"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
+        "E": 450000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000
+        },
+        "escaped": 442000000,
+        "sumB": 8000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
       },
       "actual": {
         "energy": 450000000,
         "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "B3": 5920000,
-          "magazine": 1200000
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "magazine": 2000000
         },
-        "escaped": 431040000,
+        "escaped": 442000000,
         "blasts": 1,
         "rooms": {
           "B1": {
@@ -193,8 +265,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -202,15 +274,632 @@
         "load": "HE-2"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
+        "E": 16000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000
+        },
+        "escaped": 8000000,
+        "sumB": 8000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
       },
       "actual": {
         "energy": 16000000,
         "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "B3": 2960000,
-          "magazine": 1200000
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "magazine": 2000000
+        },
+        "escaped": 8000000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B3": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row",
+        "load": "HE-4"
+      },
+      "expected": {
+        "E": 32000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000
+        },
+        "escaped": 24000000,
+        "sumB": 8000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 32000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "magazine": 2000000
+        },
+        "escaped": 24000000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B3": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row-hold",
+        "load": "full-HE"
+      },
+      "expected": {
+        "E": 1200000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000
+        },
+        "escaped": 1184000000,
+        "sumB": 16000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "H",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "H": {
+            "absorbed": 8000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 0
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 1200000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000,
+          "magazine": 2000000
+        },
+        "escaped": 1184000000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B3": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "H": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 0
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row-hold",
+        "load": "half-AP"
+      },
+      "expected": {
+        "E": 450000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000
+        },
+        "escaped": 434000000,
+        "sumB": 16000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "H",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "H": {
+            "absorbed": 8000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 0
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 450000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000,
+          "magazine": 2000000
+        },
+        "escaped": 434000000,
+        "blasts": 1,
+        "rooms": {
+          "B1": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B2": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "B3": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 4
+          },
+          "H": {
+            "destroyed": 4,
+            "integrity": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "deaths": 0
+          }
+        },
+        "books": [
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          },
+          {
+            "generated": 0,
+            "radiated": 0,
+            "stored": 0,
+            "initial": 696000000,
+            "conducted": 0,
+            "pumped": 0,
+            "vented": 0
+          }
+        ],
+        "eventsOk": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "geometry": "row-hold",
+        "load": "HE-2"
+      },
+      "expected": {
+        "E": 16000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000
+        },
+        "escaped": 0,
+        "sumB": 16000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2",
+          "H",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "H": {
+            "absorbed": 8000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 0
+          }
+        },
+        "factor": 4
+      },
+      "actual": {
+        "energy": 16000000,
+        "absorbed": {
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000,
+          "magazine": 2000000
         },
         "escaped": 0,
         "blasts": 1,
@@ -236,193 +925,6 @@
             "deaths": 4
           },
           "B3": {
-            "destroyed": 0,
-            "integrity": [
-              0.5,
-              0.5,
-              0.5,
-              0.5
-            ],
-            "deaths": 2
-          }
-        },
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
-      },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
-    },
-    {
-      "case": {
-        "geometry": "row",
-        "load": "HE-4"
-      },
-      "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
-      },
-      "actual": {
-        "energy": 32000000,
-        "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "B3": 5920000,
-          "magazine": 1200000
-        },
-        "escaped": 13040000,
-        "blasts": 1,
-        "rooms": {
-          "B1": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 4
-          },
-          "B2": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 4
-          },
-          "B3": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 4
-          }
-        },
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
-      },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
-    },
-    {
-      "case": {
-        "geometry": "row-hold",
-        "load": "full-HE"
-      },
-      "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
-      },
-      "actual": {
-        "energy": 1200000000,
-        "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "B3": 5920000,
-          "H": 1200000,
-          "magazine": 1200000
-        },
-        "escaped": 1179840000,
-        "blasts": 1,
-        "rooms": {
-          "B1": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 4
-          },
-          "B2": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 4
-          },
-          "B3": {
             "destroyed": 4,
             "integrity": [
               0,
@@ -484,7 +986,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -492,234 +994,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
-    },
-    {
-      "case": {
-        "geometry": "row-hold",
-        "load": "half-AP"
-      },
-      "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
-      },
-      "actual": {
-        "energy": 450000000,
-        "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "B3": 5920000,
-          "H": 1200000,
-          "magazine": 1200000
-        },
-        "escaped": 429840000,
-        "blasts": 1,
-        "rooms": {
-          "B1": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 4
-          },
-          "B2": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 4
-          },
-          "B3": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 4
-          },
-          "H": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 0
-          }
-        },
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1566000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
-      },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
-    },
-    {
-      "case": {
-        "geometry": "row-hold",
-        "load": "HE-2"
-      },
-      "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
-      },
-      "actual": {
-        "energy": 16000000,
-        "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "B3": 1760000,
-          "H": 1200000,
-          "magazine": 1200000
-        },
-        "escaped": 0,
-        "blasts": 1,
-        "rooms": {
-          "B1": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 4
-          },
-          "B2": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 4
-          },
-          "B3": {
-            "destroyed": 0,
-            "integrity": [
-              0.7027027027027026,
-              0.7027027027027026,
-              0.7027027027027026,
-              0.7027027027027026
-            ],
-            "deaths": 1
-          },
-          "H": {
-            "destroyed": 4,
-            "integrity": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "deaths": 0
-          }
-        },
-        "books": [
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 696000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          },
-          {
-            "generated": 0,
-            "radiated": 0,
-            "stored": 0,
-            "initial": 1566000000,
-            "conducted": 0,
-            "pumped": 0,
-            "vented": 0
-          }
-        ],
-        "eventsOk": true
-      },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -727,18 +1003,62 @@
         "load": "HE-4"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
+        "E": 32000000,
+        "absorbed": {
+          "magazine": 2000000,
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000
+        },
+        "escaped": 16000000,
+        "sumB": 16000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "H",
+          "B2",
+          "B3"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B3": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "H": {
+            "absorbed": 8000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 0
+          }
+        },
+        "factor": 4
       },
       "actual": {
         "energy": 32000000,
         "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "B3": 5920000,
-          "H": 1200000,
-          "magazine": 1200000
+          "B1": 2000000,
+          "B2": 2000000,
+          "B3": 2000000,
+          "H": 8000000,
+          "magazine": 2000000
         },
-        "escaped": 11840000,
+        "escaped": 16000000,
         "blasts": 1,
         "rooms": {
           "B1": {
@@ -823,7 +1143,7 @@
             "generated": 0,
             "radiated": 0,
             "stored": 0,
-            "initial": 1566000000,
+            "initial": 696000000,
             "conducted": 0,
             "pumped": 0,
             "vented": 0
@@ -831,8 +1151,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -840,16 +1160,44 @@
         "load": "full-HE"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
+        "E": 1200000000,
+        "absorbed": {
+          "B1": 2000000,
+          "magazine": 2000000,
+          "B2": 2000000
+        },
+        "escaped": 1194000000,
+        "sumB": 6000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
       },
       "actual": {
         "energy": 1200000000,
         "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "magazine": 1200000
+          "B1": 2000000,
+          "B2": 2000000,
+          "magazine": 2000000
         },
-        "escaped": 1186960000,
+        "escaped": 1194000000,
         "blasts": 1,
         "rooms": {
           "B1": {
@@ -904,8 +1252,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -913,16 +1261,44 @@
         "load": "half-AP"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
+        "E": 450000000,
+        "absorbed": {
+          "B1": 2000000,
+          "magazine": 2000000,
+          "B2": 2000000
+        },
+        "escaped": 444000000,
+        "sumB": 6000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
       },
       "actual": {
         "energy": 450000000,
         "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "magazine": 1200000
+          "B1": 2000000,
+          "B2": 2000000,
+          "magazine": 2000000
         },
-        "escaped": 436960000,
+        "escaped": 444000000,
         "blasts": 1,
         "rooms": {
           "B1": {
@@ -977,8 +1353,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -986,16 +1362,44 @@
         "load": "HE-2"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
+        "E": 16000000,
+        "absorbed": {
+          "B1": 2000000,
+          "magazine": 2000000,
+          "B2": 2000000
+        },
+        "escaped": 10000000,
+        "sumB": 6000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
       },
       "actual": {
         "energy": 16000000,
         "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "magazine": 1200000
+          "B1": 2000000,
+          "B2": 2000000,
+          "magazine": 2000000
         },
-        "escaped": 2960000,
+        "escaped": 10000000,
         "blasts": 1,
         "rooms": {
           "B1": {
@@ -1050,8 +1454,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
@@ -1059,16 +1463,44 @@
         "load": "HE-4"
       },
       "expected": {
-        "error": "Cannot read properties of undefined (reading 'blastResistance')"
+        "E": 32000000,
+        "absorbed": {
+          "B1": 2000000,
+          "magazine": 2000000,
+          "B2": 2000000
+        },
+        "escaped": 26000000,
+        "sumB": 6000000,
+        "reachedAll": true,
+        "full": [
+          "magazine",
+          "B1",
+          "B2"
+        ],
+        "rooms": {
+          "B1": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          },
+          "B2": {
+            "absorbed": 2000000,
+            "destroyed": 4,
+            "integrity": 0,
+            "deaths": 4
+          }
+        },
+        "factor": 4
       },
       "actual": {
         "energy": 32000000,
         "absorbed": {
-          "B1": 5920000,
-          "B2": 5920000,
-          "magazine": 1200000
+          "B1": 2000000,
+          "B2": 2000000,
+          "magazine": 2000000
         },
-        "escaped": 18960000,
+        "escaped": 26000000,
         "blasts": 1,
         "rooms": {
           "B1": {
@@ -1123,8 +1555,8 @@
         ],
         "eventsOk": true
       },
-      "pass": false,
-      "note": "expected() threw: Cannot read properties of undefined (reading 'blastResistance')"
+      "pass": true,
+      "note": ""
     }
   ],
   "invariants": [
@@ -1139,11 +1571,6 @@
     {
       "name": "every event carries t, type, room, cause, crew and its #156 fields, every case",
       "ok": true
-    },
-    {
-      "name": "expected() completes in every case",
-      "ok": false,
-      "detail": "12 case(s) threw"
     },
     {
       "name": "no NaN or infinity",
