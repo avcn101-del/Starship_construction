@@ -1366,3 +1366,4 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 251 | Physics pass 2 merged (PR #54); answers to the re-review | current |
 | 252 | L4's routes: one target per route R1 cannot show; EMP and surrender move to L5 | current (amends #127's L4 scope) |
 | 253 | The L4 plan (§13l): L4a and L4b, targets, Disabled and destroyed rules, `battle.wreckFraction`, `quarters.crewPerCell` 4 | current |
+| 254 | After v2's playtest: no v3 yet; pace measured first (scan time, armour over the magazine, layout); L4a goes ahead | current |
