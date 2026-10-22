@@ -1,0 +1,103 @@
+# L4b — physics checker, phase 1 (blind derivation)
+
+Lock: `e5c67dc` (branch `m0/l4b`). Checker branch `checker/l4b`, from `e5c67dc`.
+Derived **before** opening `mission0/scenarios/`, `mission0/results/`, `js/battle.js` or `MISSION0.md`.
+Reproduction scripts (my own, document constants only): scratchpad `lib.mjs`, `d.mjs`, `g.mjs`, `t.mjs`, `r.mjs`, `beam.mjs`, `n.mjs`; the numbers below are pasted from their output.
+
+## What I read besides the documents (rules the documents leave unstated)
+
+- `js/rooms.js` `turret` (shot k due at anchor + k/rate, anchor = the step the turret first can fire), `fireRound` (a passed cell loses 1/hitsToWreck **whatever the chord**), `damageCell` (1e-12 snap, `isDestroyed` = no surviving cell, bridge gives control while it has **any** surviving cell), `cull` (distance to each body's `x`, i.e. its centre), `js/heat.js` header (`ventCell`: a destroyed heat-sink cell vents its share **above rest**), `js/damage.js` `penetrateRound` (same as §13i.1).
+- After finishing the derivation I ran `tools/estimates/l4.mjs`; those comparisons are in the last section and changed none of the numbers above it.
+
+## Common geometry and my own check of the targets
+
+My mass model (cell masses by type from CONSTANTS, heat sink + water 4290.01 kg, 17 radiators 250 kg, 4 RCS 200 kg, 900 kg of rounds in the magazine, 24 kg in the turret store, plates 39 250 kg at segment midpoints) reproduces the lock's literals: R1 950 534.06 kg centre (24.1355, 16.1842); **R1d 1 460 784.06 kg, centre (30.6846, 17.2483), I 2.70727e8** (lock: 1 460 784.06, (30.685, 17.248), 2.707267e8). T-neck, no fittings: centre (26.55, 16.33).
+
+Attacker R1d bow-on to a target on its +y: heading +y, turret centre at attacker-frame offset (14.315, 7.752) from the CoM, so at world offset (−7.752, +14.315) from the attacker's CoM. Launch point (turret room centre, attacker CoM at (0, −900)): **(−7.752, −885.685)**. Shot k is launched at t = 2k s (anchor 0; if the turret needs one step to be powered, add 1/60 s everywhere). Time of flight to a face at grid height y_f of a target with CoM height c_y: ToF = ((y_f − c_y) + 885.685)/800.
+
+| face | ToF (s) | arrival of shot k | fraction of a step into its step |
+|---|---|---|---|
+| R1 bridge bottom face (y 10) | 1.09938 | 2k + 1.09938 | **0.963** (step 65 + 120 k) |
+| T-neck neck bottom face (y 10) | 1.09920 | 2k + 1.09920 | 0.952 (step 65 + 120 k) |
+| R1 hold / shield-gen bottom (y 0) | 1.08688 | 2k + 1.08688 | 0.213 (step 65 + 120 k) |
+| R1d hold bottom (y 0) | 1.08555 | 2k + 1.08555 | 0.133 |
+
+So the lock's 900/800 = 1.125 s is 2.5 ms (1.5 steps) too long; with 1.099 s the arrival for the bridge and the neck sits **0.04–0.05 step before a step boundary**: step 65 + 120 k, but a sub-metre change (launch at the muzzle instead of the room centre; the attacker drifting a third of a metre back from recoil by k = 10; a one-step power delay) moves it to the next step. **The bridge and neck arrival steps are not decidable from the documents to ±1 step.** The hold-face cases (B6) sit 0.13–0.21 step into the step: more robust (±0.13 step ≈ 1.7 m).
+
+### The round (all cases): m = 6 kg, 800 m/s, D = 62.43 mm, A0 = 3.06087e-3 m², S = c ρ L = 3.02927e6, s0 = p/A0 = 1.56818e6; r = c σ: crew 592 kg/m² → 914 856; hold/magazine 120 → 185 444; plate 0.2 m → σ 1570 → 2.42622e6 (σ/cos θ with cos θ = 0.99981 changes nothing at the printed digits); shield generator 400 → 618 146; reactor 6000 → 9.2722e6.
+
+### A geometry fact that every kinetic case depends on (flag for the lock and for the lead designer)
+
+"The turret aims at the target room's centre." For a 2 × 2 room (bridge, magazine, reactor, hold-neck) the centre is a **lattice corner** (R1 bridge (30, 15) m). The line from the attacker (x offset −7.75 m at the launch) has a slope of about +0.0102 in x per m of y, so it crosses the corner diagonally: bottom-left cell, then the top-right cell: **two of the four cells, never the other two**. A graze costs a full 1/3 (`fireRound`: `i < passed ? 1 : a/r`), so a chord does not matter for damage. Consequences, all conditional on the tracer treating the corner as a clean diagonal (its code is in `battle.js`, closed to me in phase 1):
+
+- **Bridge (B1)**: the diagonal destroys (5,2) and (6,3) only (see below); (6,2) and (5,3) are never touched, the bridge keeps surviving cells, `updateControl` keeps giving control, **the battle is never decapitated: no Disabled in 120 s.** For Disabled the scenario must put rounds into both columns 5 and 6 (as `l4.mjs` does with its two columns), or aim at a cell, not the room centre. §13l.1's rule as written does not do it.
+- Magazine, reactor, neck: the diagonal is enough (a magazine needs one cell, a reactor two, the neck two cells on a diagonal that cuts it, see B3).
+
+## B1 `L4.route.decapitate` (R1)
+
+Path (column): bridge, bridge, quarters, quarters, all σ 592, r 914 856. Per round in a pure column (cell integrity after each round):
+
+| round on the column | cell 1 (bridge row 2) | cell 2 (row 3) | q4 | note |
+|---|---|---|---|---|
+| 1 | 0.6667 | 0.8338 | 1 | passes cell 1, stops in cell 2 (loses 0.1662) |
+| 2 | 0.3333 | 0.6677 | 1 | |
+| 3 | **0** | 0.5015 | 1 | cell 1 destroyed |
+| 4 | 0 | 0.1682 | 0.8338 | cell 2 now the first, passes; stops in q4 |
+| 5 | 0 | **0** | 0.6677 | cell 2 destroyed |
+
+So a column needs **5** rounds; columns 5 and 6 are independent, so with both columns shot (any order or alternating) the bridge's last cell is destroyed by the **10th round** (`…:shot-10`, k = 9, launched at t = 18 s), quarters left at 1 − (2 × 0.3323)/6 = **0.889**, the explosion count 0, crew deaths from bridge/quarters damage only. Arrival 18 + 1.09938 = 19.0994 s: **step 1145** (± 1, fraction 0.963 into the step). Disabled **600 steps** after the step in which the last bridge cell is destroyed (`battle.disabledSeconds`/dt; the sum 600 × (1/60) in floats is 10.000000000000076, so the scenario must count steps, not compare times): **step 1745**, t ≈ 29.08 s. The weapons (beam bay, turret) lose control in the same step (their `control-lost` is a child of the bridge's last `cell-destroyed`). Cause chain from the Disabled event: Disabled ← (weapon rooms' `control-lost` / reactor `scram`) ← `cell-destroyed` (bridge, last cell) ← **root: `<turret id>:shot-10`**. No explosion (no magazine or reactor cell is touched; the quarters cells reached are not magazines).
+Under the single-aim policy above: no end by 120 s (10 rounds at the corner destroy (5,2) at round 3 and (6,3) at round 5, then the line runs on through the holes and eats the quarters cells (6,4), (6,5)).
+
+## B3 `L4.route.split` (T-neck)
+
+Path through the neck's hold cells (σ 120, r 185 444). Every round passes both cells: after two passes exit momentum 3627.75 N·s, impulse **1172.25 N·s per round**, f = 0.1224. Each cell loses 1/3 per round: after round 3 both cells on the path are 0 (1 − 3 × (1/3) snaps to 0). On the diagonal these are (5,2) and (6,3); the cells left, (5,3) (touching the reactor-side heat sink/reactor column) and (6,2) (touching the bridge), are disconnected from each other: **the structure splits in round 3: 2 bodies** (reactor side: engine, reactor, shield generator, heat sink, cell (5,3), ≈ 0.74 of the mass; bridge side ≈ 0.26; largest fragment 0.74 ≥ `wreckFraction` 0.5, so not destroyed). Round 3 = k = 2, launched at 4 s, arrival 5.0992 s: **step 305** (fraction 0.952, ± 1). The first step *after which* the target has more than one body is therefore 305 (the step of the hit) or the step after, depending on when the battle samples. Momentum at that step: the target started at rest; 3 rounds × 1172.25 = **3516.75 N·s along the shot direction** (direction (0.01264, 0.99992) for the aim at the neck centre: P ≈ (44.5, 3516.4)), plus the RCS holding the heading (external impulse); books close to 1e-9 × gross when the RCS and received impulse are included. Disabled at split step + 600 = **step 905** (the weapons are on the bridge side with no reactor in their fragment; "cut the power walls" and "split" are one mechanism, §13l.2). Both bodies are dark/no-power: the reactor half SCRAMs (control lost), the bridge half has control but no reactor. **Naive** (beam bay first): the bay [11,13)×[2,4) needs all four cells; the turret [10,12)×[4,6) and its store (4 rounds + the magazine) stay able, so **not Disabled in 120 s**; at the diagonal the bay is only half destroyed (works at half power); either way a turret with ammunition keeps the ship able.
+
+## B5 `L4.route.dry` (T-gun, turret broadside from t = 0)
+
+n = ready 4 + 150 HE rounds (900 kg magazine / 6 kg) = **154 rounds**. The feed (wall (8,3)|(8,4), L = 5 m, 0.72 × 5 = 3.6 kg/s = 0.6 rounds/s > 0.5/s) refills the store faster than it empties, so shot k is at t = 2k, k = 0…153: **154 shots, the last at t = 306.000 s (step 18 360, exactly on a boundary: 153/0.5 = 306)**. After it: store 0, magazine 0; the turret's last event is `cease-fire` with cause **`dry`**, its parent the last shot. Heat: 154 × 0.3 MJ = 46.2 MJ into 2.4 MJ/K = +19 K < hot (330 K): no heat shutdown. The ship's only weapon is lost in step 18 360, so Disabled comes 600 steps later: **step 18 959–18 961 depending on whether the count starts in the step of the last shot or the next** (the lock's formula `(n−1)/(rate dt) + 1 + 10/dt` is 18 961 = 316.0167 s; §13l.3's "316.02"). I cannot decide the ±2 from the documents; it is a convention of `battle.js`, not physics. The lock's own rule chooses 18 961.
+
+## B6 `L4.kill`
+
+All four cases in a line through the room-centre corner (diagonal, left column then right column).
+
+**(R1 magazine)**: path hold, hold, magazine (7,2), magazine (8,3), crew, crew. Per round the three upstream cells each lose 1/3; after round 3 the hold cells and the magazine's first cell are 0: **the magazine detonates on the 3rd round** (k = 2, t = 4 s, arrival 5.0869 s = **step 305**, fraction 0.213), battle ends **destroyed**, not Disabled, at that step; explosion event cause = the shot id (root). The magazine holds rounds, so the kernel's rule fires at once.
+
+**(R1 reactor)**: path shield generator (400), shield generator, reactor (6000), reactor, heat sink, heat sink. Round loss on the first reactor cell 0.00369 while the shield-generator cells live (rounds 1–3), then 0.05638 per round. First reactor cell destroyed on round 21, the second (diagonal's other cell) on round **39** (k = 38, t = 76 s, arrival 77.0869 s, **step 4625**, fraction 0.213): 2 of 4 destroyed ≥ `breachFraction` 0.5 → **breach in step 4625**, countdown 10 s = 600 steps → **explosion in step 5225 (± 1)**, ≈ 87.1 s; destroyed. In the 10 s countdown, other cells and rooms are also lost; the ship is destroyed by the explosion (checked before Disabled).
+
+**(R1d magazine, rounds)**: path hold (7,0), hold (7,1), plate P1 (1570 kg/m²), magazine (7,2), magazine (8,3), plate P2, turret (8,4), (8,5), hull plate P3. Rounds 1–3 are damped by the two hold cells, so the plate P1 takes s = 1.04009e6 Pa·s/ r 2.42622e6 → loss **0.1429** each (not 0.215); after round 3 the hold cells are holes (1 − 3 × (1/3) = 0), so rounds 4, 5, 6 reach the plate with s0: loss **0.2153, 0.2155, 0.2155** (integrity 0.5713 → 0.3559 → 0.1404 → 0). **The plate is destroyed in round 6.** Rounds 7, 8, 9 pass the first magazine cell (7,2) and the second (8,3) and stop in the top plate P2 (−0.1429, −0.2143, …): cell (7,2) goes 0.6667 → 0.3333 → **0 in round 9**. **The shot whose hit destroys the magazine's first cell is the 9th** (k = 8, t = 16 s, arrival 17.0855 s, **step 1025**, fraction 0.133); the explosion in the same step. The lock's "literal 10 (five stopped rounds at 0.215 each wreck the plate, three pass the first cell)" does not match: five rounds at 0.215 would be 1.075 only if the holds were already gone; the first three rounds are shielded by two hold cells and cost the plate 0.143 each, so the plate needs six rounds, not five, and 6 + 3 = **9**. (5 + 3 = 8 in the lock's own sentence; 10 only as a count of shots fired by the time of the explosion.)
+
+**(R1d magazine, beam)**: beam 5 MW, N = 2 → 100 MeV. CSDA range of 100 MeV protons in iron-equivalent matter with the kernel's Bethe: **112.7 kg/m²** < the hold cell's 120 kg/m², so the first cell of the path takes the whole beam (F₁ ≈ 1 within my integrator's 1e-3). Burn rates per step at F = 1: hold/magazine cell 3000 kg: 5e6/60/(3000 × 3000) = 1/108 → **108 steps (1.8 s)**; plate 39 250 kg: **1413 steps (23.55 s)**. Sequence along the axis: hold (7,0) 108 steps, hold (7,1) 108, plate 1413, first magazine cell 108: total **1737 steps = 28.95 s** from the first step of the beam (shifted by whatever delay the beam bay needs to be powered). The beam also heats the rooms: plate 118 MJ into its room (≤ 6 K), not near a magazine cook-off (450 K). The lock's comparison literal "29.5 s" (§13l.3) is 0.55 s (33 steps) above; I find nothing in the documents that costs 33 more steps, except an F₁ below 1 or a chord below 1 on the first cells (if the beam sits on the lattice line x = 40 m with chords 0.5, everything would take twice as long). The beam axis of an attacker with its CoM at x = 0 is at world x = +2.25 m, grid x = 32.9 on R1d, i.e. **not through the magazine** (35–45 m): the scenario must shift the attacker laterally; my number assumes the beam in a single column of the magazine.
+
+## B10 `L4.relative`
+
+Target R1 drifting at +100 m/s along the line, round aimed at the bridge centre at launch (no lead), direction angle φ = 0.015393 rad. The round's world velocity is 800 d; the hull's (0, 100). **Relative velocity (0.800 sin φ, 800 cos φ − 100) = 700.0135 m/s**, not 700: the speed differs by 0.0135 m/s (1.9e-5) because the aimed line is not exactly along y. A scenario criterion of 700 within 1e-12 would fail; within 1e-4 relative it passes; the speed of the **component along the line** is 699.906. Time to first hit: the face recedes at 100 m/s: (879.50)/(800 cos φ − 100) = 1.2566 s → **step 75** (fraction 0.40, robust ±0.4 step). The relative line enters grid x = 31.86 m, drift to 32.2 m: **column 6 (30–35 m)**, away from the lattice corner, so the path is (6,2) bridge, (6,3) bridge, (6,4) quarters, (6,5) quarters, chords ≈ 1. r = c × 592 = **914 855.62** for each. fireRound at 700.0135: p0 = 4200.08 N·s, s0 = 1.3722e6 > r, f + r/S = 0.3020 < 1 → passes cell 1 (the cell takes 914 856 sectional = 2800.2 N·s, loses 1/3), then s = 3.19215e5 < r: **stops in cell 2** (cell 2 loses (s/r)/3 = 0.11631), f = 0.3020 + s/S = **0.40738**, momentum at the stop **1399.83 N·s**, exit momentum 0. (At 800 m/s the same path: stops in cell 2 as well, loss 0.16615, momentum at stop 1999.75, so the penetration depth does not distinguish 700 from 800: only the numbers do; this is a weak criterion if it only checks "which cell it stops in".)
+
+## B11 `L4.cull`
+
+Aim at (100, 0) from the launch point: direction (0.120769, 0.992681), world velocity (96.615, 794.14) m/s, round momentum (579.69, 4764.87) N·s. The line passes grid x = 98 m at the target's y: a **miss** by ≈ 75 m of the hull's side. The round is far from the attacker's body (900 m from the origin; centre of mass) at 3.75 s, from the target's body (origin) only at 4.85 s: **it leaves in the move that takes it to t = 4.85 s** (the 291st step from its launch at step 0: step index 290; distance to the target's body at the step before 2988.2 m, at that step 3001.5 m; to the attacker's body 3880 and 3893 m). Margin on the crossing: 1.5 m of 13.2 m per step: ± 1 step with the launch-point convention. `world.ship.left` of the attacker's world: m = 6 kg, P = **(579.690, 4764.867) N·s**, rounds 1, debris 0, K = 1.92e6 J, L = m (x × v) about the origin = **4.7649e5** kg m²/s (constant along the straight line: x_launch × v). The attacker's momentum after the shot is the opposite (−579.69, −4764.87) N·s; bodies + rounds + left = the RCS external impulse within 1e-9 × gross.
+
+## B13 `L4.disabled.rule`
+
+- **(weapons lost)**: R1 without its beam bay and turret has no weapon room: "no able weapon" from step 0. Disabled when 10 s have elapsed: **step 599 or 600** (end of step 599 = t = 10.000 s; the float sum of 600 steps is 10.000000000000076 ≥ 10 at the end of step 599 by the sum, while the product 600 × (1/60) = 10 exactly). The engine is able (controlled, powered, not shut down, not destroyed) and not thrusting at the end: "whatever the engine does" (#255).
+- **(no engine)**: a holding turret is **able** (the kernel: hold = ready to fire, drawing its power; reactor produces; ammunition in store and magazine). **A weapon is able at every step; never Disabled**; the battle ends at the scenario's time limit. (Assumes the turret and magazine are loaded as in T-gun's default.)
+- **(cut off)**: with cell (8,4) of the turret destroyed, the only wall between the magazine (cell (8,3)) and the turret is dead: no feed. The ready store of 4 rounds fires at t = 0, 2, 4, 6 s (steps 0, 120, 240, 360); after the 4th round the turret is dry: `cease-fire`, cause **`dry`** (store empty, magazine not joined). No weapon is able from step 360: Disabled **600 steps later, step 960–961, t ≈ 16.0 s**. Not before: 3 of 4 turret cells survive, rate unchanged, so the first shots are at the normal times.
+
+## B14 `L2.plate.vent`
+
+Heat sink 4 cells × 1.35e6 × 5 = 2.7e7 J/K; plate 0.2 × 7850 × 25 = 39 250 kg × 450 = 1.76625e7 J/K. **Before: 4.46625e7 J/K. Cell share (C − keep)/4 = 6.75e6 J/K. After: 2.7e7 − 6.75e6 + 1.76625e7 = 3.79125e7 J/K** (the wrong vent of the plate's share would leave 3.34969e7). Temperature 400 K before and after (unchanged, to 1e-15 relative). **Heat vented = share × (T − T_rest) = 6.75e6 × 110 = 7.425e8 J** (the part above rest: `ventCell`; the wrong behaviour would vent 4.46625e7/4 × 110 = 1.2282e9 J). The printed formula in §13l.4 B14, "4 × 2.7e7 − 2.7e7 + 1.7663e7", is not the sum it claims: 4 × 2.7e7 would be 1.08e8; the per-cell capacity is 6.75e6, not 2.7e7 (2.7e7 is the room's total); the number 3.79125e7 is right.
+
+## B15 `L3.shield.nobody`
+
+M round, p = 4800 N·s, E = 1.92e6 J. At full strength G = min(1, Σ g_i) = 1 the fields remove Δp = `shield.kineticStop` × A0 = **3200.000 N·s**, so the round leaves at **266.667 m/s** (p = 1600 N·s); energy lost **1.706667e6 J** (= 3 × (800² − 266.667²)). g at 2.5 m from generator 1 = 0.99611 (radius 40 m, n = 2); the second R1's g depends on where the lock puts it (G = 1 whenever Σ g ≥ 1, g₂ ≥ 0.0039 within ~640 m). Paid per generator ∝ buffer × g_i: E_i = 1.706667e6 × g_i/Σ g (buffers 1e7 J, none exhausted). **Normal case** per generator i: impulse Δp_i applied at the generator, heat = E_i − J_i²/2M (≈ 5.4 J for J = 3200 N·s on 950 534 kg: a relative 3.2e-6 of the heat). **Nobody**: the whole energy share as the generator's `impulseHeat` for its next step (= E_i, no J²/2M term), **no impulse**: the bodies' momentum and spin change by 0, the external impulse 0, the field's booked impulse 0 for that share, so the momentum the field removed from the round (Δp_i) is not booked anywhere: **the world's momentum books are open by Δp_i, by design**; the criterion must be on the fallback, not on closure. The round's velocity after the field is the same as in the normal case.
+
+## Questions the documents leave open
+
+1. Aim point: "the room's centre" is a lattice corner for the 2 × 2 rooms; single-aim B1 cannot destroy the bridge (above).
+2. Shot-time origin (anchor 0 or one step) and the launch point (room centre vs muzzle): ± 1 step on the bridge and neck arrivals (fractions 0.963, 0.952).
+3. The Disabled counter's convention (steps counted from the step of loss or the one after).
+4. The attacker's beam axis (world x = +2.25 m) versus the target's rooms; the lock's lateral placement is not in the documents.
+5. Whether the T-gun turret in the "no engine" case is loaded.
+
+## After running `tools/estimates/l4.mjs` (read after the above was fixed)
+
+The estimate fires from t = 2 s (`shot-n` at 2n s, ids from 1) and without time of flight; mapping to my counts: R1 magazine **3 shots** (its `shot-3`, "shots 4" counts the next one in flight) = mine; **R1d magazine 9th shot** = mine (`shot-9` @ 18.00; its "shots 10" is a count of fired, not the destroying shot: the lock's literal 10 in B6 is the fired count); T-neck split at its `shot-3` = mine; bridge: estimate `shot-11` (11 shots, columns 5 and 6) against my **10**; reactor breach `shot-41` against my **39**: I have not found the 2-shot difference (the estimate's pure columns 3 and 4 against my diagonal; the bridge difference is unexplained); R1d beam 29.5 s against my 28.95 s (unexplained, +33 steps); T-gun 306.02 / 316.02 s agree with 306.000 / 316.0167.
