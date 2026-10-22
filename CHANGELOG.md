@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5m's route question answered (#286)
+
+- `DECISIONS.md` #286: mission kill on R1d, overheat through R1's bridge;
+  R1 from +y and T-gun's turret kept as cases. `DESIGN.md` §13l.2's target
+  table, §13m's route rows, §18.
+
 ## Unreleased — 2026-10-22 — Stale text after L5a (the design partner's finding)
 
 - `DESIGN.md` §5.2's magazine row and §13c's detonation row say the rule
