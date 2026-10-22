@@ -2,13 +2,13 @@
 // proto/measure.mjs — R1-versus-R1 duels of the feel prototype v2, headless
 // (Node, no DOM), with both ships on the enemy's script (DESIGN.md 13j.2:
 // Fire 60 s, Cool 30 s; orders bow-on, dodge on) at each range order, for
-// seeds 1-10, one loadout (config.js LOADOUT) on both ships. Prints per duel
+// seeds 1-10, one loadout (config.js LOADOUT; R1d by default) on both ships, the end by the kernel's rules (js/battle.js: Disabled with no able weapon, #255). Prints per duel
 // its length, the end, each side's shots, hits and misses, and what destroyed
 // a ship; then a summary per range. Not a Mission 0 scenario (#217): a
 // measure for the owner, to set against 13j.3's rough estimate.
 //
 //   node proto/measure.mjs [--seeds N] [--first S] [--range close|hold|open] [--limit seconds]
-//     [--facing bow|broadside] [--magazine heFull|apFull|heHalf|apQuarter] [--layout R1|R1B]
+//     [--facing bow|broadside] [--magazine heFull|apFull|heHalf|apQuarter] [--layout R1D|R1|R1B|R1C]
 //     [--shield-budget W] [--hits N] [--turrets on|off]
 //
 // --seeds N runs seeds S .. S + N - 1 (default 1 .. 10); --range one range

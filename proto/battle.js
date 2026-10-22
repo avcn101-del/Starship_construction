@@ -17,6 +17,8 @@ import { withOverrides, TIERS, FIXED, PARAMS, ROOMS, scaled } from '../js/data.j
 import { rng, sin } from '../js/util.js';
 import { roundGeometry } from '../js/projectile.js';
 import { validateShip } from '../js/layout.js';
+import { weaponStates, largestFraction } from '../js/battle.js';
+import { cascadeTree } from '../js/events.js';
 import { rotate, worldPoint, pointVelocity } from '../js/body.js';
 import { LAYOUTS, LOADOUT, START_SEPARATION, TIER, SEED, PRESETS, SCRIPT, RANGES, AUTOPILOT, defaultLoadout } from './config.js';
 
@@ -72,6 +74,7 @@ function buildShip(params, side, loadout, orders, seed) {
     beam: { power: 0, absorbed: 0, passed: 0, hit: null, from: null, dir: null },
     stats: { shots: 0, hits: 0, misses: 0 },
     disabledSince: null, disabled: false, destroyed: false, destroyedBy: null, firstFailure: null,
+    undock: world.ship.bodies.reduce((m, b) => m + b.M, 0), weaponsLost: new Map(), endParent: null, beams: 0, beamId: null,
   };
 }
 
@@ -148,8 +151,9 @@ export const ordersNow = (ship) => ({ ...ship.orders, ...(PRESETS[ship.preset].o
 
 /** Set the kernel's weapon and shield controls from the ship's preset and target (the helm sets engine and RCS). */
 function applyPreset(battle, ship) {
-  const p = PRESETS[ship.preset], aim = targetAlive(ship);
-  ship.room('beamBay').beamBay.firing = p.beam && aim;
+  const p = PRESETS[ship.preset], aim = targetAlive(ship), bb = ship.room('beamBay').beamBay;
+  if (p.beam && aim && !bb.firing) ship.beamId = `${ship.name}:beam-${++ship.beams}`; // a beam id per firing spell: a root of the cascade tree (13l.1)
+  bb.firing = p.beam && aim;
   ship.room('turret').turret.hold = !(p.turret && aim && !battle.beamOnly); // beamOnly: the loadout's turrets off (the beam-only probe)
   ship.room('shield').shield.on = p.shield;
 }
@@ -389,7 +393,7 @@ function beamsOut(battle, shooter) {
   b.absorbed = res.absorbed; b.passed = res.passed;
   if (b.passed > 0) {
     const range = len(sub(worldPoint(mainBody(target), mainBody(target).c), b.from));
-    const res = fireBeam(target.world, { power: b.passed, energy: beamEnergy(shooter.world, shooter.room('beamBay')), range }, b.hit.path, `${shooter.name}:beam`);
+    const res = fireBeam(target.world, { power: b.passed, energy: beamEnergy(shooter.world, shooter.room('beamBay')), range }, b.hit.path, shooter.beamId);
     b.landed = true;
     const deepest = res.fractions.reduce((k, F, i) => (F > 0 ? i : k), 0);
     b.deepest = b.hit.path.slice(0, deepest + 1).filter((x) => !x.plate).length - 1; // the deepest room cell it reached, for the view
@@ -445,21 +449,35 @@ function strike(battle, r, hit) {
   if (battle.hits.length > 50) battle.hits.shift();
 }
 
-// ---------- the end (#82, #83) ----------
-const reactorOk = (ship) => ship.world.rooms.some((r) => r.type === 'reactor' && !isDestroyed(r) && !r.shutdown && !r.reactor.scrammed && r.controlled);
-const working = (r) => !isDestroyed(r) && r.controlled && !r.shutdown && r.active;
-/** Able to fire or thrust, whatever the preset: the room works, is controlled and a reactor can power it. */
+// ---------- the end (#82, #83, #255) ----------
+/** Each weapon's ability by the kernel's rule (js/battle.js weaponStates, 13l.1: weapons only, #255), whatever the preset. */
 export function abilities(ship) {
-  const power = reactorOk(ship), mag = ship.room('magazine'), t = ship.room('turret');
-  const fed = t.turret.ammo > 0 || (!isDestroyed(mag) && magazineContents(ship.world, mag).ap + magazineContents(ship.world, mag).he > 0);
-  return { beam: power && working(ship.room('beamBay')), turret: power && working(t) && fed, thrust: power && working(ship.room('engine')) };
+  const states = weaponStates(ship.world), of = (type) => states.some((x) => x.room.type === type && x.able);
+  return { beam: of('beamBay'), turret: of('turret'), states };
 }
+/**
+ * The kernel's end rules (13l.1): destroyed by a reactor's or a magazine's explosion (readEvents) or when the largest
+ * piece holds under battle.wreckFraction of the undock mass (#83); Disabled with no able weapon for
+ * battle.disabledSeconds, whatever the engine does (#255). The end's parent in the cascade tree is the explosion, or
+ * the event that took the last weapon's ability (the first failing condition of 13l.1's able).
+ */
 function checkEnd(battle) {
   for (const s of battle.ships) {
+    if (!s.destroyed && largestFraction(s.world, s.undock) < battle.params.battle.wreckFraction.value) { s.destroyed = true; s.destroyedBy = { t: battle.t, room: 'pieces', energy: 0, cause: s.world.log.lastCut || 'launch' }; s.endParent = s.world.log.lastCut || 'launch'; }
+    if (s.destroyed && !s.endParent && s.destroyedBy) s.endParent = s.destroyedBy.id;
     const a = abilities(s);
-    if (a.beam || a.turret || a.thrust) s.disabledSince = null;
+    for (const x of a.states) {
+      const was = s.weaponsLost.get(x.room.id);
+      if (!x.able && !was) s.weaponsLost.set(x.room.id, { t: battle.t, parent: x.parent, why: x.why });
+      else if (x.able) s.weaponsLost.delete(x.room.id);
+    }
+    if (a.beam || a.turret) s.disabledSince = null;
     else if (s.disabledSince === null) s.disabledSince = battle.t;
-    if (s.disabledSince !== null && battle.t - s.disabledSince >= battle.disabledSeconds - 1e-9) s.disabled = true;
+    if (s.disabledSince !== null && battle.t - s.disabledSince >= battle.disabledSeconds - 1e-9 && !s.disabled) {
+      s.disabled = true;
+      const last = [...s.weaponsLost.values()].sort((x, y) => y.t - x.t)[0];
+      if (!s.destroyed) s.endParent = last ? last.parent : 'launch';
+    }
   }
   const out = battle.ships.filter((s) => s.destroyed || s.disabled);
   if (!out.length) return;
@@ -470,13 +488,29 @@ function checkEnd(battle) {
     sides: Object.fromEntries(battle.ships.map((s) => [s.side, summary(s)])),
   };
 }
+/**
+ * The cascade tree of the battle's end for one ship (#41, #264): the root (a shot or a beam, heat or launch) of the
+ * chain of parents from the event that ended it, and every event that root caused in the ship's kernel log, depth
+ * first, as [{ depth, event }].
+ */
+export function endTree(ship) {
+  if (!ship.endParent) return null;
+  const ev = ship.world.log.events, byId = new Map(ev.map((e) => [e.id, e]));
+  let root = ship.endParent;
+  while (byId.has(root)) root = byId.get(root).parent;
+  const tree = cascadeTree(ev), r = tree.roots.find((x) => x.root === root);
+  const out = [];
+  const walk = (n, d) => { out.push({ depth: d, event: n.event }); for (const c of n.children) walk(c, d + 1); };
+  if (r) for (const c of r.children) walk(c, 1);
+  return { root, parent: ship.endParent, rows: out };
+}
 export function summary(ship) {
   return {
     crewLost: ship.crewLost, crewTotal: ship.crewTotal,
     wrecked: ship.world.rooms.filter((r) => isDestroyed(r)).map((r) => r.id),
     cellsLost: ship.world.rooms.reduce((x, r) => x + r.cells.length - survivingCells(r), 0),
     shots: ship.stats.shots, hits: ship.stats.hits, misses: ship.stats.misses,
-    firstFailure: ship.firstFailure, destroyedBy: ship.destroyedBy,
+    firstFailure: ship.firstFailure, destroyedBy: ship.destroyedBy, endParent: ship.endParent,
   };
 }
 
@@ -488,7 +522,7 @@ function readEvents(battle, ship) {
     battle.events.push({ side: ship.side, ...e });
     if (e.type === 'shot') launch(battle, ship, e);
     if (e.type === 'crew-died') ship.crewLost += e.deaths;
-    if (e.type === 'explosion' && (e.room === 'reactor' || e.room === 'magazine')) { if (!ship.destroyed) ship.destroyedBy = { t: e.t, room: e.room, energy: e.energy, cause: e.cause }; ship.destroyed = true; }
+    if (e.type === 'explosion' && (e.room === 'reactor' || e.room === 'magazine')) { if (!ship.destroyed) { ship.destroyedBy = { t: e.t, room: e.room, energy: e.energy, cause: e.cause, id: e.id }; ship.endParent = e.id; } ship.destroyed = true; }
     if (!ship.firstFailure && (e.type === 'overheated' || e.type === 'shutdown' || e.type === 'cell-destroyed' || e.type === 'scram')) ship.firstFailure = { t: e.t, type: e.type, room: e.room, cause: e.cause };
     if (!ship.firstHot && e.type === 'hot') ship.firstHot = { t: e.t, room: e.room };
   }
