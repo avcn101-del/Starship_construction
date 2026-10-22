@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L0.blast.surface.v2",
-  "code": "c9224e2",
+  "code": "baf8d67",
   "criterionHash": "188c60ea",
   "lockedHash": "188c60ea",
   "runHash": "943c8b42",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "4949c21d",
   "rows": [
     {

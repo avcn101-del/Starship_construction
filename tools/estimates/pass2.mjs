@@ -54,21 +54,28 @@ out(`  M round: p ${mM * v} N s, E ${(0.5 * mM * v * v / 1e6).toFixed(2)} MJ; on
 const r = stopRound({ mass: mM, velocity: v, area: A }, P.shield.kineticStop.value, 1, Infinity);
 out(`  shield at g=1: removes ${(mM * (v - r.velocity)).toFixed(0)} N s and ${(r.energy / 1e6).toFixed(2)} MJ per M round (to the generator's ship and its heat)`);
 
-// 5. Tier: beam depth and the shield buffer.
+// 5. Tier: beam depth (#249: the kernel's beamEnergy solves the energy of T1's CSDA depth in armour cells) and the shield buffer.
 out('--- 5. tier scaling');
-const sig = (t) => P.armour.cellMass.value * (TIERS[t].edge / edge) ** 3 / TIERS[t].edge ** 2; // k=3 mass over edge^2
+const { createWorld: cw, addRoom: ar, beamEnergy } = await import('../../js/rooms.js');
+const { beamDeposit } = await import('../../js/damage.js');
+const { withOverrides: wo } = await import('../../js/data.js');
+const sig = (t) => scaled(P.armour.cellMass, TIERS[t].edge) / TIERS[t].edge ** 2; // k=3 mass over edge^2
+const depth1 = {};
+for (const N of [2, 8]) {
+  out(`  N = ${N} bay, 8 armour cells (beamEnergy at the tier; depth = csdaRange / sigma; F_1 and exit by beamDeposit, reported):`);
+  for (const t of Object.keys(TIERS)) {
+    const e = TIERS[t].edge, w = cw({ params: wo({}), edge: e, dt: F.simStep.value });
+    const E = beamEnergy(w, ar(w, 'beamBay', { length: N })), depth = csdaRange(E, bethe) / sig(t), d = beamDeposit(E, new Array(8).fill(sig(t)), bethe);
+    depth1[N] ??= depth;
+    out(`    ${t} edge ${String(e).padStart(4)}: E ${(E / MEV).toFixed(3).padStart(9)} MeV (x${(E / (P.beam.gradient.value * N * edge)).toFixed(4)} the T1 energy), depth ${depth.toPrecision(13)} cells (${((depth / depth1[N] - 1)).toExponential(2)} from T1), F_1 ${d.fractions[0].toFixed(4)}, exit ${d.exit.toFixed(4)}`);
+  }
+}
 for (const t of Object.keys(TIERS)) {
-  const e = TIERS[t].edge, E2 = P.beam.gradient.value * 2 * e;
-  const depth = csdaRange(E2, bethe) / sig(t), Ek = scaled(P.beam.gradient, e) * 2 * e, depthK = csdaRange(Ek, bethe) / sig(t);
-  // gradient factor so that the N=2 bay reaches T1's depth: solve csdaRange(g G 2 e) = depth1 x sigma(t) by bisection
-  const target = csdaRange(P.beam.gradient.value * 2 * edge, bethe) / sig('T1') * sig(t);
-  let lo = 0.05, hi = 5; for (let i = 0; i < 60; i++) { const mid = (lo + hi) / 2; (csdaRange(mid * E2, bethe) < target ? (lo = mid) : (hi = mid)); }
-  const g = (lo + hi) / 2;
+  const e = TIERS[t].edge;
   const m = scaled(P.kinetic.roundMass, e) * F.sizeLinear.value.M ** 3, { A: At } = roundGeometry(m, F.steelDensity.value, F.roundLengthToDiameter.value);
   const rt = stopRound({ mass: m, velocity: v, area: At }, scaled(P.shield.kineticStop, e), 1, Infinity);
   const bufNow = scaled(P.shield.budget, e) * BEFORE.bufferSeconds, bufK3 = scaled(P.shield.buffer, e);
-  out(`  ${t} edge ${e}: N=2 depth ${depth.toFixed(3)} armour cells (E ${(E2 / MEV).toFixed(0)} MeV); gradient factor for T1's depth ${g.toFixed(3)} (E ${(g * E2 / MEV).toFixed(0)} MeV); M rounds per buffer today ${(bufNow / rt.energy).toFixed(2)}, buffer k=3 ${(bufK3 / rt.energy).toFixed(2)}`);
-  out(`     with beam.gradient k = ${P.beam.gradient.k} (data.js): factor ${(Ek / E2).toFixed(3)}, E ${(Ek / MEV).toFixed(1)} MeV, N=2 depth ${depthK.toFixed(3)} cells (${(((depthK / (csdaRange(P.beam.gradient.value * 2 * edge, bethe) / sig('T1'))) - 1) * 100).toFixed(2)} % from T1)`);
+  out(`  ${t}: M rounds per buffer today ${(bufNow / rt.energy).toFixed(2)}, buffer k=3 ${(bufK3 / rt.energy).toFixed(2)}`);
 }
 
 // 6. Machinery masses: engine (vacuum F-1), reactor low end, and the k split.

@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.heatsink.loss.v2",
-  "code": "c9224e2",
+  "code": "baf8d67+dirty",
   "criterionHash": "9ea980bd",
   "lockedHash": "9ea980bd",
   "runHash": "54ff45f4",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "5210d9c1",
   "rows": [
     {

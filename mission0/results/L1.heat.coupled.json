@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L1.heat.coupled",
-  "code": "c9224e2",
+  "code": "baf8d67+dirty",
   "criterionHash": "5188162e",
   "lockedHash": "5188162e",
   "runHash": "9e5fdf40",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "ea611dc7",
   "rows": [
     {

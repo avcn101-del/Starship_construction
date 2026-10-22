@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.shield.buffer",
-  "code": "c9224e2",
+  "code": "baf8d67+dirty",
   "criterionHash": "d0132a0f",
   "lockedHash": "d0132a0f",
   "runHash": "a85ed8de",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "fc75beb5",
   "rows": [
     {

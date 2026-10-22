@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.lifesupport.routed",
-  "code": "c9224e2",
+  "code": "baf8d67+dirty",
   "criterionHash": "da11232d",
   "lockedHash": "da11232d",
   "runHash": "98b531b8",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "c282a793",
   "rows": [
     {

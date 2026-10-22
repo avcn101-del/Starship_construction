@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.power.flow",
-  "code": "c9224e2",
+  "code": "baf8d67+dirty",
   "criterionHash": "7c53e3b4",
   "lockedHash": "7c53e3b4",
   "runHash": "ca1596f1",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "068d911c",
   "rows": [
     {

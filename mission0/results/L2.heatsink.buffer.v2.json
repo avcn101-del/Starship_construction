@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.heatsink.buffer.v2",
-  "code": "c9224e2",
+  "code": "baf8d67+dirty",
   "criterionHash": "acfe5ce6",
   "lockedHash": "acfe5ce6",
   "runHash": "afb04fb5",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "80b3bb78",
   "rows": [
     {

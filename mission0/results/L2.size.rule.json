@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.size.rule",
-  "code": "c9224e2",
+  "code": "baf8d67+dirty",
   "criterionHash": "9e9d8cde",
   "lockedHash": "9e9d8cde",
   "runHash": "4596ce6d",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "a61fae88",
   "rows": [
     {

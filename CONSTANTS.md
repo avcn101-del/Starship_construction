@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `acb7553`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `0d44fb0`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -19,7 +19,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | he.blastEnergy | 2000000 | J | 500000 | 5000000 | 3 | true | size M HE warhead (#166) |
 | he.coupling | 0.5 |  | 0.2 | 0.8 | 0 | true | fraction of a contact burst's energy that enters the hull; the rest vents to space at the open face (#169, #176) |
 | beam.power | 5000000 | W | 1000000 | 20000000 | 2 | true | size M beam (#166) |
-| beam.gradient | 1.6021766340000001e-12 | J/m | 8.010883170000001e-13 | 3.2043532680000003e-12 | -0.41 | true | 10 MeV/m (1.6022e-12 J/m) at T1, range 5-20 MeV/m: a 10 m bay gives 100 MeV, a 40 m bay 400 MeV (ESS: about 6 MeV/m, cavities 16.7-20 MV/m; #234, #235). k = -0.41: a bay of N cells reaches the same depth in cells at every tier (fit of the Bethe range, within 1 % T1-T6), a stylisation like #64 for rounds; real linacs do not scale (#240 (4), #243, F10) |
+| beam.gradient | 1.6021766340000001e-12 | J/m | 8.010883170000001e-13 | 3.2043532680000003e-12 | 0 | true | 10 MeV/m (1.6022e-12 J/m) at T1, range 5-20 MeV/m: a 10 m bay gives 100 MeV, a 40 m bay 400 MeV (ESS: about 6 MeV/m, cavities 16.7-20 MV/m; #234, #235). k = 0, its T1 meaning: at another tier a bay of N cells fires the energy whose CSDA range in iron, in armour cells of that tier, equals the T1 bay's (rooms.js beamEnergy solves it; #249, the power law k = -0.41 withdrawn, #248) |
 | shield.budget | 10000000 | W | 2000000 | 40000000 | 2 | true | size M absorption rate (#166) |
 | shield.radius | 40 | m | 20 | 80 | 1 | true | radius where the field is at half strength (#166) |
 | shield.kineticStop | 1045455.6555066435 | kg/(m*s) | 522727.82775332173 | 2090911.311013287 | 1 | true | sectional momentum the field stops per round at full strength: one S round at T1, computed (#166, #171) |

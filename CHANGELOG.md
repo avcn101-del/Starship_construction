@@ -12,7 +12,7 @@
   the hit cells, at those cells, and the energy the system lost is heat in
   the rooms in proportion to the momentum each took; the shield's removed
   momentum pushes the generator's ship.
-- **Tiers**: `beam.gradient` k = −0.41, `shield.buffer` in joules (k = 3),
+- **Tiers**: `shield.buffer` in joules (k = 3),
   engine and beam bay cells as structure + machinery
   (`engine.machineryMass` k = 2, `beambay.machineryMass` k = 1), `rcs.mass`
   k = 2, the reactor cell 150 t. R1 at T1: 950.5 t, 1.61 g, a 90° turn in
@@ -36,6 +36,16 @@
   scenarios withdrawn as superseded by #240 (`mission0/withdrawn.json`).
 - `tools/estimates/pass2.mjs` runs on the new data (the removed constants as
   literals) and prints R1 (section 8). The prototype is `feel-4`.
+- **Beam depth tier-invariant for electronic stopping only** (#248, #249;
+  fix round 1): `beam.gradient` back to k = 0 (its T1 meaning); `beamEnergy`
+  solves, by bisection on `csdaRange` to 1e-12 and cached per N on the
+  world, the energy whose CSDA range in iron, in armour cells of the tier,
+  equals the T1 bay's (N = 8: 400 MeV at T1, 1383 MeV at T6; the first cell
+  takes 43 % at T1 and 88 % at T6, reported). `L0.beam.tier` withdrawn
+  (#248), `L0.beam.burn.v4` and `L1.beambay.length.v2` superseded (#249);
+  successors `L0.beam.tier.v2`, `L0.beam.burn.v5`,
+  `L1.beambay.length.v3`. A withdrawn entry marked `frozen` keeps its
+  withdrawal-time record (#245 guard (2)).
 
 ## 0.8.4 — 2026-10-22 — Documents consolidated (#241 (5), #242)
 

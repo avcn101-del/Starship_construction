@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L1.bridge.control",
-  "code": "c9224e2",
+  "code": "baf8d67",
   "criterionHash": "afe034f9",
   "lockedHash": "afe034f9",
   "runHash": "71a858eb",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "66f8301b",
   "rows": [
     {

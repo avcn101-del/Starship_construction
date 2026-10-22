@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.blast.walls",
-  "code": "c9224e2",
+  "code": "baf8d67+dirty",
   "criterionHash": "a10a083d",
   "lockedHash": "a10a083d",
   "runHash": "c6841d1c",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "a87a6f41",
   "rows": [
     {

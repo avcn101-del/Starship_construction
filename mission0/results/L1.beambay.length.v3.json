@@ -3,7 +3,7 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.beambay.length.v3",
-  "code": "bc599e5",
+  "code": "baf8d67",
   "criterionHash": "cc995aae",
   "lockedHash": "cc995aae",
   "runHash": "cc120232",

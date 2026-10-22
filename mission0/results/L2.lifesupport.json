@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "FAIL",
   "command": "node tools/m0.js run L2.lifesupport",
-  "code": "c9224e2",
+  "code": "baf8d67+dirty",
   "criterionHash": "84909130",
   "lockedHash": "84909130",
   "runHash": "9c1205a3",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "bdd8b56b",
   "rows": [
     {

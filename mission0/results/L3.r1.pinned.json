@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.r1.pinned",
-  "code": "c9224e2",
+  "code": "baf8d67+dirty",
   "criterionHash": "e364793c",
   "lockedHash": "e364793c",
   "runHash": "fae34656",
-  "dataHash": "913ab810",
+  "dataHash": "b958ce58",
   "rowsHash": "367e3639",
   "rows": [
     {
