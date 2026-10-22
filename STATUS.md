@@ -18,10 +18,12 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   lead designer expects 12–18): engineer `session_01L8hXHHD5QjjkMEFSnzGvw4` (opus,
   `m0/l4-hygiene` from `main` `41a417b`, 13:12 UTC; the first take
   stopped at the usage limit at 12:48, the owner asked to re-wake): 20
-  scenarios locked (`c998ff2`, `9a87d0f`) and recorded, the pull request
-  not yet open at 13:44; the blind physics checker
-  `session_01Jyjqm388W1Vokm8gHDRcge` (sonnet, 13:44 UTC, from the locks);
-  the reviewer once the pull request is open. The full mutation run on the merged L4 fix (#270 (5)) runs in
+  scenarios locked (`c998ff2`, `9a87d0f`), **PR #67** open (head
+  `4f34ecb`, 13:49 UTC; regress 109 VERIFIED + 106 WITHDRAWN + 5 RETIRED;
+  two `--only` mutants survive as equivalent under routing; six questions;
+  10.58 USD); the blind physics checker
+  `session_01Jyjqm388W1Vokm8gHDRcge` (sonnet, 13:44 UTC, from the locks)
+  and the reviewer `session_01GiA5hCfSYz1org75B46PLC` (sonnet, 13:54 UTC). The full mutation run on the merged L4 fix (#270 (5)) runs in
   the lead designer's chat. The four light audits are answered (#270:
   6.91 USD; 81 findings).
 - **Waiting on you**: one question: does #83's "magazine explosion =
