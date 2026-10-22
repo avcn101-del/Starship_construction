@@ -56,7 +56,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   designer decides and records everything technical (*LD* rows); 20 USD
   of sessions per level is a soft guideline, a level past about 40 USD is
   mentioned; cost estimates carry the factors of #246 (4) as amended by
-  #267 (under the process audit's finding F5, #269).
+  #267 (under the process audit's finding F5, #270).
 - Roles (#167, #247): lead designer, engineer (opus), reviewer and physics
   checker (sonnet), auditor (sonnet), the owner's design partner.
 

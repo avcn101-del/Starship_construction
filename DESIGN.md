@@ -1011,7 +1011,7 @@ USD (a lower bound: the engineer's cost before a worker restart is not
 reported) against the plan's raw 10–14 (#253; the "15–22" that once stood
 here was a later re-estimate, not the plan's); L4b 23.98 USD against raw
 18–25 (1.1 on the midpoint). The cost factors are answered with the L4
-process audit (#269). Pass 2 cost 42.93 against 50–60 estimated. The owner is told before each
+process audit (#270). Pass 2 cost 42.93 against 50–60 estimated. The owner is told before each
 pass starts (#191: past 40 USD).
 
 ### 13l.6 Checklist (#241 (1))
@@ -1021,6 +1021,160 @@ pass starts (#191: past 40 USD).
 - [x] Tolerances: timed cases one-sided in [t, t + dt) off the grid; books 1e-9 × gross (#220); closed forms 1e-12; A4's 1e-12 against `csdaRange`'s own step error is the fix's claim, measured by the scenario.
 - [x] Hardware: 4 berths per cell (6 m² each) against warship berthing; the neck is a 2 × 2 hold (10 m wide, 3 t per cell).
 - [ ] Open: overheat against burn in crewed rooms is narrow (0.17 integrity left): reported for L5's tuning; T-gun's case is a criterion on the cause of the last lost ability, not on how much is left. The citadel is five rounds thick against a deliberate shot (13l.2): a fact for L5, not an L4b criterion.
+
+## 13m. Coverage: every element of the design and the level that proves it (#269)
+
+One row per element the design names (§4–§9 and the exit criteria), with
+what the kernel holds today and the Mission 0 level that proves or plans
+it. Written after the owner found, playing the prototype, that no level
+had ever listed the weapon set (#268) or the senses (#265): the level table
+of §13 names physics by room, this table names everything. **Status**
+is one of: **proven** (a VERIFIED scenario), **built, measured only**
+(in the kernel, no proof scenario yet), **planned Ln** (in a plan or in
+§17 with a level), **after Mission 0** (by a decision), **not built**
+(cut or deferred by a decision). A row whose status names no level and no
+decision is a lint failure (`tools/lint-docs.mjs`, check 8): nothing may
+sit in no plan again. Each plan updates this table in the same commit.
+
+### A. Physics laws and channels (§4)
+
+| Element | Today | Proof | Status |
+|---|---|---|---|
+| Inertia, moment of inertia (#208) | `body.js`, rebuilt on loss | `L3.mass.props.v5`, `L3.r1.pinned`, `L3.destroyed.mass` | proven L3 |
+| Recoil, Newton 3 (#5, #203 C) | turret recoil, RCS | `L3.recoil.v5`, `L3.hit.books` | proven L3; E4 judged at L5 (§17 item 7) |
+| Centre-of-mass shift | `rebalance` | `L3.split.momentum.v5`, `L3.fragment.rules.v3` | proven L3 |
+| Heat and radiators, Stefan–Boltzmann (#143); the coolant loop (#200) | `heat.js`, conduction, life support | `L1.radiator.*`, `L2.heat.*`, `L2.lifesupport.*`, `L1.heat.coupled.v2` | proven L1–L2 |
+| Infrared seen from outside (#102): surfaces only | `irBrightness` radiates; nothing *sees* it | none | planned L5 (`sensors.js`, §17 item 33) |
+| Inverse-square passive, distance⁴ active (#24) | nothing | none | planned L5 (§17 item 33) |
+| Time of flight | `battle.js` rounds | `L4.route.decapitate` (arrival steps), `L4.relative` | proven L4 |
+| Square–cube, tiers (#63, #240 (4)) | `scaled(k)`; plates k = 1; `beamEnergy` | `L0.beam.tier.v2`, `L0.shield.buffer.tier`, `L3.mass.props.v5` (T6) | proven for the pass-2 rules; the rest planned L6 (the physics audit's T1–T4, #270) |
+| Fail-safe reactors: SCRAM, decay heat, restart (#81, #82) | built | `L1.reactor.scram.v2`, `L1.reactor.restart`, `L3.fragment.scram.v2` | proven L1, L3 |
+| Kinetic channel: momentum per cell, the path model, relative velocity (#137, #230, #242) | built | `L0.kinetic.*`, `L3.kinetic.hole.v2`, `L4.relative` | proven L0–L4; a passed cell's flat loss is §17 item 34 (planned L5) |
+| Thermal channel: beam deposit and burn (#229, #240 (1)) | built | `L0.beam.*`, `L3.beam.deposit`, `L0.armour.plate.v2` | proven L0–L4 |
+| Blast channel, inside (#141, #169) | built | `L0.blast.surface.v4`, `L2.blast.*` | proven L0–L2 |
+| Blast outside the hull (#141, §17 item 5) | nothing | none | planned L5 (with missiles: a warhead on a hull cell) |
+| EMP channel (#138, #142: a warhead) | nothing | none | planned L5 (with missiles) |
+| Shields: absorb, buffer, the field (#21, #99, #139) | built | `L0.shield.*`, `L1.shield.generator.v3`, `L2.shield.*`, `L3.shield.*` | proven L0–L4 |
+| Engines as self-fuelled torches (#140, #203 A) | thrust, draw, heat | `L1.engine.thrust.v3`, `L3.thrust.v5` | proven L1, L3 |
+| Crew die per cell, by integrity, at critical heat (#49, #18b, #206) | built | `L1.kinetic.damage.v2`, `L2.repair.crew`, `L1.room.thresholds.v3` | proven L1–L2 |
+| No dice (#7, #240 (3)) | the seeded stream only | `L0.determinism` (Node = Chromium = the owner's phone, #263) | proven |
+
+### B. Rooms (§5.2)
+
+| Room | Today | Proof | Status |
+|---|---|---|---|
+| Bridge (control, backup supply, decapitation) | built | `L1.bridge.control.v2`, `L3.control.rules`, `L3.control.bridge`, `L4.route.decapitate` | proven L1–L4 |
+| Reactor (power, SCRAM, breach, meltdown) | built | `L1.reactor.*`, `L4.kill` (reactor) | proven L1–L4 |
+| Engine | built | `L1.engine.thrust.v3`, `L3.thrust.v5` | proven |
+| Magazine (contents, feed, cook-off, detonation) | built | `L1.magazine.cookoff.v2`, `L2.ammo.feed`, `L4.kill` (magazine) | proven; the detonation rule is §17 item 34 (planned L5) |
+| Shield generator | built | `L1.shield.generator.v3`, `L2.shield.*` | proven |
+| Crew quarters (berths, repair field) | built | `L1.quarters.repair.v3`, `L2.repair.*`, `L4.crew.capacity` | proven |
+| Beam bay (spinal accelerator) | built | `L1.beambay.*`, `L2.beambay.cause`, `L0.beam.tier.v2` | proven |
+| Kinetic turret | built | `L1.turret.fire`, `L1.turret.timing.v2`, `L4.route.*` | proven |
+| **Spinal railgun** (#236 (6)) | **data only** | none | planned L5 (#268) |
+| **Missile bay** (#148: ready store, launch, explodes by its missiles) | **a room with crew and mass only** | none | planned L5 (#268) |
+| Empty hold (insulates; blast buffer gone, #240 (6)) | built | `L2.heat.*` (hold factor), `L2.blast.integrity` | proven |
+| Heat sink (#197, #198) | built | `L2.heatsink.*`, `L2.plate.vent` | proven |
+| Hangar bay (#107), jammer (#27), auxiliary bridge (#13) | nothing | none | after Mission 0 (carriers #110; counters #27) |
+
+### C. Fittings (§5.3)
+
+| Fitting | Today | Proof | Status |
+|---|---|---|---|
+| Armour plate (#15, #255, #256) | built, walls and hull | `L0.armour.plate.v2`, `L3.r1c.props`, `L4.kill` (R1d) | proven L4 |
+| Radiator | built | `L1.radiator.*` | proven |
+| RCS | built | `L3.rcs.turn.v5` | proven |
+| **Point defence, kinetic** (#93) | **nothing** | none | planned L5 (#268) |
+| **Point defence, laser** (#93) | **nothing** | none | planned L5 (#268) |
+| **Sensor antenna** (#24: scan, needs a control path) | **nothing** | none | planned L5 (§17 item 33) |
+| Scan-proof plating (#27), decoy launcher (#149) | nothing | none | after Mission 0 (#27, #149: later modules) |
+
+### D. Shipyard and validation (§5.5)
+
+| Rule | Today | Proof | Status |
+|---|---|---|---|
+| Connected to the bridge, hull rooms on the hull, axis, bow clear, exhaust clear, fitting rules | `validateShip` | `L3.validation.v2`, `L2.layout.invalid.v2` | proven |
+| Crew capacity (#60) | `validateShip` | `L4.crew.capacity` | proven L4 |
+| Live readout before undock (#58) | `readout` | `L4.readout.blueprint` | proven L4 |
+| Room size S (#62) | **no S footprint** | none | planned L5 (§17 item 30, #259) |
+| Dry run against a dummy, templates, drag and drop, mirror, export (#56–#59) | nothing | none | after Mission 0 (presentation) |
+
+### E. Weapons, defence, ammunition (§6)
+
+| Element | Today | Proof | Status |
+|---|---|---|---|
+| Beam: no falloff, deposit along the path, heat | built | `L0.beam.*`, `L2.beambay.cause` | proven |
+| Kinetic: time of flight, momentum along the path, recoil | built | `L0.kinetic.*`, `L4.route.*` | proven |
+| **Missile = seeker + warhead** (#97): flight, guidance, impact | **nothing** | none | planned L5 (#268) |
+| Seekers IR, radar, anti-radiation, designated (#97) | nothing | none | planned L5 (after `sensors.js`) |
+| Warheads HE, penetrator, EMP (#97, #142) | nothing (HE blast and penetration exist as channels) | none | planned L5 |
+| **Point defence against munitions** | nothing | none | planned L5 (#268) |
+| Firing window in the shield (#100) | the shield stops a round at its entry point; no hole for one's own round | none | planned L5 (ship versus ship: the first time one's own round crosses one's own field) |
+| Ammunition finite, reloaded between battles (#89, #90); running dry counts toward Disabled (#91) | built | `L2.ammo.feed`, `L4.route.dry` | proven |
+| Magazines last a disciplined 3–6 minute battle (#92) | measured only (T-gun 316 s) | none | planned L5 (the reference battle, E7) |
+| Round types Standard / AP / HE / Sabot / Flak (#96) | **one steel round**; AP and HE differ only in the magazine's explosion energy | none | planned L5 (#94's rule: one parameter traded, a best and a worst target) |
+| Each shot's type chosen against a scanned target (#95) | nothing | none | planned L5 (after `sensors.js`) |
+| Carriers (#104–#110) | nothing | none | after Mission 0 |
+
+### F. Information (§7)
+
+| Element | Today | Proof | Status |
+|---|---|---|---|
+| The outer silhouette always visible (#23) | the prototype shows both layouts whole (a stand-in) | none | planned L5 (§17 item 33) |
+| Passive IR and EM, distance² (#24, #102) | nothing | none | planned L5 |
+| Active scan by zone, distance⁴, reveals the scanner, remembered (#24, #25) | nothing | none | planned L5 |
+| Jamming, burn-through (#101) | nothing | none | after Mission 0 (#27: later module) |
+| Shields EM-bright while absorbing, do not block scans (#103) | `shield.em` is computed; nothing reads it | none | planned L5 |
+| One knowledge model per side; the renderer and the enemy read only theirs (#26, #42, #112) | nothing | none | planned L5 |
+| Layout variants per named ship (#28) | nothing | none | after Mission 0 (content), the mechanism planned L5 |
+
+### G. Battle (§8)
+
+| Element | Today | Proof | Status |
+|---|---|---|---|
+| Standing orders, 12 slots (#38): movement (range, position, style, dodging) | the prototype's helm stand-in (range, facing, dodge) | none | planned L5 (`helm.js`) |
+| Standing orders: firepower (facing, firing style, open fire, target priority) | facing in the stand-in; the rest nothing | none | planned L5 |
+| Standing orders: energy (power and repair priority, heat discipline) | power priority list exists in `routePower`; the rest nothing | `L2.power.flow` (priority) | planned L5 |
+| Standing orders: emission (posture, auto-scan) | nothing | none | planned L5 (after `sensors.js`) |
+| Presets (#39) and the preset verb | the prototype's three presets (a stand-in) | none | planned L5 |
+| Helm conflicts: position, facing, dodging (#40) | the stand-in's order | none | planned L5 |
+| Verb: scan a zone | nothing | none | planned L5 |
+| Verb: target a room | the prototype (tap); the loop's aim at a room | `L4.route.*` (the attacker's aim) | proven L4 (the kernel side) |
+| Automatic rules: RCS recoil compensation, point-defence target, repair order, reactor containment first, dark fragments, each shot's ammunition type | RCS and repair order built; the rest nothing | `L3.rcs.turn.v5`, `L2.repair.shared.v2` | partly proven; point-defence target and the shot's type planned L5; containment first and dark fragments planned L5 |
+| **Disabled** (#82, #255) | built | `L4.disabled.rule` | proven L4 |
+| Route: cut the power walls / split at a choke point (one mechanism, #253) | built | `L4.route.split` | proven L4 |
+| Route: decapitate | built | `L4.route.decapitate` | proven L4 |
+| Route: mission kill | built | `L4.route.missionKill` | proven L4 |
+| Route: overheat | built | `L4.route.overheat` | proven L4 |
+| Route: run it dry | built | `L4.route.dry` | proven L4 |
+| Route: EMP (forces a SCRAM, the enemy restarts) | the restart exists (`L1.reactor.restart`); no EMP | none | planned L5 (#252, with missiles) |
+| Route: surrender (strikes its colours, #85, #86) | nothing | none | planned L5 (#252, with the enemy's personality) |
+| Destroyed: a reactor or magazine explosion, too many pieces (#83) | built | `L4.kill`, `L4.kill.pieces` | proven L4 |
+| Loot: whatever is left (#83); the same condition for the player (#84); crew on a dark fragment recovered (#88) | nothing (campaign) | none | after Mission 0 (campaign, `run.js`) |
+| Report (#41): KIA list, cascade tree, timeline, what the enemy scanned, heat, salvage, kill-cam | the cascade tree and the log in the kernel; the prototype's end panel | `L4.cascade`, `L4.log` | the tree and the log proven L4; the rest after Mission 0 (presentation) |
+
+### H. Enemies (§9) and ship versus ship
+
+| Element | Today | Proof | Status |
+|---|---|---|---|
+| The enemy runs the same automatic layer, orders, presets and verbs (#111) | a fixed script in the prototype | none | planned L5 (`enemy.js`) |
+| No information cheating, same delays, deterministic, no learning (#112–#116) | nothing | none | planned L5 |
+| Personality: aggression, patience, caution, resolve (#117) | nothing | none | planned L5 (the levers; their values are content) |
+| Factions, wildcard, named ships, difficulty (#118–#124) | nothing | none | after Mission 0 (content); the wildcard mechanism planned L5 |
+| Ship versus ship: no dominant build, degenerate builds punished (E5, E6) | the prototype duel only (measured, scripted) | none | planned L5 |
+| The reference battle (E7) | the prototype's R1d duel, measured | none | planned L5 |
+
+### I. Exit criteria (§13)
+
+| Criterion | Status at L4 |
+|---|---|
+| E1 (every scenario passes or is withdrawn with a successor) | holds for L0–L4: 107 VERIFIED + 87 WITHDRAWN + 5 RETIRED |
+| E2 (invariants: hash, momentum, heat, no NaN) | proven per scenario at L0–L4; the two-ship momentum book is planned L4 (the L4 fix's `L4.books.two`, #270); energy across two ships is not booked (the physics audit's B3, planned L5) |
+| E3 (every kept law proven) | the rows above marked proven; **not yet**: the information law (F), missiles and point defence (E), the standing orders (G), the enemy (H) |
+| E4 (every attribute has a measured effect) | judged at L5 for recoil and the shield buffer (§17 items 6, 7); `thermal.coupledArmour` has its consumer since L4a |
+| E5, E6 (builds; underdog paths) | planned L5: needs E and F above, room size S (D) |
+| E7 (3–6 minutes median) | planned L5: the reference battle is not defined; R1d duels 104–306 s under the prototype's script |
+| E8 (1 ms per step) | T1 proven (`L4.e8`, 0.15–0.29 ms); T6 planned L6 |
 
 ## 14. Architecture
 
@@ -1417,3 +1571,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 266 | The owner: sensors and the knowledge model open the L5 plan; kinetic damage by the one law is a pass decided there; the magazine's detonation rule and the energy a passing round leaves go into that plan | current |
 | 267 | L4b merged (PR #62); answers to its engineer, checker and reviewer; the aim point, the feed clause, Disabled's parent | current |
 | 268 | Missiles, point defence and the railgun have no level (the owner's finding); the L5 plan builds them before ship versus ship | current |
+| 269 | §13m, the coverage table: every element of the design and the level that proves it (the owner's direction); lint check 8 | current |

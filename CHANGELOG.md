@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased — 2026-10-22 — L4b merged; answers (#265–#267)
+## Unreleased — 2026-10-22 — L4b merged; answers; the coverage table (#265–#269)
+
+- `DESIGN.md` §13m: the coverage table, one row per design element with
+  the level that proves or plans it (#268, #269); `tools/lint-docs.mjs`
+  check 8 fails on an element in no plan.
 
 - `DESIGN.md` §13l.1: the turret aims at the first surviving cell's
   centre; a turret is fed by a magazine sharing a live wall; Disabled's
