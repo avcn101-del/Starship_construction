@@ -13,19 +13,10 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**.
-- **Running**: the **scenario-hygiene round** (§13l.7, #271: every
-  scenario-audit finding fixed by successors; 25–38 USD by the rule, the
-  lead designer expects 12–18): engineer `session_01L8hXHHD5QjjkMEFSnzGvw4` (opus,
-  `m0/l4-hygiene` from `main` `41a417b`, 13:12 UTC; the first take
-  stopped at the usage limit at 12:48, the owner asked to re-wake): 20
-  scenarios locked (`c998ff2`, `9a87d0f`), **PR #67** open (head
-  `4f34ecb`, 13:49 UTC; regress 109 VERIFIED + 106 WITHDRAWN + 5 RETIRED;
-  two `--only` mutants survive as equivalent under routing; six questions;
-  10.58 USD); the blind physics checker
-  `session_01Jyjqm388W1Vokm8gHDRcge` (sonnet, 13:44 UTC, from the locks)
-  and the reviewer `session_01GiA5hCfSYz1org75B46PLC` (sonnet, 13:54 UTC). The full mutation run on the merged L4 fix (#270 (5)) runs in
-  the lead designer's chat. The four light audits are answered (#270:
-  6.91 USD; 81 findings).
+- **Running**: nothing. **The scenario-hygiene round is merged** (PR #67,
+  #276: 20 scenarios, 19 withdrawn and frozen; every number verified by the
+  blind checker; 15.89 USD against raw 10–15). The full mutation run on the
+  merge runs in the lead designer's chat (#270 (5)).
 - **Waiting on you**: nothing. The five questions (#273) and #83 (#274:
   a magazine explosion is a blast, not a destroyer) are decided. Veto window on #253, #256,
   #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270),
@@ -34,7 +25,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   fun (#223's ladder).
 - **Money**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
-  audits before L5 6.91, L4 fix 6.83). L4 in all ≥ 48.38 (#191: past 40).
+  audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
+  L4 in all ≥ 64.27 (#191: past 40).
 - **Next**: merge PR #64 when its reviewer reports, then the **L5 plan**
   under the plan gate: `sensors.js` and the knowledge model first (#266);
   missiles, point defence and the railgun as room physics (#268, §13m);
@@ -61,8 +53,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - Design settled: `DECISIONS.md` #1–#268, current design in `DESIGN.md`,
   decisions in force in its §18, open obligations in its §17.
 - **Mission 0 L0–L4 are merged**, with the D pass, the mass pass, the path
-  model, physics pass 2, `tools/mutate`, the armour plates (L4a) and the L4
-  fix round (#272). `regress` on `main` at the L4 fix merge: **108 VERIFIED + 87 WITHDRAWN + 5 RETIRED**.
+  model, physics pass 2, `tools/mutate`, the armour plates (L4a), the L4
+  fix round (#272) and the scenario-hygiene round (#276). `regress` on the
+  hygiene merge: **109 VERIFIED + 106 WITHDRAWN + 5 RETIRED**.
 - The feel prototype (`proto/`, throwaway, #217) runs on the L4b kernel at
   https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d (version 5): R1d by
   default, the cascade tree on the end panel; the enemy is a fixed script,
@@ -177,10 +170,9 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Next steps
 
-1. **The scenario-hygiene round** (§13l.7, #271): read the engineer's
-   pull request; the blind checker on the new literals (from the lock);
-   the reviewer; the answers row; merge; `regress` on the merge; the full
-   mutation run's report recorded with it.
+1. **Replace this chat** (#247 (2)): its context was compressed once and
+   the block (L4 and its rounds) is closed; the new lead designer chat
+   starts from this file and writes the L5 plan.
 2. **The L5 plan** (a new section of `DESIGN.md` §13 after §13m, the plan gate of #241 with #270 (3)'s
    three checklist lines; `tools/estimates/l5.mjs`): L5a senses
    (`sensors.js`, the knowledge model, numbers for the information law) and
@@ -196,7 +188,6 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
-| Check-in of this chat | `trig_01SrRL2zm1jpWSrr5jM4SrKt` | 2026-10-22 14:13 UTC, once | the hygiene pull request; start its reviewer; read the full mutation run |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat

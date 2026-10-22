@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — The scenario-hygiene round merged (#276)
+
+- `DECISIONS.md` #276: answers to the engineer, the blind checker and the
+  reviewer of PR #67; four wordings of `DESIGN.md` §13l.7 corrected (the
+  F literals are kernel-read pins, shot-12's mechanism, the oblique r
+  arithmetic and 19.37°, the csda step counts as pins); §13l.1 states the
+  overlapping-field shares and the Disabled timer's start; §17 item 39
+  closed with its residue; `LEDGER.md` costs and ratio.
+
 ## Unreleased — 2026-10-22 — Prevention after the weapons gap (#275)
 
 - `tools/lint-docs.mjs` check 9: every room, fitting, weapon, round type
