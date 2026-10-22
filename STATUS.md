@@ -82,6 +82,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #241: process after the audits (plan gate, sessions, checker only on
+  kernel physics, documents split). #240 is the owner's.
 - #239: prototype v2 merged; answers to its engineer and reviewer; the
   lead designer's §13j.3 estimate was wrong by its own facing rule.
 - #238: audits at fixed milestones (the owner's direction; the milestones

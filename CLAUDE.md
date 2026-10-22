@@ -108,9 +108,25 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   console errors (a blocked Google Fonts request in the sandbox is not a
   game error).
 - Git: `main` is the default branch; **one branch and one pull request per
-  Mission 0 level**; the lead designer merges once the reviewer and the
-  physics checker report no blocking finding (#180). Documentation-only
-  commits by the lead designer go straight to `main`.
+  Mission 0 level or pass**; the lead designer merges once the reviewer
+  (always) and the physics checker (whenever kernel physics changes, #241)
+  report no blocking finding (#180). Documentation goes to `main` in **one
+  pull request per working block** from the lead designer's branch (#218).
+- **Plan gate** (#241): a plan commits its estimate script
+  (`tools/estimates/<pass>.mjs`, run-time overrides only) and ends with the
+  checklist (every passed rule on, tolerances against the integrator's
+  error and float resolution, hardware sense-checked, numbers recomputed
+  from the kernel). An estimate is never a canonical run: `node tools/m0.js
+  run <id>` without `--set` re-records.
+- **Sessions** (#241): created with the model named explicitly, the whole
+  task in the first message, the fetch refspec, the reading order and the
+  file it may write; no sub-agents unless the task says so; cost estimates
+  carry a ×2.5 factor. Independent read-only **audits** at the milestones of
+  `DESIGN.md` §13b (#238), by `.claude/agents/auditor.md`.
+- **Documents** (#241): `DESIGN.md` is the current design with a table of
+  the decisions in force; plans and measured history live in `HISTORY.md`;
+  sessions and costs in `LEDGER.md`; `README.md` keeps no copy of the
+  constants table.
 - **`STATUS.md`** is the hand-over: read it first; update it at the end of
   every working block (open PRs, pending approvals, running sessions,
   scheduled tasks, next steps).

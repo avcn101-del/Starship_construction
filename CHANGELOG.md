@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.8.2 — 2026-10-22 — The audits' answers (#240, #241)
+
+- #240 (the owner): one law for everything that resists, heat by the
+  thermally coupled mass; the shield a recorded exception to #228; no dice
+  amended for the enemy's decisions; tier-invariant depths and an energy
+  buffer; "ship lengths" dropped; blast by mass; a 15 USD cap per audit
+  session. `DESIGN.md` §2, §4, §12, §13b.
+- #241 (process): the plan gate (estimate script, checklist), explicit
+  session templates, checker only when kernel physics changes, documents
+  split (`HISTORY.md`, `LEDGER.md`, no constants copy in `README.md`);
+  `CLAUDE.md` updated; `.claude/agents/auditor.md` added.
+
 ## 0.8.1 — 2026-10-21 — Prototype v2 merged (PR #51, #239)
 
 - PR #51 merged through the lead designer's branch after the reviewer

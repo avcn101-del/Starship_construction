@@ -54,7 +54,13 @@ meets exchange the same quantity (impulse for a round, energy for a beam)
 and each is damaged by it against its own strength (Newton's third law: a
 bird strike wrecks the bird and dents the aircraft). New behaviour must
 follow from the physics already in the model and real material constants,
-never from a factor added to correct an outcome.
+never from a factor added to correct an outcome. **One recorded exception**
+(#240 (2)): the shield slows a round by a field, so the round is not
+damaged; the momentum the field removes goes to the ship holding the
+generator and the energy to the generator's heat. Everything that resists
+(kinetic, beam deposit and burn, blast, heat capacity, repair) follows the
+cell's mass, heat by the **thermally coupled** mass of the room type
+(#240 (1); built in physics pass 2, §13k).
 
 **Gates and rules**
 
@@ -91,7 +97,8 @@ unlocks only, score only).
 
 Principle: **borrow the shape of the real law, tune the constant** (#4).
 **No dice**: hits are decided by trajectories; a seed is a layout variant
-(#7). Four kernel models: 2D rigid body, per-room heat, falloff fields,
+(#7); the enemy's decisions (when to dodge or switch a preset) may draw
+from the seeded stream, the player's ship never does (#240 (3)). Four kernel models: 2D rigid body, per-room heat, falloff fields,
 projectiles (#8).
 
 | Law (kept) | In the game |
@@ -353,8 +360,9 @@ kill-cam.
 
 ## 12. Scale and platform
 
-Game scale: one scale for simulation and drawing; ships fight 4–8 ship
-lengths apart (#53). T1 numbers: cell 5 m, hull 30×14, engagement 0.6–1.5
+Game scale: one scale for simulation and drawing (#53; the "4–8 ship
+lengths" of #53/#54 is dropped, #240 (5): the band below is set by the
+time of flight, §13j.1). T1 numbers: cell 5 m, hull 30×14, engagement 0.6–1.5
 km, kinetic 0.5–1 km/s, railgun 1.5–2.5 km/s, missiles 8–15 s of flight,
 dodging 1–2 g, battles 3–6 minutes (#54). The camera fits both ships (#55).
 Phone first: touch targets ≥ 44–48 px, pinch zoom, the phone's performance
@@ -482,7 +490,9 @@ one law or several, exponents against the new masses, the shield's
 exchanges, real-world anchors), (d) **scenario quality** (tautologies,
 outside anchors, tolerances against the method's error, lock discipline,
 withdrawals, coverage by mutation). The lead designer answers each finding
-in a consolidation pass recorded as a decision. **Milestones**: now
+in a consolidation pass recorded as a decision. The first audits' answers:
+#240 (the owner's seven), #241 (process), the consolidation (#242) and
+physics pass 2 (§13k). **Milestones**: now
 (2026-10-21, before the L4 plan); before each level's plan from L4 on
 (a–d, light: only what the level touches); at Mission 0 exit (all four,
 full); before the first rendering commit and before the first public
