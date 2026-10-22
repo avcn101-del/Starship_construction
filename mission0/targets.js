@@ -45,12 +45,26 @@ export const T_NECK_ROOMS = [
 // T-gun (13l.2): R1 with its beam bay replaced by a hold, the turret its only weapon; no fittings (as the estimate).
 export const T_GUN_ROOMS = R1_ROOMS.map((r) => (r.id === 'beamBay' ? { id: 'bowHold', type: 'hold', cell: [9, 2] } : r));
 
+// T-neck2 and T-gun2 (13n.1 (b), §17 item 36): the L4 layouts with the radiators R1 carries and its four RCS, room by
+// room where their rooms allow, for L5's cases that hold a heading or fire for long; T-neck and T-gun stay as locked
+// (their records read them). T-gun2: R1's 21 fittings with the beam bay's on the bow hold in its place (a hold may carry
+// fittings). T-neck2: R1's fittings on the same rooms; the engine, heat sink and shield generator sit where R1's do,
+// the beam bay's three radiators and two RCS move with it two cells forward ([11, 13) x [2, 4)).
+export const T_NECK2_FITTINGS = [
+  ...R1_FITTINGS.slice(0, 14),
+  ['radiator', 'beamBay', [12, 2], [1, 0]], ['radiator', 'beamBay', [12, 3], [1, 0]], ['radiator', 'beamBay', [11, 2], [0, -1]],
+  ['rcs', 'engine', [0, 3], [0, 1]], ['rcs', 'engine', [0, 2], [0, -1]], ['rcs', 'beamBay', [12, 3], [0, 1]], ['rcs', 'beamBay', [12, 2], [0, -1]],
+];
+export const T_GUN2_FITTINGS = R1_FITTINGS.map(([type, room, cell, side]) => [type, room === 'beamBay' ? 'bowHold' : room, cell, side]);
+
 export const TARGETS = {
   R1: { rooms: R1_ROOMS, fittings: R1_FITTINGS },
   R1c: { rooms: R1_ROOMS, fittings: [...R1_FITTINGS, ...R1C_PLATES] },
   R1d: { rooms: R1_ROOMS, fittings: [...R1_FITTINGS, ...R1C_PLATES, ...R1D_PLATES] },
   'T-neck': { rooms: T_NECK_ROOMS, fittings: [] },
   'T-gun': { rooms: T_GUN_ROOMS, fittings: [] },
+  'T-neck2': { rooms: T_NECK_ROOMS, fittings: T_NECK2_FITTINGS },
+  'T-gun2': { rooms: T_GUN_ROOMS, fittings: T_GUN2_FITTINGS },
 };
 // The attacker of every L4b battle: R1d, the reference ship of L4b (#261).
 export const ATTACKER = TARGETS.R1d;

@@ -28,6 +28,8 @@ export const EVENT_FIELDS = {
   meltdown: [],
   'cook-off': [],
   explosion: ['energy', 'channel'],
+  detonation: ['cell', 'speed', 'channel'], // a round entered a standing cell of a magazine with rounds at magazine.detonationSpeed or more (speed: its entry speed relative to the hull, m/s; #273 (c), 13n.1 (b)); the explosion is its child
+  unmanned: [], // a room that requires crew has none left while a cell stands: no function, as if shut down (13n.1 (b), #277 O3); its parent is the crew-died event
   shot: ['energy', 'channel'], // energy: muzzle energy (J)
   'cease-fire': [],
   'beam-stopped': [],
@@ -36,7 +38,7 @@ export const EVENT_FIELDS = {
   'control-restored': [], // the bridge gives control again after a restart (#189 (3))
   'heat-vented': ['energy'], // a destroyed heat sink cell let its heat above rest out to space (J, #198)
   disabled: ['since'], // the battle (js/battle.js, 13l.1): no able weapon for battle.disabledSeconds since `since` (s); room: the last weapon to lose its ability
-  destroyed: ['by'], // the battle: 'explosion' (a reactor's or a magazine's) or 'pieces' (the largest fragment under battle.wreckFraction of the undock mass)
+  destroyed: ['by'], // the battle: 'explosion' (a reactor's; a magazine's is a blast and ends nothing by itself, #274, 13n.1 (b)) or 'pieces' (the largest fragment under battle.wreckFraction of the undock mass)
 };
 
 /** An event log; `prefix` starts every event id (a battle gives each ship its own). */
