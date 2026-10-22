@@ -12,19 +12,31 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   L4a (PR #58, #253–#258, #260), **L4b (PR #62, #261–#264, #267): L4 is
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step).
-- **Running**: nothing. L4b cost 23.98 USD (estimated 70–100 by the
-  rule, 25–40 expected); L4 in all ≥ 41.55 USD.
-- **Waiting on you**: nothing. Veto window on #253, #256, #258–#267
-  (#267 lowers the cost factors: ×1.5 repeated work, ×2.5 new, after
-  three passes within 1.5×). The prototype page is **republished on the
-  L4b kernel** (version 5, `main` `2a454c0`: R1d by default, the cascade
-  tree on the end panel): play it and say what is not fun (#223's ladder).
+- **Running**: **PR #64, the L4 fix round** (`m0/l4-fix`, head
+  `27732a3`; the physics audit's B1 fixed: the two-ship momentum book
+  closes at 5e-15; `L4.books.two`; `battle.openingRange` 900 m, k = 1;
+  regress 108 VERIFIED; the engineer's full mutation run in the
+  background) and its light reviewer `session_01UTmHgSuJy1TgUL28GNf5Lv`
+  (sonnet, 12:16 UTC). The four light audits are in and answered (#270:
+  6.91 USD; 81 findings).
+- **Waiting on you**: **five questions** (the #247 (3) frame in the chat,
+  #270): the magazine's detonation rule, the passed cell's loss, the tier
+  scale of "one battle", the pre-lock rule's wording (a `CLAUDE.md` law),
+  surrender (#86) against Disabled (#255). Veto window on #253, #256,
+  #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270),
+  #270. The prototype page is on the L4b kernel (version 5: R1d by
+  default, the cascade tree on the end panel): play it and say what is not
+  fun (#223's ladder).
 - **Money**: 2026-10-21/22 about 136 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98).
-- **Next**: the light audits before the L5 plan (#238: a–d, only what
-  L5 touches), then the L5 plan: `sensors.js` and the knowledge model
-  first (#266), the kinetic-damage pass and R1d in one pace study (§17
-  items 33–36), ship versus ship.
+- **Next**: merge PR #64 when its reviewer reports, then the **L5 plan**
+  under the plan gate: `sensors.js` and the knowledge model first (#266);
+  missiles, point defence and the railgun as room physics (#268, §13m);
+  the enemy of §9; the kinetic-damage pass and R1d in one pace study (§17
+  items 34, 41); room size S (item 30); ship versus ship and the reference
+  battle of E7. Expect two passes (L5a senses and weapons, L5b enemy and
+  ship versus ship), each costed with #246 (4)'s factor beside the lead
+  designer's expectation (#270 (2)).
 - **Owner chose** #261 (R1d the pace lever) and #252 (L4: one target per route; EMP and surrender at L5).
   The owner played v2: the magazine always wins in 7.1 s (#254). Pace
   study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
@@ -33,63 +45,29 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## Where we are
 
-- Design settled: `DECISIONS.md` #1–#236, current design in `DESIGN.md`.
-- **Mission 0 L0, L1 and L2 done and merged.** `regress` at L2's merge: 42
-  VERIFIED + 5 WITHDRAWN (verified by the lead designer at `e40d1af`).
-  L1 cost 17.21 USD; **L2 cost 23.89 USD** (engineers 19.73, physics
-  checker 2.82, reviewer 1.34). The reviewer found no blocking defect; its
-  three findings are answered by #207 (life support under routing is fixed
-  in the D pass, scenario D5).
-- **The D pass is done and merged** (`DESIGN.md` §13e; #206, #207, #212,
-  #214, #216): 6 kg rounds, partial damage, repair of damaged cells only,
-  life support under routing. `regress` on `main`: **46 VERIFIED + 8
-  WITHDRAWN**. Cost 14.11 USD (engineers 10.76, physics checker 2.26,
-  reviewer 1.09).
-- **If play is not fun** (#223, the owner): tune constants, then combine
-  the existing physics, only then change a law.
-- **Ships get real density (#221, the owner)**: 10 t per cell instead of
-  1 t, heat unchanged; built as the mass pass after L3.
-- **L3, the minimal ship, is done and merged** (`DESIGN.md` §13f;
-  #208–#213, #216, #219, #220, #222): rigid body, thrust, RCS, recoil,
-  debris and fragments, control and SCRAM, validation. `regress` on
-  `main`: **55 VERIFIED + 15 WITHDRAWN**. Cost 23.82 USD.
-- **The mass pass is done and merged** (`DESIGN.md` §13g; #221, #222,
-  #225): 10 t per cell, thrust 15 MN, RCS 1 MN; R1 448 t, 3.41 g, a 90°
-  turn in 3.68 s, 0.04 °/s per M shot. `regress` on `main`: **56 VERIFIED
-  + 20 WITHDRAWN**. Cost 8.90 USD.
-- **The feel prototype is published** (private page
-  https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d; since 2026-10-22 on the
-  L4b kernel, `main` `2a454c0`, version 5): an R1 duel ends in about 11 s (#227); loadout panel and
-  Export / replay built. A light reviewer checks #217's rules.
-- **The path model is done and merged** (`DESIGN.md` §13i; #228–#236;
-  PR #48): rounds are damaged and flatten, protection is the mass on the
-  path, the beam is a spinal neutral particle beam (Bethe deposit, no
-  falloff). `regress` on `main`: **57 VERIFIED + 34 WITHDRAWN**. Cost
-  18.24 USD.
-- **Prototype v2 is planned** (`DESIGN.md` §13j, #237): a helm as three
-  standing orders run by a stand-in autopilot, physical misses, the path
-  model's kernel, a seed per Restart, the three superseded constants
-  removed. The owner said go; the engineer runs on `proto/v2`
-  (`session_013XH7jici9kFqQf6EJYqURu`, opus); the plan's docs are PR #50.
-- **Heat is physical (#200, the owner)**: fast heat only along the
-  machinery's coolant loop; crew rooms and magazines insulated and cooled
-  by life support, which keeps running in a shut-down powered room (#201,
-  #205). Heat sink built (#198); cofferdam deferred (#201 (4)).
-- **Sense check closed (#202, #203, the owner)**: engines are self-fuelled
-  torches; beams are millimetre-wave masers; recoil kept, measured at L3;
-  real round sizes, partial kinetic damage and repair of damaged cells only
-  in the **D pass** (#206, `DESIGN.md` §13e), now merged.
-- **E1 (#188, #200)**: a scenario withdrawn for a specification error or
-  superseded by an owner's decision, locked, recorded, listed in
-  `mission0/withdrawn.json`, with a passing successor, does not block E1.
-- **Approval tiers (#180, #191)**: the owner decides direction only; the
-  lead designer decides and records everything technical (*LD* rows),
-  merges after a clean review, and reports costs; 20 USD of sessions per
-  level is a soft guideline (the owner is on a Max plan until the end of
-  October); mention a level past about 40 USD.
-- Roles (#167): lead designer (the chat with the owner), engineer (opus),
-  reviewer and physics checker (sonnet; Fable is out of limit), each its own
-  session (`.claude/agents/`).
+- Design settled: `DECISIONS.md` #1–#268, current design in `DESIGN.md`,
+  decisions in force in its §18, open obligations in its §17.
+- **Mission 0 L0–L4 are merged**, with the D pass, the mass pass, the path
+  model, physics pass 2, `tools/mutate` and the armour plates (L4a). `regress`
+  on `main` at `2a454c0`: **107 VERIFIED + 87 WITHDRAWN + 5 RETIRED**.
+- The feel prototype (`proto/`, throwaway, #217) runs on the L4b kernel at
+  https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d (version 5): R1d by
+  default, the cascade tree on the end panel; the enemy is a fixed script,
+  not an AI (§13j.2), so the player wins by throughput; the owner's phone
+  replays MATCH (#263).
+- **What L5 must build before any ship-versus-ship measure** (#265, #266,
+  #268): `sensors.js` and the knowledge model; missiles, point defence and
+  the railgun as room physics; the enemy of DESIGN §9; the kinetic-damage
+  pass (§17 item 34) and R1d in one pace study; room size S decided (item
+  30).
+- Approval tiers (#180, #191): the owner decides direction; the lead
+  designer decides and records everything technical (*LD* rows); 20 USD
+  of sessions per level is a soft guideline, a level past about 40 USD is
+  mentioned; cost estimates carry the factors of #246 (4) (×2.5, ×4 for
+  a new kind of work; #267's change withdrawn by #270), shown beside the
+  lead designer's own expectation, with the ratio table in `LEDGER.md`.
+- Roles (#167, #247): lead designer, engineer (opus), reviewer and physics
+  checker (sonnet), auditor (sonnet), the owner's design partner.
 
 ## Open pull requests
 
@@ -181,38 +159,34 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-- Veto window on #253, #256.
+- The five questions of #270 (the magazine's detonation rule, the passed
+  cell's loss, the tier scale of "one battle", the pre-lock rule's wording,
+  surrender against Disabled), put in the chat in the #247 (3) frame.
+- Veto window on #253, #256, #258–#263, #265, #267, #270.
 
 ## Next steps
 
-1. **Prototype v2 is merged (#239)** and published for the owner
-   (https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d, head `4fba090`):
-   the owner plays it with a changing seed and the player's orders
-   (range, facing, dodge) and writes down what is not fun (§13j.4).
-2. **Audits (#238, §13b)**: documents done (`audit/docs`, 72 findings:
-   9 contradictions, 28 stale, 4 unsupported, 22 single-place, 9
-   questions; six questions are the owner's: no dice vs seeded stand-ins,
-   blast and shield exempt from the mass law, heat capacity against
-   steel's, range band vs ship lengths, the outside blast field); physics
-   as one system (`audit/physics`) and scenario quality
-   (`audit/scenarios`) run now; the process audit is the lead designer's own, from this file's
-   ledger, once the docs audit is in. Then one consolidation pass answering
-   every finding, recorded as a decision (DESIGN keeps the current design
-   and a table of decisions in force; plans and measured history move to
-   their own file; DECISIONS untouched), before the L4 plan. Milestones for
-   the next audits are in §13b.
-3. **Next kernel pass** (with L4): the findings of #236 (the `beamPaths`
-   cache, withdrawal reason texts, a PSTAR water anchor for `csdaRange`,
-   §13f.1's dead-weight flows), #227 Q9, the chord rule of §13j.2 and
-   whatever v2's autopilot teaches `helm.js`.
-4. Then the L4 plan (ship versus static target). Physics is frozen unless a
-   playtest of prototype v2 points at it.
+1. **PR #64 (the L4 fix round)**: read its light reviewer; answer the
+   engineer's Q1–Q4 in the merge row (Q1 accepted in #270 (9); Q3 a tier
+   case at L6, item 38; Q4 `START_SEPARATION` removed with L5's prototype
+   change); re-point the '#269' citations in `js/data.js` and the changelog
+   to #270; merge; `regress` on the merge; the prototype needs no
+   republish unless `proto/` changed.
+2. **The L5 plan** (a new section of `DESIGN.md` §13 after §13m, the plan gate of #241 with #270 (3)'s
+   three checklist lines; `tools/estimates/l5.mjs`): L5a senses
+   (`sensors.js`, the knowledge model, numbers for the information law) and
+   weapons (missiles, seekers, warheads, point defence, the railgun, round
+   types, the firing window); L5b the enemy (`enemy.js`, `helm.js`,
+   standing orders and presets), ship versus ship, the reference battle of
+   E5–E7, the kinetic-damage pass with R1d in one pace study; room size S;
+   §13m updated in the plan's commit; the owner's five answers folded in.
+3. Each L5 pass: engineer (opus) → blind physics checker → reviewer →
+   answers row → merge; the full mutation run after the review (#270 (5)).
 
 ## Scheduled tasks
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
-| Check-in of this chat | `trig_01UnvcS4ZhoaXKWqpvarVzPS` | 2026-10-22 11:46 UTC, once | read the PR #62 reviewer; answers row; merge or fix round |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat

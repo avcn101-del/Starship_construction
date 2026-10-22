@@ -67,5 +67,19 @@ const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : '
   if (info.length) console.log(`info  ${info.length} rows before #246 use 'supersede' without a row number (history, not checked)`);
   report('superseding rows name what they supersede', problems);
 }
+// 8. §13m (the coverage table, #269): every element row carries a status that names a level, 'proven', 'after Mission 0' or 'not built'; a row in no plan fails.
+{
+  const design = read('DESIGN.md'), start = design.indexOf('## 13m.'), end = design.indexOf('## 14.');
+  const problems = [];
+  if (start < 0 || end < 0) problems.push('DESIGN.md: section 13m (the coverage table) is missing');
+  else design.slice(start, end).split('\n').forEach((l, i) => {
+    if (!l.startsWith('| ') || /^\| (Element|Room|Fitting|Rule|Criterion) \|/.test(l) || /^\|---/.test(l)) return;
+    const cells = l.split('|').map((c) => c.trim()).filter((c, k, a) => k > 0 && k < a.length - 1);
+    const status = cells[cells.length - 1] || '';
+    if (!/(proven|planned L[0-6]|after Mission 0|not built|holds for|judged at L[0-6]|L[0-6] proven|T6 planned L6|T1 proven)/.test(status)) problems.push(`DESIGN.md 13m, line ${i + 1} of the section: status "${status.slice(0, 50)}" names no level and no decision`);
+    else if (/no level/.test(status)) problems.push(`DESIGN.md 13m, line ${i + 1}: an element in no plan`);
+  });
+  report('13m: every design element has a level or a decision', problems);
+}
 console.log(failed ? `${failed} check(s) failed` : 'all checks passed');
 process.exit(failed ? 1 : 0);

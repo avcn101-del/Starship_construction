@@ -69,6 +69,11 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, L4b (`m0/l4b`, PR #62; 15 scenarios, 171 mutations) | session_01MwEE8qKmDVhDfvqWe4UnWn | opus-5-5 | 19.06 |
 | Physics checker, L4b (blind, from lock `e5c67dc`; `checker/l4b`; 0 discrepancies, 4 notes) | session_01Fhhp1vQjFJpdW3v1XjiUqi | sonnet-5-5 | 3.91 |
 | Reviewer, L4b (PR #62; 0 blocking, 9 notes) | session_0191sXFiff1SUfcYSCCYKYiL | sonnet-5-5 | 1.01 |
+| Audit before L5, documents (light; `audit/l4-docs`; 32 findings) | session_015MiuXbDJDY3ER7gYb4HMt3 | sonnet-5-5 | 1.70 |
+| Audit before L5, process (light; `audit/l4-process`; 10 findings) | session_016xMPBjzauERJgfNVoFhTbE | sonnet-5-5 | 0.91 |
+| Audit before L5, physics (light; `audit/l4-physics`; 20 findings) | session_01PxqWgmGKWgnmYN4z3Sb9v7 | sonnet-5-5 | 2.33 |
+| Audit before L5, scenarios (light; `audit/l4-scenarios`; 19 findings; notified by trigger) | session_01KLRjP6m3agMAXhhbdn8thh | sonnet-5-5 | 1.97 |
+| Engineer, L4 fix (`m0/l4-fix`: the physics audit's B1, `L4.books.two`, `battle.openingRange`) | session_01AFipcrRMycb5uqDDcB1fB9 | opus-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -86,3 +91,20 @@ Sessions have reported a **seven-day usage limit warning**.
 `tools/mutate` total: 7.91 USD (engineer 6.96, reviewer 0.95).
 L4a total: ≥ 17.57 USD (engineer ≥ 2.32 reported after a worker restart + fix round 8.01, physics checkers 2.83 + 1.62, reviewers 1.81 + 0.98).
 L4b total: 23.98 USD (engineer 19.06, physics checker 3.91, reviewer 1.01). L4 total (L4a + L4b): ≥ 41.55 USD.
+Audits before L5 (2026-10-22, light): 6.91 USD (documents 1.70, process 0.91, physics 2.33, scenarios 1.97).
+
+The lead designer chat's own cost (planning, answers, checks, merges) is **not in this ledger** (#270 (7)): only the sessions it creates are costed.
+
+## Estimates against actuals (#270 (1))
+
+One row per pass under the plan gate (#241): the raw range the plan stated, where it is recorded, the actual from the table above and the ratio of the actual to the raw midpoint. #246 (4)'s factors (×2.5 repeated, ×4 new) are shown to the owner beside the lead designer's own expectation (#270 (2)); the factor is reconsidered only when three consecutive rows land within 1.5×.
+
+| Pass | Raw estimate (USD) | Source | Actual (USD) | Ratio on the midpoint |
+|---|---|---|---|---|
+| Physics pass 2 | 50–60 (the rule's figure; raw not recorded separately) | #243, §13k | 42.93 | 0.78 of the rule's midpoint; raw unknown |
+| `tools/mutate` | 3–5 | #241 (6) | 7.91 | 1.98 |
+| L4a | 10–14 | #253 | ≥ 17.57 (lower bound: the engineer's cost before a worker restart is not reported) | ≥ 1.46 |
+| L4b | 18–25 | #253, #262 | 23.98 | 1.12 |
+| L4 fix round | 3–5 | #270 (9) | running | — |
+
+Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).

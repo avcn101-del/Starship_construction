@@ -1,6 +1,25 @@
 # Changelog
 
-## Unreleased — 2026-10-22 — L4b merged; answers (#265–#267)
+## Unreleased — 2026-10-22 — The four light audits before L5 answered (#270)
+
+- `DECISIONS.md` #270: #267's cost-factor change withdrawn (#246 (4)
+  stands); `LEDGER.md` gains the estimates-against-actuals table and the
+  audits' costs; the plan checklist gains three lines; the engineer's pull
+  request carries a "Pre-lock runs" section (`.claude/agents/engineer.md`).
+- `DESIGN.md` §13l.1: the two-ship books row (the L4 fix round: momentum
+  along the relative velocity, `L4.books.two`, `battle.openingRange`;
+  B2–B4 and L4 as stated stand-ins) and the plate-heat stand-in (U3);
+  §17 items 38–41 (tiers, scenario hygiene, process, plates and the
+  passed cell); §18 rows 267 and 270.
+- Five questions to the owner: the magazine's detonation rule, the passed
+  cell's loss, the tier scale of a battle, the pre-lock rule's wording,
+  surrender (#86) against Disabled (#255).
+
+## Unreleased — 2026-10-22 — L4b merged; answers; the coverage table (#265–#269)
+
+- `DESIGN.md` §13m: the coverage table, one row per design element with
+  the level that proves or plans it (#268, #269); `tools/lint-docs.mjs`
+  check 8 fails on an element in no plan.
 
 - `DESIGN.md` §13l.1: the turret aims at the first surviving cell's
   centre; a turret is fed by a magazine sharing a live wall; Disabled's

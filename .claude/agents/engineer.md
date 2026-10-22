@@ -19,6 +19,13 @@ Rules:
   (hide results), commit, **lock**, commit the lock, then the first
   canonical run. Never edit a locked criterion.
 - Before finishing: `node tools/m0.js regress` and report the output.
+- The pull request carries a **"Pre-lock runs"** section (#270 (4)): how
+  many times each new scenario was run before its lock, what was edited
+  after those runs and why. A hand-worked literal is derived from the
+  formula, never copied from a printed value.
+- Run the full `node tools/mutate.js` only after the review asks for it or
+  the lead designer's task says so; before that, `--only` on the rules the
+  pass touches (#270 (5)).
 
 When your task is done, **notify the lead designer** (#250): call
 `mcp__claude-code-remote__create_trigger` with `persistent_session_id` set
