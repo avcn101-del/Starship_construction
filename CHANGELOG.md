@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — The L4b plan amended (#261, #262)
+
+- The owner chose R1d (R1c with its turret plated) as the pace lever and
+  L4b's reference ship (#261). `DESIGN.md` §13l: R1d's numbers, B13–B15
+  (the Disabled rule, the plate vent, the shield fallback), the citadel's
+  five rounds against a deliberate shot, §17 cleaned of what L4a and
+  physics pass 2 closed. `tools/estimates/l4.mjs` prints R1c and R1d and
+  their routes through the kernel's own `pathAlong`.
+
 ## Unreleased — 2026-10-22 — Mission 0 L4a fix round (#258)
 
 - **Plates burn by mass** (#258 (1)): a plate on a beam's path loses

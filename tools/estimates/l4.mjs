@@ -18,7 +18,7 @@
 // through live walls to a reactor able to produce; the turret also needs a
 // round in its ready store or in a magazine joined to it by live walls.
 import { PARAMS, FIXED, TIERS, withOverrides, scaled } from '../../js/data.js';
-import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, enablePowerRouting, setDemand, step, fireRound, fireBeam, shieldRound, beamEnergy, cellAt, isDestroyed, survivingCells, magazineContents } from '../../js/rooms.js';
+import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, enablePowerRouting, setDemand, step, fireRound, fireBeam, shieldRound, beamEnergy, cellAt, pathAlong, isDestroyed, survivingCells, magazineContents } from '../../js/rooms.js';
 import { liveWalls } from '../../js/graph.js';
 import { roundGeometry } from '../../js/projectile.js';
 
@@ -62,12 +62,12 @@ function line(world, side, k) {
   const [W, H] = tier.grid, out = [];
   const cells = side === '-y' ? [...Array(H).keys()].map((y) => [k, y]) : side === '+y' ? [...Array(H).keys()].reverse().map((y) => [k, y])
     : side === '+x' ? [...Array(W).keys()].reverse().map((x) => [x, k]) : [...Array(W).keys()].map((x) => [x, k]);
-  let entry = null;
-  for (const xy of cells) {
-    const o = cellAt(world, xy);
-    if (o) { out.push({ room: o.room, cell: o.index }); entry ??= xy; }
-  }
   const dir = { '-y': [0, 1], '+y': [0, -1], '+x': [-1, 0], '-x': [1, 0] }[side];
+  // The kernel's own path: room cells in order and, before each, the plate its segment carries (13l.1, #258).
+  const path = pathAlong(world, cells, null, dir);
+  let entry = null;
+  for (const xy of cells) if (cellAt(world, xy)) { entry = xy; break; }
+  out.push(...path);
   // The point where the line enters the hull (grid frame, m): the first cell's outer face.
   return { path: out, dir, entry: entry ? [(entry[0] + 0.5 - dir[0] / 2) * edge, (entry[1] + 0.5 - dir[1] / 2) * edge] : null };
 }
@@ -111,11 +111,12 @@ function route(name, { kinetic = [], beam = [], shield = false, limit = 900, bui
   const bayE = beamEnergy(world, { length: 2 });
   while (world.t < limit) {
     // A line is used until its room is destroyed or none of that room's cells on the line is left.
-    const spent = (l) => isDestroyed(room(l[2])) || !line(world, l[0], l[1]).path.some((x) => x.room.id === l[2] && !x.room.cells[x.cell].destroyed);
+    const spent = (l) => isDestroyed(room(l[2])) || !line(world, l[0], l[1]).path.some((x) => x.room && x.room.id === l[2] && !x.room.cells[x.cell].destroyed);
     while (ki < kinetic.length && spent(kinetic[ki])) ki++;
     while (bi < beam.length && spent(beam[bi])) bi++;
     if (ki < kinetic.length && world.t >= next - 1e-9) {
       const L = line(world, kinetic[ki][0], kinetic[ki][1]);
+      if (!L.path.length) { ki++; continue; }
       const sh = shield ? shieldRound(world, { position: L.entry, mass: roundMass, velocity: v0, area: A, direction: L.dir }) : { velocity: v0 };
       if (sh.velocity > 0 && L.path.length) fireRound(world, { mass: roundMass, velocity: sh.velocity, area: A, direction: L.dir }, L.path, `shot-${shots}`);
       shots++; next += shotEvery;
@@ -143,6 +144,17 @@ function route(name, { kinetic = [], beam = [], shield = false, limit = 900, bui
   return end;
 }
 
+// R1c (13l.2, #256): eight plates around the magazine; R1d (#261): R1c plus five around the turret.
+const R1C_FITTINGS = [...R1_FITTINGS,
+  ['armour', 'magazine', [7, 2], [-1, 0]], ['armour', 'magazine', [7, 3], [-1, 0]], ['armour', 'magazine', [8, 2], [1, 0]], ['armour', 'magazine', [8, 3], [1, 0]],
+  ['armour', 'magazine', [7, 2], [0, -1]], ['armour', 'magazine', [8, 2], [0, -1]], ['armour', 'magazine', [7, 3], [0, 1]], ['armour', 'magazine', [8, 3], [0, 1]]];
+const R1D_FITTINGS = [...R1C_FITTINGS,
+  ['armour', 'turret', [8, 5], [0, 1]], ['armour', 'turret', [9, 5], [0, 1]], ['armour', 'turret', [9, 4], [1, 0]], ['armour', 'turret', [9, 5], [1, 0]], ['armour', 'turret', [9, 4], [0, -1]]];
+for (const [name, fittings] of [['R1', R1_FITTINGS], ['R1c', R1C_FITTINGS], ['R1d', R1D_FITTINGS]]) {
+  const { world } = buildTarget({ fittings });
+  const b = world.ship.bodies[0];
+  console.log(`${name}: mass ${b.M.toFixed(1)} kg, ${(scaled(params.engine.thrust, edge) / b.M / 9.80665).toFixed(4)} g, centre (${b.c ? b.c.map((x) => x.toFixed(3)).join(', ') : '-'}), I ${b.I.toExponential(6)}`);
+}
 console.log(`--- R1 target at T1, static; M round ${roundMass} kg at ${v0} m/s every ${shotEvery} s; beam ${beamPower / 1e6} MW (N = 2 bay energy); Disabled after ${disabledSeconds} s`);
 // Decapitation: the bridge's columns 5 and 6 are open from -y (nothing below it).
 route('decapitate, kinetic (-y cols 5, 6)', { kinetic: [['-y', 5, 'bridge'], ['-y', 6, 'bridge']] });
@@ -246,3 +258,12 @@ import { beamDeposit, csdaSteps } from '../../js/damage.js';
   for (let k = 1; k <= N; k++) { const n = csdaSteps(10 * MEV * 40 ** (k / N), iron).steps; changes += Math.abs(n - prev); prev = n; }
   console.log(`  csdaSteps changes 10-400 MeV (4000-point scan): ${changes}; steps ${csdaSteps(10 * MEV, iron).steps} -> ${csdaSteps(400 * MEV, iron).steps}`);
 }
+
+// ---------- R1d, the reference ship of L4b (#261): the kill routes against the citadel ----------
+console.log('--- R1d');
+route('R1d: decapitate, kinetic (-y cols 5, 6)', { kinetic: [['-y', 5, 'bridge'], ['-y', 6, 'bridge']], build: { fittings: R1D_FITTINGS } });
+route('R1d: magazine, kinetic (-y col 8 via hold and plate)', { kinetic: [['-y', 8, 'magazine'], ['-y', 7, 'magazine']], build: { fittings: R1D_FITTINGS } });
+route('R1d: magazine, beam (-y col 8)', { beam: [['-y', 8, 'magazine'], ['-y', 7, 'magazine']], build: { fittings: R1D_FITTINGS } });
+route('R1d: mission kill, kinetic (turret plated)', { kinetic: mk, build: { fittings: R1D_FITTINGS } });
+route('R1d: mission kill, beam', { beam: mk, build: { fittings: R1D_FITTINGS } });
+route('R1d: reactor, kinetic (-y cols 3, 4)', { kinetic: [['-y', 3, 'reactor'], ['-y', 4, 'reactor']], build: { fittings: R1D_FITTINGS } });
