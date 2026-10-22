@@ -1,0 +1,3602 @@
+[
+ {
+  "file": "mission0/scenarios/L0/beam-burn-v4.js",
+  "id": "L0.beam.burn.v4",
+  "level": "L0",
+  "laws": [
+   "beam damage by mass: a cell loses P F_i dt / (matter.burnEnergyPerKg x its mass) per step (#240 (1), 13k.1)",
+   "a neutral particle beam leaves its energy along its path (#229)",
+   "square-cube law"
+  ],
+  "dependsOn": [],
+  "setup": "an M beam (beam.power, 5 MW at T1) from an N = 2 beam bay (E = beam.gradient at its tier x 2 x edge, 100 MeV at T1) at contact on a column of 4 cells of hold, crewed (bridge), armour-like (switched-off shield generator, 10 t) and reactor cells, each an M room alone and switched off, T1 and T3, by the kernel's fireBeam once per step until cell 1 is destroyed (13k.4 S1)",
+  "measure": "the time cell 1 is destroyed (the end of the step of its cell-destroyed event); its channel and cause",
+  "tolerance": "time one-sided in [t, t + dt) with the 1e-9 float slack of #185 (2); the T3 / T1 ratio 2 within 2 dt / t",
+  "tunable": [
+   "matter.burnEnergyPerKg",
+   "beam.power",
+   "beam.gradient",
+   "structure.cellMass",
+   "cellMass.crewed",
+   "cellMass.shieldGenerator",
+   "cellMass.reactor"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "matter": "hold"
+   },
+   {
+    "tier": "T1",
+    "matter": "crewed"
+   },
+   {
+    "tier": "T1",
+    "matter": "armour"
+   },
+   {
+    "tier": "T1",
+    "matter": "reactor"
+   },
+   {
+    "tier": "T3",
+    "matter": "hold"
+   },
+   {
+    "tier": "T3",
+    "matter": "crewed"
+   },
+   {
+    "tier": "T3",
+    "matter": "armour"
+   },
+   {
+    "tier": "T3",
+    "matter": "reactor"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/beam-pstar.js",
+  "id": "L0.beam.pstar",
+  "level": "L0",
+  "laws": [
+   "protons lose energy by the Bethe formula (#229, 13i.1): an outside anchor (#236, #244)"
+  ],
+  "dependsOn": [],
+  "setup": "the kernel's csdaRange for protons of 100 and 200 MeV in liquid water (FIXED.waterZOverA 0.55509 mol/g, FIXED.waterMeanExcitation 75 eV) (13k.4 S12)",
+  "measure": "the CSDA range in g/cm^2",
+  "tolerance": "1 % relative (the kernel has no shell or density correction; 13i.3 found 0.12 % at 100 MeV)",
+  "tunable": [],
+  "cases": [
+   {
+    "MeV": 100
+   },
+   {
+    "MeV": 200
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/beam-tier.js",
+  "id": "L0.beam.tier",
+  "level": "L0",
+  "laws": [
+   "a beam bay of N cells reaches the same depth in cells at every tier: beam.gradient k = -0.41 (#240 (4), 13k.1)",
+   "a neutral particle beam leaves its energy along its path (#229)"
+  ],
+  "dependsOn": [],
+  "setup": "N = 2 and N = 8 beam bays (E = beam.gradient at the tier x N x edge, the kernel's beamEnergy) into a column of 8 armour cells (sigma = armour.cellMass at the tier / edge^2) at T1-T6: the kernel's beamDeposit and csdaRange (13k.4 S6)",
+  "measure": "the particle energy; the fraction left in the first cell; the depth in cells = CSDA range / sigma",
+  "tolerance": "the kernel against the scenario's own integration: F_1 1e-3 absolute, depth 1e-3 relative (the integrators' steps differ: 2 kg/m^2 and 1 % against 0.2 kg/m^2 and 0.1 %); across tiers: F_1 and depth within 2 % of T1's (the k = -0.41 fit's error, 13k.6); the T1 literal 1 %",
+  "tunable": [
+   "beam.gradient",
+   "armour.cellMass"
+  ],
+  "cases": [
+   {
+    "N": 2,
+    "tier": "T1"
+   },
+   {
+    "N": 2,
+    "tier": "T2"
+   },
+   {
+    "N": 2,
+    "tier": "T3"
+   },
+   {
+    "N": 2,
+    "tier": "T4"
+   },
+   {
+    "N": 2,
+    "tier": "T5"
+   },
+   {
+    "N": 2,
+    "tier": "T6"
+   },
+   {
+    "N": 8,
+    "tier": "T1"
+   },
+   {
+    "N": 8,
+    "tier": "T2"
+   },
+   {
+    "N": 8,
+    "tier": "T3"
+   },
+   {
+    "N": 8,
+    "tier": "T4"
+   },
+   {
+    "N": 8,
+    "tier": "T5"
+   },
+   {
+    "N": 8,
+    "tier": "T6"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/blast-surface-v3.js",
+  "id": "L0.blast.surface.v3",
+  "level": "L0",
+  "laws": [
+   "blast through shared walls",
+   "energy conservation"
+  ],
+  "dependsOn": [],
+  "setup": "an HE warhead detonating on the edge cell of an armour plate (10x10, and 2x2 to test venting), energies from 0.25x to 2.5x the M warhead",
+  "measure": "energy absorbed by the plate, energy escaped, cells damaged",
+  "tolerance": "energy relative 1e-9; cell counts as inequalities",
+  "tunable": [
+   "he.blastEnergy",
+   "matter.blastPerKg",
+   "armour.cellMass"
+  ],
+  "cases": [
+   {
+    "w": 10,
+    "h": 10,
+    "x": 0,
+    "y": 5,
+    "times": 0.25
+   },
+   {
+    "w": 10,
+    "h": 10,
+    "x": 0,
+    "y": 5,
+    "times": 0.5
+   },
+   {
+    "w": 10,
+    "h": 10,
+    "x": 0,
+    "y": 5,
+    "times": 1
+   },
+   {
+    "w": 10,
+    "h": 10,
+    "x": 0,
+    "y": 5,
+    "times": 1.5
+   },
+   {
+    "w": 10,
+    "h": 10,
+    "x": 0,
+    "y": 5,
+    "times": 2.5
+   },
+   {
+    "w": 2,
+    "h": 2,
+    "x": 0,
+    "y": 0,
+    "times": 2.5
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/blast-surface-v4.js",
+  "id": "L0.blast.surface.v4",
+  "level": "L0",
+  "laws": [
+   "blast through shared walls",
+   "contact burst vents at the open face",
+   "energy conservation"
+  ],
+  "dependsOn": [],
+  "setup": "an HE warhead bursting in contact with the open face (x = 0) of an armour plate, at the middle of the open face of an 11x11 plate and of a 3x3 plate (to test escape); energies 0.5x to 10x the M warhead; coupling at the minimum, value and maximum of he.coupling (#176)",
+  "measure": "energy vented at the open face, absorbed by the plate and escaped; cells damaged (any energy) and destroyed (>= B); damage by grid distance; symmetry about the burst row",
+  "tolerance": "energy relative 1e-9 of E; ordering and symmetry within 1e-9 of E",
+  "tunable": [
+   "he.blastEnergy",
+   "he.coupling",
+   "armour.blastResistance"
+  ],
+  "cases": [
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 0.5,
+    "coupling": 0.2
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 1,
+    "coupling": 0.2
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 2.5,
+    "coupling": 0.2
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 5,
+    "coupling": 0.2
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 10,
+    "coupling": 0.2
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 0.5,
+    "coupling": 0.5
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 1,
+    "coupling": 0.5
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 2.5,
+    "coupling": 0.5
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 5,
+    "coupling": 0.5
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 10,
+    "coupling": 0.5
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 0.5,
+    "coupling": 0.8
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 1,
+    "coupling": 0.8
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 2.5,
+    "coupling": 0.8
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 5,
+    "coupling": 0.8
+   },
+   {
+    "w": 11,
+    "h": 11,
+    "x": 0,
+    "y": 5,
+    "times": 10,
+    "coupling": 0.8
+   },
+   {
+    "w": 3,
+    "h": 3,
+    "x": 0,
+    "y": 1,
+    "times": 10,
+    "coupling": 0.5
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/determinism.js",
+  "id": "L0.determinism",
+  "level": "L0",
+  "laws": [
+   "deterministic: the same seed and inputs give the same battle on every engine (#239 Q6, 13k.1)"
+  ],
+  "dependsOn": [],
+  "setup": "(hash) node tools/determinism.mjs --chromium: the fixed 60 s R1 duel with turning of proto/duel.js (seed 7, the player broadside and dodging, beam only) in Node and in Chromium through Playwright; (grep) every file of js/ with its comments removed (13k.4 S9)",
+  "measure": "(hash) the two event hashes and the tool's verdict; (grep) every use of Math.pow, Math.sin, Math.cos, and every ** whose exponent is not an integer literal",
+  "tolerance": "exact",
+  "tunable": [],
+  "cases": [
+   {
+    "part": "hash"
+   },
+   {
+    "part": "grep"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/kinetic-anchor.js",
+  "id": "L0.kinetic.anchor",
+  "level": "L0",
+  "laws": [
+   "sectional-momentum penetration with round damage (#230, #232): an outside bound (#236, #244)"
+  ],
+  "dependsOn": [],
+  "setup": "an M AP round at T1 (6 kg, 800 m/s, a steel cylinder 4 diameters long) into 10 armour cells (sigma = armour.cellMass / edge^2), by the kernel's penetrateRound (13k.4 S22)",
+  "measure": "the continuous depth in cells and the depth in millimetres of steel (depth x sigma / steelDensity)",
+  "tolerance": "a bound: 100 mm <= depth <= 150 mm",
+  "tunable": [
+   "kinetic.roundMass",
+   "kinetic.muzzleVelocity",
+   "matter.kineticResistance",
+   "armour.cellMass"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "size": "M"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/kinetic-chord.js",
+  "id": "L0.kinetic.chord",
+  "level": "L0",
+  "laws": [
+   "a cell a line crosses for a fraction of an edge resists in proportion: r = c sigma chord (#239, 13k.1)",
+   "protection is the mass on the path (#232)",
+   "every interaction is symmetric (#228)"
+  ],
+  "dependsOn": [],
+  "setup": "an M round (kinetic.roundMass, kinetic.muzzleVelocity) into a column of 10 armour-like cells (switched-off shield generators, 10 t cells) by the kernel's fireRound, every path entry with chord 1 / sqrt 2 (a 45 degree line) or without one (chord 1), T1 and T3 (13k.4 S11)",
+  "measure": "the resistance of each cell, cells passed, the continuous depth (passed + taken / r at the stop), the round's damage f, the momentum books, the loss of each cell",
+  "tolerance": "closed form against the kernel's loop 1e-12 (13k.4 conventions); the literal 1e-6",
+  "tunable": [
+   "kinetic.roundMass",
+   "kinetic.muzzleVelocity",
+   "matter.kineticResistance",
+   "cellMass.shieldGenerator",
+   "kinetic.hitsToWreck"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "line": "straight"
+   },
+   {
+    "tier": "T1",
+    "line": "diagonal"
+   },
+   {
+    "tier": "T3",
+    "line": "straight"
+   },
+   {
+    "tier": "T3",
+    "line": "diagonal"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/kinetic-flatten.js",
+  "id": "L0.kinetic.flatten",
+  "level": "L0",
+  "laws": [
+   "the round takes what the cell takes against its own strength and flattens at constant volume (#228, #230)",
+   "a wrecked round's remaining momentum goes to what it stopped in (13i.1)"
+  ],
+  "dependsOn": [],
+  "setup": "(stop) an M round (6 kg, 800 m/s, a steel cylinder 4 diameters long) at T1 into 6 cells of sigma 400 kg/m^2 (switched-off shield generators) by the kernel's fireRound; (wreck) penetrateRound with the same round and cells and strength 1.5 r (13k.4 S21)",
+  "measure": "cells passed, the stopping cell, the sectional momentum it took, the momentum left at the stop, the damage f and the area after; the momentum each cell took and their sum",
+  "tolerance": "literals 1e-6 relative (worked to 7-8 digits); the momentum books 1e-12",
+  "tunable": [],
+  "cases": [
+   {
+    "part": "stop"
+   },
+   {
+    "part": "wreck"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/shield-buffer-tier.js",
+  "id": "L0.shield.buffer.tier",
+  "level": "L0",
+  "laws": [
+   "the shield's buffer scales with the energy it pays: shield.buffer k = 3 (#240 (4), 13k.1)",
+   "stopping rounds costs the shield's buffer (#139)"
+  ],
+  "dependsOn": [],
+  "setup": "at T1-T6 an M shield generator (powered, on) alone on the tier's grid; M rounds of the tier (kinetic.roundMass k = 3, kinetic.muzzleVelocity) at the generator's centre (field strength 1), by the kernel's shieldRound, up to 20 (13k.4 S7)",
+  "measure": "the buffer before the first round; the energy the first round cost; rounds per buffer = buffer / that energy; how many rounds were stopped in full",
+  "tolerance": "rounds per buffer 1e-6 of the hand-worked 5.859375 at every tier (a ratio of two scaled constants, 13k.6); counts exact",
+  "tunable": [
+   "shield.buffer",
+   "shield.kineticStop",
+   "kinetic.roundMass",
+   "kinetic.muzzleVelocity"
+  ],
+  "cases": [
+   {
+    "tier": "T1"
+   },
+   {
+    "tier": "T2"
+   },
+   {
+    "tier": "T3"
+   },
+   {
+    "tier": "T4"
+   },
+   {
+    "tier": "T5"
+   },
+   {
+    "tier": "T6"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/shield-kinetic-v3.js",
+  "id": "L0.shield.kinetic.v3",
+  "level": "L0",
+  "laws": [
+   "shield slows kinetic rounds",
+   "energy conservation"
+  ],
+  "dependsOn": [
+   "L0.kinetic.penetration",
+   "L0.shield.point"
+  ],
+  "setup": "S, M and L rounds at T1 crossing the field of an M shield generator at 0, 40 and 120 m",
+  "measure": "exit velocity and the energy the shield pays (and turns into heat)",
+  "tolerance": "relative 1e-9",
+  "tunable": [
+   "shield.kineticStop",
+   "shield.radius",
+   "shield.budget",
+   "shield.buffer"
+  ],
+  "cases": [
+   {
+    "size": "S",
+    "r": 0
+   },
+   {
+    "size": "S",
+    "r": 40
+   },
+   {
+    "size": "S",
+    "r": 120
+   },
+   {
+    "size": "M",
+    "r": 0
+   },
+   {
+    "size": "M",
+    "r": 40
+   },
+   {
+    "size": "M",
+    "r": 120
+   },
+   {
+    "size": "L",
+    "r": 0
+   },
+   {
+    "size": "L",
+    "r": 40
+   },
+   {
+    "size": "L",
+    "r": 120
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L0/shield-kinetic-v4.js",
+  "id": "L0.shield.kinetic.v4",
+  "level": "L0",
+  "laws": [
+   "shield slows kinetic rounds",
+   "energy conservation"
+  ],
+  "dependsOn": [
+   "L0.kinetic.penetration",
+   "L0.shield.point"
+  ],
+  "setup": "S, M and L rounds at T1 crossing an M shield field at the generator (full strength), with shield.kineticStop swept from its approved minimum (0.5x) to its maximum (2x)",
+  "measure": "exit velocity and the energy the shield pays",
+  "tolerance": "relative 1e-9; the S round at 1x must stop exactly (velocity 0)",
+  "tunable": [
+   "shield.kineticStop",
+   "shield.budget",
+   "shield.buffer"
+  ],
+  "cases": [
+   {
+    "size": "S",
+    "times": 0.5
+   },
+   {
+    "size": "S",
+    "times": 0.75
+   },
+   {
+    "size": "S",
+    "times": 0.9
+   },
+   {
+    "size": "S",
+    "times": 1
+   },
+   {
+    "size": "S",
+    "times": 1.1
+   },
+   {
+    "size": "S",
+    "times": 1.5
+   },
+   {
+    "size": "S",
+    "times": 2
+   },
+   {
+    "size": "M",
+    "times": 0.5
+   },
+   {
+    "size": "M",
+    "times": 0.75
+   },
+   {
+    "size": "M",
+    "times": 0.9
+   },
+   {
+    "size": "M",
+    "times": 1
+   },
+   {
+    "size": "M",
+    "times": 1.1
+   },
+   {
+    "size": "M",
+    "times": 1.5
+   },
+   {
+    "size": "M",
+    "times": 2
+   },
+   {
+    "size": "L",
+    "times": 0.5
+   },
+   {
+    "size": "L",
+    "times": 0.75
+   },
+   {
+    "size": "L",
+    "times": 0.9
+   },
+   {
+    "size": "L",
+    "times": 1
+   },
+   {
+    "size": "L",
+    "times": 1.1
+   },
+   {
+    "size": "L",
+    "times": 1.5
+   },
+   {
+    "size": "L",
+    "times": 2
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/beambay-heat-v2.js",
+  "id": "L1.beambay.heat.v2",
+  "level": "L1",
+  "laws": [
+   "beam efficiency: the rest is heat",
+   "overheated shuts down",
+   "no power, no beam"
+  ],
+  "dependsOn": [
+   "L1.room.thresholds",
+   "L1.radiator.cooling"
+  ],
+  "setup": "an M beam bay alone, no radiator, firing at full: powered at T1-T6, unpowered at T1; run until overheated and one step more (unpowered: 60 s)",
+  "measure": "beam power, draw and heat rate in the first step; times of hot and overheated; beam and draw in the step after overheated; the beam-stopped event",
+  "tolerance": "relative 1e-9; times one-sided (expected <= actual < expected + dt)",
+  "tunable": [
+   "beam.power",
+   "beambay.efficiency",
+   "thermal.coupledBeamBay",
+   "thermal.plantHot",
+   "thermal.plantOverheated"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "powered": true
+   },
+   {
+    "tier": "T2",
+    "powered": true
+   },
+   {
+    "tier": "T3",
+    "powered": true
+   },
+   {
+    "tier": "T4",
+    "powered": true
+   },
+   {
+    "tier": "T5",
+    "powered": true
+   },
+   {
+    "tier": "T6",
+    "powered": true
+   },
+   {
+    "tier": "T1",
+    "powered": false
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/beambay-length-v2.js",
+  "id": "L1.beambay.length.v2",
+  "level": "L1",
+  "laws": [
+   "the beam bay is a spinal accelerator: E = gradient x length (#234)",
+   "beam efficiency: the rest is heat",
+   "validation: a spinal room lies on the axis rows with its bow face clear (#57, #234)"
+  ],
+  "dependsOn": [
+   "L1.beambay.heat"
+  ],
+  "setup": "an M and an L beam bay alone, N = 2, 4 and 8 cells long, firing at full, powered, T1 and T3 (one step); and three blueprints on the T1 drydock grid: R1 (13f.2), R1 with its bay moved off the axis rows to (9, 0), R1 with a hold ahead of the bay at (11, 2) (13i.4 P9)",
+  "measure": "the particle energy beamEnergy; beam power, draw and heat rate in the first step; the validation verdict and its reasons",
+  "tolerance": "E exact (the same arithmetic: gradient x N x edge); power, draw and heat rate relative 1e-9 and identical across N (exact); validation exact",
+  "tunable": [
+   "beam.gradient",
+   "beam.power",
+   "beambay.efficiency"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "size": "M",
+    "N": 2
+   },
+   {
+    "tier": "T1",
+    "size": "M",
+    "N": 4
+   },
+   {
+    "tier": "T1",
+    "size": "M",
+    "N": 8
+   },
+   {
+    "tier": "T1",
+    "size": "L",
+    "N": 2
+   },
+   {
+    "tier": "T1",
+    "size": "L",
+    "N": 4
+   },
+   {
+    "tier": "T1",
+    "size": "L",
+    "N": 8
+   },
+   {
+    "tier": "T3",
+    "size": "M",
+    "N": 2
+   },
+   {
+    "tier": "T3",
+    "size": "M",
+    "N": 4
+   },
+   {
+    "tier": "T3",
+    "size": "M",
+    "N": 8
+   },
+   {
+    "tier": "T3",
+    "size": "L",
+    "N": 2
+   },
+   {
+    "tier": "T3",
+    "size": "L",
+    "N": 4
+   },
+   {
+    "tier": "T3",
+    "size": "L",
+    "N": 8
+   },
+   {
+    "variant": "R1"
+   },
+   {
+    "variant": "off axis"
+   },
+   {
+    "variant": "bow closed"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/bridge-control-v2.js",
+  "id": "L1.bridge.control.v2",
+  "level": "L1",
+  "laws": [
+   "the bridge provides control",
+   "its own backup supply",
+   "decapitation only by destruction"
+  ],
+  "dependsOn": [
+   "L1.room.thresholds",
+   "L1.radiator.cooling"
+  ],
+  "setup": "a bridge alone at T1, no radiator: \"powered\" (reactor power on) and \"cut\" (power cut at t = 0) run until hot; \"destroyed\": cells destroyed one per second by hit-1 ... hit-4 at t = 1 ... 4 s",
+  "measure": "control; heat rate in the first step and the supply that fed it; time of the hot event; control after each hit and the control-lost event",
+  "tolerance": "relative 1e-9; time one-sided (expected <= actual < expected + dt)",
+  "tunable": [
+   "bridge.powerDraw",
+   "thermal.coupledCrewed",
+   "thermal.crewedHot"
+  ],
+  "cases": [
+   {
+    "mode": "powered"
+   },
+   {
+    "mode": "cut"
+   },
+   {
+    "mode": "destroyed"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/engine-thrust-v2.js",
+  "id": "L1.engine.thrust.v2",
+  "level": "L1",
+  "laws": [
+   "thrust from a reactor drive (no propellant)",
+   "engine heat",
+   "no power or no control, no thrust"
+  ],
+  "dependsOn": [
+   "L1.room.thresholds",
+   "L1.radiator.cooling"
+  ],
+  "setup": "an engine alone (2 x 3 cells), no radiator, throttle u in {0, 0.5, 1}, a ship mass m in {1000, 1500 t}; powered and controlled at T1; at u = 1 and 1500 t also unpowered and uncontrolled (cause 'control-loss') at T1, and powered at T2-T6; full-throttle powered cases run until hot",
+  "measure": "thrust, power drawn, acceleration and heat rate in the first step; time of the hot event at full throttle",
+  "tolerance": "relative 1e-9; time one-sided (expected <= actual < expected + dt)",
+  "tunable": [
+   "engine.thrust",
+   "engine.powerDraw",
+   "engine.heatFraction",
+   "thermal.coupledEngine",
+   "thermal.plantHot"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "u": 0,
+    "m": 1000000,
+    "powered": true,
+    "controlled": true
+   },
+   {
+    "tier": "T1",
+    "u": 0,
+    "m": 1500000,
+    "powered": true,
+    "controlled": true
+   },
+   {
+    "tier": "T1",
+    "u": 0.5,
+    "m": 1000000,
+    "powered": true,
+    "controlled": true
+   },
+   {
+    "tier": "T1",
+    "u": 0.5,
+    "m": 1500000,
+    "powered": true,
+    "controlled": true
+   },
+   {
+    "tier": "T1",
+    "u": 1,
+    "m": 1000000,
+    "powered": true,
+    "controlled": true
+   },
+   {
+    "tier": "T1",
+    "u": 1,
+    "m": 1500000,
+    "powered": true,
+    "controlled": true
+   },
+   {
+    "tier": "T1",
+    "u": 1,
+    "m": 1500000,
+    "powered": false,
+    "controlled": true
+   },
+   {
+    "tier": "T1",
+    "u": 1,
+    "m": 1500000,
+    "powered": true,
+    "controlled": false
+   },
+   {
+    "tier": "T2",
+    "u": 1,
+    "m": 1500000,
+    "powered": true,
+    "controlled": true
+   },
+   {
+    "tier": "T3",
+    "u": 1,
+    "m": 1500000,
+    "powered": true,
+    "controlled": true
+   },
+   {
+    "tier": "T4",
+    "u": 1,
+    "m": 1500000,
+    "powered": true,
+    "controlled": true
+   },
+   {
+    "tier": "T5",
+    "u": 1,
+    "m": 1500000,
+    "powered": true,
+    "controlled": true
+   },
+   {
+    "tier": "T6",
+    "u": 1,
+    "m": 1500000,
+    "powered": true,
+    "controlled": true
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/heat-coupled.js",
+  "id": "L1.heat.coupled",
+  "level": "L1",
+  "laws": [
+   "heat capacity by the room type's thermally coupled mass: C = cells x thermal.coupled<type> (#240 (1), 13k.1)",
+   "per-room heat thresholds (#182)",
+   "square-cube law"
+  ],
+  "dependsOn": [],
+  "setup": "an M reactor at full demand, an M beam bay (N = 2) firing at full, an M engine at full throttle and an M shield generator absorbing 6 MW (x edge^2 / 25 m^2) of an incoming beam, each alone with no radiator, from rest, at T1-T6, until the reactor overheats or the others are hot (13k.4 S3)",
+  "measure": "the time of the overheated (reactor) or hot (others) event; the heat rate of the first step",
+  "tolerance": "time one-sided in [t, t + dt) with the 1e-9 float slack of #185 (2); heat rate 1e-12 relative; the T1 literals one-sided in the same window",
+  "tunable": [
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "reactor.power",
+   "reactor.heatPerPower",
+   "beam.power",
+   "beambay.efficiency",
+   "engine.powerDraw",
+   "engine.heatFraction",
+   "shield.powerDraw",
+   "thermal.plantHot",
+   "thermal.plantOverheated"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "room": "reactor"
+   },
+   {
+    "tier": "T1",
+    "room": "beamBay"
+   },
+   {
+    "tier": "T1",
+    "room": "engine"
+   },
+   {
+    "tier": "T1",
+    "room": "shieldGenerator"
+   },
+   {
+    "tier": "T2",
+    "room": "reactor"
+   },
+   {
+    "tier": "T2",
+    "room": "beamBay"
+   },
+   {
+    "tier": "T2",
+    "room": "engine"
+   },
+   {
+    "tier": "T2",
+    "room": "shieldGenerator"
+   },
+   {
+    "tier": "T3",
+    "room": "reactor"
+   },
+   {
+    "tier": "T3",
+    "room": "beamBay"
+   },
+   {
+    "tier": "T3",
+    "room": "engine"
+   },
+   {
+    "tier": "T3",
+    "room": "shieldGenerator"
+   },
+   {
+    "tier": "T4",
+    "room": "reactor"
+   },
+   {
+    "tier": "T4",
+    "room": "beamBay"
+   },
+   {
+    "tier": "T4",
+    "room": "engine"
+   },
+   {
+    "tier": "T4",
+    "room": "shieldGenerator"
+   },
+   {
+    "tier": "T5",
+    "room": "reactor"
+   },
+   {
+    "tier": "T5",
+    "room": "beamBay"
+   },
+   {
+    "tier": "T5",
+    "room": "engine"
+   },
+   {
+    "tier": "T5",
+    "room": "shieldGenerator"
+   },
+   {
+    "tier": "T6",
+    "room": "reactor"
+   },
+   {
+    "tier": "T6",
+    "room": "beamBay"
+   },
+   {
+    "tier": "T6",
+    "room": "engine"
+   },
+   {
+    "tier": "T6",
+    "room": "shieldGenerator"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/magazine-cookoff-v2.js",
+  "id": "L1.magazine.cookoff.v2",
+  "level": "L1",
+  "laws": [
+   "a magazine explodes by the ammunition left in it",
+   "HE far more than AP",
+   "magazines cook off"
+  ],
+  "dependsOn": [
+   "L1.room.thresholds",
+   "L1.radiator.cooling"
+  ],
+  "setup": "an M magazine loaded by mass (fractions of magazine.capacity): all AP, all HE, half and half, half full; M, S and L rounds; heated by an external 1.1 MW x (edge / 5 m)^3 with no radiator, or destroyed by a hit (hit-1, at 1 s); T1, and half and half at T2-T6",
+  "measure": "rounds aboard after loading; time, energy and cause of the explosion",
+  "tolerance": "counts exact; energy relative 1e-9; cook-off time one-sided (expected <= actual < expected + dt); hit time relative 1e-9",
+  "tunable": [
+   "magazine.capacity",
+   "kinetic.chargeEnergy",
+   "he.blastEnergy",
+   "kinetic.roundMass",
+   "thermal.coupledMagazine",
+   "thermal.magazineCritical"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "size": "M",
+    "ap": 1,
+    "he": 0,
+    "by": "heat"
+   },
+   {
+    "tier": "T1",
+    "size": "M",
+    "ap": 0,
+    "he": 1,
+    "by": "heat"
+   },
+   {
+    "tier": "T1",
+    "size": "M",
+    "ap": 0.5,
+    "he": 0.5,
+    "by": "heat"
+   },
+   {
+    "tier": "T1",
+    "size": "M",
+    "ap": 0,
+    "he": 0.5,
+    "by": "heat"
+   },
+   {
+    "tier": "T1",
+    "size": "S",
+    "ap": 1,
+    "he": 0,
+    "by": "heat"
+   },
+   {
+    "tier": "T1",
+    "size": "S",
+    "ap": 0,
+    "he": 1,
+    "by": "heat"
+   },
+   {
+    "tier": "T1",
+    "size": "L",
+    "ap": 1,
+    "he": 0,
+    "by": "heat"
+   },
+   {
+    "tier": "T1",
+    "size": "L",
+    "ap": 0,
+    "he": 1,
+    "by": "heat"
+   },
+   {
+    "tier": "T1",
+    "size": "M",
+    "ap": 0,
+    "he": 1,
+    "by": "hit"
+   },
+   {
+    "tier": "T1",
+    "size": "M",
+    "ap": 0.5,
+    "he": 0.5,
+    "by": "hit"
+   },
+   {
+    "tier": "T1",
+    "size": "S",
+    "ap": 1,
+    "he": 0,
+    "by": "hit"
+   },
+   {
+    "tier": "T2",
+    "size": "M",
+    "ap": 0.5,
+    "he": 0.5,
+    "by": "heat"
+   },
+   {
+    "tier": "T3",
+    "size": "M",
+    "ap": 0.5,
+    "he": 0.5,
+    "by": "heat"
+   },
+   {
+    "tier": "T4",
+    "size": "M",
+    "ap": 0.5,
+    "he": 0.5,
+    "by": "heat"
+   },
+   {
+    "tier": "T5",
+    "size": "M",
+    "ap": 0.5,
+    "he": 0.5,
+    "by": "heat"
+   },
+   {
+    "tier": "T6",
+    "size": "M",
+    "ap": 0.5,
+    "he": 0.5,
+    "by": "heat"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/quarters-repair-v3.js",
+  "id": "L1.quarters.repair.v3",
+  "level": "L1",
+  "laws": [
+   "crew quarters set crew capacity",
+   "crew die in proportion to the integrity lost",
+   "repair field by surviving cells, with falloff",
+   "repair restores damaged cells only; a destroyed cell waits for the drydock"
+  ],
+  "dependsOn": [
+   "L1.room.thresholds",
+   "L1.radiator.cooling"
+  ],
+  "setup": "the setup of L1.quarters.repair (#206, 13e.3 D2): crew quarters (3 x 2 cells) at T1 with c in {6, 3, 1, 0} surviving cells (6 - c destroyed at t = 0); one target room (an empty hold) at r in {0, 0.5, 1, 2, 4} x repair.radius from the quarters, its cell 0 damaged by 0.7123 (not destroyed) and its cell 1 destroyed at t = 0; run until cell 0 is repaired and at least 600 s; the pairs (c, r) = (3, 2) and (1, 2) are left out, their repair time is a whole number of steps",
+  "measure": "crew housed after the losses and the deaths of each destroyed quarters cell; the repair rate of cell 0 in the first step; the time of its cell-repaired event; the integrity of the destroyed cell 1 at the end and any cell-repaired event for it",
+  "tolerance": "counts exact; rate relative 1e-9; time one-sided (expected <= actual < expected + dt)",
+  "tunable": [
+   "quarters.crewPerCell",
+   "repair.massRate",
+   "structure.cellMass",
+   "repair.radius"
+  ],
+  "cases": [
+   {
+    "c": 6,
+    "x": 0
+   },
+   {
+    "c": 6,
+    "x": 0.5
+   },
+   {
+    "c": 6,
+    "x": 1
+   },
+   {
+    "c": 6,
+    "x": 2
+   },
+   {
+    "c": 6,
+    "x": 4
+   },
+   {
+    "c": 3,
+    "x": 0
+   },
+   {
+    "c": 3,
+    "x": 0.5
+   },
+   {
+    "c": 3,
+    "x": 1
+   },
+   {
+    "c": 3,
+    "x": 4
+   },
+   {
+    "c": 1,
+    "x": 0
+   },
+   {
+    "c": 1,
+    "x": 0.5
+   },
+   {
+    "c": 1,
+    "x": 1
+   },
+   {
+    "c": 1,
+    "x": 4
+   },
+   {
+    "c": 0,
+    "x": 0
+   },
+   {
+    "c": 0,
+    "x": 0.5
+   },
+   {
+    "c": 0,
+    "x": 1
+   },
+   {
+    "c": 0,
+    "x": 2
+   },
+   {
+    "c": 0,
+    "x": 4
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/radiator-cooling-v2.js",
+  "id": "L1.radiator.cooling.v2",
+  "level": "L1",
+  "laws": [
+   "radiators follow Stefan-Boltzmann",
+   "energy conservation"
+  ],
+  "dependsOn": [],
+  "setup": "an idle M turret (a hull room: no ammunition, no generation) starting at T0 in {400, 600, 800, 1000, 1200 K} with n in {1, 2} radiators, run 60 s at the simulation step; T2-T6 at T0 = 1000 K",
+  "measure": "room temperature at 60 s; heat radiated and heat left in the room",
+  "tolerance": "temperature relative 1e-3 (explicit Euler); books relative 1e-9",
+  "tunable": [
+   "radiator.area",
+   "thermal.coupledCrewed"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "T0": 400,
+    "n": 1
+   },
+   {
+    "tier": "T1",
+    "T0": 400,
+    "n": 2
+   },
+   {
+    "tier": "T1",
+    "T0": 600,
+    "n": 1
+   },
+   {
+    "tier": "T1",
+    "T0": 600,
+    "n": 2
+   },
+   {
+    "tier": "T1",
+    "T0": 800,
+    "n": 1
+   },
+   {
+    "tier": "T1",
+    "T0": 800,
+    "n": 2
+   },
+   {
+    "tier": "T1",
+    "T0": 1000,
+    "n": 1
+   },
+   {
+    "tier": "T1",
+    "T0": 1000,
+    "n": 2
+   },
+   {
+    "tier": "T1",
+    "T0": 1200,
+    "n": 1
+   },
+   {
+    "tier": "T1",
+    "T0": 1200,
+    "n": 2
+   },
+   {
+    "tier": "T2",
+    "T0": 1000,
+    "n": 1
+   },
+   {
+    "tier": "T2",
+    "T0": 1000,
+    "n": 2
+   },
+   {
+    "tier": "T3",
+    "T0": 1000,
+    "n": 1
+   },
+   {
+    "tier": "T3",
+    "T0": 1000,
+    "n": 2
+   },
+   {
+    "tier": "T4",
+    "T0": 1000,
+    "n": 1
+   },
+   {
+    "tier": "T4",
+    "T0": 1000,
+    "n": 2
+   },
+   {
+    "tier": "T5",
+    "T0": 1000,
+    "n": 1
+   },
+   {
+    "tier": "T5",
+    "T0": 1000,
+    "n": 2
+   },
+   {
+    "tier": "T6",
+    "T0": 1000,
+    "n": 1
+   },
+   {
+    "tier": "T6",
+    "T0": 1000,
+    "n": 2
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/reactor-power-v2.js",
+  "id": "L1.reactor.power.v2",
+  "level": "L1",
+  "laws": [
+   "power on demand",
+   "reactor waste heat",
+   "overheated shuts down",
+   "decay heat"
+  ],
+  "dependsOn": [
+   "L1.room.thresholds",
+   "L1.radiator.cooling"
+  ],
+  "setup": "an M reactor alone, no radiator, at demand d in {0, 0.25, 0.5, 1} of reactor.power at T1, and d = 1 at T2-T6; run until overheated and one step more (d = 0: 120 s)",
+  "measure": "power delivered and heat rate in the first step; time of the overheated event; power delivered and decay heat in the step after it",
+  "tolerance": "relative 1e-9; time one-sided (expected <= actual < expected + dt)",
+  "tunable": [
+   "reactor.power",
+   "reactor.heatPerPower",
+   "reactor.decayFraction",
+   "reactor.decayTime",
+   "thermal.coupledReactor",
+   "thermal.plantOverheated"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "d": 0
+   },
+   {
+    "tier": "T1",
+    "d": 0.25
+   },
+   {
+    "tier": "T1",
+    "d": 0.5
+   },
+   {
+    "tier": "T1",
+    "d": 1
+   },
+   {
+    "tier": "T2",
+    "d": 1
+   },
+   {
+    "tier": "T3",
+    "d": 1
+   },
+   {
+    "tier": "T4",
+    "d": 1
+   },
+   {
+    "tier": "T5",
+    "d": 1
+   },
+   {
+    "tier": "T6",
+    "d": 1
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/reactor-restart.js",
+  "id": "L1.reactor.restart",
+  "level": "L1",
+  "laws": [
+   "a SCRAMmed reactor restarts reactor.restartTime after control is back, once below hot (#82, 13k.1)",
+   "fail-safe reactors: losing control SCRAMs a reactor (#81)"
+  ],
+  "dependsOn": [],
+  "setup": "an M reactor alone at T1 at demand 0.5, no radiator, control lost at 1 s (SCRAM); (cold) from rest, control back at 5 s; (never) control never back; (hot) from 650 K (above plant hot, 600 K) with -5 MW of external power from the start, control back at 5 s; (again) from rest, control back at 5 s, lost at 30 s, back at 40 s; 400 s (13k.4 S10)",
+  "measure": "the reactor-restart events; the start of the first step after the SCRAM in which it delivers power again; its temperature then",
+  "tolerance": "times one-sided in [t, t + dt) with the 1e-9 float slack of #185 (2); the hot case's crossing by the scenario's own bisection to 1e-9 s",
+  "tunable": [
+   "reactor.restartTime",
+   "reactor.power",
+   "reactor.decayFraction",
+   "reactor.decayTime",
+   "thermal.coupledReactor",
+   "thermal.plantHot"
+  ],
+  "cases": [
+   {
+    "name": "cold"
+   },
+   {
+    "name": "never"
+   },
+   {
+    "name": "hot"
+   },
+   {
+    "name": "again"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/reactor-scram-v2.js",
+  "id": "L1.reactor.scram.v2",
+  "level": "L1",
+  "laws": [
+   "fail-safe reactors: SCRAM on control loss",
+   "decay heat",
+   "meltdown at critical"
+  ],
+  "dependsOn": [
+   "L1.room.thresholds",
+   "L1.radiator.cooling"
+  ],
+  "setup": "an M reactor alone at T1, no radiator: running at full from T_s = rest (290 K) and from 600 K, and idle (demand 0) from rest; control cut at t_s = 0 with cause 'control-loss'; run until the meltdown and 1 s more, or 5400 s (6 tau)",
+  "measure": "power delivered in the first step after the cut; decay heat added by 60, 900 and 1200 s; meltdown time and the explosion's energy",
+  "tolerance": "decay heat relative 1e-3; meltdown time one-sided (expected <= actual < expected + dt); energy relative 1e-9",
+  "tunable": [
+   "reactor.power",
+   "reactor.heatPerPower",
+   "reactor.decayFraction",
+   "reactor.decayTime",
+   "reactor.explosionEnergy",
+   "thermal.coupledReactor",
+   "thermal.plantCritical"
+  ],
+  "cases": [
+   {
+    "T0": 290,
+    "d": 1
+   },
+   {
+    "T0": 600,
+    "d": 1
+   },
+   {
+    "T0": 290,
+    "d": 0
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/repair-breach-v3.js",
+  "id": "L1.repair.breach.v3",
+  "level": "L1",
+  "laws": [
+   "repair restores damaged cells only; a destroyed cell waits for the drydock",
+   "a heavily damaged reactor breaches",
+   "crew die in proportion to the integrity lost and do not come back",
+   "an exploded room never explodes or melts down again"
+  ],
+  "dependsOn": [
+   "L1.room.thresholds",
+   "L1.radiator.cooling",
+   "L1.quarters.repair.v2",
+   "L1.reactor.breach"
+  ],
+  "setup": "rooms alone at T1: crew quarters (all 6 cells) at [0, 0]; an idle M reactor (demand 0) at r = 0.25 x repair.radius; an empty M hold beside the quarters at [-5, 0] whose cell D (0) is destroyed at 0.5 s; hit-1 damages reactor cell A by 0.7123 at 1 s; when A's cell-repaired event comes, hit-2 destroys cell B 1 s later and hit-3 cell C 1 s after that; after the explosion an external 11 MW heats the wreck for 2000 s (13e.3 D3, as L1.repair.breach)",
+  "measure": "time of A's repair and the destroyed count after it; breach events after hit-2 and hit-3; time, energy and cause of the explosion; explosions and meltdowns in the whole run; reactor crew deaths at each hit and in total; cell D's integrity at the end and any cell-repaired event for it; the reactor temperature at the end",
+  "tolerance": "counts exact; repair and explosion times one-sided (expected <= actual < expected + dt); energy and end temperature relative 1e-9",
+  "tunable": [
+   "repair.massRate",
+   "cellMass.reactor",
+   "repair.radius",
+   "reactor.breachFraction",
+   "reactor.breachCountdown",
+   "reactor.explosionEnergy",
+   "crewRequired.reactor",
+   "thermal.coupledReactor"
+  ],
+  "cases": [
+   {
+    "x": 0.25,
+    "P": 11000000,
+    "heatFor": 2000
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/repair-mass.js",
+  "id": "L1.repair.mass",
+  "level": "L1",
+  "laws": [
+   "repair by mass: a cell regains repair.massRate / its mass of integrity per second (#240 (1), 13k.1)",
+   "repair restores damaged cells only"
+  ],
+  "dependsOn": [],
+  "setup": "at T1 an M crew quarters (all 6 cells, powered) at [0, 0]; alone at the same point a target room: an M hold, an M bridge or an M reactor (demand 0), its cell 0 damaged by 1/3 at t = 0; run until its cell-repaired event (13k.4 S4)",
+  "measure": "the target cell's repair rate in the first step; the time of its cell-repaired event; its integrity then",
+  "tolerance": "rate 1e-12 relative; time one-sided in [t, t + dt) with the 1e-9 float slack of #185 (2)",
+  "tunable": [
+   "repair.massRate",
+   "structure.cellMass",
+   "cellMass.crewed",
+   "cellMass.reactor"
+  ],
+  "cases": [
+   {
+    "target": "hold"
+   },
+   {
+    "target": "crewed"
+   },
+   {
+    "target": "reactor"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/room-restart-v2.js",
+  "id": "L1.room.restart.v2",
+  "level": "L1",
+  "laws": [
+   "an overheated room shuts itself down",
+   "it restarts when it cools below hot",
+   "heat can decapitate: an overheated bridge gives no control"
+  ],
+  "dependsOn": [
+   "L1.room.thresholds",
+   "L1.radiator.cooling",
+   "L1.engine.thrust",
+   "L1.bridge.control"
+  ],
+  "setup": "(a) \"engine\": an M engine at full throttle with 2 radiators, powered and controlled, T1, run 6000 s; (b) \"bridge\": an M bridge with 2 radiators (DESIGN.md 13c.2 row 15, a test rig like the external source: placement is a layout rule) heated by an external 1.1 MW until its overheated event, then the source is off, run until its restart and 10 s more (#189 (3))",
+  "measure": "(a) shutdown and restart events, the temperature at each shutdown step (T_s) and restart step, thrust and draw in the step after each; (b) the overheated, control-lost, restart and control-restored events, control in every step, T_s, crew deaths",
+  "tolerance": "restart time relative 1e-4; thrust relative 1e-9; events and control exact",
+  "tunable": [
+   "thermal.coupledEngine",
+   "thermal.coupledCrewed",
+   "thermal.plantHot",
+   "thermal.plantOverheated",
+   "thermal.crewedHot",
+   "thermal.crewedOverheated",
+   "radiator.area",
+   "engine.powerDraw",
+   "engine.heatFraction"
+  ],
+  "cases": [
+   {
+    "part": "engine",
+    "n": 2,
+    "duration": 6000
+   },
+   {
+    "part": "bridge",
+    "n": 2,
+    "P": 1100000,
+    "after": 10
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/room-thresholds-v2.js",
+  "id": "L1.room.thresholds.v2",
+  "level": "L1",
+  "laws": [
+   "three heat thresholds per room",
+   "crew die at critical heat",
+   "magazines cook off",
+   "reactors melt down"
+  ],
+  "dependsOn": [],
+  "setup": "each of the nine rooms (bridge, reactor, engine, magazine, shield generator, quarters, beam bay, turret, hold), size M at T1, switched off (no own generation), no radiator, heated by an external 1.1 MW; the magazine is full of M HE rounds; run until critical + 1 s",
+  "measure": "times of the hot, overheated and critical events; their order; the shutdown at overheated; crew deaths at critical; the cook-off and meltdown explosions",
+  "tolerance": "times one-sided (expected <= actual < expected + dt); counts exact; energies relative 1e-9",
+  "tunable": [
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "thermal.coupledCrewed",
+   "thermal.coupledMagazine",
+   "thermal.coupledHold",
+   "thermal.coupledHeatSink",
+   "thermal.plantHot",
+   "thermal.plantOverheated",
+   "thermal.plantCritical",
+   "thermal.crewedHot",
+   "thermal.crewedOverheated",
+   "thermal.crewedCritical",
+   "thermal.magazineHot",
+   "thermal.magazineOverheated",
+   "thermal.magazineCritical"
+  ],
+  "cases": [
+   {
+    "type": "bridge"
+   },
+   {
+    "type": "reactor"
+   },
+   {
+    "type": "engine"
+   },
+   {
+    "type": "magazine"
+   },
+   {
+    "type": "shieldGenerator"
+   },
+   {
+    "type": "quarters"
+   },
+   {
+    "type": "beamBay"
+   },
+   {
+    "type": "turret"
+   },
+   {
+    "type": "hold"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/shield-generator-v2.js",
+  "id": "L1.shield.generator.v2",
+  "level": "L1",
+  "laws": [
+   "shield absorbs at a rate",
+   "absorbing makes heat",
+   "overheated shuts down",
+   "EM-bright while absorbing"
+  ],
+  "dependsOn": [
+   "L1.room.thresholds",
+   "L1.radiator.cooling",
+   "L0.shield.point.v2"
+  ],
+  "setup": "an M shield generator alone, on, no radiator, a beam P_in at the generator (strength 1) of 0.4, 1, 2 and 6 x beam.power (2, 5, 10, 30 MW) at T1, powered and unpowered; 1 x beam.power at T2-T6; run until overheated and one step more (unpowered: 60 s)",
+  "measure": "absorbed and passed power, EM signature and heat rate in the first step; time of overheated; passed power and heat rate in the step after it; the shield-down event",
+  "tolerance": "relative 1e-9; time one-sided (expected <= actual < expected + dt)",
+  "tunable": [
+   "shield.budget",
+   "shield.powerDraw",
+   "beam.power",
+   "thermal.coupledShieldGenerator",
+   "thermal.plantOverheated"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "x": 0.4,
+    "powered": true
+   },
+   {
+    "tier": "T1",
+    "x": 1,
+    "powered": true
+   },
+   {
+    "tier": "T1",
+    "x": 2,
+    "powered": true
+   },
+   {
+    "tier": "T1",
+    "x": 6,
+    "powered": true
+   },
+   {
+    "tier": "T1",
+    "x": 0.4,
+    "powered": false
+   },
+   {
+    "tier": "T1",
+    "x": 1,
+    "powered": false
+   },
+   {
+    "tier": "T1",
+    "x": 2,
+    "powered": false
+   },
+   {
+    "tier": "T1",
+    "x": 6,
+    "powered": false
+   },
+   {
+    "tier": "T2",
+    "x": 1,
+    "powered": true
+   },
+   {
+    "tier": "T3",
+    "x": 1,
+    "powered": true
+   },
+   {
+    "tier": "T4",
+    "x": 1,
+    "powered": true
+   },
+   {
+    "tier": "T5",
+    "x": 1,
+    "powered": true
+   },
+   {
+    "tier": "T6",
+    "x": 1,
+    "powered": true
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L1/turret-timing.js",
+  "id": "L1.turret.timing",
+  "level": "L1",
+  "laws": [
+   "a round fired at into its step is launched at world.t + at and moves (dt - at) v in its first step (F20, 13k.1)",
+   "recoil: ship plus rounds conserve momentum (#5)"
+  ],
+  "dependsOn": [],
+  "setup": "at T1 a ship of an M bridge (0, 0) and an M turret (2, 0), at rest, the turret aimed +x with its 4 ready rounds, firing at turret.fireRate = 0.7 /s (run-time value, approved range 0.2-2): its first shot on the step grid, its second 1 / 0.7 s later, inside a step (13k.4 S15)",
+  "measure": "the second shot's event time; its round's launch time t, its launch point x0 and its position x after the step it was fired in; its velocity",
+  "tolerance": "positions 1e-9 of the step's path v dt (13k.4 S15); times 1e-12; the literal 1e-6",
+  "tunable": [
+   "turret.fireRate",
+   "kinetic.muzzleVelocity"
+  ],
+  "cases": [
+   {
+    "shot": 2,
+    "rate": 0.7
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/beambay-cause.js",
+  "id": "L2.beambay.cause",
+  "level": "L2",
+  "laws": [
+   "an overheated room shuts down (#182)",
+   "every effect carries its cause (#156): a beam stopped by heat says heat (#227 Q9)"
+  ],
+  "dependsOn": [],
+  "setup": "in a cluster at T1 an M reactor (0, 2) at full demand, an M hold (2, 2) and an M beam bay N = 2 (4, 2) firing, power routing on; (heat) until the bay overheats; (no-power) the same with the reactor switched off from the start (13k.4 S13)",
+  "measure": "the bay's first beam-stopped event (time and cause) and its shutdown event",
+  "tolerance": "exact",
+  "tunable": [],
+  "cases": [
+   {
+    "part": "heat"
+   },
+   {
+    "part": "no-power"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/blast-mass.js",
+  "id": "L2.blast.mass",
+  "level": "L2",
+  "laws": [
+   "blast capacity follows the cell's mass: B = cells x matter.blastPerKg x cell mass (#240 (6), 13k.1)",
+   "explosions spread through shared walls, split by wall length",
+   "energy conservation"
+  ],
+  "dependsOn": [
+   "L2.blast.walls.v2"
+  ],
+  "setup": "in a cluster at T1, an M magazine at (2, 2) set off holding 1 M AP round (6 MJ) or 1 M HE and 2 M AP rounds (20 MJ); an M hold at (4, 2) shares 10 m with it and a neighbour at (0, 3) shares 5 m: (i) a second M hold, (ii) an M reactor (switched off); the neighbours do not touch (13k.4 S2)",
+  "measure": "the blast's energy, what each room absorbed and what escaped to space; each room's cells destroyed and the integrity of the others; the heat books",
+  "tolerance": "energies and integrity 1e-12 relative (a closed form against the kernel's fill, 13k.4 conventions); counts exact",
+  "tunable": [
+   "matter.blastPerKg",
+   "structure.cellMass",
+   "cellMass.reactor",
+   "kinetic.chargeEnergy",
+   "he.blastEnergy",
+   "kinetic.roundMass"
+  ],
+  "cases": [
+   {
+    "neighbour": "hold",
+    "load": "6 MJ"
+   },
+   {
+    "neighbour": "hold",
+    "load": "20 MJ"
+   },
+   {
+    "neighbour": "reactor",
+    "load": "6 MJ"
+   },
+   {
+    "neighbour": "reactor",
+    "load": "20 MJ"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/blast-walls-v2.js",
+  "id": "L2.blast.walls.v2",
+  "level": "L2",
+  "laws": [
+   "explosions spread through shared walls",
+   "an empty hold absorbs blast",
+   "energy conservation",
+   "crew die per destroyed cell"
+  ],
+  "dependsOn": [
+   "L0.blast.surface.v2",
+   "L1.magazine.cookoff"
+  ],
+  "setup": "in a cluster at T1, an M magazine set off (full of M HE rounds; half full of M AP; and 2 and 4 M HE rounds, 5 and 10 MJ, below the cluster's capacity) in (a) a row with three M bridges, (b) the same with an M empty hold beside the magazine, (c) between two M bridges; every wall 10 m",
+  "measure": "blast energy absorbed by each room and escaped to space; cells destroyed, their integrity and crew deaths in each room",
+  "tolerance": "energies 1e-12 relative; counts exact",
+  "tunable": [
+   "matter.blastPerKg",
+   "structure.cellMass",
+   "cellMass.crewed",
+   "kinetic.chargeEnergy",
+   "he.blastEnergy",
+   "magazine.capacity"
+  ],
+  "cases": [
+   {
+    "geometry": "row",
+    "load": "full-HE"
+   },
+   {
+    "geometry": "row",
+    "load": "half-AP"
+   },
+   {
+    "geometry": "row",
+    "load": "HE-2"
+   },
+   {
+    "geometry": "row",
+    "load": "HE-4"
+   },
+   {
+    "geometry": "row-hold",
+    "load": "full-HE"
+   },
+   {
+    "geometry": "row-hold",
+    "load": "half-AP"
+   },
+   {
+    "geometry": "row-hold",
+    "load": "HE-2"
+   },
+   {
+    "geometry": "row-hold",
+    "load": "HE-4"
+   },
+   {
+    "geometry": "middle",
+    "load": "full-HE"
+   },
+   {
+    "geometry": "middle",
+    "load": "half-AP"
+   },
+   {
+    "geometry": "middle",
+    "load": "HE-2"
+   },
+   {
+    "geometry": "middle",
+    "load": "HE-4"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/bridge-conduction-v3.js",
+  "id": "L2.bridge.conduction.v3",
+  "level": "L2",
+  "laws": [
+   "life support keeps crewed rooms cool",
+   "an overheated room shuts itself down and restarts below hot",
+   "heat can decapitate: an overheated bridge gives no control"
+  ],
+  "dependsOn": [
+   "L2.heat.pair.v2",
+   "L1.room.restart",
+   "L1.bridge.control"
+  ],
+  "setup": "in a cluster at T1, an M bridge (placed inside: no radiator; life support on its backup supply, #147) beside an idle M beam bay (switched off) with 4 radiators over a 10 m passive wall; an external 1.1 MW heats the bridge until its overheated event, then the source is off; run until its restart and 10 s more (replaces L2.bridge.conduction under #200, #201)",
+  "measure": "the overheated, control-lost, restart and control-restored events; control in every step; crew deaths; whether the bridge can take a radiator; the heat life support moved",
+  "tolerance": "overheat and restart times 1e-3 relative; events and control exact",
+  "tunable": [
+   "lifeSupport.capacityPerCell",
+   "conduction.passive",
+   "radiator.area",
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "thermal.coupledCrewed",
+   "thermal.coupledMagazine",
+   "thermal.coupledHold",
+   "thermal.coupledHeatSink",
+   "thermal.crewedHot",
+   "thermal.crewedOverheated",
+   "bridge.powerDraw"
+  ],
+  "cases": [
+   {
+    "P": 1100000
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/heat-chain-v3.js",
+  "id": "L2.heat.chain.v3",
+  "level": "L2",
+  "laws": [
+   "heat moves fast along the coolant loop",
+   "an empty hold insulates"
+  ],
+  "dependsOn": [
+   "L2.heat.pair.v2"
+  ],
+  "setup": "three idle M rooms in a row in a cluster at T1, each wall 2 cell pairs (10 m): a beam bay switched off at 600 K, a middle room at 290 K (a beam bay switched off: two coolant walls; or an empty hold: two passive walls), a third beam bay switched off at 290 K; no radiators; 300 s (replaces L2.heat.chain, #201 (2))",
+  "measure": "the three temperatures at 300 s; the heat that reached the third room, C_3 (T_3 - 290 K)",
+  "tolerance": "temperatures 3e-3 K absolute at 300 s; the hold ratio strict",
+  "tunable": [
+   "conduction.wall",
+   "conduction.passive",
+   "conduction.holdFactor",
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "thermal.coupledCrewed",
+   "thermal.coupledMagazine",
+   "thermal.coupledHold",
+   "thermal.coupledHeatSink"
+  ],
+  "cases": [
+   {
+    "middle": "beamBay",
+    "T0": 600
+   },
+   {
+    "middle": "hold",
+    "T0": 600
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/heat-neighbour-v3.js",
+  "id": "L2.heat.neighbour.v3",
+  "level": "L2",
+  "laws": [
+   "a passive bulkhead leaks little",
+   "life support keeps crewed rooms and magazines cool",
+   "a magazine cooks off",
+   "crew die at critical heat"
+  ],
+  "dependsOn": [
+   "L2.heat.pair.v2",
+   "L1.room.thresholds",
+   "L1.magazine.cookoff"
+  ],
+  "setup": "in a cluster at T1, an M reactor at demand d in {0.25, 0.5} (delivered on demand, L1) beside an M magazine full of M HE rounds or M crew quarters over a 10 m passive wall (2 cell pairs), no radiators; life support on (the neighbour powered; the quarters then also draw their 50 kW as heat) or off (unpowered: no draw, no life support); 900 s (replaces L2.heat.neighbour under #200, #201)",
+  "measure": "the neighbour's highest temperature after every step, its critical event (magazine cook-off; quarters crew deaths) if any; the reactor's first overheated event and its highest temperature",
+  "tolerance": "life support on: setpoint + 0.01 K; life support off: highest temperature 1e-3 K absolute",
+  "tunable": [
+   "conduction.passive",
+   "lifeSupport.capacityPerCell",
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "thermal.coupledCrewed",
+   "thermal.coupledMagazine",
+   "thermal.coupledHold",
+   "thermal.coupledHeatSink",
+   "reactor.power",
+   "reactor.heatPerPower",
+   "thermal.magazineCritical",
+   "thermal.crewedCritical",
+   "thermal.plantOverheated"
+  ],
+  "cases": [
+   {
+    "neighbour": "magazine",
+    "d": 0.25,
+    "lifeSupport": "on"
+   },
+   {
+    "neighbour": "magazine",
+    "d": 0.25,
+    "lifeSupport": "off"
+   },
+   {
+    "neighbour": "magazine",
+    "d": 0.5,
+    "lifeSupport": "on"
+   },
+   {
+    "neighbour": "magazine",
+    "d": 0.5,
+    "lifeSupport": "off"
+   },
+   {
+    "neighbour": "quarters",
+    "d": 0.25,
+    "lifeSupport": "on"
+   },
+   {
+    "neighbour": "quarters",
+    "d": 0.25,
+    "lifeSupport": "off"
+   },
+   {
+    "neighbour": "quarters",
+    "d": 0.5,
+    "lifeSupport": "on"
+   },
+   {
+    "neighbour": "quarters",
+    "d": 0.5,
+    "lifeSupport": "off"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/heat-pair-v3.js",
+  "id": "L2.heat.pair.v3",
+  "level": "L2",
+  "laws": [
+   "heat moves fast along the coolant loop",
+   "a passive bulkhead leaks little",
+   "an empty hold insulates",
+   "energy conservation"
+  ],
+  "dependsOn": [
+   "L1.radiator.cooling",
+   "L1.room.thresholds"
+  ],
+  "setup": "two idle M rooms side by side in a cluster, sharing a wall of 1 or 2 cell pairs (5 or 10 m at T1), no radiators: (a) two coolant rooms (beam bays switched off), the first at T_a in {400, 600, 1000 K}, the second at 290 K, run 4 tau, at T1, and T1-T6 for T_a = 1000 K over 2 pairs; (b) a coolant room (a beam bay switched off) at 600 K beside an empty hold or an unpowered empty M magazine (no life support) at 290 K, run 3600 s, T1 (replaces L2.heat.pair under #200, #201)",
+  "measure": "T_a - T_b after every step against the closed form; C_a T_a + C_b T_b after every step",
+  "tolerance": "Delta T: 1e-3 of Delta T0 at every step; energy: 1e-12 relative at every step",
+  "tunable": [
+   "conduction.wall",
+   "conduction.passive",
+   "conduction.holdFactor",
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "thermal.coupledCrewed",
+   "thermal.coupledMagazine",
+   "thermal.coupledHold",
+   "thermal.coupledHeatSink"
+  ],
+  "cases": [
+   {
+    "part": "a",
+    "tier": "T1",
+    "Ta": 400,
+    "pairs": 1,
+    "b": "beamBay"
+   },
+   {
+    "part": "a",
+    "tier": "T1",
+    "Ta": 400,
+    "pairs": 2,
+    "b": "beamBay"
+   },
+   {
+    "part": "a",
+    "tier": "T1",
+    "Ta": 600,
+    "pairs": 1,
+    "b": "beamBay"
+   },
+   {
+    "part": "a",
+    "tier": "T1",
+    "Ta": 600,
+    "pairs": 2,
+    "b": "beamBay"
+   },
+   {
+    "part": "a",
+    "tier": "T1",
+    "Ta": 1000,
+    "pairs": 1,
+    "b": "beamBay"
+   },
+   {
+    "part": "a",
+    "tier": "T1",
+    "Ta": 1000,
+    "pairs": 2,
+    "b": "beamBay"
+   },
+   {
+    "part": "a",
+    "tier": "T1",
+    "Ta": 1000,
+    "pairs": 2,
+    "b": "beamBay",
+    "sweep": "tier"
+   },
+   {
+    "part": "a",
+    "tier": "T2",
+    "Ta": 1000,
+    "pairs": 2,
+    "b": "beamBay",
+    "sweep": "tier"
+   },
+   {
+    "part": "a",
+    "tier": "T3",
+    "Ta": 1000,
+    "pairs": 2,
+    "b": "beamBay",
+    "sweep": "tier"
+   },
+   {
+    "part": "a",
+    "tier": "T4",
+    "Ta": 1000,
+    "pairs": 2,
+    "b": "beamBay",
+    "sweep": "tier"
+   },
+   {
+    "part": "a",
+    "tier": "T5",
+    "Ta": 1000,
+    "pairs": 2,
+    "b": "beamBay",
+    "sweep": "tier"
+   },
+   {
+    "part": "a",
+    "tier": "T6",
+    "Ta": 1000,
+    "pairs": 2,
+    "b": "beamBay",
+    "sweep": "tier"
+   },
+   {
+    "part": "b",
+    "tier": "T1",
+    "Ta": 600,
+    "pairs": 1,
+    "b": "hold"
+   },
+   {
+    "part": "b",
+    "tier": "T1",
+    "Ta": 600,
+    "pairs": 2,
+    "b": "hold"
+   },
+   {
+    "part": "b",
+    "tier": "T1",
+    "Ta": 600,
+    "pairs": 1,
+    "b": "magazine"
+   },
+   {
+    "part": "b",
+    "tier": "T1",
+    "Ta": 600,
+    "pairs": 2,
+    "b": "magazine"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/heatsink-buffer-v2.js",
+  "id": "L2.heatsink.buffer.v2",
+  "level": "L2",
+  "laws": [
+   "a heat sink stores heat and buys time",
+   "heat moves fast along the coolant loop"
+  ],
+  "dependsOn": [
+   "L2.heat.pair.v2",
+   "L1.reactor.power"
+  ],
+  "setup": "in a cluster, an M reactor delivering 12.5 MW (demand = one M beam bay's draw / its power, on demand, L1) beside (a) an idle M beam bay (switched off: an ordinary coolant room) or (b) an M heat sink, sharing a coolant wall of 2 cell pairs (10 m at T1, 20 m at T3), no radiators; at T1 and T3; until the reactor overheats",
+  "measure": "the time of the reactor's first overheated event",
+  "tolerance": "1e-3 relative",
+  "tunable": [
+   "heatsink.capacityFactor",
+   "heatsink.conductivityFactor",
+   "conduction.wall",
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "thermal.coupledCrewed",
+   "thermal.coupledMagazine",
+   "thermal.coupledHold",
+   "thermal.coupledHeatSink",
+   "thermal.plantOverheated",
+   "reactor.heatPerPower"
+  ],
+  "cases": [
+   {
+    "tier": "T1",
+    "neighbour": "beamBay"
+   },
+   {
+    "tier": "T1",
+    "neighbour": "heatSink"
+   },
+   {
+    "tier": "T3",
+    "neighbour": "beamBay"
+   },
+   {
+    "tier": "T3",
+    "neighbour": "heatSink"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/heatsink-loss-v2.js",
+  "id": "L2.heatsink.loss.v2",
+  "level": "L2",
+  "laws": [
+   "a destroyed heat sink cell vents its heat to space",
+   "losing a cooling neighbour shortens the battle clock (dependency)"
+  ],
+  "dependsOn": [
+   "L2.heatsink.buffer"
+  ],
+  "setup": "in a cluster at T1, an M heat sink at 600 K alone on the grid; k in {0, 1, 2, 3, 4} of its cells destroyed, one per second at t = 1..k s (far column first: the 3rd loss also halves the wall to come); then at t = k + 1 s an M reactor at 290 K is placed beside it (2 cell pairs) delivering 12.5 MW (one M beam bay's draw, on demand, L1); no radiators; until the reactor overheats or 1000 s",
+  "measure": "at each loss: the heat-vented event's energy, the sink's temperature, capacity and stored heat just before and after, its vented books; then the reactor's overheat time from its start",
+  "tolerance": "vented energy, capacity and heat 1e-12 relative; temperature unchanged 1e-12 relative; overheat time 1e-3 relative",
+  "tunable": [
+   "heatsink.capacityFactor",
+   "heatsink.conductivityFactor",
+   "conduction.wall",
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "thermal.coupledCrewed",
+   "thermal.coupledMagazine",
+   "thermal.coupledHold",
+   "thermal.coupledHeatSink",
+   "thermal.plantOverheated"
+  ],
+  "cases": [
+   {
+    "k": 0
+   },
+   {
+    "k": 1
+   },
+   {
+    "k": 2
+   },
+   {
+    "k": 3
+   },
+   {
+    "k": 4
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/layout-invalid.js",
+  "id": "L2.layout.invalid",
+  "level": "L2",
+  "laws": [
+   "an invalid ship never undocks; each failure names its rule (#57, 13f.1)",
+   "rooms never overlap and sit on whole cells of the grid, rotated 0 or 90 degrees (13d.1)"
+  ],
+  "dependsOn": [],
+  "setup": "on the T1 grid: (placements) the kernel's addRoom with an overlapping room, a room off the grid, a 45 degree rotation, a non-integer cell, and a valid pair; (blueprints) the kernel's validateShip on R1 (13f.2) and on R1 changed to break one rule each: grid, overlap, connected, hull (a turret walled in by holds), exhaust (a hold aft of the engine), axis (the beam bay off the axis rows), bow (a hold ahead of the bay), and the four fitting rules (13k.4 S19)",
+  "measure": "whether addRoom throws and its message; validateShip's valid flag and the rules it names",
+  "tolerance": "exact",
+  "tunable": [],
+  "cases": [
+   {
+    "kind": "place",
+    "name": "place-overlap"
+   },
+   {
+    "kind": "place",
+    "name": "place-grid"
+   },
+   {
+    "kind": "place",
+    "name": "place-rotation"
+   },
+   {
+    "kind": "place",
+    "name": "place-integer"
+   },
+   {
+    "kind": "place",
+    "name": "place-valid"
+   },
+   {
+    "kind": "validate",
+    "name": "valid"
+   },
+   {
+    "kind": "validate",
+    "name": "grid"
+   },
+   {
+    "kind": "validate",
+    "name": "overlap"
+   },
+   {
+    "kind": "validate",
+    "name": "connected"
+   },
+   {
+    "kind": "validate",
+    "name": "hull"
+   },
+   {
+    "kind": "validate",
+    "name": "exhaust"
+   },
+   {
+    "kind": "validate",
+    "name": "axis"
+   },
+   {
+    "kind": "validate",
+    "name": "bow"
+   },
+   {
+    "kind": "validate",
+    "name": "fitting-open-edge"
+   },
+   {
+    "kind": "validate",
+    "name": "fitting-inside"
+   },
+   {
+    "kind": "validate",
+    "name": "fitting-exhaust"
+   },
+   {
+    "kind": "validate",
+    "name": "fitting-per-edge"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/lifesupport-routed-v3.js",
+  "id": "L2.lifesupport.routed.v3",
+  "level": "L2",
+  "laws": [
+   "life support keeps crewed rooms cool",
+   "life support is ship service: it runs while the room is joined to a live reactor, whatever its own request",
+   "a heat pump splits its heat by live wall length",
+   "crew die at critical heat"
+  ],
+  "dependsOn": [
+   "L2.lifesupport",
+   "L2.power.flow",
+   "L2.heat.pair.v2"
+  ],
+  "setup": "in a cluster at T1, no radiators. (a) M crew quarters at 320 K, powered and active (its 50 kW draw is heat), at (2, 2); an idle M reactor (demand 0) at (0, 3) sharing 5 m with it and an M heat sink at (5, 2) sharing 10 m, not with each other; both at 290 K; no power routing; 600 s. (b) power routing on: M crew quarters (rotated 90 degrees) at (0, 0) beside an M reactor at demand 0.25 at (2, 0) over 10 m, both at 290 K; an external 0.2 MW or 1 MW on the quarters for 900 s or until the crew die; the quarters active, switched off, or the reactor switched off (no supply) (13e.3 D5b, #207, #212)",
+  "measure": "(a) life support's heat into each neighbour in every step; the quarters' lowest temperature; the first step at whose end the quarters are within 1 mK of the setpoint; heat pumped into each neighbour. (b) the quarters' temperature at every whole second; its peak; the times of its hot and critical events and the crew deaths; heat pumped; the reactor's peak temperature",
+  "tolerance": "(a) split 1e-9 relative every step; lowest temperature >= setpoint - 1e-9 K; time to 1 mK and heat pumped 1e-3 relative. (b) temperature 1e-6 relative at every whole second (|kernel - reference| <= 1e-6 x the smaller of the two, so it holds in both directions); peak <= setpoint + 0.01 K at 0.2 MW when supplied; crossing times one-sided (reference <= kernel < reference + dt, 1e-9 relative float slack)",
+  "tunable": [
+   "lifeSupport.capacityPerCell",
+   "conduction.passive",
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "thermal.coupledCrewed",
+   "thermal.coupledMagazine",
+   "thermal.coupledHold",
+   "thermal.coupledHeatSink",
+   "thermal.crewedHot",
+   "thermal.crewedOverheated",
+   "thermal.crewedCritical",
+   "quarters.powerDraw",
+   "heatsink.capacityFactor",
+   "reactor.heatPerPower"
+  ],
+  "cases": [
+   {
+    "part": "a"
+   },
+   {
+    "part": "b",
+    "P": 200000,
+    "mode": "active"
+   },
+   {
+    "part": "b",
+    "P": 200000,
+    "mode": "switched off"
+   },
+   {
+    "part": "b",
+    "P": 200000,
+    "mode": "no supply"
+   },
+   {
+    "part": "b",
+    "P": 1000000,
+    "mode": "active"
+   },
+   {
+    "part": "b",
+    "P": 1000000,
+    "mode": "switched off"
+   },
+   {
+    "part": "b",
+    "P": 1000000,
+    "mode": "no supply"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/lifesupport-v2.js",
+  "id": "L2.lifesupport.v2",
+  "level": "L2",
+  "laws": [
+   "life support keeps crewed rooms cool",
+   "a heat pump works against the gradient",
+   "enemy beams heat what they hit",
+   "crew die at critical heat"
+  ],
+  "dependsOn": [
+   "L2.heat.pair.v2",
+   "L1.room.thresholds",
+   "L1.quarters.repair"
+  ],
+  "setup": "in a cluster at T1, M crew quarters (rotated 90 degrees, no radiator) beside an idle M beam bay (switched off) with 4 radiators over a 10 m passive wall; an enemy beam heats the quarters directly (#138) at P in {0.2, 1, 5 MW} for 900 s; the quarters powered (life support on, its 50 kW draw is heat) or unpowered (no draw, no life support); run until the crew die or 900 s",
+  "measure": "the first step at whose end the quarters reach the setpoint and their critical (crew-died events); the quarters' highest temperature; the heat life support moved (books: pumped out of the quarters, into the beam bay)",
+  "tolerance": "crossing times one-sided: reference <= kernel < reference + dt (1e-9 relative float slack); powered at 0.2 MW: peak <= setpoint + 0.01 K; unpowered at 0.2 MW: peak 1e-3 K absolute",
+  "tunable": [
+   "lifeSupport.capacityPerCell",
+   "conduction.passive",
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "thermal.coupledCrewed",
+   "thermal.coupledMagazine",
+   "thermal.coupledHold",
+   "thermal.coupledHeatSink",
+   "thermal.crewedCritical",
+   "thermal.crewedOverheated",
+   "quarters.powerDraw",
+   "radiator.area"
+  ],
+  "cases": [
+   {
+    "P": 200000,
+    "powered": true
+   },
+   {
+    "P": 1000000,
+    "powered": true
+   },
+   {
+    "P": 5000000,
+    "powered": true
+   },
+   {
+    "P": 200000,
+    "powered": false
+   },
+   {
+    "P": 1000000,
+    "powered": false
+   },
+   {
+    "P": 5000000,
+    "powered": false
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/power-fraction.js",
+  "id": "L2.power.fraction",
+  "level": "L2",
+  "laws": [
+   "a consumer supplied a fraction f of its draw works at f: every rate-like output and its heat x f (#193, 13d.1)",
+   "life support runs while the room is joined to a reactor able to produce (#207)"
+  ],
+  "dependsOn": [],
+  "setup": "in a cluster at T1 an M reactor (0, 0) and beside it (2, 0) an M turret (firing freely), an M shield generator (10 MW incoming) or M crew quarters (300 K, a damaged hold cell at (5, 0)), power routed, the reactor able to produce half the consumer's draw (fraction 0.5) or nothing (demand 0) (13k.4 S18)",
+  "measure": "the consumer's power fraction and powered flag in the first step; its energy drawn per step; (turret) shots by 20.25 s; (shield) the absorbed power; (quarters) its repair budget (kg/s) and whether its life support runs",
+  "tolerance": "1e-9 relative (a closed form against the kernel's routing); counts exact",
+  "tunable": [
+   "turret.powerDraw",
+   "turret.fireRate",
+   "shield.powerDraw",
+   "shield.budget",
+   "quarters.powerDraw",
+   "repair.massRate",
+   "reactor.power"
+  ],
+  "cases": [
+   {
+    "consumer": "turret",
+    "fraction": 0.5
+   },
+   {
+    "consumer": "turret",
+    "fraction": 0
+   },
+   {
+    "consumer": "shieldGenerator",
+    "fraction": 0.5
+   },
+   {
+    "consumer": "shieldGenerator",
+    "fraction": 0
+   },
+   {
+    "consumer": "quarters",
+    "fraction": 0.5
+   },
+   {
+    "consumer": "quarters",
+    "fraction": 0
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/reactor-cooled-v2.js",
+  "id": "L2.reactor.cooled.v2",
+  "level": "L2",
+  "laws": [
+   "heat conducts through shared walls",
+   "radiators follow Stefan-Boltzmann",
+   "fail-safe reactors: decay heat after a shutdown",
+   "a reactor melts down at critical"
+  ],
+  "dependsOn": [
+   "L2.heat.pair",
+   "L1.reactor.scram",
+   "L1.reactor.power",
+   "L1.radiator.cooling"
+  ],
+  "setup": "in a cluster at T1, an M reactor at full demand with n in {0, 1, 2, 4} M hull rooms (beam bays switched off) sharing a 10 m wall each, every hull room with 4 radiators; it overheats, shuts down (decay heat), restarts below hot (L1); 3600 s or until it melts down",
+  "measure": "the reactor's first overheated event (the battle clock of one reactor at full power), its highest temperature, its meltdown event",
+  "tolerance": "overheat time, peak temperature and a meltdown time 1e-3 relative",
+  "tunable": [
+   "conduction.wall",
+   "radiator.area",
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "reactor.power",
+   "reactor.heatPerPower",
+   "reactor.decayFraction",
+   "reactor.decayTime",
+   "thermal.plantHot",
+   "thermal.plantOverheated",
+   "thermal.plantCritical"
+  ],
+  "cases": [
+   {
+    "n": 0
+   },
+   {
+    "n": 1
+   },
+   {
+    "n": 2
+   },
+   {
+    "n": 4
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/repair-shared-v2.js",
+  "id": "L2.repair.shared.v2",
+  "level": "L2",
+  "laws": [
+   "repair is a field with a finite budget",
+   "overlapping fields add, each paying its own budget"
+  ],
+  "dependsOn": [
+   "L1.quarters.repair"
+  ],
+  "setup": "in a cluster at T1, crew quarters (all 6 cells, powered) and an empty hold with two cells damaged by 0.7123 each at r in {0.25, 1} x repair.radius (centre to centre); one damaged cell alone at the same distances; two quarters overlapping on one damaged cell at 0.25 and 1 x radius; until repaired or 200 s",
+  "measure": "each cell's repair rate in the first step; the time of each cell-repaired event; what each quarters pays in every step against its budget",
+  "tolerance": "rates relative 1e-9; repair times one-sided (expected <= actual < expected + dt)",
+  "tunable": [
+   "repair.massRate",
+   "structure.cellMass",
+   "repair.radius"
+  ],
+  "cases": [
+   {
+    "part": "two-cells",
+    "r1": 0.25
+   },
+   {
+    "part": "two-cells",
+    "r1": 1
+   },
+   {
+    "part": "one-cell",
+    "r1": 0.25
+   },
+   {
+    "part": "one-cell",
+    "r1": 1
+   },
+   {
+    "part": "overlap",
+    "r1": 0.25,
+    "r2": 1
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/shield-buffer-v2.js",
+  "id": "L2.shield.buffer.v2",
+  "level": "L2",
+  "laws": [
+   "the shield buffer catches impulses",
+   "the buffer refills at the unused budget",
+   "absorbing makes heat"
+  ],
+  "dependsOn": [
+   "L1.shield.generator",
+   "L0.shield.kinetic.v2"
+  ],
+  "setup": "in a cluster at T1, an M shield generator, powered, no beam on it; at 1 s a salvo of N in {5, 20, 40} M rounds (13d.2) and N = 80 (the first N past the binding round with these constants) arrives at the generator between two steps; then 2 s of refill",
+  "measure": "each round's speed after the field and the energy it cost; the buffer after the salvo and after every step of the refill; the generator's heat in the step after the salvo",
+  "tolerance": "relative 1e-9",
+  "tunable": [
+   "shield.budget",
+   "shield.buffer",
+   "shield.kineticStop",
+   "shield.powerDraw",
+   "kinetic.roundMass",
+   "kinetic.muzzleVelocity"
+  ],
+  "cases": [
+   {
+    "N": 5
+   },
+   {
+    "N": 20
+   },
+   {
+    "N": 40
+   },
+   {
+    "N": 80
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/shield-salvo-v2.js",
+  "id": "L2.shield.salvo.v2",
+  "level": "L2",
+  "laws": [
+   "the shield buffer catches impulses",
+   "the buffer refills at the unused budget",
+   "absorbing makes heat",
+   "rounds sized like real naval guns"
+  ],
+  "dependsOn": [
+   "L2.shield.buffer",
+   "L1.shield.generator",
+   "L0.shield.kinetic.v2"
+  ],
+  "setup": "in a cluster at T1, an M shield generator, powered, no beam on it; at 1 s a salvo of N in {3, 5, 6, 7, 10} M rounds of 6 kg at 800 m/s arrives at the generator (strength 1) between two steps, the buffer full; then 2 s of refill (13e.3 D4, #206)",
+  "measure": "each round's speed after the field and the energy it cost; the buffer before and after the salvo and after every step of the refill; the generator's heat in the step after the salvo",
+  "tolerance": "relative 1e-9 (an empty buffer: 1e-9 of the buffer absolute)",
+  "tunable": [
+   "shield.budget",
+   "shield.buffer",
+   "shield.powerDraw",
+   "kinetic.roundMass",
+   "kinetic.muzzleVelocity"
+  ],
+  "cases": [
+   {
+    "N": 3
+   },
+   {
+    "N": 5
+   },
+   {
+    "N": 6
+   },
+   {
+    "N": 7
+   },
+   {
+    "N": 10
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L2/size-rule-v2.js",
+  "id": "L2.size.rule.v2",
+  "level": "L2",
+  "laws": [
+   "the size rule: per-cell quantities by cell count, rates by footprint, per-round quantities by the round"
+  ],
+  "dependsOn": [
+   "L1.reactor.breach",
+   "L1.magazine.cookoff",
+   "L1.turret.fire",
+   "L1.quarters.repair"
+  ],
+  "setup": "in a cluster at T1, each room alone on the grid: an M and an L reactor at full demand, then every cell destroyed in one step; an M and an L magazine; an M and an L turret firing freely for 10.25 s with rounds to spare; M crew quarters (the L quarters has no footprint in ROOMS, a question in the pull request); the L magazine's crew (2 x 9/4 = 4.5) is a rounding tie and is not checked",
+  "measure": "cells and heat capacity; the reactor's delivered power, crew and explosion energy; the magazine's capacity and crew; the turret's crew, round mass (impulse / shot / muzzle velocity), shots by 10.25 s, heat per shot and draw",
+  "tolerance": "relative 1e-9; counts exact",
+  "tunable": [
+   "reactor.power",
+   "reactor.explosionEnergy",
+   "magazine.capacity",
+   "kinetic.roundMass",
+   "turret.fireRate",
+   "turret.heatPerShot",
+   "turret.powerDraw",
+   "thermal.coupledReactor",
+   "thermal.coupledMagazine",
+   "thermal.coupledCrewed"
+  ],
+  "cases": [
+   {
+    "type": "reactor",
+    "size": "M"
+   },
+   {
+    "type": "reactor",
+    "size": "L"
+   },
+   {
+    "type": "magazine",
+    "size": "M"
+   },
+   {
+    "type": "magazine",
+    "size": "L"
+   },
+   {
+    "type": "turret",
+    "size": "M"
+   },
+   {
+    "type": "turret",
+    "size": "L"
+   },
+   {
+    "type": "quarters",
+    "size": "M"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/control-rules.js",
+  "id": "L3.control.rules",
+  "level": "L3",
+  "laws": [
+   "a room works only while live walls join it to a working bridge (13f.1, #12, #81)",
+   "control-lost and control-restored events (#156)",
+   "thrust pushes at the exhaust: off the centre of mass it turns the ship (#14)"
+  ],
+  "dependsOn": [],
+  "setup": "R1 at T1 (13f.2) at rest, no routing: (timeline) the turret firing freely aimed +y, the shield on under a 5 MW incoming beam, the reactor at full demand, the beam bay firing; the bridge switched off at 2 s and on at 4 s; 70 s. (thrust) one step of the engine at full throttle; (fixture) the same impulse F dt applied at the centre of mass by the kernel's fixtureImpulse (13k.4 S17)",
+  "measure": "per step and per room: controlled at the step's start and whether it worked (a shot, absorbed power, delivered power, beam power); the control-lost and control-restored events; (thrust, fixture) the change of R1's angular velocity and the exhaust's arm",
+  "tolerance": "exact; the angular velocity 1e-9 relative (a closed form against the kernel's integration)",
+  "tunable": [
+   "engine.thrust",
+   "reactor.restartTime"
+  ],
+  "cases": [
+   {
+    "part": "timeline"
+   },
+   {
+    "part": "thrust"
+   },
+   {
+    "part": "fixture"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/cull.js",
+  "id": "L3.cull",
+  "level": "L3",
+  "laws": [
+   "a round or debris farther than battle.cullDistance from every body leaves play, its momentum booked as left (#222 (7), 13k.1)",
+   "momentum is conserved (books close with what left)"
+  ],
+  "dependsOn": [],
+  "setup": "R1 at T1 (13f.2) at rest; (round) the turret, aimed +y (broadside), fires one M round and holds; (debris) the hold cell (7, 0) is destroyed at 0 s and the engine runs at full throttle; after every step the kernel's cull(); 40 s (13k.4 S14)",
+  "measure": "the time the round or the debris leaves play; its distance from every body at that step and at the step before; world.ship.left; the books of bodies + debris + rounds + left against the external impulse",
+  "tolerance": "books: mass 1e-12, momentum 1e-9 x the gross, angular momentum 1e-9 x net + 1e-12 x gross (#220); left = the item's state before the cull 1e-12; distances exact",
+  "tunable": [
+   "battle.cullDistance",
+   "kinetic.muzzleVelocity",
+   "engine.thrust"
+  ],
+  "cases": [
+   {
+    "item": "round"
+   },
+   {
+    "item": "debris"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/fragment-rules-v3.js",
+  "id": "L3.fragment.rules.v3",
+  "level": "L3",
+  "laws": [
+   "RCS: power and control from its host room (#15)",
+   "fragments: a split room works in one fragment, its other cells are dead weight (#13, #208)",
+   "control is lost with the bridge or by a split (#12, #81)"
+  ],
+  "dependsOn": [
+   "L3.split.momentum.v4",
+   "L3.rcs.turn.v4",
+   "L2.heatsink.buffer"
+  ],
+  "setup": "T1, no power routing (every room powered). (a) RCS: R1 (13f.2) at rest, magazine full, turret holding fire, engine off; \"control\": the stern RCS on the engine's top edge (0,3) fired for one step; \"lost\": after 31 steps the cut of L3.split.momentum ((5,2), (5,3), (4,4), (4,5)) leaves the stern without the bridge, then the stern RCS (engine top) and the bow RCS on the beam bay's top edge (10,3) are fired together for 60 steps. (b), (c) a row of a bridge at (0,0) and heat sinks A (2,0), B (4,0), C (6,0), every room 2 x 2, no fittings, A at 290 K, B at 350 K, C at 400 K, the bridge at rest; after 31 steps B is split evenly: \"low\" destroys B's cells (5,0) and (4,1) (survivors k0 (4,0) beside A and k3 (5,1) beside C), \"high\" destroys (4,0) and (5,1) (survivors k2 (4,1) beside A and k1 (5,0) beside C); then 600 steps (10 s)",
+  "measure": "(a) the velocity and angular velocity of each body after the first step that fires, and of the stern after all 60; the heat each host room generated while its RCS was fired; (b), (c) the bodies (their masses and the cells they hold), the body B works in, the heat stored in B and C at the step after the cut and at the end",
+  "tolerance": "(a) delta v and delta omega of a firing RCS 1e-9 relative; the uncontrolled stern's delta v and delta omega 1e-15 absolute (one firing step would give 0.1 m/s); RCS heat 1e-9 relative, an uncontrolled host's RCS heat 0 (1e-9 J absolute). (b), (c) fragment masses 1e-12 relative; the heat of a room or pair that no live wall reaches constant within 1e-10 of its heat at the start (#219: float resolution of a stored heat of about 5e9 J; a wall through a dead cell would carry about 3 MW, 3e7 J in 10 s); the live wall between B and C moves more than 1e6 J",
+  "tunable": [
+   "rcs.force",
+   "rcs.powerDraw",
+   "engine.heatFraction",
+   "structure.cellMass",
+   "cellMass.crewed",
+   "cellMass.reactor",
+   "engine.machineryMass",
+   "beambay.machineryMass",
+   "cellMass.shieldGenerator",
+   "thermal.coupledHeatSink",
+   "heatsink.capacityFactor",
+   "radiator.mass",
+   "rcs.mass",
+   "conduction.wall"
+  ],
+  "cases": [
+   {
+    "rcs": "control"
+   },
+   {
+    "rcs": "lost"
+   },
+   {
+    "tie": "low"
+   },
+   {
+    "tie": "high"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/fragment-scram-v2.js",
+  "id": "L3.fragment.scram.v2",
+  "level": "L3",
+  "laws": [
+   "fail-safe reactors: losing control SCRAMs a reactor, decay heat follows (#81)",
+   "a fragment without the bridge goes dark (#13)",
+   "decapitation: the bridge lost, every reactor SCRAMs (#82)",
+   "the bridge's backup supply (#147)",
+   "life support runs while joined to a reactor able to produce (#207)"
+  ],
+  "dependsOn": [
+   "L3.split.momentum",
+   "L1.reactor.scram",
+   "L2.lifesupport.routed.v2",
+   "L2.power.flow"
+  ],
+  "setup": "R1 at T1 (13f.2) at rest, power routing on (priority shield, engine, quarters, turret, beam bay), the reactor at demand 0.5, the shield on, the engine at half throttle, the turret holding fire with its store full; the bridge, quarters, magazine and turret start at 300 K, every other room at rest. After 61 steps: (split) the cut of L3.split.momentum; (kept) the hold's inner cells (7,1), (8,1), which leave bridge and reactor together; (bridge) all four bridge cells; then 30.5 s. Two cases for #207 (#216) on the intact ship for 90.5 s: (through rooms) the quarters, which share no wall with the reactor, joined to it only through the bridge and the heat sink; (demand 0) the same with the reactor switched on at demand 0",
+  "measure": "scram events (time, cause, energy); the reactor's delivered power at the cut and its decay heat to the end; engine thrust and shield state after the cut; the bridge's control; whether each crewed room's and the magazine's life support runs, and the heat each pumps, before and after the cut; the number of bodies",
+  "tolerance": "decay heat and scram energy 1e-9 relative; delivered power 1e-9 relative; times exact (the event at the cut)",
+  "tunable": [
+   "reactor.decayFraction",
+   "reactor.decayTime",
+   "reactor.heatPerPower",
+   "reactor.power",
+   "shield.powerDraw",
+   "engine.powerDraw",
+   "quarters.powerDraw",
+   "turret.powerDraw",
+   "lifeSupport.capacityPerCell"
+  ],
+  "cases": [
+   {
+    "cut": "split"
+   },
+   {
+    "cut": "kept"
+   },
+   {
+    "cut": "bridge"
+   },
+   {
+    "cut": "through rooms",
+    "demand": 0.5
+   },
+   {
+    "cut": "demand 0",
+    "demand": 0
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/hit-books.js",
+  "id": "L3.hit.books",
+  "level": "L3",
+  "laws": [
+   "a hit gives the ship it hits the momentum its cells took, at those cells (#228, F4)",
+   "the energy a hit loses is heat in the rooms that took momentum (F5)",
+   "the field's removed momentum pushes the generator's ship (#240 (2), F16)",
+   "momentum and energy books close between the round and the ship"
+  ],
+  "dependsOn": [],
+  "setup": "R1 at T1 (13f.2), free, at rest or moving at (120, -40) m/s and turning at 0.02 rad/s, shield on: (hit) an M round (kinetic.roundMass, kinetic.muzzleVelocity relative to the hull) fired along the middle row y = 2 from the bow, direction -x in R1's grid frame, by the kernel's fireRound; (shield) an M round at a point where the field is at strength 0.6 (r = radius x sqrt(1 / 0.6 - 1) from the generator's centre), direction -x, by the kernel's shieldRound (13k.4 S5)",
+  "measure": "the bodies' mass, momentum, angular momentum and kinetic energy before and after; the momentum each cell took; the heat each room gained; the round's speed after the field; the books world.ship.received and external",
+  "tolerance": "momentum and angular momentum books 1e-9 x the gross (the round's momentum, or its angular momentum about the origin plus the bodies'), energy books 1e-9 x the gross energy (#220); per-room heat shares 1e-12; the field's speed 1e-12 (a closed form); literals 1e-12, the heat against the round's lost kinetic energy in the hull's frame 1e-4",
+  "tunable": [
+   "kinetic.roundMass",
+   "kinetic.muzzleVelocity",
+   "matter.kineticResistance",
+   "shield.kineticStop",
+   "shield.radius"
+  ],
+  "cases": [
+   {
+    "part": "hit",
+    "motion": "rest"
+   },
+   {
+    "part": "hit",
+    "motion": "moving"
+   },
+   {
+    "part": "shield",
+    "motion": "rest"
+   },
+   {
+    "part": "shield",
+    "motion": "moving"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/mass-props-v5.js",
+  "id": "L3.mass.props.v5",
+  "level": "L3",
+  "laws": [
+   "inertia and moment of inertia",
+   "structural cell mass, apart from heat capacity (#221)",
+   "centre-of-mass shift when rooms are lost",
+   "square-cube law"
+  ],
+  "dependsOn": [
+   "L2.size.rule"
+  ],
+  "setup": "ships made from clusters at T1 and T6 (13f.1, 13f.2): one M room alone (each of the ten built types; the magazine and the turret also full: the magazine at its capacity in M rounds, the turret its ready store); the reference ship R1 full; R1 after its turret fired 20 rounds broadside and the feed refilled its store; R1 after four cells were destroyed that split nothing (quarters (5,5), (6,5), hold (7,0), (8,0)); R1 after the cut of L3.split.momentum (bridge (5,2), (5,3), heat sink (4,4), (4,5)), per fragment",
+  "measure": "the kernel's mass of one M cell and of one heat sink cell; M, centre of mass and moment of inertia from the readout (the whole ship) or per body after a split",
+  "tolerance": "relative 1e-12 (the centre of mass per coordinate, relative to the larger value); the scaling ratios relative 1e-12",
+  "tunable": [
+   "thermal.coupledHeatSink",
+   "structure.cellMass",
+   "cellMass.crewed",
+   "cellMass.reactor",
+   "engine.machineryMass",
+   "beambay.machineryMass",
+   "cellMass.shieldGenerator",
+   "heatsink.capacityFactor",
+   "kinetic.roundMass",
+   "magazine.capacity",
+   "radiator.mass",
+   "rcs.mass",
+   "turret.readyRounds"
+  ],
+  "cases": [
+   {
+    "what": "cell",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "bridge",
+    "contents": "empty",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "reactor",
+    "contents": "empty",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "engine",
+    "contents": "empty",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "magazine",
+    "contents": "empty",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "magazine",
+    "contents": "full",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "shieldGenerator",
+    "contents": "empty",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "quarters",
+    "contents": "empty",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "beamBay",
+    "contents": "empty",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "turret",
+    "contents": "empty",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "turret",
+    "contents": "full",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "hold",
+    "contents": "empty",
+    "tier": "T1"
+   },
+   {
+    "what": "room",
+    "type": "heatSink",
+    "contents": "empty",
+    "tier": "T1"
+   },
+   {
+    "what": "R1",
+    "state": "full",
+    "tier": "T1"
+   },
+   {
+    "what": "R1",
+    "state": "fired",
+    "tier": "T1"
+   },
+   {
+    "what": "R1",
+    "state": "four destroyed",
+    "tier": "T1"
+   },
+   {
+    "what": "R1",
+    "state": "split",
+    "tier": "T1"
+   },
+   {
+    "what": "cell",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "bridge",
+    "contents": "empty",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "reactor",
+    "contents": "empty",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "engine",
+    "contents": "empty",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "magazine",
+    "contents": "empty",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "magazine",
+    "contents": "full",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "shieldGenerator",
+    "contents": "empty",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "quarters",
+    "contents": "empty",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "beamBay",
+    "contents": "empty",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "turret",
+    "contents": "empty",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "turret",
+    "contents": "full",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "hold",
+    "contents": "empty",
+    "tier": "T6"
+   },
+   {
+    "what": "room",
+    "type": "heatSink",
+    "contents": "empty",
+    "tier": "T6"
+   },
+   {
+    "what": "R1",
+    "state": "full",
+    "tier": "T6"
+   },
+   {
+    "what": "R1",
+    "state": "fired",
+    "tier": "T6"
+   },
+   {
+    "what": "R1",
+    "state": "four destroyed",
+    "tier": "T6"
+   },
+   {
+    "what": "R1",
+    "state": "split",
+    "tier": "T6"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/r1-pinned.js",
+  "id": "L3.r1.pinned",
+  "level": "L3",
+  "laws": [
+   "inertia and moment of inertia (#208)",
+   "thrust and RCS move and turn the ship (13f.1)",
+   "recoil (Newton 3, #5)"
+  ],
+  "dependsOn": [],
+  "setup": "R1 at T1 (13f.2), magazine full of HE, the turret's store full: the kernel's readout; then the turret, aimed +y (broadside), fires one M round in one step (13k.4 S20)",
+  "measure": "the readout's mass, acceleration in g with the engine at full throttle and the 90 degree turn on the RCS couple; the change of angular velocity in the step of the shot (deg/s)",
+  "tolerance": "1e-6 relative against the literals (13k.4 S20)",
+  "tunable": [
+   "structure.cellMass",
+   "cellMass.crewed",
+   "cellMass.reactor",
+   "cellMass.shieldGenerator",
+   "engine.machineryMass",
+   "beambay.machineryMass",
+   "thermal.coupledHeatSink",
+   "heatsink.capacityFactor",
+   "radiator.mass",
+   "rcs.mass",
+   "rcs.force",
+   "engine.thrust",
+   "kinetic.roundMass",
+   "kinetic.muzzleVelocity",
+   "magazine.capacity"
+  ],
+  "cases": [
+   {
+    "ship": "R1",
+    "tier": "T1"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/rcs-turn-v5.js",
+  "id": "L3.rcs.turn.v5",
+  "level": "L3",
+  "laws": [
+   "RCS: torque = distance x force (#15)",
+   "moment of inertia",
+   "rigid body, semi-implicit Euler"
+  ],
+  "dependsOn": [
+   "L3.mass.props.v4"
+  ],
+  "setup": "R1 at T1 (13f.2), magazine full, turret holding fire, engine off, no power routing (every room powered), at rest; a bow-stern RCS couple fired bang-bang to turn 90 degrees and stop, counter-clockwise (bow RCS on the beam bay's bottom edge at x = 10, stern RCS on the engine's top edge at x = 0) and clockwise (the other two): the turning couple for the steps that start before T / 2, then the braking couple for the steps that start before T, T = 2 sqrt((pi / 2) / alpha)",
+  "measure": "angular acceleration in the first step (omega / dt); the number of turning and braking firing steps and the time the last firing step ends; omega and heading at that time; the readout's angular accelerations and 90 degree turn times",
+  "tolerance": "alpha 1e-9 relative; the turn time one-sided on the step grid (T <= t < T + dt, 1e-9 relative float slack); the firing step counts exact and the end time (n1 + n2) dt 1e-9 relative; the heading against the discrete sum 1e-9 relative; |omega| <= alpha dt (1e-9 relative slack); readout 1e-12 relative",
+  "tunable": [
+   "rcs.force",
+   "thermal.coupledHeatSink",
+   "structure.cellMass",
+   "cellMass.crewed",
+   "cellMass.reactor",
+   "engine.machineryMass",
+   "beambay.machineryMass",
+   "cellMass.shieldGenerator",
+   "radiator.mass",
+   "rcs.mass"
+  ],
+  "cases": [
+   {
+    "turn": "ccw"
+   },
+   {
+    "turn": "cw"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/recoil-v5.js",
+  "id": "L3.recoil.v5",
+  "level": "L3",
+  "laws": [
+   "recoil (Newton 3)",
+   "moment of inertia updated as mass leaves",
+   "momentum conserved: ship + rounds"
+  ],
+  "dependsOn": [
+   "L3.mass.props.v4",
+   "L1.turret.fire",
+   "L2.ammo.feed"
+  ],
+  "setup": "R1 at T1 (13f.2) at rest, magazine full (150 M rounds), turret ready store full (4), no power routing; the M turret fires N in {1, 5, 20} rounds broadside (out of its open top edge, +y in the ship's frame) or forward (+x), then holds fire; the feed refills the store from the magazine between shots (one round in 6 kg / (0.72 kg/(s m) x 5 m) = 1.67 s < 2 s between shots). A fixture impulse of 25 000 N s along -x (a railgun's recoil) through the centre of mass and 5 m above it",
+  "measure": "per shot, the ship's angular velocity just before and just after the step of the shot; the ship's momentum and the rounds' momenta at the end; for the fixture, the change of velocity and angular velocity",
+  "tolerance": "ship momentum change against the rounds' momenta 1e-12 relative to the rounds' total; delta omega per shot 1e-9 relative; fixture delta v 1e-12 relative, delta omega 1e-12 relative (1e-15 rad/s absolute through the centre of mass)",
+  "tunable": [
+   "kinetic.roundMass",
+   "kinetic.muzzleVelocity",
+   "turret.fireRate",
+   "ammo.wallFeed",
+   "thermal.coupledHeatSink",
+   "structure.cellMass",
+   "cellMass.crewed",
+   "cellMass.reactor",
+   "engine.machineryMass",
+   "beambay.machineryMass",
+   "cellMass.shieldGenerator",
+   "radiator.mass",
+   "rcs.mass"
+  ],
+  "cases": [
+   {
+    "aim": "broadside",
+    "N": 1
+   },
+   {
+    "aim": "broadside",
+    "N": 5
+   },
+   {
+    "aim": "broadside",
+    "N": 20
+   },
+   {
+    "aim": "forward",
+    "N": 1
+   },
+   {
+    "aim": "forward",
+    "N": 5
+   },
+   {
+    "aim": "forward",
+    "N": 20
+   },
+   {
+    "fixture": "axis"
+   },
+   {
+    "fixture": "offset"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/ship-heat-v3.js",
+  "id": "L3.ship.heat.v3",
+  "level": "L3",
+  "laws": [
+   "heat leaves only by radiation (Stefan-Boltzmann)",
+   "heat moves fast along the coolant loop; crew rooms and magazines are insulated and cooled by life support (#200, #201)",
+   "three heat thresholds per room (#18b)",
+   "the throughput law: radiators bound sustained power (#205 (8))"
+  ],
+  "dependsOn": [
+   "L3.mass.props.v2",
+   "L2.lifesupport.routed.v2",
+   "L2.reactor.cooled",
+   "L2.heatsink.buffer",
+   "L1.beambay.heat"
+  ],
+  "setup": "R1 at T1 (13f.2) with its 17 radiators, no power routing (fixed loads, every room powered), the turret holding fire, magazine full, every room at 290 K: idle (bridge and quarters only, reactor at demand 0, shield off) for 900 s; cruise (shield on, engine at half throttle, the reactor delivering 7.25 MW) for 900 s; battle (cruise plus the beam bay firing, the reactor delivering 19.75 MW) for 600 s",
+  "measure": "per room: the times of hot, overheated, critical and restart; peak temperatures; heat books; the readout's heat balance and radiator capacity at plant hot",
+  "tolerance": "books within max(1e-9 x the largest flow, 1e-10 x the room's heat at the start); readout 1e-12 relative; event times 1e-3 relative to the reference, the same events in the same order per room; crewed rooms' peak temperatures 0.01 K absolute against the reference, each below its hot threshold (330 K)",
+  "tunable": [
+   "thermal.coupledReactor",
+   "thermal.coupledBeamBay",
+   "thermal.coupledEngine",
+   "thermal.coupledShieldGenerator",
+   "thermal.coupledCrewed",
+   "thermal.coupledMagazine",
+   "thermal.coupledHold",
+   "thermal.coupledHeatSink",
+   "radiator.area",
+   "conduction.wall",
+   "conduction.passive",
+   "lifeSupport.capacityPerCell",
+   "heatsink.capacityFactor",
+   "heatsink.conductivityFactor",
+   "reactor.decayFraction",
+   "reactor.decayTime",
+   "shield.powerDraw",
+   "engine.powerDraw",
+   "engine.heatFraction",
+   "beam.power",
+   "beambay.efficiency",
+   "bridge.powerDraw",
+   "quarters.powerDraw"
+  ],
+  "cases": [
+   {
+    "load": "idle"
+   },
+   {
+    "load": "cruise"
+   },
+   {
+    "load": "battle"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/split-momentum-v5.js",
+  "id": "L3.split.momentum.v5",
+  "level": "L3",
+  "laws": [
+   "fragments: a ship split by the structure graph becomes several rigid bodies, momentum conserved (#13)",
+   "centre-of-mass shift when rooms are lost",
+   "debris keeps the velocity of its point"
+  ],
+  "dependsOn": [
+   "L3.mass.props.v4"
+  ],
+  "setup": "R1 at T1 (13f.2), magazine full, turret holding fire, engine off, no power routing, moving at (10, 0) m/s and turning at 0.05 rad/s from the origin; after 31 steps the bridge cells (5,2), (5,3) and the heat sink cells (4,4), (4,5) are destroyed between two steps, then 61 more steps",
+  "measure": "just before and just after the cut: mass, momentum, angular momentum about the origin and kinetic energy of everything (bodies, debris); the fragments' masses, velocities and angular velocities; the debris; the same books at the end",
+  "tolerance": "conservation 1e-9 relative; each fragment's v and omega 1e-9 relative to the parent's speed at that point (omega relative)",
+  "tunable": [
+   "thermal.coupledHeatSink",
+   "structure.cellMass",
+   "cellMass.crewed",
+   "cellMass.reactor",
+   "engine.machineryMass",
+   "beambay.machineryMass",
+   "cellMass.shieldGenerator",
+   "heatsink.capacityFactor",
+   "radiator.mass",
+   "rcs.mass"
+  ],
+  "cases": [
+   {
+    "tier": "T1"
+   },
+   {
+    "tier": "T6"
+   }
+  ]
+ },
+ {
+  "file": "mission0/scenarios/L3/thrust-v5.js",
+  "id": "L3.thrust.v5",
+  "level": "L3",
+  "laws": [
+   "inertia (F = M a)",
+   "thrust off the centre of mass turns the ship (#14)",
+   "rigid body, semi-implicit Euler"
+  ],
+  "dependsOn": [
+   "L3.mass.props.v4",
+   "L1.engine.thrust"
+  ],
+  "setup": "T1, no power routing (every room powered), controlled from the bridge. (a) a symmetric test ship: an M engine rotated 90 degrees at (0, 0) (exhaust at x = 0), an M reactor at (3, 0), an M bridge at (5, 0), every room two cells tall, no fittings; (b) R1 (13f.2) with the magazine full and the turret holding fire, no RCS fired. Both from rest at the origin, heading 0, the engine at full throttle for 10.01 s (601 steps)",
+  "measure": "every step: velocity and angular velocity; at the end of each whole second and of the run: the centre of mass's position and the heading; the readout's acceleration in g",
+  "tolerance": "(a) acceleration 1e-9 relative, omega 1e-12 rad/s absolute, the discrete position 1e-9 relative at every sample; (b) omega 1e-9 relative at every step, position (relative to the reference displacement) and heading (relative to the reference heading) 1e-2 at t = 5 s and t = 10 s; readout 1e-12 relative",
+  "tunable": [
+   "engine.thrust",
+   "thermal.coupledHeatSink",
+   "structure.cellMass",
+   "cellMass.crewed",
+   "cellMass.reactor",
+   "engine.machineryMass",
+   "beambay.machineryMass",
+   "cellMass.shieldGenerator",
+   "radiator.mass",
+   "rcs.mass"
+  ],
+  "cases": [
+   {
+    "ship": "symmetric"
+   },
+   {
+    "ship": "R1"
+   }
+  ]
+ }
+]
