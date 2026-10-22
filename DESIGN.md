@@ -1552,7 +1552,7 @@ Each line names its decision and when it is due; a closed one is removed.
     across ships), B4 (a stopped round joins its body), L4 (heat split by
     energy). **Still open**: a shield field's impulse acts at its generator,
     so the angular book closes only with shields down (#282 (9)); one id
-    space for shot events. Due: L5d's symmetric loop.
+    space for shot events; a two-ship book case with a charged field stopping rounds (the survivor `l4x.books.missingTerm` since B4, #284). Due: L5d's symmetric loop.
 37. **Missiles, point defence and the railgun are built nowhere yet**
     (the owner, #268): the kernel has no missile (seeker + warhead, §6,
     #97, #98, #142 EMP), no point defence (#93), and the railgun is data
@@ -1895,3 +1895,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 281 | Mass pass 2 on the sources: the reactor kept (no split without a 20 MWe source), the turret by its mount in L5m, the missile bay by a secondary source and the railgun unchanged in L5c; a secondary source allowed only when no primary exists, flagged; the pace study after L5m | current (amends #279 (2) and #280 (1)) |
 | 282 | Answers to L5a (PR #73): its engineer's ten questions, the blind checker's four discrepancies, the reviewer's findings; a fix round (K4's feed case, K1's stopping cell, B2's projection); the reactor's immediate explosion stated | current |
 | 283 | L5a merged (PR #73): the kinetic pass, its fix round; answers to the fix round's engineer and re-review; §17 items 34, 36, 41 closed; §13m rows proven L5a | current |
+| 284 | The full mutation run on the L5a merge: 138 killed, 9 changed, 46 survived; one new survivor, a coverage gap for L5d | report |

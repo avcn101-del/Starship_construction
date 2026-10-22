@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — The mutation run on the L5a merge (#284)
+
+- `mission0/mutations/2026-10-22-1048743.txt`: 193 mutations, 138 killed;
+  one new survivor (`l4x.books.missingTerm`), a gap recorded in §17 item 35.
+
 ## Unreleased — 2026-10-22 — L5a merged (#283)
 
 - `DECISIONS.md` #283: L5a merged (PR #73) with its fix round; answers to
