@@ -177,6 +177,7 @@ export const PARAMS = {
     fireRate: P(0.5, 0.2, 2, -1, '1/s', true, 'size M; big guns fire slower (#183)'),
     powerDraw: P(2e5, 5e4, 1e6, 2, 'W', true, 'size M, while able to fire (#183)'),
     heatPerShot: P(3e5, 1e5, 1e6, 3, 'J', true, 'size M (#183)'),
+    machineryMass: P(1975, 1750, 2500, 3, 'kg', true, 'mount per turret cell: the OTO Melara 76/62 Super Rapid without ammunition, 7.9 t (the manufacturer\'s brochure through a mirror; 7.62 t on navweaps) over an M turret\'s four cells; the Bofors 57 Mk3\'s 7.0 t the floor; a cell is structure.cellMass + this, as the engine\'s (#281 (2), #285; approved as the plan\'s, #272 (2))'),
     readyRounds: P(4, 2, 10, 0, 'rounds', true, 'rounds held in the turret, of its own size; it fires from this store and the magazine feed refills it (#193, #195)'),
   },
   magazine: {
@@ -263,7 +264,7 @@ export const ROOMS = {
   shieldGenerator: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.shieldGenerator', draw: 'shield.powerDraw', cellMass: 'cellMass.shieldGenerator', heatCapacity: 'thermal.coupledShieldGenerator' },
   quarters: { footprint: { M: [3, 2] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'housed', draw: 'quarters.powerDraw', cellMass: 'cellMass.crewed', heatCapacity: 'thermal.coupledCrewed' },
   beamBay: { footprint: { M: [2, 2], L: [3, 3] }, spinal: { min: 2 }, placement: 'hull, axis, bow clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.beamBay', draw: 'beam.power / beambay.efficiency', cellMass: ['structure.cellMass', 'beambay.machineryMass'], heatCapacity: 'thermal.coupledBeamBay' },
-  turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.turret', draw: 'turret.powerDraw', cellMass: 'cellMass.crewed', heatCapacity: 'thermal.coupledCrewed' },
+  turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.turret', draw: 'turret.powerDraw', cellMass: ['structure.cellMass', 'turret.machineryMass'], heatCapacity: 'thermal.coupledCrewed' },
   railgun: { footprint: { M: [2, 'N'] }, placement: 'axis', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.railgun', cellMass: 'cellMass.railgun', heatCapacity: 'thermal.coupledRailgun' },
   missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.missileBay', cellMass: 'cellMass.crewed', heatCapacity: 'thermal.coupledCrewed' },
   hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'crewed', loop: 'passive', crew: null, passiveFactor: 'conduction.holdFactor', cellMass: 'structure.cellMass', heatCapacity: 'thermal.coupledHold' },
