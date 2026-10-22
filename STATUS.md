@@ -11,7 +11,10 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   consolidation (#242), physics pass 2 (#243–#251), `tools/mutate` (#257),
   **L4a (PR #58, #253–#258, #260)**: armour plates on walls, R1c, crew
   capacity, the kernel obligations.
-- **Running**: nothing. L4a cost ≥ 17.57 USD (estimated 45–70).
+- **Running**: L4b engineer `session_01MwEE8qKmDVhDfvqWe4UnWn` (opus, on
+  `m0/l4b` from `main` `351604e`, 09:15 UTC; the owner said go, #264;
+  70–100 USD by the rule, 25–40 expected). The blind checker starts from
+  its lock.
 - **Waiting on you**: nothing (L4b go given, #264). Veto window on #253,
   #256, #258–#264.
 - **Money**: 2026-10-21/22 about 112 USD (v2 13.85, audits 25.40,
@@ -207,6 +210,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
+| Check-in of this chat | `trig_01PFd25e4Dw8sdmHTkmuK9Af` | 2026-10-22 10:01 UTC, once | read the L4b engineer; start the checker from the lock |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
