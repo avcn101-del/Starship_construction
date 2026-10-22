@@ -456,8 +456,9 @@ export function abilities(ship) {
   return { beam: of('beamBay'), turret: of('turret'), states };
 }
 /**
- * The kernel's end rules (13l.1): destroyed by a reactor's or a magazine's explosion (readEvents) or when the largest
- * piece holds under battle.wreckFraction of the undock mass (#83); Disabled with no able weapon for
+ * The kernel's end rules (13l.1): destroyed by a reactor's explosion (readEvents; a magazine's explosion is a blast
+ * through its walls and ends nothing by itself, #274, 13n.1 (b)) or when the largest piece holds under
+ * battle.wreckFraction of the undock mass (#83); Disabled with no able weapon for
  * battle.disabledSeconds, whatever the engine does (#255). The end's parent in the cascade tree is the explosion, or
  * the event that took the last weapon's ability (the first failing condition of 13l.1's able).
  */
@@ -522,7 +523,7 @@ function readEvents(battle, ship) {
     battle.events.push({ side: ship.side, ...e });
     if (e.type === 'shot') launch(battle, ship, e);
     if (e.type === 'crew-died') ship.crewLost += e.deaths;
-    if (e.type === 'explosion' && (e.room === 'reactor' || e.room === 'magazine')) { if (!ship.destroyed) { ship.destroyedBy = { t: e.t, room: e.room, energy: e.energy, cause: e.cause, id: e.id }; ship.endParent = e.id; } ship.destroyed = true; }
+    if (e.type === 'explosion' && e.room === 'reactor') { if (!ship.destroyed) { ship.destroyedBy = { t: e.t, room: e.room, energy: e.energy, cause: e.cause, id: e.id }; ship.endParent = e.id; } ship.destroyed = true; }
     if (!ship.firstFailure && (e.type === 'overheated' || e.type === 'shutdown' || e.type === 'cell-destroyed' || e.type === 'scram')) ship.firstFailure = { t: e.t, type: e.type, room: e.room, cause: e.cause };
     if (!ship.firstHot && e.type === 'hot') ship.firstHot = { t: e.t, room: e.room };
   }

@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — L5a fix round (#282 (7))
+
+- `js/battle.js` `lineOfAction`: a round at rest relative to the hull no
+  longer divides by zero (its entries act at its own position); the fixed
+  point throws if it has not converged after its 20 iterations.
+- Successors `L2.magazine.types.v2` (a railgun-typed magazine holding turret
+  rounds: the turret is not fed and not able), `L0.kinetic.chord.loss.v2`
+  (a 16-cell column: chord 0.5 stops in cell 13, chord 0.05 exits at
+  722.52 m/s, hand-worked) and `L4.books.angular.v2` (a target spinning at
+  1 rad/s; every hit impulse on the round's line of action to 1e-9 of the
+  edge); the three originals withdrawn under #282. The comment slips of K2,
+  K3, R1d's shot-4 and B3 noted in the successors' headers.
+- `mission0/mutations/`: the four `l5a.feed` / `l5a.line` mutants re-run.
+
 ## Unreleased — 2026-10-22 — Answers to L5a (#282)
 
 - `DECISIONS.md` #282: answers to the L5a engineer, the blind checker and
@@ -25,6 +39,38 @@
   and L5b; the mutation run on `29ce028` recorded). `DESIGN.md` §13n's
   pass list, budget and room-size rows, cost table; §17 item 30; §18.
 - `STATUS.md`: the previous chat finished; L5a running.
+
+## Unreleased — 2026-10-22 — L5a: the kinetic pass (#278)
+
+- `js/rooms.js`: a passed cell loses chord / `kinetic.hitsToWreck`
+  (#273 (b)); a magazine with rounds detonates when a round enters a
+  standing cell of it at `magazine.detonationSpeed` or more (#273 (c), a
+  `detonation` event, the explosion its child); a destroyed magazine cell
+  no longer detonates it and its last cell loses the rounds as debris;
+  `loadMagazine` takes a weapon type (`turret`, `railgun` slugs with no
+  energy, `missile` a TODO that throws until L5c); a room that requires
+  crew and has none is `unmanned` (no function, as if shut down; a new
+  `unmanned` event); B2 the impulse at each entry's point on the round's
+  line of action, B3 energy books (`world.ship.energy`), B4 `embedRound`
+  (a stopped round joins its body), L4 the heat split by the energy each
+  entry took.
+- `js/battle.js`: a magazine's explosion no longer ends the battle
+  (#274); `unmanned` in the able rule after `heat`, its parent the
+  `crew-died` event; a turret fed only by a turret magazine; `lineHit`
+  gives each entry its point, `strike` the line of action and B4;
+  `battleEnergy`, `battleAngular`.
+- `js/data.js`: `magazine.detonationSpeed` (400 m/s, 200–600, k = 0,
+  approved as the plan's); `CONSTANTS.md` regenerated.
+- `mission0/targets.js`: T-neck2 and T-gun2 (§17 item 36).
+- `proto/battle.js`: the end by the kernel's rules (a magazine's
+  explosion ends nothing by itself).
+- Scenarios K1–K6 (`L0.kinetic.chord.loss`, `L2.magazine.detonation`,
+  `L4.kill.v3`, `L2.magazine.types`, `L1.room.unmanned`,
+  `L4.books.energy`, `L4.books.angular`) and eleven K8 successors; twelve
+  scenarios withdrawn as superseded by #278; every other standing
+  scenario re-recorded on the new data hash.
+- `tools/mutations.json`: 19 `l5a.*` mutations; 15 stale ones
+  re-anchored on the new text (same edits).
 
 ## Unreleased — 2026-10-22 — The L5 plan (#277, #278)
 

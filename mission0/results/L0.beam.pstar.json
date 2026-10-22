@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.beam.pstar",
-  "code": "1d13489",
+  "code": "4e217c0",
   "criterionHash": "bceca34b",
   "lockedHash": "bceca34b",
   "runHash": "9ada3a9a",
-  "dataHash": "ec2687f2",
+  "dataHash": "d4c5176f",
   "rowsHash": "c6d3b39b",
   "rows": [
     {

@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.conduction.euler",
-  "code": "8af82c8",
+  "code": "4e217c0",
   "criterionHash": "cac52d55",
   "lockedHash": "cac52d55",
   "runHash": "8bbbb856",
-  "dataHash": "ec2687f2",
+  "dataHash": "d4c5176f",
   "rowsHash": "8b6b5677",
   "rows": [
     {

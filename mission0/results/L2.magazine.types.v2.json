@@ -1,0 +1,141 @@
+{
+  "id": "L2.magazine.types.v2",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.magazine.types.v2",
+  "code": "f27238b",
+  "criterionHash": "3954370a",
+  "lockedHash": "3954370a",
+  "runHash": "61f1b7f5",
+  "dataHash": "d4c5176f",
+  "rowsHash": "9e92b27e",
+  "rows": [
+    {
+      "case": {
+        "type": "turret",
+        "part": "feed"
+      },
+      "expected": {
+        "store": 4,
+        "left": 146,
+        "able": true,
+        "why": null,
+        "energy": 1200000000
+      },
+      "actual": {
+        "energy": 1200000000,
+        "store": 4,
+        "left": 146,
+        "slugMass": null,
+        "able": true,
+        "why": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "railgun",
+        "part": "feed"
+      },
+      "expected": {
+        "store": 0,
+        "slugMass": 900,
+        "able": false,
+        "why": "dry",
+        "energy": 0
+      },
+      "actual": {
+        "energy": 0,
+        "store": 0,
+        "left": 0,
+        "slugMass": 900,
+        "able": false,
+        "why": "dry"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "turret",
+        "part": "shot"
+      },
+      "expected": {
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "energy": 1200000000,
+        "entry": 800,
+        "explosions": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "railgun",
+        "part": "shot"
+      },
+      "expected": {
+        "explodes": false,
+        "energy": 0
+      },
+      "actual": {
+        "energy": 0,
+        "entry": 800,
+        "explosions": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "missile",
+        "part": "load"
+      },
+      "expected": {
+        "throws": true
+      },
+      "actual": {
+        "throws": true,
+        "message": "TODO: a missile magazine: its energy is missile.warheadEnergy + 1/2 m v_burnout^2 per missile, constants L5c adds (13n.1 (c)); not built in L5a"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "mixed",
+        "part": "feed"
+      },
+      "expected": {
+        "store": 0,
+        "left": 150,
+        "able": false,
+        "why": "dry"
+      },
+      "actual": {
+        "able0": false,
+        "why0": "dry",
+        "store": 0,
+        "left": 150,
+        "able": false,
+        "why": "dry"
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

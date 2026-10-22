@@ -181,6 +181,7 @@ export const PARAMS = {
   },
   magazine: {
     capacity: P(900, 300, 3000, 3, 'kg', true, 'ammunition mass a magazine holds: 150 M rounds (#91, #183, #206)'),
+    detonationSpeed: P(400, 200, 600, 0, 'm/s', true, 'a magazine with rounds detonates when a round enters one of its cells at this speed or more (relative to the hull; the round rule\'s momentum on entering over the round\'s mass, whether it stops there or passes); a destroyed cell alone no longer detonates it: between an M round after one crewed cell (333 m/s) and after a shield generator cell (485 m/s), so a crewed screen protects against M rounds, not L; the first rung-1 lever of the L5 pace study (#273 (c), #278; approved as the plan\'s, #272 (2))'),
   },
   quarters: {
     crewPerCell: P(4, 1, 8, 2, 'crew', true, 'crew housed per surviving cell: 24 in a T1 quarters, 6 m^2 of a 25 m^2 cell per sleeper (a warship\'s berthing); 3 -> 4 so R1\'s 20 crew have berths (validateShip\'s crew rule) (#60, #65, #183, #220 (5), #253)'),

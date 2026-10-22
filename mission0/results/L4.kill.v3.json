@@ -1,0 +1,262 @@
+{
+  "id": "L4.kill.v3",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.kill.v3",
+  "code": "4e217c0",
+  "criterionHash": "881043ad",
+  "lockedHash": "881043ad",
+  "runHash": "a3946529",
+  "dataHash": "d4c5176f",
+  "rowsHash": "3b8c6057",
+  "rows": [
+    {
+      "case": {
+        "target": "R1",
+        "aim": "magazine"
+      },
+      "expected": {
+        "kind": "destroyed",
+        "key": {
+          "shot": "shot-1",
+          "launched": 1
+        },
+        "speed": 604.6,
+        "wreck": 0.5
+      },
+      "actual": {
+        "ended": {
+          "kind": "destroyed",
+          "side": "T",
+          "step": 66,
+          "t": 1.1,
+          "by": "explosion"
+        },
+        "endOf": {
+          "type": "explosion",
+          "room": "reactor"
+        },
+        "fraction": 0,
+        "booms": [
+          {
+            "room": "magazine",
+            "step": 66
+          },
+          {
+            "room": "reactor",
+            "step": 66
+          }
+        ],
+        "breach": 66,
+        "detonation": {
+          "cause": "shot-1",
+          "speed": 604.6248714321235,
+          "step": 66
+        },
+        "holds": "explosion:magazine",
+        "plate": null,
+        "magCells": [],
+        "rounds": 0,
+        "sum": null,
+        "key": {
+          "cause": "shot-1",
+          "launched": 1
+        },
+        "shots": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "target": "R1",
+        "aim": "reactor"
+      },
+      "expected": {
+        "kind": "destroyed",
+        "countdown": 600,
+        "key": {
+          "shot": "shot-46",
+          "launched": 46,
+          "all": 51
+        }
+      },
+      "actual": {
+        "ended": {
+          "kind": "destroyed",
+          "side": "T",
+          "step": 6067,
+          "t": 101.11666666666666,
+          "by": "explosion"
+        },
+        "endOf": {
+          "type": "explosion",
+          "room": "reactor"
+        },
+        "fraction": 0,
+        "booms": [
+          {
+            "room": "reactor",
+            "step": 6067
+          }
+        ],
+        "breach": 5467,
+        "detonation": null,
+        "holds": "explosion:reactor",
+        "plate": null,
+        "magCells": [
+          {
+            "cause": "explosion:reactor",
+            "t": 101.11666666666666
+          },
+          {
+            "cause": "explosion:reactor",
+            "t": 101.11666666666666
+          },
+          {
+            "cause": "explosion:reactor",
+            "t": 101.11666666666666
+          },
+          {
+            "cause": "explosion:reactor",
+            "t": 101.11666666666666
+          }
+        ],
+        "rounds": 0,
+        "sum": null,
+        "key": {
+          "cause": "shot-46",
+          "launched": 46
+        },
+        "shots": 51
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "target": "R1d",
+        "aim": "magazine"
+      },
+      "expected": {
+        "kind": "destroyed",
+        "key": {
+          "shot": "shot-7",
+          "launched": 7
+        },
+        "holds": "shot-4",
+        "plate": "shot-6",
+        "wreck": 0.5
+      },
+      "actual": {
+        "ended": {
+          "kind": "destroyed",
+          "side": "T",
+          "step": 786,
+          "t": 13.1,
+          "by": "explosion"
+        },
+        "endOf": {
+          "type": "explosion",
+          "room": "reactor"
+        },
+        "fraction": 0,
+        "booms": [
+          {
+            "room": "magazine",
+            "step": 786
+          },
+          {
+            "room": "reactor",
+            "step": 786
+          }
+        ],
+        "breach": 786,
+        "detonation": {
+          "cause": "shot-7",
+          "speed": 799.9954974492766,
+          "step": 786
+        },
+        "holds": "shot-4",
+        "plate": "shot-6",
+        "magCells": [],
+        "rounds": 0,
+        "sum": null,
+        "key": {
+          "cause": "shot-7",
+          "launched": 7
+        },
+        "shots": 7
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "target": "R1d",
+        "aim": "magazine",
+        "weapon": "beam"
+      },
+      "expected": {
+        "kind": null,
+        "bounds": [
+          28.95,
+          32
+        ],
+        "powers": [
+          0,
+          5000000
+        ]
+      },
+      "actual": {
+        "ended": null,
+        "endOf": null,
+        "fraction": 0.7680013015623162,
+        "booms": [],
+        "breach": null,
+        "detonation": null,
+        "holds": "beam-1",
+        "plate": "beam-1",
+        "magCells": [
+          {
+            "cause": "beam-1",
+            "t": 29.516666666666666
+          },
+          {
+            "cause": "beam-1",
+            "t": 59.11666666666667
+          },
+          {
+            "cause": "beam-1",
+            "t": 61.199999999999996
+          },
+          {
+            "cause": "beam-1",
+            "t": 63.38333333333333
+          }
+        ],
+        "rounds": 0,
+        "sum": {
+          "ownT": 29.516666666666666,
+          "powers": [
+            5000000
+          ]
+        },
+        "key": null,
+        "shots": 0
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

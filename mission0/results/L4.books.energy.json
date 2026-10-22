@@ -1,0 +1,123 @@
+{
+  "id": "L4.books.energy",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.books.energy",
+  "code": "4e217c0",
+  "criterionHash": "f1740cb6",
+  "lockedHash": "f1740cb6",
+  "runHash": "e18a2e6e",
+  "dataHash": "d4c5176f",
+  "rowsHash": "b5b983d4",
+  "rows": [
+    {
+      "case": {
+        "name": "still",
+        "omega": 0,
+        "v": [
+          0,
+          0
+        ]
+      },
+      "expected": {
+        "tol": 1e-9,
+        "stopped": 12,
+        "added": 72
+      },
+      "actual": {
+        "worst": 3.3974885127463494e-9,
+        "gross": 46084222.75974797,
+        "hits": 12,
+        "stopped": 12,
+        "passed": 0,
+        "undock": 950534.0573339704,
+        "massEnd": 950606.0573339704,
+        "shots": 23040127.09544383,
+        "heat": 23037796.015638784,
+        "t": 33.11666666666667,
+        "ended": "disabled"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "spin",
+        "omega": 0.05,
+        "v": [
+          20,
+          0
+        ]
+      },
+      "expected": {
+        "tol": 1e-9,
+        "stopped": null,
+        "added": null
+      },
+      "actual": {
+        "worst": 8.940696716308594e-8,
+        "gross": 305503039.25548244,
+        "hits": 10,
+        "stopped": 0,
+        "passed": 10,
+        "undock": 950534.0573339704,
+        "massEnd": 950534.0573339704,
+        "shots": 57600316.708751164,
+        "heat": 8827523.625066094,
+        "t": 60,
+        "ended": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "split"
+      },
+      "expected": {
+        "shares": [
+          0.6329814519633387,
+          0.35478965600621787,
+          0.01222889203044351
+        ],
+        "hand": [
+          0.63298,
+          0.35479,
+          0.012229
+        ]
+      },
+      "actual": {
+        "rooms": [
+          "shield",
+          "shield",
+          "reactor"
+        ],
+        "stoppedIn": 2,
+        "heats": [
+          1215316.5467346841,
+          681191.7445878597,
+          23479.32121349223
+        ],
+        "heat": 1919987.612536036,
+        "entry": [
+          4800,
+          2907.938676582551,
+          530.8047403531914
+        ],
+        "reactor": "reactor"
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

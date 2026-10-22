@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.shield.salvo.v2",
-  "code": "8af82c8",
+  "code": "4e217c0",
   "criterionHash": "ef8f45b1",
   "lockedHash": "ef8f45b1",
   "runHash": "77202f9c",
-  "dataHash": "ec2687f2",
+  "dataHash": "d4c5176f",
   "rowsHash": "021c1e29",
   "rows": [
     {

@@ -3,15 +3,17 @@
     "id": "c1.thr.turretWorksShutdown",
     "rule": "13c.1 Thresholds",
     "file": "js/rooms.js",
-    "old": "const able = room.powered && room.controlled && !room.shutdown && !isDestroyed(room) && s.ammo > 0;",
-    "new": "const able = room.powered && room.controlled && !isDestroyed(room) && s.ammo > 0;"
+    "old": "const able = room.powered && room.controlled && !down(room) && !isDestroyed(room) && s.ammo > 0;",
+    "new": "const able = room.powered && room.controlled && !room.unmanned && !isDestroyed(room) && s.ammo > 0;",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "c1.thr.bridgeNoControlWhenOff",
     "rule": "13c.1 Thresholds",
     "file": "js/rooms.js",
-    "old": "const control = survivingCells(room) > 0 && !room.shutdown && room.active;",
-    "new": "const control = survivingCells(room) > 0 && !room.shutdown;"
+    "old": "const control = survivingCells(room) > 0 && !down(room) && room.active;",
+    "new": "const control = survivingCells(room) > 0 && !down(room);",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "c1.cls.crewed->plant.turret",
@@ -298,8 +300,9 @@
     "id": "e1.pd.hitsIgnored",
     "rule": "13e.1 Partial kinetic damage",
     "file": "js/rooms.js",
-    "old": "(i < res.passed ? 1 : a / r[i]) / hits",
-    "new": "(i < res.passed ? 1 : a / r[i]) / 3"
+    "old": "(i < res.passed ? (path[i].chord ?? 1) : a / r[i]) / hits",
+    "new": "(i < res.passed ? (path[i].chord ?? 1) : a / r[i]) / 3",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "e1.pd.crewNotCapped",
@@ -347,8 +350,9 @@
     "id": "f1.rcs.hostShutdown",
     "rule": "13f.1 RCS",
     "file": "js/rooms.js",
-    "old": "if (!f.fired || !cellAlive(host, f.k) || host.exploded || !host.active || host.shutdown || !host.controlled || !host.powered || isDestroyed(host)) return 0;",
-    "new": "if (!f.fired || !cellAlive(host, f.k) || host.exploded || !host.active || !host.controlled || !host.powered || isDestroyed(host)) return 0;"
+    "old": "if (!f.fired || !cellAlive(host, f.k) || host.exploded || !host.active || down(host) || !host.controlled || !host.powered || isDestroyed(host)) return 0;",
+    "new": "if (!f.fired || !cellAlive(host, f.k) || host.exploded || !host.active || host.unmanned || !host.controlled || !host.powered || isDestroyed(host)) return 0;",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "f1.rcs.deadHostCell",
@@ -396,15 +400,17 @@
     "id": "f1.ctl.bridgeShutdown",
     "rule": "13f.1 Control",
     "file": "js/rooms.js",
-    "old": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !r.shutdown && r.active && !r.exploded);",
-    "new": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && r.active && !r.exploded);"
+    "old": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !down(r) && r.active && !r.exploded);",
+    "new": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !r.unmanned && r.active && !r.exploded);",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "f1.ctl.bridgeOff",
     "rule": "13f.1 Control",
     "file": "js/rooms.js",
-    "old": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !r.shutdown && r.active && !r.exploded);",
-    "new": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !r.shutdown && !r.exploded);"
+    "old": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !down(r) && r.active && !r.exploded);",
+    "new": "r.type === 'bridge' && r.placed && survivingCells(r) > 0 && !down(r) && !r.exploded);",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "f1.ctl.noRestore",
@@ -426,29 +432,33 @@
     "id": "f1.ctl.gunNeedsControl",
     "rule": "13f.1 Control",
     "file": "js/rooms.js",
-    "old": "const able = room.powered && room.controlled && !room.shutdown && !isDestroyed(room) && s.ammo > 0;",
-    "new": "const able = room.powered && !room.shutdown && !isDestroyed(room) && s.ammo > 0;"
+    "old": "const able = room.powered && room.controlled && !down(room) && !isDestroyed(room) && s.ammo > 0;",
+    "new": "const able = room.powered && !down(room) && !isDestroyed(room) && s.ammo > 0;",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "f1.ctl.shieldNeedsControl",
     "rule": "13f.1 Control",
     "file": "js/rooms.js",
-    "old": "const able = s.on && room.powered && room.controlled && !room.shutdown && !isDestroyed(room);",
-    "new": "const able = s.on && room.powered && !room.shutdown && !isDestroyed(room);"
+    "old": "const able = s.on && room.powered && room.controlled && !down(room) && !isDestroyed(room);",
+    "new": "const able = s.on && room.powered && !down(room) && !isDestroyed(room);",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "f1.ctl.reactorNeedsControl",
     "rule": "13f.1 Control",
     "file": "js/rooms.js",
-    "old": "return room.controlled && !room.shutdown && !room.reactor.scrammed && !isDestroyed(room);",
-    "new": "return !room.shutdown && !room.reactor.scrammed && !isDestroyed(room);"
+    "old": "return room.controlled && !down(room) && !room.reactor.scrammed && !isDestroyed(room);",
+    "new": "return !down(room) && !room.reactor.scrammed && !isDestroyed(room);",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "f1.ctl.beamNeedsControl",
     "rule": "13f.1 Control",
     "file": "js/rooms.js",
-    "old": "const able = s.firing && room.powered && room.controlled && !room.shutdown && !isDestroyed(room);",
-    "new": "const able = s.firing && room.powered && !room.shutdown && !isDestroyed(room);"
+    "old": "const able = s.firing && room.powered && room.controlled && !down(room) && !isDestroyed(room);",
+    "new": "const able = s.firing && room.powered && !down(room) && !isDestroyed(room);",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "f1.ctl.bridgeBackup",
@@ -880,9 +890,9 @@
     "id": "k1.beamStopped.cause",
     "rule": "13k.1 Findings (beam-stopped cause)",
     "file": "js/rooms.js",
-    "old": "const why = room.shutdown ? 'heat' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
-    "new": "const why = !room.powered ? 'no-power' : room.shutdown ? 'heat' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
-    "note": "an overheated routed beam bay reports no-power again (#227 Q9) (old/new re-anchored on L4b's text, same edit)"
+    "old": "const why = room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
+    "new": "const why = !room.powered ? 'no-power' : room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
+    "note": "an overheated routed beam bay reports no-power again (#227 Q9) (old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "k1.deposit.damageFirst",
@@ -1032,9 +1042,9 @@
     "id": "l1.bridge.offCause",
     "rule": "13l.4 A8 (#257 Q2)",
     "file": "js/rooms.js",
-    "old": "const why = room.active ? 'overheat' : 'off'; room.marks.controlLost",
-    "new": "const why = 'overheat'; room.marks.controlLost",
-    "note": "a switched-off bridge reports overheat (old/new re-anchored on L4b's text, same edit)"
+    "old": "const why = !room.active ? 'off' : room.shutdown ? 'overheat' : 'unmanned'; room.marks.controlLost",
+    "new": "const why = room.shutdown ? 'overheat' : 'unmanned'; room.marks.controlLost",
+    "note": "a switched-off bridge reports overheat (old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "k1.beamPaths.neverCleared",
@@ -1182,8 +1192,9 @@
     "id": "l4b.hit.wholeRay",
     "rule": "13l.1 Battle (the hit test along the step's segment)",
     "file": "js/battle.js",
-    "old": "if (first < 0) { if (cells[k].t0 > L) break; first = k; }\n      path.push({ room: c.room, cell: c.index, chord });",
-    "new": "if (first < 0) { first = k; }\n      path.push({ room: c.room, cell: c.index, chord });"
+    "old": "if (first < 0) { if (cells[k].t0 > L) break; first = k; }\n      const tm = (cells[k].t0 + cells[k].t1) / 2;",
+    "new": "if (first < 0) { first = k; }\n      const tm = (cells[k].t0 + cells[k].t1) / 2;",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "l4b.tof.instant",
@@ -1196,8 +1207,9 @@
     "id": "l4b.rel.worldSpeed",
     "rule": "13l.1 Battle (fireRound at the velocity relative to the hull, #242)",
     "file": "js/battle.js",
-    "old": "toHull = relative(sub(u, pointVelocity(bf, worldPoint(bf, p))), bf);",
-    "new": "toHull = relative(u, bf);"
+    "old": "toHull = relative(sub(u, pointVelocity(bf, worldPoint(bf, x.at))), bf);",
+    "new": "toHull = relative(u, bf);",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "l4b.able.powerIgnored",
@@ -1210,8 +1222,9 @@
     "id": "l4b.able.fedThroughAnyRoom",
     "rule": "13l.1 Able to fight (a magazine that feeds the turret over a live wall)",
     "file": "js/battle.js",
-    "old": "const fed = (t) => walls.some((w) => { const mag = w.a === t ? w.b : w.b === t ? w.a : null; return mag && mag.type === 'magazine' && !mag.exploded && mag.magazine.size === t.size && mag.magazine.ap + mag.magazine.he > 0; });",
-    "new": "const fed = (t) => world.rooms.some((mag) => mag.type === 'magazine' && !mag.exploded && mag.magazine.ap + mag.magazine.he > 0);"
+    "old": "const fed = (t) => walls.some((w) => { const mag = w.a === t ? w.b : w.b === t ? w.a : null; return mag && mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'turret' && mag.magazine.size === t.size && mag.magazine.ap + mag.magazine.he > 0; });",
+    "new": "const fed = (t) => world.rooms.some((mag) => mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'turret' && mag.magazine.ap + mag.magazine.he > 0);",
+    "note": "(old/new re-anchored on L5a's text, same edit)"
   },
   {
     "id": "l4b.disabled.stepLate",
@@ -1296,5 +1309,138 @@
     "file": "js/data.js",
     "old": "openingRange: P(900, 500, 2000, 1,",
     "new": "openingRange: P(900, 500, 2000, 0,"
+  },
+  {
+    "id": "l5a.chord.flatLoss",
+    "rule": "13n.1 (b) A passed cell loses by its chord (#273 (b))",
+    "file": "js/rooms.js",
+    "old": "(i < res.passed ? (path[i].chord ?? 1) : a / r[i]) / hits",
+    "new": "(i < res.passed ? 1 : a / r[i]) / hits"
+  },
+  {
+    "id": "l5a.det.never",
+    "rule": "13n.1 (b) The magazine detonates by residual speed (#273 (c))",
+    "file": "js/rooms.js",
+    "old": "entry[i] / mass >= vd && !x.room.exploded",
+    "new": "entry[i] / mass >= Infinity && !x.room.exploded"
+  },
+  {
+    "id": "l5a.det.byPassedSpeed",
+    "rule": "13n.1 (b) The magazine detonates by residual speed (#273 (c)): the speed on entering, not on leaving",
+    "file": "js/rooms.js",
+    "old": "entry[i] / mass >= vd && !x.room.exploded",
+    "new": "(entry[i] - res.impulse[i]) / mass >= vd && !x.room.exploded"
+  },
+  {
+    "id": "l5a.det.destroyedCell",
+    "rule": "13n.1 (b) A destroyed cell alone no longer detonates a magazine",
+    "file": "js/rooms.js",
+    "old": "if (survivingCells(room) === 0) { room.magazine.ap = 0; room.magazine.he = 0; if (room.magazine.slugMass) room.magazine.slugMass = 0; }",
+    "new": "if (magazineContents(world, room).energy > 0) detonate(world, room, 'cell');"
+  },
+  {
+    "id": "l5a.det.roundsKept",
+    "rule": "13n.1 (b) A magazine whose last cell is destroyed loses its rounds as debris",
+    "file": "js/rooms.js",
+    "old": "if (survivingCells(room) === 0) { room.magazine.ap = 0; room.magazine.he = 0; if (room.magazine.slugMass) room.magazine.slugMass = 0; }",
+    "new": "if (survivingCells(room) === 0) { /* rounds kept */ }"
+  },
+  {
+    "id": "l5a.end.magazineEnds",
+    "rule": "13n.1 (b) A magazine's explosion is a blast (#274)",
+    "file": "js/battle.js",
+    "old": "e.type === 'explosion' && s.room(e.room)?.type === 'reactor');",
+    "new": "e.type === 'explosion' && ['reactor', 'magazine'].includes(s.room(e.room)?.type));"
+  },
+  {
+    "id": "l5a.unmanned.ignored",
+    "rule": "13n.1 (b) A room without crew",
+    "file": "js/rooms.js",
+    "old": "const down = (room) => room.shutdown || room.unmanned;",
+    "new": "const down = (room) => room.shutdown;"
+  },
+  {
+    "id": "l5a.unmanned.ableRule",
+    "rule": "13n.1 (b) A room without crew: unmanned in the able rule",
+    "file": "js/battle.js",
+    "old": "      : r.unmanned ? ['unmanned', m.unmanned || 'launch']\n",
+    "new": ""
+  },
+  {
+    "id": "l5a.unmanned.parent",
+    "rule": "13n.1 (b) A room without crew: its parent the crew-died event",
+    "file": "js/rooms.js",
+    "old": "room.marks.unmanned = ev.id;",
+    "new": "room.marks.unmanned = 'heat';"
+  },
+  {
+    "id": "l5a.feed.anyType",
+    "rule": "13n.1 (b) One magazine per weapon type: the feed",
+    "file": "js/rooms.js",
+    "old": "has: (mag) => magazineType(mag) === 'turret' && mag.magazine.ap + mag.magazine.he > 0,",
+    "new": "has: (mag) => mag.magazine.ap + mag.magazine.he > 0 || !!mag.magazine.slugMass,"
+  },
+  {
+    "id": "l5a.feed.ableAnyType",
+    "rule": "13n.1 (b) One magazine per weapon type: the able rule",
+    "file": "js/battle.js",
+    "old": "!mag.exploded && magazineType(mag) === 'turret' && mag.magazine.size === t.size",
+    "new": "!mag.exploded && mag.magazine.size === t.size"
+  },
+  {
+    "id": "l5a.slugs.explode",
+    "rule": "13n.1 (b) A railgun's magazine does not explode",
+    "file": "js/rooms.js",
+    "old": "if (magazineType(room) === 'railgun') return { ap: 0, he: 0, slugMass: g.slugMass, energy: 0 };",
+    "new": "if (magazineType(room) === 'railgun') return { ap: 0, he: 0, slugMass: g.slugMass, energy: g.slugMass * 1e6 };"
+  },
+  {
+    "id": "l5a.missile.loads",
+    "rule": "13n.1 (b) One magazine per weapon type: the missile TODO (L5c)",
+    "file": "js/rooms.js",
+    "old": "  if (type === 'missile') throw new Error(`TODO: ${MISSILE_TODO}`);\n  const capacity",
+    "new": "  const capacity"
+  },
+  {
+    "id": "l5a.line.centre",
+    "rule": "13n.1 (b) B2: the impulse on the line of action",
+    "file": "js/rooms.js",
+    "old": "const entryPoint = (world, x) => x.at || (x.plate ? x.plate.p : cellCentre(world, x.room, x.cell));",
+    "new": "const entryPoint = (world, x) => (x.plate ? x.plate.p : cellCentre(world, x.room, x.cell));"
+  },
+  {
+    "id": "l5a.line.noProjection",
+    "rule": "13n.1 (b) B2: the line through the round",
+    "file": "js/battle.js",
+    "old": "    lineOfAction(r.ref.x, u, bf, hit.path, x);\n",
+    "new": ""
+  },
+  {
+    "id": "l5a.embed.spent",
+    "rule": "13n.1 (b) B4: a stopped round joins the body",
+    "file": "js/battle.js",
+    "old": "if (stopped && res && res.u1 && res.stoppedIn >= 0) {",
+    "new": "if (false) {"
+  },
+  {
+    "id": "l5a.heat.byImpulse",
+    "rule": "13n.1 (b) L4: heat split by energy",
+    "file": "js/rooms.js",
+    "old": "const took = res.impulse.map((imp, i) => entry[i] * entry[i] - (entry[i] - imp) * (entry[i] - imp));",
+    "new": "const took = res.impulse.map((imp) => imp);"
+  },
+  {
+    "id": "l5a.energy.noRecoil",
+    "rule": "13n.1 (b) B3: muzzle energy includes the recoil's",
+    "file": "js/rooms.js",
+    "old": "world.ship.energy.shots += 0.5 * m * u * u + (Jr[0] * Jr[0] + Jr[1] * Jr[1]) / (2 * b.M) + (h * h) / (2 * b.I);",
+    "new": "world.ship.energy.shots += 0.5 * m * u * u;"
+  },
+  {
+    "id": "l5a.energy.noWork",
+    "rule": "13n.1 (b) B3: the work of thrust and RCS",
+    "file": "js/rooms.js",
+    "old": "ship.energy.work += 0.5 * b.M",
+    "new": "ship.energy.work += 0 * b.M"
   }
 ]
