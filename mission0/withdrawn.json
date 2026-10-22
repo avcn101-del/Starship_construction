@@ -1016,5 +1016,101 @@
     "recordHash": "81211212",
     "reason": "Superseded under #282 (7) (c), the reviewer's finding 5 on PR #73: no check that the impulse acts on the round's line of action, so removing the projection (l5a.line.noProjection) left it passing. Its successor keeps every check and adds a fast-spinning target and that check on every hit impulse. Recorded PASS, frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L3.r1.pinned",
+    "successor": "L3.r1.pinned.v2",
+    "decision": "#285",
+    "recordHash": "a8c21576",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its four literals (mass, acceleration, 90 degree turn, recoil). Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.mass.props.v5",
+    "successor": "L3.mass.props.v6",
+    "decision": "#285",
+    "recordHash": "1a440c66",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its own mass model (the turret's entry of CELL_MASS). Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.r1c.props",
+    "successor": "L3.r1c.props.v2",
+    "decision": "#285",
+    "recordHash": "e519dfba",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its mass, centre, inertia and acceleration literals. Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.readout.blueprint",
+    "successor": "L4.readout.blueprint.v2",
+    "decision": "#285",
+    "recordHash": "1124d8dc",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its R1 and R1c mass literals. Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.recoil.v5",
+    "successor": "L3.recoil.v6",
+    "decision": "#285",
+    "recordHash": "dcd074ae",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its own mass model (the turret's entry of CELL_MASS). Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.thrust.v5",
+    "successor": "L3.thrust.v6",
+    "decision": "#285",
+    "recordHash": "7db0d644",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its own mass model (the turret's entry of CELL_MASS). Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.rcs.turn.v5",
+    "successor": "L3.rcs.turn.v6",
+    "decision": "#285",
+    "recordHash": "f043ee90",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its own mass model (the turret's entry of CELL_MASS). Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.split.momentum.v5",
+    "successor": "L3.split.momentum.v6",
+    "decision": "#285",
+    "recordHash": "f28fd1e2",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its own mass model (the turret's entry of CELL_MASS). Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.fragment.rules.v3",
+    "successor": "L3.fragment.rules.v4",
+    "decision": "#285",
+    "recordHash": "e5ffe8df",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its own mass model (the turret's entry of CELL_MASS). Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.destroyed.mass",
+    "successor": "L3.destroyed.mass.v2",
+    "decision": "#285",
+    "recordHash": "7580a79c",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its R1 mass literal. Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.shield.energy",
+    "successor": "L3.shield.energy.v2",
+    "decision": "#285",
+    "recordHash": "1db6acff",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its R1 mass, centre and inertia literals. Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.hit.oblique.v2",
+    "successor": "L4.hit.oblique.v3",
+    "decision": "#285",
+    "recordHash": "d4561051",
+    "reason": "Superseded by #285, mass pass 2 (L5m, DESIGN.md 13n.4 M1): the turret by its mount (structure.cellMass + turret.machineryMass, 4975 kg per cell at T1, in place of cellMass.crewed's 14 800 kg) moves its chord and r literals (R1's and R1d's centres move the attacker's line) and its kernel-read end step. Its successor keeps every check, the literals hand-worked again from the cell masses. Recorded PASS, frozen (#245).",
+    "frozen": true
   }
 ]

@@ -1,0 +1,86 @@
+{
+  "id": "L3.r1c.props.v2",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.r1c.props.v2",
+  "code": "09869d0",
+  "criterionHash": "1aed580e",
+  "lockedHash": "1aed580e",
+  "runHash": "b4e66efa",
+  "dataHash": "cce4799a",
+  "rowsHash": "f97f5c28",
+  "rows": [
+    {
+      "case": {
+        "part": "intact"
+      },
+      "expected": {
+        "M": 1225234.0573339704,
+        "c": [
+          27.532009859471717,
+          15.597918878400893
+        ],
+        "I": 168909391.4338033,
+        "g": 1.24839
+      },
+      "actual": {
+        "M": 1225234.0573339704,
+        "c": [
+          27.532009859471717,
+          15.597918878400893
+        ],
+        "I": 168909391.43380326,
+        "g": 1.2483935704457536
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "wrecked"
+      },
+      "expected": {
+        "M": 1185984.0573339704,
+        "c": [
+          27.202120422428838,
+          15.783181331651024
+        ],
+        "I": 163609740.95829204,
+        "debris": 39250,
+        "rounds": 5
+      },
+      "actual": {
+        "rounds": 5,
+        "M": 1185984.0573339704,
+        "c": [
+          27.202120422428838,
+          15.783181331651024
+        ],
+        "I": 163609740.95829198,
+        "bodies": 1,
+        "debris": 39250,
+        "momentum": {
+          "mass": true,
+          "momentum": true,
+          "angular": true,
+          "dP": 3.6450773090749405e-12,
+          "dL": 0,
+          "net": 900000,
+          "gross": 900000
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

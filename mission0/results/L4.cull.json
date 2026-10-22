@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.cull",
-  "code": "4e217c0",
+  "code": "09869d0",
   "criterionHash": "a196a230",
   "lockedHash": "a196a230",
   "runHash": "815bac9f",
-  "dataHash": "d4c5176f",
-  "rowsHash": "d9853b95",
+  "dataHash": "cce4799a",
+  "rowsHash": "cacd4db9",
   "rows": [
     {
       "case": {
@@ -28,23 +28,23 @@
         "hits": 0,
         "leftAt": {
           "t": 4.85,
-          "now": 3001.5038718802775,
-          "before": 2988.1778651364702
+          "now": 3001.8995017146917,
+          "before": 2988.5734925135816
         },
         "okBooks": true,
         "left": {
           "m": 6,
           "P": [
-            579.6898423535605,
-            4764.867226552289
+            581.0818058531323,
+            4764.69767507934
           ],
           "rounds": 1
         },
         "round": {
           "m": 6,
           "P": [
-            579.6898423535605,
-            4764.867226552289
+            581.0818058531323,
+            4764.69767507934
           ]
         }
       },

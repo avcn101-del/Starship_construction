@@ -1,0 +1,107 @@
+{
+  "id": "L0.turret.mount",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.turret.mount",
+  "code": "09869d0",
+  "criterionHash": "77b28cd2",
+  "lockedHash": "77b28cd2",
+  "runHash": "83092f83",
+  "dataHash": "cce4799a",
+  "rowsHash": "d1bfd136",
+  "rows": [
+    {
+      "case": {
+        "through": "turret"
+      },
+      "expected": {
+        "sigma": 199,
+        "sigmaLiteral": 199,
+        "r": [
+          307527.4812619526,
+          307527.4812619526
+        ],
+        "passed": 2,
+        "stoppedIn": -1,
+        "exit": 468.5070226783282,
+        "exitLiteral": 468.507
+      },
+      "actual": {
+        "sigma": 199,
+        "shape": [
+          "turret:0",
+          "turret:1"
+        ],
+        "r": [
+          307527.4812619526,
+          307527.4812619526
+        ],
+        "s0": 1568183.483259966,
+        "passed": 2,
+        "stoppedIn": -1,
+        "exit": 468.5070226783282,
+        "cells": [
+          0.6666666666666667,
+          0.6666666666666667,
+          1,
+          1
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "through": "plate"
+      },
+      "expected": {
+        "sigma": 199,
+        "sigmaLiteral": 199,
+        "r": [
+          2426221.8370917873,
+          307527.4812619526,
+          307527.4812619526
+        ],
+        "s0": 1568183.483259966,
+        "passed": 0,
+        "stoppedIn": 0,
+        "exit": 0
+      },
+      "actual": {
+        "sigma": 199,
+        "shape": [
+          "plate",
+          "turret:0",
+          "turret:1"
+        ],
+        "r": [
+          2426221.837091787,
+          307527.4812619526,
+          307527.4812619526
+        ],
+        "s0": 1568183.483259966,
+        "passed": 0,
+        "stoppedIn": 0,
+        "exit": 0,
+        "cells": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

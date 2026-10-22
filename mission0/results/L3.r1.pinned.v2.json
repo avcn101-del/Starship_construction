@@ -1,0 +1,44 @@
+{
+  "id": "L3.r1.pinned.v2",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.r1.pinned.v2",
+  "code": "09869d0",
+  "criterionHash": "4240df1b",
+  "lockedHash": "4240df1b",
+  "runHash": "fae34656",
+  "dataHash": "cce4799a",
+  "rowsHash": "31d1e80f",
+  "rows": [
+    {
+      "case": {
+        "ship": "R1",
+        "tier": "T1"
+      },
+      "expected": {
+        "mass": 911234.0573339703,
+        "g": 1.6785745738499087,
+        "turn90": 3.4243616150902216,
+        "recoil": -0.0641472076627804
+      },
+      "actual": {
+        "mass": 911234.0573339704,
+        "g": 1.6785745738499083,
+        "turn90": 3.4243616150902207,
+        "recoil": -0.0641472076627804
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
