@@ -9,12 +9,15 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   documents' consolidation (#242); `main` `f68185a`.
-- **Running**: physics pass 2 (engineer opus on `m0/pass2`, blind checker
-  in parallel); then its reviewer and merge.
-- **Waiting on you**: nothing (#245 recorded your E1 amendment; veto
-  window on #242 and §13k.2's constants).
-- **Money**: 2026-10-21/22 so far about 48 USD (v2 13.85, audits 25.40,
-  consolidation 4.12, lint 0); pass 2 estimated 50–60.
+- **Running**: physics pass 2's reviewer (PR #54); the engineer (29.34
+  USD) and the blind checker (2.84) are done: no physics error, one law
+  of the plan false (S6).
+- **Waiting on you**: **one decision**, how far a beam's depth can be
+  tier-invariant (S6; the frame is in the chat and below); veto window on
+  #242, #248 and §13k.2's constants.
+- **Money**: 2026-10-21/22 so far about 80 USD (v2 13.85, audits 25.40,
+  consolidation 4.12, pass 2 32.18 and the reviewer running); pass 2
+  estimated 50–60, so far inside it.
 - **Next**: pass 2 merge → `tools/mutate.js` task → the L4 plan.
 
 ## Where we are
@@ -96,6 +99,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #248: pass 2's first run; S6 withdrawn as the lead designer's error;
+  the engineer's twelve withdrawals accepted; answers.
 - #247 is the owner's (design partner, chat replacement, decision frame).
 - #246: prevention after the audits (lint, mutation tool, the supersedes
   rule, ×4, this block for the owner). #245 is the owner's.
@@ -161,7 +166,20 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-Nothing (#245 amended E1 as asked).
+**S6, how tier-invariant a beam's depth can be** (#248 (1)). What is
+decided: the rule that replaces "k = −0.41 keeps depth in cells at every
+tier". Options: (i) **exact for electronic stopping only**: the beam's
+energy per tier is solved so the bay's CSDA range in armour cells equals
+T1's (bisection, as the plan's script did); the drift from nuclear
+interactions is accepted and reported (N = 8 at T6: first cell 89 %
+against 43 % at T1); (ii) keep k = −0.41, widen S6 to 3 % for N = 2 only;
+(iii) scale the interaction length with the tier: unphysical, a
+correction factor, rejected under #228; (iv) drop beam tier invariance
+(k = 0, as real linacs): reverses #240 (4); at T6 an N = 2 beam reaches
+0.91 cells against 0.28 at T1, so big ships' beams reach relatively
+deeper than their rounds. Recommendation: (i). Reversible: yes (a kernel
+rule and one scenario). Cost: a small fix engineer, 8–12 USD with the
+factor, plus a light re-review.
 
 ## Next steps
 

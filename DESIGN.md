@@ -791,13 +791,13 @@ its re-runnable check. The checklist of #241 (1) is §13k.6.
 
 | Rule | Statement |
 |---|---|
-| Burn by mass (F1) | A cell on a beam's path loses integrity at P·F_i / (q × cell mass) per second, q = `matter.burnEnergyPerKg` (new, k = 0), calibrated on L0's armour cell (30 MJ / 10 t = **3000 J/kg**); `armour.burnEnergy` is removed. A hold cell is ruined by 9 MJ, a crewed cell by 44 MJ, a reactor cell by 375 MJ (75 s of a 5 MW beam; 6 s today) |
-| Blast by mass (F3, #240 (6)) | A cell absorbs q_b × cell mass of blast, q_b = `matter.blastPerKg` (new, k = 0), calibrated on armour (1 MJ / 10 t = **100 J/kg**); `armour.blastResistance`, `room.blastResistance` and `hold.blastFactor` are removed (no physics for a free-volume buffer was written; a hold cell absorbs 0.3 MJ, a reactor cell 12.5 MJ). #18c's "hold as a blast buffer" is lost and recorded as such; the hold keeps its conduction factor (air and bulkheads, passive-wall physics) |
+| Burn by mass (F1) | A cell on a beam's path loses integrity at P·F_i / (q × cell mass) per second, q = `matter.burnEnergyPerKg` (new, k = 0), calibrated on L0's armour cell (30 MJ / 10 t = **3000 J/kg**); `armour.burnEnergy` is removed. A hold cell is ruined by 9 MJ, a crewed cell by 44 MJ, a reactor cell (150 t) by 450 MJ (90 s of a 5 MW beam; 6 s before this pass) |
+| Blast by mass (F3, #240 (6)) | A cell absorbs q_b × cell mass of blast, q_b = `matter.blastPerKg` (new, k = 0), calibrated on armour (1 MJ / 10 t = **100 J/kg**); `armour.blastResistance`, `room.blastResistance` and `hold.blastFactor` are removed (no physics for a free-volume buffer was written; a hold cell absorbs 0.3 MJ, a reactor cell 15 MJ). #18c's "hold as a blast buffer" is lost and recorded as such; the hold keeps its conduction factor (air and bulkheads, passive-wall physics) |
 | Heat capacity by coupled mass (F9, #240 (1)) | A room's C = cells × `thermal.coupled.<class>` J/K, one value per room type in 13k.2 (the part that heats on the race's timescale), replacing the single `thermal.heatCapacityPerCell`; a heat sink's water adds as before. Races: reactor alone to overheated **561 s** (61 today), beam bay to hot 165 s (99), engine 868 s (372), shield generator at 6 MW absorbed 496 s (93); the whole-ship races scale with their slowest room (R1's 9 min with shields up becomes roughly 20–40 min: measured by the successor of `L3.ship.heat.v2`). If play then needs faster races, #223's first rung applies (constants within ranges), never the old 1 t value |
-| Repair by mass (F13) | Repair restores `repair.massRate` kg/s of a cell's mass (new, k = 0, 200 kg/s = the old rate × an armour cell); `repair.rate` is removed. A third of a hold cell in 5 s, of a crewed cell in 25 s, of a reactor cell in 208 s |
+| Repair by mass (F13) | Repair restores `repair.massRate` kg/s of a cell's mass (new, k = 0, 200 kg/s = the old rate × an armour cell); `repair.rate` is removed. A third of a hold cell in 5 s, of a crewed cell in 25 s, of a reactor cell in 250 s |
 | Books close at the target (F4, F5) | `fireRound` applies the momentum the cells took (Σ impulse) to the body holding them, at the hit cells; the round's lost kinetic energy is heat in the rooms that took momentum, in proportion (1.92 MJ per M hit, about 0.8 K in a four-cell room). Momentum and energy books close between two ships to 1e-9 × gross |
 | The shield's books (F16, F17, #240 (2)) | The momentum the field removes from a round (3200 N·s per M round at g = 1) is applied to the body holding the generator, at the generator; the energy stays heat in the generator (as built). For a beam the field removes particles (power), not energy per particle: the survivors' depth is unchanged (stated, F17) |
-| Tier-invariant beam depth (F10, #240 (4)) | `beam.gradient` scales with k = **−0.41**: a bay of N cells reaches the same depth in cells at every tier (N = 2: 0.282 armour cells, T1–T6 within 1 %); a stylisation like #64 for rounds (real linacs do not scale), written in §5.4. The T1 value stays 10 MeV/m |
+| Tier-invariant beam depth (F10, #240 (4)) | **As planned**: `beam.gradient` scales with k = −0.41 so that a bay of N cells reaches the same depth in cells at every tier. **Found false at the first run** (#248): the power law holds the N = 2 depth only within 2.2 % (T4), and no exponent holds a deep bay, because the nuclear interaction length is a constant of nature (1321 kg/m²) while a cell's areal density grows with the tier: at T6 an N = 8 bay leaves 89 % of its energy in the first cell against 43 % at T1. S6 is withdrawn as the lead designer's specification error; the rule's successor follows the owner's choice (the decision frame in STATUS). The T1 value stays 10 MeV/m |
 | Energy buffer (F15) | `shield.buffer` (new, J, k = 3, 10 MJ at T1 = today's budget × 1 s) replaces `shield.bufferSeconds`: 5.86 M rounds per buffer at every tier (0.98 at T6 today) |
 | Machinery mass (F11, F23, F24) | `cellMass.engine` = `structure.cellMass` (k = 3) + `engine.machineryMass` (new, k = 2, 2.7 t per cell at T1: the F-1's vacuum thrust per kilogram, 925 N/kg); `cellMass.beamBay` = structure + `beambay.machineryMass` (k = 1, 2.5 t per cell: 1 t of accelerator per metre); `rcs.mass` k = 2; `cellMass.reactor` 1.25e5 → **1.5e5 kg** (the cited compartment's low end is 1200 kg/m³, F24). R1's mass and thrust at T1 change by the engine (−2.4 t) and the reactor (+100 t): re-estimated by the script |
 | Deterministic kernel (#239 Q6) | `js/util.js` gets fdlibm's `sin`, `cos` (from `proto/detmath.js`), an integer-power `powi` and, if the determinism test shows a difference, `log` and `exp`; `body.js` and `data.js`'s `scaled` use them; no `Math.pow` or `**` with a non-integer in the kernel. `tools/determinism.mjs` prints the event hash of a fixed 60 s R1 duel with turning in Node; `proto/smoke.mjs` computes it in Chromium; MATCH is the criterion |
@@ -839,13 +839,13 @@ its re-runnable check. The checklist of #241 (1) is §13k.6.
 
 ### 13k.3 Estimates (T1; `node tools/estimates/pass2.mjs`)
 
-- Burn: hold 1.8 s, engine 3.7 s, beam bay 3.3 s, armour 6 s, crewed 8.9 s, reactor 75 s of a 5 MW beam at contact.
-- Blast absorbed per cell: hold 0.30 MJ (2.0 today), crewed 1.48, reactor 12.5, armour 1.0.
+- Burn: hold 1.8 s, engine 3.4 s, beam bay 3.3 s, armour 6 s, crewed 8.9 s, reactor 90 s of a 5 MW beam at contact (the first version quoted the old 6.1 t and 125 t cells, #248).
+- Blast absorbed per cell: hold 0.30 MJ (2.0 before), crewed 1.48, reactor 15, armour 1.0.
 - Heat: reactor alone 561 s, beam bay 165 s, engine 868 s, shield generator 496 s (one-sided, no radiators).
-- Repair of a third of a cell: hold 5 s, crewed 25 s, reactor 208 s.
+- Repair of a third of a cell: hold 5 s, crewed 25 s, reactor 250 s.
 - Books: 4800 N·s and 1.92 MJ per M hit; 3200 N·s and 1.71 MJ per M round at g = 1 through the shield.
-- Tier: N = 2 depth 0.282 cells at every tier; 5.86 M rounds per buffer at every tier.
-- Masses: engine cell 5.7 t (6.1), reactor cell 150 t (125); R1 re-estimated by the script after the data lands (about 950 t, 1.6 g).
+- Tier: 5.86 M rounds per buffer at every tier (measured exactly). N = 2 depth 0.282 cells at every tier was the plan's claim; measured drift 1.2–2.2 % (T2–T6), and −21 % for N = 8 at T6 (#248).
+- Masses: engine cell 5.7 t (6.1), reactor cell 150 t (125); R1 **950.5 t, 1.61 g**, 90° in 3.80 s, −0.0499 °/s per M shot (measured; the heat sink's water adds 2.9 t).
 
 ### 13k.4 Scenarios
 
@@ -876,7 +876,7 @@ Each locked in a commit of its own before its first canonical run; the engineer 
 | S21 | `L0.kinetic.flatten` (Q6-5) | an M round that stops in a cell | the stop takes min(s, r) with the flattened area; the wrecked round's momentum goes to the ship; literals hand-worked in the criterion (p₀, A₀, S, r, f after cell 1), not an own loop |
 | S22 | anchors (Q2) | `L0.beam.pstar` (S12) extended with iron at 200 MeV against the PSTAR table (cited); `L0.kinetic.penetration.v3`'s claim row cites De Marre for 100–150 mm (#236) as a bound, not a formula | within 1 % (PSTAR); the model's 11 cm inside the cited 100–150 mm |
 
-**Conventions from the scenario audit** (`audit/2026-10-21-scenarios.md`, #244): a closed form against the kernel's loop is checked at **1e-12** (float residue 1e-16–1e-13), not 1e-9; a time on the step grid is checked one-sided in [t, t + dt); a check that compares two fields of the same kernel log, or `heat === energy` where the kernel assigns one to the other, is labelled a consistency invariant and never counts towards E3; an `expected()` that re-implements a kernel rule says so ("re-statement") and carries at least one hand-worked literal; no new scenario reads `ctx.scaled` for its expected value where a literal would do. Locked scenarios are not edited; the conventions apply from S1 on.
+**Conventions from the scenario audit** (`audit/2026-10-21-scenarios.md`, #244): a closed form against the kernel's loop is checked at **1e-12** (float residue 1e-16–1e-13), not 1e-9; a time on the step grid is checked one-sided in [t, t + dt); a check that compares two fields of the same kernel log, or `heat === energy` where the kernel assigns one to the other, is labelled a consistency invariant and never counts towards E3; an `expected()` that re-implements a kernel rule says so ("re-statement") and carries at least one hand-worked literal; no new scenario reads `ctx.scaled` for its expected value where a literal would do; a timed case is placed **off the step grid** (its expected time not a whole number of steps), so the window tells step n from n + 1 (checker N1, #248); a copied successor re-derives its time windows and literals on the new timescale (#248). Locked scenarios are not edited; the conventions apply from S1 on.
 
 ### 13k.5 Process and cost
 
@@ -884,9 +884,9 @@ One engineer session (opus) on `m0/pass2` with the whole of §13k in its first m
 
 ### 13k.6 Checklist (#241 (1))
 
-- [x] Every number above is printed by `tools/estimates/pass2.mjs` from the kernel at `8392126`.
+- [x] Every number above is printed by `tools/estimates/pass2.mjs` from the kernel at `8392126` (**with the old masses in `data.js`: three numbers were stale, corrected above; a plan's script must carry the planned values as overrides, #248**).
 - [x] Estimates switch on every passed level's rules: the one-room races are one-sided with no radiator (as their L1 rows); the ship race is measured, not estimated.
-- [x] Tolerances: S1 in [t, t + dt) (the step); S6 2 % (the fit's error, printed: 0.3 % at T6); S5/S14 1e-9 × gross (the L3 scale, #220); S7 1e-6 (a ratio of two scaled constants).
+- [x] Tolerances: S1 in [t, t + dt) (the step); S6 2 % (**the fit's error was never printed: the script printed the bisection factor, not the power law's error; 0.3 % was asserted, not computed — the gate's first failure, #248**); S5/S14 1e-9 × gross (the L3 scale, #220); S7 1e-6 (a ratio of two scaled constants).
 - [x] Hardware sense-checked: the F-1 in vacuum (925 N/kg); the compartment's density (1200 kg/m³); PWR primary water per MW_th (an estimate scaled from a 3400 MW_th plant: the weakest number here, range 2–20).
 - [ ] Open: the crewed rooms' coupled C has no source (kept at today's value); a real linac does not scale with the tier (a stylisation, written in §5.4).
 
@@ -961,6 +961,13 @@ Each line names its decision and when it is due; a closed one is removed.
 19. The SCRAM restart of #82 (`reactor.restartTime`). Due: physics pass 2.
 20. #240's one law for burn, blast, heat capacity and repair; the shield's
     impulse; tier invariance (#240, #243). Due: physics pass 2.
+22. A reactor meltdown case from about 960 K at the coupled C (no lone
+    SCRAMmed reactor melts down from decay heat any more, #248 Q6). Due:
+    the next kernel pass.
+23. Port `hypot`, `cbrt` and `atan2` if the owner's phone gives a different
+    determinism hash (#248 Q12). Due: the first phone smoke test.
+24. The PSTAR iron CSDA value at 200 MeV, cited, for S22's iron row (#248
+    Q5). Due: when someone can reach NIST.
 21. `tools/mutate.js`: the scenario audit's mutation driver kept as a tool
     and run once per pass; a rule whose removal leaves `regress` green is a
     finding (#246 (1)). Due: a small engineer task after physics pass 2.
@@ -1220,3 +1227,4 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 245 | E1 amended again: withdrawal by decision whatever the verdict; the record frozen; retired | current (amends #188, #200, #237 (7)) |
 | 246 | Prevention after the audits: lint, mutation tool, supersedes rule, ×4, the owner's page | current |
 | 247 | The design partner role; when the lead designer's chat is replaced; the decision frame | current |
+| 248 | Pass 2's first run: S6 withdrawn (the plan's tier law false); the engineer's twelve withdrawals; answers | current |
