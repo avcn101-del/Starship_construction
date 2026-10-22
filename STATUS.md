@@ -9,10 +9,10 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   documents' consolidation (#242); `main` `f68185a`.
-- **Running**: physics pass 2's reviewer (PR #54) and its fix engineer
-  (the S6 successor of #249); the first engineer (29.34 USD) and the
-  blind checker (2.84) are done: no physics error, one law of the plan
-  false (S6), now replaced.
+- **Running**: physics pass 2's fix round 2 (freezing every withdrawn
+  record, #250); the engineer (29.34 USD), the blind checker (2.84), the
+  reviewer (2.24, no blocking finding) and fix round 1 (5.12, S6's
+  successor) are done. Then a light re-review and the merge.
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.
 - **Money**: 2026-10-21/22 so far about 80 USD (v2 13.85, audits 25.40,
@@ -99,6 +99,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Decisions taken by the lead designer since the owner last read (for veto)
 
+- #250: pass 2's fix rounds; every withdrawn record frozen; answers to the
+  reviewer; sessions notify the lead designer when done.
 - #249 is the owner's (beam depth tier-invariant for electronic stopping only).
 - #248: pass 2's first run; S6 withdrawn as the lead designer's error;
   the engineer's twelve withdrawals accepted; answers.

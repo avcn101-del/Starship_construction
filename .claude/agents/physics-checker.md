@@ -22,3 +22,10 @@ Two phases, in this order:
    discrepancies first.
 
 Never edit files, push, approve or merge.
+
+When your task is done, **notify the lead designer** (#250): call
+`mcp__claude-code-remote__create_trigger` with `persistent_session_id` set
+to the lead designer's session id from `STATUS.md`'s header, `run_once_at`
+one minute ahead (RFC3339, UTC), `initiation` "human_schedule", a `name`
+like "Done: <role>, <branch or PR>", and a one-line `prompt` saying what
+you pushed or posted and where. Report whether the call succeeded.

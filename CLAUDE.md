@@ -119,10 +119,14 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   error and float resolution, hardware sense-checked, numbers recomputed
   from the kernel). An estimate is never a canonical run: `node tools/m0.js
   run <id>` without `--set` re-records.
-- **Sessions** (#241): created with the model named explicitly, the whole
-  task in the first message, the fetch refspec, the reading order and the
-  file it may write; no sub-agents unless the task says so; cost estimates
-  carry a ×2.5 factor. Independent read-only **audits** at the milestones of
+- **Sessions** (#241, #250): created with the model named explicitly, the
+  whole task in the first message, the fetch refspec, the reading order and
+  the file it may write; no sub-agents unless the task says so; cost
+  estimates carry a ×2.5 factor (×4 for a kind of work not done before,
+  #246). A session's last act is to **notify the lead designer**: a one-shot
+  trigger into the lead designer's chat (`create_trigger` with
+  `persistent_session_id` from `STATUS.md`'s header, one minute ahead)
+  naming what it pushed; timed check-ins are the fallback. Independent read-only **audits** at the milestones of
   `DESIGN.md` §13b (#238), by `.claude/agents/auditor.md`.
 - **Documents** (#241, #246): `DESIGN.md` is the current design with a
   table of the decisions in force (§18, one row per decision, updated with
