@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — Mass pass 2 planned; the budget by price ∝ mass (#279, #280)
+
+- `DECISIONS.md` #279 (the owner: #74's price with the type factor ∝ the
+  M-cell mass until Mission 0 ends; the reactor's share open; sources
+  for mass pass 2 through the design partner) and #280 (L5m between L5a
+  and L5b; the mutation run on `29ce028` recorded). `DESIGN.md` §13n's
+  pass list, budget and room-size rows, cost table; §17 item 30; §18.
+- `STATUS.md`: the previous chat finished; L5a running.
+
 ## Unreleased — 2026-10-22 — The L5 plan (#277, #278)
 
 - `DECISIONS.md` #277 (the owner: O1–O5 as recommended, option A on the
