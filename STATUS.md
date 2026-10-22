@@ -209,7 +209,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
-| Check-in of this chat | `trig_01TMz35tUMPeEYky6A6TnrbW` | 2026-10-22 07:58 UTC, once | read the L4a fix round; light checker and re-review |
+| Check-in of this chat | `trig_01QEuY9DGDeXBLhFesQqNkCv` | 2026-10-22 08:35 UTC, once | read the L4a fix round; light re-review of PR #58 |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
