@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.log",
-  "code": "e5c67dc",
+  "code": "8af82c8",
   "criterionHash": "f91185ca",
   "lockedHash": "f91185ca",
   "runHash": "f3ee00ad",
-  "dataHash": "fbe6c09f",
-  "rowsHash": "0163a973",
+  "dataHash": "ec2687f2",
+  "rowsHash": "35a396c9",
   "rows": [
     {
       "case": {
@@ -102,8 +102,8 @@
           1
         ],
         "hashes": [
-          "f106b15f",
-          "f106b15f"
+          "dba7ac82",
+          "dba7ac82"
         ],
         "same": true,
         "lines": 70
