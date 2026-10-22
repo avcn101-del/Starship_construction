@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.armour.plate.v2",
-  "code": "e5c67dc",
+  "code": "1d13489",
   "criterionHash": "284d1b05",
   "lockedHash": "284d1b05",
   "runHash": "d61c4552",
-  "dataHash": "fbe6c09f",
+  "dataHash": "ec2687f2",
   "rowsHash": "7f81520c",
   "rows": [
     {

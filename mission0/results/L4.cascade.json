@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.cascade",
-  "code": "e5c67dc",
+  "code": "8af82c8",
   "criterionHash": "bfad5f3d",
   "lockedHash": "bfad5f3d",
   "runHash": "89b01e8a",
-  "dataHash": "fbe6c09f",
+  "dataHash": "ec2687f2",
   "rowsHash": "83709666",
   "rows": [
     {

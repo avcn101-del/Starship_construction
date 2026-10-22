@@ -1,7 +1,7 @@
 // battle.js — the battle loop (DESIGN.md 13l.1, L4b, #252, #253, #255): two
 // ship worlds in one frame, an attacker and a static target. The target has no
 // helm: it holds its heading on its RCS and never thrusts, and fires only when
-// its case says so. The attacker starts at rest battle distance from the
+// its case says so. The attacker starts at rest battle.openingRange from the
 // target's centre of mass on a named bearing, bow-on; its turret aims at the
 // target room (no lead: the target is static) and its spinal beam fires along
 // its axis (#234), which its RCS turns onto the target room. Rounds are kernel
@@ -18,7 +18,7 @@
 // The per-second log (#129) and the cascade tree (#41) are built from the
 // kernel's events. No DOM, no Math.random (one seed per battle, #7, though no
 // rule draws from it yet), no Math.sin, Math.cos or Math.pow.
-import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, enablePowerRouting, setDemand, step, fireRound, fireBeam, shieldRound, beamEnergy, setBeams, setRcs, cull, isDestroyed, survivingCells, magazineContents, plateEntry, plateGone, cellAt, readout, roomTemperature } from './rooms.js';
+import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, enablePowerRouting, setDemand, step, fireRound, fireBeam, shieldRound, beamEnergy, setBeams, setRcs, cull, isDestroyed, survivingCells, magazineContents, plateEntry, entryArealDensity, plateGone, cellAt, readout, roomTemperature } from './rooms.js';
 import { TIERS, FIXED, ROOMS, scaled } from './data.js';
 import { validateShip } from './layout.js';
 import { liveWalls } from './graph.js';
@@ -67,15 +67,15 @@ export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, 
 
 /**
  * A battle (13l.1). `attacker` and `target` are blueprints; the target's centre of mass at the origin with
- * `targetHeading` (default 0) and `targetVelocity` (default at rest); the attacker's centre of mass `distance` (900
- * m, #54) from it on `bearing` (a name of BEARINGS in the target's frame, or a unit vector), at rest, bow-on.
+ * `targetHeading` (default 0) and `targetVelocity` (default at rest); the attacker's centre of mass `distance`
+ * (default battle.openingRange, 900 m at T1, k = 1, #54, #269) from it on `bearing` (a name of BEARINGS in the target's frame, or a unit vector), at rest, bow-on.
  * `plan`: the attacker's targets, { turret: [room ids], beam: [room ids] }, each used until its room is destroyed
  * (or `turretPoint`, a world point the turret aims at instead);
  * `targetFire`: { aim: [x, y] } makes the target's turret fire along that direction of its own frame (a case's
  * order, B5); `setup`: { attacker, target } (world, room) before enableShip; `shield`: { attacker, target } turns a
  * shield generator on. `seed`: the battle's seed (#7).
  */
-export function createBattle({ params, tier = 'T1', attacker, target, bearing = '-y', distance = 900, seed = 1, plan = {}, targetFire = null, targetHeading = 0, targetVelocity = [0, 0], setup = {}, shield = {}, validate = true }) {
+export function createBattle({ params, tier = 'T1', attacker, target, bearing = '-y', distance = scaled(params.battle.openingRange, TIERS[tier].edge), seed = 1, plan = {}, targetFire = null, targetHeading = 0, targetVelocity = [0, 0], setup = {}, shield = {}, validate = true }) {
   const edge = TIERS[tier].edge, k = params.kinetic;
   const u = typeof bearing === 'string' ? rotate(BEARINGS[bearing], targetHeading) : bearing;
   const T = buildShip(params, tier, target, { prefix: 'T', heading: targetHeading, velocity: targetVelocity, setup: setup.target, validate });
@@ -323,7 +323,8 @@ function launch(battle) {
 /**
  * After the step: each round's segment, from where it was (on the other ship's pose before the step) to where it
  * is (on its pose now), is tested against the other ship's hull; a hit is resolved along the whole line (shieldRound
- * at the entry point, then fireRound at the speed relative to the hull there, #242). A round stopped by the field
+ * at the entry point, then fireRound, each with the round's velocity relative to the hull, #242, its direction that
+ * velocity's, #269). A round stopped by the field
  * or the hull ends there, its momentum (the hull's velocity at its stop) booked in battle.spent; one that passes
  * flies on with the velocity fireRound left it and is not tested against that ship again.
  */
@@ -337,12 +338,27 @@ function flyRounds(battle, before) {
 }
 function strike(battle, r, hit) {
   const w = r.other.world, b = w.ship.bodies.find((x) => x.id === hit.body), m = battle.round.mass, A = battle.round.area;
-  const q = worldPoint(b, hit.entry), rel = sub(r.ref.v, pointVelocity(b, q)), speed = len(rel);
-  const sh = shieldRound(w, { position: hit.entry, mass: m, velocity: speed, area: A, direction: hit.dir });
-  const res = sh.velocity > 0 ? fireRound(w, { mass: m, velocity: sh.velocity, area: A, direction: hit.dir }, hit.path, r.id) : null;
+  // The momentum exchange runs along the round's velocity relative to the hull, in the body's frame (B1 of the L4
+  // physics audit, #269); lineHit's dir (the round's displacement between two poses) decides only whether and where
+  // it hits. Each kernel call takes the round's world velocity relative to the hull at the point it books the hull
+  // at: shieldRound at the entry point, fireRound at its first entry with matter (a cell's centre, a plate's
+  // midpoint, rooms.js entryPoint), so the u0 it rebuilds is the round's own velocity and the books close.
+  const q = worldPoint(b, hit.entry), hq = pointVelocity(b, q), rel = sub(r.ref.v, hq), speed = len(rel);
+  const relative = (v, body) => { const d = len(v); return { speed: d, dir: d > 0 ? rotate([v[0] / d, v[1] / d], -body.theta) : hit.dir }; };
+  const toShield = relative(rel, b);
+  const sh = shieldRound(w, { position: hit.entry, mass: m, velocity: speed, area: A, direction: toShield.dir });
+  let res = null, toHull = null;
+  if (sh.velocity > 0) {
+    const u = sh.velocity === speed ? r.ref.v : [hq[0] + (sh.velocity * rel[0]) / speed, hq[1] + (sh.velocity * rel[1]) / speed];
+    const x = hit.path.find((y) => entryArealDensity(w, y) > 0);
+    const cell = x.plate ? r.other.room(x.plate.room).cells[x.plate.k] : x.room.cells[x.cell];
+    const bf = w.ship.bodies.find((y) => y.id === cell.fragment), p = x.plate ? x.plate.p : cellPoint(r.other, x.room, x.cell);
+    toHull = relative(sub(u, pointVelocity(bf, worldPoint(bf, p))), bf);
+    res = fireRound(w, { mass: m, velocity: toHull.speed, area: A, direction: toHull.dir }, hit.path, r.id);
+  }
   r.done = true;
   const stopped = !res || res.stoppedIn >= 0 || res.wrecked || !res.u1;
-  battle.hits.push({ id: r.id, t: battle.t, side: r.other.name, body: hit.body, entry: hit.entry, dir: hit.dir, speed, afterShield: sh.velocity, passed: res ? res.passed : 0, stoppedIn: res ? res.stoppedIn : -2, wrecked: res ? res.wrecked : false, r: res ? res.r : [], momentum: res ? res.momentum : 0, f: res ? res.f : 0, path: hit.path.map((x) => (x.plate ? `plate:${x.plate.id}` : `${x.room.id}:${x.cell}`)), stopped });
+  battle.hits.push({ id: r.id, t: battle.t, side: r.other.name, body: hit.body, entry: hit.entry, dir: hit.dir, exchange: toShield.dir, speed, afterShield: sh.velocity, toHull: toHull ? toHull.speed : 0, passed: res ? res.passed : 0, stoppedIn: res ? res.stoppedIn : -2, wrecked: res ? res.wrecked : false, r: res ? res.r : [], momentum: res ? res.momentum : 0, f: res ? res.f : 0, path: hit.path.map((x) => (x.plate ? `plate:${x.plate.id}` : `${x.room.id}:${x.cell}`)), stopped });
   if (stopped) {
     // The round comes to rest in the hull (or against the field): it moves on with the hull at the entry point.
     const v = res && res.u1 ? res.u1 : pointVelocity(b, q), sp = battle.spent;
@@ -493,15 +509,23 @@ export function battleTree(battle) {
     return { side: s.name, tree, lines: treeLines(tree), errors: tree.errors };
   });
 }
-/** Momentum of both ships (bodies, debris, rounds, what left play) and of the rounds spent in a hull or a field, with the external impulse that is not a hit (thrust, RCS). */
+/**
+ * Momentum of both ships (bodies, debris, rounds in flight, what left play) and of the rounds spent in a hull or a
+ * field, with the external impulse that is not a hit (thrust, RCS): the hits and the fields move momentum between a
+ * round and a hull (booked in ship.received, taken out of ship.external) and the recoil between a turret and its round
+ * (never booked), so P - J stays fixed. `gross`: the sum of the magnitudes of every term of P (debris, left and spent
+ * since the L4 fix round, #269).
+ */
 export function battleMomentum(battle) {
   const P = [0, 0], J = [0, 0];
-  let gross = 0;
+  let gross = len(battle.spent.P);
   for (const s of battle.sides) {
     const sh = s.world.ship, m = momentumOf(sh), left = sh.left || { P: [0, 0] }, rec = sh.received || { J: [0, 0], field: [0, 0] };
     P[0] += m.P[0] + left.P[0]; P[1] += m.P[1] + left.P[1];
     J[0] += sh.external.J[0] - rec.J[0] - rec.field[0]; J[1] += sh.external.J[1] - rec.J[1] - rec.field[1];
+    gross += len(left.P);
     for (const b of sh.bodies) gross += b.M * len(b.v);
+    for (const d of sh.debris) gross += d.m * len(d.v);
     for (const r of sh.rounds) gross += r.m * len(r.v);
   }
   P[0] += battle.spent.P[0]; P[1] += battle.spent.P[1];

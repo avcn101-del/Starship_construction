@@ -215,6 +215,7 @@ export const PARAMS = {
   // Battle-level rules (#82, #83, #222 (7), #243, #253): the battle loop (js/battle.js, 13l.1).
   battle: {
     cullDistance: P(3000, 1000, 1e4, 1, 'm', true, 'a round or debris farther than this from every body leaves play, its momentum booked as left; twice the engagement band (#54, #222 (7), #243)'),
+    openingRange: P(900, 500, 2000, 1, 'm', true, 'the attacker\'s distance from the target\'s centre of mass when a battle opens (createBattle\'s default); #54\'s band; k = 1 so the dodge in one time of flight is the same number of cells at every tier (T2 of the L4 physics audit, §17 item 35, #269)'),
     disabledSeconds: P(10, 3, 30, 0, 's', true, 'no weapon able to fire for this long, whatever the engine does: Disabled (#82, #243, #255)'),
     wreckFraction: P(0.5, 0.3, 0.8, 0, '', true, 'a ship whose largest fragment holds less than this fraction of its mass at undock has broken into too many pieces: destroyed (#83, #253)'),
   },

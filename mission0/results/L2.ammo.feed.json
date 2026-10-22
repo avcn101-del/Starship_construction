@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.ammo.feed",
-  "code": "e5c67dc",
+  "code": "1d13489+dirty",
   "criterionHash": "5d541b7d",
   "lockedHash": "5d541b7d",
   "runHash": "0dcdb2ea",
-  "dataHash": "fbe6c09f",
+  "dataHash": "ec2687f2",
   "rowsHash": "f6527a22",
   "rows": [
     {
