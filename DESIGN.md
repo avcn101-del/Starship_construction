@@ -1106,6 +1106,16 @@ Each line names its decision and when it is due; a closed one is removed.
     Due: L4b's battle loop calls it (§13l.1, B11).
 
 
+30. **Room size S** (#62 promised S/M/L at every tier; `ROOMS` has M and
+    L only; the design partner's finding, #259). Open with it: whether S
+    is one cell (linear 1/2, so the size rule gives a quarter of M) while
+    `FIXED.sizeLinear.S` = 2/3 sets the S round and the shield's
+    `kineticStop`; and whether a weapon room's mass follows its volume
+    (118 kg/m³, a 59 t M turret) or its contents (structure + a mount, as
+    the engine and beam bay already do, #243 F11). Due: the L5 plan
+    decides (build variety for E5 and E6); not before, unless L4b's pace
+    measure needs a lighter ship.
+
 ## 18. Decisions in force
 
 One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (5)). **current**: stands as written; **superseded by #n**: replaced; **partly superseded by #n (what remains)**; **report**: the row records a result or a process step, not a rule; **owner question open**: waits for the owner; **current (unchecked)**: not checked against the current text. The log itself is append-only and unchanged, so a row there may still read as if it stood. Compiled from the documents audit (B1, H), the decisions' own "supersedes" words and the current text of this file; the lead designer reviews it.
@@ -1372,3 +1382,4 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 256 | Armour plates on wall segments only, not decks (2D); R1c the reference with a 0.2 m citadel; pace re-measured after L4a | current |
 | 257 | `tools/mutate.js` merged (PR #56); answers to its engineer and reviewer; survivors for L4a | current |
 | 258 | Answers to L4a (PR #58): plates burn by mass, σ / cos θ, plate heat capacity; A11 to L4b; `L2.layout.invalid` and `L0.armour.plate` withdrawn; fix round | current |
+| 259 | Room size S is #62's open obligation (§17 item 30); decided at the L5 plan | current |
