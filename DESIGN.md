@@ -1095,18 +1095,30 @@ Each line names its decision and when it is due; a closed one is removed.
     needs a proof scenario for every kept law. Decided: the **L5 plan**
     builds `sensors.js` and the knowledge model first (the enemy of §9
     reads only its knowledge model), with scenarios; §17 item 32 rests on
-    it. Due: the L5 plan.
+    it. The owner agreed (#266). Due: the L5 plan.
 34. **A passed cell loses a flat 1 / `kinetic.hitsToWreck`** (#206, the D
     pass), whatever its mass; only the stopping cell loses by what it took
     (`js/rooms.js`, `fireRound`). The D pass predates the one law (#240
     (1)) and physics pass 2 did not revisit it: a hold cell and a reactor
     cell are dug through alike (the design partner's measure, #265). The
     one-law reading is damage = the energy the cell took / (q × its mass),
-    as a beam burns: about 5 M rounds for a hold cell, 23 for a crewed
-    cell, 230 for a reactor cell, and `kinetic.hitsToWreck` goes. A pass
-    with withdrawals of the D-pass scenarios that assert 1/3; estimated
-    under the gate before it is built. Due: the L5 plan decides (it sets
-    the pace with #261's R1d and this at once).
+    as a beam burns. **Measured on the kernel (#266)**: a passing M round
+    leaves a cell only the energy its resistance takes, 0.23 MJ in the
+    first of a column of hold cells (0.43 in the design partner's column),
+    1.12 MJ in a bridge cell, all 1.92 MJ in a reactor cell where it
+    stops; and since that energy is ∝ r ∝ the cell's mass, the energy
+    reading makes **every passed cell about 40 rounds to ruin whatever
+    its mass** (a reactor cell, stopping the round, 234): light cells
+    become nearly immune to rounds that pass them, and a magazine (3 t of
+    structure; its rounds do not count in the cell's mass) would take some
+    20–40 passing rounds while one through a real propellant store is
+    enough. So the pass must answer, before any estimate: what a passing
+    round ruins (the hole it makes is mass-blind; the machinery or
+    contents it crosses are not), and **whether a magazine detonates by a
+    destroyed cell (today) or by the energy deposited in its contents**
+    (the owner's question, #266). Decided by the owner: a pass of its own,
+    estimated under the gate, decided at the L5 plan together with #261's
+    R1d in one pace study. Due: the L5 plan.
 
 ## 18. Decisions in force
 
@@ -1381,3 +1393,4 @@ One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (
 | 263 | The owner's phone replays MATCH (hash `fe22bc2511c8b573`): the kernel is deterministic across engines; §17 item 23 closed | current |
 | 264 | L4b go (the owner); the prototype's end panel shows the cascade tree | current |
 | 265 | Answers to the design partner: the information law is built at L5 (§17 item 33); the flat 1/hitsToWreck on passed cells is an oversight against #240 (1), a pass for the L5 plan (item 34) | current |
+| 266 | The owner: sensors and the knowledge model open the L5 plan; kinetic damage by the one law is a pass decided there; the magazine's detonation rule and the energy a passing round leaves go into that plan | current |
