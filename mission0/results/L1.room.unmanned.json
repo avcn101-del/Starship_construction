@@ -1,0 +1,88 @@
+{
+  "id": "L1.room.unmanned",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.room.unmanned",
+  "code": "4e217c0",
+  "criterionHash": "c98483b5",
+  "lockedHash": "c98483b5",
+  "runHash": "f6e89bb1",
+  "dataHash": "d4c5176f",
+  "rowsHash": "29b093ac",
+  "rows": [
+    {
+      "case": {
+        "heat": "critical",
+        "Q": 240000000
+      },
+      "expected": {
+        "before": 2,
+        "unmanned": true
+      },
+      "actual": {
+        "before": 2,
+        "T0": 290.2122663576721,
+        "crew": 0,
+        "intact": true,
+        "died": {
+          "step": 151,
+          "id": "e7"
+        },
+        "critical": 151,
+        "unmanned": {
+          "step": 151,
+          "parent": "e7"
+        },
+        "restart": 27330,
+        "after": 0,
+        "afterRestart": 0,
+        "able": {
+          "able": false,
+          "why": "unmanned",
+          "parent": "e7"
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "heat": "overheated",
+        "Q": 168000000
+      },
+      "expected": {
+        "before": 2,
+        "unmanned": false
+      },
+      "actual": {
+        "before": 2,
+        "T0": 290.2122663576721,
+        "crew": 3,
+        "intact": true,
+        "died": null,
+        "critical": null,
+        "unmanned": null,
+        "restart": 14688,
+        "after": null,
+        "afterRestart": 152,
+        "able": {
+          "able": false,
+          "why": "dry",
+          "parent": "e161"
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

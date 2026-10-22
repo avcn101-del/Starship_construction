@@ -1,0 +1,595 @@
+{
+  "id": "L2.magazine.detonation",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.magazine.detonation",
+  "code": "4e217c0",
+  "criterionHash": "b4fc16a7",
+  "lockedHash": "b4fc16a7",
+  "runHash": "4146f07c",
+  "dataHash": "d4c5176f",
+  "rowsHash": "ad870883",
+  "rows": [
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "hold",
+        "vd": 200
+      },
+      "expected": {
+        "speed": 705.3969338291275,
+        "hand": 705.4,
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 705.3969338291275,
+        "explosions": 1,
+        "detonation": {
+          "cause": "round-1",
+          "speed": 705.3969338291275,
+          "room": "magazine"
+        },
+        "boom": {
+          "room": "magazine",
+          "energy": 1200000000,
+          "childOf": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "hold",
+        "vd": 300
+      },
+      "expected": {
+        "speed": 705.3969338291275,
+        "hand": 705.4,
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 705.3969338291275,
+        "explosions": 1,
+        "detonation": {
+          "cause": "round-1",
+          "speed": 705.3969338291275,
+          "room": "magazine"
+        },
+        "boom": {
+          "room": "magazine",
+          "energy": 1200000000,
+          "childOf": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "hold",
+        "vd": 400
+      },
+      "expected": {
+        "speed": 705.3969338291275,
+        "hand": 705.4,
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 705.3969338291275,
+        "explosions": 1,
+        "detonation": {
+          "cause": "round-1",
+          "speed": 705.3969338291275,
+          "room": "magazine"
+        },
+        "boom": {
+          "room": "magazine",
+          "energy": 1200000000,
+          "childOf": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "hold",
+        "vd": 500
+      },
+      "expected": {
+        "speed": 705.3969338291275,
+        "hand": 705.4,
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 705.3969338291275,
+        "explosions": 1,
+        "detonation": {
+          "cause": "round-1",
+          "speed": 705.3969338291275,
+          "room": "magazine"
+        },
+        "boom": {
+          "room": "magazine",
+          "energy": 1200000000,
+          "childOf": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "hold",
+        "vd": 600
+      },
+      "expected": {
+        "speed": 705.3969338291275,
+        "hand": 705.4,
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 705.3969338291275,
+        "explosions": 1,
+        "detonation": {
+          "cause": "round-1",
+          "speed": 705.3969338291275,
+          "room": "magazine"
+        },
+        "boom": {
+          "room": "magazine",
+          "energy": 1200000000,
+          "childOf": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "crewed",
+        "vd": 200
+      },
+      "expected": {
+        "speed": 333.2915402236959,
+        "hand": 333.3,
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 333.2915402236959,
+        "explosions": 1,
+        "detonation": {
+          "cause": "round-1",
+          "speed": 333.2915402236959,
+          "room": "magazine"
+        },
+        "boom": {
+          "room": "magazine",
+          "energy": 1200000000,
+          "childOf": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "crewed",
+        "vd": 300
+      },
+      "expected": {
+        "speed": 333.2915402236959,
+        "hand": 333.3,
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 333.2915402236959,
+        "explosions": 1,
+        "detonation": {
+          "cause": "round-1",
+          "speed": 333.2915402236959,
+          "room": "magazine"
+        },
+        "boom": {
+          "room": "magazine",
+          "energy": 1200000000,
+          "childOf": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "crewed",
+        "vd": 400
+      },
+      "expected": {
+        "speed": 333.2915402236959,
+        "hand": 333.3,
+        "explodes": false,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 333.2915402236959,
+        "explosions": 0,
+        "detonation": null,
+        "boom": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "crewed",
+        "vd": 500
+      },
+      "expected": {
+        "speed": 333.2915402236959,
+        "hand": 333.3,
+        "explodes": false,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 333.2915402236959,
+        "explosions": 0,
+        "detonation": null,
+        "boom": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "crewed",
+        "vd": 600
+      },
+      "expected": {
+        "speed": 333.2915402236959,
+        "hand": 333.3,
+        "explodes": false,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 333.2915402236959,
+        "explosions": 0,
+        "detonation": null,
+        "boom": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "crewedL",
+        "vd": 200
+      },
+      "expected": {
+        "speed": 488.8610268157973,
+        "hand": 488.9,
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 488.8610268157973,
+        "explosions": 1,
+        "detonation": {
+          "cause": "round-1",
+          "speed": 488.8610268157973,
+          "room": "magazine"
+        },
+        "boom": {
+          "room": "magazine",
+          "energy": 1200000000,
+          "childOf": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "crewedL",
+        "vd": 300
+      },
+      "expected": {
+        "speed": 488.8610268157973,
+        "hand": 488.9,
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 488.8610268157973,
+        "explosions": 1,
+        "detonation": {
+          "cause": "round-1",
+          "speed": 488.8610268157973,
+          "room": "magazine"
+        },
+        "boom": {
+          "room": "magazine",
+          "energy": 1200000000,
+          "childOf": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "crewedL",
+        "vd": 400
+      },
+      "expected": {
+        "speed": 488.8610268157973,
+        "hand": 488.9,
+        "explodes": true,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 488.8610268157973,
+        "explosions": 1,
+        "detonation": {
+          "cause": "round-1",
+          "speed": 488.8610268157973,
+          "room": "magazine"
+        },
+        "boom": {
+          "room": "magazine",
+          "energy": 1200000000,
+          "childOf": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "crewedL",
+        "vd": 500
+      },
+      "expected": {
+        "speed": 488.8610268157973,
+        "hand": 488.9,
+        "explodes": false,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 488.8610268157973,
+        "explosions": 0,
+        "detonation": null,
+        "boom": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "crewedL",
+        "vd": 600
+      },
+      "expected": {
+        "speed": 488.8610268157973,
+        "hand": 488.9,
+        "explodes": false,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": false,
+        "speed": 488.8610268157973,
+        "explosions": 0,
+        "detonation": null,
+        "boom": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "plate",
+        "vd": 200
+      },
+      "expected": {
+        "speed": null,
+        "hand": null,
+        "explodes": false,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": true,
+        "speed": null,
+        "explosions": 0,
+        "detonation": null,
+        "boom": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "plate",
+        "vd": 300
+      },
+      "expected": {
+        "speed": null,
+        "hand": null,
+        "explodes": false,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": true,
+        "speed": null,
+        "explosions": 0,
+        "detonation": null,
+        "boom": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "plate",
+        "vd": 400
+      },
+      "expected": {
+        "speed": null,
+        "hand": null,
+        "explodes": false,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": true,
+        "speed": null,
+        "explosions": 0,
+        "detonation": null,
+        "boom": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "plate",
+        "vd": 500
+      },
+      "expected": {
+        "speed": null,
+        "hand": null,
+        "explodes": false,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": true,
+        "speed": null,
+        "explosions": 0,
+        "detonation": null,
+        "boom": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "shot",
+        "shot": "plate",
+        "vd": 600
+      },
+      "expected": {
+        "speed": null,
+        "hand": null,
+        "explodes": false,
+        "energy": 1200000000
+      },
+      "actual": {
+        "plated": true,
+        "speed": null,
+        "explosions": 0,
+        "detonation": null,
+        "boom": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "destroyed-cell"
+      },
+      "expected": {
+        "explodes": false,
+        "rounds": 150
+      },
+      "actual": {
+        "explosions": 0,
+        "rounds": 150
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "last-cell"
+      },
+      "expected": {
+        "explodes": false,
+        "rounds": 0,
+        "debris": 900
+      },
+      "actual": {
+        "explosions": 0,
+        "rounds": 0,
+        "debris": 900,
+        "standing": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "cook-off"
+      },
+      "expected": {
+        "explodes": true,
+        "cause": "heat",
+        "energy": 1200000000
+      },
+      "actual": {
+        "explosions": 1,
+        "cause": "heat",
+        "energy": 1200000000,
+        "cookOff": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

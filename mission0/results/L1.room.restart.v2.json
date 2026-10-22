@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.room.restart.v2",
-  "code": "1d13489+dirty",
+  "code": "4e217c0",
   "criterionHash": "b6ca62c6",
   "lockedHash": "b6ca62c6",
   "runHash": "ea075c7d",
-  "dataHash": "ec2687f2",
+  "dataHash": "d4c5176f",
   "rowsHash": "31fb4c4b",
   "rows": [
     {
