@@ -84,7 +84,7 @@ export default {
   tolerance: 'mass and acceleration 1e-12 (the mass within its own float); centre and inertia 1e-12; books 1e-9 x the gross',
   criterion: 'hand-worked literals from tools/estimates/l4.mjs: mass 1 264 534.057 kg (R1\'s 950 534.057 + 8 x 0.2 x 7850 x 25 = 314 000 kg), 1.20960 g (engine.thrust 15 MN over the mass, to the printed 6 figures), centre (28.0748913, 15.8901228) m and inertia 1.845494593e8 kg m^2 (the plates at their segments\' midpoints); wrecked: each M round stops in the plate and costs it (s0 / r) / 3 (L0.armour.plate), so it is a hole after the 5th (5 x 0.2154 > 1); the body then holds R1c\'s mass less 39 250 kg, the debris piece holds 39 250 kg, and the body\'s centre and inertia are R1c\'s less a point mass of 39 250 kg at (37.5, 10) m by the parallel-axis rule (hand-worked from the literals, 1e-9); mass and momentum books close (#255, #256)',
   tunable: ['armour.plateThickness', 'engine.thrust'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'c26d3f06' },
   cases() {
     return [{ part: 'intact' }, { part: 'wrecked' }];
   },

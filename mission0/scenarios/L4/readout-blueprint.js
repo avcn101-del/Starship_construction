@@ -39,7 +39,7 @@ export default {
   tolerance: 'before = after within 1e-12 relative; the mass literals within 1e-12',
   criterion: 'mass, both centre coordinates and the inertia equal before and after enableShip within 1e-12 (#225 (5)); hand-worked mass literals R1 950 534.057 kg and R1c 1 264 534.057 kg (R1 + 314 000 kg of plates, #256) within 1e-12',
   tunable: ['armour.plateThickness'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'ba211887' },
   cases() {
     return Object.keys(SHIPS).map((ship) => ({ ship }));
   },

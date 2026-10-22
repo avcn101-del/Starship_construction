@@ -44,7 +44,7 @@ export default {
   tolerance: '1e-12',
   criterion: 'hand-worked: the body holds R1\'s 950 534.057 kg less one hold cell (structure.cellMass, 3000 kg): 947 534.057 kg; one debris piece of 3000 kg; the damaged cells (2/3 and 0.1 left) keep their whole 3000 kg each (13f.1)',
   tunable: ['structure.cellMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '55c53d00' },
   cases() {
     return [{ cell: 1 }];
   },

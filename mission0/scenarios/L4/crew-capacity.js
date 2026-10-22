@@ -39,7 +39,7 @@ export default {
   tolerance: 'exact',
   criterion: 'hand-worked: R1\'s rooms require bridge 4 + reactor 4 + engine 2 + magazine 2 + shield generator 2 + beam bay 3 + turret 3 = 20 crew (crewRequired at T1); its quarters (6 cells) berth 18 at 3 per cell and 24 at 4. At 3: rejected with exactly one reason, crew (20 > 18); at 4: valid; without quarters: rejected with exactly one reason, crew (20 > 0) (#60, #253)',
   tunable: ['quarters.crewPerCell'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '709d5033' },
   cases() {
     return Object.keys(CASES).map((name) => ({ name }));
   },

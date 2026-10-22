@@ -43,7 +43,7 @@ export default {
   tolerance: 'exact (events and steps)',
   criterion: 'overheated: in the step the bridge shuts down (cause heat) it emits control-lost with cause overheat, and every one of the other nine rooms emits control-lost in that same step, the reactor scram with them; off: in the first step the bridge emits its own control-lost with cause off and the nine others lose control in that step, the reactor SCRAMs; switched on again it emits control-restored with cause on and the nine regain control in that step (#185 (6), #189 (3), #257 Q2)',
   tunable: ['thermal.crewedOverheated'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'e518915b' },
   cases() {
     return [{ how: 'overheated' }, { how: 'off' }];
   },

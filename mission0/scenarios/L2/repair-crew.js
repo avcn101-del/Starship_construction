@@ -12,7 +12,7 @@ export default {
   tolerance: 'exact (whole crew)',
   criterion: 'hand-worked: after the two losses the bridge has lost floor(4 x 1.2 / 4) = 1 crew (3 aboard); the repair brings cells 0 and 1 back to 1 and nobody back (3 aboard); the third loss of 0.1 (0.1 of a cell lost now, 1.2 in all) kills nobody more: 3 aboard, one crew-died event in all (#206, 13e.1)',
   tunable: ['repair.massRate', 'repair.radius', 'crewRequired.bridge'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '012ad5ff' },
   cases() {
     return [{ stage: 'all' }];
   },

@@ -43,7 +43,7 @@ export default {
   tolerance: '1e-12',
   criterion: 'hand-worked: the beam stops in the cell (120 kg/m^2 beyond the 112.6 kg/m^2 CSDA range of 100 MeV in iron), so it deposits E = 5e6 / 60 = 83 333.33 J, which destroys the cell (E / (3000 J/kg x 3000 kg) = 0.0093 > 1e-6); the cell leaves with a quarter of the room\'s heat capacity and of its heat after the deposit, so the hold keeps Q = 3/4 (C x 290 + E) and vents (C / 4)(T - 290) = E / 4 = 20 833.33 J (C = 4 x thermal.coupledHold = 5.4e6 J/K) (F21, #214 (9))',
   tunable: ['beam.power', 'matter.burnEnergyPerKg', 'thermal.coupledHold'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '09b3a346' },
   cases() {
     return [{ cell: 0 }];
   },

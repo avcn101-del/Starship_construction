@@ -13,7 +13,7 @@ export default {
   tolerance: 'closed forms 1e-12',
   criterion: 'hand-worked: G = conduction.wall x 10 m x 1 = 4e4 W/K; the first step moves G x 300 K x dt = 4e4 x 300 / 60 = 200 000 J from the hot room to the cold one (1e-12); the second G (T_a - T_b) dt from the temperatures after the first, T = 590 - 2e5 / C and 290 + 2e5 / C with C = 4 x thermal.coupledReactor = 2.2e7 J/K (re-statement of explicit Euler, 1e-12); a second-order (trapezoid) flow would differ by 0.5 G dt (1/C_a + 1/C_b) = 3.0e-5 of it (#193, #200)',
   tunable: ['conduction.wall', 'thermal.coupledReactor'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'cac52d55' },
   cases() {
     return [{ steps: 2 }];
   },

@@ -29,7 +29,7 @@ export default {
   tolerance: '1e-12 relative between neighbours (a smooth range moves by about 2e-14 between neighbours 1e-14 apart; the jump before L4a was about 5e-6, PR #54 fix round 1, Q3)',
   criterion: 'at each sampled change the step count differs between the two ends of the window (the window holds a change), and no two neighbouring energies give ranges more than 1e-12 apart, relative (#251 (2), §17 item 27)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '7708fbee' },
   cases() {
     return NEAR.map((MeV) => ({ MeV }));
   },

@@ -63,7 +63,7 @@ export default {
   tolerance: 'exact',
   criterion: 'each bad placement throws with its message (overlaps, outside, rotation, integer) and the valid pair does not; R1 is valid with no reason; each broken blueprint is invalid and names its rule, exactly once, and no other rule; R1c is valid with no reason (#57, #192, #208, #234, #244, #255, #256). Successor of L2.layout.invalid: its hull blueprint (a bridge and a turret, no quarters) now also fails the crew rule of 13l.1 (#60, #253), so it gains a quarters; nothing else of it changes',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '61e8868b' },
   cases() {
     return [...Object.keys(PLACEMENTS).map((name) => ({ kind: 'place', name })), ...Object.keys(BLUEPRINTS).map((name) => ({ kind: 'validate', name }))];
   },

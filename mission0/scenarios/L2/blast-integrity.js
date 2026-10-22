@@ -21,7 +21,7 @@ export default {
   tolerance: 'books absorbed + escaped = E within 1e-9 x E; capacities, absorbed energies and integrities against the hand-worked literals within 1e-12',
   criterion: 'hand-worked literals (structure.cellMass 3000 kg, matter.blastPerKg 100 J/kg, 4 cells): the magazine absorbs its capacity 4 x 100 x 3000 = 1.2 MJ and passes E - 1.2 MJ = 5.2/9 MJ (0.5778 MJ) to the hold; the hold\'s capacity is its remaining integrity x 1.2 MJ: 1.2, 0.8 and 0.4 MJ. Full: the hold absorbs 5.2/9 MJ, nothing escapes, each cell is left at 1 x (1 - (5.2/9) / 1.2) = 14/27; two thirds: absorbs 5.2/9 MJ, each cell left at (2/3)(1 - (5.2/9) / 0.8) = 5/27 (the absorbed share of each cell\'s remaining integrity, so no cell holds more than its own integrity x q_b x m); one third: absorbs its 0.4 MJ, every cell destroyed, and 16/9 - 1.6 = 1.6/9 MJ (0.1778 MJ) escapes to space. Books: absorbed + escaped = E within 1e-9 (#184, #216 (3), 13l.1)',
   tunable: ['matter.blastPerKg', 'structure.cellMass', 'kinetic.chargeEnergy'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '377ce996' },
   cases() {
     return Object.keys(INTEGRITY).map((hold) => ({ hold }));
   },

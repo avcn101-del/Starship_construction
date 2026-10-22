@@ -52,7 +52,7 @@ export default {
   tolerance: 'closed forms 1e-12; the hand-worked literals 1e-12 (sigma, r) and 1e-9 (the derived ones)',
   criterion: 'the path is [plate, hold cell 0, hold cell 1] (the plate before the cell, on the segment the line crosses). Hand-worked: sigma = 0.2 x 7850 = 1570 kg/m^2 (0.1 m: 785; 0.01 m: 78.5), r = c sigma chord with c = matter.kineticResistance (1545.4 m/s): 2.4263e6 (chord 1), 1.7157e6 (1/sqrt 2), 1.2131e6 (0.1 m) kg/(m s); an M round (6 kg, 800 m/s, s0 = 1.568e6) stops in the 0.2 m plate at either chord (s0 < r), taking s0, the plate losing (s0 / r) / 3 of its integrity and the hold taking all 1.92 MJ as heat; through 0.1 m it passes (the plate takes r and loses 1/3), then crosses the hold\'s cells by the round rule (the scenario\'s own loop, re-statement); four rounds through 0.1 m: the plate at 2/3, 1/3, a hole after the third (plate-destroyed), the fourth meets sigma 0 there. The beam (5 MW, 100 MeV from an N = 2 bay): the plate takes F = beamDeposit(E, [sigma chord, 120, 120])[0] of P (re-statement through the kernel\'s pure beamDeposit); at 0.2 m F = 1 exactly (the CSDA range of 100 MeV in iron, 112.6 kg/m^2, is less than 1570 x 1/sqrt 2), so the hold gains P dt of heat per step and its cells nothing; the plate is not burnt (13l.1 names no burn for a plate) (#255, #256)',
   tunable: ['armour.plateThickness', 'matter.kineticResistance', 'kinetic.roundMass', 'kinetic.muzzleVelocity', 'kinetic.hitsToWreck', 'beam.power', 'beam.gradient'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'd09c4c9d' },
   cases() {
     return CASES.map((x) => ({ ...x }));
   },

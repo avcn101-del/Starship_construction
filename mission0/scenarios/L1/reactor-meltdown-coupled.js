@@ -24,7 +24,7 @@ export default {
   tolerance: 'the time one-sided in [t, t + dt) (the 1e-9 float slack of #185 (2)), t off the step grid',
   criterion: 't = C (thermal.plantCritical - 960 K) / P with C = 4 x thermal.coupledReactor x (edge / 5)^3 (re-statement); hand-worked literals: T1 C = 2.2e7 J/K, t = 2.2e7 x 40 / 7e6 = 880/7 = 125.714 s; T3 C = 1.76e8 J/K, t = 1.76e8 x 40 / 2.8e7 = 1760/7 = 251.43 s; a meltdown event then an explosion (cause heat) in the same step; heat books close (generated = radiated + stored, 1e-9) (#81, #248 Q6, §17 item 22)',
   tunable: ['thermal.coupledReactor', 'thermal.plantCritical'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '4f6e49c7' },
   cases() {
     return Object.keys(SOURCE).map((tier) => ({ tier }));
   },
