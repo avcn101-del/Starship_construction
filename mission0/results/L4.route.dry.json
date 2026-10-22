@@ -1,0 +1,50 @@
+{
+  "id": "L4.route.dry",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.dry",
+  "code": "e5c67dc",
+  "criterionHash": "f172b965",
+  "lockedHash": "f172b965",
+  "runHash": "c079d711",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "c10a6188",
+  "rows": [
+    {
+      "case": {
+        "target": "T-gun"
+      },
+      "expected": {
+        "n": 154,
+        "step": 18961,
+        "literal": {
+          "n": 154,
+          "step": 18961
+        }
+      },
+      "actual": {
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "step": 18961,
+          "t": 316.01666666666665,
+          "why": "dry"
+        },
+        "shots": 154,
+        "left": 0
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

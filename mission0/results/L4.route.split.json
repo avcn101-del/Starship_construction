@@ -1,0 +1,74 @@
+{
+  "id": "L4.route.split",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.split",
+  "code": "e5c67dc",
+  "criterionHash": "12e05d28",
+  "lockedHash": "12e05d28",
+  "runHash": "c059b24a",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "59f50a9a",
+  "rows": [
+    {
+      "case": {
+        "order": "split",
+        "aim": "hold"
+      },
+      "expected": {
+        "bodies": 2,
+        "gap": 600
+      },
+      "actual": {
+        "split": {
+          "step": 426,
+          "bodies": 2,
+          "dP": 2.842170943040401e-14,
+          "gross": 4689.410893842637
+        },
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "step": 1026,
+          "why": "no-power"
+        },
+        "explosions": 0,
+        "t": 17.1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "order": "naive",
+        "aim": "beamBay"
+      },
+      "expected": {
+        "limit": 120
+      },
+      "actual": {
+        "split": {
+          "step": 427,
+          "bodies": 2,
+          "dP": 1.1737856311029015e-11,
+          "gross": 19201.847162700808
+        },
+        "ended": null,
+        "explosions": 0,
+        "t": 120
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

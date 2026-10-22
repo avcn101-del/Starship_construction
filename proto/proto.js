@@ -5,7 +5,7 @@
 // panel (both ships' fit, the player's standing orders, the seed) before each
 // battle. A throwaway: it only reads the kernel's state and never counts as a
 // Mission 0 result. No Math.random: the page draws no random effect.
-import { createBattle, tick, setTarget, setPreset, drainEvents, abilities, mainBody } from './battle.js';
+import { createBattle, tick, setTarget, setPreset, drainEvents, abilities, mainBody, endTree } from './battle.js';
 import { createRecorder, record, exportText } from './export.js';
 import { isDestroyed, roomTemperature, survivingFraction } from '../js/rooms.js';
 import { worldPoint } from '../js/body.js';
@@ -193,7 +193,7 @@ function drawShip(ship) {
   ctx.fillText(`target: ${ship.target ? LABELS[ship.target] : '—'} · ${ship.helm.mode || ''}${ship.helm.throttle > 0 ? ` · engine ${Math.round(ship.helm.throttle * 100)}%` : ''}`, o, geo.strip + 2 * line);
   const by = geo.oy + GH * geo.cs + line;
   const ok = (x) => (x ? 'ok' : 'NO');
-  ctx.fillText(`beam ${ok(a.beam)} gun ${ok(a.turret)} thrust ${ok(a.thrust)}`, o, by);
+  ctx.fillText(`beam ${ok(a.beam)} gun ${ok(a.turret)} (thrust does not count, #255)`, o, by);
   ctx.fillText(`crew ${ship.crewTotal - ship.crewLost}/${ship.crewTotal}  reactor ${(reactor.delivered / 1e6).toFixed(1)} MW`, o, by + line);
   ctx.fillText(`shield ${up ? `${Math.round(frac * 100)}%` : 'OFF'}  absorbing ${(s.absorbed / 1e6).toFixed(1)} MW`, o, by + 2 * line);
   if (ship.disabledSince !== null) { ctx.fillStyle = COLOURS.cross; ctx.font = 'bold 12px ui-monospace, Menlo, Consolas, monospace'; ctx.fillText(`DISABLED in ${Math.max(0, battle.disabledSeconds - (battle.t - ship.disabledSince)).toFixed(1)} s`, o, by + 3 * line); }
@@ -331,6 +331,28 @@ function logEvents() {
 }
 
 // ---------- the end ----------
+const esc = (x) => String(x).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+const TREE_ROWS = 80; // prototype setting: the most rows of the cascade tree on the end panel
+/**
+ * The cascade tree of why a ship's battle ended (#41, #264), from the kernel's events (battle.js endTree): the root
+ * shot or beam, then each event it caused, indented; runs of the same event on the same room at the same depth are one
+ * row with a count (a beam damages a cell every step).
+ */
+function treeHtml(side) {
+  const ship = battle[side], tree = endTree(ship);
+  if (!tree) return '';
+  const rows = [];
+  for (const r of tree.rows) {
+    const last = rows[rows.length - 1], e = r.event;
+    if (last && last.depth === r.depth && last.type === e.type && last.room === e.room && !last.end) { last.n++; continue; }
+    rows.push({ depth: r.depth, type: e.type, room: e.room, t: e.t, n: 1, id: e.id, end: e.type === 'disabled' || e.type === 'destroyed' });
+  }
+  const why = side === 'player' ? 'Why you lost' : 'Why the enemy lost';
+  const lines = rows.slice(0, TREE_ROWS).map((r) => `<div class="tree-row${r.id === tree.parent ? ' tree-cause' : ''}" style="padding-left:${r.depth * 12}px">${r.t.toFixed(1)} s ${esc(LABELS[r.room] || r.room)} ${esc(r.type)}${r.n > 1 ? ` &times;${r.n}` : ''}</div>`);
+  const more = rows.length > TREE_ROWS ? `<div class="tree-row">… ${rows.length - TREE_ROWS} more rows (the replay's log has every event)</div>` : '';
+  const end = ship.disabled ? `Disabled: no weapon able to fire for ${battle.disabledSeconds} s (the red row took the last one)` : 'Destroyed';
+  return `<div class="tree"><h3>${why}: cascade tree</h3><div class="tree-root">${esc(tree.root)}</div>${lines.join('')}${more}<div class="tree-row">→ ${end}</div></div>`;
+}
 function showEnd() {
   const e = battle.ended, el = $('end'), t = Math.floor(e.t);
   const title = e.losers.length === 2 ? 'Both ships are out' : e.losers[0] === 'enemy' ? `Enemy ${e.reason.enemy}` : `You are ${e.reason.player}`;
@@ -339,7 +361,7 @@ function showEnd() {
     return `<tr><th>${side === 'player' ? 'You' : 'Enemy'}</th><td>${s.crewLost} / ${s.crewTotal}</td><td>${s.wrecked.length ? s.wrecked.map((id) => LABELS[id]).join(', ') : 'none'}</td></tr>`;
   };
   el.innerHTML = `<h2>${title}</h2><div>Battle time ${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')} (${e.t.toFixed(1)} s)</div>
-    <table><tr><th></th><th>Crew lost</th><th>Rooms wrecked</th></tr>${row('player')}${row('enemy')}</table>`;
+    <table><tr><th></th><th>Crew lost</th><th>Rooms wrecked</th></tr>${row('player')}${row('enemy')}</table>${e.losers.map((side) => treeHtml(side)).join('')}`;
   const b = document.createElement('button');
   b.type = 'button'; b.textContent = 'Restart'; b.addEventListener('click', chooseLoadout);
   const x = document.createElement('button');

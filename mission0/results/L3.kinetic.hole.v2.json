@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.kinetic.hole.v2",
-  "code": "7399706",
+  "code": "e5c67dc",
   "criterionHash": "69d0af68",
   "lockedHash": "69d0af68",
   "runHash": "1c8bd105",
-  "dataHash": "7456430e",
+  "dataHash": "fbe6c09f",
   "rowsHash": "53116e88",
   "rows": [
     {

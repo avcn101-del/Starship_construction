@@ -1,0 +1,49 @@
+{
+  "id": "L2.plate.vent",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.plate.vent",
+  "code": "e5c67dc",
+  "criterionHash": "60b22653",
+  "lockedHash": "60b22653",
+  "runHash": "1bba112a",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "902e033e",
+  "rows": [
+    {
+      "case": {
+        "T": 400
+      },
+      "expected": {
+        "before": 44662500,
+        "after": 37912500,
+        "wrong": 33496875,
+        "T": 400,
+        "vented": 742500000
+      },
+      "actual": {
+        "before": {
+          "C": 44662500,
+          "T": 400
+        },
+        "after": {
+          "C": 37912500,
+          "T": 400
+        },
+        "vented": 742500000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

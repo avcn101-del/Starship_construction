@@ -1,0 +1,38 @@
+{
+  "id": "L4.e8",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.e8",
+  "code": "e5c67dc",
+  "criterionHash": "07181e5c",
+  "lockedHash": "07181e5c",
+  "runHash": "a8aacd5b",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "32ef3829",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1"
+      },
+      "expected": {
+        "budget": 1
+      },
+      "actual": {
+        "under": true,
+        "ended": "disabled"
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

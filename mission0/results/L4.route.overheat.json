@@ -1,0 +1,56 @@
+{
+  "id": "L4.route.overheat",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.overheat",
+  "code": "e5c67dc",
+  "criterionHash": "c7ac0360",
+  "lockedHash": "c7ac0360",
+  "runHash": "a6be8e63",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "5e151db7",
+  "rows": [
+    {
+      "case": {
+        "target": "T-gun",
+        "bearing": "+x"
+      },
+      "expected": {
+        "kind": "disabled",
+        "why": "heat",
+        "cause": "heat"
+      },
+      "actual": {
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "t": 32.88333333333333,
+          "why": "heat"
+        },
+        "parent": {
+          "type": "shutdown",
+          "room": "turret",
+          "cause": "heat"
+        },
+        "turret": {
+          "destroyed": false,
+          "shutdown": true,
+          "integrity": 0.17412841835918533
+        },
+        "explosions": 0
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

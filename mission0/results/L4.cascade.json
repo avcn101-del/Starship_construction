@@ -1,0 +1,93 @@
+{
+  "id": "L4.cascade",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.cascade",
+  "code": "e5c67dc",
+  "criterionHash": "bfad5f3d",
+  "lockedHash": "bfad5f3d",
+  "runHash": "89b01e8a",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "83709666",
+  "rows": [
+    {
+      "case": {
+        "battle": "B1",
+        "aim": "bridge"
+      },
+      "expected": {
+        "rooms": [
+          "beamBay",
+          "bridge",
+          "engine",
+          "heatSink",
+          "hold",
+          "magazine",
+          "quarters",
+          "reactor",
+          "shield",
+          "turret"
+        ]
+      },
+      "actual": {
+        "errors": 0,
+        "events": 58,
+        "ended": "disabled",
+        "chain": [
+          "disabled:turret",
+          "control-lost:turret",
+          "cell-destroyed:bridge",
+          "shot-12"
+        ],
+        "lost": [
+          "beamBay",
+          "bridge",
+          "engine",
+          "heatSink",
+          "hold",
+          "magazine",
+          "quarters",
+          "reactor",
+          "shield",
+          "turret"
+        ],
+        "scramParent": "control-lost:reactor",
+        "throughCut": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "battle": "B6",
+        "aim": "magazine"
+      },
+      "expected": {
+        "by": "explosion"
+      },
+      "actual": {
+        "errors": 0,
+        "events": 109,
+        "ended": "destroyed",
+        "chain": [
+          "destroyed:magazine",
+          "explosion:magazine",
+          "cell-destroyed:magazine",
+          "shot-4"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

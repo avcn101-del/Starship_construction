@@ -1,0 +1,53 @@
+{
+  "id": "L4.route.decapitate",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.decapitate",
+  "code": "e5c67dc",
+  "criterionHash": "f9b416ea",
+  "lockedHash": "f9b416ea",
+  "runHash": "5c16a046",
+  "dataHash": "fbe6c09f",
+  "rowsHash": "8c06408a",
+  "rows": [
+    {
+      "case": {
+        "target": "R1",
+        "bearing": "-y"
+      },
+      "expected": {
+        "gap": 600,
+        "firstArrival": 66
+      },
+      "actual": {
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "step": 1987
+        },
+        "explosions": 0,
+        "bridgeStep": 1387,
+        "bridgeCause": "shot-12",
+        "ownArrival": 1387,
+        "hitsBy": 12,
+        "arrivedBy": 12,
+        "firstArrival": 66,
+        "firstHitStep": 66,
+        "root": "shot-12",
+        "shots": 12
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
