@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — L5a fix round (#282 (7))
+
+- `js/battle.js` `lineOfAction`: a round at rest relative to the hull no
+  longer divides by zero (its entries act at its own position); the fixed
+  point throws if it has not converged after its 20 iterations.
+- Successors `L2.magazine.types.v2` (a railgun-typed magazine holding turret
+  rounds: the turret is not fed and not able), `L0.kinetic.chord.loss.v2`
+  (a 16-cell column: chord 0.5 stops in cell 13, chord 0.05 exits at
+  722.52 m/s, hand-worked) and `L4.books.angular.v2` (a target spinning at
+  1 rad/s; every hit impulse on the round's line of action to 1e-9 of the
+  edge); the three originals withdrawn under #282. The comment slips of K2,
+  K3, R1d's shot-4 and B3 noted in the successors' headers.
+- `mission0/mutations/`: the four `l5a.feed` / `l5a.line` mutants re-run.
+
 ## Unreleased — 2026-10-22 — Answers to L5a (#282)
 
 - `DECISIONS.md` #282: answers to the L5a engineer, the blind checker and
