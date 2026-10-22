@@ -13,7 +13,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   capacity, the kernel obligations.
 - **Running**: L4b engineer `session_01MwEE8qKmDVhDfvqWe4UnWn` (opus, on
   `m0/l4b` from `main` `351604e`, 09:15 UTC; the owner said go, #264;
-  70–100 USD by the rule, 25–40 expected); locked 15 scenarios at
+  70–100 USD by the rule, 25–40 expected; 16.49 USD at 10:44 with the
+  mutation run at 109/171); locked 15 scenarios at
   `e5c67dc` (09:46 UTC); the blind physics checker (3.91 USD) found 0
   discrepancies against the kernel and 4 notes (the turret aims at the
   first surviving cell's centre, not the room's: a sentence for §13l.1).
@@ -212,7 +213,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
-| Check-in of this chat | `trig_01MHeDJukNbyoFbEoEAh9HAQ` | 2026-10-22 10:43 UTC, once | read the L4b engineer and checker; start the reviewer |
+| Check-in of this chat | `trig_01X9QWUg8dbAvw6b1cjfJPhz` | 2026-10-22 11:20 UTC, once | read the L4b engineer; start the reviewer |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
