@@ -9,22 +9,21 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   consolidation (#242), physics pass 2 (#243–#251), `tools/mutate` (#257),
-  **L4a (PR #58, #253–#258, #260)**: armour plates on walls, R1c, crew
-  capacity, the kernel obligations.
-- **Running**: reviewer of PR #62 (L4b) `session_0191sXFiff1SUfcYSCCYKYiL`
-  (sonnet, 11:05 UTC). The L4b engineer finished (19.06 USD; PR #62, head
-  `6f4bae9`, lock `e5c67dc`): regress 107 VERIFIED + 87 WITHDRAWN + 5
-  RETIRED; 171 mutations, 111 KILLED; E8 0.15–0.29 ms per step; smoke 0
-  errors; 12 questions. The blind checker (3.91 USD) found 0 discrepancies
-  and 4 notes.
-- **Waiting on you**: nothing (L4b go given, #264). Veto window on #253,
-  #256, #258–#264.
-- **Money**: 2026-10-21/22 about 112 USD (v2 13.85, audits 25.40,
-  consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57); L4a was
-  estimated 45–70.
-- **Next**: L4b (`m0/l4b`: the battle loop, Disabled and destroyed as
-  kernel rules, the per-second log, the cascade tree, targets R1, R1d,
-  T-neck, T-gun, B1–B15) once the owner says go.
+  L4a (PR #58, #253–#258, #260), **L4b (PR #62, #261–#264, #267): L4 is
+  done** (every capture route reaches Disabled; the cascade tree; E8
+  0.15–0.29 ms per step).
+- **Running**: nothing. L4b cost 23.98 USD (estimated 70–100 by the
+  rule, 25–40 expected); L4 in all ≥ 41.55 USD.
+- **Waiting on you**: nothing. Veto window on #253, #256, #258–#267
+  (#267 lowers the cost factors: ×1.5 repeated work, ×2.5 new, after
+  three passes within 1.5×). The prototype page will be republished on
+  the L4b kernel (R1d, the cascade tree on the end panel) for you to play.
+- **Money**: 2026-10-21/22 about 136 USD (v2 13.85, audits 25.40,
+  consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98).
+- **Next**: the light audits before the L5 plan (#238: a–d, only what
+  L5 touches), then the L5 plan: `sensors.js` and the knowledge model
+  first (#266), the kinetic-damage pass and R1d in one pace study (§17
+  items 33–36), ship versus ship.
 - **Owner chose** #261 (R1d the pace lever) and #252 (L4: one target per route; EMP and surrender at L5).
   The owner played v2: the magazine always wins in 7.1 s (#254). Pace
   study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
