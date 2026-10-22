@@ -1,5 +1,27 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — The scenario-hygiene round built (#271, `m0/l4-hygiene`)
+
+- Seventeen `.v2` successors of §13l.7's table, each keeping every check
+  of its locked original: the key shot of each L4b route pinned (B1
+  shot-12 hand-worked; B2 shot-19, B3 shot-4, R1 shot-4 and shot-46,
+  R1d shot-10 kernel-read), the 600-step gaps and 0.5 as literals, B4
+  with the target firing and its shutdown bounded by C_surv ΔT / P, the
+  naive split's state, `battleTree` on every L4b battle, E8's time in
+  the row's note, the 700 m/s round's literals, T2 and T3 relabelled,
+  F₂ at chord 0.5, the crew floor at 0.9 and 1.6 cells and a destroyed
+  cell not repaired, the 0.50 share, impulse books at 1e-12 × gross,
+  `L3.beam.deposit`'s vent at a named 1e-11.
+- New `L4.hit.oblique`: a line 20° off the axis (the second entry's
+  chord 0.9774) and a line through holes only (no hit, 3 misses).
+- The last row's survivors: `L0.kinetic.flatten.v2` (a round with s = r
+  stops, `i1.rd.stopsOnEqual`) and `L3.control.bridge.v2` (a routed
+  bridge draws from its backup, `f1.ctl.bridgeBackup`);
+  `k1.beamPaths.neverCleared` is an equivalent mutant (the cache key
+  carries every entry's areal density, 0 for a hole).
+- Nineteen originals withdrawn under #271, frozen; `tools/mutate.js
+  --only` report in `mission0/mutations/`.
+
 ## Unreleased — 2026-10-22 — The scenario-hygiene round planned (#271)
 
 - `DESIGN.md` §13l.7: the L4 scenario audit's findings fixed by seventeen
