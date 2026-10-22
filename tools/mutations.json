@@ -1275,5 +1275,26 @@
     "file": "js/rooms.js",
     "old": "gens.forEach((x, i) => { if (paid[i] > 0 && !world.ship.bodies.some((y) => y.id === x.body)) { heats[i] = paid[i]; heat += paid[i]; } });",
     "new": ""
+  },
+  {
+    "id": "l4x.dir.bodyFrame",
+    "rule": "13l.1 Battle (the momentum exchange along the round's velocity relative to the hull, #242, #269; audit B1)",
+    "file": "js/battle.js",
+    "old": "return { speed: d, dir: d > 0 ? rotate([v[0] / d, v[1] / d], -body.theta) : hit.dir };",
+    "new": "return { speed: d, dir: hit.dir };"
+  },
+  {
+    "id": "l4x.books.missingTerm",
+    "rule": "13l.1 Battle (two-ship books: the rounds spent in a hull or a field, B16, #269)",
+    "file": "js/battle.js",
+    "old": "P[0] += battle.spent.P[0]; P[1] += battle.spent.P[1];",
+    "new": ""
+  },
+  {
+    "id": "l4x.range.k0",
+    "rule": "13l.1 Placement of the attacker (battle.openingRange k = 1, #269; audit T2)",
+    "file": "js/data.js",
+    "old": "openingRange: P(900, 500, 2000, 1,",
+    "new": "openingRange: P(900, 500, 2000, 0,"
   }
 ]
