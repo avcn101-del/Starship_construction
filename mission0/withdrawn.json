@@ -992,5 +992,29 @@
     "recordHash": "ab2c1077",
     "reason": "Superseded by #278, the L5 kinetic pass (DESIGN.md 13n.1 (b), 13n.4 K8): a locked scenario is not edited, so its successor is identical but for its id: its record moves because a stopped round joins the body (B4), so the target's own books take the stopped rounds' momentum (the naive order's unchecked residual). Recorded PASS, frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L2.magazine.types",
+    "successor": "L2.magazine.types.v2",
+    "decision": "#282",
+    "recordHash": "e173d7c5",
+    "reason": "Superseded under #282 (7) (a), the reviewer's blocking finding 1 on PR #73: no case put turret-shaped rounds in a magazine of another type, so the type guards of the feed and of the able rule (13n.1 (b)) could be removed unseen (l5a.feed.anyType, l5a.feed.ableAnyType). Its successor keeps every check and adds that case. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L0.kinetic.chord.loss",
+    "successor": "L0.kinetic.chord.loss.v2",
+    "decision": "#282",
+    "recordHash": "1f606ea5",
+    "reason": "Superseded under #282 (7) (b), the physics checker's D4 on PR #73: the 12-cell column never reached the stopping cell at chords 0.5 and 0.05, so the stop-cell check was vacuous there. Its successor keeps every check and adds a 16-cell column where chord 0.5 stops and chord 0.05 exits, both hand-worked. Recorded PASS, frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.books.angular",
+    "successor": "L4.books.angular.v2",
+    "decision": "#282",
+    "recordHash": "81211212",
+    "reason": "Superseded under #282 (7) (c), the reviewer's finding 5 on PR #73: no check that the impulse acts on the round's line of action, so removing the projection (l5a.line.noProjection) left it passing. Its successor keeps every check and adds a fast-spinning target and that check on every hit impulse. Recorded PASS, frozen (#245).",
+    "frozen": true
   }
 ]
