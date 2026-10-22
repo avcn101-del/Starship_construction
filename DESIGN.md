@@ -800,14 +800,293 @@ The next steps live in `STATUS.md`.
 
 ## 16. Measured — moved to `HISTORY.md` (#241)
 
-## 17. Open questions
+## 17. Open obligations
 
-1. **Chapter design** waits for Mission 0 (#125).
+Open questions and obligations that decisions leave to a later level or pass.
+Each line names its decision and when it is due; a closed one is removed.
+
+1. **Chapter design** waits for Mission 0 (#125). Due: after Mission 0.
 2. Player-facing names of factions and named ships (current names are
-   working names).
-3. Economy prices: measured with `tools/campaign.js`.
-4. A store and trademark check of the title before any public release.
-5. Approved ranges for each level after L1, decided by the lead designer
-   before that level starts (#145, #180); L1's are in §13c.
-6. The `approved` flags of #177 in `data.js` flip at the start of L1
-   (#184).
+   working names). Due: with the content.
+3. Economy prices: measured with `tools/campaign.js`. Due: after Mission 0.
+4. A store and trademark check of the title (#162). Due: before any public
+   release.
+5. What carries a blast's impulse at a distance in vacuum: fragments and
+   debris, not a shockwave (#46, #141, #169); nothing in the kernel
+   implements an outside field. Due: L4–L5.
+6. E4 for `shield.bufferSeconds`: the D pass proves the rule, not that real
+   salvos reach it (#214 (8)). Due: judged at L5.
+7. E4 for recoil: kept in the physics, cut if it has no measured effect
+   (#203 (C)). Due: judged at L5.
+8. Blast capacity from remaining integrity, B = Σ remaining integrity × R,
+   with a scenario (#216 (3), §13d.1). Due: L4.
+9. The crew capacity rule, with R1 given what it needs (#220 (5), §5.5).
+   Due: L4.
+10. A scenario for the shipyard readout on a blueprint before `enableShip`
+    (#225 (5), #222 (4)). Due: L4, with the readout's first scenario.
+11. A culling rule for debris and rounds in flight (#222 (7)). Due: L4–L5,
+    for E8.
+12. How the impulse buffers of overlapping generators share one round
+    (#205 (7), #201 (5)). Due: L4.
+13. A larger hit-1 in D3, so that "crew do not come back" is discriminated
+    (#214 (4)). Due: when the next scenario touches repair.
+14. Life support's own draw and heat (#205 (3), #207 (1)). Due: decide at
+    L4, or drop.
+15. Findings of the path-model pass (#236): the `world.beamPaths` cache is
+    never cleared; eight withdrawal reasons say "recorded with that FAIL"
+    for records that are PASS; `L0.beam.depth` has no outside anchor (let
+    `csdaRange` take its material, so a scenario checks NIST PSTAR water,
+    7.718 g/cm² at 100 MeV). Due: the next kernel pass.
+16. An overheated beam bay under power routing reports `beam-stopped` with
+    cause `no-power` instead of `heat` (#227 Q9). Due: the next kernel
+    pass.
+
+## 18. Decisions in force
+
+One row per decision of `DECISIONS.md`, #1–#241, with its status today (#241 (5)). **current**: stands as written; **superseded by #n**: replaced; **partly superseded by #n (what remains)**; **report**: the row records a result or a process step, not a rule; **owner question open**: waits for the owner; **current (unchecked)**: not checked against the current text. The log itself is append-only and unchanged, so a row there may still read as if it stood. Compiled from the documents audit (B1, H), the decisions' own "supersedes" words and the current text of this file; the lead designer reviews it.
+
+| # | Decision | Status |
+|---|---|---|
+| 1 | PvE, 1v1 first; ships built from rooms on a grid | current |
+| 2 | The player builds and sets orders; three verbs in battle; pause allowed | current |
+| 3 | Plain HTML/CSS/JS ES modules, Cloudflare Pages, static server | current |
+| 4 | Borrow the shape of the real law, tune the constant | current |
+| 5 | Kept laws: inertia, recoil, CoM shift, heat and radiators, infrared, inverse-square, time of flight, square–cube | partly superseded by #203 (C), #230 (what remains: the kept-law list; recoil kept but the "hard recoil" claim withdrawn, beams do not fall off at battle range) |
+| 6 | Cut: ½mv² as damage, decompression thrust, I²R; sloped armour deferred | current |
+| 7 | No dice: hit or miss by trajectories | partly superseded by #240 (3) (what remains: the player's ship and trajectories never draw from the seed; the enemy's decisions may) |
+| 8 | Four kernel models: rigid body, per-room heat, falloff fields, projectiles | current |
+| 9 | Hits by trajectory: first cell on the path, over-penetration loses momentum, debris blocks | current (unchecked) |
+| 10 | Scale rule: nothing smaller than a compartment occupies a cell | current |
+| 11 | Three placement layers: rooms, shared walls, hull edge | current |
+| 12 | Graphs on shared walls; capacity ∝ wall length; no conduit rooms | current |
+| 13 | Fragments: a split ship becomes rigid bodies, momentum conserved | partly superseded by #81 (what remains: the fragment and momentum rule; the reactor breach is replaced by SCRAM) |
+| 14 | The room list and footprints | partly superseded by #201 (5), #234, #236 (6) (what remains: the room list and placement rules; L magazine 3×3, axis rooms 2×N, railgun N×2) |
+| 15 | Six fittings, one per hull edge segment | current |
+| 16 | Rooms take damage per cell; function ∝ surviving cells | current |
+| 17 | Firing arcs blocked by the ship’s own rooms | current |
+| 18 | No combo table: every synergy is a flow or a field | current |
+| 18b | Three heat thresholds per room; critical kills the crew | current |
+| 18c | Empty holds conduct heat poorly (insulator, blast buffer) | current |
+| 19 | Starter weapons: beam, kinetic, missile | partly superseded by #229, #230 (what remains: three starter weapons; the beam has no falloff at battle range) |
+| 20 | EMP is a missile warhead; tractor beam and mines deferred; ramming and boarding cut | current |
+| 21 | Shield: an absorption rate plus a small buffer; absorbed energy is heat | current |
+| 22 | Attack/defence matrix | partly superseded by #230 (what remains: the matrix; the beam is not weak at range, it is certain at every range) |
+| 23 | The enemy’s outer silhouette is always visible | current |
+| 24 | Passive sensing ∝ 1/d², active scan ∝ 1/d⁴ and reveals the scanner | current |
+| 25 | Scanning by zone; positions remembered; room state needs passive tracking | current |
+| 26 | The enemy scans you too | current |
+| 27 | Counters: jammer, scan-proof plating, running cold, heat decoys | current |
+| 28 | Puzzle ships have layout variants so scanning stays necessary | current |
+| 29 | Five puzzle ships, each testing one law | current |
+| 30 | Every battle has a physical clock | current |
+| 31 | Measurement: the intended answer wins ≥ 3 of 4 variants | current |
+| 32 | Modes: ladder and roguelite | current |
+| 33 | Intact salvage; the first intact room of a type unlocks it | current |
+| 34 | Hull tiers; repairs per cell cost credits; ships never lost permanently | current |
+| 35 | Roguelite environments each change one constant of one law | current |
+| 36 | Coverage rule: every in-battle decision has one owner | current |
+| 37 | Automatic layer of decisions | current |
+| 38 | Standing orders: 12 slots in 4 groups | current (the position slot, which side of the enemy, is not built) |
+| 39 | Presets bundle the orders; the verb switches presets | current |
+| 40 | Helm conflicts: position, then facing, then dodging | current |
+| 41 | Report: KIA list first, cascade tree, deterministic kill-cam | current |
+| 42 | Kernel without DOM; renderer reads the player’s knowledge; two RNG streams | current |
+| 43 | File layout (foundation, kernel, meta, presentation) | current |
+| 44 | Order of work 0.1–0.6 | superseded by #125 (Mission 0) |
+| 45 | Art direction hybrid: pixel rooms, smooth effects | current |
+| 46 | Every effect has a physical cause; per-law visual signatures | current |
+| 47 | Automatic slow-mo with a zoom into the breached room | current |
+| 48 | Readability overlays; Canvas 2D performance rules | current |
+| 49 | Crew do not walk; when a room is destroyed its crew die | partly superseded by #182, #206 (what remains: no walking, no orders, permanent death; crew die per destroyed cell and in proportion to integrity lost) |
+| 50 | Permanent death; memorial wall; sober tone | current |
+| 51 | Quarters repair rooms within a radius | partly superseded by #203 (D), #206 (what remains: the quarters’ repair field; repair restores damaged cells only) |
+| 52 | Building is a moral choice (magazine beside a crew compartment) | current |
+| 53 | One scale; ships fight 4–8 ship lengths apart | partly superseded by #240 (5) (what remains: one scale for simulation and drawing) |
+| 54 | Starting numbers (T1): 5 m cell, 30×14, engagement 0.6–1.5 km, battle 3–6 min | partly superseded by #240 (5) (what remains: all numbers; the “4–8 ship lengths at every tier” sentence dropped) |
+| 55 | Camera fits both ships | current |
+| 56 | Free-form shipyard inside a drydock, templates | current |
+| 57 | Validation: an invalid ship never undocks | current |
+| 58 | Live physics readout and dry run | current |
+| 59 | Shipyard controls | current |
+| 60 | Crew capacity: quarters set the total, each room needs its crew | current (the rule is built at L4, #220 (5)) |
+| 61 | Cells scale with the tier; cell count roughly constant | current |
+| 62 | Every tier offers S/M/L | current |
+| 63 | Room stats from scaling formulas, not hand tables | current |
+| 64 | Own local grid per ship; armour scales with the cell | current |
+| 65 | Casualty lists group the crew | current |
+| 66 | Primary device: an Android phone, battle in landscape | current |
+| 67 | Touch rules, 44–48 px targets | current |
+| 68 | Performance budget is the phone’s | current |
+| 69 | PWA, offline after first load | current |
+| 70 | Playwright phone tests; every playtest also on the owner’s phone | current |
+| 71 | Economy rules: reward the core skill, never stuck, always a sink | current |
+| 72 | Sources and sinks of credits | current |
+| 73 | Rooms are owned items; rearranging free | current |
+| 74 | Prices from a formula in data.js | current |
+| 75 | Rooms belong to a tier; trade-in | current |
+| 76 | Free emergency repair after a loss | current |
+| 77 | A free beginner corvette | current |
+| 78 | Beaten ships replayable for half the reward | current |
+| 79 | No bonus for sparing enemy crew | current |
+| 80 | Ships are fail-safe: losing the bridge does not blow up the ship | current |
+| 81 | SCRAM: a reactor without control shuts down; decay heat follows | current |
+| 82 | Disabled: one condition, many routes | current (a SCRAMmed reactor does not restart in today’s kernel; physics pass 2, §13k) |
+| 83 | The loot is whatever is left; Destroyed defined | current |
+| 84 | The same condition defeats the player | current |
+| 85 | Puzzle ships have a kill route and a harder capture route | current |
+| 86 | Scripts may strike colours; personality per ship | current |
+| 87 | A captured ship is commissioned only if the drydock has its tier | current |
+| 88 | Crew on a dark fragment are recovered after a win | current |
+| 89 | Ammunition is finite for kinetics and missiles | current |
+| 90 | Reloading between battles is free | current |
+| 91 | Out of ammunition counts toward Disabled; a magazine explodes by what is left | partly superseded by #215 (what remains: attrition route and the explosion scaling with the ammunition left; HE is not “far more” than AP) |
+| 92 | Magazines last a disciplined 3–6 minute battle | current (tuned at L4) |
+| 93 | Point defence in two fittings | current |
+| 94 | Rule for an ammunition type | current |
+| 95 | The player sets magazine contents; shot type chosen automatically | current |
+| 96 | Kinetic round types: Standard, AP, HE, Sabot, Flak | current |
+| 97 | Missiles = seeker + warhead | current |
+| 98 | Starter ammunition and unlocks by salvage | current |
+| 99 | One rule for every field: finite budget, falloff, overlaps add | current |
+| 100 | Firing window of a shield | current |
+| 101 | Jamming jams your own sensors; burn-through | current |
+| 102 | Infrared sees only the surface | current |
+| 103 | Shields do not block scans; absorbing shields are EM-bright | current |
+| 104 | A craft is a reusable missile | current |
+| 105 | Reused rules for craft | current |
+| 106 | Four new rules for carriers | current |
+| 107 | Hangar bay: the biggest bomb aboard | current |
+| 108 | Carriers add no new verbs | current |
+| 109 | Carrier limits: about 24 craft per side | current |
+| 110 | Carriers after Mission 0: enemy boss first, player’s at T5 | current |
+| 111 | Symmetry: the enemy plays by the player’s rules | current |
+| 112 | No information cheating; one knowledge model per side | current |
+| 113 | Same physics, same delays | current |
+| 114 | Tell rule: a visible precursor for every special mechanic | current |
+| 115 | Deterministic enemy decisions | partly superseded by #240 (3) (what remains: the same state gives the same decision; a stand-in may draw from the seeded stream) |
+| 116 | No learning across battles; intel journal | current |
+| 117 | Personality is four parameters | current |
+| 118 | Factions are bundles of defaults | current |
+| 119 | Three factions to start | current |
+| 120 | Wildcard drawn once from the seed; nothing random during the battle | partly superseded by #240 (3) (what remains: the player’s ship and hit-or-miss are never random) |
+| 121 | Term “named ship” for players | current |
+| 122 | Difficulty only from mechanics; seven levers | current |
+| 123 | The difficulty curve is measured | current |
+| 124 | One standard difficulty, assists, Ironman | current |
+| 125 | Mission 0 before any content | current |
+| 126 | Mission 0 is text only | current |
+| 127 | Bottom-up levels L0–L6 | current |
+| 128 | Each constant tuned at the lowest level where it acts | current |
+| 129 | Output: expected vs actual, PASS/FAIL | current |
+| 130 | Accepted risk: the feel unverified until after L5 | partly superseded by #217 (what remains: the real game’s feel stays unverified until after L5) |
+| 131 | Mission 0 is an agentic data-gathering exercise | current |
+| 132 | Roles: runner, verifier, analyst, integrator | current |
+| 133 | Guardrails; a multi-agent wave needs the owner’s go-ahead | partly superseded by #180 (the wave’s go-ahead is the lead designer’s; criteria locked before running, overrides, re-runnable commands remain) |
+| 134 | Autonomy line: what agents decide alone, what needs the owner | partly superseded by #180 (the owner-approval parts; never-delegated items remain) |
+| 135 | Kernel and framework written first by one agent | current |
+| 136 | Nightly regression | current (unchecked) |
+| 137 | Kinetic damage is momentum; relative velocity not counted | current (what velocity enters: §4, C14) |
+| 138 | Beams heat what they hit | current |
+| 139 | Stopping rounds costs the shield budget and becomes heat | current |
+| 140 | Ships have no propellant limit | partly superseded by #203 (A) (what remains: no propellant limit; engines are self-fuelled torches) |
+| 141 | Explosions: through walls inside, a radial field outside | owner question open (outside field not built, D8; §17 item 5) |
+| 142 | No separate EMP room | current |
+| 143 | Radiators follow Stefan–Boltzmann | current |
+| 144 | Scenario spec | current |
+| 145 | Approved ranges for every tunable constant | partly superseded by #180 (the lead designer approves ranges) |
+| 146 | Remaining topics before writing the docs | report |
+| 147 | The bridge has its own backup supply; decapitation only by destroying it | partly superseded by #185 (6) (what remains: the backup supply; an overheated or switched-off bridge also decapitates) |
+| 148 | The missile bay holds a ready store | current |
+| 149 | Heat decoys are munitions | current |
+| 150 | CLAUDE.md of the new repo | current |
+| 151 | Git flow: one branch and one PR per level; the owner merges | partly superseded by #178, #180 (who merges), #218 (documentation PRs); one branch per level remains |
+| 152 | No rendering code until Mission 0 exits | current (exception: #217) |
+| 153 | No sound travels in vacuum; four sources | current |
+| 154 | Android haptics | current |
+| 155 | Synthesised sound | current |
+| 156 | Events carry what sound needs | current |
+| 157 | No music in battle | current |
+| 158 | Setting: a privateer | current |
+| 159 | The captain | current |
+| 160 | Tone rule | current |
+| 161 | Narrative direction | current |
+| 162 | Title: Duct Tape Navy: Mostly in One Piece | current (store and trademark check open, §17 item 4) |
+| 163 | SI units | current |
+| 164 | Mission 0 exits only when all eight hold | partly superseded by #188, #200 (E1), #213 (E8) (what remains: E2–E7) |
+| 165 | L0 scenarios (materials) | partly superseded by #230 (what remains: the kinetic, blast and shield scenarios; the beam scenarios are withdrawn) |
+| 166 | L0 approved ranges | partly superseded by #206, #230, #232, #235 (values: CONSTANTS.md is current) |
+| 167 | No AI checks its own work: four roles | partly superseded by #178, #180 (what remains: the four roles; the lead designer, not the owner, merges) |
+| 168 | Retroactive review of L0 | report |
+| 169 | Blast spreads as a wave front | current |
+| 170 | Shield budget counted once | current |
+| 171 | shield.kineticStop computed exactly | current |
+| 172 | shield.radius is the half-strength radius | current |
+| 173 | “AP M penetrates 2–3 cells” met; L0 AP is the plain steel round | current |
+| 174 | Weak checks: locked criteria stay, stronger v2 follow; invariants true by construction do not count for E3 | current |
+| 175 | Lock coverage; the step and burn limit in data.js | current |
+| 176 | L0 v2 criteria approved | partly superseded by #206, #230 (some v2 scenarios withdrawn) |
+| 177 | Pending L0 ranges approved | current |
+| 178 | Claude merges after the owner approves | superseded by #180 |
+| 179 | STATUS.md is the hand-over between chats | current |
+| 180 | Approval tiers: the owner decides direction, the lead designer the rest | partly superseded by #191, #218 (what remains: the tiers; the spending cap and “documentation straight to main” changed) |
+| 181 | L1 scenarios | partly superseded by #185 (1), #206 (what remains: the plan; rows withdrawn and replaced) |
+| 182 | Per-room heat model; two threshold classes; integrity | current |
+| 183 | L1 constants and ranges | partly superseded by #206, #210, #221, #235 (values: CONSTANTS.md is current) |
+| 184 | Process items at the start of L1 | current |
+| 185 | Answers to the L1 engineer: size rule, kernel readings now design | current; report in part (audit H) |
+| 186 | L1 costs and order of checks | current; report in part (audit H) |
+| 187 | Answers to the L1 physics checker | current (unchecked) |
+| 188 | E1 amended: a scenario withdrawn for a specification error does not block E1 | current |
+| 189 | Answers to the L1 reviewer | current |
+| 190 | The engineer’s three readings of #189 accepted | partly superseded by #206 (a destroyed cell stays destroyed for the battle) |
+| 191 | Spending is a guideline, not a cap | current |
+| 192 | Layout and walls for L2 | current |
+| 193 | The L2 flow models | partly superseded by #200, #201 (conduction), #205 (7) (buffer sharing deferred) |
+| 194 | L2 scenarios | partly superseded by #200, #201 (rows withdrawn and replaced) |
+| 195 | L2 constants and ranges | partly superseded by #201, #206 (values: CONSTANTS.md is current) |
+| 196 | L2 process | current |
+| 197 | The owner’s answers on heat; heat sink adopted | partly superseded by #200 (what remains: the heat sink; the harshness answer (1) replaced) |
+| 198 | Heat sink room | current |
+| 199 | Cofferdam | superseded by #201 (4) (deferred to IDEAS.md) |
+| 200 | Heat moves along the coolant loop; crew rooms and magazines insulated | current |
+| 201 | The coolant-loop model and the L2 answers | partly superseded by #214 (8) (what remains: the model and answers; the buffer binds at the 6th round, not the 71st) |
+| 202 | Sense check of every mechanic so far | report (proposals decided in #203) |
+| 203 | The four sense-check proposals approved | partly superseded by #221 (E), #229 (B) (what remains: A, C, D, F) |
+| 204 | Answers to the L2 heat-v2 engineer | current; report in part (audit H) |
+| 205 | Answers to the L2 physics checker | current; report in part (audit H) |
+| 206 | The D pass specified | partly superseded by #232, #235 (what remains: the 6 kg round, partial damage, repair; the kinetic resistances are replaced by the mass law) |
+| 207 | Answers to the L2 reviewer; L2 merged | partly superseded by #200, #201 (its heat numbers); report in part (audit H) |
+| 208 | L3 models | partly superseded by #221, #232 (cell mass; what remains: rigid body, thrust, RCS, recoil, fragments, control, validation) |
+| 209 | L3 scenarios on R1 | partly superseded by #219, #221, #234 (rows withdrawn and replaced) |
+| 210 | L3 constants and ranges | partly superseded by #221 (specificHeat removed; thrust, RCS re-tuned) |
+| 211 | L3 process | current |
+| 212 | Answers to the D-pass engineer | current |
+| 213 | E8: 1 ms per simulation step in Node | current |
+| 214 | Answers to the D-pass physics checker | current; report in part (audit H; (6) is the question #215 answers) |
+| 215 | A magazine’s explosion: propellant dominates, HE adds a third | current |
+| 216 | Answers to the D-pass reviewer; D pass merged | current; report in part (audit H) |
+| 217 | A rough feel prototype after L3 | current |
+| 218 | Fewer documentation pull requests | current |
+| 219 | Answers to the L3 engineer | current |
+| 220 | Answers to the L3 physics checker and Q13 | current |
+| 221 | Ships of real density | partly superseded by #232, #234, #235 (what remains: real density, thrust and RCS re-tuned; the single structure cell mass is replaced by cell mass per room type) |
+| 222 | Answers to the L3 reviewer; L3 merged | current; report in part (audit H) |
+| 223 | When play is not fun, a ladder | current |
+| 224 | The feel prototype’s plan | partly superseded by #237 (ships’ behaviour, estimate, scope of v1) |
+| 225 | Answers to the mass-pass engineer and reviewer; mass pass merged | current; report in part (audit H) |
+| 226 | The prototype is hosted as a private claude.ai page | current |
+| 227 | The feel prototype’s first build and answers | current; report in part (audit H) |
+| 228 | Every interaction is symmetric | current |
+| 229 | The beam is a neutral particle beam that strikes inner rooms | current |
+| 230 | Round damage, no tumble yet, no beam falloff | current |
+| 231 | The path model’s build pass | partly superseded by #234, #235 (beam.particleEnergy, armour.kineticResistance replaced; what remains: the Bethe deposit and the round rule) |
+| 232 | Protection is the mass on the path | current |
+| 233 | The feel prototype merged; why the owner always lost | current; report in part (audit H) |
+| 234 | The beam bay is a spinal accelerator; real masses at the low end | current |
+| 235 | The path model revised | current |
+| 236 | The path model merged; answers | current; report in part (audit H) |
+| 237 | Prototype v2’s plan | partly superseded by #239 (its estimate of 30–90 s for a duel at 900 m) |
+| 238 | Independent audits at fixed milestones | current |
+| 239 | Prototype v2 merged; answers | current |
+| 240 | The audits’ seven questions | current (built as physics pass 2, §13k) |
+| 241 | Process after the audits: plan gate, sessions, documents | current |
