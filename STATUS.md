@@ -12,8 +12,12 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   L4a (PR #58, #253–#258, #260), **L4b (PR #62, #261–#264, #267): L4 is
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step).
-- **Running**: nothing. L4b cost 23.98 USD (estimated 70–100 by the
-  rule, 25–40 expected); L4 in all ≥ 41.55 USD.
+- **Running**: the four light audits before the L5 plan (#238; sonnet,
+  read-only, 8 USD cap each, 11:32 UTC): documents
+  `session_015MiuXbDJDY3ER7gYb4HMt3` (`audit/l4-docs`), process
+  `session_016xMPBjzauERJgfNVoFhTbE` (`audit/l4-process`), physics
+  `session_01PxqWgmGKWgnmYN4z3Sb9v7` (`audit/l4-physics`), scenarios
+  `session_01KLRjP6m3agMAXhhbdn8thh` (`audit/l4-scenarios`).
 - **Waiting on you**: nothing. Veto window on #253, #256, #258–#267
   (#267 lowers the cost factors: ×1.5 repeated work, ×2.5 new, after
   three passes within 1.5×). The prototype page is **republished on the
@@ -213,6 +217,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 | Task | Id | Schedule | What |
 |---|---|---|---|
 | Check-in of this chat | `trig_01UnvcS4ZhoaXKWqpvarVzPS` | 2026-10-22 11:46 UTC, once | read the PR #62 reviewer; answers row; merge or fix round |
+| Check-in of this chat | `trig_01YMrVLwdWJRAhuSk9judJ1g` | 2026-10-22 12:23 UTC, once | read the four audits; consolidation row; the L5 plan |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
