@@ -1923,4 +1923,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 275 | Prevention after the weapons gap (#268): lint check 9 (every room, fitting, weapon, round type and topic has a §13m row), the plan checklist's §13m line and the level-exit rule, the documents audit's §13m scope, the owner's "not built yet" line | current |
 | 276 | The scenario-hygiene round merged (PR #67): 20 scenarios, 19 withdrawn; answers to its engineer, blind checker and reviewer; four plan wordings corrected; the residue in §17 item 39 | current |
 | 277 | The owner's answers to the L5 plan (budget by mass, the reference battle, unmanned rooms, the magazine's blast accepted, the go), option A on the reactor's share, two exploit harnesses, the lead designer's role file | current |
-| 278 | The L5 plan (§13n): five passes L5a–L5e, 26 constants, 52 scenarios, the unmanned rule, the new `magazine.detonationSpeed` as the first pace lever, the lint's §13n skip | current |
+| 278 | The L5 plan (§13n): five passes L5a–L5e, 26 constants, 52 scenarios, the unmanned rule, `magazine.detonationSpeed` (new) as the first pace lever, the lint's §13n skip | current |
