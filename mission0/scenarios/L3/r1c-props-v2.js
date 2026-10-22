@@ -90,7 +90,7 @@ export default {
   tolerance: 'mass and acceleration 1e-12 (the mass within its own float); centre and inertia 1e-12; books 1e-9 x the gross',
   criterion: 'literals hand-worked from the cell masses in the file\'s comments: mass 1 225 234.057 kg (R1\'s 911 234.057 with the turret by its mount + 8 x 0.2 x 7850 x 25 = 314 000 kg), 1.24839 g (engine.thrust 15 MN over the mass, to 6 figures), centre (27.5320099, 15.5979189) m and inertia 1.689093914e8 kg m^2 (the plates at their segments\' midpoints); wrecked: each M round stops in the plate and costs it (s0 / r) / 3 (L0.armour.plate), so it is a hole after the 5th (5 x 0.2154 > 1); the body then holds R1c\'s mass less 39 250 kg, the debris piece holds 39 250 kg, and the body\'s centre and inertia are R1c\'s less a point mass of 39 250 kg at (37.5, 10) m by the parallel-axis rule (hand-worked from the literals, 1e-9); mass and momentum books close (#255, #256). Successor of L3.r1c.props (#285, 13n.4 M1): the turret by its mount; every check of L3.r1c.props kept',
   tunable: ['armour.plateThickness', 'engine.thrust', 'structure.cellMass', 'turret.machineryMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '1aed580e' },
   cases() {
     return [{ part: 'intact' }, { part: 'wrecked' }];
   },

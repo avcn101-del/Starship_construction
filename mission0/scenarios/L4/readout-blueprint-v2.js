@@ -44,7 +44,7 @@ export default {
   tolerance: 'before = after within 1e-12 relative; the mass literals within 1e-12',
   criterion: 'mass, both centre coordinates and the inertia equal before and after enableShip within 1e-12 (#225 (5)); hand-worked mass literals R1 911 234.057 kg and R1c 1 225 234.057 kg (R1 + 314 000 kg of plates, #256) within 1e-12, from the cell masses in the file\'s comments. Successor of L4.readout.blueprint (#285, 13n.4 M1): the turret by its mount (4 x 4975 kg in place of 4 x 14 800 kg); every check kept',
   tunable: ['armour.plateThickness', 'structure.cellMass', 'turret.machineryMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'b510ef6c' },
   cases() {
     return Object.keys(SHIPS).map((ship) => ({ ship }));
   },

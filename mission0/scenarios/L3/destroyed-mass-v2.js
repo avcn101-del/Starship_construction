@@ -49,7 +49,7 @@ export default {
   tolerance: '1e-12',
   criterion: 'hand-worked: the body holds R1\'s 911 234.057 kg (the turret by its mount, #285: the cell sums in the file\'s comments) less one hold cell (structure.cellMass, 3000 kg): 908 234.057 kg; one debris piece of 3000 kg; the damaged cells (2/3 and 0.1 left) keep their whole 3000 kg each (13f.1). Successor of L3.destroyed.mass (#285, 13n.4 M1): every check kept',
   tunable: ['structure.cellMass', 'turret.machineryMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '2d2f16c8' },
   cases() {
     return [{ cell: 1 }];
   },

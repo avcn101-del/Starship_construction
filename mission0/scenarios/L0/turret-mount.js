@@ -33,7 +33,7 @@ export default {
   tolerance: 'sigma and r 1e-12 relative; the exit speed against the closed form 1e-12 relative and against the hand-worked literal 468.507 m/s to 0.001 m/s; counts exact',
   criterion: 'hand-worked: sigma = (3000 + 1975) / 25 = 199 kg/m^2 and r = c sigma = 307 527.5 kg/(m s) at T1; (turret) the round passes both turret cells (passed 2, no stop) and exits at v_exit = (m v - r A0 (1 + 1 / (1 - r / S))) / m = 468.507 m/s (A0 = 3.060866e-3 m^2, S = 3.029268e6 kg/(m s); the arithmetic in the file\'s comments); (plate) the 0.2 m plate resists c x 1570 = 2.426222e6 kg/(m s) > s0 = 1.568183e6: the round stops in entry 0, the plate, and passes nothing (#281 (2), #285)',
   tunable: ['structure.cellMass', 'turret.machineryMass', 'matter.kineticResistance', 'kinetic.roundMass', 'kinetic.muzzleVelocity', 'armour.plateThickness'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '77b28cd2' },
   cases() {
     return [{ through: 'turret' }, { through: 'plate' }];
   },

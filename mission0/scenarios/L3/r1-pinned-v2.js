@@ -68,7 +68,7 @@ export default {
   tolerance: '1e-6 relative against the literals (13k.4 S20)',
   criterion: 'mass 911 234.057 kg, acceleration 1.67857457 g, 90 degree turn 3.42436162 s, recoil -0.0641472077 deg/s per M round broadside, each within 1e-6 relative of the literal hand-worked from the cell masses in the file\'s comments (#208, #221, #243, #244). Successor of L3.r1.pinned (#285, 13n.4 M1): the turret by its mount (4 x 4975 kg in place of 4 x 14 800 kg); every check of L3.r1.pinned kept',
   tunable: ['turret.machineryMass', 'structure.cellMass', 'cellMass.crewed', 'cellMass.reactor', 'cellMass.shieldGenerator', 'engine.machineryMass', 'beambay.machineryMass', 'thermal.coupledHeatSink', 'heatsink.capacityFactor', 'radiator.mass', 'rcs.mass', 'rcs.force', 'engine.thrust', 'kinetic.roundMass', 'kinetic.muzzleVelocity', 'magazine.capacity'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '4240df1b' },
   cases() {
     return [{ ship: 'R1', tier: 'T1' }];
   },
