@@ -71,7 +71,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Reviewer, L4b (PR #62; 0 blocking, 9 notes) | session_0191sXFiff1SUfcYSCCYKYiL | sonnet-5-5 | 1.01 |
 | Audit before L5, documents (light; `audit/l4-docs`; 32 findings) | session_015MiuXbDJDY3ER7gYb4HMt3 | sonnet-5-5 | 1.70 |
 | Audit before L5, process (light; `audit/l4-process`; 10 findings) | session_016xMPBjzauERJgfNVoFhTbE | sonnet-5-5 | 0.91 |
-| Audit before L5, physics (light; `audit/l4-physics`) | session_01PxqWgmGKWgnmYN4z3Sb9v7 | sonnet-5-5 | running |
+| Audit before L5, physics (light; `audit/l4-physics`; 20 findings) | session_01PxqWgmGKWgnmYN4z3Sb9v7 | sonnet-5-5 | 2.33 |
 | Audit before L5, scenarios (light; `audit/l4-scenarios`) | session_01KLRjP6m3agMAXhhbdn8thh | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).

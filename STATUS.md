@@ -49,7 +49,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   replays MATCH (#263).
 - **What L5 must build before any ship-versus-ship measure** (#265, #266,
   #268): `sensors.js` and the knowledge model; missiles, point defence and
-  the railgun as room physics; the enemy of §8b–§9; the kinetic-damage
+  the railgun as room physics; the enemy of DESIGN §9 (DECISIONS §8b); the kinetic-damage
   pass (§17 item 34) and R1d in one pace study; room size S decided (item
   30).
 - Approval tiers (#180, #191): the owner decides direction; the lead
