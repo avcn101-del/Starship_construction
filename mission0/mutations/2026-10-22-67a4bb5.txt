@@ -1,0 +1,18 @@
+# Mutation coverage (tools/mutate.js, #246 (1))
+
+head 67a4bb5, 2026-10-22
+command: node tools/mutate.js --only l5a.feed.anyType,l5a.feed.ableAnyType,l5a.line.noProjection,l5a.line.centre --out mission0/mutations/2026-10-22-67a4bb5.txt
+baseline: 115 scenarios VERIFIED by regress, every one PASS with its recorded results in an unmutated copy
+wall time: 6.4 min
+classes: KILLED = some verdict is not PASS (a criterion noticed); CHANGED = every verdict PASS but some output moved from its record (not coverage: no criterion noticed, #257); SURVIVED = every verdict PASS, every output as recorded; STALE = the edit no longer applies; TIMEOUT
+
+id                     rule                                                   class     first killing scenario, or the changed scenarios
+l5a.feed.anyType       13n.1 (b) One magazine per weapon type: the feed       KILLED    L2.magazine.types.v2 (FAIL)
+l5a.feed.ableAnyType   13n.1 (b) One magazine per weapon type: the able rule  KILLED    L2.magazine.types.v2 (FAIL)
+l5a.line.centre        13n.1 (b) B2: the impulse on the line of action        KILLED    L4.books.angular.v2 (FAIL)
+l5a.line.noProjection  13n.1 (b) B2: the line through the round               KILLED    L4.books.angular.v2 (FAIL)
+
+total 4: KILLED 4, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0
+
+per DESIGN section:
+  §13n.1   4: KILLED 4, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0
