@@ -1196,8 +1196,8 @@
     "id": "l4b.rel.worldSpeed",
     "rule": "13l.1 Battle (fireRound at the velocity relative to the hull, #242)",
     "file": "js/battle.js",
-    "old": "rel = sub(r.ref.v, pointVelocity(b, q)), speed = len(rel);",
-    "new": "rel = r.ref.v, speed = len(rel);"
+    "old": "toHull = relative(sub(u, pointVelocity(bf, worldPoint(bf, p))), bf);",
+    "new": "toHull = relative(u, bf);"
   },
   {
     "id": "l4b.able.powerIgnored",
