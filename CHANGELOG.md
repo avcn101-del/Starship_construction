@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.9.1 — 2026-10-22 — Coverage by mutation as a tool (#246 (1)); the frozen record's hash
+
+- **`tools/mutate.js`** (`DESIGN.md` §17 item 21): applies each mutation of
+  `tools/mutations.json` (`{ id, rule, file, old, new }`) to a scratch copy
+  under the system's temporary directory, never the working tree, and runs
+  every scenario `regress` reports VERIFIED there. Classes: STALE (`old` not
+  found exactly once), KILLED (a verdict not PASS, or a throw), CHANGED
+  (every verdict PASS, a result differs from its record), SURVIVED, TIMEOUT.
+  A changed data hash alone is not a kill. `--jobs`, `--timeout`, `--only`,
+  `--rule`, `--out`, `--catalogue`, `--no-fail-fast`; it checks an
+  unmutated baseline first. Exit code 0 unless the tool fails.
+- **The catalogue**: the scenario audit's 86 surviving mutations (Appendix 2)
+  with their `old` text recovered in full from today's source (six
+  re-targeted where the line changed or the audit's text stops before the
+  change), the ten planned-but-unrun mutations of its Q6, and 27 for
+  physics pass 2's rules (§13k.1) and S17–S21: 123 in all. The first run is
+  `mission0/mutations/`.
+- **`node tools/m0.js cov [--fail-fast]`**: the coverage run `mutate.js`
+  uses; nothing recorded, one `COV {...}` line per scenario (verdict,
+  results as recorded, data hash as recorded). `L0.determinism` (a fixed
+  port) runs last, under a lock shared by parallel copies.
+- **The frozen record's own hash** (§17 item 29): every `withdrawn.json`
+  entry carries `recordHash`, the hash of its record's stable JSON;
+  `verify` and `regress` compare it for frozen and retired entries, so a
+  later re-record cannot pass. The records are unchanged.
+
 ## 0.9.0 — 2026-10-22 — Physics pass 2: one law, closed books, tiers, determinism (#240, #243)
 
 - **One law for everything that resists** (`DESIGN.md` §13k.1): beam burn by
