@@ -63,7 +63,7 @@ const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : '
 // 7. From #246 on, a decision row that supersedes names the row it supersedes (#246 (3)); older rows are listed as info only.
 {
   const problems = [], info = [];
-  decisions.split('\n').forEach((l, i) => { const m = l.match(/^\| (\d+) \|/); if (m && /supersed/i.test(l) && !/supersed\w*\s+(#\d|#n|the owner-approval parts of #|its earlier)/i.test(l)) (Number(m[1]) >= 246 ? problems : info).push(`DECISIONS.md:${i + 1} (#${m[1]})`); });
+  decisions.split('\n').forEach((l, i) => { const m = l.match(/^\| (\d+) \|/); if (m && /supersed/i.test(l) && !/supersed\w*(\s+by)?\s+(#\d|#n|the owner-approval parts of #|its earlier)/i.test(l)) (Number(m[1]) >= 246 ? problems : info).push(`DECISIONS.md:${i + 1} (#${m[1]})`); });
   if (info.length) console.log(`info  ${info.length} rows before #246 use 'supersede' without a row number (history, not checked)`);
   report('superseding rows name what they supersede', problems);
 }
