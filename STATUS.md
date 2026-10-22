@@ -18,11 +18,15 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93); pass 2 estimated 50–60, inside it.
 - **Next**: review of `tools/mutate` (estimated 28–44 USD with ×4,
-  the owner agreed) → L4a (planned, §13l, #253; 25–35 USD with ×2.5,
-  needs the owner's go on cost) → L4b (70–100 USD with ×4).
+  the owner agreed) → L4a (planned, §13l, #253, #256: obligations + armour
+  on walls; 45–70 USD with the factors, needs the owner's go on cost) →
+  pace re-measured on R1c with real mass, reported to the owner (#255) →
+  L4b (70–100 USD).
 - **Owner chose** #252 (L4: one target per route; EMP and surrender at L5).
-  The owner played v2: the magazine always wins in 7.1 s (#254); the lead
-  designer measures pace (`tools/estimates/pace.mjs`) before any v3.
+  The owner played v2: the magazine always wins in 7.1 s (#254). Pace
+  study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
+  The owner chose armour on walls and Disabled without thrust (#255);
+  plates on walls only, not decks (#256).
 
 ## Where we are
 
@@ -174,10 +178,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-- The go on L4a's cost (25–35 USD) once `tools/mutate` merges; veto
-  window on #253.
-- After the pace measure: (c) Disabled without the thrust condition
-  (changes #82); armour fittings before L5 if needed (#254).
+- Veto window on #253, #256.
+- The go on L4a's cost (45–70 USD, replaces the 25–35 above).
 
 ## Next steps
 
