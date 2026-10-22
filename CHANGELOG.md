@@ -1,5 +1,39 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — Mission 0 L4a fix round (#258)
+
+- **Plates burn by mass** (#258 (1)): a plate on a beam's path loses
+  P F dt / (`matter.burnEnergyPerKg` × its mass) of its integrity per step,
+  deposit first, then damage, like a cell; a 0.2 m plate (39 250 kg) under a
+  5 MW beam that stops in it is a hole in step 1413 (23.55 s).
+- **σ / cos θ** (#258 (2)): a line crossing a plate at θ to its normal meets
+  σ / cos θ, capped at cos θ ≥ d / edge. New `plateEntry` (rooms.js) gives
+  the entry with its `cos`; `pathAlong` takes the line's direction;
+  `entryArealDensity` applies it; the prototype's paths pass their
+  direction. Ricochet and tumble stay out.
+- **The plate's heat capacity** (#258 (3)): its mass × `thermal.coupledArmour`
+  / `armour.cellMass` (450 J/(kg·K)) joins its room's (`heat.addCapacity`)
+  and leaves again, venting its heat above rest (`heat.ventCapacity`), when
+  the plate is wrecked, ruined or its mount cell destroyed; a destroyed
+  cell's vented share leaves the plates' capacity out. The note of
+  `thermal.coupledArmour` names this consumer (data hash moved).
+- **`shieldRound` on two bodies** (#258 (11), reviewer N5): each body that
+  holds paying generators keeps its own books (its part of the round at its
+  own hull velocity, in its own frame); one body is unchanged to the bit.
+- **Prototype** (N6): `crossedCells` reports the cell where a line leaves
+  the grid, so a plate on that segment joins the path.
+- **`regress`** (N9): a recorded FAIL that is not withdrawn is printed as a
+  FAIL line and counted.
+- **Withdrawn** (#258): `L2.layout.invalid` (superseded by #253's crew rule;
+  successor `L2.layout.invalid.v2`) and `L0.armour.plate` (specification
+  error; successor `L0.armour.plate.v2`), each frozen with its record.
+- **New scenarios** (lock `7399706`): `L0.armour.plate.v2`,
+  `L0.beam.csda.sweep` (all 754 step-count changes, worst 1.0e-15),
+  `L3.shield.bodies`; `tools/estimates/l4.mjs` prints their literals.
+- **Mutations** (N8): 14 new (A5, the plate's chord, cos and cap, burn, heat
+  capacity, mount room, the two-body books); 9 entries rewritten for the new
+  code.
+
 ## Unreleased — 2026-10-22 — Mission 0 L4a: armour on walls, R1c and the kernel obligations (#253, #255–#257)
 
 - **Armour plates** (`DESIGN.md` §13l.1, #255, #256): `addFitting(world,
