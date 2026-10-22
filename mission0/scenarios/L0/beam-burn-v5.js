@@ -19,7 +19,7 @@ export default {
   tolerance: 'time one-sided in [t, t + dt) with the 1e-9 float slack of #185 (2); the T3 / T1 ratio 2 within 2 dt / t',
   criterion: 're-statement: the scenario\'s own stepped sum of the rule of 13k.1, F_1 by its own Bethe integration (13i.1; steps at most 0.2 kg/m^2 and 0.1 % of the energy) of E = beam.gradient x 2 x 5 m at T1 and, at T3, of the energy its own bisection (to 1e-12) finds whose CSDA range is the T1 range x sigma_armour(T3) / sigma_armour(T1) (#249), cell 1 losing P F_1 dt / (matter.burnEnergyPerKg x cell mass) per step and destroyed in the step it reaches 0, at t inside that step; the kernel destroys it in [t, t + dt); channel thermal, cause the beam. Hand-worked literal: the reactor cell at T1 stops the whole 100 MeV beam (F_1 = 1), so t = q m / P = 3000 x 150 000 / 5e6 = 90 s; where F_1 = 1 (crewed, armour, reactor) t at T3 = 2 x t at T1 (mass x 2^3, power x 2^2) within 2 dt / t (#138, #229, #240 (1), #243, #249). Successor of L0.beam.burn.v4 (#249): only the T3 energy changes',
   tunable: ['matter.burnEnergyPerKg', 'beam.power', 'beam.gradient', 'armour.cellMass', 'structure.cellMass', 'cellMass.crewed', 'cellMass.shieldGenerator', 'cellMass.reactor'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '7dbbfaf8' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T3']) for (const matter of Object.keys(MATTER)) out.push({ tier, matter });

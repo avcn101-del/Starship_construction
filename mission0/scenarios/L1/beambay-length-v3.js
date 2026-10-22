@@ -52,7 +52,7 @@ export default {
   tolerance: 'E at T1 exact (gradient x N x edge: the solve\'s exact hit, #249); at T3 its CSDA depth in armour cells = the T1 depth within 1e-9 (the solve\'s bisection to 1e-12); power, draw and heat rate relative 1e-9 and identical across N (exact); validation exact',
   criterion: 'E at T1 = beam.gradient x N x edge exactly; at T3 E is the energy whose CSDA range in iron (re-statement: the kernel\'s csdaRange), over sigma = armour.cellMass at T3 / edge^2, equals the T1 bay\'s depth (csdaRange(gradient x N x 5 m) / 400 kg/m^2) within 1e-9, and lies between the T1 energy and twice it (the depth target doubles: sigma x 2 at T3, and the range grows faster than E) (#234, #249); beam = beam.power x sizeLinear^2 (k = 2), draw = beam / beambay.efficiency, heat rate = draw - beam, as L1.beambay.heat, the same for every N; R1 valid; the off-axis bay rejected with exactly one reason, \'axis\'; the bay with a hold ahead rejected with exactly one reason, \'bow\' (#183, #234, #235). Successor of L1.beambay.length.v2 (#249, superseded): the T3 energy is the solved one in place of gradient x edge^-0.41 x N x edge; nothing else changes.',
   tunable: ['beam.gradient', 'armour.cellMass', 'beam.power', 'beambay.efficiency'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: 'cc995aae' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T3']) for (const size of ['M', 'L']) for (const N of [2, 4, 8]) out.push({ tier, size, N });

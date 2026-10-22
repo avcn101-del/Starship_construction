@@ -21,7 +21,7 @@ export default {
   tolerance: 'the depth identical across tiers within 1e-9 relative (the kernel\'s bisection to 1e-12 on its own csdaRange); the T1 energy against gradient x N x edge 1e-12 (closed form); the kernel against the scenario\'s own integration: energy and depth 1e-3 relative (the integrators\' steps differ: 2 kg/m^2 and 1 % against 0.2 kg/m^2 and 0.1 %); the T1 literal 1 %',
   criterion: 're-statement: the scenario\'s own Bethe integration (13i.1: iron, no shell or density correction; steps at most 0.2 kg/m^2 and 0.1 % of the energy, 10x finer than the kernel\'s) gives the T1 range R1 of E1 = beam.gradient x N x 5 m and, by its own bisection to 1e-12, the energy E at the tier whose range is R1 x sigma(tier) / sigma(T1); the kernel\'s energy and depth within 1e-3 of these; the kernel\'s depth csdaRange(E) / sigma identical across T1-T6 within 1e-9 for N = 2 and N = 8; at T1 the kernel\'s energy = gradient x N x edge within 1e-12; hand-worked literal: T1 N = 2, 100 MeV and 0.282 armour cells (112.8 kg/m^2) within 1 %. Reported, not checked: the first-cell and exit fractions per tier (measured drift for N = 8: F_1 0.431 at T1 to 0.882 at T6, nuclear interactions over ironInteractionLength; #248, #249)',
   tunable: ['beam.gradient', 'armour.cellMass'],
-  locked: null,
+  locked: { date: '2026-10-22', hash: '9de7d2e2' },
   cases(ctx) {
     const out = [];
     for (const N of [2, 8]) for (const tier of Object.keys(ctx.tiers)) out.push({ N, tier });
