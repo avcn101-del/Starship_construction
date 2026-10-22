@@ -410,15 +410,17 @@
     "id": "f1.ctl.noRestore",
     "rule": "13f.1 Control",
     "file": "js/rooms.js",
-    "old": "else if (!room.controlled && now) { room.controlled = true; event(world, room, 'control-restored', cause); if (room.type === 'reactor') controlChanged(world, room, true); }",
-    "new": ""
+    "old": "else if (!room.controlled && now) { room.controlled = true; room.marks.controlRestored = event(world, room, 'control-restored', cause, {}, parent).id; if (room.type === 'reactor') controlChanged(world, room, true); }",
+    "new": "",
+    "note": "(old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "f1.ctl.noControlLossEvent",
     "rule": "13f.1 Control",
     "file": "js/rooms.js",
-    "old": "if (room.controlled && !now) { event(world, room, 'control-lost', cause); setControl(world, room, false, cause); }",
-    "new": "if (room.controlled && !now) { setControl(world, room, false, cause); }"
+    "old": "if (room.controlled && !now) { const ev = event(world, room, 'control-lost', cause, {}, parent); room.marks.controlLost = ev.id; within(world.log, ev, () => setControl(world, room, false, cause)); }",
+    "new": "if (room.controlled && !now) { setControl(world, room, false, cause); }",
+    "note": "(old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "f1.ctl.gunNeedsControl",
@@ -878,9 +880,9 @@
     "id": "k1.beamStopped.cause",
     "rule": "13k.1 Findings (beam-stopped cause)",
     "file": "js/rooms.js",
-    "old": "room.shutdown ? 'heat' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'); }",
-    "new": "!room.powered ? 'no-power' : room.shutdown ? 'heat' : !room.controlled ? 'no-control' : 'destroyed'); }",
-    "note": "an overheated routed beam bay reports no-power again (#227 Q9)"
+    "old": "const why = room.shutdown ? 'heat' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
+    "new": "const why = !room.powered ? 'no-power' : room.shutdown ? 'heat' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
+    "note": "an overheated routed beam bay reports no-power again (#227 Q9) (old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "k1.deposit.damageFirst",
@@ -902,9 +904,9 @@
     "id": "k1.ctl.restoreEventName",
     "rule": "13f.1 Control (S17)",
     "file": "js/rooms.js",
-    "old": "event(world, room, 'control-restored', cause);",
-    "new": "event(world, room, 'control-regained', cause);",
-    "note": "the control-restored event renamed"
+    "old": "room.marks.controlRestored = event(world, room, 'control-restored', cause, {}, parent).id;",
+    "new": "room.marks.controlRestored = event(world, room, 'control-regained', cause, {}, parent).id;",
+    "note": "the control-restored event renamed (old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "l1.plate.roundIgnored",
@@ -1030,9 +1032,9 @@
     "id": "l1.bridge.offCause",
     "rule": "13l.4 A8 (#257 Q2)",
     "file": "js/rooms.js",
-    "old": "event(world, room, 'control-lost', room.active ? 'overheat' : 'off');",
-    "new": "event(world, room, 'control-lost', 'overheat');",
-    "note": "a switched-off bridge reports overheat"
+    "old": "const why = room.active ? 'overheat' : 'off'; room.marks.controlLost",
+    "new": "const why = 'overheat'; room.marks.controlLost",
+    "note": "a switched-off bridge reports overheat (old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "k1.beamPaths.neverCleared",
@@ -1054,17 +1056,17 @@
     "id": "a5.melt.noExplosion",
     "rule": "13l.4 A5 Meltdown",
     "file": "js/rooms.js",
-    "old": "event(world, room, 'meltdown', 'heat');\n    explode(world, room, explosionEnergy(world, room), 'heat');",
-    "new": "event(world, room, 'meltdown', 'heat');",
-    "note": "a reactor at critical melts down without exploding (A5, reviewer N8 on PR #58)"
+    "old": "within(world.log, ev, () => explode(world, room, explosionEnergy(world, room), 'heat'));\n  },\n  magazine",
+    "new": "\n  },\n  magazine",
+    "note": "a reactor at critical melts down without exploding (A5, reviewer N8 on PR #58) (old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "a5.melt.noEvent",
     "rule": "13l.4 A5 Meltdown",
     "file": "js/rooms.js",
-    "old": "event(world, room, 'meltdown', 'heat');\n    explode(",
-    "new": "explode(",
-    "note": "the explosion at critical without its meltdown event"
+    "old": "const ev = event(world, room, 'meltdown', 'heat');\n    within(world.log, ev, () => explode(",
+    "new": "const ev = null;\n    within(world.log, ev, () => explode(",
+    "note": "the explosion at critical without its meltdown event (old/new re-anchored on L4b's text, same edit)"
   },
   {
     "id": "l4f.plate.cosIgnored",
