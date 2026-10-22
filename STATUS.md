@@ -9,13 +9,12 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   consolidation (#242), **physics pass 2 (#243–#251)**.
-- **Running**: L4a fix round `session_013MRAhtyyGbE3gKKimEYvsH` (opus, on
-  `m0/l4a`, 07:12 UTC; #258: plates burn by mass, σ / cos θ, plate heat
-  capacity, two withdrawals with successors; locked 3 scenarios at
-  `7399706`; canonical run `ca2b896`, regress 92 VERIFIED + 87 WITHDRAWN +
-  5 RETIRED; the light blind checker found 0 mismatches, 3 wording gaps for
-  §13l.1; the final mutation run takes about 75 min). Review of PR #58: 2 blocking,
-  both the lead designer's, answered in #258.
+- **Running**: light re-review of PR #58's fix round
+  `session_01LQ9KUec9DtX8tjySLLvMur` (sonnet, 08:47 UTC). The fix round
+  finished (head `fe32dc5`; regress 92 VERIFIED + 87 WITHDRAWN + 5 RETIRED;
+  155 mutations, 95 KILLED, one new survivor `l4f.plate.cellVentsPlate`;
+  smoke 3/3, 0 console errors). The checker found 0 mismatches and 3
+  wording gaps for §13l.1. Merge follows a clean re-review.
 - **Waiting on you**: nothing now. After L4a merges and the prototype page
   is republished with its kernel: play one duel on the phone, tap Export,
   Copy, and send the JSON; the lead designer replays it in Node
@@ -215,7 +214,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
-| Check-in of this chat | `trig_01UF7Ebxfto95vuFJW2dbzxV` | 2026-10-22 08:56 UTC, once | the fix round engineer, nudged at 08:36; then the light re-review |
+| Check-in of this chat | `trig_01TRrkkDmFnyAZzmw64piNyP` | 2026-10-22 09:22 UTC, once | the PR #58 re-review; merge row; pace re-measure |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
