@@ -9,8 +9,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - **Merged**: prototype v2 (#239), the audits block (#240–#244), the
   consolidation (#242), **physics pass 2 (#243–#251)**.
-- **Running**: L4a engineer (the owner said go, 2026-10-22; 45–70 USD
-  estimated). `tools/mutate` merged (PR #56, #257; 7.91 USD).
+- **Running**: L4a engineer `session_01FpUHAGXwS7MQ9fDiQV6M31` (opus, on
+  `m0/l4a`, 05:30 UTC; the owner said go; 45–70 USD estimated). `tools/mutate` merged (PR #56, #257; 7.91 USD).
 - **Waiting on you**: nothing (#249 recorded your S6 choice); veto window
   on #242, #248 and §13k.2's constants.
 - **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
@@ -206,6 +206,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
+| Check-in of this chat | `trig_01LMevqPfW8gehwFG1hSDtf5` | 2026-10-22 06:16 UTC, once | read the L4a engineer; start the checker from the lock |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
