@@ -70,7 +70,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Physics checker, L4b (blind, from lock `e5c67dc`; `checker/l4b`; 0 discrepancies, 4 notes) | session_01Fhhp1vQjFJpdW3v1XjiUqi | sonnet-5-5 | 3.91 |
 | Reviewer, L4b (PR #62; 0 blocking, 9 notes) | session_0191sXFiff1SUfcYSCCYKYiL | sonnet-5-5 | 1.01 |
 | Audit before L5, documents (light; `audit/l4-docs`) | session_015MiuXbDJDY3ER7gYb4HMt3 | sonnet-5-5 | running |
-| Audit before L5, process (light; `audit/l4-process`) | session_016xMPBjzauERJgfNVoFhTbE | sonnet-5-5 | running |
+| Audit before L5, process (light; `audit/l4-process`; 10 findings) | session_016xMPBjzauERJgfNVoFhTbE | sonnet-5-5 | 0.91 |
 | Audit before L5, physics (light; `audit/l4-physics`) | session_01PxqWgmGKWgnmYN4z3Sb9v7 | sonnet-5-5 | running |
 | Audit before L5, scenarios (light; `audit/l4-scenarios`) | session_01KLRjP6m3agMAXhhbdn8thh | sonnet-5-5 | running |
 
