@@ -202,8 +202,6 @@ Nothing (#249 answered S6).
 | Task | Id | Schedule | What |
 |---|---|---|---|
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
-
-
 | Check-in of this chat | `trig_013Ys8k4WDJ6c7cAirTK9Su2` | 2026-10-22 04:44 UTC, once | read the `tools/mutate` engineer |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
