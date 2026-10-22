@@ -20,7 +20,7 @@ import { validateShip } from '../js/layout.js';
 import { weaponStates, largestFraction } from '../js/battle.js';
 import { cascadeTree } from '../js/events.js';
 import { rotate, worldPoint, pointVelocity } from '../js/body.js';
-import { LAYOUTS, LOADOUT, START_SEPARATION, TIER, SEED, PRESETS, SCRIPT, RANGES, AUTOPILOT, defaultLoadout } from './config.js';
+import { LAYOUTS, LOADOUT, TIER, SEED, PRESETS, SCRIPT, RANGES, AUTOPILOT, defaultLoadout } from './config.js';
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1];
@@ -41,7 +41,7 @@ export function validateLayout(key) {
   return v;
 }
 
-/** One ship of the loadout's layout: `side` 'player' (centre of mass at the origin, facing +x) or 'enemy' (the start separation ahead, facing -x), at rest. */
+/** One ship of the loadout's layout: `side` 'player' (centre of mass at the origin, facing +x) or 'enemy' (battle.openingRange ahead, facing -x, #269), at rest. */
 function buildShip(params, side, loadout, orders, seed) {
   const tier = TIERS[TIER], edge = tier.edge, L = LAYOUTS[loadout.layout];
   validateLayout(loadout.layout);
@@ -59,7 +59,7 @@ function buildShip(params, side, loadout, orders, seed) {
   enablePowerRouting(world);
   setDemand(world, room('reactor'), 1); // routing delivers only what is drawn (#193)
   const heading = side === 'player' ? 0 : Math.PI, centre = readout(world).centre;
-  const at = side === 'player' ? [0, 0] : [START_SEPARATION, 0], r = rotate(centre, heading);
+  const at = side === 'player' ? [0, 0] : [scaled(params.battle.openingRange, edge), 0], r = rotate(centre, heading);
   enableShip(world, { origin: [at[0] - r[0], at[1] - r[1]], heading });
   const crewTotal = world.rooms.reduce((x, rm) => x + rm.crewTotal, 0);
   const random = rng(seed);

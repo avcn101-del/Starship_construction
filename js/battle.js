@@ -1,7 +1,7 @@
 // battle.js — the battle loop (DESIGN.md 13l.1, L4b, #252, #253, #255): two
 // ship worlds in one frame, an attacker and a static target. The target has no
 // helm: it holds its heading on its RCS and never thrusts, and fires only when
-// its case says so. The attacker starts at rest battle distance from the
+// its case says so. The attacker starts at rest battle.openingRange from the
 // target's centre of mass on a named bearing, bow-on; its turret aims at the
 // target room (no lead: the target is static) and its spinal beam fires along
 // its axis (#234), which its RCS turns onto the target room. Rounds are kernel
@@ -67,15 +67,15 @@ export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, 
 
 /**
  * A battle (13l.1). `attacker` and `target` are blueprints; the target's centre of mass at the origin with
- * `targetHeading` (default 0) and `targetVelocity` (default at rest); the attacker's centre of mass `distance` (900
- * m, #54) from it on `bearing` (a name of BEARINGS in the target's frame, or a unit vector), at rest, bow-on.
+ * `targetHeading` (default 0) and `targetVelocity` (default at rest); the attacker's centre of mass `distance`
+ * (default battle.openingRange, 900 m at T1, k = 1, #54, #269) from it on `bearing` (a name of BEARINGS in the target's frame, or a unit vector), at rest, bow-on.
  * `plan`: the attacker's targets, { turret: [room ids], beam: [room ids] }, each used until its room is destroyed
  * (or `turretPoint`, a world point the turret aims at instead);
  * `targetFire`: { aim: [x, y] } makes the target's turret fire along that direction of its own frame (a case's
  * order, B5); `setup`: { attacker, target } (world, room) before enableShip; `shield`: { attacker, target } turns a
  * shield generator on. `seed`: the battle's seed (#7).
  */
-export function createBattle({ params, tier = 'T1', attacker, target, bearing = '-y', distance = 900, seed = 1, plan = {}, targetFire = null, targetHeading = 0, targetVelocity = [0, 0], setup = {}, shield = {}, validate = true }) {
+export function createBattle({ params, tier = 'T1', attacker, target, bearing = '-y', distance = scaled(params.battle.openingRange, TIERS[tier].edge), seed = 1, plan = {}, targetFire = null, targetHeading = 0, targetVelocity = [0, 0], setup = {}, shield = {}, validate = true }) {
   const edge = TIERS[tier].edge, k = params.kinetic;
   const u = typeof bearing === 'string' ? rotate(BEARINGS[bearing], targetHeading) : bearing;
   const T = buildShip(params, tier, target, { prefix: 'T', heading: targetHeading, velocity: targetVelocity, setup: setup.target, validate });
