@@ -11,13 +11,12 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   consolidation (#242), physics pass 2 (#243–#251), `tools/mutate` (#257),
   **L4a (PR #58, #253–#258, #260)**: armour plates on walls, R1c, crew
   capacity, the kernel obligations.
-- **Running**: L4b engineer `session_01MwEE8qKmDVhDfvqWe4UnWn` (opus, on
-  `m0/l4b` from `main` `351604e`, 09:15 UTC; the owner said go, #264;
-  70–100 USD by the rule, 25–40 expected; 16.49 USD at 10:44 with the
-  mutation run at 109/171); locked 15 scenarios at
-  `e5c67dc` (09:46 UTC); the blind physics checker (3.91 USD) found 0
-  discrepancies against the kernel and 4 notes (the turret aims at the
-  first surviving cell's centre, not the room's: a sentence for §13l.1).
+- **Running**: reviewer of PR #62 (L4b) `session_0191sXFiff1SUfcYSCCYKYiL`
+  (sonnet, 11:05 UTC). The L4b engineer finished (19.06 USD; PR #62, head
+  `6f4bae9`, lock `e5c67dc`): regress 107 VERIFIED + 87 WITHDRAWN + 5
+  RETIRED; 171 mutations, 111 KILLED; E8 0.15–0.29 ms per step; smoke 0
+  errors; 12 questions. The blind checker (3.91 USD) found 0 discrepancies
+  and 4 notes.
 - **Waiting on you**: nothing (L4b go given, #264). Veto window on #253,
   #256, #258–#264.
 - **Money**: 2026-10-21/22 about 112 USD (v2 13.85, audits 25.40,
@@ -213,7 +212,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
-| Check-in of this chat | `trig_01X9QWUg8dbAvw6b1cjfJPhz` | 2026-10-22 11:20 UTC, once | read the L4b engineer; start the reviewer |
+| Check-in of this chat | `trig_01UnvcS4ZhoaXKWqpvarVzPS` | 2026-10-22 11:46 UTC, once | read the PR #62 reviewer; answers row; merge or fix round |
 | Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
 
 The lead designer's own check-ins (one-shot reminders that wake the chat
