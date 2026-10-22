@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased — 2026-10-22 — The L4 plan (#252, #253)
+
+- `DESIGN.md` §13l: L4 (ship versus a static target) planned in two passes,
+  L4a (kernel obligations of §17) and L4b (the battle loop, Disabled and
+  destroyed as kernel rules, the per-second log, the cascade tree, one
+  target per capture route: R1, T-neck, T-hot, T-dry). EMP and surrender
+  move to L5 (the owner, #252).
+- `tools/estimates/l4.mjs`: the plan's estimates on a static R1 and the
+  three target variants (#241's plan gate).
+- Planned constants: `battle.wreckFraction` (new, 0.5), `quarters.crewPerCell`
+  3 → 4; not yet in `data.js` (the L4 engineers enter them).
+
 ## 0.9.0 — 2026-10-22 — Physics pass 2: one law, closed books, tiers, determinism (#240, #243)
 
 - **One law for everything that resists** (`DESIGN.md` §13k.1): beam burn by

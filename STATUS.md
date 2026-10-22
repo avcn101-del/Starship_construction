@@ -18,7 +18,10 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 - **Money**: 2026-10-21/22 about 86 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93); pass 2 estimated 50–60, inside it.
 - **Next**: review of `tools/mutate` (estimated 28–44 USD with ×4,
-  the owner agreed) → the L4 plan (under #241's gate).
+  the owner agreed) → L4a (planned, §13l, #253; 25–35 USD with ×2.5,
+  needs the owner's go on cost) → L4b (70–100 USD with ×4).
+- **Owner chose** #252 (L4: one target per route; EMP and surrender at L5).
+  Open question to the owner: has prototype v2 been played (§13j.4)?
 
 ## Where we are
 
@@ -170,7 +173,9 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Awaiting the owner
 
-Nothing (#249 answered S6).
+- The go on L4a's cost (25–35 USD) once `tools/mutate` merges; veto
+  window on #253.
+- Whether prototype v2 was played and what was not fun (§13j.4).
 
 ## Next steps
 

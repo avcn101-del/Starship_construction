@@ -124,8 +124,8 @@ function route(name, { kinetic = [], beam = [], shield = false, limit = 900, bui
       beamTime += world.dt;
     }
     step(world);
-    const exploded = world.rooms.find((r) => r.exploded && (r.type === 'reactor' || r.type === 'magazine'));
-    if (exploded) { end = { kind: 'DESTROYED', by: exploded.id, t: world.t }; break; }
+    const boom = world.log.events.find((e) => e.type === 'explosion'); // the first explosion is a reactor's or a magazine's
+    if (boom) { end = { kind: 'DESTROYED', by: boom.room, t: world.t }; break; }
     const a = abilities(world);
     if (!a.beam && !a.turret && !a.thrust) { if (lostAt === null) lostAt = world.t; if (world.t - lostAt >= disabledSeconds - 1e-9) { end = { kind: 'DISABLED', t: world.t }; break; } }
     else lostAt = null;
@@ -135,6 +135,8 @@ function route(name, { kinetic = [], beam = [], shield = false, limit = 900, bui
   const crew = world.rooms.reduce((x, r) => [x[0] + (r.crewTotal - r.crew), x[1] + r.crewTotal], [0, 0]);
   const wrecked = world.rooms.filter((r) => isDestroyed(r)).map((r) => r.id);
   console.log(`${name.padEnd(34)} ${end ? `${end.kind} at ${end.t.toFixed(2)} s${end.by ? ` (${end.by})` : ''}` : `none by ${limit} s`}; lost all at ${lostAt === null ? '-' : lostAt.toFixed(2)} s; shots ${shots}, beam ${beamTime.toFixed(1)} s; cells lost ${cellsLost}; crew ${crew[0]}/${crew[1]}; wrecked [${wrecked.join(', ')}]`);
+  const hurt = world.rooms.filter((r) => !isDestroyed(r) && r.cells.some((c) => c.integrity < 1)).map((r) => `${r.id} ${(r.cells.reduce((x, c) => x + c.integrity, 0) / r.cells.length).toFixed(2)}${r.shutdown ? ' shut down' : ''}`);
+  console.log(`${''.padEnd(34)} damaged, not destroyed (mean integrity): ${hurt.join(', ') || '-'}`);
   console.log(`${''.padEnd(34)} first: ${firstEvents.map((e) => `${e.type} ${e.room} @${e.t.toFixed(2)} (${e.cause})`).join('; ')}`);
   return end;
 }
@@ -156,3 +158,45 @@ route('reactor, beam (-y cols 3, 4)', { beam: [['-y', 3, 'reactor'], ['-y', 4, '
 route('beam along the axis from the stern', { beam: [['-x', 2, 'reactor'], ['-x', 3, 'reactor']], limit: 900 });
 // The magazine: any route whose line crosses it.
 route('magazine, kinetic (-y col 8 via hold)', { kinetic: [['-y', 8, 'magazine']] });
+
+// ---------- target variants (13l.2): one per route R1 cannot show ----------
+import { validateShip } from '../../js/layout.js';
+import { ROOMS } from '../../js/data.js';
+const check = (name, rooms) => {
+  const v = validateShip({ grid: tier.grid, edge, rooms: rooms.map((r) => ({ ...r, size: 'M' })), fittings: [] }, ROOMS);
+  console.log(`  layout ${name}: ${v.valid ? 'valid' : v.reasons.map((r) => `${r.rule} ${r.room}: ${r.detail}`).join('; ')}`);
+};
+// T-neck: an aft section (engine, reactor, shield, heat sink) joined to a forward section (bridge, magazine, beam bay,
+// quarters, turret) only through a 2 x 2 hold, open from -y and +y. Split there: the bridge half has no reactor, the
+// reactor half no bridge (SCRAM).
+const T_NECK = [
+  { id: 'engine', type: 'engine', cell: [0, 2], rotation: 90 }, { id: 'reactor', type: 'reactor', cell: [3, 2] },
+  { id: 'shield', type: 'shieldGenerator', cell: [3, 0] }, { id: 'heatSink', type: 'heatSink', cell: [3, 4] },
+  { id: 'hold', type: 'hold', cell: [5, 2] },
+  { id: 'bridge', type: 'bridge', cell: [7, 2] }, { id: 'magazine', type: 'magazine', cell: [9, 2] },
+  { id: 'beamBay', type: 'beamBay', cell: [11, 2] }, { id: 'quarters', type: 'quarters', cell: [7, 4] },
+  { id: 'turret', type: 'turret', cell: [10, 4] },
+];
+// T-hot: R1 without its beam bay (the turret its only weapon, a crewed room with low thresholds); the bow cells are holds.
+const T_HOT = R1_ROOMS.map((r) => (r.id === 'beamBay' ? { id: 'bowHold', type: 'hold', cell: [9, 2] } : r));
+// T-dry: an emplacement: R1 without engine and beam bay (a hold aft, a hold at the bow); it fires its turret until dry.
+const T_DRY = R1_ROOMS.map((r) => (r.id === 'beamBay' ? { id: 'bowHold', type: 'hold', cell: [9, 2] } : r.id === 'engine' ? { id: 'aftHold', type: 'hold', cell: [1, 2] } : r));
+console.log('--- variants');
+check('T-neck', T_NECK); check('T-hot', T_HOT); check('T-dry', T_DRY);
+route('T-neck: split at the hold (-y cols 5, 6)', { kinetic: [['-y', 5, 'hold'], ['-y', 6, 'hold']], build: { rooms: T_NECK, fittings: [] } });
+route('T-neck: naive, the beam bay first', { kinetic: [['-y', 11, 'beamBay'], ['-y', 12, 'beamBay']], build: { rooms: T_NECK, fittings: [] }, limit: 120 });
+route('T-hot: beam on the turret (+x rows 5, 4), engine by rounds', { beam: [['+x', 5, 'turret'], ['+x', 4, 'turret']], kinetic: [['-y', 0, 'engine'], ['-y', 1, 'engine'], ['-y', 2, 'engine']], build: { rooms: T_HOT, fittings: [] } });
+// T-dry: nobody shoots it; it fires its turret (hold off, aimed broadside) until the ready store and the magazine are empty.
+{
+  const { world, room } = buildTarget({ rooms: T_DRY, fittings: [] });
+  room('turret').turret.hold = false; room('turret').turret.aim = [0, 1];
+  let lostAt = null, end = null;
+  while (world.t < 900) {
+    step(world);
+    if (world.ship.rounds) world.ship.rounds.length = Math.min(world.ship.rounds.length, 0); // rounds leave; their books are not this estimate's
+    const a = abilities(world);
+    if (!a.beam && !a.turret && !a.thrust) { if (lostAt === null) lostAt = world.t; if (world.t - lostAt >= disabledSeconds - 1e-9) { end = world.t; break; } } else lostAt = null;
+  }
+  const mag = magazineContents(world, room('magazine'));
+  console.log(`T-dry: fires until dry: last round gone at ${lostAt === null ? '-' : lostAt.toFixed(2)} s, Disabled at ${end === null ? '-' : end.toFixed(2)} s; magazine left ${mag.ap + mag.he}; expected (ready ${params.turret.readyRounds.value} + ${scaled(params.magazine.capacity, edge) / roundMass} rounds) x ${shotEvery} s = ${((params.turret.readyRounds.value + scaled(params.magazine.capacity, edge) / roundMass) * shotEvery).toFixed(0)} s`);
+}
