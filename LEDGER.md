@@ -93,7 +93,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Reviewer, L5b (PR #84; 0 blocking, 7 findings; notified by trigger) | session_01Tux7HRzP4r2YcUorJTjYEc | sonnet-5-5 | 0.66 |
 | Engineer, L5c weapons (`m0/l5c-weapons`, PR #88, head `42391b5`; W1–W14 less W9, `js/missile.js`, `js/defence.js`; 14 questions; notified by trigger) | session_01FGkcorhSN5Vdhec9rnEiyn | opus-5-5 | 23.34 |
 | Physics checker, L5c (blind, from lock `9c21d46`; 0 numeric mismatches in 12 scenarios, 8 findings, 1 blocking: `L1.pd.kinetic` does not enforce the flak dose law; notified by trigger) | session_0121fPWd2hcCuvWibkuWPkBg | sonnet-5-5 | 2.81 |
-| Engineer, L5c fix round (#296; running) | session_01X1gtC7jUZGTc2g5jVkX1qk | opus-5-5 | running |
+| Engineer, L5c fix round (#296; head `a7ee5f8`: `pd.range`, the body's impulse, three successors; 2 questions; notified by trigger) | session_01X1gtC7jUZGTc2g5jVkX1qk | opus-5-5 | 7.08 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

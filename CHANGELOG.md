@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — Answers to L5c's fix round and checker (#298)
+
+- `DECISIONS.md` #298: `L1.pd.kinetic` and `L2.missile.seekers` withdrawn
+  for successors (the dose law, the hand-worked seeker points);
+  `L2.pd.saturation` (three bays); `he.coupling` a flat burst efficiency;
+  the body before the warhead; point defence's own sensor; the penetrator's
+  228 m/s in battle; §17 item 47; a second fix round. `DESIGN.md` §13n.1 (c),
+  §13n.3, §13n.4, §17, §18.
+
 ## Unreleased — 2026-10-23 — The engine's plume (#297)
 
 - `DECISIONS.md` #297: the jet has an effect (the owner): fittings only,
