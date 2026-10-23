@@ -192,6 +192,21 @@ larger than L5c). The old chat (`session_01DFw3o4EBEtf1adcpyJ5786`) has
 nothing left to do (#300 written). The next natural boundary: **after
 L5d merges**, or earlier if the new chat's context is compressed.
 
+**The owner's standing instruction (2026-10-23) for this chat
+(`session_01S8gXf1kch2FCFHYE8nwhrn`)**: right after L5d merges, hand over
+to a new lead designer chat, no change before. (1) Write this file for it:
+open PRs, running sessions, scheduled tasks, next steps; the next step is
+**the prototype page session** (#301, option A, already approved). (2) Open
+the new chat on **`claude-opus-5-5`**, the whole task in its first message.
+**Lead designer chats are opened on opus**: fable kept stopping on safety
+grounds in this project (several of this chat's turns on
+`claude-fable-5-1` were withheld by a safety classifier). (3) Delete this
+chat's own pending check-ins; the new chat re-creates its own. (4) The last
+act: tell the owner the new chat's link. Hand over earlier only if the
+context is compressed or the chat repeats itself; then also tell every
+running session where to send its trigger (the new chat's id).
+**The owner is in Vietnam: give times in Vietnam time (UTC+7).**
+
 ## Lessons for whoever continues
 
 - **Test a control law against the case's own starting state before writing it into a plan** (#302, #303): the L5d engineer found within an hour that #301's range-order threshold never engages from rest and that #278's surrender formula contradicted its own gloss. Both were caught before the lock because the engineer asked early by message; keep inviting that.
