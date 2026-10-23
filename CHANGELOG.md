@@ -2,6 +2,9 @@
 
 ## Unreleased — 2026-10-23 — L5d probed and planned (#301–#306)
 
+- `IDEAS.md` (the design partner, `3eb77de`): the hull radiates, fed by
+  cooling manifolds, with a heat-sink cascade; a law call for the owner
+  later, nothing built now.
 - #306: answers to L5d's engineer, blind checker and reviewer; a fix round
   (H15–H18, `L4.route.emp.v2`). `DESIGN.md` §13n.1 (d) ("L5d as built"),
   §13n.4, §17 item 48, §18.
