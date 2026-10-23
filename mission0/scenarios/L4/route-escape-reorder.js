@@ -31,7 +31,7 @@ export default {
   tolerance: 'steps exact',
   criterion: 'the separation beyond 3000 m from step 958 and growing on every step after; the disengage step cleared from 1200 to 1499 and standing again from 1500; escaped (side A) at 2101 exactly, not earlier',
   tunable: ['battle.cullDistance', 'battle.disabledSeconds', 'engine.thrust'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '918b39ed' },
   cases() {
     return [{ withdraw: 20, again: 25 }];
   },
