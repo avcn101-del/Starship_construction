@@ -21,7 +21,7 @@ export default {
   tolerance: 'exact',
   criterion: 'the Node and Chromium hashes are equal and the tool prints MATCH; js/ uses no Math member but the exact or correctly rounded abs, ceil, floor, round, trunc, sign, min, max, sqrt, fround, imul, clz32 and the constants PI, E, LN2, LN10, LOG2E, LOG10E, SQRT2, SQRT1_2, never Math bare, and no ** with a non-integer exponent (#239 Q6, #243, #310)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'e328384c' },
   cases() {
     return [{ part: 'hash' }, { part: 'grep' }];
   },
