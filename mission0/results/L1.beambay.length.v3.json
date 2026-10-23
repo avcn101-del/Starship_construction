@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.beambay.length.v3",
-  "code": "9c21d46",
+  "code": "0501899",
   "criterionHash": "cc995aae",
   "lockedHash": "cc995aae",
   "runHash": "cc120232",
-  "dataHash": "de116d2a",
+  "dataHash": "d540e777",
   "rowsHash": "5ad9e677",
   "rows": [
     {

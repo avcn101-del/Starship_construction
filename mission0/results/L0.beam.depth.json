@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.beam.depth",
-  "code": "9c21d46",
+  "code": "0501899",
   "criterionHash": "bfc967a1",
   "lockedHash": "bfc967a1",
   "runHash": "9b41a478",
-  "dataHash": "de116d2a",
+  "dataHash": "d540e777",
   "rowsHash": "386fe3b4",
   "rows": [
     {

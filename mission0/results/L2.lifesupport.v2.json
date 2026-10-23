@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.lifesupport.v2",
-  "code": "9c21d46",
+  "code": "0501899",
   "criterionHash": "cd74fc05",
   "lockedHash": "cd74fc05",
   "runHash": "9c1205a3",
-  "dataHash": "de116d2a",
+  "dataHash": "d540e777",
   "rowsHash": "d1e128fb",
   "rows": [
     {

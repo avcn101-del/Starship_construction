@@ -3,7 +3,7 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.missile.warheads.v2",
-  "code": "1cee88d",
+  "code": "0501899",
   "criterionHash": "ba40f09b",
   "lockedHash": "ba40f09b",
   "runHash": "c62e4d71",

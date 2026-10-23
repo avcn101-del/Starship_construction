@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.kinetic.flatten.v2",
-  "code": "9c21d46",
+  "code": "0501899",
   "criterionHash": "4f96f651",
   "lockedHash": "4f96f651",
   "runHash": "e33aaebf",
-  "dataHash": "de116d2a",
+  "dataHash": "d540e777",
   "rowsHash": "aabed79c",
   "rows": [
     {

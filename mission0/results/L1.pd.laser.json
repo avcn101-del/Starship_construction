@@ -3,12 +3,12 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.pd.laser",
-  "code": "9c21d46",
+  "code": "0501899",
   "criterionHash": "d02972ee",
   "lockedHash": "d02972ee",
   "runHash": "a0c8a3ba",
-  "dataHash": "de116d2a",
-  "rowsHash": "052b0a9e",
+  "dataHash": "d540e777",
+  "rowsHash": "de41e8dc",
   "rows": [
     {
       "case": {
@@ -24,7 +24,7 @@
         "killed": {
           "by": "laser",
           "dose": 600000.0000000001,
-          "t": 0.6166666666666667
+          "t": 4.75
         },
         "warhead": false,
         "flak": 0,

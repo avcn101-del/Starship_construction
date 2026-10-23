@@ -3,7 +3,7 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.pd.swarm",
-  "code": "1cee88d",
+  "code": "0501899",
   "criterionHash": "7cfddc96",
   "lockedHash": "7cfddc96",
   "runHash": "d23d9520",

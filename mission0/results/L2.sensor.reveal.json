@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.sensor.reveal",
-  "code": "9c21d46",
+  "code": "0501899",
   "criterionHash": "a28db7f1",
   "lockedHash": "a28db7f1",
   "runHash": "4a2dd645",
-  "dataHash": "de116d2a",
+  "dataHash": "d540e777",
   "rowsHash": "7517991e",
   "rows": [
     {

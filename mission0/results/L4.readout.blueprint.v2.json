@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.readout.blueprint.v2",
-  "code": "9c21d46",
+  "code": "0501899",
   "criterionHash": "b510ef6c",
   "lockedHash": "b510ef6c",
   "runHash": "a38be52c",
-  "dataHash": "de116d2a",
+  "dataHash": "d540e777",
   "rowsHash": "0d83962f",
   "rows": [
     {

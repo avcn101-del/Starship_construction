@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `ae26c4c`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `3c949d6`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -94,6 +94,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | emp.outageTime | 5 | s | 2 | 8 | 0 | true | a powered room in an EMP's reach is shut down this long, then works again; under battle.disabledSeconds so an outage alone never ends a battle (#292); approved as the plan's, #272 (2) |
 | pd.fireRate | 2 | 1/s | 1 | 4 | -1 | true | kinetic point defence: M flak rounds a second at the nearest incoming missile in its arc (#93, 13n.1 (c), #278; approved as the plan's, #272 (2)) |
 | pd.ammo | 40 | rounds | 20 | 100 | 0 | true | its own store of M flak rounds, refilled between battles (#90, #93): 20 s of fire (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| pd.range | 600 | m | 300 | 1500 | 1 | true | point defence (kinetic and laser) engages a missile only within this range of the fitting, in its arc, the nearest first: a laser's spot and tracking, a flak round's reach (#296: without it a laser killed every missile from launch); approved as the plan's, #272 (2) |
 | pd.mass | 8000 | kg | 4000 | 12000 | 2 | true | one kinetic point-defence fitting without ammunition, at its edge's midpoint: the 76/62 SR mount, 7.9 t, turret.machineryMass's source (#281 (2), #295); approved as the plan's, #272 (2) |
 | flak.radius | 10 | m | 5 | 20 | 1 | true | a flak round's burst of he.blastEnergy at its closest approach: a field g = 1 / (1 + (r / this)^2); a missile dies when its dose reaches its hp (within 15.3 m) (13n.1 (c), #278; approved as the plan's, #272 (2)) |
 | pdLaser.power | 1000000 | W | 300000 | 3000000 | 2 | true | laser point defence on a missile in its arc, no falloff (#230); draw this / beambay.efficiency from its host, the rest heat there; a missile dies in hp / this = 0.6 s (13n.1 (c), #278; approved as the plan's, #272 (2)) |

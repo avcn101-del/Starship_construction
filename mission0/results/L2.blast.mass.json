@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.blast.mass",
-  "code": "9c21d46",
+  "code": "0501899",
   "criterionHash": "c476e589",
   "lockedHash": "c476e589",
   "runHash": "5d8a243c",
-  "dataHash": "de116d2a",
+  "dataHash": "d540e777",
   "rowsHash": "e5f931d1",
   "rows": [
     {

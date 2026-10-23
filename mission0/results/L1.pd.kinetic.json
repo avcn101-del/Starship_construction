@@ -3,12 +3,12 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.pd.kinetic",
-  "code": "9c21d46",
+  "code": "0501899",
   "criterionHash": "f3759ef6",
   "lockedHash": "f3759ef6",
   "runHash": "dfa0713b",
-  "dataHash": "de116d2a",
-  "rowsHash": "d435ab2c",
+  "dataHash": "d540e777",
+  "rowsHash": "22fd9862",
   "rows": [
     {
       "case": {
@@ -23,14 +23,14 @@
       "actual": {
         "killed": {
           "by": "flak",
-          "dose": 1999226.4194902543,
-          "t": 1.0833333333333333
+          "dose": 1999779.4895239323,
+          "t": 4.8
         },
         "warhead": false,
-        "flak": 3,
-        "ammo": 37,
+        "flak": 2,
+        "ammo": 38,
         "bursts": [
-          0.19670788480966944
+          0.10500828328833073
         ],
         "energy": null,
         "P": 1000000

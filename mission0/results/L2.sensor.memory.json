@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.sensor.memory",
-  "code": "9c21d46",
+  "code": "0501899",
   "criterionHash": "5a06271c",
   "lockedHash": "5a06271c",
   "runHash": "061f5e00",
-  "dataHash": "de116d2a",
+  "dataHash": "d540e777",
   "rowsHash": "88da62ee",
   "rows": [
     {

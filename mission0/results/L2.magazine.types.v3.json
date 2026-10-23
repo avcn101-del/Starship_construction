@@ -3,7 +3,7 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.magazine.types.v3",
-  "code": "1cee88d",
+  "code": "0501899",
   "criterionHash": "341c29fb",
   "lockedHash": "341c29fb",
   "runHash": "0bf4c5bb",
