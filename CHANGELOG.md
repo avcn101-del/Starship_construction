@@ -1,5 +1,59 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5d merged: the helm and the enemy (#309)
+
+- Kernel (PR #94): the symmetric loop, `js/helm.js` (twelve standing
+  orders, presets, the range order, style, lead, surrender, escape),
+  `js/enemy.js` (personality, wildcard draw, surrender, disengage), the
+  missile bay's draw, power test and cook-off, `tools/play.mjs`,
+  `tools/duel.js`; 7 new constants (`helm.*`, `enemy.decisionInterval`);
+  H1–H20 and H9′, five withdrawals with successors. `DECISIONS.md` #309;
+  `DESIGN.md` §13m's L5d rows proven (three moved to L5e), §13n.1 (d),
+  §13n.6, §17 item 50, §18; `CONSTANTS.md` regenerated; `LEDGER.md`
+  (L5d ≥ 47.92 USD, ratio ≥ 1.20).
+
+## Unreleased — 2026-10-23 — L5d probed and planned (#301–#308)
+
+- #308: H20 `L4.route.escape.reorder`; the float margin confirmed.
+- #307: the style slot, repair priority and the escape count, on the L5d
+  fix round's questions; H15 restated, H19 new. `DESIGN.md` §13n.1 (d),
+  §13n.4, §18.
+- `DESIGN.md` §17 item 49: the pace on the symmetric loop (R1d-A duels
+  23–107 s on PR #94's head; E7's question for L5e).
+- `IDEAS.md` restructured (the design partner, `3fabc06`, the owner's ask):
+  an index table, one section per worked idea, the short lists for ideas not
+  yet worked, deferred or rejected, and moved out; the same 18 ideas, stale
+  text citing the decisions since.
+- `IDEAS.md` (the design partner, `3eb77de`): the hull radiates, fed by
+  cooling manifolds, with a heat-sink cascade; a law call for the owner
+  later, nothing built now.
+- #306: answers to L5d's engineer, blind checker and reviewer; a fix round
+  (H15–H18, `L4.route.emp.v2`). `DESIGN.md` §13n.1 (d) ("L5d as built"),
+  §13n.4, §17 item 48, §18.
+- #305: the Cold Brick joins E5's degenerate builds (the design partner's
+  proposal); `DESIGN.md` §13n.1 (e), §18.
+- #304: #297's reason corrected (radiators do not overheat a ship inside a
+  battle; the design partner's check, `tools/estimates/radiators.mjs`); L5e's
+  plume measure reports it. `DESIGN.md` §13n.1 (e), §18.
+- #303: the surrender timer is `battle.disabledSeconds` × resolve (the
+  L5d engineer's second question); `DESIGN.md` §13n.1 (d), H8, §18.
+- #302: the range order's engagement (`helm.rangeBand`, new), on the L5d
+  engineer's early question; `DESIGN.md` §13n.1 (d), §13n.2, §18.
+- `DESIGN.md` §13n.1 (d) (the row "L5d's amendment"), §13n.2
+  (`helm.dodgeMin`, `helm.dodgeMax`), §13n.3 (11), §13n.4 (H1, H2, H4, H11
+  reworded; H12–H14 new), §13n.5 (re-costed; the prototype page's
+  session), §13n.6, §17 items 44–46, §18. `DECISIONS.md` #301.
+  `tools/estimates/l5.mjs` section (11) (escape and dodge by the
+  integrator's sum; the escape cases driven by hand on today's kernel);
+  `tools/estimates/l5d-probe.diff` (the probe's patch and command).
+  `STATUS.md`: this lead designer chat took over.
+- `IDEAS.md` (the design partner, `4670d7a`): the battle screen, an outside
+  view plus a knowledge panel, the layout the owner chose from the mockups;
+  presentation, after Mission 0, nothing built now. Two follow-ups to the
+  same row (`0701f39`: a tell strip, a dynamic camera, a zone zoom;
+  `d506a7c`: the outside hull drawn smooth, the inside kept on the cell
+  grid, adding to #45).
+
 ## Unreleased — 2026-10-23 — The mutation run on the L5c merge (#300)
 
 - `DECISIONS.md` #300: the full mutation run on `c1b2c4a`

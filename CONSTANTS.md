@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `3c949d6`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `c40a28e`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -127,6 +127,13 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | battle.openingRange | 900 | m | 500 | 2000 | 1 | true | the attacker's distance from the target's centre of mass when a battle opens (createBattle's default); #54's band; k = 1 so the dodge in one time of flight is the same number of cells at every tier (T2 of the L4 physics audit, §17 item 35, #270 (9)) |
 | battle.disabledSeconds | 10 | s | 3 | 30 | 0 | true | no weapon able to fire for this long, whatever the engine does: Disabled (#82, #243, #255) |
 | battle.wreckFraction | 0.5 |  | 0.3 | 0.8 | 0 | true | a ship whose largest fragment holds less than this fraction of its mass at undock has broken into too many pieces: destroyed (#83, #253) |
+| helm.rangeClose | 600 | m | 300 | 800 | 1 | true | the range order's close value: #54's band, prototype v2's (13n.1 (d), #278; approved as the plan's, #272 (2)) |
+| helm.rangeHold | 900 | m | 600 | 1200 | 1 | true | the range order's hold value: #54's band, prototype v2's (13n.1 (d), #278; approved as the plan's, #272 (2)) |
+| helm.rangeOpen | 1500 | m | 1000 | 2500 | 1 | true | the range order's open value: #54's band, prototype v2's (13n.1 (d), #278; approved as the plan's, #272 (2)) |
+| helm.rangeBand | 100 | m | 25 | 300 | 1 | true | the range order's dead band: it engages beyond it (or at a dodge's drift, a t180) and lets go inside it at a relative speed of at most this / t180; between the two it keeps its state (hysteresis); prototype v2's dead band, the one the owner played (#263, #302; approved as the plan's, #272 (2)) |
+| helm.dodgeMin | 6 | s | 2 | 10 | 0 | true | the shortest interval between dodge flips, drawn on the seeded stream for the enemy, their midpoint with dodgeMax for the player: prototype v2's value, the one the owner played (#263, #301; approved as the plan's, #272 (2)) |
+| helm.dodgeMax | 14 | s | 6 | 30 | 0 | true | the longest interval between dodge flips (helm.dodgeMin's note; #263, #301; approved as the plan's, #272 (2)) |
+| enemy.decisionInterval | 1 | s | 0.25 | 5 | 0 | true | the enemy decides (which zone to scan, which room to target, which preset) once per this: the same delay the player's taps have (13n.1 (d), #278; approved as the plan's, #272 (2)) |
 | crewRequired.bridge | 4 | crew | 4 | 12 | 2 | true | #183 |
 | crewRequired.reactor | 4 | crew | 4 | 12 | 2 | true | #183 |
 | crewRequired.engine | 2 | crew | 2 | 6 | 2 | true | #183 |

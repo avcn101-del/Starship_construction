@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.fragment.scram.v2",
-  "code": "0501899",
+  "code": "f7833b3",
   "criterionHash": "e1d33ce8",
   "lockedHash": "e1d33ce8",
   "runHash": "a74d2034",
-  "dataHash": "d540e777",
+  "dataHash": "fee97350",
   "rowsHash": "a069f807",
   "rows": [
     {

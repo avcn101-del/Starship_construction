@@ -1,0 +1,174 @@
+{
+  "id": "L4.route.escape",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.escape",
+  "code": "f7833b3",
+  "criterionHash": "c30f6f8e",
+  "lockedHash": "c30f6f8e",
+  "runHash": "20fb8276",
+  "dataHash": "fee97350",
+  "rowsHash": "ae19c2e0",
+  "rows": [
+    {
+      "case": {
+        "name": "still"
+      },
+      "expected": {
+        "passed": 958,
+        "escaped": 1558
+      },
+      "actual": {
+        "passed": 958,
+        "end": {
+          "kind": "escaped",
+          "side": "A",
+          "step": 1558
+        },
+        "rule": {
+          "passed": 958,
+          "step": 1558
+        },
+        "steps": 1558,
+        "peak": 6453.188110976212
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "chase"
+      },
+      "expected": {
+        "passed": 1600,
+        "escaped": 2200
+      },
+      "actual": {
+        "passed": 1600,
+        "end": {
+          "kind": "escaped",
+          "side": "A",
+          "step": 2200
+        },
+        "rule": {
+          "passed": 1600,
+          "step": 2200
+        },
+        "steps": 2200,
+        "peak": 4873.859939195595
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "intact-up"
+      },
+      "expected": {
+        "rule": true
+      },
+      "actual": {
+        "passed": 1155,
+        "end": {
+          "kind": "escaped",
+          "side": "A",
+          "step": 1755
+        },
+        "rule": {
+          "passed": 1155,
+          "step": 1755
+        },
+        "steps": 1755,
+        "peak": 5759.128440564472
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "intact-down"
+      },
+      "expected": {
+        "rule": true
+      },
+      "actual": {
+        "passed": 1253,
+        "end": {
+          "kind": "escaped",
+          "side": "A",
+          "step": 1853
+        },
+        "rule": {
+          "passed": 1253,
+          "step": 1853
+        },
+        "steps": 1853,
+        "peak": 5421.082139777586
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "resolve-0.25",
+        "resolve": 0.25
+      },
+      "expected": {
+        "disengage": true
+      },
+      "actual": {
+        "disengage": true,
+        "at": 0,
+        "flown": true,
+        "first": {
+          "step": 0,
+          "t": 0,
+          "preset": "evade",
+          "heat": 0,
+          "buffer": 0,
+          "target": null,
+          "zones": 0,
+          "disengage": true
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "resolve-0.75",
+        "resolve": 0.75
+      },
+      "expected": {
+        "disengage": false
+      },
+      "actual": {
+        "disengage": false,
+        "at": null,
+        "flown": false,
+        "first": {
+          "step": 0,
+          "t": 0,
+          "preset": "evade",
+          "heat": 0,
+          "buffer": 0,
+          "target": null,
+          "zones": 0,
+          "disengage": false
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -1275,7 +1275,7 @@
   },
   {
     "id": "l4b.cull.ownBodiesOnly",
-    "rule": "13l.1 Battle (cull every step with both ships' bodies, §17 item 26)",
+    "rule": "13l.1 Battle (cull every step with both ships' bodies, \u00a717 item 26)",
     "file": "js/battle.js",
     "old": "cull(s.world, s.other.world.ship.bodies);",
     "new": "cull(s.world);"
@@ -1761,5 +1761,261 @@
     "file": "js/sensors.js",
     "old": "position: fittingPoint(world, f), class: temperatureClass(room)",
     "new": "position: ((q) => [q[0] + 1, q[1] + 1])(fittingPoint(world, f)), class: temperatureClass(room)"
+  },
+  {
+    "id": "l5d.range.threshold",
+    "rule": "13n.1 (d) the range order (#302)",
+    "file": "js/helm.js",
+    "old": "  if (e <= band && speed <= band / t180) return false;",
+    "new": "  if (e <= band) return false;",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.range.braking",
+    "rule": "13n.1 (d) the range order",
+    "file": "js/helm.js",
+    "old": "return a * (Math.sqrt((2 * e) / a + t180 * t180) - t180);",
+    "new": "return a * Math.sqrt((2 * e) / a);",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.dodge.broadsideOnly",
+    "rule": "13n.1 (d) dodging",
+    "file": "js/helm.js",
+    "old": "    if (o.facing === 'broadside') {\n      if (o.dodging === 'on') {",
+    "new": "    if (o.facing === 'broadside' || o.dodging === 'on') {\n      if (o.dodging === 'on') {",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.conflict.order",
+    "rule": "13n.1 (d) conflicts (#40)",
+    "file": "js/helm.js",
+    "old": "    if (h.engaged) { heading = Math.atan2(err[1], err[0]);",
+    "new": "    if (h.engaged && o.facing !== 'bow') { heading = Math.atan2(err[1], err[0]);",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.lead.noLead",
+    "rule": "13n.1 (d) the turret's lead",
+    "file": "js/helm.js",
+    "old": "const L = intercept(S, vs, tg.point, vo, roundOf(w, x.size, x.turret.want || 'standard').v);",
+    "new": "const L = intercept(S, vs, tg.point, [0, 0], roundOf(w, x.size, x.turret.want || 'standard').v);",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.fire.sureHit",
+    "rule": "13n.1 (d) open fire sure hit",
+    "file": "js/helm.js",
+    "old": "return tf !== null && 0.5 * lat * tf * tf < battle.edge;",
+    "new": "return tf !== null && 0.5 * lat * tf * tf < 2 * battle.edge;",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.fire.inRange",
+    "rule": "13n.1 (d) open fire in range",
+    "file": "js/helm.js",
+    "old": "if (o.openFire === 'inRange') return r <= scaled(battle.params.battle.cullDistance, battle.edge);",
+    "new": "if (o.openFire === 'inRange') return r <= 2 * scaled(battle.params.battle.cullDistance, battle.edge);",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.fire.ripple",
+    "rule": "13n.1 (d) firing style",
+    "file": "js/helm.js",
+    "old": "(i / weapons.length) * reloadOf(battle, x)",
+    "new": "(i / (2 * weapons.length)) * reloadOf(battle, x)",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.heat.fraction",
+    "rule": "13n.1 (d) heat discipline",
+    "file": "js/helm.js",
+    "old": "for (const r of world.rooms) if (r.placed && !isDestroyed(r)) best = Math.max(best, (roomTemperature(r) - rest) / (r.thresholds.hot - rest));",
+    "new": "for (const r of world.rooms) if (r.placed && !isDestroyed(r)) best = Math.max(best, roomTemperature(r) / r.thresholds.hot);",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.power.priority",
+    "rule": "13n.1 (d) power priority",
+    "file": "js/helm.js",
+    "old": "if (w.power) w.power.priority = priorityIds(w, o.priority);",
+    "new": "if (w.power) w.power.priority = [];",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.dodge.midpoint",
+    "rule": "13n.1 (d) dodging (#240 (3))",
+    "file": "js/helm.js",
+    "old": "return helm.dodge === 'seeded' ? lo + (hi - lo) * battle.rng() : (lo + hi) / 2;",
+    "new": "return helm.dodge === 'seeded' ? lo + (hi - lo) * battle.rng() : lo;",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.enemy.patience",
+    "rule": "13n.1 (d) the enemy's patience",
+    "file": "js/enemy.js",
+    "old": "patience: Math.floor(6 * pers.patience) };",
+    "new": "patience: Math.floor(5 * pers.patience) };",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.enemy.caution",
+    "rule": "13n.1 (d) the enemy's caution",
+    "file": "js/enemy.js",
+    "old": "const hot = heat > 1 - p.caution, low = buffer < p.caution;",
+    "new": "const hot = heat > p.caution, low = buffer < p.caution;",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.enemy.disengage",
+    "rule": "13n.1 (d) escape by resolve (#293)",
+    "file": "js/enemy.js",
+    "old": "if (p.resolve < 0.5 && (hot || low)",
+    "new": "if (p.resolve <= 0.75 && (hot || low)",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.surrender.formula",
+    "rule": "13n.1 (d) surrender (#303)",
+    "file": "js/battle.js",
+    "old": "* s.enemy.personality.resolve, battle.dt)",
+    "new": "* (1 - s.enemy.personality.resolve), battle.dt)",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.escape.count",
+    "rule": "13n.1 (d) escape (#293)",
+    "file": "js/battle.js",
+    "old": "if (battle.ended || x.widening < battle.disabledSteps) return;",
+    "new": "if (battle.ended || x.widening < battle.disabledSteps - 1) return;",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.ids.map",
+    "rule": "\u00a717 item 35 one id space",
+    "file": "js/battle.js",
+    "old": "      battle.ids.set(`${s.name}:${e.cause}`, id); // one id space",
+    "new": "      // battle.ids.set(`${s.name}:${e.cause}`, id); // one id space",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.plan.model",
+    "rule": "#301 (1) plan advancement by the model",
+    "file": "js/battle.js",
+    "old": "const planPick = (battle, ids) => (battle.knowledge ? modelStanding(battle.attacker, battle.target, ids) : firstStanding(battle.target, ids));",
+    "new": "const planPick = (battle, ids) => firstStanding(battle.target, ids);",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.able.reactorActive",
+    "rule": "\u00a717 item 46 the bay's power test",
+    "file": "js/battle.js",
+    "old": "r.type === 'reactor' && r.placed && r.active && !isDestroyed(r)",
+    "new": "r.type === 'reactor' && r.placed && !isDestroyed(r)",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.bay.powered",
+    "rule": "\u00a717 item 46 the bay's power test",
+    "file": "js/rooms.js",
+    "old": "if (!room.controlled || down(room) || isDestroyed(room) || s.ready.length === 0 || !room.powered) return 0;",
+    "new": "if (!room.controlled || down(room) || isDestroyed(room) || s.ready.length === 0) return 0;",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.bay.cookoff",
+    "rule": "\u00a717 item 46 the bay's cook-off",
+    "file": "js/rooms.js",
+    "old": "temperature(room.heat) < tierScaled(world, world.params.thermal.magazineCritical)) return;",
+    "new": "temperature(room.heat) < tierScaled(world, world.params.thermal.plantCritical)) return;",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.bay.request",
+    "rule": "\u00a717 item 46 the bay as a powered room",
+    "file": "js/rooms.js",
+    "old": "  missileBay: (world, room) => (room.missileBay.ready.length > 0 ?",
+    "new": "  missileBayOff: (world, room) => (room.missileBay.ready.length > 0 ?",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.scan.brownout",
+    "rule": "\u00a717 item 45 (b) brown-out",
+    "file": "js/sensors.js",
+    "old": "f.scan.progress += (dt / (T0 * q * q)) * hostFraction(world, f);",
+    "new": "f.scan.progress += dt / (T0 * q * q);",
+    "note": "L5d (#301)"
+  },
+  {
+    "id": "l5d.range.drift",
+    "rule": "13n.1 (d) the range order (#302)",
+    "file": "js/helm.js",
+    "old": "  if (e > band || error > a * t180) return true;",
+    "new": "  if (e > band) return true;",
+    "note": "L5d (#301, #302)"
+  },
+  {
+    "id": "l5d.disengage.withdrawn",
+    "rule": "13n.1 (d) a withdrawn disengage (#306 (7))",
+    "file": "js/helm.js",
+    "old": "    h.disengageStep = null; // withdrawn (a preset switch away from it): no longer a runner (#306 (7))\n",
+    "new": "",
+    "note": "L5d fix round (#306)"
+  },
+  {
+    "id": "l5d.range.couple",
+    "rule": "13n.1 (d) no couple, no range order (#306 (8))",
+    "file": "js/helm.js",
+    "old": "const able = throttle > 0 && a > 0 && t180 < Infinity;",
+    "new": "const able = throttle > 0 && a > 0;",
+    "note": "L5d fix round (#306)"
+  },
+  {
+    "id": "l5d.braking.couple",
+    "rule": "13n.1 (d) no couple, no NaN (#306 (8))",
+    "file": "js/helm.js",
+    "old": "  if (!(a > 0) || !(e > 0) || !(t180 < Infinity)) return 0;",
+    "new": "  if (!(a > 0) || !(e > 0)) return 0;",
+    "note": "L5d fix round (#306)"
+  },
+  {
+    "id": "l5d.style.sense",
+    "rule": "13n.1 (d) the style slot (#307)",
+    "file": "js/helm.js",
+    "old": "const ccw = [u[1], -u[0]], want =",
+    "new": "const ccw = [-u[1], u[0]], want =",
+    "note": "L5d fix round (#307)"
+  },
+  {
+    "id": "l5d.style.engage",
+    "rule": "13n.1 (d) the style slot (#307)",
+    "file": "js/helm.js",
+    "old": "  if (e > band || error >= vt * (1 - 1e-9)) return true;",
+    "new": "  if (e > band || error > vt * (1 + 1e-9)) return true;",
+    "note": "L5d fix round (#307)"
+  },
+  {
+    "id": "l5d.style.position",
+    "rule": "13n.1 (d) the style slot (#307)",
+    "file": "js/helm.js",
+    "old": "const dir = moving ? [-u[0], -u[1]] : o.position",
+    "new": "const dir = false ? [-u[0], -u[1]] : o.position",
+    "note": "L5d fix round (#307)"
+  },
+  {
+    "id": "l5d.repair.order",
+    "rule": "13n.1 (d) repair priority (#307)",
+    "file": "js/rooms.js",
+    "old": "if (sum > base && world.repairOrder) {",
+    "new": "if (sum > base && false) {",
+    "note": "L5d fix round (#307)"
+  },
+  {
+    "id": "l5d.escape.standing",
+    "rule": "13n.1 (d) escape counts while disengage stands (#307)",
+    "file": "js/battle.js",
+    "old": "if (!(d > D) || !runners.length) { x.passed = null; x.widening = 0; }",
+    "new": "if (!(d > D)) { x.passed = null; x.widening = 0; }",
+    "note": "L5d fix round (#307)"
   }
 ]

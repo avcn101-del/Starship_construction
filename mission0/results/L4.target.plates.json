@@ -1,0 +1,148 @@
+{
+  "id": "L4.target.plates",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.target.plates",
+  "code": "f7833b3",
+  "criterionHash": "30c3732c",
+  "lockedHash": "30c3732c",
+  "runHash": "796e1f62",
+  "dataHash": "fee97350",
+  "rowsHash": "3c280cb9",
+  "rows": [
+    {
+      "case": {
+        "zone": 2
+      },
+      "expected": {
+        "first": [
+          {
+            "cell": "8,1",
+            "side": "0,1",
+            "integrity": 1
+          },
+          {
+            "cell": "8,2",
+            "side": "0,-1",
+            "integrity": 1
+          },
+          {
+            "cell": "8,2",
+            "side": "1,0",
+            "integrity": 1
+          },
+          {
+            "cell": "9,2",
+            "side": "-1,0",
+            "integrity": 1
+          }
+        ],
+        "after": [
+          {
+            "cell": "8,1",
+            "side": "0,1",
+            "integrity": 1
+          },
+          {
+            "cell": "8,2",
+            "side": "0,-1",
+            "integrity": 1
+          },
+          {
+            "cell": "8,2",
+            "side": "1,0",
+            "integrity": 0.5
+          },
+          {
+            "cell": "9,2",
+            "side": "-1,0",
+            "integrity": 0.5
+          }
+        ]
+      },
+      "actual": {
+        "first": [
+          {
+            "cell": "8,1",
+            "side": "0,1",
+            "integrity": 1
+          },
+          {
+            "cell": "8,2",
+            "side": "0,-1",
+            "integrity": 1
+          },
+          {
+            "cell": "8,2",
+            "side": "1,0",
+            "integrity": 1
+          },
+          {
+            "cell": "9,2",
+            "side": "-1,0",
+            "integrity": 1
+          }
+        ],
+        "before": [
+          {
+            "cell": "8,1",
+            "side": "0,1",
+            "integrity": 1
+          },
+          {
+            "cell": "8,2",
+            "side": "0,-1",
+            "integrity": 1
+          },
+          {
+            "cell": "8,2",
+            "side": "1,0",
+            "integrity": 1
+          },
+          {
+            "cell": "9,2",
+            "side": "-1,0",
+            "integrity": 1
+          }
+        ],
+        "after": [
+          {
+            "cell": "8,1",
+            "side": "0,1",
+            "integrity": 1
+          },
+          {
+            "cell": "8,2",
+            "side": "0,-1",
+            "integrity": 1
+          },
+          {
+            "cell": "8,2",
+            "side": "1,0",
+            "integrity": 0.5
+          },
+          {
+            "cell": "9,2",
+            "side": "-1,0",
+            "integrity": 0.5
+          }
+        ],
+        "at": 211,
+        "again": 432,
+        "from": 221
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

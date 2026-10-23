@@ -1,0 +1,92 @@
+# tools/estimates/l5d-probe.diff — the L5d probe (#301): a scratch-tree patch, never applied to main.
+# Re-run: git worktree add /tmp/p HEAD && cd /tmp/p && git apply tools/estimates/l5d-probe.diff &&
+#   for P in P1 P2 P3 P4; do PROBE=$P node tools/m0.js cov > cov-$P.txt; done   (and once without PROBE: the baseline)
+# P1 the model forced on, nothing scanned; P2 every zone revealed once at t = 0, aims by the model;
+# P3 every zone re-revealed every step (the model = the truth); P4 plan advancement by the model with knowledge on (item 45 (a)).
+# Compare each COV line's verdict and rows with the baseline's ("rows":"same" = the record's rows unchanged).
+diff --git a/js/battle.js b/js/battle.js
+index daf1fbc..d665f8f 100644
+--- a/js/battle.js
++++ b/js/battle.js
+@@ -48,7 +48,8 @@ import { rotate, worldPoint, pointVelocity, momentumOf, cross } from './body.js'
+ import { roundGeometry } from './projectile.js';
+ import { rng, stepsAtLeast, hash } from './util.js';
+ import { emit, within, createLog, cascadeTree, treeLines } from './events.js';
+-import { createKnowledge, sense, setScan, knownAim, zoneCentre } from './sensors.js';
++import { createKnowledge, sense, setScan, knownAim, zoneCentre, reveal } from './sensors.js';
++const PROBE = globalThis.process?.env?.PROBE || '';
+ import { moveMissile, seekerAim, steer } from './missile.js';
+ import { aimLasers, pointDefence } from './defence.js';
+ 
+@@ -153,11 +154,12 @@ export function createBattle({ params, tier = 'T1', attacker, target, bearing =
+   battle.sides = [battle.attacker, battle.target];
+   battle.pd = battle.sides.some((s) => s.world.fittings.some((f) => f.type === 'pd' || f.type === 'pdLaser'));
+   for (const s of battle.sides) for (const g of s.world.rooms) if (g.type === 'shieldGenerator' && shield[s === battle.attacker ? 'attacker' : 'target']) g.shield.on = true;
+-  battle.knowledge = !!knowledge;
++  battle.knowledge = !!knowledge || (PROBE !== '' && PROBE !== 'P4');
+   if (battle.knowledge) {
+     for (const s of battle.sides) s.model = createKnowledge(s.world, s.other.world);
+     battle.pairs = battle.sides.map((s) => ({ world: s.world, model: s.model }));
+     battle.scans = scans.map((x) => ({ ...x, step: stepsAtLeast(x.at || 0, A.world.dt), done: false }));
++    if (PROBE === 'P2' || PROBE === 'P3') for (let z = 0; z < 6; z++) reveal(battle.attacker.model, battle.target.world, z);
+     sense(battle.pairs, { scan: false }); // the silhouette and what is seen at undock, before any step
+   }
+   aim(battle);
+@@ -190,6 +192,8 @@ export function aimPoint(side, room) {
+   return worldPoint(b, cellPoint(side, room, k));
+ }
+ const firstStanding = (side, ids) => ids.map((id) => side.room(id)).find((r) => r && !isDestroyed(r)) || null;
++// PROBE P4 (item 45 (a)): with the model, a plan room is lost to its shooter only when its model knows the room and no standing cell of it.
++const modelStanding = (shooter, side, ids) => ids.map((id) => side.room(id)).find((r) => { if (!r) return false; const k = shooter.model.rooms.get(r.id); if (!k) return true; return k.cells.some((c) => !shooter.model.cells.get(c).destroyed); }) || null;
+ /** The bay's bow face (grid m): the beam leaves there along the ship's axis (#234). */
+ function bayFace(side, bay) {
+   const cells = side.world.layout.rooms.get(bay.id).cells, e = side.world.edge;
+@@ -210,7 +214,8 @@ function headingThrough(body, face, P) {
+ function aim(battle) {
+   const A = battle.attacker, T = battle.target, ab = mainBody(A);
+   const turret = A.world.rooms.find((r) => r.type === 'turret'), bay = A.world.rooms.find((r) => r.type === 'beamBay');
+-  const tr = firstStanding(T, battle.plan.turret), br = firstStanding(T, battle.plan.beam);
++  const pick = (ids) => (PROBE === 'P4' && battle.knowledge ? modelStanding(A, T, ids) : firstStanding(T, ids));
++  const tr = pick(battle.plan.turret), br = pick(battle.plan.beam);
+   // With the knowledge model (13n.1 (a), #289) a plan room is aimed at as the model knows it, else at the centre of the
+   // zone the case names; without it, at the room itself (L4b).
+   const pointAt = (room) => !room ? null : !battle.knowledge ? aimPoint(T, room) : knownAim(A.model, room.id) || (battle.plan.zone !== null ? zoneCentre(A.model, battle.plan.zone) : null);
+@@ -229,7 +234,7 @@ function aim(battle) {
+     if (P && !was) battle.beamId = `beam-${++battle.beams}`; // a new beam id each time the bay starts firing
+   }
+   // The railgun (13n.1 (c)): fires while the plan names a standing room; its axis turned onto it when the beam has none.
+-  const rail = A.world.rooms.find((r) => r.type === 'railgun'), Pr = rail ? pointAt(firstStanding(T, battle.plan.railgun)) : null;
++  const rail = A.world.rooms.find((r) => r.type === 'railgun'), Pr = rail ? pointAt(pick(battle.plan.railgun)) : null;
+   if (rail) rail.railgun.firing = !!Pr;
+   A.heading = P && bay ? headingThrough(ab, bayFace(A, bay), P) : Pr ? headingThrough(ab, bayFace(A, rail), Pr) : (() => { const D = sub(mainBody(T).x, ab.x); return Math.atan2(D[1], D[0]); })();
+   // The missile bay launches while the plan asks for missiles it has not launched yet (13n.1 (c)).
+@@ -601,7 +606,7 @@ function flyMissiles(battle, before) {
+   if (!battle.knowledge) throw new Error('missiles need the knowledge model: their seekers read only it (13n.1 (c)); set knowledge: true');
+   const dt = battle.dt, t0 = battle.t - dt;
+   for (const x of battle.missiles) {
+-    const target = battle.plan.missile && firstStanding(x.other, battle.plan.missile.rooms || []);
++    const target = battle.plan.missile && (PROBE === 'P4' && battle.knowledge ? modelStanding(x.shooter, x.other, battle.plan.missile.rooms || []) : firstStanding(x.other, battle.plan.missile.rooms || []));
+     x.aim = seekerAim(x.shooter.model, x, target ? target.id : null);
+     if (x.aim.point) steer(x, x.aim.point);
+     const k = moveMissile(x.shooter.world, x, t0, dt), th = battle.thrust;
+@@ -767,6 +772,7 @@ export function tick(battle) {
+   cullMunitions(battle);
+   battle.rounds = battle.rounds.filter((r) => !r.over);
+   if (battle.knowledge) sense(battle.pairs);
++  if (PROBE === 'P3') for (let z = 0; z < 6; z++) reveal(battle.attacker.model, battle.target.world, z);
+   checkEnd(battle);
+   logLine(battle);
+ }
+diff --git a/js/sensors.js b/js/sensors.js
+index 8ec0f5c..6c53d9c 100644
+--- a/js/sensors.js
++++ b/js/sensors.js
+@@ -190,7 +190,7 @@ function passive(model, world, sources) {
+ }
+ 
+ /** Reveal zone z of the other ship at this step: its own cells, nothing of other zones (#289 (4)). */
+-function reveal(model, other, z) {
++export function reveal(model, other, z) {
+   const rooms = new Set();
+   for (const cell of model.zones[z].cells) {
+     const o = other.layout.occupied.get(key(...cell)), room = roomById(other, o.id), c = room.cells[o.k];
