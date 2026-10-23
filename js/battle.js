@@ -804,8 +804,9 @@ function checkEnd(battle) {
 /**
  * Escape (#293, 13n.1 (d)): the separation of the two flown bodies' centres of mass beyond battle.cullDistance and
  * growing for battle.disabledSeconds of consecutive steps counted only beyond it (the first such step is the step it
- * passes the distance; the count runs from the next): the side that ordered `disengage` escapes (the first to order it
- * when both did; neither: no escape), the event 'escaped' in its log with the separation, its own end kind.
+ * passes the distance; the count runs from the next): the side whose `disengage` order stands escapes (the first to order
+ * it when both do; neither: no escape; an order withdrawn is no longer counted, #306 (7)), the event 'escaped' in its log
+ * with the separation, its own end kind.
  */
 function escape(battle) {
   const a = mainBody(battle.attacker), b = mainBody(battle.target), x = battle.separation;

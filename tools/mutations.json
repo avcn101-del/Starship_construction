@@ -1953,5 +1953,29 @@
     "old": "  if (e > band || error > a * t180) return true;",
     "new": "  if (e > band) return true;",
     "note": "L5d (#301, #302)"
+  },
+  {
+    "id": "l5d.disengage.withdrawn",
+    "rule": "13n.1 (d) a withdrawn disengage (#306 (7))",
+    "file": "js/helm.js",
+    "old": "    h.disengageStep = null; // withdrawn (a preset switch away from it): no longer a runner (#306 (7))\n",
+    "new": "",
+    "note": "L5d fix round (#306)"
+  },
+  {
+    "id": "l5d.range.couple",
+    "rule": "13n.1 (d) no couple, no range order (#306 (8))",
+    "file": "js/helm.js",
+    "old": "h.engaged = throttle > 0 && a > 0 && t180 < Infinity && rangeEngaged(",
+    "new": "h.engaged = throttle > 0 && a > 0 && rangeEngaged(",
+    "note": "L5d fix round (#306)"
+  },
+  {
+    "id": "l5d.braking.couple",
+    "rule": "13n.1 (d) no couple, no NaN (#306 (8))",
+    "file": "js/helm.js",
+    "old": "  if (!(a > 0) || !(e > 0) || !(t180 < Infinity)) return 0;",
+    "new": "  if (!(a > 0) || !(e > 0)) return 0;",
+    "note": "L5d fix round (#306)"
   }
 ]

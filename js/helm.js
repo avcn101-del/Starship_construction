@@ -15,7 +15,8 @@
 // state between the two (#302); with the ship on the line from the
 // other ship along the position's direction e is the range error and P lies on
 // the line of sight, #301's braking curve with #302's engagement. `disengage` (#293) turns the stern
-// to the other ship and thrusts away along the line of sight. The engine opens
+// to the other ship and thrusts away along the line of sight; withdrawn, it is
+// cancelled and the side is no runner while it is not ordered (#306 (7)). The engine opens
 // at the preset's throttle x max(0, cos of the heading error) (no tolerance).
 //   Facing (second): bow-on the bow on the line of sight, broadside the nearer
 // beam. Dodging (third; broadside only, bow-on it yields to facing, #40, #237):
@@ -38,8 +39,12 @@
 // engine off, shield off, no scan; normal shield on and the auto-scan slot;
 // full also re-scans the zone resolved longest ago once none is unresolved.
 // Auto-scan: each idle antenna scans the nearest unresolved zone.
-// The style slot (hold / orbit / strafe) and the repair half of the priority
-// slot are carried as data and not executed (questions of the L5d pull request).
+// The style slot is carried as data and flown as hold (no tangential relative
+// velocity wanted), and the priority slot's repair half is not executed:
+// #306 (3)'s orbit and strafe, and its repair order, are questions of the fix
+// round's pull request (#298's lesson: as decided, orbit never starts from rest
+// and the repair order moves locked records). A ship with no RCS couple (t180
+// infinite) does not engage the range order (#306 (8)).
 // No DOM, no Math.random, no Math.sin or Math.cos (util.js's, #239 Q6): the only draws are the enemy's dodge intervals, on the
 // battle's seeded stream.
 import { scaled, PRESETS, FIXED } from './data.js';
@@ -114,7 +119,7 @@ export function shipDynamics(battle, side) {
 
 /** The braking curve's wanted speed toward a point e away (#301 (2)): a (sqrt(2 e / a + t180^2) - t180). */
 export function brakingSpeed(e, a, t180) {
-  if (!(a > 0) || !(e > 0)) return 0;
+  if (!(a > 0) || !(e > 0) || !(t180 < Infinity)) return 0; // no couple: no curve to fly (#306 (8))
   return a * (Math.sqrt((2 * e) / a + t180 * t180) - t180);
 }
 /**
@@ -250,6 +255,7 @@ export function helmStep(battle, side) {
     heading = los + Math.PI; open = opening(heading); mode = 'disengage';
     if (h.disengageStep === null) h.disengageStep = battle.step; // the first to order it escapes first (#293)
   } else {
+    h.disengageStep = null; // withdrawn (a preset switch away from it): no longer a runner (#306 (7))
     const R = scaled(p.helm[{ close: 'rangeClose', hold: 'rangeHold', open: 'rangeOpen' }[o.range]], edge);
     const tc = cos(them.theta), ts = sin(them.theta);
     const bow = [tc, ts], left = [-ts, tc], side1 = dot(sub(me.x, them.x), left) >= 0 ? left : [-left[0], -left[1]];
@@ -258,7 +264,8 @@ export function helmStep(battle, side) {
     const speed = brakingSpeed(e, a, t180), want = e > 0 ? [(E[0] / e) * speed, (E[1] / e) * speed] : [0, 0];
     const rel = sub(me.v, vo), err = sub(want, rel), errLen = len(err);
     const band = scaled(p.helm.rangeBand, edge);
-    h.engaged = throttle > 0 && a > 0 && rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band });
+    // A ship with no RCS couple (t180 infinite) cannot point its engine: the order does not engage (#306 (8)).
+    h.engaged = throttle > 0 && a > 0 && t180 < Infinity && rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band });
     if (h.engaged) { heading = Math.atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
     h.range = { R, e, want, rel, error: errLen, threshold: a * t180, band, letGo: band / t180 };
   }
