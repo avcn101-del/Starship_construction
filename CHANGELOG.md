@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5d probed and planned (#301)
+
+- `DESIGN.md` §13n.1 (d) (the row "L5d's amendment"), §13n.2
+  (`helm.dodgeMin`, `helm.dodgeMax`), §13n.3 (11), §13n.4 (H1, H2, H4, H11
+  reworded; H12–H14 new), §13n.5 (re-costed; the prototype page's
+  session), §13n.6, §17 items 44–46, §18. `DECISIONS.md` #301.
+  `tools/estimates/l5.mjs` section (11) (escape and dodge by the
+  integrator's sum; the escape cases driven by hand on today's kernel);
+  `tools/estimates/l5d-probe.diff` (the probe's patch and command).
+  `STATUS.md`: this lead designer chat took over.
+
 ## Unreleased — 2026-10-23 — L5c merged: weapons (#299)
 
 - Kernel (PR #88): the spinal railgun, the missile bay and missiles

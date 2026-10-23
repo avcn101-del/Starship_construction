@@ -11,7 +11,8 @@
 // has the physics (masses, resistances, the round rule, the blast through
 // walls, radiator power, the battle loop) and from the stated formula where it
 // does not yet (the information law, missiles, point defence, the railgun);
-// each line says which. Sections (1)–(8) are the lines the plan quotes.
+// each line says which. Sections (1)–(8) are the lines the plan quotes; (11) is
+// L5d's amendment (#301).
 import { PARAMS, FIXED, TIERS, ROOMS, withOverrides, scaled } from '../../js/data.js';
 import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, enablePowerRouting, setDemand, step, fireRound, irBrightness, detonateMagazine, magazineContents, isDestroyed, survivingCells, cellAt, pathAlong, readout, roomTemperature } from '../../js/rooms.js';
 import { radiatorPower } from '../../js/heat.js';
@@ -19,7 +20,8 @@ import { penetrateRound } from '../../js/damage.js';
 import { roundGeometry, sectionalMomentum } from '../../js/projectile.js';
 import { shieldStrength } from '../../js/field.js';
 import { edgeMidpoint } from '../../js/layout.js';
-import { buildShip, createBattle, runBattle, weaponStates, largestFraction } from '../../js/battle.js';
+import { buildShip, createBattle, runBattle, weaponStates, largestFraction, tick, mainBody } from '../../js/battle.js';
+import { survivingFraction } from '../../js/rooms.js';
 import { TARGETS, ATTACKER, R1_ROOMS, R1_FITTINGS } from '../../mission0/targets.js';
 
 const args = process.argv.slice(2), overrides = {}, planOverrides = {};
@@ -305,4 +307,47 @@ line('\n# (10) Round types (13n.1 (c), #94): depth, magazine-entry speed, the pl
     line(`    passes ${crew.res.passed} crewed cells and ${holds.res.passed} hold cells; into a magazine behind a hold at ${entry(holdMag, 1)}, behind a crewed cell at ${entry(crewMag, 1)}; a ${f(scaled(params.armour.plateThickness, edge), 2)} m plate ${plate.res.stoppedIn === 0 ? 'stops it' : `does not stop it (the magazine behind it entered at ${entry(plate, 1)})`}`);
   }
   line(`  the time of flight at 900 m: Standard ${f(900 / v, 3)} s, Sabot ${f(900 / (v * Pn('rounds.sabotVelocity')), 3)} s; R1d dodges 1/2 a t^2 = ${f(0.5 * 1.076 * g0 * (900 / v) ** 2, 1)} / ${f(0.5 * 1.076 * g0 * (900 / (v * Pn('rounds.sabotVelocity'))) ** 2, 1)} m in it (its 1.076 g from (5))`);
+}
+
+// ---------- (11) L5d's amendment (#301): escape and dodging by the integrator's own sum; the escape cases on today's kernel ----------
+line('\n# (11) L5d (13n.1 (d), #293, #301): escape and dodge by the integrator\'s sum; the escape cases driven by hand on today\'s kernel (no helm yet)');
+{
+  // The kernel integrates semi-implicitly (v then x): from rest under a constant a, after n steps x_n = a dt^2 n (n + 1) / 2,
+  // which runs ahead of 1/2 a t^2 by 1/2 a t dt: a hand-worked step count uses the sum, not the closed form (#301 (3)).
+  const nFor = (a, s) => { let n = Math.floor(Math.sqrt((2 * s) / (a * dt * dt))) - 2; while ((a * dt * dt * n * (n + 1)) / 2 < s) n++; return n; };
+  const acc = (name) => readout(buildShip(params, 'T1', TARGETS[name]).world).accelerationG * g0;
+  const a1 = acc('R1'), ad = acc('R1d'), D = scaled(params.battle.cullDistance, edge), d0 = params.battle.openingRange.value, gap = Math.ceil(params.battle.disabledSeconds.value / dt - 1e-9);
+  const n1 = nFor(a1, D - d0), n2 = nFor(a1 - ad, D - d0);
+  line(`  formula (the integrator's sum): R1 ${f(a1, 4)} m/s^2 away from a pursuer at rest: separation passes ${D} m (from ${d0} m) at step ${n1} (${f(n1 * dt, 3)} s; 1/2 a t^2 gives ${f(Math.sqrt((2 * (D - d0)) / a1), 3)} s); escaped at step ${n1 + gap} (+ ${gap} steps of widening beyond ${D} m, #293)`);
+  line(`  formula: R1 against R1d thrusting after it (${f(a1, 4)} - ${f(ad, 4)} = ${f(a1 - ad, 4)} m/s^2): passes ${D} m at step ${n2} (${f(n2 * dt, 3)} s; 1/2 a t^2 ${f(Math.sqrt((2 * (D - d0)) / (a1 - ad)), 3)} s); escaped at step ${n2 + gap}; equal ships never separate`);
+  // Driven by hand on today's loop: R1 the target, stern to R1d (bearing -x, heading 0), engine at throttle 1; R1d the attacker,
+  // bow-on, its engine at throttle 0 or 1 along its heading, its beam on R1's engine or idle. No helm: the pursuer's heading is the
+  // L4 loop's (the beam's axis on the plan room, else at the target's centre of mass). Kernel readings, labelled.
+  const run = (label, { pursue, beam, shield }) => {
+    const b = createBattle({ params, attacker: TARGETS.R1d, target: TARGETS.R1, bearing: '-x', targetHeading: 0, plan: { beam: beam ? ['engine'] : [] }, shield: { target: shield, attacker: shield } });
+    const eT = b.target.room('engine'), eA = b.attacker.room('engine');
+    let passed = null, widening = 0, escaped = null, last = d0, peak = 0, dead = null;
+    while (b.step < Math.ceil(300 / dt) && !b.ended) {
+      eT.engine.throttle = 1; eA.engine.throttle = pursue ? 1 : 0;
+      tick(b);
+      const X = mainBody(b.target).x, Y = mainBody(b.attacker).x, d = Math.sqrt((X[0] - Y[0]) ** 2 + (X[1] - Y[1]) ** 2);
+      if (passed === null && d > D) passed = b.step;
+      widening = d > D && d > last ? widening + 1 : 0;
+      if (escaped === null && widening > gap) escaped = b.step;
+      if (dead === null && !(survivingFraction(eT) > 0)) dead = { step: b.step, d };
+      peak = Math.max(peak, d); last = d;
+    }
+    line(`  kernel, by hand: ${label}: passes ${D} m at step ${passed}; ${gap} widening steps beyond it complete at step ${escaped}; R1's engine ${dead ? `burnt out at step ${dead.step} (${f(dead.step * dt, 2)} s, ${f(dead.d, 0)} m apart)` : 'intact'}; peak separation ${f(peak, 0)} m by 300 s`);
+  };
+  run('R1d without thrust, no beam', { pursue: false, beam: false, shield: false });
+  run('R1d thrusting, no beam', { pursue: true, beam: false, shield: false });
+  run('R1d thrusting, its 5 MW beam on R1\'s engine, shields down', { pursue: true, beam: true, shield: false });
+  run('R1d thrusting, its beam on R1\'s engine, both shields up', { pursue: true, beam: true, shield: true });
+  line('  so (#301 (4)): the escape rule\'s first case is hand-worked by the sum above; whether an intact beam ship stops a runner depends on the runner\'s shield (up: the beam never reaches the engine) and on the pursuer\'s helm after the engine dies (a pursuer without a helm here only thrusts along its aim): H11\'s second case is kernel-read and labelled, not hand-worked');
+  // H4: a dodger accelerating across the line of fire from rest at the shot, for the round's time of flight; the miss by the sum.
+  const v = params.kinetic.muzzleVelocity.value;
+  for (const [name, a] of [['R1', a1], ['R1d', ad]]) {
+    const parts = [600, 900, 1500].map((d) => { const n = Math.floor(d / v / dt); return `${f(0.5 * a * (d / v) ** 2, 2)} (sum over ${n} whole steps ${f((a * dt * dt * n * (n + 1)) / 2, 2)})`; });
+    line(`  formula: ${name} dodging from rest at the shot over the time of flight at 600 / 900 / 1500 m (1/2 a t^2, m): ${parts.join(' / ')}`);
+  }
 }
