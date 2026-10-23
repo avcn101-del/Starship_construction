@@ -17,8 +17,8 @@
   duel; `proto/smoke.mjs` uses each verb once.
 - `L0.determinism`'s duel moves to the kernel loop (`proto/duel.js`
   `duelHash`: seed 7, Evade from t = 0, 60 s); `tools/determinism.mjs` and
-  the scenario's `setup` / `measure` text say so; cases, expected, compare
-  and invariants unchanged. Its canonical re-record **FAILs**: Node and
+  the scenario's `setup` text say so (its `measure` is in the L0 lock and
+  stays); cases, expected, compare and invariants unchanged. Its canonical re-record **FAILs**: Node and
   Chromium differ, from `Math.atan2` in the kernel (`js/helm.js`,
   `js/battle.js`); a question for the lead designer in the pull request.
 
