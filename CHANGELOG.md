@@ -1,7 +1,15 @@
 # Changelog
 
-## Unreleased — 2026-10-23 — L5d probed and planned (#301–#303)
+## Unreleased — 2026-10-23 — L5d probed and planned (#301–#306)
 
+- #306: answers to L5d's engineer, blind checker and reviewer; a fix round
+  (H15–H18, `L4.route.emp.v2`). `DESIGN.md` §13n.1 (d) ("L5d as built"),
+  §13n.4, §17 item 48, §18.
+- #305: the Cold Brick joins E5's degenerate builds (the design partner's
+  proposal); `DESIGN.md` §13n.1 (e), §18.
+- #304: #297's reason corrected (radiators do not overheat a ship inside a
+  battle; the design partner's check, `tools/estimates/radiators.mjs`); L5e's
+  plume measure reports it. `DESIGN.md` §13n.1 (e), §18.
 - #303: the surrender timer is `battle.disabledSeconds` × resolve (the
   L5d engineer's second question); `DESIGN.md` §13n.1 (d), H8, §18.
 - #302: the range order's engagement (`helm.rangeBand`, new), on the L5d
