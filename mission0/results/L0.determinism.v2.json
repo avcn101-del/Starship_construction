@@ -1,14 +1,14 @@
 {
   "id": "L0.determinism.v2",
   "level": "L0",
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "command": "node tools/m0.js run L0.determinism.v2",
-  "code": "1a8e71a",
+  "code": "ab6dcfd",
   "criterionHash": "e328384c",
   "lockedHash": "e328384c",
   "runHash": "c03e19d7",
   "dataHash": "fee97350",
-  "rowsHash": "7dda2e5f",
+  "rowsHash": "df5391f7",
   "rows": [
     {
       "case": {
@@ -18,8 +18,8 @@
         "verdict": "MATCH"
       },
       "actual": {
-        "node": "ad3e4e15",
-        "chromium": "ad3e4e15",
+        "node": "5de002fe",
+        "chromium": "5de002fe",
         "verdict": "MATCH"
       },
       "pass": true,
@@ -263,7 +263,7 @@
     },
     {
       "name": "deterministic (two runs, same hash)",
-      "ok": true
+      "ok": false
     }
   ]
 }
