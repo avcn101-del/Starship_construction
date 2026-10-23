@@ -1,7 +1,9 @@
 # Changelog
 
-## Unreleased — 2026-10-23 — L5d probed and planned (#301)
+## Unreleased — 2026-10-23 — L5d probed and planned (#301, #302)
 
+- #302: the range order's engagement (`helm.rangeBand`, new), on the L5d
+  engineer's early question; `DESIGN.md` §13n.1 (d), §13n.2, §18.
 - `DESIGN.md` §13n.1 (d) (the row "L5d's amendment"), §13n.2
   (`helm.dodgeMin`, `helm.dodgeMax`), §13n.3 (11), §13n.4 (H1, H2, H4, H11
   reworded; H12–H14 new), §13n.5 (re-costed; the prototype page's
