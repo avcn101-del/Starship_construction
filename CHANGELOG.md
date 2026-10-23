@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5c probed and its plan amended (#295)
+
+- `DECISIONS.md` #295: the probe (125 of 125 rows unchanged), `pd.mass` and
+  `pdLaser.mass` (new), AP's rate and Sabot's recoil as their prices, the
+  counter per round type and the railgun's counters (W2's 0.4 m case, an
+  L5e measure), `buildShip` to thread `size`; L5c raw 27–39. `DESIGN.md`
+  §13n.1 (c), §13n.2, §13n.4 (W2, W10), §13n.5, §13n.6, §18.
+
 ## Unreleased — 2026-10-23 — The overheat route (#291), EMP by section (#292), escape (#293), the mutation run (#294)
 
 - `DECISIONS.md` #294: the full mutation run on the L5b merge `928725c`
