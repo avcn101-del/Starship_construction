@@ -312,7 +312,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.log.v2` | cd91410b | PASS | f3ee00ad | f7833b3 | none | `node tools/m0.js run L4.log.v2` |
 | `L4.log` | f91185ca | PASS, WITHDRAWN (successor `L4.log.v2`, #278) | f3ee00ad | 8af82c8 | none | `node tools/m0.js run L4.log` |
 | `L4.loop.rules` | abb3deaf | PASS | cc74a636 | f7833b3 | none | `node tools/m0.js run L4.loop.rules` |
-| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | d9bf90f | none | `node tools/m0.js run L4.loop.symmetric` |
+| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | 31187a9 | none | `node tools/m0.js run L4.loop.symmetric` |
 | `L4.orders.energy` | 0e15c362 | PASS | e9f1b4d6 | f7833b3 | none | `node tools/m0.js run L4.orders.energy` |
 | `L4.orders.fire` | 0ff94ee2 | PASS | db5c937b | f7833b3 | none | `node tools/m0.js run L4.orders.fire` |
 | `L4.orders.repair` | dd15e79f | PASS | 3d5b8059 | d9bf90f | none | `node tools/m0.js run L4.orders.repair` |
@@ -329,6 +329,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.route.emp.v2` | 564675f8 | PASS | 8683bc62 | e069f42 | none | `node tools/m0.js run L4.route.emp.v2` |
 | `L4.route.emp` | aade46c9 | PASS, WITHDRAWN (successor `L4.route.emp.v2`, #306) | 3035d5ac | f7833b3 | none | `node tools/m0.js run L4.route.emp` |
 | `L4.route.escape.edge` | e5746503 | PASS | 802c211a | e069f42 | none | `node tools/m0.js run L4.route.escape.edge` |
+| `L4.route.escape.reorder` | 918b39ed | PASS | f49c0bbe | 31187a9 | none | `node tools/m0.js run L4.route.escape.reorder` |
 | `L4.route.escape` | c30f6f8e | PASS | 20fb8276 | f7833b3 | none | `node tools/m0.js run L4.route.escape` |
 | `L4.route.missionKill.v2` | c1897e49 | PASS, WITHDRAWN (successor `L4.route.missionKill.v3`, #286) | c86ed201 | 4e217c0 | none | `node tools/m0.js run L4.route.missionKill.v2` |
 | `L4.route.missionKill.v3` | a139c27d | PASS | 3585dcee | f7833b3 | none | `node tools/m0.js run L4.route.missionKill.v3` |
