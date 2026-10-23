@@ -1,6 +1,13 @@
 # Changelog
 
-## Unreleased — 2026-10-23 — The overheat route (#291) and EMP by section (#292)
+## Unreleased — 2026-10-23 — The overheat route (#291), EMP by section (#292), escape (#293)
+
+- `DECISIONS.md` #293: escape as a battle outcome (the owner): the
+  `disengage` order, the rule beyond `battle.cullDistance` for
+  `battle.disabledSeconds` counted beyond it, the enemy's rule by resolve,
+  a loss in E5; H11 `L4.route.escape` in L5d's plan. `DESIGN.md` §13n.1 (d),
+  (e), §13n.4, §18. `tools/estimates/l5.mjs` (3) prints the plate thickness
+  it uses.
 
 - `DECISIONS.md` #291: the owner's option 1 on §17 item 43 with a condition;
   `thermal.coupledCrewed`'s range 0.2–1 MJ/K (`js/data.js`, every passing
