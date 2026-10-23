@@ -184,8 +184,8 @@
     "id": "d1.pow.repairNoFraction",
     "rule": "13d.1 Power",
     "file": "js/rooms.js",
-    "old": "const base = world.power ? p.repair.massRate.value * survivingFraction(room) * supply(world, room) : p.repair.massRate.value * survivingFraction(room);",
-    "new": "const base = p.repair.massRate.value * survivingFraction(room);",
+    "old": "const base = world.power ? tierScaled(world, p.repair.massRate) * survivingFraction(room) * supply(world, room) : tierScaled(world, p.repair.massRate) * survivingFraction(room);",
+    "new": "const base = tierScaled(world, p.repair.massRate) * survivingFraction(room);",
     "note": "re-targeted: repair.rate became repair.massRate in physics pass 2 (#240)"
   },
   {
@@ -538,7 +538,7 @@
     "id": "f1.ro.heatLoadRcs",
     "rule": "13f.1 Readout",
     "file": "js/rooms.js",
-    "old": "for (const fit of world.fittings) if (fit.type === 'rcs' && fit.room === room.id && fit.fired && cellAlive(room, fit.k)) rate += tierScaled(world, p.rcs.powerDraw) * p.engine.heatFraction.value;",
+    "old": "for (const fit of world.fittings) if (fit.type === 'rcs' && fit.room === room.id && fit.fired && cellAlive(room, fit.k)) rate += tierScaled(world, p.rcs.powerDraw) * tierScaled(world, p.engine.heatFraction);",
     "new": ""
   },
   {
@@ -587,8 +587,8 @@
     "id": "i1.bb.requestGrowsWithN",
     "rule": "13i.1 Beam bay",
     "file": "js/rooms.js",
-    "old": "beamBay: (world, room) => (room.beamBay.firing ? (tierScaled(world, world.params.beam.power) * room.footprintFactor * survivingFraction(room)) / world.params.beambay.efficiency.value : 0),",
-    "new": "beamBay: (world, room) => (room.beamBay.firing ? (tierScaled(world, world.params.beam.power) * room.footprintFactor * survivingFraction(room) * room.length / 2) / world.params.beambay.efficiency.value : 0),",
+    "old": "beamBay: (world, room) => (room.beamBay.firing ? (tierScaled(world, world.params.beam.power) * room.footprintFactor * survivingFraction(room)) / tierScaled(world, world.params.beambay.efficiency) : 0),",
+    "new": "beamBay: (world, room) => (room.beamBay.firing ? (tierScaled(world, world.params.beam.power) * room.footprintFactor * survivingFraction(room) * room.length / 2) / tierScaled(world, world.params.beambay.efficiency) : 0),",
     "note": "re-targeted: the audit's after-text is truncated before the change; the request now grows with N (x N / 2)"
   },
   {
@@ -823,7 +823,7 @@
     "id": "k1.scram.noDelay",
     "rule": "13k.1 SCRAM restart",
     "file": "js/rooms.js",
-    "old": "room.reactor.restartStep = on ? world.step + stepsAtLeast(world.params.reactor.restartTime.value, world.dt) : null;",
+    "old": "room.reactor.restartStep = on ? world.step + stepsAtLeast(tierScaled(world, world.params.reactor.restartTime), world.dt) : null;",
     "new": "room.reactor.restartStep = on ? world.step : null;",
     "note": "restarts at once when control is back"
   },
@@ -1103,7 +1103,7 @@
     "id": "l4f.pathAlong.cosOne",
     "rule": "#258 (2) sigma / cos theta (pathAlong)",
     "file": "js/rooms.js",
-    "old": "const cos = direction ? Math.abs(direction[0] * (b[0] - a[0]) + direction[1] * (b[1] - a[1])) / Math.hypot(direction[0], direction[1]) : 1;",
+    "old": "const cos = direction ? Math.abs(direction[0] * (b[0] - a[0]) + direction[1] * (b[1] - a[1])) / hypot(direction[0], direction[1]) : 1;",
     "new": "const cos = 1;",
     "note": "pathAlong ignores the line's direction"
   },
@@ -1486,8 +1486,8 @@
     "id": "l5b.scan.d2",
     "rule": "13n.4 S2 (#289): scan progress dt / (scanTime (d / scanRange)^4)",
     "file": "js/sensors.js",
-    "old": "f.scan.progress += dt / (T0 * q * q);",
-    "new": "f.scan.progress += dt / (T0 * q);"
+    "old": "f.scan.progress += (dt / (T0 * q * q)) * hostFraction(world, f);",
+    "new": "f.scan.progress += (dt / (T0 * q)) * hostFraction(world, f);"
   },
   {
     "id": "l5b.zone.floor",
@@ -1591,7 +1591,7 @@
     "id": "l5c.warhead.he",
     "rule": "13n.4 W7: an HE burst enters the hull at he.coupling",
     "file": "js/rooms.js",
-    "old": "const E = world.params.he.coupling.value * energy;",
+    "old": "const E = tierScaled(world, world.params.he.coupling) * energy;",
     "new": "const E = energy;"
   },
   {
@@ -1612,8 +1612,8 @@
     "id": "l5c.emp.outage",
     "rule": "13n.4 W7: an outage lasts emp.outageTime",
     "file": "js/rooms.js",
-    "old": "const end = t + p.emp.outageTime.value;",
-    "new": "const end = t + 2 * p.emp.outageTime.value;"
+    "old": "const end = t + tierScaled(world, p.emp.outageTime);",
+    "new": "const end = t + 2 * tierScaled(world, p.emp.outageTime);"
   },
   {
     "id": "l5c.emp.buffer",
@@ -1717,8 +1717,8 @@
     "id": "l5c.window.beam",
     "rule": "13n.4 W12: a firing beam keeps its bay's bow face open",
     "file": "js/battle.js",
-    "old": "if (x && x.power > 0) {\n    const bay",
-    "new": "if (false) {\n    const bay"
+    "old": "if (!x || !(x.power > 0)) continue;\n    const bay",
+    "new": "if (true) continue;\n    const bay"
   },
   {
     "id": "l5c.size.s",
@@ -1790,8 +1790,8 @@
     "id": "l5d.conflict.order",
     "rule": "13n.1 (d) conflicts (#40)",
     "file": "js/helm.js",
-    "old": "    if (h.engaged) { heading = Math.atan2(err[1], err[0]);",
-    "new": "    if (h.engaged && o.facing !== 'bow') { heading = Math.atan2(err[1], err[0]);",
+    "old": "    if (h.engaged) { heading = atan2(err[1], err[0]);",
+    "new": "    if (h.engaged && o.facing !== 'bow') { heading = atan2(err[1], err[0]);",
     "note": "L5d (#301)"
   },
   {
