@@ -39,12 +39,14 @@
 // engine off, shield off, no scan; normal shield on and the auto-scan slot;
 // full also re-scans the zone resolved longest ago once none is unresolved.
 // Auto-scan: each idle antenna scans the nearest unresolved zone.
-// The style slot is carried as data and flown as hold (no tangential relative
-// velocity wanted), and the priority slot's repair half is not executed:
-// #306 (3)'s orbit and strafe, and its repair order, are questions of the fix
-// round's pull request (#298's lesson: as decided, orbit never starts from rest
-// and the repair order moves locked records). A ship with no RCS couple (t180
-// infinite) does not engage the range order (#306 (8)).
+//   Style (#307, superseding #306 (3)): hold wants no tangential relative
+// velocity (#302's tests); orbit wants v_t = helm.rangeBand / t180
+// counter-clockwise about the other ship, strafe the same with its sense flipped
+// on the dodge schedule; with either the position slot is ignored and the order
+// engages when the deviation from (rdot*, v_t) is at least v_t and lets go when it
+// is at most a dt (styleEngaged). Repair priority (#307): 'none' or a room-type
+// list (rooms.js repairGrants). A ship with no RCS couple (t180 infinite) does
+// not engage the range order (#306 (8)).
 // No DOM, no Math.random, no Math.sin or Math.cos (util.js's, #239 Q6): the only draws are the enemy's dodge intervals, on the
 // battle's seeded stream.
 import { scaled, PRESETS, FIXED } from './data.js';
@@ -86,7 +88,7 @@ export function ordersOf(x) {
  */
 export function createHelm(battle, side, orders, { dodge = 'fixed' } = {}) {
   return {
-    orders: ordersOf(orders), dodge, dodgeSign: 1, nextFlip: null, history: [], engaged: false, mode: null,
+    orders: ordersOf(orders), dodge, dodgeSign: 1, nextFlip: null, strafeSign: 1, nextStrafe: null, history: [], engaged: false, mode: null,
     verbTarget: null, target: null, released: false, releaseAt: null, held: true, why: 'start', disengage: false, disengageStep: null,
     patience: 0, autoScan: true, lastHeading: null, throttle: 0, scanCount: 0,
   };
@@ -130,6 +132,18 @@ export function brakingSpeed(e, a, t180) {
 export function rangeEngaged(was, { e, error, speed, a, t180, band }) {
   if (e > band || error > a * t180) return true;
   if (e <= band && speed <= band / t180) return false;
+  return was;
+}
+
+/**
+ * The range order's state under orbit or strafe (#307): it engages when the distance is beyond helm.rangeBand or the
+ * relative velocity's deviation from (rdot*, v_t) is at least |v_t| (from rest at its point: at once), and lets go
+ * when the distance is within the band and the deviation is at most a dt (one step's change); between the two it
+ * keeps its state. The 1e-9 is float resolution: from rest the deviation is |v_t| computed through a unit vector.
+ */
+export function styleEngaged(was, { e, error, vt, step, band }) {
+  if (e > band || error >= vt * (1 - 1e-9)) return true;
+  if (e <= band && error <= step) return false;
   return was;
 }
 
@@ -259,15 +273,26 @@ export function helmStep(battle, side) {
     const R = scaled(p.helm[{ close: 'rangeClose', hold: 'rangeHold', open: 'rangeOpen' }[o.range]], edge);
     const tc = cos(them.theta), ts = sin(them.theta);
     const bow = [tc, ts], left = [-ts, tc], side1 = dot(sub(me.x, them.x), left) >= 0 ? left : [-left[0], -left[1]];
-    const dir = o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow;
+    // Style (#307): orbit and strafe ignore the position slot (the point rides the line of sight at R*) and want a
+    // tangential relative velocity v_t = band / t180, counter-clockwise about the other ship; strafe flips its sense
+    // on the dodge schedule.
+    const band = scaled(p.helm.rangeBand, edge), moving = o.style === 'orbit' || o.style === 'strafe';
+    const dir = moving ? [-u[0], -u[1]] : o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow;
     const P = [them.x[0] + R * dir[0], them.x[1] + R * dir[1]], E = sub(P, me.x), e = len(E);
-    const speed = brakingSpeed(e, a, t180), want = e > 0 ? [(E[0] / e) * speed, (E[1] / e) * speed] : [0, 0];
+    const speed = brakingSpeed(e, a, t180), radial = e > 0 ? [(E[0] / e) * speed, (E[1] / e) * speed] : [0, 0];
+    let vt = 0;
+    if (o.style === 'strafe') {
+      if (h.nextStrafe === null) h.nextStrafe = t + dodgeInterval(battle, h);
+      else if (t >= h.nextStrafe - 1e-9) { h.strafeSign = -h.strafeSign; h.nextStrafe = t + dodgeInterval(battle, h); }
+    }
+    if (moving && t180 < Infinity) vt = (o.style === 'strafe' ? h.strafeSign : 1) * (band / t180);
+    const ccw = [u[1], -u[0]], want = [radial[0] + vt * ccw[0], radial[1] + vt * ccw[1]];
     const rel = sub(me.v, vo), err = sub(want, rel), errLen = len(err);
-    const band = scaled(p.helm.rangeBand, edge);
     // A ship with no RCS couple (t180 infinite) cannot point its engine: the order does not engage (#306 (8)).
-    h.engaged = throttle > 0 && a > 0 && t180 < Infinity && rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band });
+    const able = throttle > 0 && a > 0 && t180 < Infinity;
+    h.engaged = able && (moving ? styleEngaged(h.engaged, { e, error: errLen, vt: Math.abs(vt), step: a * battle.dt, band }) : rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band }));
     if (h.engaged) { heading = Math.atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
-    h.range = { R, e, want, rel, error: errLen, threshold: a * t180, band, letGo: band / t180 };
+    h.range = { R, e, want, rel, vt, error: errLen, threshold: a * t180, band, letGo: band / t180 };
   }
   // Facing (second), then dodging (third, broadside only).
   if (heading === null) {
@@ -291,6 +316,9 @@ export function helmStep(battle, side) {
   for (const g of w.rooms) if (g.type === 'shieldGenerator') g.shield.on = !shieldOff;
   // Power priority (#38): the routing's order by the slot's room types.
   if (w.power) w.power.priority = priorityIds(w, o.priority);
+  // Repair priority (#307): 'none' shares the quarters' budget in proportion (rooms.js repairGrants); a room-type list
+  // grants it whole-cell in that order.
+  w.repairOrder = Array.isArray(o.repair) ? priorityIds(w, o.repair) : null;
   // Scans: the auto-scan order (the enemy issues it at its decisions, enemy.js), never running cold.
   if (!cold && o.autoScan === 'on' && h.autoScan) autoScan(side, o.emission === 'full');
   if (cold) for (const f of antennas(w)) if (f.scan) setScan(w, f, null);

@@ -1508,7 +1508,9 @@ export function shieldRound(world, round) {
  * Each quarters' budget R = repair.massRate x surviving fraction (x its power
  * fraction), in kg/s (#240 (1), F13); a damaged cell j in range (0 <
  * integrity < 1: a destroyed cell waits for the drydock, #206) asks q_j = R
- * g(r_j); if the asks exceed R, each is scaled by R / sum q_j; a grant of q kg/s
+ * g(r_j); if the asks exceed R, each is scaled by R / sum q_j (with a helm's
+ * repair list, world.repairOrder, #307: granted whole-cell in that order until R
+ * is spent); a grant of q kg/s
  * restores q / its cell mass of integrity per second. Computed at the start of
  * the step; the budget and the grants paid are in kg/s.
  */
@@ -1527,7 +1529,13 @@ function repairGrants(world) {
       other.cells.forEach((c, i) => { if (!c.destroyed && c.integrity < 1 && rate > 0) q.grants.push({ room: other, cell: i, mass: rate }); });
     }
     const sum = q.grants.reduce((x, g) => x + g.mass, 0);
-    if (sum > base) for (const g of q.grants) g.mass *= base / sum;
+    if (sum > base && world.repairOrder) {
+      // Repair priority (#307): with a helm's room-type list (world.repairOrder), the rooms listed first in their
+      // order, the rest after in the ship's order; each damaged cell takes its whole ask until the budget is spent.
+      const rank = (r) => { const i = world.repairOrder.indexOf(r.id); return i < 0 ? world.repairOrder.length + world.rooms.indexOf(r) : i; };
+      let left = base;
+      for (const g of [...q.grants].sort((x, y) => rank(x.room) - rank(y.room) || x.cell - y.cell)) { g.mass = Math.min(g.mass, left); left -= g.mass; }
+    } else if (sum > base) for (const g of q.grants) g.mass *= base / sum;
     for (const g of q.grants) g.rate = g.mass / cellMassOf(world, g.room); // integrity per second
     q.budget = base;
     q.paid = q.grants.reduce((x, g) => x + g.mass, 0);

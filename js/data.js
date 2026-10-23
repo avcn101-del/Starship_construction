@@ -354,7 +354,8 @@ export const ORDERS = {
     target: ['weapons', 'power', 'bridge', 'nearest'], // from known rooms, else the zone with the most unknown cells
   },
   energy: {
-    priority: 'room types in order, for power routing (rooms.js routePower) and repair',
+    priority: 'room types in order, for power routing (rooms.js routePower)',
+    repair: "'none' (the quarters share their budget in proportion) or room types in order, granted whole-cell (rooms.js repairGrants, #307)",
     heat: { response: ['weapons', 'shield', 'engine'] },
   },
   emission: {
@@ -366,9 +367,9 @@ export const ORDERS = {
 // Their power priority puts the shield and the guns before the beam bay (12.5 MW of R1's 20) and the engine: without
 // an order the routing's room-id order feeds the beam bay first and the turret and the shield starve.
 export const PRESETS = {
-  fire: { range: 'hold', position: 'bow', style: 'hold', dodging: 'off', facing: 'bow', firing: 'salvo', openFire: 'inRange', target: 'weapons', priority: ['shieldGenerator', 'turret', 'railgun', 'missileBay', 'beamBay', 'engine'], heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 0.5 },
-  cool: { range: 'hold', position: 'bow', style: 'hold', dodging: 'off', facing: 'bow', firing: 'salvo', openFire: 'inRange', target: 'weapons', priority: [], heat: { threshold: 0, response: 'weapons' }, emission: 'cold', autoScan: 'off', throttle: 0 },
-  evade: { range: 'hold', position: 'bow', style: 'hold', dodging: 'on', facing: 'broadside', firing: 'ripple', openFire: 'sureHit', target: 'weapons', priority: ['shieldGenerator', 'engine', 'turret', 'railgun', 'missileBay', 'beamBay'], heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 1 },
+  fire: { range: 'hold', position: 'bow', style: 'hold', dodging: 'off', facing: 'bow', firing: 'salvo', openFire: 'inRange', target: 'weapons', priority: ['shieldGenerator', 'turret', 'railgun', 'missileBay', 'beamBay', 'engine'], repair: 'none', heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 0.5 },
+  cool: { range: 'hold', position: 'bow', style: 'hold', dodging: 'off', facing: 'bow', firing: 'salvo', openFire: 'inRange', target: 'weapons', priority: [], repair: 'none', heat: { threshold: 0, response: 'weapons' }, emission: 'cold', autoScan: 'off', throttle: 0 },
+  evade: { range: 'hold', position: 'bow', style: 'hold', dodging: 'on', facing: 'broadside', firing: 'ripple', openFire: 'sureHit', target: 'weapons', priority: ['shieldGenerator', 'engine', 'turret', 'railgun', 'missileBay', 'beamBay'], repair: 'none', heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 1 },
 };
 
 // Rooms (DESIGN.md 5.2, 13c). Footprints in cells per size (rate-like

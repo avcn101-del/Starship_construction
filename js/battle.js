@@ -804,21 +804,23 @@ function checkEnd(battle) {
 /**
  * Escape (#293, 13n.1 (d)): the separation of the two flown bodies' centres of mass beyond battle.cullDistance and
  * growing for battle.disabledSeconds of consecutive steps counted only beyond it (the first such step is the step it
- * passes the distance; the count runs from the next): the side whose `disengage` order stands escapes (the first to order
- * it when both do; neither: no escape; an order withdrawn is no longer counted, #306 (7)), the event 'escaped' in its log
- * with the separation, its own end kind.
+ * passes the distance; the count runs from the next) on steps where a side's `disengage` order stands (#307: a
+ * withdrawal resets the count, a new order starts it anew): that side escapes (the first to order it when both do;
+ * neither: no count, no escape; #306 (7)), the event 'escaped' in its log with the separation, its own end kind.
  */
 function escape(battle) {
   const a = mainBody(battle.attacker), b = mainBody(battle.target), x = battle.separation;
   if (!a || !b) return;
   const d = len(sub(a.x, b.x)), D = scaled(battle.params.battle.cullDistance, battle.edge);
-  if (!(d > D)) { x.passed = null; x.widening = 0; }
+  // The count runs only while a side's disengage stands (#307): with none standing it resets, and an order given
+  // again starts it anew.
+  const runners = battle.sides.filter((s) => s.helm && s.helm.disengageStep !== null && !s.ended).sort((p, q) => p.helm.disengageStep - q.helm.disengageStep);
+  if (!(d > D) || !runners.length) { x.passed = null; x.widening = 0; }
   else if (x.passed === null) { x.passed = battle.step; x.widening = 0; }
   else if (d > x.last) x.widening++;
   else { x.widening = 0; x.passed = battle.step; }
   x.last = d;
   if (battle.ended || x.widening < battle.disabledSteps) return;
-  const runners = battle.sides.filter((s) => s.helm && s.helm.disengageStep !== null && !s.ended).sort((p, q) => p.helm.disengageStep - q.helm.disengageStep);
   if (runners.length) end(battle, runners[0], 'escaped', { room: 'ship', parent: 'launch', separation: d });
 }
 function end(battle, s, kind, { by = null, room, parent, why = null, separation = null }) {
