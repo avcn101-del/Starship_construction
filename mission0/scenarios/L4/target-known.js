@@ -30,7 +30,7 @@ export default {
   tolerance: 'the aim direction 1e-12 (each component); the switch exact (the step zone 1 resolved, kernel-read)',
   criterion: 'knowledge on: every shot launched before zone 1 resolves is laid on the zone\'s centre, grid (30, 7.5) m on R1\'s pose, every shot after it on the magazine\'s cell (7, 2), grid (37.5, 12.5) m; at least one shot each way; the hit paths before and after differ, an after-shot\'s path holds magazine:0 and no before-shot\'s does (kernel-read, labelled); the shooter\'s model records its hits; knowledge off: every shot on (37.5, 12.5) from the first, and the battle has no model',
   tunable: ['sensor.scanTime', 'sensor.scanRange', 'turret.fireRate'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '0e1bdad2' },
   cases() {
     return [{ knowledge: true }, { knowledge: false }];
   },

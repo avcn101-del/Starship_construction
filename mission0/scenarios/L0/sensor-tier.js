@@ -25,7 +25,7 @@ export default {
   tolerance: 'exact (steps)',
   criterion: 'zone 1 resolves after step 50 / 249 / 1890 at T1 and at T3 (hand-worked from S2\'s t = 0.831080 / 4.136578 / 31.490456 s, the same at both tiers)',
   tunable: ['sensor.scanTime', 'sensor.scanRange'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'c34c1fb7' },
   cases() {
     const out = [];
     for (const tier of ['T1', 'T3']) for (const D of [600, 900, 1500]) out.push({ tier, D });

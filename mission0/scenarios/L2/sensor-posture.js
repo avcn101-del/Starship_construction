@@ -39,7 +39,7 @@ export default {
   tolerance: 'exact (sets of steps and kinds)',
   criterion: 'the cold ship\'s model: the full ship\'s panels and exhaust resolved in every step 1-360; its antenna in exactly the steps the antenna scans (from step 1 to its zone\'s resolution, then none); its shield in exactly the steps it absorbs (kernel-read), at least one; the full ship\'s model: panels only (no exhaust, antenna or shield) in every step',
   tunable: ['sensor.area', 'sensor.sensitivity', 'sensor.scanPower', 'engine.exhaustVelocity'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '270543b8' },
   cases() {
     return [{ steps: STEPS }];
   },

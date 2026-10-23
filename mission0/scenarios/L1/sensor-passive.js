@@ -56,7 +56,7 @@ export default {
   tolerance: 'resolution exact (yes or no); received power against the closed form 1e-12; the source power against the hand-worked literal 1e-6; the position 1e-9 m',
   criterion: 'resolved iff d <= the hand-worked range (panel 290 K 1694.8 m, panel 600 K 7254.8 m, exhaust 4.886e6 m): every source at 600 / 900 / 1500 m, the 290 K panel at 1650 m and not 1750 m, the 600 K panel at 7200 m and not 7300 m, the exhaust at 4.8e6 m and not 5.0e6 m; when resolved, received = P A / (4 pi d^2) (re-statement, 1e-12) with P from the kernel\'s source (panel: irBrightness, the hand-worked 9023.73 / 165 348.1 W; exhaust: 7.5e10 W, each 1e-6), at the source\'s point (grid (10, 2.5) m, the exhaust face\'s centre (0, 7.5) m mapped on its body), with one source-resolved event of that kind, root sense, room the antenna\'s host; not resolved: no source in the model and no event',
   tunable: ['sensor.area', 'sensor.sensitivity', 'engine.exhaustVelocity', 'engine.thrust', 'radiator.area'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'ed7e1e69' },
   cases() {
     const out = [];
     for (const [kind, ds] of Object.entries(DISTANCES)) for (const d of ds) out.push({ kind, d });

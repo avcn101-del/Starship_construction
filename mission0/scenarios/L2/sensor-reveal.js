@@ -28,7 +28,7 @@ export default {
   tolerance: 'steps exact; the position 1e-9 m; the received power against the hand-worked literal 1e-4',
   criterion: 'the scanned side resolves the scanner\'s antenna after step 1 (hand-worked 0.03930 W at 900 m), at world (42.5, -900) m, by a source-resolved event of kind antenna, root sense, room its hold; the scanner\'s zone resolves after step 249, so the antenna is resolved first; (back) likewise the scanner resolves the target\'s antenna after step 1 at (42.5, 0) m, and the target\'s scan of the scanner\'s zone 1 resolves after step 233 (hand-worked t = 3.869842 s); (passive) the scanner resolves no antenna of the target',
   tunable: ['sensor.scanPower', 'sensor.area', 'sensor.sensitivity', 'sensor.scanTime', 'sensor.scanRange'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'a28db7f1' },
   cases() {
     return [{ mode: 'passive' }, { mode: 'back' }];
   },

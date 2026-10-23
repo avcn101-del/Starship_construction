@@ -31,7 +31,7 @@ export default {
   tolerance: 'steps exact; integrities exact',
   criterion: 'zone 0 resolves after step 249 with (3, 0) and (3, 1) at integrity 1 and no IR class for the shield room (the scan gives none); after step 250 (heated) the shield room\'s IR class and its panels\' class are hot, its cells still 1; after the destruction (steps 251-498) the model still holds (3, 1) at integrity 1, not destroyed, while R1\'s own cell is destroyed; the re-scan resolves after step 499 and the model then holds (3, 1) destroyed at integrity 0 and (3, 0) at 1; the destroyed cell\'s panel (on its -x edge) is no longer resolved and keeps its last known position',
   tunable: ['sensor.scanTime', 'sensor.scanRange', 'thermal.plantHot', 'thermal.plantOverheated'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '5a06271c' },
   cases() {
     return [{ zone: 0 }];
   },

@@ -42,7 +42,7 @@ export default {
   tolerance: 'the resolving step exact; its time one-sided in [t, t + dt) against the hand-worked t; the cells and rooms exact; integrities exact against the target\'s own at that step and against 1',
   criterion: 'zone 1 resolves after step 50 / 249 / 1890 (hand-worked t = 0.831080 / 4.136578 / 31.490456 s, t <= n dt < t + dt), its zone-resolved event (rooms bridge, hold, magazine, reactor, shield) the child of its scan-started event (root scan-1); the model then holds exactly the 8 cells (4, 0), (4, 1), (7, 0), (7, 1), (4, 2), (5, 2), (6, 2), (7, 2) with their rooms and types, integrity 1 (the target\'s own at that step), no plates, and exactly those 5 rooms, the reactor with only (4, 2) and the magazine with only (7, 2) (nothing of other zones); before any scan the model holds no cell and the silhouette: 44 standing cells, 38 hull segments, the target\'s pose',
   tunable: ['sensor.scanTime', 'sensor.scanRange', 'sensor.scanPower'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '9493b33b' },
   cases() {
     return [600, 900, 1500].map((D) => ({ D }));
   },

@@ -65,7 +65,7 @@ export default {
   tolerance: 'steps exact; the draw and the heat against the hand-worked literals 1e-12',
   criterion: 'connected: zone 1 after step 249, one scan; cut: no scan-started and no zone resolved by step 600 (hold B never controlled), yet all 17 of R1\'s panels resolved passively; control-reset and power-reset: zone 1 after step 399 (the scan restarts in step 151: a second scan-started, scan-2, the zone-resolved its child); zone-change: zone 5 after step 366 (a second scan, scan-2), zone 1 never; power-reset: the hold receives 1e5 W and its heat grows by 1666.67 J in step 1, receives 0 W while the reactor is at demand 0',
   tunable: ['sensor.scanTime', 'sensor.scanRange', 'sensor.scanPower'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'dee47661' },
   cases() {
     return Object.keys(CASES).map((name) => ({ name }));
   },
