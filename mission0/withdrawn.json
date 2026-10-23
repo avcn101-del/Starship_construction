@@ -1200,5 +1200,13 @@
     "recordHash": "3f056fa8",
     "reason": "Superseded under #303 (the surrender timer battle.disabledSeconds x resolve, superseding #278's x (1 - resolve), the plan's wording error found by the L5d engineer): it was locked on the old formula (resolve 0 Disabled at 10 s, resolve 1 striking at once). Its successor keeps every case and check on the decided rule (resolve 0 at once, 0.5 at 5 s, resolve 1 Disabled at 10 s). Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L4.route.emp",
+    "successor": "L4.route.emp.v2",
+    "decision": "#306",
+    "recordHash": "955153bf",
+    "reason": "Superseded under #306 (10) (DESIGN.md 13n.4 H9'): its bow case's text placed the burst on the turret's +x face, where the missile's path meets the beam bay's first (the checker's 3), and its shielded case asserted only that nothing is hit (the checker's 2). Its successor keeps every case and check, corrects the bow case's text and asserts that the charged buffer pays the EMP's 2 MJ and books it as the generator's heat (1e-9 relative). Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
+    "frozen": true
   }
 ]

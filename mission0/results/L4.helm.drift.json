@@ -1,0 +1,118 @@
+{
+  "id": "L4.helm.drift",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.helm.drift",
+  "code": "e069f42",
+  "criterionHash": "a840b449",
+  "lockedHash": "a840b449",
+  "runHash": "aa3c1daa",
+  "dataHash": "fee97350",
+  "rowsHash": "4e6d6f37",
+  "rows": [
+    {
+      "case": {
+        "name": "drift-R1",
+        "ship": "R1",
+        "throttle": 0.5
+      },
+      "expected": {
+        "step": 218,
+        "x": 54.57571820191082,
+        "error": 39.91655868393464,
+        "before": 39.697057948187336,
+        "thr": 39.85896025497095,
+        "t180": 4.842778638530427,
+        "a": 8.230597190183861,
+        "byDrift": true
+      },
+      "actual": {
+        "step": 218,
+        "mode": "range",
+        "e": 54.57193362912241,
+        "error": 39.91087838133489,
+        "threshold": 39.85895774708351
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "drift-R1d",
+        "ship": "R1d",
+        "throttle": 0.25
+      },
+      "expected": {
+        "step": 364,
+        "x": 48.68005314633627,
+        "error": 21.360370834695992,
+        "before": 21.289990315245987,
+        "thr": 21.29942215294624,
+        "t180": 8.073810079908968,
+        "a": 2.638088082595372,
+        "byDrift": true
+      },
+      "actual": {
+        "step": 364,
+        "mode": "range",
+        "e": 48.67736509490803,
+        "error": 21.357941149488582,
+        "threshold": 21.299421293857854
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "flip",
+        "ship": "R1",
+        "throttle": 0
+      },
+      "expected": {
+        "flips": [
+          600,
+          1200,
+          1800
+        ]
+      },
+      "actual": {
+        "flips": [
+          600,
+          1200,
+          1800
+        ],
+        "engaged": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "no-couple",
+        "ship": "R1",
+        "throttle": 1
+      },
+      "expected": {
+        "never": true
+      },
+      "actual": {
+        "engaged": 0,
+        "nan": 0,
+        "steps": 600,
+        "t180": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

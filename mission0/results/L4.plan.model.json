@@ -1,0 +1,90 @@
+{
+  "id": "L4.plan.model",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.plan.model",
+  "code": "e069f42",
+  "criterionHash": "eaff9a52",
+  "lockedHash": "eaff9a52",
+  "runHash": "95785ba3",
+  "dataHash": "fee97350",
+  "rowsHash": "1bd754d3",
+  "rows": [
+    {
+      "case": {
+        "knowledge": true
+      },
+      "expected": {
+        "kill": 360,
+        "knowledge": true
+      },
+      "actual": {
+        "runs": [
+          {
+            "on": "other",
+            "from": 0,
+            "to": 235
+          },
+          {
+            "on": "quarters",
+            "from": 235,
+            "to": 835
+          },
+          {
+            "on": "heatSink",
+            "from": 835,
+            "to": 1500
+          }
+        ],
+        "resolved": [
+          235,
+          835
+        ],
+        "shots": 0,
+        "destroyed": true,
+        "steps": 1500
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "knowledge": false
+      },
+      "expected": {
+        "kill": 360,
+        "knowledge": false
+      },
+      "actual": {
+        "runs": [
+          {
+            "on": "quarters",
+            "from": 0,
+            "to": 360
+          },
+          {
+            "on": "heatSink",
+            "from": 360,
+            "to": 600
+          }
+        ],
+        "resolved": [],
+        "shots": 0,
+        "destroyed": true,
+        "steps": 600
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
