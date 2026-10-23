@@ -12,6 +12,9 @@
   integrator's sum; the escape cases driven by hand on today's kernel);
   `tools/estimates/l5d-probe.diff` (the probe's patch and command).
   `STATUS.md`: this lead designer chat took over.
+- `IDEAS.md` (the design partner, `4670d7a`): the battle screen, an outside
+  view plus a knowledge panel, the layout the owner chose from the mockups;
+  presentation, after Mission 0, nothing built now.
 
 ## Unreleased — 2026-10-23 — The mutation run on the L5c merge (#300)
 
