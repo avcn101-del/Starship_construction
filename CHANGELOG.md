@@ -1,5 +1,26 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — the feel prototype on the L5d kernel (#301 (5))
+
+- `proto/` rebuilt on the kernel's symmetric loop (`feel-6`): the page
+  drives `js/battle.js`'s `createBattle` / `tick` as `tools/duel.js`'s
+  `createDuel` (both ships R1d-A, knowledge on, the player on Fire, the
+  standard enemy of `js/enemy.js`); `proto/battle.js`'s own loop, the
+  stand-in `AUTOPILOT` and the enemy's `SCRIPT` removed, with the levers
+  the kernel no longer has (magazine, layout, turrets, range / facing /
+  dodge orders); shield budget and hits to wreck stay as run-time overrides.
+  The three verbs (scan a zone, target a known room, switch preset) enter
+  as the kernel's inputs. The enemy is drawn from the player's knowledge
+  model only; the player's ship from its own world. The export carries the
+  seed, the inputs and the `tools/duel.js` replay line; `proto/replay.mjs`
+  replays it through `tools/duel.js`. `proto/measure.mjs` rewritten on the
+  duel; `proto/smoke.mjs` uses each verb once.
+- `L0.determinism`'s duel moves to the kernel loop (`proto/duel.js`
+  `duelHash`: seed 7, Evade from t = 0, 60 s); `tools/determinism.mjs` and
+  the scenario's `setup` text say so (its `measure` is in the L0 lock and
+  stays); cases, expected, compare and invariants unchanged. Its canonical re-record **FAILs**: Node and
+  Chromium differ, from `Math.atan2` in the kernel (`js/helm.js`,
+  `js/battle.js`); a question for the lead designer in the pull request.
 ## Unreleased — 2026-10-23 — the prototype page and cross-engine determinism (#310)
 
 - `DECISIONS.md` #310: the prototype page on the L5d loop (PR #96) waits
