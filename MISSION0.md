@@ -310,7 +310,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.log.v2` | cd91410b | PASS | f3ee00ad | f7833b3 | none | `node tools/m0.js run L4.log.v2` |
 | `L4.log` | f91185ca | PASS, WITHDRAWN (successor `L4.log.v2`, #278) | f3ee00ad | 8af82c8 | none | `node tools/m0.js run L4.log` |
 | `L4.loop.rules` | abb3deaf | PASS | cc74a636 | f7833b3 | none | `node tools/m0.js run L4.loop.rules` |
-| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | f7833b3 | none | `node tools/m0.js run L4.loop.symmetric` |
+| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | 5ef44de | none | `node tools/m0.js run L4.loop.symmetric` |
 | `L4.orders.energy` | 0e15c362 | PASS | e9f1b4d6 | f7833b3 | none | `node tools/m0.js run L4.orders.energy` |
 | `L4.orders.fire` | 0ff94ee2 | PASS | db5c937b | f7833b3 | none | `node tools/m0.js run L4.orders.fire` |
 | `L4.play.replay` | 9c10bc11 | PASS | 78837ad5 | f7833b3 | none | `node tools/m0.js run L4.play.replay` |
