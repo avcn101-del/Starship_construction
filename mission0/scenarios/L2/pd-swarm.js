@@ -80,7 +80,7 @@ export default {
   tolerance: 'counts exact; launch times 1e-9; a kill or a first shot at its step end exactly (on the grid: the step is what is tested); a burst\'s time 1e-4 s and distance 0.01 m against the exact kinematics (the kernel interpolates the missile linearly within a step); energies 1e-12',
   criterion: 'six launched at t_k = 2k s; j_k the first step end after launch at which missile k, on its line from L to C at 15 tau^2, is within 600 m of S then (re-statement on the kernel-read L, C, S); (laser) all six killed by the laser, missile k at the step end j_k + 36 (hp / P = 0.6 s of beam), each dose 600 kJ, the energy 6 x 0.6 = 3.6 MJ, no warhead; (kinetic) all six killed by flak, missile k by the first flak fired at it, fired at the step end j_k, at its burst at the closest approach of the exact kinematics (the lead re-stated), d <= 15.275 m (hand-worked), killed at that burst\'s step end; the store 40 less the flak fired; no warhead; the counts 6, 6 and 0 hits hand-worked',
   tunable: ['pd.range', 'pdLaser.power', 'pd.fireRate', 'flak.radius', 'he.blastEnergy', 'missile.mass', 'matter.burnEnergyPerKg', 'missile.acceleration', 'missilebay.launchInterval'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '7cfddc96' },
   cases() {
     return [{ fitting: 'laser' }, { fitting: 'kinetic' }];
   },

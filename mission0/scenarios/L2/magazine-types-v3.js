@@ -62,7 +62,7 @@ export default {
   tolerance: 'counts exact; energies 1e-12',
   criterion: '(turret magazine) the store full, 4 rounds, 146 left, the turret able; contents 1.2e9 J (hand-worked); the shot detonates it; (railgun magazine) nothing fed, the store empty, the turret not able (why dry), 900 kg of slugs still aboard; contents 0 J; the shot does not set it off (no explosion); (missile magazine) it loads, 4 missiles aboard; contents 4 x (20 + 36) MJ = 224 MJ (hand-worked, 1e-12); the shot detonates it, its explosion 224 MJ (1e-12), no missile left; (mixed) 150 AP rounds aboard a railgun-typed magazine: before the first step and after 10 s the turret is not able (why dry), nothing fed, the store empty, 150 rounds still aboard',
   tunable: ['ammo.wallFeed', 'turret.readyRounds', 'magazine.capacity', 'kinetic.chargeEnergy', 'he.blastEnergy', 'magazine.detonationSpeed', 'missile.mass', 'missile.warheadEnergy', 'missile.acceleration', 'missile.burnTime'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '341c29fb' },
   cases() {
     return [{ type: 'turret', part: 'feed' }, { type: 'railgun', part: 'feed' }, { type: 'turret', part: 'shot' }, { type: 'railgun', part: 'shot' }, { type: 'missile', part: 'shot' }, { type: 'mixed', part: 'feed' }];
   },

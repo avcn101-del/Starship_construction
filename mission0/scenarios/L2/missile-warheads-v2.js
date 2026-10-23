@@ -69,7 +69,7 @@ export default {
   tolerance: 'energies 1e-9 relative; counts and sets exact; an outage\'s end one-sided [t, t + dt) with the 1e-9 slack; the hull\'s momentum 1e-9 of the missile\'s; the body\'s heat 1e-3 of 1/2 m_b v^2; the books 1e-9 of their gross',
   criterion: 'HE: the bridge absorbs its whole 5.92 MJ (every cell destroyed), 10 MJ enters (absorbed + escaped = 10 MJ, 1e-9), 10 MJ vented; penetrator: 1 crewed cell passed, stopped in the 2nd; EMP -y: the reactor SCRAMs, the bridge and the shield generator shut down until the step holding 5.025 s, nothing else; bow: the beam bay only; shield on: the buffer pays 2 MJ, nothing hit; battle (emp): the rooms the field rule reaches from the warhead\'s point, a reactor among them SCRAMmed; battle (he, penetrator, emp): a hit of that kind, the body 200 kg (he, emp) or 150 kg (penetrator), the impact speed in [225, 235] m/s, the hull takes the whole missile\'s momentum 200 kg x V in the hit step besides thrust and RCS (1e-9), the body\'s heat within 1e-3 of 1/2 m_b v^2, nothing spent, the three books closed (1e-9); battle (penetrator): the impact speed under 230.1 m/s, no cell passed, stopped in the 1st (the bridge\'s, hand-worked from the round rule)',
   tunable: ['missile.warheadEnergy', 'he.coupling', 'missile.penetratorMass', 'missile.empEnergy', 'emp.radius', 'emp.scramDose', 'emp.outageTime', 'matter.blastPerKg', 'missile.mass', 'missile.acceleration'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'ba40f09b' },
   cases() {
     return [{ part: 'he' }, { part: 'penetrator' }, { part: 'emp', at: '-y' }, { part: 'emp', at: 'bow' }, { part: 'emp', at: '-y', shield: true }, { part: 'battle' }, { part: 'battle', warhead: 'he' }, { part: 'battle', warhead: 'penetrator' }];
   },
