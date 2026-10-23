@@ -62,7 +62,7 @@ const PLANNED = {
   'flak.radius': 10, // m, k = 1: half-strength radius of a flak burst (the field rule)
   'pdLaser.power': 1e6, // W, k = 2: the laser fitting, no falloff (#230), heat at beambay.efficiency
   // mass pass 2 (13n, #281)
-  'turret.mountMass': 7900, // kg per M turret, k = 3: the OTO Melara 76/62 SR without ammunition (7.9 t; 6.3 kg rounds)
+  'turret.machineryMass': 1975, // kg per turret cell, k = 3: the OTO Melara 76/62 SR without ammunition (7.9 t over an M turret's four cells; 6.3 kg rounds); in js/data.js since L5m (#285)
   // missiles' hp follow the one law: matter.burnEnergyPerKg x missile.mass (no constant)
 };
 for (const [k, v] of Object.entries(planOverrides)) { if (!(k in PLANNED)) throw new Error(`unknown planned constant ${k}`); PLANNED[k] = v; }
@@ -233,21 +233,24 @@ line('\n# (8) E8: wall time per step of the L4 loop (two ships, rounds in flight
 // ---------- (9) mass pass 2 (L5m, #281): the turret by its contents; the sources of #279 (4) ----------
 line('\n# (9) Mass pass 2 (L5m, #281): the turret as structure plus its mount (OTO Melara 76/62 SR, 7.9 t without ammunition)');
 {
-  const mount = Pn('turret.mountMass'), st = scaled(params.structure.cellMass, edge), cr = scaled(params.cellMass.crewed, edge);
+  const mount = 4 * Pn('turret.machineryMass'), st = scaled(params.structure.cellMass, edge), cr = scaled(params.cellMass.crewed, edge);
   const perCell = mount / 4, sOld = cr / (edge * edge), sNew = (st + perCell) / (edge * edge);
-  line(`  M turret: today 4 x ${f(cr, 0)} kg = ${f(4 * cr / 1e3, 1)} t (sigma ${f(sOld, 0)}); by contents 4 x (${f(st, 0)} + ${f(perCell, 0)}) kg = ${f(4 * (st + perCell) / 1e3, 1)} t (sigma ${f(sNew, 0)}); R1 and R1d change by ${f((4 * (st + perCell) - 4 * cr) / 1e3, 1)} t`);
-  for (const [name, s] of [['today', sOld], ['by contents', sNew]]) {
+  line(`  M turret: before L5m 4 x ${f(cr, 0)} kg = ${f(4 * cr / 1e3, 1)} t (sigma ${f(sOld, 0)}); by contents 4 x (${f(st, 0)} + ${f(perCell, 0)}) kg = ${f(4 * (st + perCell) / 1e3, 1)} t (sigma ${f(sNew, 0)}); R1 and R1d change by ${f((4 * (st + perCell) - 4 * cr) / 1e3, 1)} t`);
+  for (const [name, s] of [['before L5m', sOld], ['by contents', sNew]]) {
     const t = through(mRound, [s, s]);
     line(`  an M round through both turret cells, ${name}: ${t.res.stoppedIn < 0 ? `exits at ${f(t.exit, 0)} m/s` : `stops in entry ${t.res.stoppedIn}`}`);
   }
   const t = through(mRound, [SIG.plate, sNew, sNew]);
   line(`  through R1d's 0.2 m turret plate first: ${t.res.stoppedIn < 0 ? `exits at ${f(t.exit, 0)} m/s` : `stops in entry ${t.res.stoppedIn}`} (the plate now carries the turret's protection)`);
   line(`  an L turret by the per-cell rule: 9 x ${f(perCell, 0)} kg = ${f(9 * perCell / 1e3, 1)} t of mount (Mk 45 Mod 4: 24.4 t for a 30.7 kg round; the game's L round is ${f(lRound.mass, 2)} kg)`);
+  // Since L5m js/data.js holds the change (#285): the kernel's readout is then the 'after' mass and 'before' is rebuilt.
+  const built = !!(params.turret && params.turret.machineryMass), dTurret = 4 * (st + perCell) - 4 * cr;
   const { world } = buildShip(params, 'T1', TARGETS.R1);
-  const r = world.rooms.find((x) => x.type === 'reactor'), M = readout(world).mass, Mr = 4 * scaled(params.cellMass.reactor, edge), M2 = M + 4 * (st + perCell) - 4 * cr;
+  const r = world.rooms.find((x) => x.type === 'reactor'), Mk = readout(world).mass, Mr = 4 * scaled(params.cellMass.reactor, edge);
+  const M = built ? Mk - dTurret : Mk, M2 = built ? Mk : Mk + dTurret;
   line(`  R1 ${f(M / 1e3, 1)} t -> ${f(M2 / 1e3, 1)} t; the reactor's share ${f(100 * Mr / M, 1)} % -> ${f(100 * Mr / M2, 1)} %; ${f(scaled(params.engine.thrust, edge) / M2 / g0, 3)} g`);
   for (const name of ['R1c', 'R1d']) {
-    const { world: w } = buildShip(params, 'T1', TARGETS[name]), Mt = readout(w).mass, Mt2 = Mt + 4 * (st + perCell) - 4 * cr;
+    const { world: w } = buildShip(params, 'T1', TARGETS[name]), Mkt = readout(w).mass, Mt = built ? Mkt - dTurret : Mkt, Mt2 = built ? Mkt : Mkt + dTurret;
     line(`  ${name} ${f(Mt / 1e3, 3)} t -> ${f(Mt2 / 1e3, 3)} t (${f(scaled(params.engine.thrust, edge) / Mt2 / g0, 4)} g); the probe of #285 (the change applied in a scratch copy, regress run there and discarded): 15 locked scenarios fail on it, 15 more move their results and still pass`);
   }
   line(`  reactor check (#279, the sources): 600 t for 20 MWe = ${f(Mr / scaled(params.reactor.power, edge) * 1e3, 1)} kg/kWe against a shadow-shielded 10 MWe NEP system's 9.9 kg/kWe (NASA TM-105212) and a 4-pi shield of 35-45 t at SP-100 scale (TM-101403 Table III); the 1130 t compartment behind cellMass.reactor is secondary and contested (650 t elsewhere: ${f(150 * 650 / 1130, 0)} t per cell, below the range's floor)`);

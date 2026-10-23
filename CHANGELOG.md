@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5m merged (#287)
+
+- `DECISIONS.md` #287: L5m merged (PR #78); answers to its engineers,
+  blind checker and reviewer. `DESIGN.md` §13f.1 (contents at the room's
+  centre), §13l.2 (the masses after L5m), §13m's turret and route rows
+  proven L5m, §17 item 43 (the overheat route's heat capacity), §18.
+  `LEDGER.md` costs and ratio 1.21; `tools/estimates/l5.mjs`'s key renamed.
+
 ## Unreleased — 2026-10-23 — L5m: the routes the turret's mount moves (#286)
 
 - Scenarios: `L4.route.missionKill.v3` (the mission kill on R1d from +y:
