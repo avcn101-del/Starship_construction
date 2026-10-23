@@ -139,8 +139,8 @@ export const PARAMS = {
     cellMass: P(3e3, 2e3, 6e3, 3, 'kg', true, 'structure only (frames, decks, bulkheads): hold, magazine and heat sink before contents, and the structure under an engine\'s or a beam bay\'s machinery (#243); 24 kg/m^3 at T1, an estimate without a found source (#221, #235)'),
   },
   cellMass: {
-    crewed: P(1.48e4, 1.1e4, 1.65e4, 3, 'kg', true, 'bridge, quarters, turret, missile bay: 118 kg/m^3, ISS Destiny (14.5 t in 8.5 m x 4.3 m), low end; ISS Harmony about 131 kg/m^3 (#234, #235)'),
-    reactor: P(1.5e5, 1e5, 2e5, 3, 'kg', true, '1200 kg/m^3: US submarine reactor compartments, 1130 t / (pi 5^2 x 12 m), the cited low end (#234, #235, #243, F24)'),
+    crewed: P(1.48e4, 1.1e4, 1.65e4, 3, 'kg', true, 'bridge, quarters, missile bay (the turret is structure.cellMass + turret.machineryMass, #285): 118 kg/m^3, ISS Destiny (14.5 t in 8.5 m x 4.3 m), low end; ISS Harmony about 131 kg/m^3 (#234, #235)'),
+    reactor: P(1.5e5, 1e5, 2e5, 3, 'kg', true, '1200 kg/m^3: US submarine reactor compartments, 1130 t / (pi 5^2 x 12 m), the cited low end (#234, #235, #243, F24); the 1130 t compartment is a secondary source, contested (650 t for the S5W elsewhere, #281 (1))'),
     shieldGenerator: P(1e4, 5e3, 2e4, 3, 'kg', true, 'no real analogue (the shield is the premise, #202): the old average (#235)'),
     railgun: P(1e4, 5e3, 2e4, 3, 'kg', true, 'no real analogue yet: the old average (#235)'),
   },
@@ -217,7 +217,7 @@ export const PARAMS = {
   // Battle-level rules (#82, #83, #222 (7), #243, #253): the battle loop (js/battle.js, 13l.1).
   battle: {
     cullDistance: P(3000, 1000, 1e4, 1, 'm', true, 'a round or debris farther than this from every body leaves play, its momentum booked as left; twice the engagement band (#54, #222 (7), #243)'),
-    openingRange: P(900, 500, 2000, 1, 'm', true, 'the attacker\'s distance from the target\'s centre of mass when a battle opens (createBattle\'s default); #54\'s band; k = 1 so the dodge in one time of flight is the same number of cells at every tier (T2 of the L4 physics audit, §17 item 35, #269)'),
+    openingRange: P(900, 500, 2000, 1, 'm', true, 'the attacker\'s distance from the target\'s centre of mass when a battle opens (createBattle\'s default); #54\'s band; k = 1 so the dodge in one time of flight is the same number of cells at every tier (T2 of the L4 physics audit, §17 item 35, #270 (9))'),
     disabledSeconds: P(10, 3, 30, 0, 's', true, 'no weapon able to fire for this long, whatever the engine does: Disabled (#82, #243, #255)'),
     wreckFraction: P(0.5, 0.3, 0.8, 0, '', true, 'a ship whose largest fragment holds less than this fraction of its mass at undock has broken into too many pieces: destroyed (#83, #253)'),
   },
