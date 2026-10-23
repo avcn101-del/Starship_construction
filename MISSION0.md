@@ -298,6 +298,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.enemy.decide` | 7fda882b | PASS | 0f20d9e2 | f7833b3 | none | `node tools/m0.js run L4.enemy.decide` |
 | `L4.helm.conflict` | a14a4aa5 | PASS | 38a79945 | f7833b3 | none | `node tools/m0.js run L4.helm.conflict` |
 | `L4.helm.dodge` | ffeb1382 | PASS | 15efcdcc | f7833b3 | none | `node tools/m0.js run L4.helm.dodge` |
+| `L4.helm.drift` | a840b449 | PASS | aa3c1daa | e069f42 | none | `node tools/m0.js run L4.helm.drift` |
 | `L4.helm.range` | ad3f90bd | PASS | b66a47c6 | f7833b3 | none | `node tools/m0.js run L4.helm.range` |
 | `L4.hit.oblique.v2` | 343f56f3 | PASS, WITHDRAWN (successor `L4.hit.oblique.v3`, #285) | 25808f08 | 4e217c0 | none | `node tools/m0.js run L4.hit.oblique.v2` |
 | `L4.hit.oblique.v3` | 00ba8e73 | PASS | 25808f08 | f7833b3 | none | `node tools/m0.js run L4.hit.oblique.v3` |
@@ -310,9 +311,10 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.log.v2` | cd91410b | PASS | f3ee00ad | f7833b3 | none | `node tools/m0.js run L4.log.v2` |
 | `L4.log` | f91185ca | PASS, WITHDRAWN (successor `L4.log.v2`, #278) | f3ee00ad | 8af82c8 | none | `node tools/m0.js run L4.log` |
 | `L4.loop.rules` | abb3deaf | PASS | cc74a636 | f7833b3 | none | `node tools/m0.js run L4.loop.rules` |
-| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | 5bafd82 | none | `node tools/m0.js run L4.loop.symmetric` |
+| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | 50a503d | none | `node tools/m0.js run L4.loop.symmetric` |
 | `L4.orders.energy` | 0e15c362 | PASS | e9f1b4d6 | f7833b3 | none | `node tools/m0.js run L4.orders.energy` |
 | `L4.orders.fire` | 0ff94ee2 | PASS | db5c937b | f7833b3 | none | `node tools/m0.js run L4.orders.fire` |
+| `L4.plan.model` | eaff9a52 | PASS | 95785ba3 | e069f42 | none | `node tools/m0.js run L4.plan.model` |
 | `L4.play.replay` | 9c10bc11 | PASS | 78837ad5 | f7833b3 | none | `node tools/m0.js run L4.play.replay` |
 | `L4.readout.blueprint.v2` | b510ef6c | PASS | a38be52c | f7833b3 | none | `node tools/m0.js run L4.readout.blueprint.v2` |
 | `L4.readout.blueprint` | ba211887 | PASS, WITHDRAWN (successor `L4.readout.blueprint.v2`, #285) | a38be52c | 4e217c0 | none | `node tools/m0.js run L4.readout.blueprint` |
@@ -322,7 +324,9 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.route.decapitate.v2` | 5c555257 | PASS | 0fbb3a3c | f7833b3 | none | `node tools/m0.js run L4.route.decapitate.v2` |
 | `L4.route.decapitate` | f9b416ea | PASS, WITHDRAWN (successor `L4.route.decapitate.v2`, #271) | 5c16a046 | 8af82c8 | none | `node tools/m0.js run L4.route.decapitate` |
 | `L4.route.dry` | f172b965 | PASS | c079d711 | f7833b3 | none | `node tools/m0.js run L4.route.dry` |
-| `L4.route.emp` | aade46c9 | PASS | 3035d5ac | f7833b3 | none | `node tools/m0.js run L4.route.emp` |
+| `L4.route.emp.v2` | 564675f8 | PASS | 8683bc62 | e069f42 | none | `node tools/m0.js run L4.route.emp.v2` |
+| `L4.route.emp` | aade46c9 | PASS, WITHDRAWN (successor `L4.route.emp.v2`, #306) | 3035d5ac | f7833b3 | none | `node tools/m0.js run L4.route.emp` |
+| `L4.route.escape.edge` | e5746503 | PASS | 802c211a | e069f42 | none | `node tools/m0.js run L4.route.escape.edge` |
 | `L4.route.escape` | c30f6f8e | PASS | 20fb8276 | f7833b3 | none | `node tools/m0.js run L4.route.escape` |
 | `L4.route.missionKill.v2` | c1897e49 | PASS, WITHDRAWN (successor `L4.route.missionKill.v3`, #286) | c86ed201 | 4e217c0 | none | `node tools/m0.js run L4.route.missionKill.v2` |
 | `L4.route.missionKill.v3` | a139c27d | PASS | 3585dcee | f7833b3 | none | `node tools/m0.js run L4.route.missionKill.v3` |
