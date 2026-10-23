@@ -1747,5 +1747,19 @@
     "file": "js/battle.js",
     "old": "x.hit.body = { m: body, heat: embedRound(w, y, body, [...V], [...x.x]) };",
     "new": "x.hit.body = { m: body, heat: 0 };"
+  },
+  {
+    "id": "l5c.flak.doseExponent",
+    "rule": "13n.4 W8b (#298 (1)): a flak burst doses each missile E / (1 + (d / flak.radius)^2)",
+    "file": "js/defence.js",
+    "old": "dose(battle, s, r.fitting, y, E / (1 + (dd / R) * (dd / R)), 'flak');",
+    "new": "dose(battle, s, r.fitting, y, E / (1 + (dd / R) ** 4), 'flak');"
+  },
+  {
+    "id": "l5c.seeker.panelPosition",
+    "rule": "13n.4 W8b (#298 (2)): a panel's position is its edge midpoint (sourcesOf)",
+    "file": "js/sensors.js",
+    "old": "position: fittingPoint(world, f), class: temperatureClass(room)",
+    "new": "position: ((q) => [q[0] + 1, q[1] + 1])(fittingPoint(world, f)), class: temperatureClass(room)"
   }
 ]

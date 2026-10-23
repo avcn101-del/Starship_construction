@@ -93,3 +93,23 @@ export const WEAPON_SHIPS = {
   'R1d-L': { rooms: RAILGUN_ROOMS, fittings: onRailgun([...R1_FITTINGS, ...R1C_PLATES, ...R1D_PLATES]) },
   'R1-M': missileShip(),
 };
+
+// R1-M3 (13n.4 W9b, #298 (3)): R1 with three missile bays (3 x 2 each), each loaded with `seeker` / `warhead` and holding
+// missilebay.readyMissiles: bayT in the turret's place (rotated 90 degrees: [8, 10) x [4, 7), as R1-M's bay), bayB in
+// the beam bay's place ([9, 12) x [2, 4), one cell longer than the beam bay toward the bow) and bayH in the hold's place
+// ([7, 10) x [0, 2), one cell longer than the hold toward the bow, under bayB). The magazine stays R1's (rounds, not
+// missiles: no bay is refilled). Fittings: R1's 14 radiators of the engine, heat sink and shield generator and its two
+// engine RCS as placed; the beam bay's three radiators and two RCS on bayB's open edges ((11, 2) +x, (11, 3) +x,
+// (10, 2) -y; (11, 3) +y, (11, 2) -y); no antenna (its hold is a bay). js/battle.js's plan drives the first bay of the
+// rooms (bayB); a scenario orders the others to launch (room.missileBay.launching).
+export const missileShip3 = (seeker = 'designated', warhead = 'he') => {
+  const load = { seeker, warhead };
+  return {
+    rooms: R1_ROOMS.map((r) => (r.id === 'turret' ? { id: 'bayT', type: 'missileBay', cell: [8, 4], rotation: 90, load } : r.id === 'beamBay' ? { id: 'bayB', type: 'missileBay', cell: [9, 2], load } : r.id === 'hold' ? { id: 'bayH', type: 'missileBay', cell: [7, 0], load } : r)),
+    fittings: [
+      ...R1_FITTINGS.slice(0, 14),
+      ['radiator', 'bayB', [11, 2], [1, 0]], ['radiator', 'bayB', [11, 3], [1, 0]], ['radiator', 'bayB', [10, 2], [0, -1]],
+      R1_FITTINGS[17], R1_FITTINGS[18], ['rcs', 'bayB', [11, 3], [0, 1]], ['rcs', 'bayB', [11, 2], [0, -1]],
+    ],
+  };
+};
