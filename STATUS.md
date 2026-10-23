@@ -17,8 +17,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge. **L5b the senses and the knowledge model (PR #84, #289, #290)**: `js/sensors.js`, the antenna fitting, passive IR/EM at d⁻², zones scanned at d⁴ revealing their own cells, one knowledge model per side as a battle setting; S1–S9 all PASS, every literal reproduced blind.
-- **Running**: nothing. The full mutation run on the L5b merge is recorded (#294: no new survivor). Next: the L5c probe (the owner's go, 2026-10-23).
-- **Waiting on you**: nothing. You gave the go for L5c, chose option 1 on §17 item 43 (#291), EMP by section (#292) and escape (#293), and kept this chat for L5c. The L5c probe's result (with the railgun's counter and the round types' counters, #94) comes next. Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#294.
+- **Running**: **L5c weapons**: probed (#295: 125 of 125 rows unchanged; the plan amended for #94's prices and counters and the railgun's counters); **engineer** `session_01FGkcorhSN5Vdhec9rnEiyn` (opus, `m0/l5c-weapons`) started 05:40 UTC. Next: blind checker → reviewer → answers row → merge → the full mutation run.
+- **Waiting on you**: nothing. The L5c probe's result and the plan amendments are #295 (the railgun's counters, the round types' prices and counters, PD masses). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#295.
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (1.21), **L5b 11.62 (0.65)**: L5 so far 50.25. 2026-10-21/23 in all about 217 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
@@ -164,7 +164,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 ## Next steps
 
 1. **L5b is merged** (#290) and its full mutation run recorded (#294). The owner's decisions of 2026-10-23 are recorded: §17 item 43 option 1 (#291), EMP by section (#292), escape (#293, H11 for L5d).
-2. **L5c weapons** has the owner's go (2026-10-23). Before any session the lead designer probes §13n.1 (c) in a scratch copy (#285's lesson): which locked scenarios the railgun room, the missile bay, point defence, the round types, the firing window and the S footprints touch (`validateShip` gains sizes; `L2.layout.invalid.v2` and `L3.validation.v2` run against it before W13's lock, §13n.6), and whether W1–W14 can be built as written; re-cost if the probe disagrees with §13n.5 (raw 26–37).
+2. **L5c weapons** is running (#295: probed, raw 27–39, by the rule 108–156, expected 36–57; the engineer's task is in the chat's scratch directory and summarised in its pull request). Then the blind checker from the lock (W1–W12 are kernel physics), the reviewer, the answers row, the merge, the full mutation run.
 3. **Open for the owner**: the republish of the prototype page on the current kernel (0 USD, the lead designer's act); phone play against a deciding enemy needs the page republished on the L5d kernel reading `enemy.js` (to be added to L5d's plan).
 4. Due when their files are touched: §17 items 35 (rest, L5d), 39 (residue), 43 (scenario notes), 44 (k = 0 reads), 45 (L5b's leftovers for L5c and L5d).
 
@@ -178,7 +178,7 @@ The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
 the old chat's pending check-in was deleted at hand-over; the new chat
 creates its own (`send_later`, 20–45 min after starting a session). This
-chat has no pending check-in (the L5b check-in `trig_01LGmc5wx9S6KycAJmRECRA6` fired after both sessions had reported; a one-shot, spent).
+chat's pending check-in: `trig_01R7is3hJsZAnbPXh6RivSqf` (06:25 UTC, the L5c engineer).
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
 
