@@ -1,9 +1,9 @@
 {
   "id": "L0.determinism.v2",
   "level": "L0",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L0.determinism.v2",
-  "code": "ab6dcfd",
+  "code": "702edfa",
   "criterionHash": "e328384c",
   "lockedHash": "e328384c",
   "runHash": "c03e19d7",
@@ -263,7 +263,7 @@
     },
     {
       "name": "deterministic (two runs, same hash)",
-      "ok": false
+      "ok": true
     }
   ]
 }
