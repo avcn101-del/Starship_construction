@@ -1,0 +1,277 @@
+{
+  "id": "L4.orders.fire",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.orders.fire",
+  "code": "f7833b3",
+  "criterionHash": "0ff94ee2",
+  "lockedHash": "0ff94ee2",
+  "runHash": "db5c937b",
+  "dataHash": "fee97350",
+  "rowsHash": "713b8f4f",
+  "rows": [
+    {
+      "case": {
+        "name": "inrange-900",
+        "ship": "R1-A",
+        "openFire": "inRange",
+        "distance": 900,
+        "seconds": 5
+      },
+      "expected": {
+        "first": {
+          "turret": 0
+        }
+      },
+      "actual": {
+        "first": {
+          "turret": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "inrange-3500",
+        "ship": "R1-A",
+        "openFire": "inRange",
+        "distance": 3500,
+        "seconds": 5
+      },
+      "expected": {
+        "first": {}
+      },
+      "actual": {
+        "first": {}
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "sure-static",
+        "ship": "R1-A",
+        "openFire": "sureHit",
+        "distance": 900,
+        "seconds": 5
+      },
+      "expected": {
+        "first": {
+          "turret": 0.03333333333333333
+        }
+      },
+      "actual": {
+        "first": {
+          "turret": 0.03333333333333333
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "sure-dodge",
+        "ship": "R1-A",
+        "openFire": "sureHit",
+        "distance": 900,
+        "seconds": 4,
+        "dodger": true
+      },
+      "expected": {
+        "first": {}
+      },
+      "actual": {
+        "first": {}
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "salvo",
+        "ship": "R1-2T",
+        "openFire": "inRange",
+        "distance": 900,
+        "seconds": 3,
+        "firing": "salvo"
+      },
+      "expected": {
+        "first": {
+          "turret": 0,
+          "turret2": 0
+        }
+      },
+      "actual": {
+        "first": {
+          "turret": 0,
+          "turret2": 0
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "ripple",
+        "ship": "R1-2T",
+        "openFire": "inRange",
+        "distance": 900,
+        "seconds": 3,
+        "firing": "ripple"
+      },
+      "expected": {
+        "first": {
+          "turret": 0,
+          "turret2": 1
+        }
+      },
+      "actual": {
+        "first": {
+          "turret": 0,
+          "turret2": 1
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "priority-weapons",
+        "ship": "R1-A",
+        "openFire": "inRange",
+        "distance": 900,
+        "priority": "weapons"
+      },
+      "expected": {
+        "target": "zone-4"
+      },
+      "actual": {
+        "target": "zone-4",
+        "known": [
+          "bridge",
+          "hold",
+          "magazine",
+          "reactor",
+          "shield"
+        ],
+        "dists": {
+          "shield": 886.7386688482914,
+          "hold": 886.8545858801517,
+          "reactor": 896.7386662160117,
+          "bridge": 896.7489979785184,
+          "magazine": 896.8532907631478
+        },
+        "resolvedAt": 212
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "priority-power",
+        "ship": "R1-A",
+        "openFire": "inRange",
+        "distance": 900,
+        "priority": "power"
+      },
+      "expected": {
+        "target": "reactor"
+      },
+      "actual": {
+        "target": "reactor",
+        "known": [
+          "bridge",
+          "hold",
+          "magazine",
+          "reactor",
+          "shield"
+        ],
+        "dists": {
+          "shield": 886.7386688482914,
+          "hold": 886.8545858801517,
+          "reactor": 896.7386662160117,
+          "bridge": 896.7489979785184,
+          "magazine": 896.8532907631478
+        },
+        "resolvedAt": 212
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "priority-bridge",
+        "ship": "R1-A",
+        "openFire": "inRange",
+        "distance": 900,
+        "priority": "bridge"
+      },
+      "expected": {
+        "target": "bridge"
+      },
+      "actual": {
+        "target": "bridge",
+        "known": [
+          "bridge",
+          "hold",
+          "magazine",
+          "reactor",
+          "shield"
+        ],
+        "dists": {
+          "shield": 886.7386688482914,
+          "hold": 886.8545858801517,
+          "reactor": 896.7386662160117,
+          "bridge": 896.7489979785184,
+          "magazine": 896.8532907631478
+        },
+        "resolvedAt": 212
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "priority-nearest",
+        "ship": "R1-A",
+        "openFire": "inRange",
+        "distance": 900,
+        "priority": "nearest"
+      },
+      "expected": {
+        "target": "nearest"
+      },
+      "actual": {
+        "target": "shield",
+        "known": [
+          "bridge",
+          "hold",
+          "magazine",
+          "reactor",
+          "shield"
+        ],
+        "dists": {
+          "shield": 886.7386688482914,
+          "hold": 886.8545858801517,
+          "reactor": 896.7386662160117,
+          "bridge": 896.7489979785184,
+          "magazine": 896.8532907631478
+        },
+        "resolvedAt": 212
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

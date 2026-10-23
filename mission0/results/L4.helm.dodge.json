@@ -1,0 +1,82 @@
+{
+  "id": "L4.helm.dodge",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.helm.dodge",
+  "code": "f7833b3",
+  "criterionHash": "ffeb1382",
+  "lockedHash": "ffeb1382",
+  "runHash": "15efcdcc",
+  "dataHash": "fee97350",
+  "rowsHash": "041a6faa",
+  "rows": [
+    {
+      "case": {
+        "dodger": "R1"
+      },
+      "expected": {
+        "a": 16.461194380367722,
+        "n": 67,
+        "miss": 10.41627799957713,
+        "tol": 0.15318055881731074,
+        "literal": 10.42
+      },
+      "actual": {
+        "n": 67,
+        "tStar": 1.125118349662847,
+        "miss": 10.489154185417032,
+        "aim0": 0,
+        "aim1": 1.1102230246251565e-16,
+        "v1": [
+          32.918304098439535,
+          -0.3744955834324054
+        ],
+        "steps": [
+          1,
+          121
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "dodger": "R1d"
+      },
+      "expected": {
+        "a": 10.552352330381488,
+        "n": 67,
+        "miss": 6.677294057946953,
+        "tol": 0.09819550085216108,
+        "literal": 6.68
+      },
+      "actual": {
+        "n": 67,
+        "tStar": 1.1234588667560692,
+        "miss": 6.714432243652985,
+        "aim0": 0,
+        "aim1": 1.1102230246251565e-16,
+        "v1": [
+          21.103661912378655,
+          -0.14776139367691066
+        ],
+        "steps": [
+          1,
+          121
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

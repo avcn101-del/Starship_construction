@@ -1,0 +1,64 @@
+{
+  "id": "L2.sensor.brownout",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.sensor.brownout",
+  "code": "f7833b3",
+  "criterionHash": "0deb425b",
+  "lockedHash": "0deb425b",
+  "runHash": "9febd184",
+  "dataHash": "fee97350",
+  "rowsHash": "6222c153",
+  "rows": [
+    {
+      "case": {
+        "f": 1,
+        "demand": 1
+      },
+      "expected": {
+        "f": 1,
+        "per": 0.0040305625885915025,
+        "n": 249,
+        "P": 100000
+      },
+      "actual": {
+        "f": 1,
+        "n": 249,
+        "P": 100000,
+        "worst": 8.118505867571457e-15
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "f": 0.5,
+        "demand": 0.0025
+      },
+      "expected": {
+        "f": 0.5,
+        "per": 0.0020152812942957512,
+        "n": 497,
+        "P": 50000
+      },
+      "actual": {
+        "f": 0.5,
+        "n": 497,
+        "P": 50000,
+        "worst": 4.0592529337857286e-15
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

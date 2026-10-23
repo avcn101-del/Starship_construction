@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.beambay.heat.v2",
-  "code": "0501899",
+  "code": "f7833b3",
   "criterionHash": "0974a53c",
   "lockedHash": "0974a53c",
   "runHash": "36707521",
-  "dataHash": "d540e777",
+  "dataHash": "fee97350",
   "rowsHash": "f58597a7",
   "rows": [
     {

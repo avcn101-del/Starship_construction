@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.railgun.recoil",
-  "code": "0501899",
+  "code": "f7833b3",
   "criterionHash": "fe824f40",
   "lockedHash": "fe824f40",
   "runHash": "7c409c63",
-  "dataHash": "d540e777",
+  "dataHash": "fee97350",
   "rowsHash": "fc6f95ec",
   "rows": [
     {
