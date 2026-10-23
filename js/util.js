@@ -200,3 +200,124 @@ export function pow(x, y) {
   if (!(x > 0)) throw new Error(`pow(${x}, ${y}): a non-integer power needs x > 0`);
   return exp(y * log(x));
 }
+
+// The two words of a double put together (the inverse of hiWord and loWord).
+const fromWords = (hi, lo) => { WORDS.setInt32(0, hi); WORDS.setUint32(4, lo); return WORDS.getFloat64(0); };
+
+// atan2, cbrt (#310): ECMAScript leaves Math.atan2, Math.cbrt and Math.hypot
+// implementation-approximated, and Node's V8 and Chromium differ in the last
+// bits of atan2 and cbrt. cbrt is a port of fdlibm (FreeBSD msun s_cbrt.c).
+// atan2 follows fdlibm (s_atan.c, e_atan2.c: the same breakpoints, tables and
+// polynomial) but carries y / x and the reduced argument as double-doubles
+// (Dekker's exact product by Veltkamp splitting) and rounds once at the end:
+// fdlibm's own atan2 rounds y / x first and errs by up to 1.23 ulp. Measured
+// by tools/mathcheck.mjs.
+
+/** a + b as [sum, error], exactly (Knuth's two-sum). */
+function twoSum(a, b) {
+  const s = a + b, bb = s - a;
+  return [s, (a - (s - bb)) + (b - bb)];
+}
+/** a b as [product, error], exactly for |a|, |b| below 1e290 (Veltkamp split, Dekker product). */
+function twoProd(a, b) {
+  const p = a * b, ca = 134217729 * a, cb = 134217729 * b; // 2^27 + 1
+  const ah = ca - (ca - a), al = a - ah, bh = cb - (cb - b), bl = b - bh;
+  return [p, ((ah * bh - p) + ah * bl + al * bh) + al * bl];
+}
+/** The double-double (h, l) divided by the double-double (dh, dl), as a double-double to about 2^-104. */
+function ddDiv(h, l, dh, dl) {
+  const q1 = h / dh, [ph, pl] = twoProd(q1, dh);
+  const q2 = ((((h - ph) - pl) + l) - q1 * dl) / dh;
+  const s = q1 + q2;
+  return [s, q2 - (s - q1)];
+}
+
+const ATANHI = [4.63647609000806093515e-01, 7.85398163397448278999e-01, 9.82793723247329054082e-01, 1.57079632679489655800e+00];
+const ATANLO = [2.26987774529616870924e-17, 3.06161699786838301793e-17, 1.39033110312309984516e-17, 6.12323399573676603587e-17];
+const AT0 = 3.33333333333329318027e-01, AT1 = -1.99999999998764832476e-01, AT2 = 1.42857142725034663711e-01;
+const AT3 = -1.11111104054623557880e-01, AT4 = 9.09088713343650656196e-02, AT5 = -7.69187620504482999495e-02;
+const AT6 = 6.66107313738753120669e-02, AT7 = -5.83357013379057348645e-02, AT8 = 4.97687799461593236017e-02;
+const AT9 = -3.65315727442169155270e-02, AT10 = 1.62858201153657823623e-02;
+/** atan(t) for the double-double t = th + tl, 0 <= t <= 2^60, as a double-double (fdlibm s_atan.c's reduction). */
+function atanDD(th, tl) {
+  let id = -1, uh = th, ul = tl;
+  if (th >= 0.4375) {
+    if (th < 0.6875) { const [nh, nl] = twoSum(2 * th - 1, 2 * tl), [dh, dl] = twoSum(2, th); [uh, ul] = ddDiv(nh, nl, dh, dl + tl); id = 0; } // (2t - 1) / (2 + t)
+    else if (th < 1.1875) { const [nh, nl] = twoSum(th, -1), [dh, dl] = twoSum(th, 1); [uh, ul] = ddDiv(nh, nl + tl, dh, dl + tl); id = 1; } // (t - 1) / (t + 1)
+    else if (th < 2.4375) { const [nh, nl] = twoSum(th, -1.5), [ph, pl] = twoProd(1.5, th), [dh, dl] = twoSum(1, ph); [uh, ul] = ddDiv(nh, nl + tl, dh, dl + pl + 1.5 * tl); id = 2; } // (t - 1.5) / (1 + 1.5 t)
+    else { [uh, ul] = ddDiv(-1, 0, th, tl); id = 3; } // -1 / t
+  }
+  const z = uh * uh, w = z * z;
+  const s1 = z * (AT0 + w * (AT2 + w * (AT4 + w * (AT6 + w * (AT8 + w * AT10)))));
+  const s2 = w * (AT1 + w * (AT3 + w * (AT5 + w * (AT7 + w * AT9))));
+  if (id < 0) { const s = uh + (ul - uh * (s1 + s2)); return [s, (ul - uh * (s1 + s2)) - (s - uh)]; }
+  const [h, e] = twoSum(ATANHI[id], uh), lo = e + ATANLO[id] + ul - uh * (s1 + s2), s = h + lo;
+  return [s, lo - (s - h)];
+}
+
+const PI = 3.1415926535897931160e+00, PI_LO = 1.2246467991473531772e-16, PI_O_2 = 1.5707963267948965580e+00;
+const ATAN2_MIN = 1e-100, ATAN2_MAX = 1e100; // the products and splits of the double-doubles stay exact and normal
+/**
+ * Deterministic atan2(y, x), the angle of (x, y) in [-pi, pi]. Each of x and y
+ * must be 0 or of magnitude in [1e-100, 1e100] (the kernel's separations and
+ * velocities, metres and m/s); anything else, NaN and infinities throw.
+ */
+export function atan2(y, x) {
+  const ax = x < 0 ? -x : x, ay = y < 0 ? -y : y;
+  if (!((ax === 0 || (ax >= ATAN2_MIN && ax <= ATAN2_MAX)) && (ay === 0 || (ay >= ATAN2_MIN && ay <= ATAN2_MAX)))) throw new Error(`atan2(${y}, ${x}): outside the deterministic range`);
+  const neg = y < 0 || Object.is(y, -0), left = x < 0 || Object.is(x, -0); // fdlibm's m: 2 sign(x) + sign(y)
+  if (ay === 0) return left ? (neg ? -PI : PI) : y;
+  if (ax === 0) return neg ? -PI_O_2 : PI_O_2;
+  // t = |y| / |x| as a double-double: q1 + (|y| - q1 |x|) / |x|, the remainder exact
+  const q1 = ay / ax;
+  let zh, zl;
+  if (q1 > 1.152921504606847e18) { zh = PI_O_2; zl = 6.123233995736766e-17; } // |y / x| > 2^60: atan is pi/2 to the last bit
+  else { const [ph, pl] = twoProd(q1, ax); [zh, zl] = atanDD(q1, ((ay - ph) - pl) / ax); }
+  let r;
+  if (left) { const [h, e] = twoSum(PI, -zh); r = h + (e + (PI_LO - zl)); } // pi - atan(t)
+  else r = zh + zl;
+  return neg ? -r : r;
+}
+
+const CB_B1 = 715094163, CB_B2 = 696219795; // (1023 - 1023/3 - 0.03306235651) 2^20, and less 54/3 for subnormals
+const CB_P0 = 1.87595182427177009643, CB_P1 = -1.88497979543377169875, CB_P2 = 1.621429720105354466140;
+const CB_P3 = -0.758397934778766047437, CB_P4 = 0.145996192886612446982;
+/** Deterministic cube root (fdlibm s_cbrt.c, Bruce Evans's version, error < 0.667 ulp). */
+export function cbrt(x) {
+  let hx = hiWord(x);
+  const sign = hx & 0x80000000;
+  hx &= 0x7fffffff;
+  if (hx >= 0x7ff00000) return x + x; // NaN, infinities
+  let t;
+  if (hx < 0x00100000) { // zero or subnormal
+    if ((hx | loWord(x)) === 0) return x;
+    t = x * 18014398509481984; // 2^54
+    t = fromWords(sign | (Math.floor((hiWord(t) & 0x7fffffff) / 3) + CB_B2), 0);
+  } else {
+    t = fromWords(sign | (Math.floor(hx / 3) + CB_B1), 0);
+  }
+  // to 23 bits: cbrt(x) = t cbrt(x / t^3) ~= t P(t^3 / x)
+  let r = (t * t) * (t / x);
+  t = t * ((CB_P0 + r * (CB_P1 + r * CB_P2)) + ((r * r) * r) * (CB_P3 + r * CB_P4));
+  // round t away from zero to 23 bits: add 2^31 to the 64-bit word, then clear the low 30 bits
+  let hi = hiWord(t), lo = loWord(t) + 0x80000000;
+  if (lo >= 4294967296) { lo -= 4294967296; hi += 1; }
+  t = fromWords(hi, (lo & 0xc0000000) >>> 0);
+  // one Newton step to 53 bits
+  const s = t * t; // exact
+  r = x / s;
+  const w = t + t; // exact
+  r = (r - t) / (w + r); // r - t exact
+  return t + t * r;
+}
+
+const HYPOT_LIMIT = 1e150; // a, b at most this: a*a + b*b cannot overflow (the kernel's distances are under 1e6 m)
+/**
+ * Deterministic hypot for the kernel's distances: Math.sqrt(a*a + b*b), every
+ * operation correctly rounded by IEEE 754. |a| or |b| above 1e150, NaN and
+ * infinities are not used by the kernel and throw.
+ */
+export function hypot(a, b) {
+  if (!((a < 0 ? -a : a) <= HYPOT_LIMIT && (b < 0 ? -b : b) <= HYPOT_LIMIT)) throw new Error(`hypot(${a}, ${b}): outside the deterministic range`);
+  return Math.sqrt(a * a + b * b);
+}
