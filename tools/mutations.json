@@ -1966,8 +1966,8 @@
     "id": "l5d.range.couple",
     "rule": "13n.1 (d) no couple, no range order (#306 (8))",
     "file": "js/helm.js",
-    "old": "h.engaged = throttle > 0 && a > 0 && t180 < Infinity && rangeEngaged(",
-    "new": "h.engaged = throttle > 0 && a > 0 && rangeEngaged(",
+    "old": "const able = throttle > 0 && a > 0 && t180 < Infinity;",
+    "new": "const able = throttle > 0 && a > 0;",
     "note": "L5d fix round (#306)"
   },
   {
