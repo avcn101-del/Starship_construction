@@ -1733,5 +1733,19 @@
     "file": "js/battle.js",
     "old": "...(r.size ? { size: r.size } : {}), ",
     "new": ""
+  },
+  {
+    "id": "l5c.pd.range",
+    "rule": "13n.4 W9: point defence engages only within pd.range of the fitting (#296)",
+    "file": "js/defence.js",
+    "old": "    if (d > range) continue;\n",
+    "new": ""
+  },
+  {
+    "id": "l5c.missile.bodyImpulse",
+    "rule": "13n.4 W7 (.v2): a missile's body at impact joins the hull's body, its momentum and heat booked there, nothing spent (#296 (3))",
+    "file": "js/battle.js",
+    "old": "x.hit.body = { m: body, heat: embedRound(w, y, body, [...V], [...x.x]) };",
+    "new": "x.hit.body = { m: body, heat: 0 };"
   }
 ]

@@ -214,6 +214,7 @@ export const PARAMS = {
   pd: {
     fireRate: P(2, 1, 4, -1, '1/s', true, 'kinetic point defence: M flak rounds a second at the nearest incoming missile in its arc (#93, 13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
     ammo: P(40, 20, 100, 0, 'rounds', true, 'its own store of M flak rounds, refilled between battles (#90, #93): 20 s of fire (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+    range: P(600, 300, 1500, 1, 'm', true, 'point defence (kinetic and laser) engages a missile only within this range of the fitting, in its arc, the nearest first: a laser\'s spot and tracking, a flak round\'s reach (#296: without it a laser killed every missile from launch); approved as the plan\'s, #272 (2)'),
     mass: P(8000, 4000, 12000, 2, 'kg', true, 'one kinetic point-defence fitting without ammunition, at its edge\'s midpoint: the 76/62 SR mount, 7.9 t, turret.machineryMass\'s source (#281 (2), #295); approved as the plan\'s, #272 (2)'),
   },
   flak: {

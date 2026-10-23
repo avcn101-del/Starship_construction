@@ -1,8 +1,8 @@
 // defence.js — point defence against missiles (DESIGN.md 13n.1 (c), L5c; #93,
 // #278, #295). Two fitting types on a hull edge (rooms.js addFitting), each
 // engaging the other side's missiles only, in the arc of its hull segment (the
-// outward half-plane of the edge, from its midpoint along its outward normal),
-// the nearest first (an automatic rule, §8). Kinetic ('pd'): pd.fireRate M flak
+// outward half-plane of the edge, from its midpoint along its outward normal)
+// and within pd.range of that midpoint (#296), the nearest first (an automatic rule, §8). Kinetic ('pd'): pd.fireRate M flak
 // rounds a second from its own store of pd.ammo, each with lead on the missile
 // (the intercept for the missile's velocity at the shot: its acceleration over
 // the flak's flight is the physical miss), flown straight and burst at its
@@ -33,12 +33,13 @@ export function fittingPose(world, f) {
 }
 /** In the fitting's arc: the missile's position in the outward half-plane of its edge (strictly). */
 export const inArc = (pose, X) => dot(sub(X, pose.S), pose.n) > 0;
-/** The nearest missile of `missiles` in the fitting's arc (ties: the earlier in the list), or null. */
-function nearestInArc(pose, missiles) {
+/** The nearest missile of `missiles` in the fitting's arc and within `range` of it (pd.range, #296; ties: the earlier in the list), or null. */
+function nearestInArc(pose, missiles, range) {
   let best = null;
   for (const x of missiles) {
     if (x.dead || x.over || !inArc(pose, x.x)) continue;
     const d = len(sub(x.x, pose.S));
+    if (d > range) continue;
     if (!best || d < best.d) best = { x, d };
   }
   return best ? best.x : null;
@@ -52,7 +53,7 @@ export function aimLasers(battle) {
       f.target = null;
       const pose = fittingPose(s.world, f), missiles = battle.missiles.filter((x) => x.shooter === s.other);
       if (!pose || !missiles.length || !pdAble(s.world, f, true)) continue;
-      const x = nearestInArc(pose, missiles);
+      const x = nearestInArc(pose, missiles, tierScaled(s.world, battle.params.pd.range));
       f.target = x ? x.id : null;
     }
   }
@@ -127,7 +128,7 @@ export function pointDefence(battle) {
     for (const f of pdFittings(s.world, 'pd')) {
       const pose = fittingPose(s.world, f), missiles = battle.missiles.filter((x) => x.shooter === s.other && !x.dead && !x.over);
       if (!pose || !missiles.length || !pdAble(s.world, f)) continue;
-      const x = nearestInArc(pose, missiles);
+      const x = nearestInArc(pose, missiles, tierScaled(s.world, battle.params.pd.range));
       if (!x) continue;
       if (f.next !== undefined && f.next !== null && battle.t < f.next - 1e-9) continue;
       const u = tierScaled(s.world, battle.params.kinetic.muzzleVelocity), dir = lead(pose.S, pointVelocity(pose.body, pose.S), x.x, x.v, u);

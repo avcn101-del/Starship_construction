@@ -30,7 +30,8 @@
 // missile bay launches at the plan's missile rooms; missiles fly on the shooter's
 // world (js/missile.js: thrust, coast, seekers from the side's own model, so they
 // need `knowledge`), each tested against the other hull along its segment, its
-// warhead acting at the hit (HE a contact burst, the penetrator a round, EMP a
+// warhead acting at the hit (its body a stopped projectile joining the hull, #296;
+// HE a contact burst, the penetrator a round, EMP a
 // field); point defence engages them (js/defence.js); a typed turret store fires
 // the type its target calls for (#95); the firing window (#100): a side's own
 // round crossing its own hull segment in a step, or its beam leaving through it,
@@ -621,8 +622,10 @@ function flyMissiles(battle, before) {
  * burst of missile.warheadEnergy there (rooms.js contactBurst); the penetrator a round of missile.penetratorMass at the
  * missile's velocity (strike: the field, the round rule, a stop or a pass); EMP a field of missile.empEnergy from the
  * hit point (rooms.js empBurst), timed within the step. Each a 'warhead' event in the other ship's log, cause the
- * missile's id; the missile's mass (less a penetrator's) leaves flight at its velocity, no impulse on the hull (a
- * missile's body is no channel of the rules).
+ * missile's id. The missile's body at impact (all of it for HE and EMP, the rest beyond the penetrator) is a stopped
+ * projectile of its mass at its velocity (#296 (3)): before the warhead acts it joins the body holding that first entry
+ * (rooms.js embedRound, the round rule's accounting for a stopped round, B4): its momentum and angular momentum go to
+ * that body, the kinetic energy the joining loses is heat in the entry's room; nothing is booked as spent.
  */
 function warhead(battle, x, hit) {
   const w = x.other.world, p = battle.params, edge = w.edge, y = hit.path.find((z) => entryArealDensity(w, z) > 0);
@@ -632,8 +635,9 @@ function warhead(battle, x, hit) {
   const channel = x.warhead === 'he' ? 'blast' : x.warhead === 'emp' ? 'emp' : 'kinetic';
   const ev = emit(w.log, { t: tHit, type: 'warhead', room: host.id, cause: x.id, crew: host.crew, kind: x.warhead, channel, energy, missile: x.id, entry: [...hit.entry], parent: x.id });
   x.hit = { t: tHit, entry: [...hit.entry], room: host.id, event: ev.id };
-  let left = x.m;
+  const body = x.warhead === 'penetrator' ? x.m - mp : x.m;
   within(w.log, ev, () => {
+    x.hit.body = { m: body, heat: embedRound(w, y, body, [...V], [...x.x]) };
     if (x.warhead === 'he') x.burst = contactBurst(w, y, energy, x.id);
     else if (x.warhead === 'emp') x.burst = empBurst(w, hit.entry, energy, x.id, tHit);
     else {
@@ -642,11 +646,9 @@ function warhead(battle, x, hit) {
       const r = { id: x.id, shooter: x.shooter, other: x.other, ref, prev: [...x.prev], t0: x.t, event: x.event, cleared: true };
       battle.rounds.push(r);
       strike(battle, r, hit);
-      left -= mp;
     }
   });
   x.over = 'hit';
-  spend(battle, left, x.x, x.v);
 }
 /** Missiles and flak rounds farther than battle.cullDistance from every body of both ships leave play (booked in battle.spent). */
 function cullMunitions(battle) {

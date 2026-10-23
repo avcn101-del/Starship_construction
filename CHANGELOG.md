@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5c fix round (#296)
+
+- `js/data.js`: `pd.range` (600 m, 300–1500, k 1; `approved: true` as the
+  plan's, #272 (2)). `js/defence.js`: point defence engages a missile only
+  within `pd.range` of the fitting (in its arc, nearest first, as built).
+- `js/battle.js`: a missile's body at impact (all of it for HE and EMP, the
+  rest beyond the penetrator) joins the hull's body at the first entry
+  (`embedRound`, the round rule's stopped-round accounting): its momentum to
+  that body, the kinetic energy the join loses heat in the entry's room;
+  nothing booked as spent.
+- Scenarios: `L2.magazine.types.v3` (successor of `.v2`, the missile row on
+  the built rule), `L2.missile.warheads.v2` (successor of W7: the body's
+  impulse and heat, the penetrator through the battle's warhead path),
+  `L2.pd.swarm` (W9, at the bay's own cadence with a store of six). `.v2`
+  and W7 withdrawn under #296. `tools/mutations.json`: `l5c.pd.range`,
+  `l5c.missile.bodyImpulse`.
+
 ## Unreleased — 2026-10-23 — Answers to L5c's engineer (#296)
 
 - `DECISIONS.md` #296: `pd.range` (new, 600 m); `L2.magazine.types.v2` and
