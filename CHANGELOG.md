@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — The engine's plume (#297)
+
+- `DECISIONS.md` #297: the jet has an effect (the owner): fittings only,
+  built in L5e with `engine.plumeHalfAngle` (new, planned) and
+  `L4.engine.plume`; IR-only until then; the Engine boat in E5.
+  `DESIGN.md` §13n.1 (e), §13n.2, §18.
+
 ## Unreleased — 2026-10-23 — Answers to L5c's engineer (#296)
 
 - `DECISIONS.md` #296: `pd.range` (new, 600 m); `L2.magazine.types.v2` and
