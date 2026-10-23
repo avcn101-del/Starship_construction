@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.shield.point",
-  "code": "d4a6dea",
+  "code": "0501899",
   "criterionHash": "d83b6f9a",
   "lockedHash": "d83b6f9a",
   "runHash": "4812ede3",
-  "dataHash": "b2b17548",
+  "dataHash": "d540e777",
   "rowsHash": "ac41d8fc",
   "rows": [
     {

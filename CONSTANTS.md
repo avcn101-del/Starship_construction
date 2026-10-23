@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `d4a6dea`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `3c949d6`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -44,12 +44,12 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | thermal.coupledHold | 1350000 | J/K | 500000 | 3000000 | 3 | true | per hold cell: 3 t of structure, nothing else (#243) |
 | thermal.coupledHeatSink | 1350000 | J/K | 500000 | 3000000 | 3 | true | per heat sink cell before its water: 3 t of structure; x heatsink.capacityFactor, the water adding as before (#198, #243) |
 | thermal.coupledArmour | 4500000 | J/K | 2000000 | 8000000 | 3 | true | per armour cell: 10 t of steel (450 J/(kg K)); an armour plate (#256) adds its mass x this / armour.cellMass to its room's heat capacity (#258, #248 Q13) |
-| thermal.coupledRailgun | 4500000 | J/K | 2000000 | 8000000 | 3 | true | per railgun cell: 10 t of steel; the railgun stays data only until L5 (#243) |
+| thermal.coupledRailgun | 4500000 | J/K | 2000000 | 8000000 | 3 | true | per railgun cell: 10 t of steel (#243); the railgun is built in L5c (13n.1 (c)) |
 | structure.cellMass | 3000 | kg | 2000 | 6000 | 3 | true | structure only (frames, decks, bulkheads): hold, magazine and heat sink before contents, and the structure under an engine's or a beam bay's machinery (#243); 24 kg/m^3 at T1, an estimate without a found source (#221, #235) |
-| cellMass.crewed | 14800 | kg | 11000 | 16500 | 3 | true | bridge, quarters, missile bay (the turret is structure.cellMass + turret.machineryMass, #285): 118 kg/m^3, ISS Destiny (14.5 t in 8.5 m x 4.3 m), low end; ISS Harmony about 131 kg/m^3 (#234, #235) |
+| cellMass.crewed | 14800 | kg | 11000 | 16500 | 3 | true | bridge and quarters (the turret is structure.cellMass + turret.machineryMass, #285; the missile bay structure.cellMass + missilebay.launcherMass, L5c): 118 kg/m^3, ISS Destiny (14.5 t in 8.5 m x 4.3 m), low end; ISS Harmony about 131 kg/m^3 (#234, #235) |
 | cellMass.reactor | 150000 | kg | 100000 | 200000 | 3 | true | 1200 kg/m^3: US submarine reactor compartments, 1130 t / (pi 5^2 x 12 m), the cited low end (#234, #235, #243, F24); the 1130 t compartment is a secondary source, contested (650 t for the S5W elsewhere, #281 (1)) |
 | cellMass.shieldGenerator | 10000 | kg | 5000 | 20000 | 3 | true | no real analogue (the shield is the premise, #202): the old average (#235) |
-| cellMass.railgun | 10000 | kg | 5000 | 20000 | 3 | true | no real analogue yet: the old average (#235) |
+| cellMass.railgun | 10000 | kg | 5000 | 20000 | 3 | true | no real analogue yet: the old average (#235); kept in L5c, no source found for a launcher or its pulsed power (volume only: the N = 2 gun's 67 MJ store fits its own cells, #281 (4)) |
 | radiator.area | 25 | m^2 | 10 | 100 | 2 | true | one panel per hull segment; radiates emissivity x sigma x area x T^4 of its room (#143, #183) |
 | radiator.mass | 250 | kg | 100 | 1000 | 2 | true | one panel, 10 kg/m^2 like an ISS radiator; at its edge's midpoint (#208, #210) |
 | rcs.force | 1000000 | N | 300000 | 5000000 | 2 | true | one RCS fitting while fired, along its edge's inward normal at the edge's midpoint; re-tuned 100 kN -> 1 MN for ships of real density (#15, #208, #210, #221); R1 (about 950 t) turns 90 degrees in a few seconds on its two couples (13k.3) |
@@ -76,6 +76,33 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | sensor.scanTime | 4 | s | 2 | 10 | 0 | true | one zone at sensor.scanRange; at d a zone takes this x (d / scanRange)^4, the radar law (13n.1 (a), #278, #289; approved as the plan's, #272 (2)) |
 | sensor.scanRange | 900 | m | 500 | 2000 | 1 | true | the reference range, battle.openingRange's band; k = 1 so a zone at the same distance in cells takes the same time at every tier (#273 (3), 13n.1 (a), #278, #289; approved as the plan's, #272 (2)) |
 | sensor.mass | 1000 | kg | 250 | 4000 | 2 | true | one antenna fitting at its edge's midpoint, 250 kg/m^2 of aperture: an estimate, no source (#289; approved as the plan's, #272 (2)) |
+| railgun.roundMass | 10 | kg | 5 | 20 | 3 | true | one steel slug of FIXED.roundLengthToDiameter, the US Navy prototype's 10 kg; a round of the round rule (13n.1 (c), #236 (6), #278; approved as the plan's, #272 (2)) |
+| railgun.muzzleVelocity | 2000 | m/s | 1500 | 2500 | 0 | true | for a barrel of N = 2 cells; N cells fire at this x sqrt(N / 2) (constant acceleration along the barrel, no constant); #54's band (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| railgun.fireRate | 0.1 | 1/s | 0.05 | 0.3 | -1 | true | at most this many slugs a second, 6 a minute, a prototype's rate; each shot draws 1/2 m v^2 / railgun.efficiency spread over the reload (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| railgun.efficiency | 0.3 |  | 0.1 | 0.6 | 0 | true | a pulsed-power train's wall-plug efficiency: draw = muzzle energy / this; the rest is heat in the room (plant class, coolant loop) (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| missilebay.readyMissiles | 2 | missiles | 1 | 6 | 0 | true | the bay's ready store (#148), refilled from a missile magazine on a live wall at ammo.wallFeed's rate by mass (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| missilebay.launchInterval | 2 | s | 1 | 10 | 0 | true | one launch per this, one tube reloading from the store (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| missilebay.launcherMass | 2250 | kg | 2033.3333333333333 | 2533.3333333333335 | 3 | true | launcher per missile bay cell: 13.5 t per M bay (six cells), 12.2-15.2 t, the Mk 41 tactical module and its siblings; a secondary source only (#281 (3)); a cell is structure.cellMass + this, as the turret's (13n.1 (c) room size S row, #295; approved as the plan's, #272 (2)) |
+| missile.mass | 200 | kg | 100 | 500 | 3 | true | a light anti-ship missile; its hp follow the one law, matter.burnEnergyPerKg x this (0.6 MJ; no constant) (13n.1 (c), #97, #278; approved as the plan's, #272 (2)) |
+| missile.acceleration | 30 | m/s^2 | 10 | 100 | 0 | true | 3 g along its own heading for missile.burnTime, then coasting; low for a real missile (10-30 g), chosen for #54's 8-15 s; its exhaust is an IR source of jet power mass x this x engine.exhaustVelocity / 2 (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| missile.burnTime | 20 | s | 10 | 40 | 0 | true | its fuel, the only accounting of it (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| missile.warheadEnergy | 20000000 | J | 5000000 | 50000000 | 3 | true | the HE warhead: a contact burst with he.coupling at the hit face, the blast through walls from there; ten M HE rounds; a missile magazine or bay explodes by this + 1/2 m (acceleration x burnTime)^2 per missile (13n.1 (b) (c), #97, #278; approved as the plan's, #272 (2)) |
+| missile.penetratorMass | 50 | kg | 20 | 100 | 3 | true | the penetrator warhead: a steel rod of FIXED.roundLengthToDiameter, the round rule at the impact speed (13n.1 (c), #97, #278; approved as the plan's, #272 (2)) |
+| missile.empEnergy | 2000000 | J | 2000000 | 40000000 | 3 | true | the EMP warhead's field budget (#99's shape, emp.radius): a section's reach, 12 m with emp.radius and emp.scramDose (#292; 1e7 in #278); approved as the plan's, #272 (2) |
+| emp.radius | 20 | m | 20 | 80 | 1 | true | half-strength radius of the EMP burst's field, g = 1 / (1 + (r / this)^2), the shield's shape (#99, #292; 40 in #278); approved as the plan's, #272 (2) |
+| emp.scramDose | 1470000 | J | 200000 | 5000000 | 2 | true | a powered room whose centre receives at least this is hit: a reactor SCRAMs, another room shuts down for emp.outageTime; the control electronics' tolerance, an estimate; k = 2 with the room's face; reach R sqrt(E / D - 1) = 12.0 m (#292; 1 MJ in #278); approved as the plan's, #272 (2) |
+| emp.outageTime | 5 | s | 2 | 8 | 0 | true | a powered room in an EMP's reach is shut down this long, then works again; under battle.disabledSeconds so an outage alone never ends a battle (#292); approved as the plan's, #272 (2) |
+| pd.fireRate | 2 | 1/s | 1 | 4 | -1 | true | kinetic point defence: M flak rounds a second at the nearest incoming missile in its arc (#93, 13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| pd.ammo | 40 | rounds | 20 | 100 | 0 | true | its own store of M flak rounds, refilled between battles (#90, #93): 20 s of fire (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| pd.range | 600 | m | 300 | 1500 | 1 | true | point defence (kinetic and laser) engages a missile only within this range of the fitting, in its arc, the nearest first: a laser's spot and tracking, a flak round's reach (#296: without it a laser killed every missile from launch); approved as the plan's, #272 (2) |
+| pd.mass | 8000 | kg | 4000 | 12000 | 2 | true | one kinetic point-defence fitting without ammunition, at its edge's midpoint: the 76/62 SR mount, 7.9 t, turret.machineryMass's source (#281 (2), #295); approved as the plan's, #272 (2) |
+| flak.radius | 10 | m | 5 | 20 | 1 | true | a flak round's burst of he.blastEnergy at its closest approach: a field g = 1 / (1 + (r / this)^2); a missile dies when its dose reaches its hp (within 15.3 m) (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| pdLaser.power | 1000000 | W | 300000 | 3000000 | 2 | true | laser point defence on a missile in its arc, no falloff (#230); draw this / beambay.efficiency from its host, the rest heat there; a missile dies in hp / this = 0.6 s (13n.1 (c), #278; approved as the plan's, #272 (2)) |
+| pdLaser.mass | 4000 | kg | 2000 | 8000 | 2 | true | one laser point-defence fitting at its edge's midpoint: a 1 MW laser's optics and power conditioning; an estimate, no source (#295); approved as the plan's, #272 (2) |
+| rounds.apLength | 1.5 |  | 1.2 | 2 | 0 | true | AP: length x this at the same mass (thinner: higher s0 and S, no burst); paid with its rate, turret.fireRate / this (#94, #295); approved as the plan's, #272 (2) |
+| rounds.heSteel | 0.5 |  | 0.3 | 0.8 | 0 | true | HE: the steel is this fraction of the round's mass, the rest he.blastEnergy as a contact burst at the stopping cell; paid with depth (#94, #295); approved as the plan's, #272 (2) |
+| rounds.sabotMass | 0.5 |  | 0.3 | 0.8 | 0 | true | Sabot: the penetrator is this fraction of the round's mass; a sabot round takes a full round's mass in the magazine (#94, #295); approved as the plan's, #272 (2) |
+| rounds.sabotVelocity | 1.3 |  | 1.1 | 1.6 | 0 | true | Sabot: muzzle velocity x this; paid with its recoil, the gun's impulse the full round's mass x that velocity (the petals leave with the penetrator) (#94, #295); approved as the plan's, #272 (2) |
 | turret.fireRate | 0.5 | 1/s | 0.2 | 2 | -1 | true | size M; big guns fire slower (#183) |
 | turret.powerDraw | 200000 | W | 50000 | 1000000 | 2 | true | size M, while able to fire (#183) |
 | turret.heatPerShot | 300000 | J | 100000 | 1000000 | 3 | true | size M (#183) |
@@ -140,18 +167,18 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 
 | type | footprints (cells) | placement | thermal class | loop | crew | draw / power | cell mass source |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| bridge | M 2×2 | inside | crewed | passive | crewRequired.bridge | bridge.powerDraw | cellMass.crewed |
-| reactor | M 2×2, L 3×3 | inside | plant | coolant | crewRequired.reactor | reactor.power | cellMass.reactor |
-| engine | M 2×3 | aft hull, exhaust clear | plant | coolant | crewRequired.engine | engine.powerDraw | structure.cellMass,engine.machineryMass |
-| magazine | M 2×2, L 3×3 | inside | magazine | passive | crewRequired.magazine | - | structure.cellMass |
-| shieldGenerator | M 2×2, L 3×3 | anywhere | plant | coolant | crewRequired.shieldGenerator | shield.powerDraw | cellMass.shieldGenerator |
-| quarters | M 3×2 | inside | crewed | passive | housed | quarters.powerDraw | cellMass.crewed |
-| beamBay | M 2×2, L 3×3 (spinal, N ≥ 2) | hull, axis, bow clear | plant | coolant | crewRequired.beamBay | beam.power / beambay.efficiency | structure.cellMass,beambay.machineryMass |
-| turret | M 2×2, L 3×3 | hull | crewed | passive | crewRequired.turret | turret.powerDraw | structure.cellMass,turret.machineryMass |
-| railgun | M 2×N | axis | plant | coolant | crewRequired.railgun | - | cellMass.railgun |
-| missileBay | M 3×2 | hull | crewed | passive | crewRequired.missileBay | - | cellMass.crewed |
-| hold | M 2×2 | anywhere | crewed | passive | - | - | structure.cellMass |
-| heatSink | M 2×2, L 3×3 | anywhere | plant | coolant | - | - | structure.cellMass |
+| bridge | M 2×2, S 1×1 | inside | crewed | passive | crewRequired.bridge | bridge.powerDraw | cellMass.crewed |
+| reactor | M 2×2, L 3×3, S 1×1 | inside | plant | coolant | crewRequired.reactor | reactor.power | cellMass.reactor |
+| engine | M 2×3, S 1×2 | aft hull, exhaust clear | plant | coolant | crewRequired.engine | engine.powerDraw | structure.cellMass,engine.machineryMass |
+| magazine | M 2×2, L 3×3, S 1×1 | inside | magazine | passive | crewRequired.magazine | - | structure.cellMass |
+| shieldGenerator | M 2×2, L 3×3, S 1×1 | anywhere | plant | coolant | crewRequired.shieldGenerator | shield.powerDraw | cellMass.shieldGenerator |
+| quarters | M 3×2, S 2×1 | inside | crewed | passive | housed | quarters.powerDraw | cellMass.crewed |
+| beamBay | M 2×2, L 3×3, S 2×1 (spinal, N ≥ 2) | hull, axis, bow clear | plant | coolant | crewRequired.beamBay | beam.power / beambay.efficiency | structure.cellMass,beambay.machineryMass |
+| turret | M 2×2, L 3×3, S 1×1 | hull | crewed | passive | crewRequired.turret | turret.powerDraw | structure.cellMass,turret.machineryMass |
+| railgun | M 2×2, S 2×1 (spinal, N ≥ 2) | hull, axis, bow clear | plant | coolant | crewRequired.railgun | railgun.roundMass x v^2 / 2 / railgun.efficiency x railgun.fireRate | cellMass.railgun |
+| missileBay | M 3×2, S 2×1 | hull | crewed | passive | crewRequired.missileBay | - | structure.cellMass,missilebay.launcherMass |
+| hold | M 2×2, S 1×1 | anywhere | crewed | passive | - | - | structure.cellMass |
+| heatSink | M 2×2, L 3×3, S 1×1 | anywhere | plant | coolant | - | - | structure.cellMass |
 
 ## TIERS
 

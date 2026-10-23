@@ -1,0 +1,56 @@
+{
+  "id": "L3.railgun.recoil",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.railgun.recoil",
+  "code": "0501899",
+  "criterionHash": "fe824f40",
+  "lockedHash": "fe824f40",
+  "runHash": "7c409c63",
+  "dataHash": "d540e777",
+  "rowsHash": "fc6f95ec",
+  "rows": [
+    {
+      "case": {
+        "ship": "R1d-L"
+      },
+      "expected": {
+        "M": 1439484.0573339704,
+        "dv": [
+          -0.013893963491805971,
+          0
+        ]
+      },
+      "actual": {
+        "M": 1439484.0573339704,
+        "centre": [
+          30.53520202238806,
+          17.008609018417957
+        ],
+        "I": 266647206.65488353,
+        "rail": [
+          50,
+          15
+        ],
+        "v": [
+          -0.013893963491805971,
+          0
+        ],
+        "omega": -0.0001506566705585378,
+        "shots": 1
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

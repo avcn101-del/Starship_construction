@@ -1,5 +1,46 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5c merged: weapons (#299)
+
+- Kernel (PR #88): the spinal railgun, the missile bay and missiles
+  (`js/missile.js`), seekers and warheads with EMP by section, point
+  defence (`js/defence.js`) with `pd.range`, the round types and the
+  shot's choice, the firing window, S footprints, the missile body's
+  impulse and heat; 30 new constants; scenarios W1–W14 less W9b, four
+  successors. `DECISIONS.md` #299: answers to the second fix round and the
+  reviewer; W9b an L5e measure; the bay's power test and every bay by
+  orders in L5d. `DESIGN.md` §13m's L5c rows proven, §13n.4 (W3, W9b),
+  §13n.6, §17 items 45–47, §18. `LEDGER.md` (L5c 39.06 USD, ratio 1.18).
+
+## Unreleased — 2026-10-23 — L5c fix round 2 (#298)
+
+- Scenarios: `L1.pd.kinetic.v2` (successor of `L1.pd.kinetic`: the dose law
+  enforced, the dose at the kill the sum of E / (1 + (d_i / flak.radius)^2)
+  over the bursts at 1e-12) and `L2.missile.seekers.v2` (successor of
+  `L2.missile.seekers`: the hand-worked final IR point (17.5, 0) and
+  anti-radiation point (42.5, 0) on the target's pose). Both predecessors
+  withdrawn under #298. The crossing case of #298 (1) and `L2.pd.saturation`
+  (W9b) are not built: questions in pull request #88.
+- `mission0/targets.js`: `missileShip3` (R1-M3, three missile bays).
+  `tools/mutations.json`: `l5c.flak.doseExponent`, `l5c.seeker.panelPosition`.
+
+## Unreleased — 2026-10-23 — L5c fix round (#296)
+
+- `js/data.js`: `pd.range` (600 m, 300–1500, k 1; `approved: true` as the
+  plan's, #272 (2)). `js/defence.js`: point defence engages a missile only
+  within `pd.range` of the fitting (in its arc, nearest first, as built).
+- `js/battle.js`: a missile's body at impact (all of it for HE and EMP, the
+  rest beyond the penetrator) joins the hull's body at the first entry
+  (`embedRound`, the round rule's stopped-round accounting): its momentum to
+  that body, the kinetic energy the join loses heat in the entry's room;
+  nothing booked as spent.
+- Scenarios: `L2.magazine.types.v3` (successor of `.v2`, the missile row on
+  the built rule), `L2.missile.warheads.v2` (successor of W7: the body's
+  impulse and heat, the penetrator through the battle's warhead path),
+  `L2.pd.swarm` (W9, at the bay's own cadence with a store of six). `.v2`
+  and W7 withdrawn under #296. `tools/mutations.json`: `l5c.pd.range`,
+  `l5c.missile.bodyImpulse`.
+
 ## Unreleased — 2026-10-23 — Answers to L5c's fix round and checker (#298)
 
 - `DECISIONS.md` #298: `L1.pd.kinetic` and `L2.missile.seekers` withdrawn
@@ -23,6 +64,29 @@
   its impulse and heat; S rooms by cell count; the as-built confirmations;
   §17 item 46 (the missile bay's draw and cook-off); a fix round.
   `DESIGN.md` §13n.1 (c), §13n.2, §13n.3, §13n.4 (K4, W7, W9), §17, §18.
+
+## Unreleased — 2026-10-23 — L5c: weapons (DESIGN.md §13n.1 (c), §13n.4 W1–W14)
+
+- `js/data.js`: the L5c constants of §13n.2 (`railgun.*`, `missilebay.*`
+  with the launcher's mass, `missile.*`, `emp.*`, `pd.*`, `flak.radius`,
+  `pdLaser.*`, `rounds.*`; `approved: true` as the plan's, #272 (2)); the
+  `ROUNDS` table (Standard, AP, HE, Sabot, Flak), `SEEKERS`, `WARHEADS`;
+  S footprints for every room; the railgun a spinal room (N × 2, hull,
+  axis, bow clear); the missile bay structure plus launcher.
+- `js/rooms.js`: S rooms by their cell count; the railgun (slug, draw,
+  heat, recoil, fed from a railgun magazine); the missile bay (ready store,
+  feed, launch, explosion by its store); missile magazines; typed rounds
+  (one type per slot, AP's rate, Sabot's recoil and petals, HE's burst);
+  `contactBurst`, `empBurst` and the EMP outage; point-defence fittings.
+- `js/missile.js` (new): flight, seekers. `js/defence.js` (new): point
+  defence. `js/battle.js`: the railgun, missiles and point defence in the
+  loop, the shot's type against its target, the firing window, the books
+  with missiles and flak; `buildShip` threads `size`, `length` and `load`.
+  `js/sensors.js`: missiles as sources; an outage stops a scan.
+  `js/events.js`: the new events and roots.
+- Scenarios W1–W8, W10–W14 (15 files; W9 waits on a question).
+  `mission0/targets.js`: R1d-L, R1-M. `tools/mutations.json`: 30 L5c
+  rules; 16 entries re-anchored on the rewritten lines.
 
 ## Unreleased — 2026-10-23 — L5c probed and its plan amended (#295)
 

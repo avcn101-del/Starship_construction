@@ -1,0 +1,69 @@
+{
+  "id": "L1.pd.laser",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.pd.laser",
+  "code": "0501899",
+  "criterionHash": "d02972ee",
+  "lockedHash": "d02972ee",
+  "runHash": "a0c8a3ba",
+  "dataHash": "d540e777",
+  "rowsHash": "de41e8dc",
+  "rows": [
+    {
+      "case": {
+        "arc": "in"
+      },
+      "expected": {
+        "killed": true,
+        "hp": 600000,
+        "killR": 15.275252316519467,
+        "steps": 36
+      },
+      "actual": {
+        "killed": {
+          "by": "laser",
+          "dose": 600000.0000000001,
+          "t": 4.75
+        },
+        "warhead": false,
+        "flak": 0,
+        "ammo": null,
+        "bursts": [],
+        "energy": 600000.0000000001,
+        "P": 1000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "arc": "out"
+      },
+      "expected": {
+        "killed": false
+      },
+      "actual": {
+        "killed": null,
+        "warhead": true,
+        "flak": 0,
+        "ammo": null,
+        "bursts": [],
+        "energy": 0,
+        "P": 1000000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

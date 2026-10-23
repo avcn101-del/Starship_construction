@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.split.momentum.v6",
-  "code": "d4a6dea",
+  "code": "0501899",
   "criterionHash": "e247dbd9",
   "lockedHash": "e247dbd9",
   "runHash": "7e399e39",
-  "dataHash": "b2b17548",
+  "dataHash": "d540e777",
   "rowsHash": "b71558ec",
   "rows": [
     {

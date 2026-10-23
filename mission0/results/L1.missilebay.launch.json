@@ -1,0 +1,71 @@
+{
+  "id": "L1.missilebay.launch",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.missilebay.launch",
+  "code": "0501899",
+  "criterionHash": "69754c0a",
+  "lockedHash": "69754c0a",
+  "runHash": "e5d997fd",
+  "dataHash": "d540e777",
+  "rowsHash": "4f0a7fa0",
+  "rows": [
+    {
+      "case": {
+        "part": "launch"
+      },
+      "expected": {
+        "launches": [
+          0,
+          2,
+          27.77777777777778,
+          55.55555555555556
+        ],
+        "left": 2
+      },
+      "actual": {
+        "launches": [
+          0,
+          2,
+          27.78333333333333,
+          55.56666666666666
+        ],
+        "fed": [
+          27.78333333333333,
+          55.56666666666666
+        ],
+        "left": 2,
+        "missiles": 4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "explode"
+      },
+      "expected": {
+        "bay": 112000000,
+        "magazine": 224000000
+      },
+      "actual": {
+        "bay": 112000000,
+        "magazine": 224000000,
+        "detonated": true,
+        "explosion": 112000000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

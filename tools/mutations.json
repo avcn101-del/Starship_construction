@@ -19,22 +19,25 @@
     "id": "c1.cls.crewed->plant.turret",
     "rule": "13c.1 Two classes",
     "file": "js/data.js",
-    "old": "turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed'",
-    "new": "turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'plant'"
+    "old": "turret: { footprint: { M: [2, 2], L: [3, 3], S: [1, 1] }, placement: 'hull', thermalClass: 'crewed'",
+    "new": "turret: { footprint: { M: [2, 2], L: [3, 3], S: [1, 1] }, placement: 'hull', thermalClass: 'plant'",
+    "note": "(old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "c1.cls.crewed->plant.hold",
     "rule": "13c.1 Two classes",
     "file": "js/data.js",
-    "old": "hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'crewed'",
-    "new": "hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'plant'"
+    "old": "hold: { footprint: { M: [2, 2], S: [1, 1] }, placement: 'anywhere', thermalClass: 'crewed'",
+    "new": "hold: { footprint: { M: [2, 2], S: [1, 1] }, placement: 'anywhere', thermalClass: 'plant'",
+    "note": "(old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "c1.cls.crewed->plant.missile",
     "rule": "13c.1 Two classes",
     "file": "js/data.js",
-    "old": "missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'crewed'",
-    "new": "missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'plant'"
+    "old": "missileBay: { footprint: { M: [3, 2], S: [2, 1] }, placement: 'hull', thermalClass: 'crewed'",
+    "new": "missileBay: { footprint: { M: [3, 2], S: [2, 1] }, placement: 'hull', thermalClass: 'plant'",
+    "note": "(old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "d1.layout.noOverlapCheck",
@@ -506,8 +509,9 @@
     "id": "f1.val.rcsUnknownType",
     "rule": "13f.1 Validation",
     "file": "js/rooms.js",
-    "old": "if (type !== 'radiator' && type !== 'rcs' && type !== 'antenna') throw new Error(`unknown fitting ${type}`);",
-    "new": ""
+    "old": "if (!FITTING_MASS[type]) throw new Error(`unknown fitting ${type}`);",
+    "new": "",
+    "note": "(old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "f1.ro.accelSurviving",
@@ -612,8 +616,9 @@
     "id": "i1.bb.hullOpen",
     "rule": "13i.1 Beam bay",
     "file": "js/data.js",
-    "old": "placement: 'hull, axis, bow clear'",
-    "new": "placement: 'axis, bow clear'"
+    "old": "spinal: { min: 2 }, placement: 'hull, axis, bow clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.beamBay'",
+    "new": "spinal: { min: 2 }, placement: 'axis, bow clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.beamBay'",
+    "note": "(old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "i1.bd.betheTmaxApprox",
@@ -858,9 +863,9 @@
     "id": "k1.launch.wholeStep",
     "rule": "13k.1 Launch time",
     "file": "js/rooms.js",
-    "old": "cause, first: world.dt - at });",
-    "new": "cause, first: world.dt });",
-    "note": "a round moves a whole step in its first step"
+    "old": "cause, first: world.dt - at };",
+    "new": "cause, first: world.dt };",
+    "note": "a round moves a whole step in its first step (old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "k1.launch.timeAtStep",
@@ -890,9 +895,9 @@
     "id": "k1.beamStopped.cause",
     "rule": "13k.1 Findings (beam-stopped cause)",
     "file": "js/rooms.js",
-    "old": "const why = room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
-    "new": "const why = !room.powered ? 'no-power' : room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
-    "note": "an overheated routed beam bay reports no-power again (#227 Q9) (old/new re-anchored on L5a's text, same edit)"
+    "old": "const why = room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : room.outage ? 'outage' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
+    "new": "const why = !room.powered ? 'no-power' : room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : room.outage ? 'outage' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped'",
+    "note": "an overheated routed beam bay reports no-power again (#227 Q9) (old/new re-anchored on L5a's text, same edit) (old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "k1.deposit.damageFirst",
@@ -1042,9 +1047,9 @@
     "id": "l1.bridge.offCause",
     "rule": "13l.4 A8 (#257 Q2)",
     "file": "js/rooms.js",
-    "old": "const why = !room.active ? 'off' : room.shutdown ? 'overheat' : 'unmanned'; room.marks.controlLost",
-    "new": "const why = room.shutdown ? 'overheat' : 'unmanned'; room.marks.controlLost",
-    "note": "a switched-off bridge reports overheat (old/new re-anchored on L5a's text, same edit)"
+    "old": "const why = !room.active ? 'off' : room.shutdown ? 'overheat' : room.outage ? 'outage' : 'unmanned'; room.marks.controlLost",
+    "new": "const why = room.shutdown ? 'overheat' : room.outage ? 'outage' : 'unmanned'; room.marks.controlLost",
+    "note": "a switched-off bridge reports overheat (old/new re-anchored on L5a's text, same edit) (old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "k1.beamPaths.neverCleared",
@@ -1192,9 +1197,9 @@
     "id": "l4b.hit.wholeRay",
     "rule": "13l.1 Battle (the hit test along the step's segment)",
     "file": "js/battle.js",
-    "old": "if (first < 0) { if (cells[k].t0 > L) break; first = k; }\n      const tm = (cells[k].t0 + cells[k].t1) / 2;",
-    "new": "if (first < 0) { first = k; }\n      const tm = (cells[k].t0 + cells[k].t1) / 2;",
-    "note": "(old/new re-anchored on L5a's text, same edit)"
+    "old": "if (first < 0) { if (cells[k].t0 > L) break; first = k; enter = prev ?",
+    "new": "if (first < 0) { first = k; enter = prev ?",
+    "note": "(old/new re-anchored on L5a's text, same edit) (old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "l4b.tof.instant",
@@ -1222,9 +1227,9 @@
     "id": "l4b.able.fedThroughAnyRoom",
     "rule": "13l.1 Able to fight (a magazine that feeds the turret over a live wall)",
     "file": "js/battle.js",
-    "old": "const fed = (t) => walls.some((w) => { const mag = w.a === t ? w.b : w.b === t ? w.a : null; return mag && mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'turret' && mag.magazine.size === t.size && mag.magazine.ap + mag.magazine.he > 0; });",
-    "new": "const fed = (t) => world.rooms.some((mag) => mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'turret' && mag.magazine.ap + mag.magazine.he > 0);",
-    "note": "(old/new re-anchored on L5a's text, same edit)"
+    "old": "const fed = (t) => walls.some((w) => { const mag = w.a === t ? w.b : w.b === t ? w.a : null; return mag && mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'turret' && mag.magazine.size === t.size && mag.magazine.ap + mag.magazine.he + typed(mag.magazine) > 0; });",
+    "new": "const fed = (t) => world.rooms.some((mag) => mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'turret' && mag.magazine.ap + mag.magazine.he + typed(mag.magazine) > 0);",
+    "note": "(old/new re-anchored on L5a's text, same edit) (old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "l4b.disabled.stepLate",
@@ -1335,15 +1340,17 @@
     "id": "l5a.det.destroyedCell",
     "rule": "13n.1 (b) A destroyed cell alone no longer detonates a magazine",
     "file": "js/rooms.js",
-    "old": "if (survivingCells(room) === 0) { room.magazine.ap = 0; room.magazine.he = 0; if (room.magazine.slugMass) room.magazine.slugMass = 0; }",
-    "new": "if (magazineContents(world, room).energy > 0) detonate(world, room, 'cell');"
+    "old": "    if (survivingCells(room) === 0) emptyMagazine(room);",
+    "new": "    if (magazineContents(world, room).energy > 0) detonate(world, room, 'cell');",
+    "note": "(old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "l5a.det.roundsKept",
     "rule": "13n.1 (b) A magazine whose last cell is destroyed loses its rounds as debris",
     "file": "js/rooms.js",
-    "old": "if (survivingCells(room) === 0) { room.magazine.ap = 0; room.magazine.he = 0; if (room.magazine.slugMass) room.magazine.slugMass = 0; }",
-    "new": "if (survivingCells(room) === 0) { /* rounds kept */ }"
+    "old": "    if (survivingCells(room) === 0) emptyMagazine(room);",
+    "new": "    if (survivingCells(room) === 0) { /* rounds kept */ }",
+    "note": "(old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "l5a.end.magazineEnds",
@@ -1356,8 +1363,9 @@
     "id": "l5a.unmanned.ignored",
     "rule": "13n.1 (b) A room without crew",
     "file": "js/rooms.js",
-    "old": "const down = (room) => room.shutdown || room.unmanned;",
-    "new": "const down = (room) => room.shutdown;"
+    "old": "const down = (room) => room.shutdown || room.unmanned || !!room.outage;",
+    "new": "const down = (room) => room.shutdown || !!room.outage;",
+    "note": "(old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "l5a.unmanned.ableRule",
@@ -1377,8 +1385,9 @@
     "id": "l5a.feed.anyType",
     "rule": "13n.1 (b) One magazine per weapon type: the feed",
     "file": "js/rooms.js",
-    "old": "has: (mag) => magazineType(mag) === 'turret' && mag.magazine.ap + mag.magazine.he > 0,",
-    "new": "has: (mag) => mag.magazine.ap + mag.magazine.he > 0 || !!mag.magazine.slugMass,"
+    "old": "has: (mag) => magazineType(mag) === 'turret' && (mag.magazine.ap + mag.magazine.he > 0 || typedCount(mag.magazine.typed) > 0),",
+    "new": "has: (mag) => mag.magazine.ap + mag.magazine.he > 0 || !!mag.magazine.slugMass || typedCount(mag.magazine.typed) > 0,",
+    "note": "(old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "l5a.feed.ableAnyType",
@@ -1398,8 +1407,9 @@
     "id": "l5a.missile.loads",
     "rule": "13n.1 (b) One magazine per weapon type: the missile TODO (L5c)",
     "file": "js/rooms.js",
-    "old": "  if (type === 'missile') throw new Error(`TODO: ${MISSILE_TODO}`);\n  const capacity",
-    "new": "  const capacity"
+    "old": "    Object.assign(room.magazine, { type, size, ap: 0, he: 0, missiles: Math.floor(missileMass / tierScaled(world, world.params.missile.mass)), seeker, warhead });",
+    "new": "    throw new Error('TODO: a missile magazine (L5c)');",
+    "note": "(old/new re-anchored on L5c's text, same edit: the TODO restored, which L5c built)"
   },
   {
     "id": "l5a.line.centre",
@@ -1433,8 +1443,9 @@
     "id": "l5a.energy.noRecoil",
     "rule": "13n.1 (b) B3: muzzle energy includes the recoil's",
     "file": "js/rooms.js",
-    "old": "world.ship.energy.shots += 0.5 * m * u * u + (Jr[0] * Jr[0] + Jr[1] * Jr[1]) / (2 * b.M) + (h * h) / (2 * b.I);",
-    "new": "world.ship.energy.shots += 0.5 * m * u * u;"
+    "old": "world.ship.energy.shots += 0.5 * M * u * u + (Jr[0] * Jr[0] + Jr[1] * Jr[1]) / (2 * b.M) + (h * h) / (2 * b.I);",
+    "new": "world.ship.energy.shots += 0.5 * M * u * u;",
+    "note": "(old/new re-anchored on L5c's text, same edit)"
   },
   {
     "id": "l5a.energy.noWork",
@@ -1512,5 +1523,243 @@
     "file": "js/rooms.js",
     "old": "return n * tierScaled(world, world.params.sensor.scanPower);",
     "new": "return 0 * n;"
+  },
+  {
+    "id": "l5c.railgun.speed",
+    "rule": "13n.4 W1, W2: the slug's speed railgun.muzzleVelocity x sqrt(N / 2)",
+    "file": "js/rooms.js",
+    "old": "* Math.sqrt(room.length / 2)",
+    "new": "* (room.length / 2)"
+  },
+  {
+    "id": "l5c.railgun.heat",
+    "rule": "13n.4 W1: the railgun's draw less its muzzle energy is heat",
+    "file": "js/rooms.js",
+    "old": "const heat = s.draw * (1 - eff) * dt;",
+    "new": "const heat = s.draw * dt;"
+  },
+  {
+    "id": "l5c.railgun.recoil",
+    "rule": "13n.4 W3: the slug and its recoil along the ship's axis",
+    "file": "js/rooms.js",
+    "old": "{ dir: [1, 0], A: slug.A, type: 'slug' }",
+    "new": "{ dir: [0, 1], A: slug.A, type: 'slug' }"
+  },
+  {
+    "id": "l5c.missile.thrust",
+    "rule": "13n.4 W5: a missile thrusts missile.acceleration (d = 1/2 a t^2)",
+    "file": "js/missile.js",
+    "old": "x.x[0] + x.v[0] * burn + 0.5 * a * h[0] * burn * burn",
+    "new": "x.x[0] + x.v[0] * burn + a * h[0] * burn * burn"
+  },
+  {
+    "id": "l5c.missile.coast",
+    "rule": "13n.4 W5: a missile coasts after missile.burnTime",
+    "file": "js/missile.js",
+    "old": "const burn = Math.max(0, Math.min(dt, end - t)), h = x.heading;",
+    "new": "const burn = dt, h = x.heading;"
+  },
+  {
+    "id": "l5c.seeker.ir",
+    "rule": "13n.4 W6: the IR seeker homes on a resolved IR source",
+    "file": "js/missile.js",
+    "old": "x.seeker === 'ir' ? IR_KINDS : EM_KINDS",
+    "new": "EM_KINDS"
+  },
+  {
+    "id": "l5c.seeker.antiRadiation",
+    "rule": "13n.4 W6: the anti-radiation seeker homes on a resolved EM source (an antenna)",
+    "file": "js/missile.js",
+    "old": "EM_KINDS = new Set(['antenna', 'shield'])",
+    "new": "EM_KINDS = new Set(['shield'])"
+  },
+  {
+    "id": "l5c.seeker.radar",
+    "rule": "13n.4 W6: the radar seeker homes on a resolved zone's centre",
+    "file": "js/missile.js",
+    "old": "if (best) { by = `zone-${best.z}`; point = best.c; }",
+    "new": "if (false) { by = `zone-${best.z}`; point = best.c; }"
+  },
+  {
+    "id": "l5c.seeker.designated",
+    "rule": "13n.4 W6: the designated seeker homes on the room its ship targets",
+    "file": "js/missile.js",
+    "old": "const p = knownAim(model, target);",
+    "new": "const p = null;"
+  },
+  {
+    "id": "l5c.warhead.he",
+    "rule": "13n.4 W7: an HE burst enters the hull at he.coupling",
+    "file": "js/rooms.js",
+    "old": "const E = world.params.he.coupling.value * energy;",
+    "new": "const E = energy;"
+  },
+  {
+    "id": "l5c.warhead.penetrator",
+    "rule": "13n.4 W7: the penetrator is missile.penetratorMass of steel",
+    "file": "js/battle.js",
+    "old": "const mp = scaled(p.missile.penetratorMass, edge)",
+    "new": "const mp = 4 * scaled(p.missile.penetratorMass, edge)"
+  },
+  {
+    "id": "l5c.emp.reach",
+    "rule": "13n.4 W7: an EMP hits a powered room whose centre receives emp.scramDose",
+    "file": "js/rooms.js",
+    "old": "if (!(dose >= D)) continue;",
+    "new": "if (!(dose >= 0.5 * D)) continue;"
+  },
+  {
+    "id": "l5c.emp.outage",
+    "rule": "13n.4 W7: an outage lasts emp.outageTime",
+    "file": "js/rooms.js",
+    "old": "const end = t + p.emp.outageTime.value;",
+    "new": "const end = t + 2 * p.emp.outageTime.value;"
+  },
+  {
+    "id": "l5c.emp.buffer",
+    "rule": "13n.4 W7: a charged shield buffer at the burst pays first",
+    "file": "js/rooms.js",
+    "old": "const paid = Math.min(energy, W), shares",
+    "new": "const paid = 0, shares"
+  },
+  {
+    "id": "l5c.pd.arc",
+    "rule": "13n.4 W8: point defence engages only in its outward half-plane",
+    "file": "js/defence.js",
+    "old": "dot(sub(X, pose.S), pose.n) > 0;",
+    "new": "true;"
+  },
+  {
+    "id": "l5c.flak.dose",
+    "rule": "13n.4 W8: flak's dose E / (1 + (r / flak.radius)^2)",
+    "file": "js/defence.js",
+    "old": "E / (1 + (dd / R) * (dd / R))",
+    "new": "E / (1 + (dd / R) * (dd / R) * 1e4)"
+  },
+  {
+    "id": "l5c.laser.power",
+    "rule": "13n.4 W8: the laser puts pdLaser.power on its missile",
+    "file": "js/rooms.js",
+    "old": "return tierScaled(world, world.params.pdLaser.power) * supply(world, roomById(world, f.room));",
+    "new": "return 0.5 * tierScaled(world, world.params.pdLaser.power) * supply(world, roomById(world, f.room));"
+  },
+  {
+    "id": "l5c.bay.interval",
+    "rule": "13n.4 W4: one launch per missilebay.launchInterval",
+    "file": "js/rooms.js",
+    "old": "world.t < s.lastLaunch + interval - 1e-9 * interval",
+    "new": "world.t < s.lastLaunch + 0.5 * interval - 1e-9 * interval"
+  },
+  {
+    "id": "l5c.bay.energy",
+    "rule": "13n.4 W4: a missile's explosive energy is its warhead plus its fuel",
+    "file": "js/rooms.js",
+    "old": "return tierScaled(world, p.warheadEnergy) + 0.5 * m * vb * vb;",
+    "new": "return tierScaled(world, p.warheadEnergy);"
+  },
+  {
+    "id": "l5c.rounds.ap.length",
+    "rule": "13n.4 W10: AP is longer (thinner) at the same mass",
+    "file": "js/data.js",
+    "old": "ap: { steel: 1, length: 'rounds.apLength',",
+    "new": "ap: { steel: 1, length: 1,"
+  },
+  {
+    "id": "l5c.rounds.ap.rate",
+    "rule": "13n.4 W10: AP pays with its rate, turret.fireRate / rounds.apLength",
+    "file": "js/data.js",
+    "old": "rate: 'rounds.apLength', impulse",
+    "new": "rate: 1, impulse"
+  },
+  {
+    "id": "l5c.rounds.he.steel",
+    "rule": "13n.4 W10: HE is rounds.heSteel of steel",
+    "file": "js/data.js",
+    "old": "he: { steel: 'rounds.heSteel',",
+    "new": "he: { steel: 1,"
+  },
+  {
+    "id": "l5c.rounds.he.burst",
+    "rule": "13n.4 W10: an HE round bursts at its stopping entry",
+    "file": "js/battle.js",
+    "old": "if (r.ref.type === 'he' && res.stoppedIn >= 0) {",
+    "new": "if (false) {"
+  },
+  {
+    "id": "l5c.rounds.sabot.velocity",
+    "rule": "13n.4 W10: Sabot's velocity x rounds.sabotVelocity",
+    "file": "js/data.js",
+    "old": "velocity: 'rounds.sabotVelocity'",
+    "new": "velocity: 1"
+  },
+  {
+    "id": "l5c.rounds.sabot.price",
+    "rule": "13n.4 W10: Sabot pays with its recoil, the full round's mass",
+    "file": "js/data.js",
+    "old": "impulse: 'full', note",
+    "new": "impulse: 'flying', note"
+  },
+  {
+    "id": "l5c.rounds.choice",
+    "rule": "13n.4 W11: HE on the hull face, AP behind a cell",
+    "file": "js/battle.js",
+    "old": "return before === 0 ? 'he' : 'ap';",
+    "new": "return 'he';"
+  },
+  {
+    "id": "l5c.window.round",
+    "rule": "13n.4 W12: a round through a segment its own side's round opened meets no field",
+    "file": "js/battle.js",
+    "old": "const open = hit.enter && r.other.open && r.other.open.has(hit.enter);",
+    "new": "const open = false;"
+  },
+  {
+    "id": "l5c.window.beam",
+    "rule": "13n.4 W12: a firing beam keeps its bay's bow face open",
+    "file": "js/battle.js",
+    "old": "if (x && x.power > 0) {\n    const bay",
+    "new": "if (false) {\n    const bay"
+  },
+  {
+    "id": "l5c.size.s",
+    "rule": "13n.4 W13: an S room's rate-like quantities by its cell count",
+    "file": "js/rooms.js",
+    "old": "footprintFactor: fpM ? n / (fpM[0] * fpM[1]) : sizeLinear * sizeLinear,",
+    "new": "footprintFactor: sizeLinear * sizeLinear,"
+  },
+  {
+    "id": "l5c.size.thread",
+    "rule": "13n.4 W13: buildShip builds a blueprint room at its size",
+    "file": "js/battle.js",
+    "old": "...(r.size ? { size: r.size } : {}), ",
+    "new": ""
+  },
+  {
+    "id": "l5c.pd.range",
+    "rule": "13n.4 W9: point defence engages only within pd.range of the fitting (#296)",
+    "file": "js/defence.js",
+    "old": "    if (d > range) continue;\n",
+    "new": ""
+  },
+  {
+    "id": "l5c.missile.bodyImpulse",
+    "rule": "13n.4 W7 (.v2): a missile's body at impact joins the hull's body, its momentum and heat booked there, nothing spent (#296 (3))",
+    "file": "js/battle.js",
+    "old": "x.hit.body = { m: body, heat: embedRound(w, y, body, [...V], [...x.x]) };",
+    "new": "x.hit.body = { m: body, heat: 0 };"
+  },
+  {
+    "id": "l5c.flak.doseExponent",
+    "rule": "13n.4 W8b (#298 (1)): a flak burst doses each missile E / (1 + (d / flak.radius)^2)",
+    "file": "js/defence.js",
+    "old": "dose(battle, s, r.fitting, y, E / (1 + (dd / R) * (dd / R)), 'flak');",
+    "new": "dose(battle, s, r.fitting, y, E / (1 + (dd / R) ** 4), 'flak');"
+  },
+  {
+    "id": "l5c.seeker.panelPosition",
+    "rule": "13n.4 W8b (#298 (2)): a panel's position is its edge midpoint (sourcesOf)",
+    "file": "js/sensors.js",
+    "old": "position: fittingPoint(world, f), class: temperatureClass(room)",
+    "new": "position: ((q) => [q[0] + 1, q[1] + 1])(fittingPoint(world, f)), class: temperatureClass(room)"
   }
 ]

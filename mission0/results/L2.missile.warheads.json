@@ -1,0 +1,191 @@
+{
+  "id": "L2.missile.warheads",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.missile.warheads",
+  "code": "9c21d46",
+  "criterionHash": "96a8ef17",
+  "lockedHash": "96a8ef17",
+  "runHash": "93c34a91",
+  "dataHash": "de116d2a",
+  "rowsHash": "f0d6b915",
+  "rows": [
+    {
+      "case": {
+        "part": "he"
+      },
+      "expected": {
+        "bridge": 5920000,
+        "entered": 10000000,
+        "vented": 10000000
+      },
+      "actual": {
+        "r": {
+          "room": "bridge",
+          "entered": 10000000,
+          "vented": 10000000
+        },
+        "bridge": 5920000,
+        "absorbed": 10000000,
+        "escaped": 0,
+        "bridgeCells": 4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "penetrator"
+      },
+      "expected": {
+        "passed": 1,
+        "stoppedIn": 1
+      },
+      "actual": {
+        "passed": 1,
+        "stoppedIn": 1,
+        "s0ratio": 0.5889066759281322
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "emp",
+        "at": "-y"
+      },
+      "expected": {
+        "scram": [
+          "reactor"
+        ],
+        "outage": [
+          "bridge",
+          "shield"
+        ],
+        "end": 5.025
+      },
+      "actual": {
+        "paid": 0,
+        "hit": [
+          {
+            "room": "bridge",
+            "effect": "outage",
+            "dose": 1855072.463768116
+          },
+          {
+            "room": "reactor",
+            "effect": "scram",
+            "dose": 1662337.6623376624
+          },
+          {
+            "room": "shield",
+            "effect": "outage",
+            "dose": 1662337.6623376624
+          }
+        ],
+        "ends": [
+          {
+            "room": "bridge",
+            "t": 5.033333333333333
+          },
+          {
+            "room": "shield",
+            "t": 5.033333333333333
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "emp",
+        "at": "bow"
+      },
+      "expected": {
+        "scram": [],
+        "outage": [
+          "beamBay"
+        ],
+        "end": 5.025
+      },
+      "actual": {
+        "paid": 0,
+        "hit": [
+          {
+            "room": "beamBay",
+            "effect": "outage",
+            "dose": 1882352.9411764706
+          }
+        ],
+        "ends": [
+          {
+            "room": "beamBay",
+            "t": 5.033333333333333
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "emp",
+        "at": "-y",
+        "shield": true
+      },
+      "expected": {
+        "paid": 2000000,
+        "hit": []
+      },
+      "actual": {
+        "paid": 2000000,
+        "hit": [],
+        "ends": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "battle"
+      },
+      "expected": {
+        "scram": true
+      },
+      "actual": {
+        "entry": [
+          27.43827418973919,
+          10
+        ],
+        "kind": "emp",
+        "hit": [
+          {
+            "room": "bridge",
+            "type": "outage"
+          },
+          {
+            "room": "reactor",
+            "type": "scram"
+          },
+          {
+            "room": "shield",
+            "type": "outage"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

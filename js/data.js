@@ -130,7 +130,7 @@ export const PARAMS = {
     coupledHold: P(1.35e6, 5e5, 3e6, 3, 'J/K', true, 'per hold cell: 3 t of structure, nothing else (#243)'),
     coupledHeatSink: P(1.35e6, 5e5, 3e6, 3, 'J/K', true, 'per heat sink cell before its water: 3 t of structure; x heatsink.capacityFactor, the water adding as before (#198, #243)'),
     coupledArmour: P(4.5e6, 2e6, 8e6, 3, 'J/K', true, 'per armour cell: 10 t of steel (450 J/(kg K)); an armour plate (#256) adds its mass x this / armour.cellMass to its room\'s heat capacity (#258, #248 Q13)'),
-    coupledRailgun: P(4.5e6, 2e6, 8e6, 3, 'J/K', true, 'per railgun cell: 10 t of steel; the railgun stays data only until L5 (#243)'),
+    coupledRailgun: P(4.5e6, 2e6, 8e6, 3, 'J/K', true, 'per railgun cell: 10 t of steel (#243); the railgun is built in L5c (13n.1 (c))'),
   },
   // Cell masses by room type (#221, #232, #234, #235): the low end of each
   // type's real range; ROOMS names each type's constant. Contents and a heat
@@ -139,10 +139,10 @@ export const PARAMS = {
     cellMass: P(3e3, 2e3, 6e3, 3, 'kg', true, 'structure only (frames, decks, bulkheads): hold, magazine and heat sink before contents, and the structure under an engine\'s or a beam bay\'s machinery (#243); 24 kg/m^3 at T1, an estimate without a found source (#221, #235)'),
   },
   cellMass: {
-    crewed: P(1.48e4, 1.1e4, 1.65e4, 3, 'kg', true, 'bridge, quarters, missile bay (the turret is structure.cellMass + turret.machineryMass, #285): 118 kg/m^3, ISS Destiny (14.5 t in 8.5 m x 4.3 m), low end; ISS Harmony about 131 kg/m^3 (#234, #235)'),
+    crewed: P(1.48e4, 1.1e4, 1.65e4, 3, 'kg', true, 'bridge and quarters (the turret is structure.cellMass + turret.machineryMass, #285; the missile bay structure.cellMass + missilebay.launcherMass, L5c): 118 kg/m^3, ISS Destiny (14.5 t in 8.5 m x 4.3 m), low end; ISS Harmony about 131 kg/m^3 (#234, #235)'),
     reactor: P(1.5e5, 1e5, 2e5, 3, 'kg', true, '1200 kg/m^3: US submarine reactor compartments, 1130 t / (pi 5^2 x 12 m), the cited low end (#234, #235, #243, F24); the 1130 t compartment is a secondary source, contested (650 t for the S5W elsewhere, #281 (1))'),
     shieldGenerator: P(1e4, 5e3, 2e4, 3, 'kg', true, 'no real analogue (the shield is the premise, #202): the old average (#235)'),
-    railgun: P(1e4, 5e3, 2e4, 3, 'kg', true, 'no real analogue yet: the old average (#235)'),
+    railgun: P(1e4, 5e3, 2e4, 3, 'kg', true, 'no real analogue yet: the old average (#235); kept in L5c, no source found for a launcher or its pulsed power (volume only: the N = 2 gun\'s 67 MJ store fits its own cells, #281 (4))'),
   },
   radiator: {
     area: P(25, 10, 100, 2, 'm^2', true, 'one panel per hull segment; radiates emissivity x sigma x area x T^4 of its room (#143, #183)'),
@@ -183,6 +183,53 @@ export const PARAMS = {
     scanTime: P(4, 2, 10, 0, 's', true, 'one zone at sensor.scanRange; at d a zone takes this x (d / scanRange)^4, the radar law (13n.1 (a), #278, #289; approved as the plan\'s, #272 (2))'),
     scanRange: P(900, 500, 2000, 1, 'm', true, 'the reference range, battle.openingRange\'s band; k = 1 so a zone at the same distance in cells takes the same time at every tier (#273 (3), 13n.1 (a), #278, #289; approved as the plan\'s, #272 (2))'),
     mass: P(1e3, 250, 4e3, 2, 'kg', true, 'one antenna fitting at its edge\'s midpoint, 250 kg/m^2 of aperture: an estimate, no source (#289; approved as the plan\'s, #272 (2))'),
+  },
+  // Weapons (L5c, DESIGN.md 13n.1 (c), 13n.2, #278, #292, #295): the spinal railgun, the missile bay and its missiles,
+  // the EMP warhead's field, point defence (kinetic and laser) and the round types' one traded parameter. Approved as
+  // the plan's (#272 (2)).
+  railgun: {
+    roundMass: P(10, 5, 20, 3, 'kg', true, 'one steel slug of FIXED.roundLengthToDiameter, the US Navy prototype\'s 10 kg; a round of the round rule (13n.1 (c), #236 (6), #278; approved as the plan\'s, #272 (2))'),
+    muzzleVelocity: P(2000, 1500, 2500, 0, 'm/s', true, 'for a barrel of N = 2 cells; N cells fire at this x sqrt(N / 2) (constant acceleration along the barrel, no constant); #54\'s band (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+    fireRate: P(0.1, 0.05, 0.3, -1, '1/s', true, 'at most this many slugs a second, 6 a minute, a prototype\'s rate; each shot draws 1/2 m v^2 / railgun.efficiency spread over the reload (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+    efficiency: P(0.3, 0.1, 0.6, 0, '', true, 'a pulsed-power train\'s wall-plug efficiency: draw = muzzle energy / this; the rest is heat in the room (plant class, coolant loop) (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+  },
+  missilebay: {
+    readyMissiles: P(2, 1, 6, 0, 'missiles', true, 'the bay\'s ready store (#148), refilled from a missile magazine on a live wall at ammo.wallFeed\'s rate by mass (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+    launchInterval: P(2, 1, 10, 0, 's', true, 'one launch per this, one tube reloading from the store (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+    launcherMass: P(13500 / 6, 12200 / 6, 15200 / 6, 3, 'kg', true, 'launcher per missile bay cell: 13.5 t per M bay (six cells), 12.2-15.2 t, the Mk 41 tactical module and its siblings; a secondary source only (#281 (3)); a cell is structure.cellMass + this, as the turret\'s (13n.1 (c) room size S row, #295; approved as the plan\'s, #272 (2))'),
+  },
+  missile: {
+    mass: P(200, 100, 500, 3, 'kg', true, 'a light anti-ship missile; its hp follow the one law, matter.burnEnergyPerKg x this (0.6 MJ; no constant) (13n.1 (c), #97, #278; approved as the plan\'s, #272 (2))'),
+    acceleration: P(30, 10, 100, 0, 'm/s^2', true, '3 g along its own heading for missile.burnTime, then coasting; low for a real missile (10-30 g), chosen for #54\'s 8-15 s; its exhaust is an IR source of jet power mass x this x engine.exhaustVelocity / 2 (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+    burnTime: P(20, 10, 40, 0, 's', true, 'its fuel, the only accounting of it (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+    warheadEnergy: P(2e7, 5e6, 5e7, 3, 'J', true, 'the HE warhead: a contact burst with he.coupling at the hit face, the blast through walls from there; ten M HE rounds; a missile magazine or bay explodes by this + 1/2 m (acceleration x burnTime)^2 per missile (13n.1 (b) (c), #97, #278; approved as the plan\'s, #272 (2))'),
+    penetratorMass: P(50, 20, 100, 3, 'kg', true, 'the penetrator warhead: a steel rod of FIXED.roundLengthToDiameter, the round rule at the impact speed (13n.1 (c), #97, #278; approved as the plan\'s, #272 (2))'),
+    empEnergy: P(2e6, 2e6, 4e7, 3, 'J', true, 'the EMP warhead\'s field budget (#99\'s shape, emp.radius): a section\'s reach, 12 m with emp.radius and emp.scramDose (#292; 1e7 in #278); approved as the plan\'s, #272 (2)'),
+  },
+  emp: {
+    radius: P(20, 20, 80, 1, 'm', true, 'half-strength radius of the EMP burst\'s field, g = 1 / (1 + (r / this)^2), the shield\'s shape (#99, #292; 40 in #278); approved as the plan\'s, #272 (2)'),
+    scramDose: P(1.47e6, 2e5, 5e6, 2, 'J', true, 'a powered room whose centre receives at least this is hit: a reactor SCRAMs, another room shuts down for emp.outageTime; the control electronics\' tolerance, an estimate; k = 2 with the room\'s face; reach R sqrt(E / D - 1) = 12.0 m (#292; 1 MJ in #278); approved as the plan\'s, #272 (2)'),
+    outageTime: P(5, 2, 8, 0, 's', true, 'a powered room in an EMP\'s reach is shut down this long, then works again; under battle.disabledSeconds so an outage alone never ends a battle (#292); approved as the plan\'s, #272 (2)'),
+  },
+  pd: {
+    fireRate: P(2, 1, 4, -1, '1/s', true, 'kinetic point defence: M flak rounds a second at the nearest incoming missile in its arc (#93, 13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+    ammo: P(40, 20, 100, 0, 'rounds', true, 'its own store of M flak rounds, refilled between battles (#90, #93): 20 s of fire (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+    range: P(600, 300, 1500, 1, 'm', true, 'point defence (kinetic and laser) engages a missile only within this range of the fitting, in its arc, the nearest first: a laser\'s spot and tracking, a flak round\'s reach (#296: without it a laser killed every missile from launch); approved as the plan\'s, #272 (2)'),
+    mass: P(8000, 4000, 12000, 2, 'kg', true, 'one kinetic point-defence fitting without ammunition, at its edge\'s midpoint: the 76/62 SR mount, 7.9 t, turret.machineryMass\'s source (#281 (2), #295); approved as the plan\'s, #272 (2)'),
+  },
+  flak: {
+    radius: P(10, 5, 20, 1, 'm', true, 'a flak round\'s burst of he.blastEnergy at its closest approach: a field g = 1 / (1 + (r / this)^2); a missile dies when its dose reaches its hp (within 15.3 m) (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+  },
+  pdLaser: {
+    power: P(1e6, 3e5, 3e6, 2, 'W', true, 'laser point defence on a missile in its arc, no falloff (#230); draw this / beambay.efficiency from its host, the rest heat there; a missile dies in hp / this = 0.6 s (13n.1 (c), #278; approved as the plan\'s, #272 (2))'),
+    mass: P(4000, 2000, 8000, 2, 'kg', true, 'one laser point-defence fitting at its edge\'s midpoint: a 1 MW laser\'s optics and power conditioning; an estimate, no source (#295); approved as the plan\'s, #272 (2)'),
+  },
+  // Round types (#94, #96, 13n.1 (c), #295): each the M round with one parameter traded (the ROUNDS table below).
+  rounds: {
+    apLength: P(1.5, 1.2, 2, 0, '', true, 'AP: length x this at the same mass (thinner: higher s0 and S, no burst); paid with its rate, turret.fireRate / this (#94, #295); approved as the plan\'s, #272 (2)'),
+    heSteel: P(0.5, 0.3, 0.8, 0, '', true, 'HE: the steel is this fraction of the round\'s mass, the rest he.blastEnergy as a contact burst at the stopping cell; paid with depth (#94, #295); approved as the plan\'s, #272 (2)'),
+    sabotMass: P(0.5, 0.3, 0.8, 0, '', true, 'Sabot: the penetrator is this fraction of the round\'s mass; a sabot round takes a full round\'s mass in the magazine (#94, #295); approved as the plan\'s, #272 (2)'),
+    sabotVelocity: P(1.3, 1.1, 1.6, 0, '', true, 'Sabot: muzzle velocity x this; paid with its recoil, the gun\'s impulse the full round\'s mass x that velocity (the petals leave with the penetrator) (#94, #295); approved as the plan\'s, #272 (2)'),
   },
   turret: {
     fireRate: P(0.5, 0.2, 2, -1, '1/s', true, 'size M; big guns fire slower (#183)'),
@@ -246,8 +293,38 @@ export const PARAMS = {
   },
 };
 
+// Round types (#94, #96, 13n.1 (c), #295): each the M round with one parameter traded and paid for, as data; the
+// turret's ready store and the magazine hold one type per load slot (rooms.js). `steel`: the fraction of the round's
+// mass that flies (the penetrator; the rest is the HE burst or the sabot's petals); `length`: its length over
+// FIXED.roundLengthToDiameter's; `velocity`: its muzzle velocity over kinetic.muzzleVelocity's; `burst`: the energy it
+// bursts with (a contact burst at its stopping entry, or flak's field at closest approach); `rate`: the constant its
+// turret's interval before it is multiplied by; `impulse`: 'full' when the gun's recoil is the full round's mass x its
+// velocity. Each value names a PARAMS constant, or is 1 (no trade). Every type takes a full round's mass in a magazine.
+export const ROUNDS = {
+  standard: { steel: 1, length: 1, velocity: 1, burst: null, rate: 1, impulse: 'flying', note: 'the M round as before L5c (#166, #206); counter: a crewed screen before the magazine, or a plate' },
+  ap: { steel: 1, length: 'rounds.apLength', velocity: 1, burst: null, rate: 'rounds.apLength', impulse: 'flying', note: 'thinner at the same mass: higher s0 and S; a longer round rams slower (#295); counter: a plate, the only screen' },
+  he: { steel: 'rounds.heSteel', length: 1, velocity: 1, burst: 'he.blastEnergy', rate: 1, impulse: 'flying', note: 'half steel, the rest a contact burst at the stopping entry: shallower, a blast; counter: a plate (the burst lands outside the hull, fragments carry nothing beyond it)' },
+  sabot: { steel: 'rounds.sabotMass', length: 1, velocity: 'rounds.sabotVelocity', burst: null, rate: 1, impulse: 'full', note: 'a lighter penetrator, faster and flatter; the petals leave with it, so the gun\'s impulse is the full round\'s mass x its velocity (#295); counter: a plate, and its recoil' },
+  flak: { steel: 1, length: 1, velocity: 1, burst: 'he.blastEnergy', rate: 1, impulse: 'flying', field: 'flak.radius', note: 'point defence\'s round (#93): bursts at its closest approach to a missile over a field of flak.radius' },
+};
+// Missile seekers and warheads (#97, 13n.1 (c), #292): game rules, one line each. A seeker reads only its side's
+// knowledge model (js/sensors.js) and picks the aim point each step; with nothing resolved it flies at the
+// silhouette's centre.
+export const SEEKERS = {
+  ir: 'the nearest resolved IR source of the other ship (a panel or an exhaust) (#97)',
+  radar: 'the centre of the nearest zone its side has resolved; scanning itself, the missile is EM-bright (sensor.scanPower) (#97)',
+  antiRadiation: 'the nearest resolved EM source of the other ship (a scanning antenna, an absorbing shield) (#97)',
+  designated: 'the room its ship targets, at the model\'s aim point for it (needs the scan and the antenna) (#97)',
+};
+export const WARHEADS = {
+  he: 'a contact burst of missile.warheadEnergy at the hit face: he.coupling of it enters the hit cell\'s room and spreads through walls; at a plate the burst is outside the hull (#97, #141)',
+  penetrator: 'the round rule with missile.penetratorMass at the impact speed (#97)',
+  emp: 'a field of the shield\'s shape, budget missile.empEnergy, radius emp.radius, from the hit point; a charged shield buffer there pays first; a powered room whose centre receives emp.scramDose is hit: a reactor SCRAMs, another room shuts down for emp.outageTime (#97, #142, #292)',
+};
+
 // Rooms (DESIGN.md 5.2, 13c). Footprints in cells per size (rate-like
-// constants of an L room are sizeLinear.L^2 = 9/4 of M, #183); placement;
+// constants of an L room are sizeLinear.L^2 = 9/4 of M, #183; of an S room its
+// cell count over M's, 13n.1 (c): one cell of a 2 x 2 room is 1/4); placement;
 // threshold class (#182); crew: the crewRequired constant, or 'housed' for
 // the quarters; draws and powers name their PARAMS constant. A room's
 // conductivity factors name their PARAMS constant; a room without one has
@@ -267,19 +344,19 @@ export const PARAMS = {
 // a list of constants that add (structure + machinery, #243); heatCapacity names
 // the room type's thermally coupled heat capacity per cell (#240 (1), #243).
 export const ROOMS = {
-  bridge: { footprint: { M: [2, 2] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.bridge', draw: 'bridge.powerDraw', cellMass: 'cellMass.crewed', heatCapacity: 'thermal.coupledCrewed' },
-  reactor: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.reactor', power: 'reactor.power', cellMass: 'cellMass.reactor', heatCapacity: 'thermal.coupledReactor' },
-  engine: { footprint: { M: [2, 3] }, placement: 'aft hull, exhaust clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.engine', draw: 'engine.powerDraw', cellMass: ['structure.cellMass', 'engine.machineryMass'], heatCapacity: 'thermal.coupledEngine' },
-  magazine: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'inside', thermalClass: 'magazine', loop: 'passive', lifeSupport: true, crew: 'crewRequired.magazine', cellMass: 'structure.cellMass', heatCapacity: 'thermal.coupledMagazine' },
+  bridge: { footprint: { M: [2, 2], S: [1, 1] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.bridge', draw: 'bridge.powerDraw', cellMass: 'cellMass.crewed', heatCapacity: 'thermal.coupledCrewed' },
+  reactor: { footprint: { M: [2, 2], L: [3, 3], S: [1, 1] }, placement: 'inside', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.reactor', power: 'reactor.power', cellMass: 'cellMass.reactor', heatCapacity: 'thermal.coupledReactor' },
+  engine: { footprint: { M: [2, 3], S: [1, 2] }, placement: 'aft hull, exhaust clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.engine', draw: 'engine.powerDraw', cellMass: ['structure.cellMass', 'engine.machineryMass'], heatCapacity: 'thermal.coupledEngine' },
+  magazine: { footprint: { M: [2, 2], L: [3, 3], S: [1, 1] }, placement: 'inside', thermalClass: 'magazine', loop: 'passive', lifeSupport: true, crew: 'crewRequired.magazine', cellMass: 'structure.cellMass', heatCapacity: 'thermal.coupledMagazine' },
   // A plant room that may carry fittings, placed anywhere (#219 (1), #222 (2)).
-  shieldGenerator: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.shieldGenerator', draw: 'shield.powerDraw', cellMass: 'cellMass.shieldGenerator', heatCapacity: 'thermal.coupledShieldGenerator' },
-  quarters: { footprint: { M: [3, 2] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'housed', draw: 'quarters.powerDraw', cellMass: 'cellMass.crewed', heatCapacity: 'thermal.coupledCrewed' },
-  beamBay: { footprint: { M: [2, 2], L: [3, 3] }, spinal: { min: 2 }, placement: 'hull, axis, bow clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.beamBay', draw: 'beam.power / beambay.efficiency', cellMass: ['structure.cellMass', 'beambay.machineryMass'], heatCapacity: 'thermal.coupledBeamBay' },
-  turret: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.turret', draw: 'turret.powerDraw', cellMass: ['structure.cellMass', 'turret.machineryMass'], heatCapacity: 'thermal.coupledCrewed' },
-  railgun: { footprint: { M: [2, 'N'] }, placement: 'axis', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.railgun', cellMass: 'cellMass.railgun', heatCapacity: 'thermal.coupledRailgun' },
-  missileBay: { footprint: { M: [3, 2] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.missileBay', cellMass: 'cellMass.crewed', heatCapacity: 'thermal.coupledCrewed' },
-  hold: { footprint: { M: [2, 2] }, placement: 'anywhere', thermalClass: 'crewed', loop: 'passive', crew: null, passiveFactor: 'conduction.holdFactor', cellMass: 'structure.cellMass', heatCapacity: 'thermal.coupledHold' },
-  heatSink: { footprint: { M: [2, 2], L: [3, 3] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: null, capacityFactor: 'heatsink.capacityFactor', coolantFactor: 'heatsink.conductivityFactor', cellMass: 'structure.cellMass', heatCapacity: 'thermal.coupledHeatSink' },
+  shieldGenerator: { footprint: { M: [2, 2], L: [3, 3], S: [1, 1] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.shieldGenerator', draw: 'shield.powerDraw', cellMass: 'cellMass.shieldGenerator', heatCapacity: 'thermal.coupledShieldGenerator' },
+  quarters: { footprint: { M: [3, 2], S: [2, 1] }, placement: 'inside', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'housed', draw: 'quarters.powerDraw', cellMass: 'cellMass.crewed', heatCapacity: 'thermal.coupledCrewed' },
+  beamBay: { footprint: { M: [2, 2], L: [3, 3], S: [2, 1] }, spinal: { min: 2 }, placement: 'hull, axis, bow clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.beamBay', draw: 'beam.power / beambay.efficiency', cellMass: ['structure.cellMass', 'beambay.machineryMass'], heatCapacity: 'thermal.coupledBeamBay' },
+  turret: { footprint: { M: [2, 2], L: [3, 3], S: [1, 1] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.turret', draw: 'turret.powerDraw', cellMass: ['structure.cellMass', 'turret.machineryMass'], heatCapacity: 'thermal.coupledCrewed' },
+  railgun: { footprint: { M: [2, 2], S: [2, 1] }, spinal: { min: 2 }, placement: 'hull, axis, bow clear', thermalClass: 'plant', loop: 'coolant', crew: 'crewRequired.railgun', draw: 'railgun.roundMass x v^2 / 2 / railgun.efficiency x railgun.fireRate', cellMass: 'cellMass.railgun', heatCapacity: 'thermal.coupledRailgun' },
+  missileBay: { footprint: { M: [3, 2], S: [2, 1] }, placement: 'hull', thermalClass: 'crewed', loop: 'passive', lifeSupport: true, crew: 'crewRequired.missileBay', cellMass: ['structure.cellMass', 'missilebay.launcherMass'], heatCapacity: 'thermal.coupledCrewed' },
+  hold: { footprint: { M: [2, 2], S: [1, 1] }, placement: 'anywhere', thermalClass: 'crewed', loop: 'passive', crew: null, passiveFactor: 'conduction.holdFactor', cellMass: 'structure.cellMass', heatCapacity: 'thermal.coupledHold' },
+  heatSink: { footprint: { M: [2, 2], L: [3, 3], S: [1, 1] }, placement: 'anywhere', thermalClass: 'plant', loop: 'coolant', crew: null, capacityFactor: 'heatsink.capacityFactor', coolantFactor: 'heatsink.conductivityFactor', cellMass: 'structure.cellMass', heatCapacity: 'thermal.coupledHeatSink' },
 };
 
 /** Value of a tunable constant at a cell edge. */
