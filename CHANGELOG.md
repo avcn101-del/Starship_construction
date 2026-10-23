@@ -1,5 +1,27 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — Deterministic atan2, cbrt and hypot (PR #96's finding)
+
+- `js/util.js`: `cbrt` (fdlibm `s_cbrt.c`), `atan2` (fdlibm's reduction
+  and polynomial with y / x and the reduced argument in double-double,
+  rounded once: fdlibm's own `atan2` errs by up to 1.23 ulp) and `hypot`
+  as `Math.sqrt(a*a + b*b)` (|a|, |b| ≤ 1e150, no overflow; 1.13 ulp
+  measured). `atan2` takes 0 or magnitudes in [1e-100, 1e100] and throws
+  outside, as `sin` does. Every `Math.atan2`, `Math.cbrt` and `Math.hypot`
+  in `js/` uses them; nothing else in the kernel changes.
+- `tools/mathcheck.mjs`: `atan2`, `cbrt`, `exp`, `log` and `hypot` against
+  an exact BigInt reference over 10^5 seeded inputs each (max 0.61, 0.66,
+  0.84, 0.77 ulp; `hypot` 1.13, stated); `--chromium` checks Node and
+  Chromium give the same bits on every input.
+- `L0.determinism.v2` (locked in `1a8e71a`): the same hash part and a grep
+  for every `Math` member except the exact or correctly rounded ones;
+  `L0.determinism` withdrawn under it, frozen. The duel's Node hash moves
+  27f10ee0 → ad3e4e15 (30 → 27 events: `hypot`'s last bit in the repair
+  rate moves when a cell's integrity drops below 1), MATCH in Chromium.
+- Re-recorded (last-bit moves, all far inside 1 % of their tolerances):
+  `L4.helm.range`, `L4.helm.style`, `L4.loop.rules`, `L4.shield.window`,
+  and `L4.loop.symmetric` (it replays `L4.helm.style`'s rows hash).
+
 ## Unreleased — 2026-10-23 — L5d merged: the helm and the enemy (#309)
 
 - Kernel (PR #94): the symmetric loop, `js/helm.js` (twelve standing
