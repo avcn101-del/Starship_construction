@@ -91,7 +91,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, L5b senses and the knowledge model (`m0/l5b-senses`, PR #84, head `3b2bd51`; `js/sensors.js`, S1–S9, 7 constants; 8 questions; notified by trigger) | session_01TxfVV2pnW24vz4uTSzSciR | opus-5-5 | 9.59 |
 | Physics checker, L5b (blind, from lock `a1174e7`; 0 numeric discrepancies, 0 blocking, 8 notes; notified by trigger) | session_01VGwjX6cise4udiD1zYY38i | sonnet-5-5 | 1.37 |
 | Reviewer, L5b (PR #84; 0 blocking, 7 findings; notified by trigger) | session_01Tux7HRzP4r2YcUorJTjYEc | sonnet-5-5 | 0.66 |
-| Engineer, L5c weapons (`m0/l5c-weapons`; running) | session_01FGkcorhSN5Vdhec9rnEiyn | opus-5-5 | running |
+| Engineer, L5c weapons (`m0/l5c-weapons`, PR #88, head `42391b5`; W1–W14 less W9, `js/missile.js`, `js/defence.js`; 14 questions; notified by trigger) | session_01FGkcorhSN5Vdhec9rnEiyn | opus-5-5 | 23.34 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

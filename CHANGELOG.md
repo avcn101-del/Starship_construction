@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — Answers to L5c's engineer (#296)
+
+- `DECISIONS.md` #296: `pd.range` (new, 600 m); `L2.magazine.types.v2` and
+  `L2.missile.warheads` withdrawn for successors; a missile's body books
+  its impulse and heat; S rooms by cell count; the as-built confirmations;
+  §17 item 46 (the missile bay's draw and cook-off); a fix round.
+  `DESIGN.md` §13n.1 (c), §13n.2, §13n.3, §13n.4 (K4, W7, W9), §17, §18.
+
 ## Unreleased — 2026-10-23 — L5c probed and its plan amended (#295)
 
 - `DECISIONS.md` #295: the probe (125 of 125 rows unchanged), `pd.mass` and
