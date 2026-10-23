@@ -178,7 +178,7 @@ The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
 the old chat's pending check-in was deleted at hand-over; the new chat
 creates its own (`send_later`, 20–45 min after starting a session). This
-chat's pending check-in: `trig_01R7is3hJsZAnbPXh6RivSqf` (06:25 UTC, the L5c engineer).
+chat's pending check-in: `trig_01R7is3hJsZAnbPXh6RivSqf` fired at 06:25 UTC (the engineer still building); the next `trig_01AMU3iUsG7p1eVuQb356PJi` (07:26 UTC).
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
 
