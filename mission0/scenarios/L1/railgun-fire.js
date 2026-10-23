@@ -27,7 +27,7 @@ export default {
   tolerance: 'speed and draw 1e-12 (closed form); the slug times exact (on the grid: the rate is tested); the hot time one-sided [t, t + dt) with the 1e-9 slack (#185 (2))',
   criterion: '(fire) slugs at 0, 10, 20 s and no other in 25 s, each at v = 2000 / 2828.42712474619 m/s (hand-worked, 1e-12), the draw 6.666667 / 13.333333 MW (1e-12), 30 kg of slugs gone from the magazine; (heat) the hot event at t in [1195.714, 1195.714 + dt) s for N = 2 and 4 (hand-worked)',
   tunable: ['railgun.roundMass', 'railgun.muzzleVelocity', 'railgun.fireRate', 'railgun.efficiency', 'thermal.coupledRailgun', 'thermal.plantHot'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'c0320b04' },
   cases() {
     return [{ part: 'fire', N: 2 }, { part: 'fire', N: 4 }, { part: 'heat', N: 2 }, { part: 'heat', N: 4 }];
   },

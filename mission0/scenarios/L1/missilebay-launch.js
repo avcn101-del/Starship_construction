@@ -38,7 +38,7 @@ export default {
   tolerance: 'launches at 0 and 2 s exact (on the grid, the interval tested); a refill one-sided [t, t + dt) with the 1e-9 slack; energies 1e-12',
   criterion: '(launch) launches at 0, 2 s, then each refill: at the step holding 27.778 s and 55.556 s (one-sided), four in 60 s, 2 missiles left in the magazine; (explode) the store\'s energy 112 MJ and the magazine\'s 224 MJ (hand-worked, 1e-12); the round detonates the bay with 112 MJ',
   tunable: ['missilebay.readyMissiles', 'missilebay.launchInterval', 'ammo.wallFeed', 'missile.mass', 'missile.warheadEnergy', 'missile.acceleration', 'missile.burnTime'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '69754c0a' },
   cases() {
     return [{ part: 'launch' }, { part: 'explode' }];
   },

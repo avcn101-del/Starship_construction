@@ -45,7 +45,7 @@ export default {
   tolerance: 'energies 1e-9 relative; counts and sets exact; an outage\'s end one-sided [t, t + dt) with the 1e-9 slack',
   criterion: 'HE: the bridge absorbs its whole 5.92 MJ (every cell destroyed), 10 MJ enters (absorbed + escaped = 10 MJ, 1e-9), 10 MJ vented; penetrator: 1 crewed cell passed, stopped in the 2nd; EMP -y: the reactor SCRAMs, the bridge and the shield generator shut down until the step holding 5.025 s, nothing else; bow: the beam bay only; shield on: the buffer pays 2 MJ, nothing hit; battle: the rooms the field rule reaches from the warhead\'s point, a reactor among them SCRAMmed',
   tunable: ['missile.warheadEnergy', 'he.coupling', 'missile.penetratorMass', 'missile.empEnergy', 'emp.radius', 'emp.scramDose', 'emp.outageTime', 'matter.blastPerKg'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '96a8ef17' },
   cases() {
     return [{ part: 'he' }, { part: 'penetrator' }, { part: 'emp', at: '-y' }, { part: 'emp', at: 'bow' }, { part: 'emp', at: '-y', shield: true }, { part: 'battle' }];
   },

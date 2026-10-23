@@ -50,7 +50,7 @@ export default {
   tolerance: 'counts and the stopping entry exact; entry speeds 1e-12 relative against the hand-worked literals',
   criterion: 'every N: 3 crewed cells passed, stopped in the 4th; the magazine behind a bridge entered at 1078.188 / 1906.616 / 2542.290 m/s and detonated; the 0.2 m plate passed and the magazine entered at 956.064 / 1784.491 / 2420.165 m/s; a reactor cell stops it (entry 0); the 0.4 m plate stops it (entry 0)',
   tunable: ['railgun.roundMass', 'railgun.muzzleVelocity', 'armour.plateThickness', 'cellMass.crewed', 'cellMass.reactor', 'matter.kineticResistance'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '5cfd139c' },
   cases() {
     const out = [];
     for (const N of [2, 4, 6]) for (const col of ['crewed', 'bridge', 'plate2', 'plate4', 'reactor']) out.push({ N, col });

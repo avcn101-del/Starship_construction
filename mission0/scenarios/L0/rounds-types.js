@@ -52,7 +52,7 @@ export default {
   tolerance: 'counts and times exact (times on the grid: the rate is tested); entry speeds 1e-12; impulse 1e-12; burst energies 1e-12',
   criterion: 'each type passes its hand-worked count of crewed / hold cells, enters a magazine behind a hold and behind a crewed cell at its hand-worked speed (1e-12), detonating iff >= 400 m/s, and the 0.2 m plate stops all four; Standard, HE and Sabot fire at 0, 2, 4, 6 s, AP at 0, 3, 6 s; the impulse per shot 4800 / 4800 / 2400 / 6240 N s (Sabot 1.3 x Standard); the HE round bursts at its stopping entry, 2 MJ of which 1 MJ enters',
   tunable: ['rounds.apLength', 'rounds.heSteel', 'rounds.sabotMass', 'rounds.sabotVelocity', 'he.blastEnergy', 'he.coupling', 'turret.fireRate'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '80207337' },
   cases() {
     const out = [];
     for (const type of TYPES) for (const part of ['crewed', 'holds', 'holdMag', 'crewMag', 'plate', 'fire']) out.push({ type, part });

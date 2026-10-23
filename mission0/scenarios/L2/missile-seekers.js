@@ -40,7 +40,7 @@ export default {
   tolerance: 'points 1e-9 m',
   criterion: 'with: (ir) a panel or exhaust source, the nearest the model resolves, every step; (antiRadiation) the target\'s antenna once resolved; (radar) zone 1\'s centre (30, 7.5) once resolved, the silhouette\'s centre (27.5, 15) before; (designated) the magazine\'s cell (37.5, 12.5) once zone 1 resolves, the silhouette\'s centre before; without: the silhouette\'s centre (27.5, 15) every step; the missile flies (at least 60 steps checked)',
   tunable: ['sensor.sensitivity', 'sensor.scanTime', 'missile.acceleration'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'f436332f' },
   cases() {
     const out = [];
     for (const seeker of ['ir', 'radar', 'antiRadiation', 'designated']) for (const w of [true, false]) out.push({ seeker, with: w });

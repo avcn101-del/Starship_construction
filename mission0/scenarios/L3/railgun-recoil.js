@@ -30,7 +30,7 @@ export default {
   tolerance: 'mass and dv 1e-12 (closed form); the spin 1e-9 relative against (r x J) / I from kernel-read r and I',
   criterion: 'the mass at undock 1 439 484.057 kg (hand-worked); dv = (-20 000 / (M - 10), 0) = (-0.013893963, 0) m/s (1e-12); the spin (r x J) / I with r the railgun\'s centre less the centre of mass (kernel-read, labelled): not 0, the centre of mass lying off the bore line',
   tunable: ['railgun.roundMass', 'railgun.muzzleVelocity', 'cellMass.railgun'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'fe824f40' },
   cases() {
     return [{ ship: 'R1d-L' }];
   },

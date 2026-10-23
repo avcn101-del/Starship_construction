@@ -25,7 +25,7 @@ export default {
   tolerance: 'the beam\'s steps exact (on the grid: tested); energies 1e-12',
   criterion: 'in arc: the missile killed by the laser after 36 steps (0.6 s) of beam, its dose 600 kJ (hand-worked); no warhead; outside: no beam, the missile hits',
   tunable: ['missile.mass', 'matter.burnEnergyPerKg', 'pdLaser.power', 'beambay.efficiency'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'd02972ee' },
   cases() {
     return [{ arc: 'in' }, { arc: 'out' }];
   },

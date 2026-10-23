@@ -24,7 +24,7 @@ export default {
   tolerance: 'arrival one-sided [t, t + dt) with the 1e-9 slack; speeds and positions 1e-12 relative (closed form); books 1e-12',
   criterion: 'arrival in the step holding t = 6.3246 / 7.7460 / 10.000 s (hand-worked) at a speed a k dt; coasting: v 600 m/s at 20, 25 and 30 s, x 12 000 m at 30 s; impulse m a T, work 1/2 m (a T)^2',
   tunable: ['missile.acceleration', 'missile.burnTime', 'missile.mass'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '2964f797' },
   cases() {
     return [{ d: 600 }, { d: 900 }, { d: 1500 }, { coast: 30 }];
   },

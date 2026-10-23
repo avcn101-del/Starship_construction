@@ -44,7 +44,7 @@ export default {
   tolerance: 'exact (a field met or not)',
   criterion: 'own: the attacker\'s buffer full through 1.5 s with its first round gone (no payment); turret now: the inserted round meets no field (speed after = before); next: it is slowed; beam open: no field, every firing step a window on (10, 2) +x and (10, 3) +x; closed: slowed',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '963d673a' },
   cases() {
     return [{ part: 'own' }, { part: 'turret', when: 'now' }, { part: 'turret', when: 'next' }, { part: 'beam', seg: 'open' }, { part: 'beam', seg: 'closed' }];
   },

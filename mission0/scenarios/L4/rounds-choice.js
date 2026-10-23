@@ -27,7 +27,7 @@ export default {
   tolerance: 'exact',
   criterion: 'hull: every shot fired while the bridge is known is HE, at least one; deep: every shot while the heat sink is known AP, at least one; zone: every shot Standard and the magazine never known; every shot fired before its room is known Standard',
   tunable: ['sensor.scanTime', 'turret.fireRate'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'a80e6c54' },
   cases() {
     return [{ target: 'hull' }, { target: 'deep' }, { target: 'zone' }];
   },

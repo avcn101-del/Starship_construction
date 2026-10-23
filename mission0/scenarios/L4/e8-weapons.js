@@ -23,7 +23,7 @@ export default {
   tolerance: 'the budget, 1 ms per step',
   criterion: 'six missiles launched and the point defence engaging (a flak round or a laser kill); the mean wall time per step under 1 ms',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'a42e9273' },
   cases() {
     return [{ tier: 'T1' }];
   },

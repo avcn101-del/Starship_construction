@@ -38,7 +38,7 @@ export default {
   tolerance: 'power, capacity, energy, mass and shot times 1e-12 (closed form); counts exact',
   criterion: 'the S reactor delivers 5 MW; reactor and turret crew 1, the quarters 8; the magazine 225 kg, 37 rounds, 296 MJ; S rounds of 1.7778 kg at 0, 1.3333, 2.6667, 4, 5.3333 s (0.75 /s); the blueprint valid and built with one cell per S room (two for the quarters and the engine)',
   tunable: ['reactor.power', 'magazine.capacity', 'turret.fireRate', 'crewRequired.reactor', 'crewRequired.turret', 'quarters.crewPerCell'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '6e4ac485' },
   cases() {
     return [{ part: 'rooms' }, { part: 'fire' }, { part: 'valid' }];
   },
