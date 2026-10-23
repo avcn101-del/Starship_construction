@@ -1,68 +1,61 @@
 #!/usr/bin/env node
-// proto/measure.mjs — R1-versus-R1 duels of the feel prototype v2, headless
-// (Node, no DOM), with both ships on the enemy's script (DESIGN.md 13j.2:
-// Fire 60 s, Cool 30 s; orders bow-on, dodge on) at each range order, for
-// seeds 1-10, one loadout (config.js LOADOUT; R1d by default) on both ships, the end by the kernel's rules (js/battle.js: Disabled with no able weapon, #255). Prints per duel
-// its length, the end, each side's shots, hits and misses, and what destroyed
-// a ship; then a summary per range. Not a Mission 0 scenario (#217): a
-// measure for the owner, to set against 13j.3's rough estimate.
+// proto/measure.mjs — duels of the feel prototype headless (Node, no DOM) on
+// the kernel's loop (proto/duel.js createDuel: both ships R1d-A, the player A
+// on Fire with the given inputs, the enemy T by js/enemy.js at 0.5 each), for
+// a range of seeds. Prints per duel the end, each side's shots, hits and
+// misses, and, for the rounds that hit, the time of flight and how far the
+// target's centre of mass moved across the line of sight during it beyond the
+// constant-velocity lead (its acceleration's part, which the lead does not
+// know), against the target hull's half-extent across the line of sight.
+// Reads the true state: a tool for the owner, not the page, and not a Mission 0
+// scenario (#217).
 //
-//   node proto/measure.mjs [--seeds N] [--first S] [--range close|hold|open] [--limit seconds]
-//     [--facing bow|broadside] [--magazine heFull|apFull|heHalf|apQuarter] [--layout R1D|R1|R1B|R1C]
-//     [--shield-budget W] [--hits N] [--turrets on|off]
+//   node proto/measure.mjs [--seeds N] [--first S] [--limit s] [--inputs <json>]
 //
-// --seeds N runs seeds S .. S + N - 1 (default 1 .. 10); --range one range
-// order (default all three); --facing replaces the script's facing on both
-// ships (default: the script's bow-on). Every other flag is a lever of the
-// loadout panel; a flag left out takes the lever's default.
-import { performance } from 'node:perf_hooks';
-import { createBattle, tick } from './battle.js';
-import { defaultLoadout, loadoutText, RANGES, SCRIPT } from './config.js';
-import { PARAMS } from '../js/data.js';
+// --inputs a JSON list [{ t, verb, arg }] as tools/duel.js takes (default none:
+// Fire's defaults); e.g. --inputs '[{"t":0,"verb":"preset","arg":"evade"}]'.
+import { tick } from '../js/battle.js';
+import { stepsAtLeast } from '../js/util.js';
+import { createDuel, endLine } from './duel.js';
+import { shotStats } from './battle.js';
 
 const arg = (name, fallback) => { const i = process.argv.indexOf(name); return i < 0 ? fallback : process.argv[i + 1]; };
-const seeds = Number(arg('--seeds', 10)), first = Number(arg('--first', 1)), limit = Number(arg('--limit', 1800));
-const ranges = arg('--range') ? [arg('--range')] : ['close', 'hold', 'open'];
-const facing = arg('--facing', SCRIPT.orders.facing);
-for (const r of ranges) if (!RANGES[r]) throw new Error(`unknown range ${r}`);
-const loadout = defaultLoadout();
-if (arg('--magazine')) loadout.magazine = arg('--magazine');
-if (arg('--layout')) loadout.layout = arg('--layout');
-if (arg('--shield-budget')) loadout.shieldBudget = Number(arg('--shield-budget')) === PARAMS.shield.budget.value ? null : Number(arg('--shield-budget'));
-if (arg('--hits')) loadout.hitsToWreck = Number(arg('--hits')) === PARAMS.kinetic.hitsToWreck.value ? null : Number(arg('--hits'));
-if (arg('--turrets') === 'off') loadout.turrets = false;
-const savedFacing = SCRIPT.orders.facing;
-SCRIPT.orders.facing = facing; // a measure-only replacement of the script's facing order on both ships
+const seeds = Number(arg('--seeds', 10)), first = Number(arg('--first', 1)), limit = Number(arg('--limit', 300));
+const inputs = JSON.parse(arg('--inputs', '[]'));
+const main = (s) => s.world.ship.bodies.find((b) => b.id === 'body-0') || [...s.world.ship.bodies].sort((a, b) => b.M - a.M)[0] || null;
+const f = (x, n = 2) => (x === null || x === undefined || !Number.isFinite(x) ? '-' : x.toFixed(n));
 
-console.log(`loadout (both ships): ${loadoutText(loadout).split(' · ').slice(0, 5).join(' · ')}`);
-console.log(`both ships on the enemy script: Fire ${SCRIPT.phases[0].seconds} s / Cool ${SCRIPT.phases[1].seconds} s, facing ${facing}, dodge ${SCRIPT.orders.dodge ? 'on' : 'off'}; limit ${limit} s`);
-console.log('');
-console.log('| range | seed | length (s) | end | P shots / hits / misses | E shots / hits / misses | destroyed by | ms/step |');
+console.log(`inputs ${JSON.stringify(inputs)}; limit ${limit} s`);
+console.log('| seed | end | A shots / hits / misses | T shots / hits / misses | t_f min-max (s) | drift of A under T rounds, max (m) | drift of T under A rounds, max (m) | half-extent across LOS min (m) |');
 console.log('|---|---|---|---|---|---|---|---|');
-const sums = {};
-for (const range of ranges) {
-  const rows = [];
-  for (let seed = first; seed < first + seeds; seed++) {
-    const b = createBattle({ seed, scripted: { player: true, enemy: true }, loadout, scriptRange: range });
-    const t0 = performance.now();
-    while (!b.ended && b.t < limit) tick(b);
-    const ms = (performance.now() - t0) / b.steps, e = b.ended;
-    const end = e ? e.losers.map((s) => `${s === 'player' ? 'P' : 'E'} ${e.reason[s]}`).join(', ') : `none by ${limit} s`;
-    const st = (s) => `${s.stats.shots} / ${s.stats.hits} / ${s.stats.misses}`;
-    const by = b.ships.filter((s) => s.destroyedBy).map((s) => `${s.name}: ${s.destroyedBy.room} at ${s.destroyedBy.t.toFixed(1)} s`).join('; ') || '-';
-    console.log(`| ${range} ${RANGES[range]} m | ${seed} | ${e ? e.t.toFixed(2) : '-'} | ${end} | ${st(b.player)} | ${st(b.enemy)} | ${by} | ${ms.toFixed(3)} |`);
-    rows.push({ t: e ? e.t : null, end, shots: b.player.stats.shots + b.enemy.stats.shots, hits: b.player.stats.hits + b.enemy.stats.hits, misses: b.player.stats.misses + b.enemy.stats.misses });
+for (let seed = first; seed < first + seeds; seed++) {
+  const b = createDuel({ seed, inputs }), steps = stepsAtLeast(limit, b.dt);
+  const hist = new Map(), launched = new Map(); // step -> { A, T: { x, v } }; shot id -> { step, shooter, target }
+  const snap = () => hist.set(b.step, Object.fromEntries(b.sides.map((s) => { const m = main(s); return [s.name, m ? { x: [...m.x], v: [...m.v], c: [...m.c], theta: m.theta, s } : null]; })));
+  snap();
+  while (!b.ended && b.step < steps) {
+    tick(b);
+    snap();
+    for (const r of b.rounds) if (!launched.has(r.id)) launched.set(r.id, { step: b.step, shooter: r.shooter.name, target: r.other.name });
   }
-  sums[range] = rows;
+  const tf = [], drift = { A: [], T: [] }, extent = [];
+  for (const h of b.hits) {
+    const L = launched.get(h.id);
+    if (!L) continue;
+    const s1 = Math.round(h.t / b.dt), h0 = hist.get(L.step), h1 = hist.get(s1);
+    if (!h0 || !h1 || !h0[L.target] || !h1[L.target] || !h0[L.shooter]) continue;
+    const T0 = h0[L.target], T1 = h1[L.target], S0 = h0[L.shooter], dt = (s1 - L.step) * b.dt;
+    const d = [T0.x[0] - S0.x[0], T0.x[1] - S0.x[1]], r = Math.hypot(d[0], d[1]), n = [-d[1] / r, d[0] / r];
+    const disp = [T1.x[0] - T0.x[0] - T0.v[0] * dt, T1.x[1] - T0.x[1] - T0.v[1] * dt];
+    tf.push(dt); drift[L.target].push(Math.abs(disp[0] * n[0] + disp[1] * n[1]));
+    // The target hull's half-extent across the line of sight at launch: its cells' centres projected on n, plus half a cell.
+    const w = T0.s.world, body = T0, e = w.edge, proj = [];
+    for (const room of w.rooms) w.layout.rooms.get(room.id).cells.forEach(([i, j]) => {
+      const p = [(i + 0.5) * e - body.c[0], (j + 0.5) * e - body.c[1]], c = Math.cos(T0.theta), sn = Math.sin(T0.theta);
+      proj.push((c * p[0] - sn * p[1]) * n[0] + (sn * p[0] + c * p[1]) * n[1]);
+    });
+    extent.push((Math.max(...proj) - Math.min(...proj)) / 2 + e / 2);
+  }
+  const st = shotStats(b), mx = (a) => (a.length ? Math.max(...a) : null), mn = (a) => (a.length ? Math.min(...a) : null);
+  console.log(`| ${seed} | ${endLine(b)} | ${st.A.shots} / ${st.A.hits} / ${st.A.misses} | ${st.T.shots} / ${st.T.hits} / ${st.T.misses} | ${f(mn(tf))}-${f(mx(tf))} | ${f(mx(drift.A))} | ${f(mx(drift.T))} | ${f(mn(extent))} |`);
 }
-console.log('');
-console.log('| range | ended | length min / median / max (s) | hits / shots (both) | misses / shots (both) |');
-console.log('|---|---|---|---|---|');
-for (const range of ranges) {
-  const rows = sums[range], ts = rows.map((r) => r.t).filter((t) => t !== null).sort((a, b) => a - b);
-  const shots = rows.reduce((x, r) => x + r.shots, 0), hits = rows.reduce((x, r) => x + r.hits, 0), misses = rows.reduce((x, r) => x + r.misses, 0);
-  const med = ts.length ? (ts.length % 2 ? ts[(ts.length - 1) / 2] : (ts[ts.length / 2 - 1] + ts[ts.length / 2]) / 2) : null;
-  const pct = (x) => (shots ? `${((100 * x) / shots).toFixed(0)} %` : '-');
-  console.log(`| ${range} ${RANGES[range]} m | ${ts.length}/${rows.length} | ${ts.length ? `${ts[0].toFixed(1)} / ${med.toFixed(1)} / ${ts[ts.length - 1].toFixed(1)}` : '-'} | ${hits} / ${shots} (${pct(hits)}) | ${misses} / ${shots} (${pct(misses)}) |`);
-}
-SCRIPT.orders.facing = savedFacing;

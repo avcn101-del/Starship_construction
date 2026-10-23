@@ -4,15 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
-<title>Duct Tape Navy feel prototype v2</title>
+<title>Duct Tape Navy feel prototype</title>
 <link rel="stylesheet" href="proto.css">
 </head>
 <body>
-<!-- Throwaway feel prototype v2 (DESIGN.md 13j, #217, #237). Never a Mission 0 result. -->
+<!-- Throwaway feel prototype on the L5d kernel loop (DESIGN.md 13j, 13n.1 (d), #217, #301 (5)). Never a Mission 0 result. -->
 <div id="rotate">Turn the phone sideways: the battle is landscape.</div>
 <div id="app">
   <header id="bar">
     <div class="group" id="presets" role="group" aria-label="Preset"></div>
+    <div class="group"><button id="scan" type="button">Scan</button></div>
     <div class="group" id="speeds" role="group" aria-label="Time"></div>
     <div class="group">
       <button id="pause" type="button">Pause</button>
@@ -21,11 +22,12 @@
     </div>
     <div id="lo-tag" aria-label="Loadout"></div>
     <div id="clock">0:00</div>
+    <div id="version"></div>
   </header>
   <main id="main">
     <div id="stage">
       <canvas id="view"></canvas>
-      <div id="hint">Tap an enemy room to target it.</div>
+      <div id="hint">Tap a known enemy room to target it; tap elsewhere on its grid (or Scan, then a zone) to scan.</div>
       <div id="end" hidden></div>
     </div>
     <aside id="side">
@@ -40,14 +42,14 @@
 <div id="loadout" hidden>
   <div id="loadout-box">
     <div id="loadout-head">
-      <h2>Loadout <span>fit: both ships · orders: yours</span></h2>
+      <h2>Loadout <span>R1d-A vs R1d-A · the standard enemy</span></h2>
       <label id="seed-label" for="seed">Seed</label>
       <input id="seed" type="number" min="0" step="1" inputmode="numeric" aria-label="Seed">
       <button id="loadout-default" type="button">Defaults</button>
       <button id="loadout-start" type="button">Start</button>
     </div>
     <div id="loadout-groups"></div>
-    <div id="loadout-note">Magazine, layout, shield budget, hits to wreck and turrets fit both ships; shield budget and hits to wreck are run-time overrides of js/data.js within their approved ranges. Turrets off: the beam-only probe. The range, facing and dodge orders are yours (Fire flies them; Evade flies broadside and dodge); the enemy holds 900 m, bow-on, dodging. The seed times each ship's dodge; Restart adds 1.</div>
+    <div id="loadout-note">Both ships are R1d-A on the kernel's loop (js/battle.js): you start on Fire, the enemy is js/enemy.js at personality 0.5 each. Shield budget and hits to wreck are run-time overrides of js/data.js within their approved ranges, for both ships. Your verbs: scan a zone, target a known room, switch preset. The seed draws the enemy's dodge intervals; Restart adds 1.</div>
   </div>
 </div>
 <div id="export-panel" hidden>
@@ -57,7 +59,7 @@
     <button id="export-copy" type="button">Copy</button>
     <button id="export-close" type="button">Close</button>
   </div>
-  <div id="export-note">Send this text to the lead designer: proto/replay.mjs replays the battle from it. The battle is paused.</div>
+  <div id="export-note">Send this text to the lead designer: proto/replay.mjs replays it through tools/duel.js (its replay line is inside). The battle is paused.</div>
   <textarea id="export-text" readonly spellcheck="false" aria-label="Export text"></textarea>
 </div>
 <script type="module" src="proto.js"></script>
