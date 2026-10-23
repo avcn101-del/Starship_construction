@@ -1,5 +1,30 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — The overheat route (#291), EMP by section (#292), escape (#293), the mutation run (#294)
+
+- `DECISIONS.md` #294: the full mutation run on the L5b merge `928725c`
+  (`mission0/mutations/2026-10-23-928725c.txt`): 149 KILLED, 7 CHANGED,
+  45 SURVIVED, 2 STALE; the two stale mutations re-targeted at the lines L5b
+  rewrote (`tools/mutations.json`): one KILLED, one SURVIVED as before.
+  `js/data.js`: `thermal.coupledCrewed` 0.2–1 MJ/K (#291); every passing
+  scenario re-recorded. `DESIGN.md` §17 item 45 (f), §18.
+
+- `DECISIONS.md` #293: escape as a battle outcome (the owner): the
+  `disengage` order, the rule beyond `battle.cullDistance` for
+  `battle.disabledSeconds` counted beyond it, the enemy's rule by resolve,
+  a loss in E5; H11 `L4.route.escape` in L5d's plan. `DESIGN.md` §13n.1 (d),
+  (e), §13n.4, §18. `tools/estimates/l5.mjs` (3) prints the plate thickness
+  it uses.
+
+- `DECISIONS.md` #291: the owner's option 1 on §17 item 43 with a condition;
+  `thermal.coupledCrewed`'s range 0.2–1 MJ/K (`js/data.js`, every passing
+  scenario re-recorded); `L5.route.throughput` as an L5e measure;
+  `tools/estimates/item43.mjs`. #292: EMP disables a section: 2 MJ / 20 m /
+  1.47 MJ (12 m reach), `emp.outageTime` (new, 5 s); W7 and H9 reworded;
+  `tools/estimates/l5.mjs` (4) prints the section reach on R1. `DESIGN.md`
+  §13k.2, §13n.1 (c), (d), (e), §13n.2, §13n.3, §13n.4, §17 item 43, §18.
+  `IDEAS.md`: the tracking-mines idea (the design partner, `00864e8`).
+
 ## Unreleased — 2026-10-23 — L5b merged: the senses and the knowledge model (#290)
 
 - `js/sensors.js` (new): IR and EM point sources, passive resolution at

@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.kinetic.chord.loss.v2",
-  "code": "a1174e7+dirty",
+  "code": "d4a6dea",
   "criterionHash": "69aa0831",
   "lockedHash": "69aa0831",
   "runHash": "defaec69",
-  "dataHash": "57b28bb3",
+  "dataHash": "b2b17548",
   "rowsHash": "b14fd0b4",
   "rows": [
     {

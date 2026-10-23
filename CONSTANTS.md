@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `ec30c3f`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `d4a6dea`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -39,7 +39,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | thermal.coupledBeamBay | 1000000 | J/K | 500000 | 3000000 | 3 | true | per beam bay cell: 2.5 t of accelerator at 400 J/(kg K) (#243) |
 | thermal.coupledEngine | 1400000 | J/K | 500000 | 4000000 | 3 | true | per engine cell: 3.1 t of machinery at 450 J/(kg K) (#243) |
 | thermal.coupledShieldGenerator | 3200000 | J/K | 1000000 | 6000000 | 3 | true | per shield generator cell: 7 t of machinery at 450 J/(kg K); no real analogue (#202, #243) |
-| thermal.coupledCrewed | 600000 | J/K | 200000 | 2000000 | 3 | true | per bridge, quarters, turret or missile bay cell: the old value kept, air (0.15 MJ/K) and fittings; no source found (#243) |
+| thermal.coupledCrewed | 600000 | J/K | 200000 | 1000000 | 3 | true | per bridge, quarters, turret or missile bay cell: the old value kept, air (0.15 MJ/K) and fittings; no source found (#243). Range narrowed 2e6 -> 1e6 (#291): the overheat route through the bridge (L4.route.overheat.v3) holds only below about 1 MJ/K; a mass-consistent value (14.8 t x 450 J/(kg K) = 6.66 MJ/K) is above the range and the owner's (17 item 43) |
 | thermal.coupledMagazine | 600000 | J/K | 200000 | 2000000 | 3 | true | per magazine cell: 900 kg of rounds (0.4 MJ/K) and racks (#243) |
 | thermal.coupledHold | 1350000 | J/K | 500000 | 3000000 | 3 | true | per hold cell: 3 t of structure, nothing else (#243) |
 | thermal.coupledHeatSink | 1350000 | J/K | 500000 | 3000000 | 3 | true | per heat sink cell before its water: 3 t of structure; x heatsink.capacityFactor, the water adding as before (#198, #243) |

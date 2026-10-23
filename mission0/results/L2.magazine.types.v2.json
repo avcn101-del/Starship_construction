@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.magazine.types.v2",
-  "code": "a1174e7+dirty",
+  "code": "d4a6dea",
   "criterionHash": "3954370a",
   "lockedHash": "3954370a",
   "runHash": "61f1b7f5",
-  "dataHash": "57b28bb3",
+  "dataHash": "b2b17548",
   "rowsHash": "9e92b27e",
   "rows": [
     {

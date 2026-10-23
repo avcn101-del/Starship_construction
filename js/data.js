@@ -125,7 +125,7 @@ export const PARAMS = {
     coupledBeamBay: P(1.0e6, 5e5, 3e6, 3, 'J/K', true, 'per beam bay cell: 2.5 t of accelerator at 400 J/(kg K) (#243)'),
     coupledEngine: P(1.4e6, 5e5, 4e6, 3, 'J/K', true, 'per engine cell: 3.1 t of machinery at 450 J/(kg K) (#243)'),
     coupledShieldGenerator: P(3.2e6, 1e6, 6e6, 3, 'J/K', true, 'per shield generator cell: 7 t of machinery at 450 J/(kg K); no real analogue (#202, #243)'),
-    coupledCrewed: P(6e5, 2e5, 2e6, 3, 'J/K', true, 'per bridge, quarters, turret or missile bay cell: the old value kept, air (0.15 MJ/K) and fittings; no source found (#243)'),
+    coupledCrewed: P(6e5, 2e5, 1e6, 3, 'J/K', true, 'per bridge, quarters, turret or missile bay cell: the old value kept, air (0.15 MJ/K) and fittings; no source found (#243). Range narrowed 2e6 -> 1e6 (#291): the overheat route through the bridge (L4.route.overheat.v3) holds only below about 1 MJ/K; a mass-consistent value (14.8 t x 450 J/(kg K) = 6.66 MJ/K) is above the range and the owner\'s (17 item 43)'),
     coupledMagazine: P(6e5, 2e5, 2e6, 3, 'J/K', true, 'per magazine cell: 900 kg of rounds (0.4 MJ/K) and racks (#243)'),
     coupledHold: P(1.35e6, 5e5, 3e6, 3, 'J/K', true, 'per hold cell: 3 t of structure, nothing else (#243)'),
     coupledHeatSink: P(1.35e6, 5e5, 3e6, 3, 'J/K', true, 'per heat sink cell before its water: 3 t of structure; x heatsink.capacityFactor, the water adding as before (#198, #243)'),

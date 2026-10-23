@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.crew.capacity",
-  "code": "a1174e7+dirty",
+  "code": "d4a6dea",
   "criterionHash": "709d5033",
   "lockedHash": "709d5033",
   "runHash": "13ab4f53",
-  "dataHash": "57b28bb3",
+  "dataHash": "b2b17548",
   "rowsHash": "0c4bf7b3",
   "rows": [
     {

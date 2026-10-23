@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.beam.range",
-  "code": "a1174e7",
+  "code": "d4a6dea",
   "criterionHash": "d12ff666",
   "lockedHash": "d12ff666",
   "runHash": "b6989c7d",
-  "dataHash": "57b28bb3",
+  "dataHash": "b2b17548",
   "rowsHash": "807e1a62",
   "rows": [
     {
