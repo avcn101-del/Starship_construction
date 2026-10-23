@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — the prototype page and cross-engine determinism (#310)
+
+- `DECISIONS.md` #310: the prototype page on the L5d loop (PR #96) waits
+  for `m0/det-math`, which replaces the kernel's implementation-approximated
+  `Math` functions by deterministic ones; `DESIGN.md` §18.
+
 ## Unreleased — 2026-10-23 — L5d merged: the helm and the enemy (#309)
 
 - Kernel (PR #94): the symmetric loop, `js/helm.js` (twelve standing

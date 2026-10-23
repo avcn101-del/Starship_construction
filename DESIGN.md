@@ -2092,3 +2092,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 307 | The style slot (orbit and strafe ignore the position slot; engage at a deviation ≥ v_t, let go within a dt), repair priority `none` by default, and the escape count only while ordered; on the fix round's questions | current |
 | 308 | H20 pins the escape count's reset on a re-order; the 1e-9 float margin on "at least v_t" confirmed | current |
 | 309 | L5d merged (PR #94): the helm and the enemy, H1–H20 and H9′; three §13m rows the plan gave L5d without a case moved to L5e; the fix rounds' weak checks in §17 item 50 | report |
+| 310 | The prototype page on the kernel loop (PR #96); `L0.determinism`'s duel on the kernel loop; cross-engine `Math` differences fixed in its own pass `m0/det-math` (deterministic atan2, cbrt, exp, log, hypot; `L0.determinism.v2`) | in force |
