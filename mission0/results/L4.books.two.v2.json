@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.books.two.v2",
-  "code": "4e217c0",
+  "code": "17c09e0",
   "criterionHash": "8640465c",
   "lockedHash": "8640465c",
   "runHash": "d4490342",
-  "dataHash": "d4c5176f",
-  "rowsHash": "e3a2eb14",
+  "dataHash": "e6752b27",
+  "rowsHash": "452cd0c2",
   "rows": [
     {
       "case": {
@@ -24,12 +24,12 @@
         "hits": 12
       },
       "actual": {
-        "worst": 4.495177563512698e-10,
-        "gross": 115287.10081651944,
+        "worst": 4.913389402879729e-10,
+        "gross": 115878.83217217561,
         "hits": 12,
         "passed": 0,
         "misses": 0,
-        "omega": 0.009262305550069244,
+        "omega": 0.00804171150260739,
         "t": 33.11666666666667,
         "ended": "disabled"
       },
@@ -50,12 +50,12 @@
         "hits": null
       },
       "actual": {
-        "worst": 4.3025147589164004e-8,
-        "gross": 19279760.29973521,
-        "hits": 10,
-        "passed": 10,
-        "misses": 18,
-        "omega": 0.006147963197823494,
+        "worst": 1.4298096125671219e-8,
+        "gross": 18494562.354844138,
+        "hits": 11,
+        "passed": 11,
+        "misses": 17,
+        "omega": 0.005294800064433311,
         "t": 60,
         "ended": null
       },

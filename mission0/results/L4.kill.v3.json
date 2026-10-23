@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.kill.v3",
-  "code": "4e217c0",
+  "code": "17c09e0",
   "criterionHash": "881043ad",
   "lockedHash": "881043ad",
   "runHash": "a3946529",
-  "dataHash": "d4c5176f",
-  "rowsHash": "3b8c6057",
+  "dataHash": "e6752b27",
+  "rowsHash": "cfd07278",
   "rows": [
     {
       "case": {
@@ -174,7 +174,7 @@
         "breach": 786,
         "detonation": {
           "cause": "shot-7",
-          "speed": 799.9954974492766,
+          "speed": 799.9711174092259,
           "step": 786
         },
         "holds": "shot-4",
@@ -211,7 +211,7 @@
       "actual": {
         "ended": null,
         "endOf": null,
-        "fraction": 0.7680013015623162,
+        "fraction": 0.7615871959650286,
         "booms": [],
         "breach": null,
         "detonation": null,
@@ -224,7 +224,7 @@
           },
           {
             "cause": "beam-1",
-            "t": 59.11666666666667
+            "t": 59.1
           },
           {
             "cause": "beam-1",
@@ -232,7 +232,7 @@
           },
           {
             "cause": "beam-1",
-            "t": 63.38333333333333
+            "t": 63.35
           }
         ],
         "rounds": 0,

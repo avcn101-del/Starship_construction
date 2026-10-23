@@ -1,0 +1,243 @@
+{
+  "id": "L4.cascade.v4",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.cascade.v4",
+  "code": "17c09e0",
+  "criterionHash": "178c8132",
+  "lockedHash": "178c8132",
+  "runHash": "416aade2",
+  "dataHash": "e6752b27",
+  "rowsHash": "f41b01cc",
+  "rows": [
+    {
+      "case": {
+        "battle": "B1"
+      },
+      "expected": {
+        "end": "disabled",
+        "rooms": [
+          "beamBay",
+          "bridge",
+          "engine",
+          "heatSink",
+          "hold",
+          "magazine",
+          "quarters",
+          "reactor",
+          "shield",
+          "turret"
+        ],
+        "disabledParent": "control-lost:turret"
+      },
+      "actual": {
+        "errors": 0,
+        "events": 58,
+        "ended": "disabled",
+        "side": "T",
+        "chain": [
+          "disabled:turret",
+          "control-lost:turret",
+          "cell-destroyed:bridge",
+          "shot-12"
+        ],
+        "explosions": 0,
+        "magazineCells": 0,
+        "lost": [
+          "beamBay",
+          "bridge",
+          "engine",
+          "heatSink",
+          "hold",
+          "magazine",
+          "quarters",
+          "reactor",
+          "shield",
+          "turret"
+        ],
+        "scramParent": "control-lost:reactor",
+        "throughCut": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "battle": "B6"
+      },
+      "expected": {
+        "end": "destroyed"
+      },
+      "actual": {
+        "errors": 0,
+        "events": 91,
+        "ended": "destroyed",
+        "side": "T",
+        "chain": [
+          "destroyed:reactor",
+          "explosion:reactor",
+          "cell-destroyed:reactor",
+          "explosion:magazine",
+          "detonation:magazine",
+          "shot-1"
+        ],
+        "explosions": 2,
+        "magazineCells": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "battle": "B2"
+      },
+      "expected": {
+        "end": "disabled"
+      },
+      "actual": {
+        "errors": 0,
+        "events": 88,
+        "ended": "disabled",
+        "side": "T",
+        "chain": [
+          "disabled:turret",
+          "cell-destroyed:turret",
+          "shot-26"
+        ],
+        "explosions": 0,
+        "magazineCells": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "battle": "B3"
+      },
+      "expected": {
+        "end": "disabled"
+      },
+      "actual": {
+        "errors": 0,
+        "events": 32,
+        "ended": "disabled",
+        "side": "T",
+        "chain": [
+          "disabled:beamBay",
+          "control-lost:heatSink",
+          "cell-destroyed:hold",
+          "shot-4"
+        ],
+        "explosions": 0,
+        "magazineCells": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "battle": "B4"
+      },
+      "expected": {
+        "end": "disabled"
+      },
+      "actual": {
+        "errors": 0,
+        "events": 2005,
+        "ended": "disabled",
+        "side": "T",
+        "chain": [
+          "disabled:turret",
+          "control-lost:turret",
+          "control-lost:bridge",
+          "shutdown:bridge",
+          "overheated:bridge",
+          "heat"
+        ],
+        "explosions": 0,
+        "magazineCells": 0,
+        "underShutdown": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "battle": "B5"
+      },
+      "expected": {
+        "end": "disabled"
+      },
+      "actual": {
+        "errors": 0,
+        "events": 161,
+        "ended": "disabled",
+        "side": "T",
+        "chain": [
+          "disabled:turret",
+          "shot:turret",
+          "turret:shot-154"
+        ],
+        "explosions": 0,
+        "magazineCells": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "battle": "R1d rounds"
+      },
+      "expected": {
+        "end": "destroyed"
+      },
+      "actual": {
+        "errors": 0,
+        "events": 107,
+        "ended": "destroyed",
+        "side": "T",
+        "chain": [
+          "destroyed:reactor",
+          "explosion:reactor",
+          "cell-destroyed:reactor",
+          "explosion:magazine",
+          "detonation:magazine",
+          "shot-7"
+        ],
+        "explosions": 2,
+        "magazineCells": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "battle": "R1d beam"
+      },
+      "expected": {
+        "end": null
+      },
+      "actual": {
+        "errors": 0,
+        "events": 3809,
+        "ended": null,
+        "side": null,
+        "chain": [],
+        "explosions": 0,
+        "magazineCells": 4
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

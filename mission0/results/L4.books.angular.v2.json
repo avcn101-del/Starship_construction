@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.books.angular.v2",
-  "code": "f27238b",
+  "code": "17c09e0",
   "criterionHash": "a9358bf4",
   "lockedHash": "a9358bf4",
   "runHash": "850e738e",
-  "dataHash": "d4c5176f",
-  "rowsHash": "5f4ea132",
+  "dataHash": "e6752b27",
+  "rowsHash": "e8f7df76",
   "rows": [
     {
       "case": {
@@ -27,14 +27,14 @@
         "omega": null
       },
       "actual": {
-        "off": 2.3092638912203256e-14,
+        "off": 1.7763568394002505e-14,
         "booked": 24,
         "edge": 5,
-        "worst": 4.323665052652359e-7,
-        "gross": 51791058801.92278,
+        "worst": 3.470340743660927e-7,
+        "gross": 51232137080.39835,
         "hits": 12,
         "passed": 0,
-        "omega": 0.009262305550069244,
+        "omega": 0.00804171150260739,
         "t": 33.11666666666667,
         "ended": "disabled"
       },
@@ -58,14 +58,14 @@
         "omega": 0.001
       },
       "actual": {
-        "off": 4.263256414560601e-13,
-        "booked": 14,
+        "off": 2.4726887204451486e-12,
+        "booked": 15,
         "edge": 5,
-        "worst": 0.000007951632142066956,
-        "gross": 76012693047.08525,
-        "hits": 10,
-        "passed": 10,
-        "omega": 0.006147963197823494,
+        "worst": 0.0000025369226932525635,
+        "gross": 70902992938.43082,
+        "hits": 11,
+        "passed": 11,
+        "omega": 0.005294800064433311,
         "t": 60,
         "ended": null
       },
@@ -89,14 +89,14 @@
         "omega": 0.5
       },
       "actual": {
-        "off": 5.115907697472721e-13,
-        "booked": 15,
+        "off": 3.728928277269006e-11,
+        "booked": 30,
         "edge": 5,
-        "worst": 0.0000020116567611694336,
-        "gross": 67699804877.472305,
-        "hits": 10,
-        "passed": 10,
-        "omega": 0.5217019755694533,
+        "worst": 0.0000030994415283203125,
+        "gross": 67862389709.21077,
+        "hits": 24,
+        "passed": 24,
+        "omega": 0.6616713912902951,
         "t": 60,
         "ended": null
       },

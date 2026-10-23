@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.route.split.v3",
-  "code": "4e217c0",
+  "code": "17c09e0",
   "criterionHash": "b6859789",
   "lockedHash": "b6859789",
   "runHash": "e99a5476",
-  "dataHash": "d4c5176f",
-  "rowsHash": "cba8e68a",
+  "dataHash": "e6752b27",
+  "rowsHash": "e93a783b",
   "rows": [
     {
       "case": {
@@ -26,8 +26,8 @@
         "split": {
           "step": 426,
           "bodies": 2,
-          "dP": 9.096057172999542e-13,
-          "gross": 4689.409108058476,
+          "dP": 9.10493354219929e-13,
+          "gross": 4691.067333040206,
           "cause": "shot-4",
           "launched": 4,
           "hits": 4
@@ -58,8 +58,8 @@
         "split": {
           "step": 427,
           "bodies": 2,
-          "dP": 1.064381843325282,
-          "gross": 19202.940463427734,
+          "dP": 1.3734161579433946,
+          "gross": 19282.310860745834,
           "cause": "shot-4",
           "launched": 4,
           "hits": 4

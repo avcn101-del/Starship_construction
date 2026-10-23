@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.control.rules",
-  "code": "4e217c0",
+  "code": "17c09e0",
   "criterionHash": "e07f4002",
   "lockedHash": "e07f4002",
   "runHash": "a2b6c48a",
-  "dataHash": "d4c5176f",
-  "rowsHash": "8a47d01a",
+  "dataHash": "e6752b27",
+  "rowsHash": "a5b18b1f",
   "rows": [
     {
       "case": {
@@ -71,9 +71,9 @@
         "dt": 0.016666666666666666
       },
       "actual": {
-        "dOmega": 0.0025742351026570697,
-        "arm": -1.1841664847830131,
-        "I": 115001780.87470937,
+        "dOmega": 0.002153882536977073,
+        "arm": -0.8039543380139555,
+        "I": 93314552.23439063,
         "F": 15000000
       },
       "pass": true,
@@ -89,8 +89,8 @@
       },
       "actual": {
         "dOmega": 0,
-        "arm": -1.1841664847830131,
-        "I": 115001780.87470937,
+        "arm": -0.8039543380139555,
+        "I": 93314552.23439063,
         "F": 15000000
       },
       "pass": true,

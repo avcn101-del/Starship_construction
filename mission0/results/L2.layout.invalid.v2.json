@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.layout.invalid.v2",
-  "code": "4e217c0",
+  "code": "17c09e0",
   "criterionHash": "61e8868b",
   "lockedHash": "61e8868b",
   "runHash": "b14d0c52",
-  "dataHash": "d4c5176f",
+  "dataHash": "e6752b27",
   "rowsHash": "8e237231",
   "rows": [
     {

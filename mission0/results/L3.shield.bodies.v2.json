@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.shield.bodies.v2",
-  "code": "4e217c0",
+  "code": "17c09e0",
   "criterionHash": "b2479f9a",
   "lockedHash": "b2479f9a",
   "runHash": "df357355",
-  "dataHash": "d4c5176f",
+  "dataHash": "e6752b27",
   "rowsHash": "74c73bad",
   "rows": [
     {

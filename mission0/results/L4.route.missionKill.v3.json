@@ -1,0 +1,121 @@
+{
+  "id": "L4.route.missionKill.v3",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.missionKill.v3",
+  "code": "17c09e0",
+  "criterionHash": "a139c27d",
+  "lockedHash": "a139c27d",
+  "runHash": "3585dcee",
+  "dataHash": "e6752b27",
+  "rowsHash": "7be663ca",
+  "rows": [
+    {
+      "case": {
+        "target": "R1d",
+        "bearing": "+y"
+      },
+      "expected": {
+        "kind": "disabled",
+        "must": [
+          "beamBay",
+          "turret"
+        ],
+        "why": "destroyed",
+        "shot": "shot-26",
+        "launched": 26,
+        "step": 3666,
+        "gap": 600
+      },
+      "actual": {
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "t": 61.1,
+          "step": 3666,
+          "why": "destroyed",
+          "by": null
+        },
+        "turretCell": {
+          "cause": "shot-26",
+          "step": 3066
+        },
+        "launchedBy": 26,
+        "explosions": 0,
+        "engine": {
+          "destroyed": false,
+          "controlled": true,
+          "shutdown": false,
+          "active": true,
+          "powered": true
+        },
+        "destroyed": [
+          "beamBay",
+          "turret"
+        ],
+        "crossed": [
+          "beamBay",
+          "hold",
+          "magazine",
+          "turret"
+        ],
+        "able": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "target": "R1",
+        "bearing": "+y"
+      },
+      "expected": {
+        "kind": "destroyed",
+        "threshold": 400,
+        "loss": 331.493,
+        "literal": 468.507,
+        "shot": "shot-9",
+        "step": 1026
+      },
+      "actual": {
+        "ended": {
+          "kind": "destroyed",
+          "side": "T",
+          "t": 17.1,
+          "step": 1026,
+          "why": null,
+          "by": "explosion"
+        },
+        "detonation": {
+          "room": "magazine",
+          "cause": "shot-9",
+          "speed": 468.4326166923567
+        },
+        "hit": {
+          "path": [
+            "turret",
+            "turret",
+            "magazine",
+            "magazine",
+            "hold",
+            "hold"
+          ],
+          "passed": 5,
+          "toHull": 799.9255940140284
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

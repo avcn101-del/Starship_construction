@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5m: the routes the turret's mount moves (#286)
+
+- Scenarios: `L4.route.missionKill.v3` (the mission kill on R1d from +y:
+  Disabled in step 3666 with the engine working, the turret's last cell by
+  shot-26; R1 from +y kept as a case destroyed by its magazine, the round
+  entering at v_rel − 331.493 m/s, about 468.5 m/s, by shot-9 in step 1026),
+  `L4.route.overheat.v3` (overheat through R1's bridge from −y: the bridge
+  shut down by heat in step 1379, above the bound C_surv ΔT / (P_beam +
+  P_own) = 14.118 s, control lost, the reactor SCRAMmed, Disabled with
+  `no-control` in step 1979, the root `heat`; T-gun's turret kept as a case
+  the beam destroys, Disabled in step 1411) and `L4.cascade.v4` (B2 and B4
+  replaced by these). Their predecessors withdrawn under #286.
+- `js/data.js`, notes only: `cellMass.crewed` no longer names the turret;
+  `battle.openingRange` cites #270 (9); `cellMass.reactor` says its 1130 t
+  compartment is a secondary, contested source (#281 (1)). No value, range
+  or exponent changed; every standing scenario re-recorded (data hash).
+
 ## Unreleased — 2026-10-23 — L5m's route question answered (#286)
 
 - `DECISIONS.md` #286: mission kill on R1d, overheat through R1's bridge;
@@ -11,6 +28,28 @@
 - `DESIGN.md` §5.2's magazine row and §13c's detonation row say the rule
   L5a built (#278, #283); `STATUS.md`'s next steps and next boundary;
   `.claude/agents/design-partner.md` reads §13m and §13n instead of §13k.
+
+## Unreleased — 2026-10-22 — L5m, mass pass 2: the turret by its mount (#285)
+
+- `js/data.js`: `turret.machineryMass` (new, 1975 kg per cell, 1750–2500,
+  k = 3, approved as the plan's, #272 (2)): the OTO Melara 76/62 Super
+  Rapid's 7.9 t over an M turret's four cells; `ROOMS.turret.cellMass` is
+  `['structure.cellMass', 'turret.machineryMass']`, as the engine's. A turret
+  cell is 4975 kg (was 14 800), σ 199 kg/m²: an M round passes both turret
+  cells and exits at 468.5 m/s. R1 911 234.057 kg, R1c 1 225 234.057 kg,
+  R1d 1 421 484.057 kg at T1. The heat capacity stays
+  `thermal.coupledCrewed`.
+- Scenarios (`DESIGN.md` §13n.4 M1, M2): `L0.turret.mount` (new) and twelve
+  successors, literals hand-worked from the cell masses: `L3.r1.pinned.v2`,
+  `L3.mass.props.v6`, `L3.r1c.props.v2`, `L4.readout.blueprint.v2`,
+  `L3.recoil.v6`, `L3.thrust.v6`, `L3.rcs.turn.v6`, `L3.split.momentum.v6`,
+  `L3.fragment.rules.v4`, `L3.destroyed.mass.v2`, `L3.shield.energy.v2`,
+  `L4.hit.oblique.v3`; their originals withdrawn under #285; 100 scenarios
+  re-recorded. `L4.cascade.v3`, `L4.route.missionKill.v2` and
+  `L4.route.overheat.v2` fail on the change (their routes change) and wait
+  on the designer.
+- `tools/mutations.json`: `l5m.turret.crewed`, `l5m.turret.noMachinery`,
+  `l5m.turret.mountValue`. `CONSTANTS.md` regenerated.
 
 ## Unreleased — 2026-10-22 — L5m planned (#285)
 

@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.fragment.scram.v2",
-  "code": "4e217c0",
+  "code": "17c09e0",
   "criterionHash": "e1d33ce8",
   "lockedHash": "e1d33ce8",
   "runHash": "a74d2034",
-  "dataHash": "d4c5176f",
-  "rowsHash": "484620cc",
+  "dataHash": "e6752b27",
+  "rowsHash": "a069f807",
   "rows": [
     {
       "case": {
@@ -165,8 +165,8 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 0,
-          "dL": 0.0000019222497940063477
+          "dP": 2.9103830456733704e-11,
+          "dL": 0.00001080334186553955
         }
       },
       "pass": true,
@@ -320,8 +320,8 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 6.746787680787904e-8,
-          "dL": 0.000016003847122192383
+          "dP": 6.143906154658885e-8,
+          "dL": 0.00002002716064453125
         }
       },
       "pass": true,
@@ -482,8 +482,8 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 1.4551915228366852e-11,
-          "dL": 0.000010013580322265625
+          "dP": 9.404861270482958e-10,
+          "dL": 0.000011712312698364258
         }
       },
       "pass": true,
@@ -617,8 +617,8 @@
           "mass": true,
           "momentum": true,
           "angular": true,
-          "dP": 6.244724472701628e-8,
-          "dL": 0.0001010894775390625
+          "dP": 1.9631254861139354e-7,
+          "dL": 0.00007212162017822266
         }
       },
       "pass": true,

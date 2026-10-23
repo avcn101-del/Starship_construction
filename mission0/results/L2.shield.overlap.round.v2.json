@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.shield.overlap.round.v2",
-  "code": "4e217c0",
+  "code": "17c09e0",
   "criterionHash": "1aa2fa08",
   "lockedHash": "1aa2fa08",
   "runHash": "a6f85d79",
-  "dataHash": "d4c5176f",
+  "dataHash": "e6752b27",
   "rowsHash": "1809e7bb",
   "rows": [
     {

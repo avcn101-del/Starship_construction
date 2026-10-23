@@ -3,12 +3,12 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.shield.nobody.v2",
-  "code": "4e217c0",
+  "code": "17c09e0",
   "criterionHash": "485017b0",
   "lockedHash": "485017b0",
   "runHash": "ed88fbdc",
-  "dataHash": "d4c5176f",
-  "rowsHash": "4f439080",
+  "dataHash": "e6752b27",
+  "rowsHash": "7913b7e9",
   "rows": [
     {
       "case": {
@@ -25,7 +25,7 @@
         "found": {
           "velocity": 268.7418936446176,
           "paid": 1703333.383800915,
-          "heat": 1703327.283674552,
+          "heat": 1703327.238694878,
           "moved": true,
           "external": true,
           "field": [

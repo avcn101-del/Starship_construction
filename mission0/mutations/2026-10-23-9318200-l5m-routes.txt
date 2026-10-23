@@ -1,0 +1,17 @@
+# Mutation coverage (tools/mutate.js, #246 (1))
+
+head 9318200, 2026-10-23
+command: node tools/mutate.js --only l5m.turret.crewed,l5m.turret.noMachinery,l5m.turret.mountValue --out mission0/mutations/2026-10-23-9318200-l5m-routes.txt
+baseline: 116 scenarios VERIFIED by regress, every one PASS with its recorded results in an unmutated copy
+wall time: 2.8 min
+classes: KILLED = some verdict is not PASS (a criterion noticed); CHANGED = every verdict PASS but some output moved from its record (not coverage: no criterion noticed, #257); SURVIVED = every verdict PASS, every output as recorded; STALE = the edit no longer applies; TIMEOUT
+
+id                      rule                                              class     first killing scenario, or the changed scenarios
+l5m.turret.crewed       13n.4 M1-M2 (#285): the turret by its mount       KILLED    L0.turret.mount (FAIL)
+l5m.turret.noMachinery  13n.4 M1-M2 (#285): the turret by its mount       KILLED    L0.turret.mount (FAIL)
+l5m.turret.mountValue   13n.4 M1-M2 (#285): turret.machineryMass 1975 kg  KILLED    L0.turret.mount (FAIL)
+
+total 3: KILLED 3, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0
+
+per DESIGN section:
+  §13n.4   3: KILLED 3, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0

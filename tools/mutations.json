@@ -1442,5 +1442,26 @@
     "file": "js/rooms.js",
     "old": "ship.energy.work += 0.5 * b.M",
     "new": "ship.energy.work += 0 * b.M"
+  },
+  {
+    "id": "l5m.turret.crewed",
+    "rule": "13n.4 M1-M2 (#285): the turret by its mount",
+    "file": "js/data.js",
+    "old": "draw: 'turret.powerDraw', cellMass: ['structure.cellMass', 'turret.machineryMass']",
+    "new": "draw: 'turret.powerDraw', cellMass: 'cellMass.crewed'"
+  },
+  {
+    "id": "l5m.turret.noMachinery",
+    "rule": "13n.4 M1-M2 (#285): the turret by its mount",
+    "file": "js/data.js",
+    "old": "draw: 'turret.powerDraw', cellMass: ['structure.cellMass', 'turret.machineryMass']",
+    "new": "draw: 'turret.powerDraw', cellMass: ['structure.cellMass']"
+  },
+  {
+    "id": "l5m.turret.mountValue",
+    "rule": "13n.4 M1-M2 (#285): turret.machineryMass 1975 kg",
+    "file": "js/data.js",
+    "old": "machineryMass: P(1975, 1750, 2500, 3,",
+    "new": "machineryMass: P(2000, 1750, 2500, 3,"
   }
 ]
