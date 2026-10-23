@@ -300,6 +300,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.helm.dodge` | ffeb1382 | PASS | 15efcdcc | f7833b3 | none | `node tools/m0.js run L4.helm.dodge` |
 | `L4.helm.drift` | a840b449 | PASS | aa3c1daa | e069f42 | none | `node tools/m0.js run L4.helm.drift` |
 | `L4.helm.range` | ad3f90bd | PASS | b66a47c6 | f7833b3 | none | `node tools/m0.js run L4.helm.range` |
+| `L4.helm.style` | a1186a41 | PASS | 8a0f8128 | d9bf90f | none | `node tools/m0.js run L4.helm.style` |
 | `L4.hit.oblique.v2` | 343f56f3 | PASS, WITHDRAWN (successor `L4.hit.oblique.v3`, #285) | 25808f08 | 4e217c0 | none | `node tools/m0.js run L4.hit.oblique.v2` |
 | `L4.hit.oblique.v3` | 00ba8e73 | PASS | 25808f08 | f7833b3 | none | `node tools/m0.js run L4.hit.oblique.v3` |
 | `L4.hit.oblique` | 9a4080f8 | PASS, WITHDRAWN (successor `L4.hit.oblique.v2`, #278) | a9474250 | c998ff2 | none | `node tools/m0.js run L4.hit.oblique` |
@@ -311,9 +312,10 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.log.v2` | cd91410b | PASS | f3ee00ad | f7833b3 | none | `node tools/m0.js run L4.log.v2` |
 | `L4.log` | f91185ca | PASS, WITHDRAWN (successor `L4.log.v2`, #278) | f3ee00ad | 8af82c8 | none | `node tools/m0.js run L4.log` |
 | `L4.loop.rules` | abb3deaf | PASS | cc74a636 | f7833b3 | none | `node tools/m0.js run L4.loop.rules` |
-| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | 50a503d | none | `node tools/m0.js run L4.loop.symmetric` |
+| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | d9bf90f | none | `node tools/m0.js run L4.loop.symmetric` |
 | `L4.orders.energy` | 0e15c362 | PASS | e9f1b4d6 | f7833b3 | none | `node tools/m0.js run L4.orders.energy` |
 | `L4.orders.fire` | 0ff94ee2 | PASS | db5c937b | f7833b3 | none | `node tools/m0.js run L4.orders.fire` |
+| `L4.orders.repair` | dd15e79f | PASS | 3d5b8059 | d9bf90f | none | `node tools/m0.js run L4.orders.repair` |
 | `L4.plan.model` | eaff9a52 | PASS | 95785ba3 | e069f42 | none | `node tools/m0.js run L4.plan.model` |
 | `L4.play.replay` | 9c10bc11 | PASS | 78837ad5 | f7833b3 | none | `node tools/m0.js run L4.play.replay` |
 | `L4.readout.blueprint.v2` | b510ef6c | PASS | a38be52c | f7833b3 | none | `node tools/m0.js run L4.readout.blueprint.v2` |
