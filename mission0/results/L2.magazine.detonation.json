@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.magazine.detonation",
-  "code": "d4a6dea",
+  "code": "9c21d46",
   "criterionHash": "b4fc16a7",
   "lockedHash": "b4fc16a7",
   "runHash": "4146f07c",
-  "dataHash": "b2b17548",
+  "dataHash": "de116d2a",
   "rowsHash": "ad870883",
   "rows": [
     {

@@ -1,0 +1,408 @@
+{
+  "id": "L0.railgun.slug",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.railgun.slug",
+  "code": "9c21d46",
+  "criterionHash": "5cfd139c",
+  "lockedHash": "5cfd139c",
+  "runHash": "d85719b3",
+  "dataHash": "de116d2a",
+  "rowsHash": "d1705d07",
+  "rows": [
+    {
+      "case": {
+        "N": 2,
+        "col": "crewed"
+      },
+      "expected": {
+        "passed": 3,
+        "stoppedIn": 3
+      },
+      "actual": {
+        "m": 10,
+        "v": 2000,
+        "passed": 3,
+        "stoppedIn": 3,
+        "entry": [
+          2000,
+          1606.3628398519975,
+          1078.188411067277,
+          275.76012367235325
+        ],
+        "detonated": false,
+        "plate": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 2,
+        "col": "bridge"
+      },
+      "expected": {
+        "passed": 4,
+        "stoppedIn": -1,
+        "enter": 1078.188411067277,
+        "index": 2,
+        "detonated": true
+      },
+      "actual": {
+        "m": 10,
+        "v": 2000,
+        "passed": 4,
+        "stoppedIn": -1,
+        "entry": [
+          2000,
+          1606.3628398519975,
+          1078.188411067277,
+          915.5340284872249
+        ],
+        "detonated": true,
+        "plate": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 2,
+        "col": "plate2"
+      },
+      "expected": {
+        "passed": 3,
+        "stoppedIn": -1,
+        "enter": 956.063612445331,
+        "index": 1
+      },
+      "actual": {
+        "m": 10,
+        "v": 2000,
+        "passed": 3,
+        "stoppedIn": -1,
+        "entry": [
+          2000,
+          956.063612445331,
+          710.1525640793463
+        ],
+        "detonated": false,
+        "plate": 0.2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 2,
+        "col": "plate4"
+      },
+      "expected": {
+        "passed": 0,
+        "stoppedIn": 0
+      },
+      "actual": {
+        "m": 10,
+        "v": 2000,
+        "passed": 0,
+        "stoppedIn": 0,
+        "entry": [
+          2000
+        ],
+        "detonated": false,
+        "plate": 0.4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 2,
+        "col": "reactor"
+      },
+      "expected": {
+        "passed": 0,
+        "stoppedIn": 0
+      },
+      "actual": {
+        "m": 10,
+        "v": 2000,
+        "passed": 0,
+        "stoppedIn": 0,
+        "entry": [
+          2000
+        ],
+        "detonated": false,
+        "plate": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 4,
+        "col": "crewed"
+      },
+      "expected": {
+        "passed": 3,
+        "stoppedIn": 3
+      },
+      "actual": {
+        "m": 10,
+        "v": 2828.42712474619,
+        "passed": 3,
+        "stoppedIn": 3,
+        "entry": [
+          2828.42712474619,
+          2434.789964598188,
+          1906.6155358134674,
+          1104.1872484185437
+        ],
+        "detonated": false,
+        "plate": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 4,
+        "col": "bridge"
+      },
+      "expected": {
+        "passed": 4,
+        "stoppedIn": -1,
+        "enter": 1906.6155358134674,
+        "index": 2,
+        "detonated": true
+      },
+      "actual": {
+        "m": 10,
+        "v": 2828.42712474619,
+        "passed": 4,
+        "stoppedIn": -1,
+        "entry": [
+          2828.42712474619,
+          2434.789964598188,
+          1906.6155358134674,
+          1743.9611532334154
+        ],
+        "detonated": true,
+        "plate": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 4,
+        "col": "plate2"
+      },
+      "expected": {
+        "passed": 3,
+        "stoppedIn": -1,
+        "enter": 1784.4907371915215,
+        "index": 1
+      },
+      "actual": {
+        "m": 10,
+        "v": 2828.42712474619,
+        "passed": 3,
+        "stoppedIn": -1,
+        "entry": [
+          2828.42712474619,
+          1784.4907371915215,
+          1538.5796888255368
+        ],
+        "detonated": false,
+        "plate": 0.2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 4,
+        "col": "plate4"
+      },
+      "expected": {
+        "passed": 0,
+        "stoppedIn": 0
+      },
+      "actual": {
+        "m": 10,
+        "v": 2828.42712474619,
+        "passed": 0,
+        "stoppedIn": 0,
+        "entry": [
+          2828.42712474619
+        ],
+        "detonated": false,
+        "plate": 0.4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 4,
+        "col": "reactor"
+      },
+      "expected": {
+        "passed": 0,
+        "stoppedIn": 0
+      },
+      "actual": {
+        "m": 10,
+        "v": 2828.42712474619,
+        "passed": 0,
+        "stoppedIn": 0,
+        "entry": [
+          2828.42712474619
+        ],
+        "detonated": false,
+        "plate": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 6,
+        "col": "crewed"
+      },
+      "expected": {
+        "passed": 3,
+        "stoppedIn": 3
+      },
+      "actual": {
+        "m": 10,
+        "v": 3464.1016151377544,
+        "passed": 3,
+        "stoppedIn": 3,
+        "entry": [
+          3464.1016151377544,
+          3070.464454989752,
+          2542.2900262050316,
+          1739.8617388101077
+        ],
+        "detonated": false,
+        "plate": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 6,
+        "col": "bridge"
+      },
+      "expected": {
+        "passed": 4,
+        "stoppedIn": -1,
+        "enter": 2542.2900262050316,
+        "index": 2,
+        "detonated": true
+      },
+      "actual": {
+        "m": 10,
+        "v": 3464.1016151377544,
+        "passed": 4,
+        "stoppedIn": -1,
+        "entry": [
+          3464.1016151377544,
+          3070.464454989752,
+          2542.2900262050316,
+          2379.63564362498
+        ],
+        "detonated": true,
+        "plate": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 6,
+        "col": "plate2"
+      },
+      "expected": {
+        "passed": 3,
+        "stoppedIn": -1,
+        "enter": 2420.1652275830857,
+        "index": 1
+      },
+      "actual": {
+        "m": 10,
+        "v": 3464.1016151377544,
+        "passed": 3,
+        "stoppedIn": -1,
+        "entry": [
+          3464.1016151377544,
+          2420.1652275830857,
+          2174.254179217101
+        ],
+        "detonated": false,
+        "plate": 0.2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 6,
+        "col": "plate4"
+      },
+      "expected": {
+        "passed": 0,
+        "stoppedIn": 0
+      },
+      "actual": {
+        "m": 10,
+        "v": 3464.1016151377544,
+        "passed": 0,
+        "stoppedIn": 0,
+        "entry": [
+          3464.1016151377544
+        ],
+        "detonated": false,
+        "plate": 0.4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "N": 6,
+        "col": "reactor"
+      },
+      "expected": {
+        "passed": 0,
+        "stoppedIn": 0
+      },
+      "actual": {
+        "m": 10,
+        "v": 3464.1016151377544,
+        "passed": 0,
+        "stoppedIn": 0,
+        "entry": [
+          3464.1016151377544
+        ],
+        "detonated": false,
+        "plate": null
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

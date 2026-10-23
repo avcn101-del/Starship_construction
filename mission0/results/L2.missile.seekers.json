@@ -1,0 +1,202 @@
+{
+  "id": "L2.missile.seekers",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.missile.seekers",
+  "code": "9c21d46",
+  "criterionHash": "f436332f",
+  "lockedHash": "f436332f",
+  "runHash": "4a85a679",
+  "dataHash": "de116d2a",
+  "rowsHash": "6727441a",
+  "rows": [
+    {
+      "case": {
+        "seeker": "ir",
+        "with": true
+      },
+      "expected": {
+        "seeker": "ir",
+        "with": true
+      },
+      "actual": {
+        "steps": 453,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "panel"
+        ],
+        "last": "panel:8",
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "ir",
+        "with": false
+      },
+      "expected": {
+        "seeker": "ir",
+        "with": false
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette"
+        ],
+        "last": "silhouette",
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "radar",
+        "with": true
+      },
+      "expected": {
+        "seeker": "radar",
+        "with": true
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette",
+          "zone-1"
+        ],
+        "last": "zone-1",
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "radar",
+        "with": false
+      },
+      "expected": {
+        "seeker": "radar",
+        "with": false
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette"
+        ],
+        "last": "silhouette",
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "antiRadiation",
+        "with": true
+      },
+      "expected": {
+        "seeker": "antiRadiation",
+        "with": true
+      },
+      "actual": {
+        "steps": 453,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "antenna"
+        ],
+        "last": "antenna:21",
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "antiRadiation",
+        "with": false
+      },
+      "expected": {
+        "seeker": "antiRadiation",
+        "with": false
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette"
+        ],
+        "last": "silhouette",
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "designated",
+        "with": true
+      },
+      "expected": {
+        "seeker": "designated",
+        "with": true
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette",
+          "magazine"
+        ],
+        "last": "magazine",
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "designated",
+        "with": false
+      },
+      "expected": {
+        "seeker": "designated",
+        "with": false
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette"
+        ],
+        "last": "silhouette",
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

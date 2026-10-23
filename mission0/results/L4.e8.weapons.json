@@ -1,0 +1,39 @@
+{
+  "id": "L4.e8.weapons",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.e8.weapons",
+  "code": "9c21d46",
+  "criterionHash": "a42e9273",
+  "lockedHash": "a42e9273",
+  "runHash": "b442bc71",
+  "dataHash": "de116d2a",
+  "rowsHash": "509fe074",
+  "rows": [
+    {
+      "case": {
+        "tier": "T1"
+      },
+      "expected": {
+        "budget": 1
+      },
+      "actual": {
+        "under": true,
+        "launched": 6,
+        "engaged": true
+      },
+      "pass": true,
+      "note": "measured 0.4410 ms per step over 1800 steps (T1); 4 x Intel(R) Xeon(R) Processor @ 2.10GHz, Node v22.22.0, linux x64"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

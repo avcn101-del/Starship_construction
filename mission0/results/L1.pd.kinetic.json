@@ -1,0 +1,71 @@
+{
+  "id": "L1.pd.kinetic",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.pd.kinetic",
+  "code": "9c21d46",
+  "criterionHash": "f3759ef6",
+  "lockedHash": "f3759ef6",
+  "runHash": "dfa0713b",
+  "dataHash": "de116d2a",
+  "rowsHash": "d435ab2c",
+  "rows": [
+    {
+      "case": {
+        "arc": "in"
+      },
+      "expected": {
+        "killed": true,
+        "hp": 600000,
+        "killR": 15.275252316519467,
+        "steps": 36
+      },
+      "actual": {
+        "killed": {
+          "by": "flak",
+          "dose": 1999226.4194902543,
+          "t": 1.0833333333333333
+        },
+        "warhead": false,
+        "flak": 3,
+        "ammo": 37,
+        "bursts": [
+          0.19670788480966944
+        ],
+        "energy": null,
+        "P": 1000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "arc": "out"
+      },
+      "expected": {
+        "killed": false
+      },
+      "actual": {
+        "killed": null,
+        "warhead": true,
+        "flak": 0,
+        "ammo": 40,
+        "bursts": [],
+        "energy": null,
+        "P": 1000000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

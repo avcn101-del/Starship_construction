@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.heat.neighbour.v3",
-  "code": "d4a6dea",
+  "code": "9c21d46",
   "criterionHash": "ba4103a3",
   "lockedHash": "ba4103a3",
   "runHash": "2dea296f",
-  "dataHash": "b2b17548",
+  "dataHash": "de116d2a",
   "rowsHash": "97acd8d1",
   "rows": [
     {

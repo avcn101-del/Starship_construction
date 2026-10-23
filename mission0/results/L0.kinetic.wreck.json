@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.kinetic.wreck",
-  "code": "d4a6dea",
+  "code": "9c21d46",
   "criterionHash": "23f3723a",
   "lockedHash": "23f3723a",
   "runHash": "351c9e8e",
-  "dataHash": "b2b17548",
+  "dataHash": "de116d2a",
   "rowsHash": "60c1c36a",
   "rows": [
     {

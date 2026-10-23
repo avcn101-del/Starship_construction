@@ -1,0 +1,899 @@
+{
+  "id": "L0.rounds.types",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.rounds.types",
+  "code": "9c21d46",
+  "criterionHash": "80207337",
+  "lockedHash": "80207337",
+  "runHash": "dea921cc",
+  "dataHash": "de116d2a",
+  "rowsHash": "fc1f8577",
+  "rows": [
+    {
+      "case": {
+        "type": "standard",
+        "part": "crewed"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 705.3969338291275,
+        "crewMag": 333.2915402236956,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 1,
+        "stoppedIn": 1,
+        "entry": [
+          800,
+          333.2915402236959
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "standard",
+        "part": "holds"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 705.3969338291275,
+        "crewMag": 333.2915402236956,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 6,
+        "stoppedIn": 6,
+        "entry": [
+          800,
+          705.3969338291275,
+          604.6248714321235,
+          496.82313740499967,
+          380.93743213318317,
+          255.65704448033227,
+          119.32436886346669
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "standard",
+        "part": "holdMag"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 705.3969338291275,
+        "crewMag": 333.2915402236956,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 3,
+        "stoppedIn": -1,
+        "entry": [
+          800,
+          705.3969338291275,
+          604.6248714321235
+        ],
+        "detonated": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "standard",
+        "part": "crewMag"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 705.3969338291275,
+        "crewMag": 333.2915402236956,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 3,
+        "stoppedIn": -1,
+        "entry": [
+          800,
+          333.2915402236959,
+          197.75599807110416
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "standard",
+        "part": "plate"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 705.3969338291275,
+        "crewMag": 333.2915402236956,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 0,
+        "stoppedIn": 0,
+        "entry": [
+          800
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "standard",
+        "part": "fire"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 705.3969338291275,
+        "crewMag": 333.2915402236956,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "types": [
+          "standard"
+        ],
+        "J": 4800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "ap",
+        "part": "crewed"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 8,
+        "holdMag": 727.8043485099912,
+        "crewMag": 443.8347859826238,
+        "crewDet": true,
+        "times": [
+          0,
+          3,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 1,
+        "stoppedIn": 1,
+        "entry": [
+          800,
+          443.8347859826238
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "ap",
+        "part": "holds"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 8,
+        "holdMag": 727.8043485099912,
+        "crewMag": 443.8347859826238,
+        "crewDet": true,
+        "times": [
+          0,
+          3,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 8,
+        "stoppedIn": -1,
+        "entry": [
+          800,
+          727.8043485099912,
+          652.0706008515377,
+          572.4341030710129,
+          488.47076364699234,
+          399.6833937840889,
+          305.48388448884043,
+          205.1695989449196
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "ap",
+        "part": "holdMag"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 8,
+        "holdMag": 727.8043485099912,
+        "crewMag": 443.8347859826238,
+        "crewDet": true,
+        "times": [
+          0,
+          3,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 3,
+        "stoppedIn": -1,
+        "entry": [
+          800,
+          727.8043485099912,
+          652.0706008515377
+        ],
+        "detonated": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "ap",
+        "part": "crewMag"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 8,
+        "holdMag": 727.8043485099912,
+        "crewMag": 443.8347859826238,
+        "crewDet": true,
+        "times": [
+          0,
+          3,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 3,
+        "stoppedIn": -1,
+        "entry": [
+          800,
+          443.8347859826238,
+          350.01653022396084
+        ],
+        "detonated": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "ap",
+        "part": "plate"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 8,
+        "holdMag": 727.8043485099912,
+        "crewMag": 443.8347859826238,
+        "crewDet": true,
+        "times": [
+          0,
+          3,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 0,
+        "stoppedIn": 0,
+        "entry": [
+          800
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "ap",
+        "part": "fire"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 8,
+        "holdMag": 727.8043485099912,
+        "crewMag": 443.8347859826238,
+        "crewDet": true,
+        "times": [
+          0,
+          3,
+          6
+        ],
+        "J": 4800,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "times": [
+          0,
+          3,
+          6
+        ],
+        "types": [
+          "ap"
+        ],
+        "J": 4800
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "he",
+        "part": "crewed"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 5,
+        "holdMag": 680.8076055467202,
+        "crewMag": 211.9841873638196,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 2400,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 1,
+        "stoppedIn": 1,
+        "entry": [
+          800,
+          211.98418736381964
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "he",
+        "part": "holds"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 5,
+        "holdMag": 680.8076055467202,
+        "crewMag": 211.9841873638196,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 2400,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 5,
+        "stoppedIn": 5,
+        "entry": [
+          800,
+          680.8076055467202,
+          551.653699747585,
+          410.72136589423076,
+          255.6467138437791,
+          83.27483959290241
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "he",
+        "part": "holdMag"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 5,
+        "holdMag": 680.8076055467202,
+        "crewMag": 211.9841873638196,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 2400,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 3,
+        "stoppedIn": -1,
+        "entry": [
+          800,
+          680.8076055467202,
+          551.653699747585
+        ],
+        "detonated": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "he",
+        "part": "crewMag"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 5,
+        "holdMag": 680.8076055467202,
+        "crewMag": 211.9841873638196,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 2400,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 2,
+        "stoppedIn": 2,
+        "entry": [
+          800,
+          211.98418736381964,
+          19.582278380401476
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "he",
+        "part": "plate"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 5,
+        "holdMag": 680.8076055467202,
+        "crewMag": 211.9841873638196,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 2400,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 0,
+        "stoppedIn": 0,
+        "entry": [
+          800
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "he",
+        "part": "fire"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 5,
+        "holdMag": 680.8076055467202,
+        "crewMag": 211.9841873638196,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 2400,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "types": [
+          "he"
+        ],
+        "J": 2400
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "sabot",
+        "part": "crewed"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 920.8076055467201,
+        "crewMag": 451.98418736381956,
+        "crewDet": true,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 6240,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 1,
+        "stoppedIn": 1,
+        "entry": [
+          1040,
+          451.9841873638197
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "sabot",
+        "part": "holds"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 920.8076055467201,
+        "crewMag": 451.98418736381956,
+        "crewDet": true,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 6240,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 6,
+        "stoppedIn": 6,
+        "entry": [
+          1040,
+          920.8076055467203,
+          791.653699747585,
+          650.7213658942308,
+          495.6467138437791,
+          323.2748395929024,
+          129.26259497609115
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "sabot",
+        "part": "holdMag"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 920.8076055467201,
+        "crewMag": 451.98418736381956,
+        "crewDet": true,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 6240,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 3,
+        "stoppedIn": -1,
+        "entry": [
+          1040,
+          920.8076055467203,
+          791.653699747585
+        ],
+        "detonated": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "sabot",
+        "part": "crewMag"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 920.8076055467201,
+        "crewMag": 451.98418736381956,
+        "crewDet": true,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 6240,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 3,
+        "stoppedIn": -1,
+        "entry": [
+          1040,
+          451.9841873638197,
+          259.5822783804015
+        ],
+        "detonated": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "sabot",
+        "part": "plate"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 920.8076055467201,
+        "crewMag": 451.98418736381956,
+        "crewDet": true,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 6240,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "passed": 0,
+        "stoppedIn": 0,
+        "entry": [
+          1040
+        ],
+        "detonated": false
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "sabot",
+        "part": "fire"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 6,
+        "holdMag": 920.8076055467201,
+        "crewMag": 451.98418736381956,
+        "crewDet": true,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 6240,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "types": [
+          "sabot"
+        ],
+        "J": 6240
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "type": "he",
+        "part": "burst"
+      },
+      "expected": {
+        "crewed": 1,
+        "holds": 5,
+        "holdMag": 680.8076055467202,
+        "crewMag": 211.9841873638196,
+        "crewDet": false,
+        "times": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "J": 2400,
+        "burst": 2000000,
+        "entered": 1000000
+      },
+      "actual": {
+        "burst": {
+          "room": "bridge",
+          "energy": 2000000,
+          "entered": 1000000
+        },
+        "stopRoom": "bridge",
+        "type": "he",
+        "blast": {
+          "room": "bridge",
+          "energy": 1000000,
+          "escaped": 0,
+          "cause": "shot-1",
+          "absorbed": {
+            "bridge": 1000000
+          },
+          "capacity": {
+            "beamBay": 2200000,
+            "bridge": 5316488.868284173,
+            "engine": 3420000,
+            "heatSink": 1716005.7333970377,
+            "hold": 1200000,
+            "magazine": 1200000,
+            "quarters": 8880000,
+            "reactor": 60000000,
+            "shield": 4000000,
+            "turret": 1990000
+          }
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

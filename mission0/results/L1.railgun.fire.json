@@ -1,0 +1,128 @@
+{
+  "id": "L1.railgun.fire",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.railgun.fire",
+  "code": "9c21d46",
+  "criterionHash": "c0320b04",
+  "lockedHash": "c0320b04",
+  "runHash": "834aeedd",
+  "dataHash": "de116d2a",
+  "rowsHash": "dfd7455a",
+  "rows": [
+    {
+      "case": {
+        "part": "fire",
+        "N": 2
+      },
+      "expected": {
+        "v": 2000,
+        "draw": 6666666.666666668,
+        "times": [
+          0,
+          10,
+          20
+        ],
+        "gone": 30
+      },
+      "actual": {
+        "slugs": [
+          {
+            "t": 0,
+            "v": 2000
+          },
+          {
+            "t": 10,
+            "v": 2000
+          },
+          {
+            "t": 20,
+            "v": 2000
+          }
+        ],
+        "draw": 6666666.666666668,
+        "gone": 30,
+        "m": 10
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "fire",
+        "N": 4
+      },
+      "expected": {
+        "v": 2828.42712474619,
+        "draw": 13333333.333333336,
+        "times": [
+          0,
+          10,
+          20
+        ],
+        "gone": 30
+      },
+      "actual": {
+        "slugs": [
+          {
+            "t": 0,
+            "v": 2828.42712474619
+          },
+          {
+            "t": 10,
+            "v": 2828.42712474619
+          },
+          {
+            "t": 20,
+            "v": 2828.42712474619
+          }
+        ],
+        "draw": 13333333.333333336,
+        "gone": 30,
+        "m": 10
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "heat",
+        "N": 2
+      },
+      "expected": {
+        "t": 1195.7142857142856
+      },
+      "actual": {
+        "t": 1195.7166666666667,
+        "shots": 120
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "heat",
+        "N": 4
+      },
+      "expected": {
+        "t": 1195.7142857142856
+      },
+      "actual": {
+        "t": 1195.7166666666667,
+        "shots": 120
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

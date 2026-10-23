@@ -1,0 +1,128 @@
+{
+  "id": "L4.shield.window",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.shield.window",
+  "code": "9c21d46",
+  "criterionHash": "963d673a",
+  "lockedHash": "963d673a",
+  "runHash": "1843643f",
+  "dataHash": "de116d2a",
+  "rowsHash": "054abd93",
+  "rows": [
+    {
+      "case": {
+        "part": "own"
+      },
+      "expected": {
+        "shielded": false
+      },
+      "actual": {
+        "full": 10000000,
+        "min": 10000000,
+        "shots": 1,
+        "windows": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "turret",
+        "when": "now"
+      },
+      "expected": {
+        "shielded": false
+      },
+      "actual": {
+        "key": "9,4|1,0",
+        "open": [
+          "9,4|1,0"
+        ],
+        "hit": {
+          "speed": 799.9957812445322,
+          "afterShield": 799.9957812445322
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "turret",
+        "when": "next"
+      },
+      "expected": {
+        "shielded": true
+      },
+      "actual": {
+        "key": "9,4|1,0",
+        "open": [],
+        "hit": {
+          "speed": 799.999156938943,
+          "afterShield": 495.9159969514215
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "beam",
+        "seg": "open"
+      },
+      "expected": {
+        "shielded": false
+      },
+      "actual": {
+        "hit": {
+          "speed": 800,
+          "afterShield": 800
+        },
+        "firing": [
+          "10,2|1,0 10,3|1,0"
+        ],
+        "beamWindows": [
+          "10,2|1,0",
+          "10,3|1,0"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "beam",
+        "seg": "closed"
+      },
+      "expected": {
+        "shielded": true
+      },
+      "actual": {
+        "hit": {
+          "speed": 800,
+          "afterShield": 481.7404817404821
+        },
+        "firing": [
+          "10,2|1,0 10,3|1,0"
+        ],
+        "beamWindows": [
+          "10,2|1,0",
+          "10,3|1,0"
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

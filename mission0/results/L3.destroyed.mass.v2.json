@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.destroyed.mass.v2",
-  "code": "d4a6dea",
+  "code": "9c21d46",
   "criterionHash": "2d2f16c8",
   "lockedHash": "2d2f16c8",
   "runHash": "f43b466c",
-  "dataHash": "b2b17548",
+  "dataHash": "de116d2a",
   "rowsHash": "1d7da0c3",
   "rows": [
     {
