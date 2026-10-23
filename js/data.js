@@ -172,6 +172,17 @@ export const PARAMS = {
     machineryMass: P(2.7e3, 1.5e3, 6e3, 2, 'kg', true, 'engine per cell: a 15 MN engine at the F-1\'s vacuum thrust per kg (7.77 MN / 8.4 t, 925 N/kg) over 6 cells; k = 2 with the thrust; a cell is structure.cellMass + this (#243, F11, F23)'),
     powerDraw: P(1e7, 2e6, 4e7, 2, 'W', true, 'at full throttle; ships have no propellant (#140, #183)'),
     heatFraction: P(0.3, 0.1, 1, 0, '', true, 'heat per watt drawn (#183)'),
+    exhaustVelocity: P(1e4, 3e3, 3e4, 0, 'm/s', true, 'a fusion torch\'s jet (chemical 4.5, nuclear-thermal 9, fusion 10-100+ km/s); its jet power, thrust x this / 2 (75 GW at T1 at full thrust), is the exhaust\'s IR brightness, a point at the exhaust face\'s centre (13n.1 (a), #203 A, #278, #289; approved as the plan\'s, #272 (2))'),
+  },
+  // Senses (L5b, js/sensors.js, DESIGN.md 13n.1 (a), #278, #289): passive at d^-2 against the sensitivity, active by
+  // zone at d^4. Approved as the plan's (#272 (2)).
+  sensor: {
+    area: P(4, 1, 16, 2, 'm^2', true, 'one antenna fitting\'s aperture, a phone-sized fitting on a 5 m segment: an estimate; it receives P x this / (4 pi d^2) from a source of power P at d (13n.1 (a), #278, #289; approved as the plan\'s, #272 (2))'),
+    sensitivity: P(1e-3, 1e-4, 1e-2, 2, 'W', true, 'the least received power an antenna resolves, IR and EM alike; chosen so a panel at rest fades at 1.7 km (the band\'s top) and one at plant hot holds to 7.3 km; no source beyond the chosen band (13n.1 (a), #278, #289; approved as the plan\'s, #272 (2))'),
+    scanPower: P(1e5, 2e4, 5e5, 2, 'W', true, 'an antenna\'s draw from its host while it scans (heat in the host), and its EM brightness: a ship radar\'s peak at a tenth (13n.1 (a), #278, #289; approved as the plan\'s, #272 (2))'),
+    scanTime: P(4, 2, 10, 0, 's', true, 'one zone at sensor.scanRange; at d a zone takes this x (d / scanRange)^4, the radar law (13n.1 (a), #278, #289; approved as the plan\'s, #272 (2))'),
+    scanRange: P(900, 500, 2000, 1, 'm', true, 'the reference range, battle.openingRange\'s band; k = 1 so a zone at the same distance in cells takes the same time at every tier (#273 (3), 13n.1 (a), #278, #289; approved as the plan\'s, #272 (2))'),
+    mass: P(1e3, 250, 4e3, 2, 'kg', true, 'one antenna fitting at its edge\'s midpoint, 250 kg/m^2 of aperture: an estimate, no source (#289; approved as the plan\'s, #272 (2))'),
   },
   turret: {
     fireRate: P(0.5, 0.2, 2, -1, '1/s', true, 'size M; big guns fire slower (#183)'),

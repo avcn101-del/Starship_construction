@@ -68,3 +68,12 @@ export const TARGETS = {
 };
 // The attacker of every L4b battle: R1d, the reference ship of L4b (#261).
 export const ATTACKER = TARGETS.R1d;
+
+// L5b (13n.1 (a), #289): an antenna fitting on the hold's -y edge of cell (8, 0), one of the hold's six free open edges,
+// its edge midpoint at grid (42.5, 0) m at T1. R1d-A is the L4 attacker with it (S2-S9's observer and scanner), R1-A
+// the reference ship with it (a target that sees back).
+export const HOLD_ANTENNA = ['antenna', 'hold', [8, 0], [0, -1]];
+export const SENSOR_SHIPS = {
+  'R1d-A': { rooms: R1_ROOMS, fittings: [...R1_FITTINGS, ...R1C_PLATES, ...R1D_PLATES, HOLD_ANTENNA] },
+  'R1-A': { rooms: R1_ROOMS, fittings: [...R1_FITTINGS, HOLD_ANTENNA] },
+};
