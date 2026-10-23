@@ -1,7 +1,9 @@
 # Changelog
 
-## Unreleased — 2026-10-23 — L5d probed and planned (#301–#304)
+## Unreleased — 2026-10-23 — L5d probed and planned (#301–#305)
 
+- #305: the Cold Brick joins E5's degenerate builds (the design partner's
+  proposal); `DESIGN.md` §13n.1 (e), §18.
 - #304: #297's reason corrected (radiators do not overheat a ship inside a
   battle; the design partner's check, `tools/estimates/radiators.mjs`); L5e's
   plume measure reports it. `DESIGN.md` §13n.1 (e), §18.
