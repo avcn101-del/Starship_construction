@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5c fix round 2 (#298)
+
+- Scenarios: `L1.pd.kinetic.v2` (successor of `L1.pd.kinetic`: the dose law
+  enforced, the dose at the kill the sum of E / (1 + (d_i / flak.radius)^2)
+  over the bursts at 1e-12) and `L2.missile.seekers.v2` (successor of
+  `L2.missile.seekers`: the hand-worked final IR point (17.5, 0) and
+  anti-radiation point (42.5, 0) on the target's pose). Both predecessors
+  withdrawn under #298. The crossing case of #298 (1) and `L2.pd.saturation`
+  (W9b) are not built: questions in pull request #88.
+- `mission0/targets.js`: `missileShip3` (R1-M3, three missile bays).
+  `tools/mutations.json`: `l5c.flak.doseExponent`, `l5c.seeker.panelPosition`.
+
 ## Unreleased — 2026-10-23 — L5c fix round (#296)
 
 - `js/data.js`: `pd.range` (600 m, 300–1500, k 1; `approved: true` as the
