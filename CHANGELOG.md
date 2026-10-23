@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5m: the routes the turret's mount moves (#286)
+
+- Scenarios: `L4.route.missionKill.v3` (the mission kill on R1d from +y:
+  Disabled in step 3666 with the engine working, the turret's last cell by
+  shot-26; R1 from +y kept as a case destroyed by its magazine, the round
+  entering at v_rel − 331.493 m/s, about 468.5 m/s, by shot-9 in step 1026),
+  `L4.route.overheat.v3` (overheat through R1's bridge from −y: the bridge
+  shut down by heat in step 1379, above the bound C_surv ΔT / (P_beam +
+  P_own) = 14.118 s, control lost, the reactor SCRAMmed, Disabled with
+  `no-control` in step 1979, the root `heat`; T-gun's turret kept as a case
+  the beam destroys, Disabled in step 1411) and `L4.cascade.v4` (B2 and B4
+  replaced by these). Their predecessors withdrawn under #286.
+- `js/data.js`, notes only: `cellMass.crewed` no longer names the turret;
+  `battle.openingRange` cites #270 (9); `cellMass.reactor` says its 1130 t
+  compartment is a secondary, contested source (#281 (1)). No value, range
+  or exponent changed; every standing scenario re-recorded (data hash).
+
 ## Unreleased — 2026-10-22 — L5m, mass pass 2: the turret by its mount (#285)
 
 - `js/data.js`: `turret.machineryMass` (new, 1975 kg per cell, 1750–2500,
