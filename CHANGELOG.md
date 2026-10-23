@@ -16,7 +16,10 @@
   `STATUS.md`: this lead designer chat took over.
 - `IDEAS.md` (the design partner, `4670d7a`): the battle screen, an outside
   view plus a knowledge panel, the layout the owner chose from the mockups;
-  presentation, after Mission 0, nothing built now.
+  presentation, after Mission 0, nothing built now. Two follow-ups to the
+  same row (`0701f39`: a tell strip, a dynamic camera, a zone zoom;
+  `d506a7c`: the outside hull drawn smooth, the inside kept on the cell
+  grid, adding to #45).
 
 ## Unreleased — 2026-10-23 — The mutation run on the L5c merge (#300)
 
