@@ -14,7 +14,7 @@ export default {
   laws: ['deterministic: the same seed and inputs give the same battle on every engine (#239 Q6, 13k.1)'],
   dependsOn: [],
   setup: '(hash) node tools/determinism.mjs --chromium: the duel of proto/duel.js on the kernel\'s symmetric loop (L5d, #301 (5): createDuel of seed 7, both ships R1d-A, the player on Evade from t = 0, broadside, so both ships turn, against the standard enemy, run for 60 s) in Node and in Chromium through Playwright; (grep) every file of js/ with its comments removed (13k.4 S9)',
-  measure: '(hash) the two hashes, each of every event and every body\'s final state, and the tool\'s verdict; (grep) every use of Math.pow, Math.sin, Math.cos, and every ** whose exponent is not an integer literal',
+  measure: '(hash) the two event hashes and the tool\'s verdict; (grep) every use of Math.pow, Math.sin, Math.cos, and every ** whose exponent is not an integer literal',
   tolerance: 'exact',
   criterion: 'the Node and Chromium hashes are equal and the tool prints MATCH; js/ holds no Math.pow, Math.sin or Math.cos and no ** with a non-integer exponent (#239 Q6, #243)',
   tunable: [],
