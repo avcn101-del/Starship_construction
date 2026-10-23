@@ -2,6 +2,10 @@
 
 ## Unreleased — 2026-10-23 — L5d probed and planned (#301–#306)
 
+- `IDEAS.md` restructured (the design partner, `3fabc06`, the owner's ask):
+  an index table, one section per worked idea, the short lists for ideas not
+  yet worked, deferred or rejected, and moved out; the same 18 ideas, stale
+  text citing the decisions since.
 - `IDEAS.md` (the design partner, `3eb77de`): the hull radiates, fed by
   cooling manifolds, with a heat-sink cascade; a law call for the owner
   later, nothing built now.
