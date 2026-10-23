@@ -1,12 +1,12 @@
 # STATUS — hand-over between chats (#179)
 
 Updated 2026-10-23 by the lead designer chat
-`session_01DFw3o4EBEtf1adcpyJ5786`, which **took over** from
-`session_01VL5M5dKNeREUVf7y1y3P87` at the L5a/L5m block boundary (#247 (2))
-to run L5b. Chain: `session_01Ld11QmhkPubc8PkfKtd7CT`
-→ `session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
-`session_01DFw3o4EBEtf1adcpyJ5786` (this chat; sessions notify it with
-`persistent_session_id` = this id). Read this
+`session_01DFw3o4EBEtf1adcpyJ5786` at the L5c/L5d block boundary, **handing
+over to a new lead designer chat** the owner asked for (#247 (2): this chat's
+context is at about 70 %); the new chat writes its own id here first thing.
+Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` → `session_014nrUDvPgiLEjm64scJFkyW`
+→ `session_01VL5M5dKNeREUVf7y1y3P87` → `session_01DFw3o4EBEtf1adcpyJ5786` →
+the new chat (sessions notify it with `persistent_session_id` = its id). Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## For the owner (five lines, kept at every block, #246 (5))
@@ -17,21 +17,22 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge. **L5b the senses and the knowledge model (PR #84, #289, #290)**: `js/sensors.js`, the antenna fitting, passive IR/EM at d⁻², zones scanned at d⁴ revealing their own cells, one knowledge model per side as a battle setting; S1–S9 all PASS, every literal reproduced blind. **L5c weapons (PR #88, #295, #296, #298, #299)**: the railgun, missiles with seekers and warheads (EMP by section), point defence with a range, the round types with their prices, the firing window, S footprints; 39.06 USD.
-- **Running**: the full `tools/mutate.js` run on the L5c merge (in the lead designer's chat, 1.5–3 hours); its row follows.
-- **Waiting on you**: (1) **the go for L5d** (the helm and the enemy, `tools/play.mjs`, escape #293, the EMP route #292, the bay's power test: 104–144 USD by the rule, 36–51 expected, before the plan is re-costed after its probe); (2) **L5c merged is a block boundary** (#247 (2)): this chat continues into L5d unless you say otherwise (its context is still far from compressed). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#299.
+- **Running**: the full `tools/mutate.js` run on the L5c merge `c1b2c4a` (in the old chat `session_01DFw3o4EBEtf1adcpyJ5786`, started 09:14 UTC, 1.5–3 hours): **the old chat writes its row and report** in a small documentation pull request when it ends; the new chat does not re-run it. Nothing else runs.
+- **Waiting on you**: nothing. You gave **the go for L5d** (2026-10-23) and asked for a new lead designer chat to run it; the prototype page is republished on the L5c kernel (version 6, 0 USD). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#299.
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (1.21), L5b 11.62 (0.65), **L5c 39.06 (1.18)**: L5 so far 89.31. 2026-10-21/23 in all about 256 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
   L4 in all ≥ 64.27 (#191: past 40).
-- **Next**: **L5d the helm and the enemy** (§13n.1 (d), H1–H11, `tools/play.mjs`; the items L5b and L5c left it: §17 items 45, 46) on your go: the plan re-read and probed first, then engineer → blind checker (H4, H8–H11) → reviewer → answers row → merge; then L5e ship versus ship with `tools/sweep.mjs`, the plume (#297), the saturation measure (#299). Cost: L5d 104–144 by the rule, 36–51 expected; L5 in all 421–598 by the rule, 150–228 expected (89.31 spent).
+- **Next**: **L5d the helm and the enemy** (§13n.1 (d), H1–H11, `tools/play.mjs`; escape #293; the EMP route #292; the bay's power test and draw, §17 item 46; what L5b and L5c left, item 45; **and the prototype page republished on the L5d kernel with its enemy reading `enemy.js`**, the owner's ask of 2026-10-23, to be added to L5d's plan so the owner plays on the phone against an enemy that decides): the new chat probes the plan first (#285's lesson), re-costs if the probe disagrees, then engineer → blind checker (H4, H8–H11) → reviewer → answers row → merge → the full mutation run. Cost: L5d 104–144 by the rule, 36–51 expected; L5 in all 421–598 by the rule, 150–228 expected (89.31 spent).
 - **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
   surprised by a prototype): the enemy's choices and the helm's orders (the
   knowledge model and the weapons exist; nothing decides with them yet),
   standing orders and presets, escape, the plume, the economy, the
   campaign, sound and rendering. All planned L5d–L5e (§13n) or after
-  Mission 0. The prototype page (version 5) still runs on the L4b kernel;
-  a republish (no session, 0 USD) is all it needs.
+  Mission 0. The prototype page is **version 6 on the L5c kernel**
+  (republished 2026-10-23, 0 USD; `proto/` unchanged, its enemy still the
+  fixed script): a duel ends by the kernel's rules.
 - **Owner chose** #261 (R1d the pace lever) and #252 (L4: one target per route; EMP and surrender at L5).
   The owner played v2: the magazine always wins in 7.1 s (#254). Pace
   study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
@@ -46,8 +47,9 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   model, physics pass 2, `tools/mutate`, the armour plates (L4a), the L4
   fix round (#272) and the scenario-hygiene round (#276). `regress` on the
   hygiene merge: **109 VERIFIED + 106 WITHDRAWN + 5 RETIRED**.
-- The feel prototype (`proto/`, throwaway, #217) runs on the L4b kernel at
-  https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d (version 5): R1d by
+- The feel prototype (`proto/`, throwaway, #217) runs on the L5c kernel at
+  https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d (version 6, `main`
+  `c1b2c4a`; the page's own label still says feel-5): R1d by
   default, the cascade tree on the end panel; the enemy is a fixed script,
   not an AI (§13j.2), so the player wins by throughput; the owner's phone
   replays MATCH (#263).
@@ -160,10 +162,10 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Next steps
 
-1. **L5c is merged** (#299); the full mutation run on the merge runs in the lead designer's chat and gets its own row (as #284, #288, #294).
-2. **L5d** needs the owner's go (#277 O5). Before any session the lead designer re-reads §13n.1 (d) with #292 (the EMP route), #293 (escape, H11), §17 items 45 (what L5b and L5c left: plan advancement by the model, partial power, `roundEm`, every bay by orders), 46 (the bay's power test and draw) and probes the symmetric loop in a scratch copy (#285's lesson: H1 replays every L4b case on it; which records move); re-costs if the probe disagrees with §13n.5 (raw 26–36).
-3. **Open for the owner later**: the republish of the prototype page on the current kernel (0 USD); phone play against a deciding enemy after L5d (the page republished reading `enemy.js`, to be added to L5d's plan).
-4. Due when their files are touched: §17 items 35 (rest, L5d), 39 (residue), 43 (L5e's throughput measure), 44 (k = 0 reads), 45–47 (L5b's and L5c's leftovers).
+1. **L5c is merged** (#299). The full mutation run on the merge runs in the old chat, which writes its row (the next number after #299) and `mission0/mutations/2026-10-23-c1b2c4a.txt` in a small documentation pull request; the new chat leaves that to it.
+2. **L5d** has the owner's go (2026-10-23). The new chat: (a) reads §13n.1 (d) with #292 (the EMP route: H9 as reworded), #293 (escape: the `disengage` order, H11, the 10 s counted beyond `battle.cullDistance`), #297 (the plume is L5e's, not L5d's), §17 items 45 (plan advancement and every target rule by the model, partial power, `roundEm` enumerable, every bay by orders), 46 (the bay's power test and draw, its cook-off), 44 (k = 0 reads, if the hygiene fits); (b) **amends the plan** with the prototype page republished on the L5d kernel reading `enemy.js` (a `proto/` change: the fixed script replaced by the enemy of §13n.1 (d) at personality 0.5; the republish is the lead designer's act with the Artifact tool, as version 6 was: copy `js/` beside the proto files with the import prefix `../js/` rewritten to `./js/`, `proto.css` as a file); (c) **probes** the symmetric loop in a scratch copy (#285's lesson): H1 replays every L4b case on it, so which records move, and whether H1–H11 can be built as written; re-costs if the probe disagrees with §13n.5 (raw 26–36 plus the items above); (d) then engineer (opus, `m0/l5d-helm`) → blind checker (sonnet, from the lock, H4, H8–H11) → reviewer (sonnet) → answers row → `regress` on the merge → merge → the full mutation run.
+3. **Open for the owner later**: nothing new; the frames of 2026-10-23 are all decided (#291, #292, #293, #297).
+4. Due when their files are touched: §17 items 35 (rest, L5d), 39 (residue), 43 (L5e's throughput measure), 44, 45–47.
 
 ## Scheduled tasks
 
@@ -174,8 +176,8 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
 the old chat's pending check-in was deleted at hand-over; the new chat
-creates its own (`send_later`, 20–45 min after starting a session). This
-chat has no pending check-in (the L5c reviewer's fired at 09:04 UTC after the review was posted).
+creates its own (`send_later`, 20–45 min after starting a session). The old
+chat has no pending check-in; the new chat creates its own.
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
 
@@ -184,17 +186,18 @@ Sessions and costs (the sessions table, the per-level totals and the usage-limit
 At a block boundary (a pass merged, the next not planned) or as soon as
 this chat's context is compressed or it repeats itself. Hand over through
 this file; the new chat re-creates the check-ins (`send_later`), which die
-with the chat that made them. **L5c is merged: this is a boundary.** This
-chat (`session_01DFw3o4EBEtf1adcpyJ5786`) has no pending check-in; its only
-running work is the full mutation run on the L5c merge, whose row the chat
-that reads the report writes. The owner decides whether it continues into
-L5d (the lead designer proposes to continue: its context is far from
-compressed).
+with the chat that made them. **Handed over at the L5c/L5d boundary**
+(2026-10-23, the owner's call: the old chat's context at about 70 %, L5d
+larger than L5c). The old chat (`session_01DFw3o4EBEtf1adcpyJ5786`) keeps
+only the mutation run's row to write. The next natural boundary: **after
+L5d merges**, or earlier if the new chat's context is compressed.
 
 ## Lessons for whoever continues
 
 - **Commit `tools/mutations.json` (and anything in `js`, `tools` or `mission0/scenarios`) before the canonical runs** (#290): the L5b records carry `a1174e7+dirty` because the mutation entries were uncommitted while the records were written; the results are right, the stamp is not clean.
 - **A probe that moves no locked row still pays for itself** (#289): it found that a zone revealing whole rooms would have contradicted S2, that S9 as written could not resolve a shield, and where an antenna can sit on R1d, before the engineer started; L5b landed at 0.65 of its raw estimate.
+- **One chat per pass is about right** (this hand-over): L5b, its probe and its answers cost this chat about 350k tokens of context, L5c about 350k more; a pass with two fix rounds (L5c) reads every PR body and review in full. Hand over at the boundary, not inside a pass.
+- **A fix round whose task names a kernel change must say so in its file list** (#298): fix round 2 could not build W9b because the loop drives one bay and `js/` was off its list; it stopped rightly. Decide the kernel question before the round, or allow the change.
 - **Write the expected count of a scenario from the kernel's own cadence, not from the estimate's window** (#296, #299): the plan's "six missiles over 2.6 s, 4 and 5 killed" assumed a point-defence window the rule did not have and a launch cadence the bay does not have; two fix rounds later the Swarm's law is an L5e measure. An estimate's number that depends on a mechanism not yet in the kernel is a guess: label it, or build the mechanism first.
 - **Count the regress tally before writing it in a task** (#298): the lead designer told the fix round to expect 141 VERIFIED; the right count was 140. Derive it as the engineer did (before − withdrawn + new).
 - **Probe before costing a pass** (#285): apply the planned change in a
