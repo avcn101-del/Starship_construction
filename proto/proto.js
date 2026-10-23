@@ -1,34 +1,42 @@
-// proto/proto.js — the feel prototype v2's page (DESIGN.md 13j, #217, #237):
-// draws the battle of proto/battle.js on a 2D canvas (a world strip of both
-// ships to scale above two head-up grids) and takes the player's three verbs
-// (target a room by tapping it, switch preset, set time), after a loadout
-// panel (both ships' fit, the player's standing orders, the seed) before each
-// battle. A throwaway: it only reads the kernel's state and never counts as a
-// Mission 0 result. No Math.random: the page draws no random effect.
-import { createBattle, tick, setTarget, setPreset, drainEvents, abilities, mainBody, endTree } from './battle.js';
-import { createRecorder, record, exportText } from './export.js';
+// proto/proto.js — the feel prototype's page (DESIGN.md 13j, 13n.1 (d); #217,
+// #237, #301 (5)): drives the kernel's battle (proto/battle.js: js/battle.js's
+// createBattle / tick on the duel of proto/duel.js) and draws it on a 2D canvas
+// (a world strip above two head-up grids). The player's own ship is drawn from
+// its own world; the enemy only as the player's knowledge model knows it
+// (js/sensors.js: the silhouette, the zones resolved, the rooms they revealed
+// with their state at the scan, the IR class of their panels), never its true
+// layout or orders (CLAUDE.md: knowledge, not truth). The player's three verbs
+// (scan a zone, target a known room, switch preset) enter as the kernel's
+// inputs. A throwaway: it never counts as a Mission 0 result. No Math.random:
+// the page draws no random effect.
+import { startBattle, playVerb, tick, mainBody, shotStats, losses, endTree } from './battle.js';
+import { exportText } from './export.js';
+import { weaponStates, toGrid } from '../js/battle.js';
 import { isDestroyed, roomTemperature, survivingFraction } from '../js/rooms.js';
 import { worldPoint } from '../js/body.js';
-import { PRESETS, PRESET_ORDER, SPEEDS, MAX_STEPS_PER_FRAME, LOG_LINES, COLOURS, LABELS, STAND_INS, LOADOUT, LOADOUT_ORDER, defaultLoadout, SEED } from './config.js';
+import { antennas } from '../js/sensors.js';
+import { heatFraction, bufferFraction, observed, silhouettePose } from '../js/helm.js';
+import { PRESET_ORDER, PRESET_LABELS, SPEEDS, MAX_STEPS_PER_FRAME, LOG_LINES, COLOURS, LABELS, STAND_INS, LOADOUT, LOADOUT_ORDER, defaultLoadout, overridesOf, SEED, PROTO_VERSION } from './config.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view'), ctx = canvas.getContext('2d');
 const GAP = 2; // cells of screen between the two head-up grids
 
-// GW x GH: the drawn grid of a ship (its layout), set when a battle starts.
-let battle = null, GW = 0, GH = 0, speed = 1, paused = false, choosing = true, acc = 0, last = null, geo = null;
+let battle = null, speed = 1, paused = false, choosing = true, acc = 0, last = null, geo = null, scanMode = false;
 let loadout = defaultLoadout(), seed = SEED;
-// rec: the battle's recorder (proto/export.js), fed every tick's events; logged: events waiting for the log.
-let rec = null, logged = [], lastExport = null, pausedBeforeExport = false;
+// box: each grid's cell box { x0, y0, W, H }: the player's from its own layout, the enemy's from the model's zones.
+let box = null, logIndex = 0, hitIndex = 0, lastExport = null, pausedBeforeExport = false;
+const me = () => battle.attacker, model = () => battle.attacker.model;
 
 // ---------- controls ----------
 function buttons() {
   $('presets').replaceChildren(...PRESET_ORDER.map((k) => {
     const b = document.createElement('button');
-    b.type = 'button'; b.textContent = PRESETS[k].label; b.dataset.preset = k;
-    b.addEventListener('click', () => { if (!battle || choosing) return; setPreset(battle, battle.player, k); refreshButtons(); });
+    b.type = 'button'; b.textContent = PRESET_LABELS[k]; b.dataset.preset = k;
+    b.addEventListener('click', () => { if (!battle || choosing) return; verb('preset', k); });
     return b;
   }));
+  $('scan').addEventListener('click', () => { scanMode = !scanMode; refreshButtons(); });
   $('speeds').replaceChildren(...SPEEDS.map((s) => {
     const b = document.createElement('button');
     b.type = 'button'; b.textContent = `×${s}`; b.dataset.speed = s;
@@ -58,22 +66,25 @@ function buttons() {
   $('standin-list').replaceChildren(...STAND_INS.map((text) => { const li = document.createElement('li'); li.textContent = text; return li; }));
 }
 function refreshButtons() {
-  for (const b of $('presets').children) b.classList.toggle('on', !!battle && b.dataset.preset === battle.player.preset);
+  for (const b of $('presets').children) b.classList.toggle('on', !!battle && b.dataset.preset === me().helm.orders.name);
   for (const b of $('speeds').children) b.classList.toggle('on', Number(b.dataset.speed) === speed);
+  $('scan').classList.toggle('on', scanMode);
   $('pause').textContent = paused ? 'Run' : 'Pause';
   $('pause').classList.toggle('on', paused);
 }
-
 function refreshLoadout() {
   for (const b of $('loadout-groups').querySelectorAll('button')) b.classList.toggle('on', LOADOUT[b.dataset.lever].options[b.dataset.option].value === loadout[b.dataset.lever]);
 }
 const optionLabel = (k, lo) => LOADOUT[k].options.find((o) => o.value === lo[k]).label;
-/** The loadout and seed in the corner of the battle view (three short lines). */
-function loadoutTag(lo, sd) {
-  return [`seed ${sd} · ${optionLabel('magazine', lo)} · ${optionLabel('layout', lo)}`,
-    `${optionLabel('shieldBudget', lo)} · hits ${optionLabel('hitsToWreck', lo)} · guns ${optionLabel('turrets', lo)}`,
-    `${lo.range} · ${optionLabel('facing', lo)} · ${lo.dodge ? 'dodge' : 'no dodge'}`];
+
+/** A verb of the player's through the kernel's inputs (proto/battle.js playVerb); logged on the page. */
+function verb(name, arg) {
+  const x = playVerb(battle, name, arg);
+  if (!x) return;
+  logLine(`${x.t.toFixed(1)} P you: ${name} ${name === 'preset' ? PRESET_LABELS[arg] : name === 'scan' ? `zone ${arg}` : arg}`, 'P big');
+  if (name === 'preset') refreshButtons();
 }
+
 /** The loadout panel: shown before the first battle and from Restart (the seed moves on by 1); the battle behind it stops. */
 function chooseLoadout() {
   closeExport();
@@ -84,16 +95,19 @@ function chooseLoadout() {
   $('end').hidden = true;
   $('loadout').hidden = false;
 }
-
 function start() {
   const v = Math.floor(Number($('seed').value));
   if (Number.isFinite(v) && v >= 0) seed = v;
-  battle = createBattle({ seed, loadout });
-  rec = createRecorder(battle); logged = [];
-  GW = battle.player.size[0]; GH = battle.player.size[1];
-  choosing = false; acc = 0; last = null; paused = false;
+  battle = startBattle({ seed, overrides: overridesOf(loadout) });
+  const own = [...me().world.layout.occupied.keys()].map((k) => k.split(',').map(Number)), zs = model().zones;
+  const bx = (x0, x1, y0, y1) => ({ x0, y0, W: x1 - x0, H: y1 - y0 });
+  box = {
+    player: bx(Math.min(...own.map((c) => c[0])), Math.max(...own.map((c) => c[0])) + 1, Math.min(...own.map((c) => c[1])), Math.max(...own.map((c) => c[1])) + 1),
+    enemy: bx(Math.min(...zs.map((z) => z.x[0])), Math.max(...zs.map((z) => z.x[1])), Math.min(...zs.map((z) => z.y[0])), Math.max(...zs.map((z) => z.y[1]))),
+  };
+  choosing = false; acc = 0; last = null; paused = false; scanMode = false; logIndex = 0; hitIndex = 0;
   $('loadout').hidden = true;
-  $('lo-tag').replaceChildren(...loadoutTag(battle.loadout, battle.seed).map((t) => { const d = document.createElement('div'); d.textContent = t; return d; }));
+  $('lo-tag').replaceChildren(...[`seed ${battle.seed}`, `${optionLabel('shieldBudget', loadout)} · hits ${optionLabel('hitsToWreck', loadout)}`].map((t) => { const d = document.createElement('div'); d.textContent = t; return d; }));
   $('log').replaceChildren();
   $('end').hidden = true;
   $('hint').hidden = false;
@@ -106,26 +120,29 @@ function layout() {
   if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) { canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); }
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   const line = 14, head = 2 * line + 4, foot = 3 * line + 6, stripMin = 72;
-  const cs = battle ? Math.max(1, Math.floor(Math.min((w - 12) / (2 * GW + GAP), (h - head - foot - stripMin) / GH))) : 1;
+  const GW = battle ? box.player.W + box.enemy.W : 1, GH = battle ? Math.max(box.player.H, box.enemy.H) : 1;
+  const cs = battle ? Math.max(1, Math.floor(Math.min((w - 12) / (GW + GAP), (h - head - foot - stripMin) / GH))) : 1;
   const strip = Math.max(stripMin, h - head - foot - GH * cs);
-  const total = (2 * GW + GAP) * cs, ox = Math.floor((w - total) / 2), oy = strip + head;
-  geo = { w, h, cs, line, oy, strip, ox: { player: ox, enemy: ox + (GW + GAP) * cs } };
+  const total = (GW + GAP) * cs, ox = Math.floor((w - total) / 2), oy = strip + head;
+  geo = { w, h, cs, line, oy, strip, GH, ox: { player: ox, enemy: ox + (box ? box.player.W + GAP : 0) * cs } };
 }
 /** Top-left (px) of grid cell (x, y): the player faces right (y up); the enemy, turned 180 degrees, faces left. */
 function cellXY(side, x, y) {
-  const { cs, oy } = geo, o = geo.ox[side];
-  return side === 'player' ? [o + x * cs, oy + (GH - 1 - y) * cs] : [o + (GW - 1 - x) * cs, oy + y * cs];
+  const { cs, oy } = geo, o = geo.ox[side], b = box[side], i = x - b.x0, j = y - b.y0;
+  return side === 'player' ? [o + i * cs, oy + (b.H - 1 - j) * cs] : [o + (b.W - 1 - i) * cs, oy + j * cs];
 }
-/** Screen point (px) of grid point p (m). */
-function pointXY(ship, p) {
-  const { cs, oy } = geo, o = geo.ox[ship.side], e = ship.world.edge, u = p[0] / e, v = p[1] / e;
-  return ship.side === 'player' ? [o + u * cs, oy + (GH - v) * cs] : [o + (GW - u) * cs, oy + v * cs];
+/** Screen point (px) of grid point p (m) on a side's grid; `edge` the cell edge (m). */
+function pointXY(side, p, edge) {
+  const { cs, oy } = geo, o = geo.ox[side], b = box[side], u = p[0] / edge - b.x0, v = p[1] / edge - b.y0;
+  return side === 'player' ? [o + u * cs, oy + (b.H - v) * cs] : [o + (b.W - u) * cs, oy + v * cs];
 }
-function roomRect(ship, id) {
-  const cells = ship.world.layout.rooms.get(id).cells, pts = cells.map(([x, y]) => cellXY(ship.side, x, y));
-  const x0 = Math.min(...pts.map((p) => p[0])), y0 = Math.min(...pts.map((p) => p[1]));
+/** The screen rectangle of a set of grid cells on a side's grid. */
+function cellsRect(side, cells) {
+  const pts = cells.map(([x, y]) => cellXY(side, x, y)), x0 = Math.min(...pts.map((p) => p[0])), y0 = Math.min(...pts.map((p) => p[1]));
   return [x0, y0, Math.max(...pts.map((p) => p[0])) + geo.cs - x0, Math.max(...pts.map((p) => p[1])) + geo.cs - y0];
 }
+const ownCells = (id) => me().world.layout.rooms.get(id).cells;
+const knownCells = (id) => model().rooms.get(id).cells.map((k) => k.split(',').map(Number));
 
 // ---------- drawing ----------
 const mix = (a, b, f) => a.map((x, i) => Math.round(x + (b[i] - x) * Math.min(1, Math.max(0, f))));
@@ -137,66 +154,126 @@ function tempColour(room) {
   return mix(COLOURS.overheated, COLOURS.critical, (T - overheated) / (critical - overheated));
 }
 const rgb = (c, k = 1) => `rgb(${Math.round(c[0] * k)},${Math.round(c[1] * k)},${Math.round(c[2] * k)})`;
+const FONT = (px, bold = false) => `${bold ? 'bold ' : ''}${px}px ui-monospace, Menlo, Consolas, monospace`;
+function crossCell(x, y, cs) {
+  ctx.fillStyle = COLOURS.destroyed; ctx.fillRect(x, y, cs, cs);
+  ctx.strokeStyle = COLOURS.cross; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(x + 4, y + 4); ctx.lineTo(x + cs - 4, y + cs - 4); ctx.moveTo(x + cs - 4, y + 4); ctx.lineTo(x + 4, y + cs - 4); ctx.stroke();
+}
+function label(rx, ry, rw, rh, top, bottom, colour = COLOURS.text) {
+  ctx.fillStyle = '#000'; ctx.globalAlpha = 0.55; ctx.fillRect(rx + 3, ry + rh / 2 - 12, rw - 6, 24); ctx.globalAlpha = 1;
+  ctx.fillStyle = colour; ctx.font = FONT(10, true); ctx.textAlign = 'center';
+  ctx.fillText(top, rx + rw / 2, ry + rh / 2 - 2);
+  if (bottom) ctx.fillText(bottom, rx + rw / 2, ry + rh / 2 + 9);
+}
 
-function drawShip(ship) {
-  const { cs } = geo, w = ship.world, colour = ship.side === 'player' ? COLOURS.player : COLOURS.enemy;
-  // Shield: an outline around the ship whose brightness is the generator's budget fraction.
-  const sh = ship.room('shield'), s = sh.shield;
-  const up = s.on && !s.down && !isDestroyed(sh);
-  const frac = up ? survivingFraction(sh) * (sh.powerFraction ?? 1) : 0;
-  const [sx, sy] = cellXY(ship.side, ship.side === 'player' ? 0 : GW - 1, ship.side === 'player' ? GH - 1 : 0);
-  ctx.strokeStyle = COLOURS.grid; ctx.lineWidth = 1;
-  ctx.strokeRect(sx - 0.5, sy - 0.5, GW * cs + 1, GH * cs + 1);
+/** The player's own ship from its own world: temperature, integrity, control, shutdown, shield, and its status. */
+function drawOwn() {
+  const s = me(), w = s.world, { cs, line } = geo, b = box.player, o = geo.ox.player;
+  const gens = w.rooms.filter((r) => r.type === 'shieldGenerator'), sh = gens[0];
+  const up = sh && sh.shield.on && !sh.shield.down && !isDestroyed(sh), frac = up ? survivingFraction(sh) * (sh.powerFraction ?? 1) : 0;
+  const [sx, sy] = cellXY('player', b.x0, b.y0 + b.H - 1);
+  ctx.strokeStyle = COLOURS.grid; ctx.lineWidth = 1; ctx.strokeRect(sx - 0.5, sy - 0.5, b.W * cs + 1, b.H * cs + 1);
   if (frac > 0) {
-    ctx.save();
-    ctx.globalAlpha = 0.25 + 0.6 * frac;
-    ctx.strokeStyle = COLOURS.shield; ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.ellipse(sx + (GW * cs) / 2, sy + (GH * cs) / 2, (GW * cs) / 2 + 8, (GH * cs) / 2 + 8, 0, 0, 2 * Math.PI); ctx.stroke();
-    ctx.restore();
+    ctx.save(); ctx.globalAlpha = 0.25 + 0.6 * frac; ctx.strokeStyle = COLOURS.shield; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.ellipse(sx + (b.W * cs) / 2, sy + (b.H * cs) / 2, (b.W * cs) / 2 + 8, (b.H * cs) / 2 + 8, 0, 0, 2 * Math.PI); ctx.stroke(); ctx.restore();
   }
   for (const room of w.rooms) {
-    const cells = w.layout.rooms.get(room.id).cells, col = tempColour(room);
+    if (!room.placed) continue;
+    const cells = ownCells(room.id), col = tempColour(room);
     room.cells.forEach((c, k) => {
-      const [x, y] = cellXY(ship.side, cells[k][0], cells[k][1]);
-      if (c.destroyed) {
-        ctx.fillStyle = COLOURS.destroyed; ctx.fillRect(x, y, cs, cs);
-        ctx.strokeStyle = COLOURS.cross; ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.moveTo(x + 4, y + 4); ctx.lineTo(x + cs - 4, y + cs - 4); ctx.moveTo(x + cs - 4, y + 4); ctx.lineTo(x + 4, y + cs - 4); ctx.stroke();
-      } else {
+      const [x, y] = cellXY('player', cells[k][0], cells[k][1]);
+      if (c.destroyed) crossCell(x, y, cs);
+      else {
         ctx.fillStyle = rgb(col, 0.35 + 0.65 * c.integrity); ctx.fillRect(x, y, cs, cs);
         if (c.integrity < 1) { ctx.strokeStyle = COLOURS.cross; ctx.lineWidth = 1; ctx.strokeRect(x + 1.5, y + 1.5, cs - 3, cs - 3); }
       }
     });
-    const [rx, ry, rw, rh] = roomRect(ship, room.id);
+    const [rx, ry, rw, rh] = cellsRect('player', cells);
     ctx.strokeStyle = room.controlled ? COLOURS.text : COLOURS.dim; ctx.lineWidth = 2; ctx.strokeRect(rx + 1, ry + 1, rw - 2, rh - 2);
-    if (!isDestroyed(room)) {
-      ctx.fillStyle = '#000'; ctx.globalAlpha = 0.55; ctx.fillRect(rx + 3, ry + rh / 2 - 12, rw - 6, 24); ctx.globalAlpha = 1;
-      ctx.fillStyle = room.shutdown ? COLOURS.cross : COLOURS.text; ctx.font = 'bold 10px ui-monospace, Menlo, Consolas, monospace'; ctx.textAlign = 'center';
-      ctx.fillText(room.shutdown ? `${LABELS[room.id]}!` : LABELS[room.id], rx + rw / 2, ry + rh / 2 - 2);
-      ctx.fillText(`${Math.round(roomTemperature(room))}K`, rx + rw / 2, ry + rh / 2 + 9);
-    }
+    if (!isDestroyed(room)) label(rx, ry, rw, rh, room.shutdown ? `${LABELS[room.id] || room.id}!` : LABELS[room.id] || room.id, `${Math.round(roomTemperature(room))}K`, room.shutdown ? COLOURS.cross : COLOURS.text);
   }
-  // Targets: the player's in yellow on the enemy; the enemy's in its colour on the player.
-  const aimedBy = ship.other.target;
-  if (aimedBy) {
-    const [rx, ry, rw, rh] = roomRect(ship, aimedBy);
-    ctx.save(); ctx.setLineDash([6, 4]); ctx.lineWidth = 4;
-    ctx.strokeStyle = ship.side === 'enemy' ? COLOURS.target : COLOURS.enemy;
-    ctx.strokeRect(rx - 2, ry - 2, rw + 4, rh + 4); ctx.restore();
+  // Above: preset, the helm's mode and throttle, the target the helm holds (from the model).
+  const h = s.helm, tg = h.target && h.target.room ? `${LABELS[model().rooms.get(h.target.room)?.type] || h.target.room}` : h.target && h.target.point ? 'zone centre' : '—';
+  ctx.textAlign = 'left'; ctx.font = FONT(13, true); ctx.fillStyle = COLOURS.player;
+  ctx.fillText(`YOU  ${PRESET_LABELS[h.orders.name] || h.orders.name}${h.held ? ' (holding fire)' : ''}`, o, geo.strip + line);
+  ctx.font = FONT(12); ctx.fillStyle = COLOURS.text;
+  ctx.fillText(`target: ${tg} · ${h.mode || '-'}${h.throttle > 0 ? ` · engine ${Math.round(h.throttle * 100)}%` : ''}`, o, geo.strip + 2 * line);
+  // Below: weapons able, crew, heat and buffer (js/helm.js), shield.
+  const by = geo.oy + geo.GH * cs + line, able = weaponStates(w).map((x) => `${LABELS[x.room.id] || x.room.id} ${x.able ? 'ok' : x.why}`).join(' ');
+  const L = losses(battle, 'A');
+  ctx.fillText(able, o, by);
+  ctx.fillText(`crew ${L.crewTotal - L.crewLost}/${L.crewTotal}  heat ${heatFraction(w).toFixed(2)}  buffer ${bufferFraction(battle, w).toFixed(2)}`, o, by + line);
+  ctx.fillText(`shield ${up ? `${Math.round(frac * 100)}%` : 'OFF'}${sh ? `  absorbing ${((sh.shield.absorbed || 0) / 1e6).toFixed(1)} MW` : ''}`, o, by + 2 * line);
+  if (s.sinceStep !== null && !s.ended) { ctx.fillStyle = COLOURS.cross; ctx.font = FONT(12, true); ctx.fillText(`DISABLED in ${Math.max(0, (battle.disabledSteps - (battle.step - s.sinceStep)) * battle.dt).toFixed(1)} s`, o, by + 3 * line); }
+}
+
+/**
+ * The enemy as the player's model knows it (js/sensors.js): the zones (dashed, resolved ones with the time), the
+ * silhouette's standing cells (grey: unknown), the cells a scan revealed (their room's IR class if its panels are
+ * resolved, else dim; their integrity and destroyed flag at the scan), a known cell the silhouette no longer has
+ * (crossed), the known rooms' outlines and labels, the target, the zone your antenna scans and its progress.
+ */
+function drawKnown() {
+  const m = model(), { cs, line } = geo, b = box.enemy, o = geo.ox.enemy, sil = m.silhouette.standing || new Map();
+  const [sx, sy] = cellXY('enemy', b.x0 + b.W - 1, b.y0);
+  ctx.strokeStyle = COLOURS.grid; ctx.lineWidth = 1; ctx.strokeRect(sx - 0.5, sy - 0.5, b.W * cs + 1, b.H * cs + 1);
+  for (const [x, y] of m.silhouette.cells) {
+    if (m.cells.has(`${x},${y}`)) continue;
+    const [px, py] = cellXY('enemy', x, y);
+    ctx.fillStyle = COLOURS.unknown; ctx.fillRect(px + 1, py + 1, cs - 2, cs - 2);
   }
-  // Text: above, name, preset and target; below, abilities, crew, power, shield.
-  const a = abilities(ship), o = geo.ox[ship.side], line = geo.line;
-  const reactor = ship.room('reactor').reactor;
-  ctx.textAlign = 'left'; ctx.font = 'bold 13px ui-monospace, Menlo, Consolas, monospace'; ctx.fillStyle = colour;
-  ctx.fillText(`${ship.side === 'player' ? 'YOU' : 'ENEMY'}  ${PRESETS[ship.preset].label}`, o, geo.strip + line);
-  ctx.font = '12px ui-monospace, Menlo, Consolas, monospace'; ctx.fillStyle = COLOURS.text;
-  ctx.fillText(`target: ${ship.target ? LABELS[ship.target] : '—'} · ${ship.helm.mode || ''}${ship.helm.throttle > 0 ? ` · engine ${Math.round(ship.helm.throttle * 100)}%` : ''}`, o, geo.strip + 2 * line);
-  const by = geo.oy + GH * geo.cs + line;
-  const ok = (x) => (x ? 'ok' : 'NO');
-  ctx.fillText(`beam ${ok(a.beam)} gun ${ok(a.turret)} (thrust does not count, #255)`, o, by);
-  ctx.fillText(`crew ${ship.crewTotal - ship.crewLost}/${ship.crewTotal}  reactor ${(reactor.delivered / 1e6).toFixed(1)} MW`, o, by + line);
-  ctx.fillText(`shield ${up ? `${Math.round(frac * 100)}%` : 'OFF'}  absorbing ${(s.absorbed / 1e6).toFixed(1)} MW`, o, by + 2 * line);
-  if (ship.disabledSince !== null) { ctx.fillStyle = COLOURS.cross; ctx.font = 'bold 12px ui-monospace, Menlo, Consolas, monospace'; ctx.fillText(`DISABLED in ${Math.max(0, battle.disabledSeconds - (battle.t - ship.disabledSince)).toFixed(1)} s`, o, by + 3 * line); }
+  for (const [k, c] of m.cells) {
+    const [px, py] = cellXY('enemy', c.cell[0], c.cell[1]);
+    if (c.destroyed || !sil.has(k)) { crossCell(px, py, cs); continue; }
+    const r = m.rooms.get(c.room), col = r.ir ? COLOURS.ir[r.ir.class] : [110, 110, 140];
+    ctx.fillStyle = rgb(col, 0.35 + 0.65 * c.integrity); ctx.fillRect(px, py, cs, cs);
+    if (c.integrity < 1) { ctx.strokeStyle = COLOURS.cross; ctx.lineWidth = 1; ctx.strokeRect(px + 1.5, py + 1.5, cs - 3, cs - 3); }
+  }
+  for (const [id, r] of m.rooms) {
+    const cells = knownCells(id), [rx, ry, rw, rh] = cellsRect('enemy', cells);
+    ctx.strokeStyle = COLOURS.text; ctx.lineWidth = 2; ctx.strokeRect(rx + 1, ry + 1, rw - 2, rh - 2);
+    const standing = r.cells.some((k) => sil.has(k) && !m.cells.get(k).destroyed);
+    if (standing) label(rx, ry, rw, rh, LABELS[r.type] || r.type, r.ir ? r.ir.class : `@${(r.step * battle.dt).toFixed(0)}s`);
+  }
+  // Zones: dashed rectangles, the number in a corner; a resolved one with the time it resolved.
+  ctx.save(); ctx.setLineDash([3, 3]); ctx.strokeStyle = COLOURS.zone; ctx.lineWidth = 1;
+  ctx.font = FONT(9, true); ctx.textAlign = 'left';
+  for (const z of m.zones) {
+    const [rx, ry, rw, rh] = cellsRect('enemy', [[z.x[0], z.y[0]], [z.x[1] - 1, z.y[1] - 1]]);
+    ctx.strokeRect(rx + 0.5, ry + 0.5, rw - 1, rh - 1);
+    const at = m.resolved.get(z.id);
+    ctx.fillStyle = at === undefined ? COLOURS.dim : COLOURS.scan;
+    ctx.fillText(`z${z.id}${at === undefined ? '' : ` ${(at * battle.dt).toFixed(0)}s`}`, rx + 3, ry + 10);
+  }
+  ctx.restore();
+  // Your antenna's scan: the zone outlined in green, its progress as a bar.
+  for (const f of antennas(me().world)) {
+    if (!f.scan) continue;
+    const z = m.zones[f.scan.zone], [rx, ry, rw, rh] = cellsRect('enemy', [[z.x[0], z.y[0]], [z.x[1] - 1, z.y[1] - 1]]);
+    ctx.strokeStyle = COLOURS.scan; ctx.lineWidth = 3; ctx.strokeRect(rx + 2, ry + 2, rw - 4, rh - 4);
+    ctx.fillStyle = COLOURS.scan; ctx.fillRect(rx + 3, ry + rh - 6, (rw - 6) * Math.min(1, f.scan.progress), 3);
+  }
+  // The target the helm holds: the verb's room (or its pick) in yellow dashes; a point at a zone centre as a ring.
+  const h = me().helm;
+  if (h.target && h.target.room && m.rooms.has(h.target.room)) {
+    const [rx, ry, rw, rh] = cellsRect('enemy', knownCells(h.target.room));
+    ctx.save(); ctx.setLineDash([6, 4]); ctx.lineWidth = 4; ctx.strokeStyle = COLOURS.target; ctx.strokeRect(rx - 2, ry - 2, rw + 4, rh + 4); ctx.restore();
+  } else if (h.target && h.target.point) {
+    const pose = silhouettePose(m);
+    if (pose) { const [px, py] = pointXY('enemy', toGrid(pose, h.target.point), m.edge); ctx.strokeStyle = COLOURS.target; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(px, py, 7, 0, 2 * Math.PI); ctx.stroke(); }
+  }
+  // Text: what the model holds.
+  const now = [...m.sources.values()].filter((x) => x.now);
+  ctx.textAlign = 'left'; ctx.font = FONT(13, true); ctx.fillStyle = COLOURS.enemy;
+  ctx.fillText('ENEMY (as you know it)', o, geo.strip + line);
+  ctx.font = FONT(12); ctx.fillStyle = COLOURS.text;
+  ctx.fillText(`zones ${m.resolved.size}/6 · rooms known ${m.rooms.size}`, o, geo.strip + 2 * line);
+  const by = geo.oy + geo.GH * cs + line;
+  ctx.fillText(`silhouette: ${m.silhouette.cells.length} cells, ${m.silhouette.bodies.length} bod${m.silhouette.bodies.length === 1 ? 'y' : 'ies'}`, o, by);
+  ctx.fillText(`sources now: ${now.length ? [...new Set(now.map((x) => x.kind))].map((k) => `${k} ${now.filter((x) => x.kind === k).length}`).join(', ') : 'none'}`, o, by + line);
+  ctx.fillStyle = COLOURS.target;
+  ctx.fillText(scanMode ? 'SCAN: tap a zone' : 'tap: room = target, else scan', o, by + 2 * line);
 }
 
 /** Screen point (px) of a world point q (m) in the world strip: the line of sight from the player to the enemy points right. */
@@ -204,93 +281,91 @@ function stripXY(q) {
   const v = geo.view, dx = q[0] - v.mid[0], dy = q[1] - v.mid[1];
   return [v.cx + (dx * v.cos + dy * v.sin) * v.scale, v.cy - (-dx * v.sin + dy * v.cos) * v.scale];
 }
-/** The world strip: both ships to scale with heading and velocity, rounds in flight, beams, the range, hits and misses. */
+/**
+ * The world strip: your ship (its own world) and the enemy's silhouette (the model's standing cells on the
+ * silhouette's poses) to scale, the velocities against the midpoint's (yours from your body, the enemy's as your helm
+ * observes it), your rounds in flight, the beams, the range.
+ */
 function drawStrip() {
-  const w = geo.w, h = geo.strip, pb = mainBody(battle.player), eb = mainBody(battle.enemy);
+  const w = geo.w, h = geo.strip, m = model(), pb = mainBody(me()), eb = silhouettePose(m);
+  if (!pb || !eb) return;
   const d = [eb.x[0] - pb.x[0], eb.x[1] - pb.x[1]], R = Math.hypot(d[0], d[1]), a = Math.atan2(d[1], d[0]);
-  const mid = [(pb.x[0] + eb.x[0]) / 2, (pb.x[1] + eb.x[1]) / 2], vmid = [(pb.v[0] + eb.v[0]) / 2, (pb.v[1] + eb.v[1]) / 2];
+  const ve = observed(battle, me()).v, mid = [(pb.x[0] + eb.x[0]) / 2, (pb.x[1] + eb.x[1]) / 2], vmid = [(pb.v[0] + ve[0]) / 2, (pb.v[1] + ve[1]) / 2];
   geo.view = { mid, cos: Math.cos(a), sin: Math.sin(a), scale: Math.min((w - 40) / (R + 120), (h - 30) / 160), cx: w / 2, cy: h / 2 + 6 };
-  ctx.save();
-  ctx.beginPath(); ctx.rect(0, 0, w, h); ctx.clip();
+  ctx.save(); ctx.beginPath(); ctx.rect(0, 0, w, h); ctx.clip();
   ctx.fillStyle = '#05070c'; ctx.fillRect(0, 0, w, h);
   ctx.strokeStyle = COLOURS.grid; ctx.lineWidth = 1; ctx.strokeRect(0.5, 0.5, w - 1, h - 1);
-  const e = battle.edge;
-  for (const ship of battle.ships) {
-    const colour = ship.side === 'player' ? COLOURS.player : COLOURS.enemy;
-    // Hull cells, each on the body it belongs to; holes as outlines.
-    for (const room of ship.world.rooms) {
-      const grid = ship.world.layout.rooms.get(room.id).cells;
-      room.cells.forEach((c, k) => {
-        const b = ship.world.ship.bodies.find((x) => x.id === c.fragment) || mainBody(ship);
-        const [i, j] = grid[k], pts = [[i, j], [i + 1, j], [i + 1, j + 1], [i, j + 1]].map(([x, y]) => stripXY(worldPoint(b, [x * e, y * e])));
-        ctx.beginPath(); pts.forEach((p, n) => (n ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath();
-        if (c.destroyed) { ctx.strokeStyle = COLOURS.cross; ctx.lineWidth = 1; ctx.stroke(); } else { ctx.fillStyle = colour; ctx.globalAlpha = 0.35 + 0.65 * c.integrity; ctx.fill(); ctx.globalAlpha = 1; }
-      });
-    }
-    // Velocity against the midpoint's, drawn as 5 s of travel; the bow marked by a short white tick.
-    const b = mainBody(ship), p0 = stripXY(b.x), rel = [b.v[0] - vmid[0], b.v[1] - vmid[1]], p1 = stripXY([b.x[0] + rel[0] * 5, b.x[1] + rel[1] * 5]);
-    ctx.strokeStyle = COLOURS.target; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); ctx.stroke();
-    const nose = stripXY(worldPoint(b, [ship.size[0] * e, b.c[1]])), tick = stripXY(worldPoint(b, [ship.size[0] * e + 12, b.c[1]]));
-    ctx.strokeStyle = COLOURS.text; ctx.beginPath(); ctx.moveTo(nose[0], nose[1]); ctx.lineTo(tick[0], tick[1]); ctx.stroke();
+  const quad = (pose, i, j, e) => [[i, j], [i + 1, j], [i + 1, j + 1], [i, j + 1]].map(([x, y]) => stripXY(worldPoint(pose, [x * e, y * e])));
+  const fill = (pts) => { ctx.beginPath(); pts.forEach((p, n) => (n ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); };
+  // Yours: every hull cell on the body it belongs to; holes as outlines.
+  const ws = me().world, e = ws.edge;
+  for (const room of ws.rooms) {
+    if (!room.placed) continue;
+    const grid = ownCells(room.id);
+    room.cells.forEach((c, k) => {
+      const b = ws.ship.bodies.find((x) => x.id === c.fragment) || pb;
+      fill(quad(b, grid[k][0], grid[k][1], e));
+      if (c.destroyed) { ctx.strokeStyle = COLOURS.cross; ctx.lineWidth = 1; ctx.stroke(); } else { ctx.fillStyle = COLOURS.player; ctx.globalAlpha = 0.35 + 0.65 * c.integrity; ctx.fill(); ctx.globalAlpha = 1; }
+    });
   }
-  // Beams: from the bay's bow face along the axis to where they land (magenta past the shield, cyan when it takes all), or on into space (grey dashes: a miss).
-  for (const s of battle.ships) {
-    const bm = s.beam;
-    if (!(bm.power > 0) || !bm.from) continue;
-    let to;
-    if (bm.hit) { const body = s.other.world.ship.bodies.find((x) => x.id === bm.hit.body) || mainBody(s.other); to = worldPoint(body, bm.hit.entry); } else to = [bm.from[0] + bm.dir[0] * (R + 2000), bm.from[1] + bm.dir[1] * (R + 2000)];
-    const p0 = stripXY(bm.from), p1 = stripXY(to);
+  // The enemy's silhouette.
+  ctx.fillStyle = COLOURS.enemy;
+  for (const [x, y, body] of m.silhouette.cells) { fill(quad(m.silhouette.bodies.find((q) => q.id === body) || eb, x, y, m.edge)); ctx.fill(); }
+  // Velocities against the midpoint's as 5 s of travel; your bow as a white tick.
+  for (const [p, v] of [[pb.x, pb.v], [eb.x, ve]]) {
+    const p0 = stripXY(p), p1 = stripXY([p[0] + (v[0] - vmid[0]) * 5, p[1] + (v[1] - vmid[1]) * 5]);
+    ctx.strokeStyle = COLOURS.target; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); ctx.stroke();
+  }
+  const nose = stripXY(worldPoint(pb, [(box.player.x0 + box.player.W) * e, pb.c[1]])), tickP = stripXY(worldPoint(pb, [(box.player.x0 + box.player.W) * e + 12, pb.c[1]]));
+  ctx.strokeStyle = COLOURS.text; ctx.beginPath(); ctx.moveTo(nose[0], nose[1]); ctx.lineTo(tickP[0], tickP[1]); ctx.stroke();
+  // Beams: yours from the bay's face along your axis to its entry on the enemy's hull (magenta) or on into space (grey
+  // dashes); the enemy's only where it lands on your hull (magenta past your shield, cyan when your shield takes all).
+  for (const s of battle.sides) {
+    const bm = s.beam, mine = s === me();
+    if (!bm || !(bm.power > 0) || (!mine && !bm.hit)) continue;
+    // Your beam's entry on the enemy's silhouette pose (what you see of it); the enemy's on your own body.
+    const body = !bm.hit ? null : mine ? m.silhouette.bodies.find((x) => x.id === bm.hit.body) || eb : ws.ship.bodies.find((x) => x.id === bm.hit.body) || pb;
+    const to = bm.hit ? worldPoint(body, bm.hit.entry) : [bm.from[0] + bm.dir[0] * (R + 2000), bm.from[1] + bm.dir[1] * (R + 2000)];
+    const res = !mine && ws.beamResults ? ws.beamResults.find((r) => r.id === bm.id) : null; // what your own shield let through
+    const p0 = stripXY(mine ? bm.from : [to[0] - bm.dir[0] * 60, to[1] - bm.dir[1] * 60]), p1 = stripXY(to);
     ctx.save();
-    if (!bm.hit) { ctx.setLineDash([5, 5]); ctx.strokeStyle = COLOURS.miss; ctx.lineWidth = 1.5; } else { ctx.strokeStyle = bm.passed > 0 ? COLOURS.beam : COLOURS.beamAbsorbed; ctx.lineWidth = 2; }
+    if (!bm.hit) { ctx.setLineDash([5, 5]); ctx.strokeStyle = COLOURS.miss; ctx.lineWidth = 1.5; } else { ctx.strokeStyle = mine || (res && res.passed > 0) ? COLOURS.beam : COLOURS.beamAbsorbed; ctx.lineWidth = 2; }
     ctx.beginPath(); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); ctx.stroke(); ctx.restore();
   }
-  // Rounds in flight: a dot with a short tail along their path.
+  // Your rounds in flight: a dot with a short tail.
   ctx.strokeStyle = COLOURS.round; ctx.fillStyle = COLOURS.round; ctx.lineWidth = 2;
   for (const r of battle.rounds) {
-    const p = stripXY(r.x), q = stripXY(r.prev);
-    ctx.beginPath(); ctx.moveTo(q[0], q[1]); ctx.lineTo(p[0], p[1]); ctx.stroke();
-    ctx.fillRect(p[0] - 1.5, p[1] - 1.5, 3, 3);
+    if (r.shooter !== me() || r.over || r.done) continue;
+    const p = stripXY(r.ref.x), q = stripXY(r.prev);
+    ctx.beginPath(); ctx.moveTo(q[0], q[1]); ctx.lineTo(p[0], p[1]); ctx.stroke(); ctx.fillRect(p[0] - 1.5, p[1] - 1.5, 3, 3);
   }
-  // Text: range and range rate; each side's hits and misses.
-  const vr = ((eb.v[0] - pb.v[0]) * d[0] + (eb.v[1] - pb.v[1]) * d[1]) / R;
-  ctx.font = 'bold 12px ui-monospace, Menlo, Consolas, monospace'; ctx.textAlign = 'right'; ctx.fillStyle = COLOURS.text;
+  const vr = ((ve[0] - pb.v[0]) * d[0] + (ve[1] - pb.v[1]) * d[1]) / R, st = shotStats(battle), taken = battle.hits.filter((x) => x.side === 'A').length;
+  ctx.font = FONT(12, true); ctx.textAlign = 'right'; ctx.fillStyle = COLOURS.text;
   ctx.fillText(`${Math.round(R)} m  ${vr >= 0 ? 'opening' : 'closing'} ${Math.abs(vr).toFixed(0)} m/s`, w - 6, 13);
-  ctx.font = '11px ui-monospace, Menlo, Consolas, monospace';
-  const st = (s) => `hits ${s.stats.hits} · misses ${s.stats.misses} · in flight ${battle.rounds.filter((r) => r.shooter === s).length}`;
-  ctx.textAlign = 'left'; ctx.fillStyle = COLOURS.player; ctx.fillText(`YOU ${st(battle.player)}`, 6, h - 5);
-  ctx.textAlign = 'right'; ctx.fillStyle = COLOURS.enemy; ctx.fillText(`ENEMY ${st(battle.enemy)}`, w - 6, h - 5);
-  ctx.textAlign = 'left'; ctx.fillStyle = COLOURS.dim; ctx.fillText('to scale · velocity vs midpoint, 5 s', 6, 13);
+  ctx.font = FONT(11); ctx.textAlign = 'left'; ctx.fillStyle = COLOURS.player;
+  ctx.fillText(`YOU shots ${st.A.shots} · hits ${st.A.hits} · misses ${st.A.misses} · in flight ${st.A.flying} · hits taken ${taken}`, 6, h - 5);
+  ctx.fillStyle = COLOURS.dim; ctx.fillText('to scale · velocity vs midpoint, 5 s', 6, 13);
   ctx.restore();
 }
 
-/** On each head-up grid: an arrow where recent rounds entered and the cells they reached; the beam where it lands. */
+/** Recent hits: on your grid where a round entered your hull (your own world's books); on the enemy's where your round entered (your model's hits). */
 function drawHits() {
-  const cs = geo.cs, e = battle.edge;
+  const e = me().world.edge;
   for (const h of battle.hits) {
     const age = battle.t - h.t;
-    if (age > 1.5) continue;
-    const ship = battle[h.target], f = 1 - age / 1.5;
-    ctx.save(); ctx.globalAlpha = f; ctx.strokeStyle = COLOURS.round; ctx.lineWidth = 2;
-    for (const [i, j] of h.cells) { const [x, y] = cellXY(ship.side, i, j); ctx.strokeRect(x + 2, y + 2, cs - 4, cs - 4); }
-    const tip = pointXY(ship, h.entry), tail = pointXY(ship, [h.entry[0] - h.dir[0] * 1.5 * e, h.entry[1] - h.dir[1] * 1.5 * e]);
-    arrow(tail, tip, COLOURS.round);
-    ctx.restore();
+    if (h.side !== 'A' || age > 1.5) continue;
+    const tip = pointXY('player', h.entry, e), tail = pointXY('player', [h.entry[0] - h.dir[0] * 1.5 * e, h.entry[1] - h.dir[1] * 1.5 * e], e);
+    ctx.save(); ctx.globalAlpha = 1 - age / 1.5; arrow(tail, tip, COLOURS.round); ctx.restore();
   }
-  for (const s of battle.ships) {
-    const bm = s.beam;
-    if (!(bm.power > 0)) continue;
-    const ship = s.other;
-    ctx.save();
-    if (bm.hit) {
-      const last = bm.hit.cells[bm.deepest ?? 0] || bm.hit.cells[0], tip = pointXY(ship, bm.hit.entry), end = pointXY(ship, [(last[0] + 0.5) * e, (last[1] + 0.5) * e]);
-      const tail = pointXY(ship, [bm.hit.entry[0] - bm.hit.dir[0] * 1.2 * e, bm.hit.entry[1] - bm.hit.dir[1] * 1.2 * e]);
-      ctx.strokeStyle = bm.passed > 0 ? COLOURS.beam : COLOURS.beamAbsorbed; ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.moveTo(tail[0], tail[1]); ctx.lineTo(tip[0], tip[1]); if (bm.passed > 0) ctx.lineTo(end[0], end[1]); ctx.stroke();
-    } else {
-      // In the target grid's top-left corner (empty in both layouts).
-      ctx.fillStyle = COLOURS.miss; ctx.font = 'bold 11px ui-monospace, Menlo, Consolas, monospace'; ctx.textAlign = 'left';
-      ctx.fillText(`${s.side === 'player' ? 'your' : 'enemy'} beam: miss`, geo.ox[ship.side] + 3, geo.oy + 12);
-    }
+  const m = model(), pose = silhouettePose(m);
+  if (!pose) return;
+  for (const h of m.hits) {
+    const age = battle.t - h.t;
+    if (age > 1.5) continue;
+    ctx.save(); ctx.globalAlpha = 1 - age / 1.5; ctx.strokeStyle = COLOURS.round; ctx.lineWidth = 2;
+    for (const [i, j] of h.cells) { const [x, y] = cellXY('enemy', i, j); ctx.strokeRect(x + 2, y + 2, geo.cs - 4, geo.cs - 4); }
+    const [x, y] = pointXY('enemy', toGrid(pose, h.entry), m.edge);
+    ctx.beginPath(); ctx.arc(x, y, 5, 0, 2 * Math.PI); ctx.stroke();
     ctx.restore();
   }
 }
@@ -306,62 +381,56 @@ function draw() {
   ctx.fillStyle = COLOURS.background; ctx.fillRect(0, 0, geo.w, geo.h);
   if (!battle) return;
   drawStrip();
-  drawShip(battle.player); drawShip(battle.enemy);
+  drawOwn(); drawKnown();
   drawHits();
   const t = Math.floor(battle.t);
   $('clock').textContent = `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
 }
 
-// ---------- log ----------
-const BIG = new Set(['explosion', 'scram', 'shutdown', 'control-lost', 'crew-died', 'cell-destroyed', 'meltdown', 'breach', 'cook-off', 'shield-down']);
-function logEvents() {
-  const evs = logged.filter((e) => e.type !== 'shot'); // shots are drawn as rounds
-  logged = [];
-  if (!evs.length) return;
-  const log = $('log'), stick = log.scrollTop + log.clientHeight >= log.scrollHeight - 4;
-  for (const e of evs.slice(-LOG_LINES)) {
-    const div = document.createElement('div'), side = e.side === 'player' ? 'P' : 'E';
-    const extra = e.type === 'crew-died' ? ` ${e.deaths} dead` : e.type === 'cell-damaged' ? ` ${Math.round(e.integrity * 100)}%` : e.type === 'explosion' ? ` ${(e.energy / 1e6).toFixed(0)} MJ` : '';
-    div.className = `${side}${BIG.has(e.type) ? ' big' : ''}`;
-    div.textContent = `${e.t.toFixed(1)} ${side} ${LABELS[e.room] || e.room} ${e.type}${extra} ← ${e.cause}${e.crew === undefined ? '' : ` · crew ${e.crew}`}`;
-    log.appendChild(div);
-  }
+// ---------- log: your own ship's events (its log holds your scans, what you resolved and what hit you) ----------
+const BIG = new Set(['explosion', 'scram', 'shutdown', 'control-lost', 'crew-died', 'cell-destroyed', 'meltdown', 'breach', 'cook-off', 'shield-down', 'zone-resolved', 'destroyed', 'disabled', 'surrender', 'escaped']);
+function logLine(text, cls) {
+  const log = $('log'), stick = log.scrollTop + log.clientHeight >= log.scrollHeight - 4, div = document.createElement('div');
+  div.className = cls; div.textContent = text; log.appendChild(div);
   while (log.childElementCount > LOG_LINES) log.firstElementChild.remove();
   if (stick) log.scrollTop = log.scrollHeight;
 }
+function logEvents() {
+  const ev = me().world.log.events;
+  for (; logIndex < ev.length; logIndex++) {
+    const e = ev[logIndex];
+    if (e.type === 'shot') continue; // shots are drawn as rounds
+    const extra = e.type === 'crew-died' ? ` ${e.deaths} dead` : e.type === 'cell-damaged' ? ` ${Math.round(e.integrity * 100)}%` : e.type === 'explosion' ? ` ${(e.energy / 1e6).toFixed(0)} MJ` : e.type === 'zone-resolved' ? ` zone ${e.zone}: ${e.rooms.length ? e.rooms.join(', ') : 'no room'}` : e.type === 'scan-started' ? ` zone ${e.zone}` : e.type === 'source-resolved' ? ` ${e.kind}` : '';
+    logLine(`${e.t.toFixed(1)} P ${LABELS[e.room] || e.room} ${e.type}${extra} ← ${e.cause}${e.crew === undefined ? '' : ` · crew ${e.crew}`}`, `P${BIG.has(e.type) ? ' big' : ''}`);
+  }
+  const hits = model().hits;
+  for (; hitIndex < hits.length; hitIndex++) logLine(`${hits[hitIndex].t.toFixed(1)} E hit by ${hits[hitIndex].id}${hits[hitIndex].cells.length ? ` (${hits[hitIndex].cells.length} known cells)` : ''}`, 'E');
+}
 
-// ---------- the end ----------
+// ---------- the end (the debrief: the books and the cascade tree of each side that ended) ----------
 const esc = (x) => String(x).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
 const TREE_ROWS = 80; // prototype setting: the most rows of the cascade tree on the end panel
-/**
- * The cascade tree of why a ship's battle ended (#41, #264), from the kernel's events (battle.js endTree): the root
- * shot or beam, then each event it caused, indented; runs of the same event on the same room at the same depth are one
- * row with a count (a beam damages a cell every step).
- */
-function treeHtml(side) {
-  const ship = battle[side], tree = endTree(ship);
+const NAME = { A: 'You', T: 'The enemy' };
+/** The cascade tree of why a side's battle ended (#41, #264): runs of the same event on the same room at the same depth are one row with a count. */
+function treeHtml(name) {
+  const tree = endTree(battle, name);
   if (!tree) return '';
   const rows = [];
   for (const r of tree.rows) {
     const last = rows[rows.length - 1], e = r.event;
     if (last && last.depth === r.depth && last.type === e.type && last.room === e.room && !last.end) { last.n++; continue; }
-    rows.push({ depth: r.depth, type: e.type, room: e.room, t: e.t, n: 1, id: e.id, end: e.type === 'disabled' || e.type === 'destroyed' });
+    rows.push({ depth: r.depth, type: e.type, room: e.room, t: e.t, n: 1, id: e.id, end: e.type === tree.end.kind });
   }
-  const why = side === 'player' ? 'Why you lost' : 'Why the enemy lost';
   const lines = rows.slice(0, TREE_ROWS).map((r) => `<div class="tree-row${r.id === tree.parent ? ' tree-cause' : ''}" style="padding-left:${r.depth * 12}px">${r.t.toFixed(1)} s ${esc(LABELS[r.room] || r.room)} ${esc(r.type)}${r.n > 1 ? ` &times;${r.n}` : ''}</div>`);
-  const more = rows.length > TREE_ROWS ? `<div class="tree-row">… ${rows.length - TREE_ROWS} more rows (the replay's log has every event)</div>` : '';
-  const end = ship.disabled ? `Disabled: no weapon able to fire for ${battle.disabledSeconds} s (the red row took the last one)` : 'Destroyed';
-  return `<div class="tree"><h3>${why}: cascade tree</h3><div class="tree-root">${esc(tree.root)}</div>${lines.join('')}${more}<div class="tree-row">→ ${end}</div></div>`;
+  const more = rows.length > TREE_ROWS ? `<div class="tree-row">… ${rows.length - TREE_ROWS} more rows (proto/replay.mjs --log has every event)</div>` : '';
+  return `<div class="tree"><h3>${NAME[name]}: ${esc(tree.end.kind)}, cascade tree</h3><div class="tree-root">${esc(tree.root)}</div>${lines.join('')}${more}<div class="tree-row">→ ${esc(tree.end.kind)}${tree.end.why ? ` (${esc(tree.end.why)})` : ''}${tree.end.by ? ` by ${esc(tree.end.by)}` : ''}</div></div>`;
 }
+const TITLE = { destroyed: { A: 'You are destroyed', T: 'Enemy destroyed' }, disabled: { A: 'You are Disabled', T: 'Enemy Disabled' }, surrender: { A: 'You surrender', T: 'The enemy surrenders' }, escaped: { A: 'You escaped', T: 'The enemy escaped' } };
 function showEnd() {
-  const e = battle.ended, el = $('end'), t = Math.floor(e.t);
-  const title = e.losers.length === 2 ? 'Both ships are out' : e.losers[0] === 'enemy' ? `Enemy ${e.reason.enemy}` : `You are ${e.reason.player}`;
-  const row = (side) => {
-    const s = e.sides[side];
-    return `<tr><th>${side === 'player' ? 'You' : 'Enemy'}</th><td>${s.crewLost} / ${s.crewTotal}</td><td>${s.wrecked.length ? s.wrecked.map((id) => LABELS[id]).join(', ') : 'none'}</td></tr>`;
-  };
-  el.innerHTML = `<h2>${title}</h2><div>Battle time ${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')} (${e.t.toFixed(1)} s)</div>
-    <table><tr><th></th><th>Crew lost</th><th>Rooms wrecked</th></tr>${row('player')}${row('enemy')}</table>${e.losers.map((side) => treeHtml(side)).join('')}`;
+  const e = battle.ended, el = $('end'), t = Math.floor(e.t), st = shotStats(battle);
+  const row = (name) => { const L = losses(battle, name), s = st[name]; return `<tr><th>${NAME[name]}</th><td>${L.crewLost} / ${L.crewTotal}</td><td>${L.wrecked.length ? L.wrecked.map((id) => LABELS[id] || id).join(', ') : 'none'}</td><td>${s.shots} / ${s.hits} / ${s.misses}</td></tr>`; };
+  el.innerHTML = `<h2>${(TITLE[e.kind] || {})[e.side] || `${e.kind} ${e.side}`}</h2><div>Battle time ${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')} (${e.t.toFixed(2)} s)</div>
+    <table><tr><th></th><th>Crew lost</th><th>Rooms wrecked</th><th>Shots / hits / misses</th></tr>${row('A')}${row('T')}</table>${battle.sides.filter((s) => s.ended).map((s) => treeHtml(s.name)).join('')}`;
   const b = document.createElement('button');
   b.type = 'button'; b.textContent = 'Restart'; b.addEventListener('click', chooseLoadout);
   const x = document.createElement('button');
@@ -370,19 +439,23 @@ function showEnd() {
   el.hidden = false;
 }
 
-// ---------- input: tap an enemy room ----------
+// ---------- input: tap the enemy's grid ----------
+/** The enemy grid cell under a screen point, or null. */
+function enemyCell(px, py) {
+  const b = box.enemy, i = b.W - 1 - Math.floor((px - geo.ox.enemy) / geo.cs), j = Math.floor((py - geo.oy) / geo.cs);
+  return i < 0 || i >= b.W || j < 0 || j >= b.H ? null : [b.x0 + i, b.y0 + j];
+}
 canvas.addEventListener('pointerdown', (ev) => {
   if (!geo || !battle || choosing || battle.ended) return;
-  const r = canvas.getBoundingClientRect(), px = ev.clientX - r.left, py = ev.clientY - r.top;
-  const x = GW - 1 - Math.floor((px - geo.ox.enemy) / geo.cs), y = Math.floor((py - geo.oy) / geo.cs);
-  if (x < 0 || x >= GW || y < 0 || y >= GH) return;
-  const o = battle.enemy.world.layout.occupied.get(`${x},${y}`);
-  if (!o || isDestroyed(battle.enemy.room(o.id))) return;
-  setTarget(battle, battle.player, o.id);
+  const r = canvas.getBoundingClientRect(), c = enemyCell(ev.clientX - r.left, ev.clientY - r.top);
+  if (!c) return;
+  const m = model(), known = m.cells.get(`${c[0]},${c[1]}`), z = m.zones.find((q) => c[0] >= q.x[0] && c[0] < q.x[1] && c[1] >= q.y[0] && c[1] < q.y[1]);
+  if (!scanMode && known) verb('target', known.room);
+  else if (z) { verb('scan', z.id); scanMode = false; refreshButtons(); }
   $('hint').hidden = true;
 });
 
-// ---------- the loop ----------
+// ---------- the loop: the kernel's tick, as fast as the speed asks ----------
 function frame(now) {
   if (last === null) last = now;
   const real = Math.min(0.1, (now - last) / 1000);
@@ -391,30 +464,23 @@ function frame(now) {
     acc += real * speed;
     let n = Math.min(MAX_STEPS_PER_FRAME * speed, Math.floor(acc / battle.dt + 1e-9));
     acc -= n * battle.dt;
-    while (n-- > 0 && !battle.ended) {
-      tick(battle);
-      const evs = drainEvents(battle); // after every tick, as proto/replay.mjs does, so the hashes agree
-      record(rec, evs);
-      for (const e of evs) logged.push(e);
-    }
+    while (n-- > 0 && !battle.ended) tick(battle);
     if (acc > 4 * battle.dt * speed) acc = 0; // a slow phone drops time rather than spiral
     logEvents();
-    if (battle.ended) showEnd();
+    if (battle.ended) { refreshButtons(); showEnd(); }
   }
   draw();
   requestAnimationFrame(frame);
 }
 
 // ---------- export (proto/export.js): one JSON text for proto/replay.mjs ----------
-/** Build the export of the battle as it stands, pause it, show it and copy it. */
 function openExport() {
   if (!battle || choosing) return;
   if ($('export-panel').hidden) pausedBeforeExport = paused;
   paused = true; refreshButtons();
-  lastExport = exportText(battle, rec);
-  const box = $('export-text');
-  box.value = lastExport;
-  $('export-status').textContent = `${(lastExport.length / 1024).toFixed(1)} kB, step ${battle.steps}`;
+  lastExport = exportText(battle);
+  $('export-text').value = lastExport;
+  $('export-status').textContent = `${(lastExport.length / 1024).toFixed(1)} kB, step ${battle.step}`;
   $('export-panel').hidden = false;
   copyExport();
 }
@@ -425,27 +491,35 @@ function closeExport() {
 }
 /** Copy to the clipboard; a phone's clipboard can refuse, so the text stays in a selectable box. */
 async function copyExport() {
-  const box = $('export-text'), status = $('export-status'), size = `${(lastExport.length / 1024).toFixed(1)} kB`;
+  const box2 = $('export-text'), status = $('export-status'), size = `${(lastExport.length / 1024).toFixed(1)} kB`;
   let ok = false;
   try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(lastExport); ok = true; } } catch { ok = false; }
   if (!ok) {
-    box.focus(); box.select(); box.setSelectionRange(0, lastExport.length);
+    box2.focus(); box2.select(); box2.setSelectionRange(0, lastExport.length);
     try { ok = document.execCommand('copy'); } catch { ok = false; }
   }
   status.textContent = ok ? `copied (${size})` : `not copied: select the text below and copy it (${size})`;
 }
 
-// For the smoke test: read-only access and the screen rectangle of a room.
+// For the smoke test: read-only access and screen points on the enemy's grid.
 window.__proto = {
   get battle() { return battle; },
   get choosing() { return choosing; },
   get lastExport() { return lastExport; },
-  roomCentre(side, id) {
-    const r = canvas.getBoundingClientRect(), [x, y, w, h] = roomRect(battle[side], id);
+  /** The screen centre of the first cell of a room the model knows, or null. */
+  knownRoomCentre(id) {
+    if (!model().rooms.has(id)) return null;
+    const r = canvas.getBoundingClientRect(), [x, y] = cellXY('enemy', ...knownCells(id)[0]);
+    return [r.left + x + geo.cs / 2, r.top + y + geo.cs / 2];
+  },
+  /** The screen centre of zone z's rectangle on the enemy's grid. */
+  zoneCentre(z) {
+    const q = model().zones[z], r = canvas.getBoundingClientRect(), [x, y, w, h] = cellsRect('enemy', [[q.x[0], q.y[0]], [q.x[1] - 1, q.y[1] - 1]]);
     return [r.left + x + w / 2, r.top + y + h / 2];
   },
 };
 
+$('version').textContent = PROTO_VERSION;
 buttons();
 chooseLoadout();
 requestAnimationFrame(frame);
