@@ -6,8 +6,9 @@ lead designer chat by the owner's standing instruction (#247 (2)); **the new
 chat writes its own id here first thing**. Chain:
 `session_01Ld11QmhkPubc8PkfKtd7CT` → `session_014nrUDvPgiLEjm64scJFkyW` →
 `session_01VL5M5dKNeREUVf7y1y3P87` → `session_01DFw3o4EBEtf1adcpyJ5786` →
-`session_01S8gXf1kch2FCFHYE8nwhrn` → the new chat (sessions notify it with
-`persistent_session_id` = its id). Read this first, then `CLAUDE.md`,
+`session_01S8gXf1kch2FCFHYE8nwhrn` → **`session_01Bt5RVRLCv85dFpXLq4qB5W`**
+(the current lead designer chat, took over 2026-10-23 at L5d's merge;
+sessions notify it with `persistent_session_id` = this id). Read this first, then `CLAUDE.md`,
 `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## For the owner (five lines, kept at every block, #246 (5))
