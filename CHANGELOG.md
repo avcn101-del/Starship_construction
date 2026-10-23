@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased — 2026-10-23 — L5d probed and planned (#301–#307)
+## Unreleased — 2026-10-23 — L5d probed and planned (#301–#308)
 
+- #308: H20 `L4.route.escape.reorder`; the float margin confirmed.
 - #307: the style slot, repair priority and the escape count, on the L5d
   fix round's questions; H15 restated, H19 new. `DESIGN.md` §13n.1 (d),
   §13n.4, §18.
