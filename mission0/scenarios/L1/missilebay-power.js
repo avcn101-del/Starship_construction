@@ -35,7 +35,7 @@ export default {
   tolerance: 'energies 1e-9 relative; times exact (whole steps)',
   criterion: '(joined) launches at 0 and 2 s, 200 000 J drawn in the first second; (cut) no launch, no draw, no-power; (hot-460) a cook-off of 112 MJ; (hot-440) none; (emp) an outage until 5.0 s, the first launch at 5.0 s',
   tunable: ['turret.powerDraw', 'missilebay.launchInterval', 'thermal.magazineCritical', 'missile.warheadEnergy', 'emp.scramDose', 'emp.outageTime'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '1d58a6f5' },
   cases() {
     return [{ name: 'joined' }, { name: 'cut' }, { name: 'hot-460', T: 460 }, { name: 'hot-440', T: 440 }, { name: 'emp' }];
   },

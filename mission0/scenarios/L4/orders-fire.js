@@ -42,7 +42,7 @@ export default {
   tolerance: 'times exact (whole steps, from the events); the target exact (room id or zone)',
   criterion: '(inrange-900) first shot t = 0; (inrange-3500) none in 5 s; (sure-static) first shot t = 2 dt; (sure-dodge) none in 4 s; (salvo) both at 0; (ripple) turret 0, turret2 1.0 s; (priority) weapons zone 4, power reactor, bridge bridge, nearest the hand-worked nearest',
   tunable: ['battle.cullDistance', 'turret.fireRate', 'sensor.scanTime'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '0ff94ee2' },
   cases() {
     return [
       { name: 'inrange-900', ship: 'R1-A', openFire: 'inRange', distance: 900, seconds: 5 },

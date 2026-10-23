@@ -37,7 +37,7 @@ export default {
   tolerance: 'doses 1e-9 relative; steps exact; the outage one-sided [t + 5, t + 5 + dt)',
   criterion: 'the rooms hit are exactly those with E / (1 + (r / R)^2) >= D: (reactor) reactor, bridge, shield, Disabled 600 steps after the burst\'s step, a capture; (reactor-shield) none (the charged buffer pays first), no end; (bow) turret and beam bay, their outages ending one-sided at +5 s, no end; (stern) the engine, thrust 0 through the outage and above 0 after',
   tunable: ['missile.empEnergy', 'emp.radius', 'emp.scramDose', 'emp.outageTime', 'battle.disabledSeconds'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'aade46c9' },
   cases() {
     return [
       { name: 'reactor', bearing: '-y', room: 'bridge', zone: 1 },

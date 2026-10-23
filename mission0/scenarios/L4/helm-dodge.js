@@ -44,7 +44,7 @@ export default {
   tolerance: 'the miss at one step\'s 1/2 a t dt (t = n dt); the aims 1e-9 (each component)',
   criterion: 'n = 67; the miss a dt^2 n (n + 1) / 2 (10.42 m R1, 6.68 m R1d, §13n.3 (11)) within 1/2 a t dt of the kernel\'s displacement; the first aim on the zone\'s centre, the second on the intercept for the silhouette\'s velocity',
   tunable: ['engine.thrust', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'ffeb1382' },
   cases() {
     return [{ dodger: 'R1' }, { dodger: 'R1d' }];
   },

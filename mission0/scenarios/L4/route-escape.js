@@ -49,7 +49,7 @@ export default {
   tolerance: 'steps exact',
   criterion: '(still) passes at 958, escaped at 1558; (chase) 1600, 2200; (intact-up, intact-down) escaped exactly at the first step the rule holds on the recorded series, or not at all if it never holds (kernel-read, labelled); (resolve-0.25) disengage ordered at step 0 and flown; (resolve-0.75) not ordered',
   tunable: ['battle.cullDistance', 'battle.disabledSeconds', 'engine.thrust'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'c30f6f8e' },
   cases() {
     return [{ name: 'still' }, { name: 'chase' }, { name: 'intact-up' }, { name: 'intact-down' }, { name: 'resolve-0.25', resolve: 0.25 }, { name: 'resolve-0.75', resolve: 0.75 }];
   },

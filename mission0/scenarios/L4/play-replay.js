@@ -29,7 +29,7 @@ export default {
   tolerance: 'exact',
   criterion: 'the inputs are the script\'s verbs at t = 5 k s; the replay\'s hash and end equal the played battle\'s; every room named in a text is known to the model with its type; every text\'s sources are the model\'s resolved that step, as many',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '9c10bc11' },
   cases() {
     return [{ seed: 1 }];
   },

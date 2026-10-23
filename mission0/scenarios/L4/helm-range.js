@@ -35,7 +35,7 @@ export default {
   tolerance: 'the rule\'s inputs 1e-9 relative at its edges; steps exact',
   criterion: 'at every step the helm\'s state equals #302\'s rule recomputed; at step 0 it engages iff e0 > helm.rangeBand (close, open; not hold); for close and open it lets go within the 120 s, inside the band; every later engagement starts with e beyond the band; the let-go step, the overshoot and the re-engagements printed (kernel-read, labelled)',
   tunable: ['helm.rangeClose', 'helm.rangeHold', 'helm.rangeOpen', 'helm.rangeBand', 'engine.thrust', 'rcs.force'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'ad3f90bd' },
   cases() {
     return ['R1', 'R1d'].flatMap((ship) => ['close', 'hold', 'open'].map((range) => ({ ship, range })));
   },

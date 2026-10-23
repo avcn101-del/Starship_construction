@@ -40,7 +40,7 @@ export default {
   tolerance: 'f 1e-12; progress per step and the source 1e-12 relative; steps exact',
   criterion: 'f = 1: zone 1 after step 249, 100 kW; f = 0.5: after step 497, 50 kW; every step\'s progress f x 0.00403056 (the d^4 law at d^2 = 823 562.5 m^2) x f',
   tunable: ['sensor.scanTime', 'sensor.scanRange', 'sensor.scanPower'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '0deb425b' },
   cases() {
     return [{ f: 1, demand: 1 }, { f: 0.5, demand: 0.0025 }];
   },

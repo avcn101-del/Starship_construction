@@ -36,7 +36,7 @@ export default {
   tolerance: 'chord 1e-12; books 1e-9 x gross (+ 1e-12 angular)',
   criterion: '(holes) a hit at engine:2 before, none after; (chord) 2/3 at the engine\'s cell (1, 2), then its cell (2, 2); (ids) every launch event\'s side:cause maps to one battle id, the map is one-to-one, every hit and every shot root of the other ship\'s tree is in it, ids are shot-n / missile-n; (books) P, E and L close every step; (field) P and E close, L\'s residual moves only in steps where a field slowed a round (at least one)',
   tunable: ['shield.kineticStop', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'abb3deaf' },
   cases() {
     return [{ name: 'holes' }, { name: 'chord' }, { name: 'ids' }, { name: 'books' }, { name: 'field' }];
   },

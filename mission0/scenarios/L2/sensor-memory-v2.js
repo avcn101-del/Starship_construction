@@ -39,7 +39,7 @@ export default {
   tolerance: 'steps exact; integrities exact',
   criterion: 'zone 0 resolves after step 249 with (3, 0) and (3, 1) at 1 and no IR class; the class rest at step 250, hot at 251, overheated at 252, critical at 253, its panels\' classes the same at each; the model keeps (3, 1) at 1 in steps 254-501 while R1\'s cell is destroyed; the re-scan resolves after step 502 with (3, 1) destroyed at 0 and (3, 0) at 1; the destroyed cell\'s panel not resolved, its last position (15, 7.5) kept, last resolved at step 253',
   tunable: ['sensor.scanTime', 'sensor.scanRange', 'thermal.plantHot', 'thermal.plantOverheated', 'thermal.plantCritical'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'b5d2f604' },
   cases() {
     return [{ zone: 0 }];
   },

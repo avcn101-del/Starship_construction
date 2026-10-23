@@ -33,7 +33,7 @@ export default {
   tolerance: 'steps exact; fractions exact (1) or strictly under 1',
   criterion: '(heat) the response holds at exactly the steps whose starting hottest fraction is >= 0.5, from the first such step (at least one), and not before; (power-fire) order [shield, turret, beamBay, engine], shield and turret at fraction 1, beam bay under 1; (power-none) order [], the beam bay under 1 with everything, shield and turret at 0',
   tunable: ['thermal.crewedHot', 'reactor.power', 'beam.power', 'shield.powerDraw'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '0e15c362' },
   cases() {
     return [{ name: 'heat-weapons', response: 'weapons' }, { name: 'heat-shield', response: 'shield' }, { name: 'heat-engine', response: 'engine' }, { name: 'power-fire', priority: 'fire' }, { name: 'power-none', priority: 'none' }];
   },

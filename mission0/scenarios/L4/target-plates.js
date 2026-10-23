@@ -30,7 +30,7 @@ export default {
   tolerance: 'exact',
   criterion: 'after the scan: exactly (8, 1) +y, (8, 2) +x, (8, 2) -y, (9, 2) -x at 1; before the re-scan the same; after it (8, 2) +x and (9, 2) -x at 0.5, the others at 1',
   tunable: ['sensor.scanTime', 'sensor.scanRange'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '30c3732c' },
   cases() {
     return [{ zone: 2 }];
   },

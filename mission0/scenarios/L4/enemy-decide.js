@@ -29,7 +29,7 @@ export default {
   tolerance: 'counts and steps exact',
   criterion: 'zones at the first shot 0 / 3 / 6 for patience 0 / 0.5 / 1; decisions at every 60th step until the battle ends (the enemy may end it); every decision\'s preset by the rule; caution 1: Cool from a decision; the two runs\' hashes equal',
   tunable: ['enemy.decisionInterval', 'sensor.scanTime'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '7fda882b' },
   cases() {
     return [[0.5, 0, 0.5, 0.5], [0.5, 0.5, 0.5, 0.5], [0.5, 1, 0.5, 0.5], [0.5, 0.34, 1, 0.5]].map(([aggression, patience, caution, resolve]) => ({ aggression, patience, caution, resolve }));
   },

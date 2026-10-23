@@ -32,7 +32,7 @@ export default {
   tolerance: 'steps exact; the position 1e-9 m',
   criterion: '(absorb) the shield resolved exactly in steps 61-120, in each of which the generator absorbs (s.em > 0, the kernel\'s), and in none before or after; one source-resolved event of kind shield, after step 61, root sense, at grid (20, 5) m, its last known position kept after; (scan) zone 0 resolves after step 249 with the shield on under the beam and with it off, the generator absorbing at that step with the shield on (s.em > 0) and not with it off',
   tunable: ['sensor.area', 'sensor.sensitivity', 'shield.budget', 'sensor.scanTime', 'sensor.scanRange'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '54caeaef' },
   cases() {
     return [{ mode: 'absorb' }, { mode: 'scan', shield: true }, { mode: 'scan', shield: false }];
   },
