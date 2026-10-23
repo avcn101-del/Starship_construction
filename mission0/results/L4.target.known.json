@@ -1,0 +1,132 @@
+{
+  "id": "L4.target.known",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.target.known",
+  "code": "a1174e7+dirty",
+  "criterionHash": "0e1bdad2",
+  "lockedHash": "0e1bdad2",
+  "runHash": "6634b6cf",
+  "dataHash": "57b28bb3",
+  "rowsHash": "76fbc4f3",
+  "rows": [
+    {
+      "case": {
+        "knowledge": true
+      },
+      "expected": {
+        "zone": [
+          30,
+          7.5
+        ],
+        "room": [
+          37.5,
+          12.5
+        ],
+        "knowledge": true
+      },
+      "actual": {
+        "shots": [
+          {
+            "id": "shot-1",
+            "step": 1,
+            "known": false,
+            "zoneErr": 0,
+            "roomErr": 0.008402528917242299,
+            "path": [
+              "bridge:1",
+              "bridge:3",
+              "quarters:1",
+              "quarters:4"
+            ]
+          },
+          {
+            "id": "shot-2",
+            "step": 121,
+            "known": false,
+            "zoneErr": 0,
+            "roomErr": 0.00840316822330782,
+            "path": [
+              "bridge:1",
+              "bridge:3",
+              "quarters:1",
+              "quarters:4"
+            ]
+          },
+          {
+            "id": "shot-3",
+            "step": 241,
+            "known": true,
+            "zoneErr": 0.008402087300259133,
+            "roomErr": 0,
+            "path": [
+              "hold:0",
+              "hold:2",
+              "magazine:0",
+              "magazine:2",
+              "quarters:2",
+              "quarters:5"
+            ]
+          }
+        ],
+        "resolvedAt": 219,
+        "ended": "destroyed",
+        "hasModel": true,
+        "modelHits": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "knowledge": false
+      },
+      "expected": {
+        "zone": [
+          30,
+          7.5
+        ],
+        "room": [
+          37.5,
+          12.5
+        ],
+        "knowledge": false
+      },
+      "actual": {
+        "shots": [
+          {
+            "id": "shot-1",
+            "step": 1,
+            "known": false,
+            "zoneErr": 0.008402528917242299,
+            "roomErr": 0,
+            "path": [
+              "hold:0",
+              "hold:2",
+              "magazine:0",
+              "magazine:2",
+              "quarters:2",
+              "quarters:5"
+            ]
+          }
+        ],
+        "resolvedAt": null,
+        "ended": "destroyed",
+        "hasModel": false,
+        "modelHits": 0
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

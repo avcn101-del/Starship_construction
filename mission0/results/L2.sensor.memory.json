@@ -1,0 +1,104 @@
+{
+  "id": "L2.sensor.memory",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.sensor.memory",
+  "code": "a1174e7+dirty",
+  "criterionHash": "5a06271c",
+  "lockedHash": "5a06271c",
+  "runHash": "061f5e00",
+  "dataHash": "57b28bb3",
+  "rowsHash": "88da62ee",
+  "rows": [
+    {
+      "case": {
+        "zone": 0
+      },
+      "expected": {
+        "n0": 249,
+        "heated": 250,
+        "rescan": 499,
+        "hot": "hot"
+      },
+      "actual": {
+        "resolved": [
+          249,
+          499
+        ],
+        "stages": {
+          "scan": {
+            "a": {
+              "integrity": 1,
+              "destroyed": false
+            },
+            "b": {
+              "integrity": 1,
+              "destroyed": false
+            },
+            "ir": null
+          },
+          "heated": {
+            "step": 250,
+            "T": 649.9794731631471,
+            "a": {
+              "integrity": 1,
+              "destroyed": false
+            },
+            "b": {
+              "integrity": 1,
+              "destroyed": false
+            },
+            "ir": {
+              "class": "hot",
+              "step": 250
+            },
+            "panels": [
+              "hot",
+              "hot",
+              "hot",
+              "hot",
+              "hot",
+              "hot"
+            ]
+          },
+          "after": {
+            "first": 251,
+            "ok": true,
+            "last": 498
+          },
+          "rescan": {
+            "step": 499,
+            "a": {
+              "integrity": 1,
+              "destroyed": false
+            },
+            "b": {
+              "integrity": 0,
+              "destroyed": true
+            },
+            "panel": {
+              "now": false,
+              "position": [
+                15,
+                7.5
+              ],
+              "step": 250
+            }
+          }
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

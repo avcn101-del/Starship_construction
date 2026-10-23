@@ -4,7 +4,7 @@
 // the room after the event, for sound); some types carry more (below).
 // The cascade tree (#41, 13l.1, L4b): every event also gets an `id` (the log's
 // prefix and its place in the log) and a `parent`: a root (a shot id, a beam
-// id, 'heat', 'launch') or the id of an earlier event of the same log. The
+// id, 'heat', 'launch'; from L5b a scan id and 'sense') or the id of an earlier event of the same log. The
 // parent is the one the emitter names, else the innermost event the kernel is
 // handling (log.context), else the event's cause. `cause` keeps its meaning
 // (a reason or the root, as before L4b).
@@ -39,6 +39,10 @@ export const EVENT_FIELDS = {
   'heat-vented': ['energy'], // a destroyed heat sink cell let its heat above rest out to space (J, #198)
   disabled: ['since'], // the battle (js/battle.js, 13l.1): no able weapon for battle.disabledSeconds since `since` (s); room: the last weapon to lose its ability
   destroyed: ['by'], // the battle: 'explosion' (a reactor's; a magazine's is a blast and ends nothing by itself, #274, 13n.1 (b)) or 'pieces' (the largest fragment under battle.wreckFraction of the undock mass)
+  // Senses (L5b, js/sensors.js, 13n.1 (a), #289), in the observer's log, room the antenna's host:
+  'scan-started': ['zone'], // an antenna began scanning zone `zone` of the other ship; root scan-<n>, the side's n-th scan
+  'zone-resolved': ['zone', 'rooms'], // the zone resolved: its cells and the ids of the rooms they belong to (rooms) are in the model; parent the scan-started
+  'source-resolved': ['kind', 'position'], // a source of the other ship turned resolved this step (kind panel / exhaust / antenna / shield, its world position); root 'sense'
 };
 
 /** An event log; `prefix` starts every event id (a battle gives each ship its own). */
@@ -70,8 +74,8 @@ export function within(log, event, fn) {
   try { return fn(); } finally { log.context.pop(); }
 }
 
-/** A root of the cascade tree (13l.1): a shot id, a beam id, 'heat' or 'launch'. */
-export const isRoot = (cause) => cause === 'heat' || cause === 'launch' || /(^|:)(shot|beam)-\d+$/.test(String(cause));
+/** A root of the cascade tree (13l.1): a shot id, a beam id, 'heat' or 'launch'; a scan id (scan-<n>) or 'sense' (13n.1 (a), #289). */
+export const isRoot = (cause) => cause === 'heat' || cause === 'launch' || cause === 'sense' || /(^|:)(shot|beam|scan)-\d+$/.test(String(cause));
 
 /**
  * The cascade tree of a log (13l.1): roots in order of first use, each with its

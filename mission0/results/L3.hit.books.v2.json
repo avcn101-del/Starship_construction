@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.hit.books.v2",
-  "code": "17c09e0",
+  "code": "a1174e7+dirty",
   "criterionHash": "28c0b667",
   "lockedHash": "28c0b667",
   "runHash": "58020b58",
-  "dataHash": "e6752b27",
+  "dataHash": "57b28bb3",
   "rowsHash": "762a9269",
   "rows": [
     {

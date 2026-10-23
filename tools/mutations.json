@@ -1463,5 +1463,54 @@
     "file": "js/data.js",
     "old": "machineryMass: P(1975, 1750, 2500, 3,",
     "new": "machineryMass: P(2000, 1750, 2500, 3,"
+  },
+  {
+    "id": "l5b.passive.inverseD",
+    "rule": "13n.4 S1 (#289): passive resolution at d^-2",
+    "file": "js/sensors.js",
+    "old": "const received = (src.P * A) / (4 * Math.PI * dist2(a.at, src.position));",
+    "new": "const received = (src.P * A) / (4 * Math.PI * Math.sqrt(dist2(a.at, src.position)));"
+  },
+  {
+    "id": "l5b.scan.d2",
+    "rule": "13n.4 S2 (#289): scan progress dt / (scanTime (d / scanRange)^4)",
+    "file": "js/sensors.js",
+    "old": "f.scan.progress += dt / (T0 * q * q);",
+    "new": "f.scan.progress += dt / (T0 * q);"
+  },
+  {
+    "id": "l5b.zone.floor",
+    "rule": "13n.4 S2 (#289): zone column bounds x0 + ceil(i W / 3)",
+    "file": "js/sensors.js",
+    "old": "const xb = [0, 1, 2, 3].map((i) => x0 + Math.ceil((i * W) / 3))",
+    "new": "const xb = [0, 1, 2, 3].map((i) => x0 + Math.floor((i * W) / 3))"
+  },
+  {
+    "id": "l5b.scan.noReset",
+    "rule": "13n.4 S6 (#289): a scan resets on a loss of power or control",
+    "file": "js/sensors.js",
+    "old": "if (!scanAble(world, f)) { f.scan.progress = 0; f.scan.started = null; continue; }",
+    "new": "if (!scanAble(world, f)) continue;"
+  },
+  {
+    "id": "l5b.scan.noControl",
+    "rule": "13n.4 S6 (#289): a scan needs its host controlled",
+    "file": "js/sensors.js",
+    "old": "host.controlled && host.powered && host.active",
+    "new": "host.powered && host.active"
+  },
+  {
+    "id": "l5b.aim.truth",
+    "rule": "13n.4 S7 (#289): with knowledge on the plan aims at what the model knows",
+    "file": "js/battle.js",
+    "old": "!battle.knowledge ? aimPoint(T, room) :",
+    "new": "true ? aimPoint(T, room) :"
+  },
+  {
+    "id": "l5b.scan.noDraw",
+    "rule": "13n.4 S6 (#289): a scan draws sensor.scanPower from its host",
+    "file": "js/rooms.js",
+    "old": "return n * tierScaled(world, world.params.sensor.scanPower);",
+    "new": "return 0 * n;"
   }
 ]

@@ -1,0 +1,96 @@
+{
+  "id": "L2.sensor.shield",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.sensor.shield",
+  "code": "a1174e7+dirty",
+  "criterionHash": "4d2dab9b",
+  "lockedHash": "4d2dab9b",
+  "runHash": "dc62f909",
+  "dataHash": "57b28bb3",
+  "rowsHash": "46dad018",
+  "rows": [
+    {
+      "case": {
+        "mode": "absorb"
+      },
+      "expected": {
+        "from": 61,
+        "to": 120,
+        "at": [
+          20,
+          5
+        ]
+      },
+      "actual": {
+        "seen": [
+          61,
+          120,
+          60
+        ],
+        "absorbing": [
+          61,
+          120,
+          60
+        ],
+        "events": [
+          {
+            "step": 61,
+            "parent": "sense",
+            "position": [
+              20,
+              5
+            ]
+          }
+        ],
+        "last": {
+          "now": false,
+          "position": [
+            20,
+            5
+          ]
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "mode": "scan",
+        "shield": true
+      },
+      "expected": {
+        "n": 249
+      },
+      "actual": {
+        "n": 249
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "mode": "scan",
+        "shield": false
+      },
+      "expected": {
+        "n": 249
+      },
+      "actual": {
+        "n": 249
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
