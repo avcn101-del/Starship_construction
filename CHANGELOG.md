@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — the thin-skin idea (#313)
+
+- `IDEAS.md`: "A thin skin over the rooms, with cosmetic paint" (the design
+  partner, `ideas/hull-skin`). `DECISIONS.md` #313: its three kernel rules
+  wait until after Mission 0; `DESIGN.md` §18.
+
 ## Unreleased — 2026-10-23 — the prototype page on the L5d loop merged (#312)
 
 - PR #96 (feel-6): the page on the kernel's symmetric loop; `L0.determinism.v2`
