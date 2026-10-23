@@ -32,7 +32,7 @@ export default {
   tolerance: 'counts exact; the dose sum of E g(d_i) 1e-12 (relative) at the kernel-read d_i',
   criterion: 'in arc: the missile killed by flak at a burst whose closest approach d <= 15.275 m (hand-worked), its dose E / (1 + (d / 10)^2) >= 600 kJ; its dose at the kill the sum over every recorded burst of E / (1 + (d_i / flak.radius)^2), E = he.blastEnergy 2 MJ, flak.radius 10 m (1e-12, #298 (1)); the store 40 less the flak fired; no warhead; outside: no flak fired, the store 40, the missile hits',
   tunable: ['missile.mass', 'matter.burnEnergyPerKg', 'pd.fireRate', 'pd.ammo', 'flak.radius', 'he.blastEnergy'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '53c147fe' },
   cases() {
     return [{ arc: 'in' }, { arc: 'out' }];
   },
