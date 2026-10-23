@@ -1192,5 +1192,13 @@
     "recordHash": "d2289762",
     "reason": "Superseded under #301 (6) (DESIGN.md 13n.4 H13): it did not check the scan's draw while control is lost: the L5b checker's gap (§17 item 45 (e)). Its successor keeps every case and check and asserts the scan heat in the host, 1666.67 J in a controlled step and 0 in every step while control is lost. Recorded PASS (code 0501899, data d540e777), frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L4.route.surrender",
+    "successor": "L4.route.surrender.v2",
+    "decision": "#303",
+    "recordHash": "3f056fa8",
+    "reason": "Superseded under #303 (the surrender timer battle.disabledSeconds x resolve, superseding #278's x (1 - resolve), the plan's wording error found by the L5d engineer): it was locked on the old formula (resolve 0 Disabled at 10 s, resolve 1 striking at once). Its successor keeps every case and check on the decided rule (resolve 0 at once, 0.5 at 5 s, resolve 1 Disabled at 10 s). Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
+    "frozen": true
   }
 ]
