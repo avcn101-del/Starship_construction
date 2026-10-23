@@ -96,7 +96,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, L5c fix round (#296; head `a7ee5f8`: `pd.range`, the body's impulse, three successors; 2 questions; notified by trigger) | session_01X1gtC7jUZGTc2g5jVkX1qk | opus-5-5 | 7.08 |
 | Engineer, L5c fix round 2 (#298; head `a4005d4`: `L1.pd.kinetic.v2`, `L2.missile.seekers.v2`; the crossing case and `L2.pd.saturation` not built, 2 questions; notified by trigger) | session_01XzQ7C4ro57Qy4dmmdkwsJM | opus-5-5 | 4.85 |
 | Reviewer, L5c (PR #88 at `a4005d4`; 0 blocking, 7 findings; 34 of 34 `l5c.*` mutations KILLED; notified by trigger) | session_01MKjVmvJumw88Rvj9oo3SGi | sonnet-5-5 | 0.98 |
-| Engineer, L5d the helm and the enemy (`m0/l5d-helm` from `ld/l5d`, #301; PR #94, head `3da955c`, lock `97d2740`; 18 scenarios, 10 questions; then H8's successor under #303; notified by trigger) | session_01LpASMAypvQc8EhHRGaN8k9 | opus-5-5 | running |
+| Engineer, L5d the helm and the enemy (`m0/l5d-helm` from `ld/l5d`, #301; PR #94, head `3da955c`, lock `97d2740`; 18 scenarios, 10 questions; then H8's successor under #303, head `dd67aa0`; notified by trigger) | session_01LpASMAypvQc8EhHRGaN8k9 | opus-5-5 | 29.39 |
 | Physics checker, L5d (blind, from lock `97d2740`; H4, H9–H12; H8 deferred to its successor; 0 numeric mismatches, 8 findings, 0 blocking; notified by trigger) | session_01JZxBhiqZeK8ytPxmzBx97E | sonnet-5-5 | 1.49 |
 | Reviewer, L5d (PR #94) | session_01EP7NCUqBPMwRgWJsLRq6P1 | sonnet-5-5 | running |
 
