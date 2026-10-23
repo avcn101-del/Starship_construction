@@ -1106,8 +1106,8 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Recoil, Newton 3 (#5, #203 C) | turret recoil, RCS | `L3.recoil.v5`, `L3.hit.books` | proven L3; E4 judged at L5c (the railgun, §17 item 7) |
 | Centre-of-mass shift | `rebalance` | `L3.split.momentum.v5`, `L3.fragment.rules.v3` | proven L3 |
 | Heat and radiators, Stefan–Boltzmann (#143); the coolant loop (#200) | `heat.js`, conduction, life support | `L1.radiator.*`, `L2.heat.*`, `L2.lifesupport.*`, `L1.heat.coupled.v2` | proven L1–L2 |
-| Infrared seen from outside (#102): surfaces only | `irBrightness` radiates; nothing *sees* it | none | planned L5b (`sensors.js`, §17 item 33) |
-| Inverse-square passive, distance⁴ active (#24) | nothing | none | planned L5b (§17 item 33) |
+| Infrared seen from outside (#102): surfaces only | `sensors.js`: every working panel at its room's `irBrightness` and the exhaust's jet power are point IR sources; rooms without a panel are IR-dark | `L1.sensor.passive`, `L2.sensor.memory`, `L2.sensor.posture` | proven L5b |
+| Inverse-square passive, distance⁴ active (#24) | passive P A / (4π d²) ≥ `sensor.sensitivity`; a zone resolves after `sensor.scanTime` (d / `sensor.scanRange`)⁴ | `L1.sensor.passive`, `L1.sensor.active`, `L0.sensor.tier` | proven L5b |
 | Time of flight | `battle.js` rounds | `L4.route.decapitate` (arrival steps), `L4.relative` | proven L4 |
 | Square–cube, tiers (#63, #240 (4)) | `scaled(k)`; plates k = 1; `beamEnergy` | `L0.beam.tier.v2`, `L0.shield.buffer.tier`, `L3.mass.props.v5` (T6) | proven for the pass-2 rules; the rest planned L6 (the physics audit's T1–T4, #270) |
 | Fail-safe reactors: SCRAM, decay heat, restart (#81, #82) | built | `L1.reactor.scram.v2`, `L1.reactor.restart`, `L3.fragment.scram.v2` | proven L1, L3 |
@@ -1148,7 +1148,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | RCS | built | `L3.rcs.turn.v5` | proven |
 | **Point defence, kinetic** (#93) | **nothing** | none | planned L5c (#268) |
 | **Point defence, laser** (#93) | **nothing** | none | planned L5c (#268) |
-| **Sensor antenna** (#24: scan, needs a control path) | **nothing** | none | planned L5b (§17 item 33) |
+| Sensor antenna (#24: scan, needs a control path) | built: a fitting of `sensor.mass` on an open edge; a scan needs its host controlled and powered and draws `sensor.scanPower` as heat there | `L3.sensor.control`, `L1.sensor.active` | proven L5b |
 | Scan-proof plating (#27), decoy launcher (#149) | nothing | none | after Mission 0 (#27, #149: later modules) |
 
 ### D. Shipyard and validation (§5.5)
@@ -1182,12 +1182,12 @@ sit in no plan again. Each plan updates this table in the same commit.
 
 | Element | Today | Proof | Status |
 |---|---|---|---|
-| Free information: the outer silhouette always visible (#23) | the prototype shows both layouts whole (a stand-in) | none | planned L5b (§17 item 33) |
-| Passive IR and EM, distance² (#24, #102) | nothing | none | planned L5b |
-| Active scan by zone, distance⁴, reveals the scanner, remembered (#24, #25) | nothing | none | planned L5b |
+| Free information: the outer silhouette always visible (#23) | the model's silhouette (standing cells, hull segments, poses) at every range before any scan | `L1.sensor.active` | proven L5b |
+| Passive IR and EM, distance² (#24, #102) | panels and the exhaust (IR), a scanning antenna and an absorbing shield (EM), resolved at d⁻² | `L1.sensor.passive`, `L2.sensor.reveal`, `L2.sensor.posture` | proven L5b |
+| Active scan by zone, distance⁴, reveals the scanner, remembered (#24, #25) | 3 × 2 zones of the occupied box, each revealing its own cells; the scanner EM-bright; positions kept, state only by re-scan or passive IR | `L1.sensor.active`, `L2.sensor.reveal`, `L2.sensor.memory` | proven L5b |
 | Jamming, burn-through (#101) | nothing | none | after Mission 0 (#27: later module) |
-| Shields EM-bright while absorbing, do not block scans (#103) | `shield.em` is computed; nothing reads it | none | planned L5b |
-| Symmetry: the enemy scans too; one knowledge model per side; the renderer and the enemy read only theirs (#26, #42, #112) | nothing | none | planned L5b (the model), L5d (the enemy reads it) |
+| Shields EM-bright while absorbing, do not block scans (#103) | the generator's absorbed power this step (a beam's `s.em` and the buffer's payment for rounds, #290) is an EM point source; scans pass the field | `L2.sensor.shield`, `L2.sensor.posture` | proven L5b |
+| Symmetry: the enemy scans too; one knowledge model per side; the renderer and the enemy read only theirs (#26, #42, #112) | one model per side when the battle's `knowledge` is on; the attacker's aim reads only its model; plan advancement still reads the truth until L5d (#290 (1)) | `L4.target.known`, `L2.sensor.reveal` | proven L5b (the model); planned L5d (the enemy and the helm read it, the plan advances by it) |
 | Layout variants per named ship (#28) | nothing | none | after Mission 0 (content), the mechanism planned L5d (the wildcard draw) |
 
 ### G. Battle (§8)
@@ -1200,7 +1200,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Standing orders: emission (posture, auto-scan) | nothing | none | planned L5d (after `sensors.js`) |
 | Presets (#39) and the preset verb | the prototype's three presets (a stand-in) | none | planned L5d |
 | Helm conflicts: position, facing, dodging (#40) | the stand-in's order | none | planned L5d |
-| Verb: scan a zone | nothing | none | planned L5b (a case input), L5d (the player and the enemy) |
+| Verb: scan a zone | a battle's `scans` input (side, antenna, zone, time); one command scans one zone and stops when it resolves (#290 (4)) | `L4.target.known`, `L3.sensor.control` | proven L5b (a case input); planned L5d (the player's verb and the enemy's auto-scan) |
 | Verb: target a room | the prototype (tap); the loop's aim at a room | `L4.route.*` (the attacker's aim) | proven L4 (the kernel side) |
 | Automatic rules: RCS recoil compensation, point-defence target, repair order, reactor containment first, dark fragments, each shot's ammunition type | RCS and repair order built; the rest nothing | `L3.rcs.turn.v5`, `L2.repair.shared.v2` | partly proven; point-defence target and the shot's type planned L5c; containment first and dark fragments planned L5d |
 | **Disabled** (#82, #255) | built | `L4.disabled.rule` | proven L4 |
@@ -1281,6 +1281,7 @@ is §13n.6.
 | Jamming, burn-through (#101), decoys (#149), scan-proof plating (#27) | Not built at L5 (§13m: after Mission 0, later modules): a jammer is a d⁻² EM source that raises the other side's sensitivity floor, burn-through the range where the d⁻⁴ echo rises above it; both reuse the two laws above and add no law. No constant for them now (E4) |
 | Events | `scan-started`, `zone-resolved` (zone, rooms), `source-resolved` (kind, position) for presentation and sound (#156) |
 | L5b's precisions (#289, after the probe) | **The antenna** is a fitting on an open edge of a room that is not placed inside, under `fittingProblem`'s rules (one fitting per edge is "one per hull segment"); `validateShip` gains no rule; its mass `sensor.mass` (new, 1000 kg, 250–4000, k = 2, an estimate: 250 kg/m² of aperture) at its edge's midpoint. **A scan** needs the host room controlled (a control path to the bridge) and powered; it draws `sensor.scanPower` from the host while it scans, heat in the host as every consumer's draw; progress on a zone accumulates dt / (`sensor.scanTime` × (d / `sensor.scanRange`)⁴) each step with d from the antenna's edge midpoint to the zone's centre (world, that step) and resolves at 1; it resets when the antenna changes zone or loses power or control. Passive needs only the antenna's cell standing. **Zones**: the other ship's occupied box at undock in its grid, column bounds x₀ + ⌈i W / 3⌉ (i = 0…3, stern to bow), row bounds y₀ + ⌈j H / 2⌉ (j = 0…2), zone id 3 j + i (R1 and R1d: 4, 4, 3 × 3, 3; the rooms each reveals are printed by section (1)); the zone's centre is its rectangle's centre on the body that holds its first cell. **A resolved zone reveals its own cells** (room id and type, integrity, plates on their segments) and nothing of other zones; a room is known once one of its cells is; the aim point of a known room is its first known surviving cell. **Sources** are points: a panel at its edge's midpoint (its room's `irBrightness` / its panels), the exhaust at the exhaust face's centre (thrust × `engine.exhaustVelocity` / 2 × throttle, a live engine only), a scanning antenna at its edge's midpoint, a shield at its generator room's centre while `s.em` > 0; no occlusion and no facing at L5b. **The knowledge model is a battle setting** (`knowledge: true`): with it off, as in every locked L4 case, nothing changes (the probe: 116 of 116 rows unchanged); with it on each side has a model, the silhouette (its standing cells and hull segments, with the other ship's pose) at every range, and a plan's room the model does not know is aimed at the centre of the zone the case names. L5d makes the model mandatory for the helm and the enemy (H1 decides the L4 records then). **Events** go to the observer's log, room the antenna's host: `scan-started` (zone; root `scan-<n>`, the side's n-th scan), `zone-resolved` (zone, rooms; its parent the scan-started), `source-resolved` (kind, position) on the step a source turns resolved, root `sense`; `isRoot` takes both roots |
+| L5b as built (#290; PR #84, `js/sensors.js`) | **A shield's EM** is the power its generator absorbs in the step, a beam's (`s.em`) and the buffer's payment for rounds (its `roundEm`, paid / dt) alike: #103's "while absorbing" names no channel, and a shield that stops rounds is lit by them (S9 rests on it; `roundEm` is not enumerable so no record moved: L5c, which touches the shield for the firing window, makes it enumerable and re-records). **One scan command scans one zone**: the antenna stops when the zone resolves and a re-scan is a new command (S4, S9); L5d's auto-scan order issues the next. **Partial power**: a scan under a browned-out host progresses at the full rate and radiates the full `sensor.scanPower` (the heat is the power delivered); scaling both by the host's power fraction (#193) is built in L5d with the power-priority order, when brown-out is a thing a battle does (§17 item 45). **Plan advancement reads the truth** (`firstStanding`) with the model on; only the aim reads the model: L5d's target rules advance by the model (a room is lost to its shooter when its model knows no standing cell of it) and the model keeps no reference to the other world (§17 item 45). A zone's first cell is its first occupied cell row by row from its low row, its pose the body holding it, else the main body's; a zone without occupied cells resolves and reveals nothing. The exhaust's power is the engine's **actual** thrust × `engine.exhaustVelocity` / 2 (throttle, surviving fraction and power fraction included: the rule's formula for an intact engine on full power). `received` is the best of the side's antennas; the event's room is the first antenna that resolves the source; a battle with the model senses once at creation (silhouette and passive, no scan), so `source-resolved` events at t = 0 |
 
 **(b) The kinetic pass (L5a; #273 (b) (c), #274, §17 items 34, 35, 36, 39, 41)**
 
@@ -1460,6 +1461,7 @@ Time: five sequential passes, each an engineer session of 2–4 hours plus a che
 - [x] Hardware sense-checked: a 10 kg slug at 2 km/s is the Navy prototype (32 MJ); 3 g for a missile is low for a real one (10–30 g) and chosen for #54's 8–15 s; 100 kW of scan power is a destroyer's radar at a tenth; a fusion torch at 10 km/s; the 1.2 GJ magazine is 225 kg of propellant, HMS Hood's lesson.
 - [x] §13m rows this plan proves (updated to "planned L5a–e" with #278; each pass's exit turns its rows "proven"): A infrared, inverse-square, blast outside, EMP; B railgun, missile bay; C point defence (two), antenna; D room size S; E missiles, seekers, warheads, point defence, firing window, magazines lasting, round types, shot choice; F all seven; G standing orders (four rows), presets, helm conflicts, scan verb, automatic rules, EMP route, surrender route, destroyed by #274; H all five; I E2 energy, E3, E4, E5, E6, E7, E8 missiles. L5 exits only when none says "planned".
 - [x] L5b probed before its engineer (#285's lesson, #289): the antenna fitting, the sources and the passive step in a scratch copy, run by `tools/m0.js cov`: **116 of 116 rows unchanged** (the data hash moves, a re-record as every pass); the knowledge model a battle setting so no locked case moves; R1d's free edges for an antenna are its hold's six; the cost of §13n.5 stands.
+- [x] **L5b exits** (#290): S1–S9 PASS at `3b2bd51`; regress on the merge in #290; §13m's L5b rows read proven L5b; the §13n.5 cost 11.62 USD against raw 15–21.
 - [ ] Open: the threshold's value (K7, the owner's choice on the pace table, #277); the penetrator warhead is weak at 3 g (0.59 × M), by design until the Swarm's measure says otherwise; `beambay.efficiency` as a laser PD's (#243 F26) unresolved; `sensor.sensitivity` has no source beyond the chosen band.
 
 ### 13n.7 What the owner decided (#277, 2026-10-22, each as recommended; the frame of #247 (3) as it was put)
@@ -1631,6 +1633,26 @@ Each line names its decision and when it is due; a closed one is removed.
     and E6's overheat path are measured (whether the overheat route is
     the beam's or the radiators'); the scenario items with the next pass
     that touches each file.
+
+44. **Constants with k = 0 are read by `.value`, not through `scaled()`**
+    (the L5b checker's N7, #290): `sensors.js` reads `sensor.scanTime` and
+    `engine.exhaustVelocity` so, as `rooms.js` reads twelve others
+    (`magazine.detonationSpeed`, `kinetic.hitsToWreck`, `reactor.restartTime`,
+    …). A nonzero k set in `data.js` for any of them would be ignored by the
+    code and no tier scenario would notice. Due: every read through
+    `tierScaled` (a no-op at k = 0, so no record moves) or a lint that lists
+    the `.value` reads against `data.js`'s k, in the next hygiene round.
+45. **What L5b leaves to L5d and L5c** (#290): (a) plan advancement and
+    every target rule read the model, not `firstStanding`; the model keeps
+    no reference to the other world (its `other` field); (b) a scan's progress
+    and radiated power scale with the host's power fraction (#193); (c)
+    the shield's `roundEm` enumerable with a re-record (L5c, the firing window);
+    (d) a case with plates in the model (R1d scanned), which L5c's W11 needs;
+    (e) the check gaps the checker listed: S4's class order and the
+    rest → hot transition, S5's "the shield still absorbs at step 249", S6's
+    draw while control is lost (successors when their files are touched);
+    (f) `L4.e8.v2`'s per-step time re-measured on an idle machine (0.242 ms
+    under a parallel regress; the criterion is 1 ms).
 
 ## 18. Decisions in force
 
@@ -1929,3 +1951,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 287 | L5m merged (PR #78): the turret by its mount; answers to its two engineers, the blind checker and the reviewer; contents at the room's centre stated; §17 item 43 (the overheat route rests on an unsourced heat capacity) | current |
 | 288 | The owner kept `magazine.detonationSpeed` at 400 m/s after the pace study; the pace table; the full mutation run on the L5m merge | current |
 | 289 | L5b probed (116 of 116 rows unchanged) and made buildable: the antenna fitting and `sensor.mass` (new), scan rules, zones by ceiling bounds revealing their own cells, point sources, the knowledge model a battle setting, events and roots; S2, S7, S9 amended before any lock | current |
+| 290 | L5b merged (PR #84): the senses and the knowledge model; answers to its engineer, blind checker and reviewer; a shield's EM counts rounds; one scan per command; partial power and plan advancement by the model to L5d (§17 item 45); k = 0 reads (§17 item 44) | current |

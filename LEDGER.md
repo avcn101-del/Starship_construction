@@ -89,8 +89,8 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Physics checker, L5m (blind; `checker/l5m`; 0 blocking, 5 notes; notified by trigger) | session_01RK9ndyzx6r1Vezi6AGKrpY | sonnet-5-5 | 1.73 |
 | Reviewer, L5m (PR #78; 0 blocking, 8 notes; notified by trigger) | session_01QHhyCxx64XvgAXGSeEBbaU | sonnet-5-5 | 1.35 |
 | Engineer, L5b senses and the knowledge model (`m0/l5b-senses`, PR #84, head `3b2bd51`; `js/sensors.js`, S1–S9, 7 constants; 8 questions; notified by trigger) | session_01TxfVV2pnW24vz4uTSzSciR | opus-5-5 | 9.59 |
-| Physics checker, L5b (blind, from lock `a1174e7`; running) | session_01VGwjX6cise4udiD1zYY38i | sonnet-5-5 | running |
-| Reviewer, L5b (PR #84; running) | session_01Tux7HRzP4r2YcUorJTjYEc | sonnet-5-5 | running |
+| Physics checker, L5b (blind, from lock `a1174e7`; 0 numeric discrepancies, 0 blocking, 8 notes; notified by trigger) | session_01VGwjX6cise4udiD1zYY38i | sonnet-5-5 | 1.37 |
+| Reviewer, L5b (PR #84; 0 blocking, 7 findings; notified by trigger) | session_01Tux7HRzP4r2YcUorJTjYEc | sonnet-5-5 | 0.66 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -113,6 +113,7 @@ L4 fix round total: 6.83 USD (engineer 6.41, reviewer 0.42).
 L4 scenario-hygiene round total: 15.89 USD (engineer 10.58, physics checker 4.06, reviewer 1.25). L4 total (L4a + L4b + fix + hygiene): ≥ 64.27 USD.
 L5a total: 23.54 USD (engineers 16.82 + 3.34, physics checker 1.90, reviewers 1.03 + 0.45).
 L5m total: 15.09 USD (engineers 7.97 + 4.04, physics checker 1.73, reviewer 1.35).
+L5b total: 11.62 USD (engineer 9.59, physics checker 1.37, reviewer 0.66). L5 so far (L5a + L5m + L5b): 50.25 USD.
 
 The lead designer chat's own cost (planning, answers, checks, merges) is **not in this ledger** (#270 (7)): only the sessions it creates are costed.
 
@@ -130,5 +131,6 @@ One row per pass under the plan gate (#241): the raw range the plan stated, wher
 | L4 scenario-hygiene round | 10–15 | #271, §13l.7 | 15.89 | 1.27 |
 | L5a (the kinetic pass, with its fix round) | 11–16 | #278, §13n.5 | 23.54 | 1.74 |
 | L5m (the turret by its mount) | 10–15 (5–8 in #281, corrected by the probe of #285 before any session) | #285 | 15.09 | 1.21 |
+| L5b (senses and the knowledge model) | 15–21 | #278, §13n.5 (the probe of #289 confirmed it) | 11.62 | 0.65 |
 
 Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).

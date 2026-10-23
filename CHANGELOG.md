@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5b merged: the senses and the knowledge model (#290)
+
+- `js/sensors.js` (new): IR and EM point sources, passive resolution at
+  d⁻², 3 × 2 zones scanned at d⁴ revealing their own cells, one knowledge
+  model per side, the events `scan-started`, `zone-resolved`,
+  `source-resolved`. The antenna fitting (`sensor.mass`); `knowledge` and
+  `scans` as battle settings; seven constants in `js/data.js` (`sensor.*`,
+  `engine.exhaustVelocity`). Scenarios S1–S9 (`L1.sensor.passive`,
+  `L1.sensor.active`, `L2.sensor.reveal`, `L2.sensor.memory`,
+  `L2.sensor.shield`, `L3.sensor.control`, `L4.target.known`,
+  `L0.sensor.tier`, `L2.sensor.posture`); every passing scenario
+  re-recorded on the new data hash (PR #84).
+- `DECISIONS.md` #290: answers to the engineer, the blind checker and the
+  reviewer. `DESIGN.md` §13n.1 (a) "L5b as built", §13m's nine L5b rows
+  proven, §13n.6, §17 items 44–45, §18. `LEDGER.md` costs (11.62 USD,
+  ratio 0.65). `CONSTANTS.md` regenerated.
+
 ## Unreleased — 2026-10-23 — L5b: senses and the knowledge model (#278, #289)
 
 - `js/sensors.js` (new): each side's sources (radiator panels by
