@@ -31,7 +31,7 @@ export default {
   tolerance: 'steps exact; t - since one-sided [T, T + dt)',
   criterion: 'resolve 0: surrender at step 151 (t - since 0); 0.5: surrender at step 451 (5.0 s); 1: disabled at step 751 (10.0 s, the surrender\'s timer equal to it); each on side T, a capture with all 10 rooms standing, parent launch',
   tunable: ['battle.disabledSeconds'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: '8840bd1c' },
   cases() {
     return [{ resolve: 0 }, { resolve: 0.5 }, { resolve: 1 }];
   },
