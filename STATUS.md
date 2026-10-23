@@ -17,7 +17,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge.
-- **Running**: **L5b** (senses and the knowledge model): probed (#289: 116 of 116 rows unchanged, the cost stands), plan made buildable; the engineer (opus, `m0/l5b-senses`) next.
+- **Running**: **L5b** (senses and the knowledge model): probed (#289: 116 of 116 rows unchanged, the cost stands), plan made buildable (PR #83); **engineer** `session_01TxfVV2pnW24vz4uTSzSciR` (opus, `m0/l5b-senses`) started 03:01 UTC.
 - **Waiting on you**: nothing. You gave **the go for L5b** (2026-10-23) and asked for a new lead designer chat to run it. Later: the frame on the overheat route (§17 item 43). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#288.
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (ratio 1.21). 2026-10-21/23 in all about 205 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
@@ -190,7 +190,7 @@ The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
 the old chat's pending check-in was deleted at hand-over; the new chat
 creates its own (`send_later`, 20–45 min after starting a session). This
-chat's pending check-in: `trig_01FNCFgNTUqXwQCtwD2hecPr` (01:10 UTC, L5m's review; obsolete once read).
+chat's pending check-in: `trig_01HMqVMhDXUPf59JStzq3AQq` (03:47 UTC, the L5b engineer).
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
 
