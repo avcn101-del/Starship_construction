@@ -53,6 +53,9 @@ export const EVENT_FIELDS = {
   outage: ['dose', 'until'], // an EMP's dose shut a powered room down until `until` (s, emp.outageTime after the burst, #292)
   'outage-ended': [], // the outage is over at this step's end: the room works again; parent the outage
   window: ['segment'], // this ship's own round or beam crossed its field at hull segment `segment` this step: open for the other side's rounds (#100); room: the firing room
+  // The helm and the enemy (L5d, 13n.1 (d), #293, #301): two ends of a battle, each in the side's own log.
+  surrender: ['since'], // the enemy struck its colours battle.disabledSeconds x resolve after its last weapon (#303; since: s, when it lost it); a capture; room the last weapon, parent the event that took it
+  escaped: ['separation'], // the side that ordered disengage is out of reach: the separation (m) beyond battle.cullDistance and growing for battle.disabledSeconds counted beyond it (#293)
 };
 
 /** An event log; `prefix` starts every event id (a battle gives each ship its own). */

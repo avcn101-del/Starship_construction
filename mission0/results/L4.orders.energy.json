@@ -1,0 +1,135 @@
+{
+  "id": "L4.orders.energy",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.orders.energy",
+  "code": "f7833b3",
+  "criterionHash": "0e15c362",
+  "lockedHash": "0e15c362",
+  "runHash": "e9f1b4d6",
+  "dataHash": "fee97350",
+  "rowsHash": "81ae839c",
+  "rows": [
+    {
+      "case": {
+        "name": "heat-weapons",
+        "response": "weapons"
+      },
+      "expected": {
+        "threshold": 0.5
+      },
+      "actual": {
+        "crossed": 325,
+        "mismatch": 0,
+        "held": 875
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "heat-shield",
+        "response": "shield"
+      },
+      "expected": {
+        "threshold": 0.5
+      },
+      "actual": {
+        "crossed": 325,
+        "mismatch": 0,
+        "held": 875
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "heat-engine",
+        "response": "engine"
+      },
+      "expected": {
+        "threshold": 0.5
+      },
+      "actual": {
+        "crossed": 325,
+        "mismatch": 0,
+        "held": 728
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "power-fire",
+        "priority": "fire"
+      },
+      "expected": {
+        "order": [
+          "shield",
+          "turret",
+          "beamBay",
+          "engine"
+        ],
+        "full": [
+          "shield",
+          "turret"
+        ],
+        "short": [
+          "beamBay"
+        ]
+      },
+      "actual": {
+        "order": [
+          "shield",
+          "turret",
+          "beamBay",
+          "engine"
+        ],
+        "fractions": {
+          "shield": 1,
+          "turret": 1,
+          "beamBay": 0.7716535433070866
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "power-none",
+        "priority": "none"
+      },
+      "expected": {
+        "order": [],
+        "full": [],
+        "short": [
+          "beamBay"
+        ],
+        "zero": [
+          "shield",
+          "turret"
+        ]
+      },
+      "actual": {
+        "order": [],
+        "fractions": {
+          "shield": 0,
+          "turret": 0,
+          "beamBay": 0.96
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

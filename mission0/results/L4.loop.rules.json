@@ -1,0 +1,124 @@
+{
+  "id": "L4.loop.rules",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.loop.rules",
+  "code": "f7833b3",
+  "criterionHash": "abb3deaf",
+  "lockedHash": "abb3deaf",
+  "runHash": "cc74a636",
+  "dataHash": "fee97350",
+  "rowsHash": "050f0385",
+  "rows": [
+    {
+      "case": {
+        "name": "holes"
+      },
+      "expected": {
+        "before": "engine",
+        "after": null
+      },
+      "actual": {
+        "before": "engine",
+        "beforePath": [
+          "engine:0",
+          "engine:1"
+        ],
+        "after": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "chord"
+      },
+      "expected": {
+        "chord": 0.6666666666666666,
+        "room": "engine",
+        "next": "engine"
+      },
+      "actual": {
+        "room": "engine",
+        "cell": 2,
+        "chord": 0.6666666666666667,
+        "next": "engine",
+        "nextCell": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "ids"
+      },
+      "expected": {
+        "ok": true
+      },
+      "actual": {
+        "launches": 20,
+        "mapped": true,
+        "oneToOne": true,
+        "named": true,
+        "hitsIn": true,
+        "rootsIn": true,
+        "roots": 20,
+        "sides": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "books"
+      },
+      "expected": {
+        "close": true
+      },
+      "actual": {
+        "worst": {
+          "P": 1.4979638061381856e-15,
+          "E": 6.088648769173569e-16,
+          "L": 2.264658088867956e-15
+        },
+        "offField": 0,
+        "fieldSteps": 0,
+        "hits": 20,
+        "steps": 1200
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "field"
+      },
+      "expected": {
+        "close": true
+      },
+      "actual": {
+        "worst": {
+          "P": 3.69846051122093e-15,
+          "E": 1.5008158782004404e-15,
+          "L": 0.000010370858673900659
+        },
+        "offField": 0,
+        "fieldSteps": 14,
+        "hits": 20,
+        "steps": 1200
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

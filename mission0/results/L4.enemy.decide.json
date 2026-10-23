@@ -1,0 +1,141 @@
+{
+  "id": "L4.enemy.decide",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.enemy.decide",
+  "code": "f7833b3",
+  "criterionHash": "7fda882b",
+  "lockedHash": "7fda882b",
+  "runHash": "0f20d9e2",
+  "dataHash": "fee97350",
+  "rowsHash": "f690cd00",
+  "rows": [
+    {
+      "case": {
+        "aggression": 0.5,
+        "patience": 0,
+        "caution": 0.5,
+        "resolve": 0.5
+      },
+      "expected": {
+        "zones": 0,
+        "every": 60,
+        "cools": false
+      },
+      "actual": {
+        "first": 0,
+        "steps": 1145,
+        "decisions": 20,
+        "everyOk": true,
+        "mismatch": 0,
+        "cools": false,
+        "presets": [
+          "fire"
+        ],
+        "zones": 4,
+        "hash": "e7a25926",
+        "again": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "aggression": 0.5,
+        "patience": 0.5,
+        "caution": 0.5,
+        "resolve": 0.5
+      },
+      "expected": {
+        "zones": 3,
+        "every": 60,
+        "cools": false
+      },
+      "actual": {
+        "first": 3,
+        "steps": 1613,
+        "decisions": 27,
+        "everyOk": true,
+        "mismatch": 0,
+        "cools": false,
+        "presets": [
+          "fire"
+        ],
+        "zones": 6,
+        "hash": "e84d3a65",
+        "again": "e84d3a65"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "aggression": 0.5,
+        "patience": 1,
+        "caution": 0.5,
+        "resolve": 0.5
+      },
+      "expected": {
+        "zones": 6,
+        "every": 60,
+        "cools": false
+      },
+      "actual": {
+        "first": 6,
+        "steps": 2415,
+        "decisions": 41,
+        "everyOk": true,
+        "mismatch": 0,
+        "cools": false,
+        "presets": [
+          "fire"
+        ],
+        "zones": 6,
+        "hash": "4807ef96",
+        "again": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "aggression": 0.5,
+        "patience": 0.34,
+        "caution": 1,
+        "resolve": 0.5
+      },
+      "expected": {
+        "zones": null,
+        "every": 60,
+        "cools": true
+      },
+      "actual": {
+        "first": null,
+        "steps": 3600,
+        "decisions": 60,
+        "everyOk": true,
+        "mismatch": 0,
+        "cools": true,
+        "presets": [
+          "fire",
+          "cool"
+        ],
+        "zones": 0,
+        "hash": "17b76de5",
+        "again": null
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

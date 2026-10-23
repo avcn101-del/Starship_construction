@@ -279,6 +279,19 @@ export const PARAMS = {
     disabledSeconds: P(10, 3, 30, 0, 's', true, 'no weapon able to fire for this long, whatever the engine does: Disabled (#82, #243, #255)'),
     wreckFraction: P(0.5, 0.3, 0.8, 0, '', true, 'a ship whose largest fragment holds less than this fraction of its mass at undock has broken into too many pieces: destroyed (#83, #253)'),
   },
+  // The helm and the enemy (L5d, DESIGN.md 13n.1 (d), 13n.2, #301): the engagement ranges of the range order, the
+  // interval between dodge flips, the enemy's cadence. Approved as the plan's (#272 (2)).
+  helm: {
+    rangeClose: P(600, 300, 800, 1, 'm', true, 'the range order\'s close value: #54\'s band, prototype v2\'s (13n.1 (d), #278; approved as the plan\'s, #272 (2))'),
+    rangeHold: P(900, 600, 1200, 1, 'm', true, 'the range order\'s hold value: #54\'s band, prototype v2\'s (13n.1 (d), #278; approved as the plan\'s, #272 (2))'),
+    rangeOpen: P(1500, 1000, 2500, 1, 'm', true, 'the range order\'s open value: #54\'s band, prototype v2\'s (13n.1 (d), #278; approved as the plan\'s, #272 (2))'),
+    rangeBand: P(100, 25, 300, 1, 'm', true, 'the range order\'s dead band: it engages beyond it (or at a dodge\'s drift, a t180) and lets go inside it at a relative speed of at most this / t180; between the two it keeps its state (hysteresis); prototype v2\'s dead band, the one the owner played (#263, #302; approved as the plan\'s, #272 (2))'),
+    dodgeMin: P(6, 2, 10, 0, 's', true, 'the shortest interval between dodge flips, drawn on the seeded stream for the enemy, their midpoint with dodgeMax for the player: prototype v2\'s value, the one the owner played (#263, #301; approved as the plan\'s, #272 (2))'),
+    dodgeMax: P(14, 6, 30, 0, 's', true, 'the longest interval between dodge flips (helm.dodgeMin\'s note; #263, #301; approved as the plan\'s, #272 (2))'),
+  },
+  enemy: {
+    decisionInterval: P(1, 0.25, 5, 0, 's', true, 'the enemy decides (which zone to scan, which room to target, which preset) once per this: the same delay the player\'s taps have (13n.1 (d), #278; approved as the plan\'s, #272 (2))'),
+  },
   // Crew a room needs to be placed (#60, #183): measured at L3. Range 1-3x.
   crewRequired: {
     bridge: P(4, 4, 12, 2, 'crew', true, '#183'),
@@ -320,6 +333,43 @@ export const WARHEADS = {
   he: 'a contact burst of missile.warheadEnergy at the hit face: he.coupling of it enters the hit cell\'s room and spreads through walls; at a plate the burst is outside the hull (#97, #141)',
   penetrator: 'the round rule with missile.penetratorMass at the impact speed (#97)',
   emp: 'a field of the shield\'s shape, budget missile.empEnergy, radius emp.radius, from the hit point; a charged shield buffer there pays first; a powered room whose centre receives emp.scramDose is hit: a reactor SCRAMs, another room shuts down for emp.outageTime (#97, #142, #292)',
+};
+
+// Standing orders (#38, 13n.1 (d), L5d): the 12 slots in 4 groups and the values each takes; js/helm.js executes them
+// from its side's knowledge model. `priority` is #38's one energy slot "power and repair priority" (room types, first
+// first); `heat` its "heat discipline threshold and response" (the threshold a fraction of the way from rest to the
+// room's hot threshold, the hottest room counting). A preset (#39) is a full set of the twelve plus the throttle the
+// engine opens to; the verb switches presets, never a slot.
+export const ORDERS = {
+  movement: {
+    range: ['close', 'hold', 'open', 'disengage'], // helm.rangeClose / rangeHold / rangeOpen; disengage: away along the line of sight, stern to the enemy (#293)
+    position: ['bow', 'flank', 'stern'], // which side of the enemy, by its silhouette's heading
+    style: ['hold', 'orbit', 'strafe'],
+    dodging: ['off', 'on'], // broadside only: bow-on it yields to facing (#40, #301)
+  },
+  firepower: {
+    facing: ['bow', 'broadside'],
+    firing: ['salvo', 'ripple'], // every weapon at once, or spread over the reload
+    openFire: ['inRange', 'sureHit'],
+    target: ['weapons', 'power', 'bridge', 'nearest'], // from known rooms, else the zone with the most unknown cells
+  },
+  energy: {
+    priority: 'room types in order, for power routing (rooms.js routePower)',
+    repair: "'none' (the quarters share their budget in proportion) or room types in order, granted whole-cell (rooms.js repairGrants, #307)",
+    heat: { response: ['weapons', 'shield', 'engine'] },
+  },
+  emission: {
+    emission: ['cold', 'normal', 'full'], // cold: engine off, shield off, no scan (13n.1 (a)); full: auto-scan re-scans resolved zones
+    autoScan: ['off', 'on'], // scan the nearest unresolved zone
+  },
+};
+// The three presets that ship with the kernel (#39, prototype v2's names and throttles, #237): each the twelve slots.
+// Their power priority puts the shield and the guns before the beam bay (12.5 MW of R1's 20) and the engine: without
+// an order the routing's room-id order feeds the beam bay first and the turret and the shield starve.
+export const PRESETS = {
+  fire: { range: 'hold', position: 'bow', style: 'hold', dodging: 'off', facing: 'bow', firing: 'salvo', openFire: 'inRange', target: 'weapons', priority: ['shieldGenerator', 'turret', 'railgun', 'missileBay', 'beamBay', 'engine'], repair: 'none', heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 0.5 },
+  cool: { range: 'hold', position: 'bow', style: 'hold', dodging: 'off', facing: 'bow', firing: 'salvo', openFire: 'inRange', target: 'weapons', priority: [], repair: 'none', heat: { threshold: 0, response: 'weapons' }, emission: 'cold', autoScan: 'off', throttle: 0 },
+  evade: { range: 'hold', position: 'bow', style: 'hold', dodging: 'on', facing: 'broadside', firing: 'ripple', openFire: 'sureHit', target: 'weapons', priority: ['shieldGenerator', 'engine', 'turret', 'railgun', 'missileBay', 'beamBay'], repair: 'none', heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 1 },
 };
 
 // Rooms (DESIGN.md 5.2, 13c). Footprints in cells per size (rate-like

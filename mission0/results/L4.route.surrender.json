@@ -1,0 +1,87 @@
+{
+  "id": "L4.route.surrender",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.surrender",
+  "code": "f7833b3",
+  "criterionHash": "32de0f22",
+  "lockedHash": "32de0f22",
+  "runHash": "e54f07d9",
+  "dataHash": "fee97350",
+  "rowsHash": "6b1b5531",
+  "rows": [
+    {
+      "case": {
+        "resolve": 0
+      },
+      "expected": {
+        "kind": "disabled",
+        "step": 751,
+        "after": 10
+      },
+      "actual": {
+        "kind": "disabled",
+        "side": "T",
+        "step": 751,
+        "after": 10,
+        "parent": "launch",
+        "standing": 10,
+        "treeErrors": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "resolve": 0.5
+      },
+      "expected": {
+        "kind": "surrender",
+        "step": 451,
+        "after": 5
+      },
+      "actual": {
+        "kind": "surrender",
+        "side": "T",
+        "step": 451,
+        "after": 5,
+        "parent": "launch",
+        "standing": 10,
+        "treeErrors": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "resolve": 1
+      },
+      "expected": {
+        "kind": "surrender",
+        "step": 151,
+        "after": 0
+      },
+      "actual": {
+        "kind": "surrender",
+        "side": "T",
+        "step": 151,
+        "after": 0,
+        "parent": "launch",
+        "standing": 10,
+        "treeErrors": 0
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

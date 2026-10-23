@@ -1,0 +1,110 @@
+{
+  "id": "L4.route.escape.edge",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.escape.edge",
+  "code": "e069f42",
+  "criterionHash": "e5746503",
+  "lockedHash": "e5746503",
+  "runHash": "802c211a",
+  "dataHash": "fee97350",
+  "rowsHash": "e1b65522",
+  "rows": [
+    {
+      "case": {
+        "name": "resolve-intact"
+      },
+      "expected": {
+        "disengage": false
+      },
+      "actual": {
+        "disengage": false,
+        "at": null,
+        "first": {
+          "step": 0,
+          "t": 0,
+          "preset": "fire",
+          "heat": 0,
+          "buffer": 1,
+          "target": null,
+          "zones": 0,
+          "disengage": false
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "stall"
+      },
+      "expected": {
+        "min": 3468.417978013742,
+        "turns": [
+          1,
+          335,
+          749
+        ],
+        "escaped": 1348,
+        "restart": 749
+      },
+      "actual": {
+        "end": {
+          "kind": "escaped",
+          "side": "A",
+          "step": 1348
+        },
+        "rule": {
+          "passed": 748,
+          "step": 1348
+        },
+        "min": 3468.4179974714407,
+        "turns": [
+          1,
+          335,
+          749
+        ],
+        "steps": 1348,
+        "clearedFrom": null,
+        "heldBefore": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "withdrawn"
+      },
+      "expected": {
+        "escaped": null,
+        "cleared": 1200
+      },
+      "actual": {
+        "end": null,
+        "rule": {
+          "passed": 958,
+          "step": 1558
+        },
+        "min": 900.0045725537068,
+        "turns": [
+          1
+        ],
+        "steps": 2400,
+        "clearedFrom": 1200,
+        "heldBefore": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

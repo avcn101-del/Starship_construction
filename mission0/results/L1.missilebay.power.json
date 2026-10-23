@@ -1,0 +1,120 @@
+{
+  "id": "L1.missilebay.power",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.missilebay.power",
+  "code": "f7833b3",
+  "criterionHash": "1d58a6f5",
+  "lockedHash": "1d58a6f5",
+  "runHash": "a2d23de3",
+  "dataHash": "fee97350",
+  "rowsHash": "91bc3c11",
+  "rows": [
+    {
+      "case": {
+        "name": "joined"
+      },
+      "expected": {
+        "launches": [
+          0,
+          2
+        ],
+        "drawn": 200000
+      },
+      "actual": {
+        "launches": [
+          0,
+          2
+        ],
+        "drawn": 200000.00000000012,
+        "why": null,
+        "outage": null,
+        "ended": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "cut"
+      },
+      "expected": {
+        "launches": [],
+        "drawn": 0,
+        "why": "no-power"
+      },
+      "actual": {
+        "launches": [],
+        "drawn": 0,
+        "why": "no-power",
+        "outage": null,
+        "ended": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "hot-460",
+        "T": 460
+      },
+      "expected": {
+        "cookOff": true,
+        "energy": 112000000
+      },
+      "actual": {
+        "cookOff": true,
+        "energy": 112000000,
+        "T": 290
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "hot-440",
+        "T": 440
+      },
+      "expected": {
+        "cookOff": false
+      },
+      "actual": {
+        "cookOff": false,
+        "energy": null,
+        "T": 439.9982638888889
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "emp"
+      },
+      "expected": {
+        "outage": 5,
+        "first": 5
+      },
+      "actual": {
+        "launches": [
+          5
+        ],
+        "drawn": 0,
+        "why": null,
+        "outage": 5,
+        "ended": 5
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

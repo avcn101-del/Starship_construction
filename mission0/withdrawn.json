@@ -1168,5 +1168,45 @@
     "recordHash": "70aa668f",
     "reason": "Superseded under #298 (2), the blind checker's item 4 (PR #88): its IR and anti-radiation cases compared the aim point with the nearest source of the model's own list (a labelled re-statement of the selector), so every panel shifted by (+1, +1) m still passed. Its successor keeps every case and check and asserts the hand-worked final points (panel 8's midpoint, grid (17.5, 0); the antenna's edge midpoint, grid (42.5, 0)) on the target's pose at 1e-9 m. Recorded PASS on the data of pd.range (code 0501899, data d540e777), frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L2.sensor.memory",
+    "successor": "L2.sensor.memory.v2",
+    "decision": "#301",
+    "recordHash": "eba7e2fc",
+    "reason": "Superseded under #301 (6) (DESIGN.md 13n.4 H13): its class checks covered one transition from an unread class to hot: the L5b checker's gap (§17 item 45 (e)). Its successor keeps every check on a longer ladder and asserts the IR class rest -> hot -> overheated -> critical in the order of the room's thresholds, each by passive IR at its step. Recorded PASS (code 0501899, data d540e777), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L2.sensor.shield",
+    "successor": "L2.sensor.shield.v2",
+    "decision": "#301",
+    "recordHash": "9f639106",
+    "reason": "Superseded under #301 (6) (DESIGN.md 13n.4 H13): its scan case did not check that the field was absorbing when the zone resolved: the L5b checker's gap (§17 item 45 (e)). Its successor keeps every case and check and asserts the generator absorbs (s.em > 0) at the step zone 0 resolves with the shield on, and nothing with it off. Recorded PASS (code 0501899, data d540e777), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.sensor.control",
+    "successor": "L3.sensor.control.v2",
+    "decision": "#301",
+    "recordHash": "d2289762",
+    "reason": "Superseded under #301 (6) (DESIGN.md 13n.4 H13): it did not check the scan's draw while control is lost: the L5b checker's gap (§17 item 45 (e)). Its successor keeps every case and check and asserts the scan heat in the host, 1666.67 J in a controlled step and 0 in every step while control is lost. Recorded PASS (code 0501899, data d540e777), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.route.surrender",
+    "successor": "L4.route.surrender.v2",
+    "decision": "#303",
+    "recordHash": "3f056fa8",
+    "reason": "Superseded under #303 (the surrender timer battle.disabledSeconds x resolve, superseding #278's x (1 - resolve), the plan's wording error found by the L5d engineer): it was locked on the old formula (resolve 0 Disabled at 10 s, resolve 1 striking at once). Its successor keeps every case and check on the decided rule (resolve 0 at once, 0.5 at 5 s, resolve 1 Disabled at 10 s). Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.route.emp",
+    "successor": "L4.route.emp.v2",
+    "decision": "#306",
+    "recordHash": "955153bf",
+    "reason": "Superseded under #306 (10) (DESIGN.md 13n.4 H9'): its bow case's text placed the burst on the turret's +x face, where the missile's path meets the beam bay's first (the checker's 3), and its shielded case asserted only that nothing is hit (the checker's 2). Its successor keeps every case and check, corrects the bow case's text and asserts that the charged buffer pays the EMP's 2 MJ and books it as the generator's heat (1e-9 relative). Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
+    "frozen": true
   }
 ]

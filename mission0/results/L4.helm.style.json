@@ -1,0 +1,108 @@
+{
+  "id": "L4.helm.style",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.helm.style",
+  "code": "d9bf90f",
+  "criterionHash": "a1186a41",
+  "lockedHash": "a1186a41",
+  "runHash": "8a0f8128",
+  "dataHash": "fee97350",
+  "rowsHash": "96c74a7d",
+  "rows": [
+    {
+      "case": {
+        "style": "hold"
+      },
+      "expected": {
+        "t180": 4.842778638530427,
+        "vt": 20.64930228368763,
+        "rate": 1.3145754119390596,
+        "back": 0.0000025403076149143834,
+        "first": null,
+        "flips": []
+      },
+      "actual": {
+        "first": null,
+        "total": 0,
+        "minStep": 0,
+        "flips": [],
+        "maxTan": 0,
+        "meanTan": 0,
+        "steps": 3600
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "style": "orbit"
+      },
+      "expected": {
+        "t180": 4.842778638530427,
+        "vt": 20.64930228368763,
+        "rate": 1.3145754119390596,
+        "back": 0.0000025403076149143834,
+        "first": 0,
+        "flips": []
+      },
+      "actual": {
+        "first": 0,
+        "total": 75.67753256503877,
+        "minStep": 0,
+        "flips": [],
+        "maxTan": 22.26525288111024,
+        "meanTan": 19.80675423209742,
+        "steps": 3600
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "style": "strafe"
+      },
+      "expected": {
+        "t180": 4.842778638530427,
+        "vt": 20.64930228368763,
+        "rate": 1.3145754119390596,
+        "back": 0.0000025403076149143834,
+        "first": 0,
+        "flips": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000
+        ]
+      },
+      "actual": {
+        "first": 0,
+        "total": 6.094456451710584,
+        "minStep": -0.0004070583170936448,
+        "flips": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000
+        ],
+        "maxTan": 22.26525288111024,
+        "meanTan": 1.6249041445118226,
+        "steps": 3600
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

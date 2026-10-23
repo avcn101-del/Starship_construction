@@ -26,14 +26,14 @@ const cross = (a, b) => a[0] * b[1] - a[1] * b[0];
 
 /** A missile's hp (J): matter.burnEnergyPerKg x missile.mass, the one law (13n.1 (c)). */
 export function missileHp(world) {
-  return world.params.matter.burnEnergyPerKg.value * tierScaled(world, world.params.missile.mass);
+  return tierScaled(world, world.params.matter.burnEnergyPerKg) * tierScaled(world, world.params.missile.mass);
 }
 /** The jet power (W) of a burning missile's exhaust, its IR brightness: m a v_e / 2 (the engine's formula, 13n.1 (a) (c)). */
 export function missileJet(world, x) {
-  return (x.m * world.params.missile.acceleration.value * world.params.engine.exhaustVelocity.value) / 2;
+  return (x.m * tierScaled(world, world.params.missile.acceleration) * tierScaled(world, world.params.engine.exhaustVelocity)) / 2;
 }
 /** Whether missile x burns at time t (s): from its launch until missile.burnTime later. */
-export const burning = (world, x, t) => t < x.t + world.params.missile.burnTime.value;
+export const burning = (world, x, t) => t < x.t + tierScaled(world, world.params.missile.burnTime);
 
 /**
  * Move missile x over the step [t, t + dt] (13n.1 (c)): thrust missile.acceleration along its heading while it burns
@@ -42,7 +42,7 @@ export const burning = (world, x, t) => t < x.t + world.params.missile.burnTime.
  * origin H and the work (J), each the missile's own change (the thrust is the only force on it).
  */
 export function moveMissile(world, x, t, dt) {
-  const a = world.params.missile.acceleration.value, end = x.t + world.params.missile.burnTime.value;
+  const a = tierScaled(world, world.params.missile.acceleration), end = x.t + tierScaled(world, world.params.missile.burnTime);
   const burn = Math.max(0, Math.min(dt, end - t)), h = x.heading;
   const P0 = [x.m * x.v[0], x.m * x.v[1]], L0 = x.m * cross(x.x, x.v), K0 = 0.5 * x.m * (x.v[0] * x.v[0] + x.v[1] * x.v[1]);
   x.prev = [...x.x];
@@ -58,7 +58,7 @@ export function moveMissile(world, x, t, dt) {
 
 /** The silhouette's centre (world m): the centre of the box of the other ship's standing cells, on its main body's pose (#23). */
 export function silhouetteCentre(model) {
-  const s = model.silhouette, e = model.other.edge;
+  const s = model.silhouette, e = model.edge;
   if (!s.cells.length) return null;
   const xs = s.cells.map((c) => c[0]), ys = s.cells.map((c) => c[1]);
   const pose = s.bodies.find((b) => b.id === 'body-0') || s.bodies[0];
