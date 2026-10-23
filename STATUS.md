@@ -1,12 +1,12 @@
 # STATUS — hand-over between chats (#179)
 
 Updated 2026-10-23 by the lead designer chat
-`session_01DFw3o4EBEtf1adcpyJ5786` at the L5c/L5d block boundary, **handing
-over to a new lead designer chat** the owner asked for (#247 (2): this chat's
-context is at about 70 %); the new chat writes its own id here first thing.
-Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` → `session_014nrUDvPgiLEjm64scJFkyW`
-→ `session_01VL5M5dKNeREUVf7y1y3P87` → `session_01DFw3o4EBEtf1adcpyJ5786` →
-the new chat (sessions notify it with `persistent_session_id` = its id). Read this
+`session_01S8gXf1kch2FCFHYE8nwhrn`, which **took over** from
+`session_01DFw3o4EBEtf1adcpyJ5786` at the L5c/L5d block boundary (#247 (2))
+to run L5d. Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
+`session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
+`session_01DFw3o4EBEtf1adcpyJ5786` → `session_01S8gXf1kch2FCFHYE8nwhrn`
+(sessions notify it with `persistent_session_id` = this id). Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## For the owner (five lines, kept at every block, #246 (5))
