@@ -25,6 +25,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
   L4 in all ≥ 64.27 (#191: past 40).
 - **Next**: **L5d** (§13n.1 (d) with #301's and #302's rows, H1–H14): the engineer runs; then the blind checker (sonnet, from the lock, H4, H8–H12) → reviewer (sonnet) → answers row → `regress` on the merge → merge → the full mutation run; then **the prototype page on the L5d kernel** (engineer `proto/l5d`, reviewer, the lead designer's republish).
+- **Pace (information, §17 item 49)**: on the L5d loop R1d-A duels end in 23–107 s (25.08 s with Fire's defaults at 900 m, 20 hits of 20), against E7's 3–6 minutes: an L5e question, and what the owner will see first on the prototype page.
 - **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
   surprised by a prototype): the enemy's choices and the helm's orders (the
   knowledge model and the weapons exist; nothing decides with them yet),

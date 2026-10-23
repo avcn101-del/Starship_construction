@@ -1742,6 +1742,23 @@ Each line names its decision and when it is due; a closed one is removed.
     shielded R2), with successors of the cases whose records move
     (`L2.missile.warheads.v2`, `L4.route.emp.v2`).
 
+49. **The pace on the symmetric loop** (the design partner's runs on PR
+    #94 at `f7433ee`, re-run by the lead designer; `node tools/duel.js
+    --seed 1 --limit 600`, R1d-A against R1d-A at 900 m, Fire against the
+    enemy at 0.5): the enemy is destroyed at **25.08 s** on every seed (20
+    shots, 20 hits; Fire is bow-on without dodging, so the seed draws
+    nothing); `--range 600` Disabled at 66.85 s, `--range 1500` 52.2 s,
+    `--range 2500` a surrender at 107.2 s, patience 0 (`--personality
+    0.5,0,0.5,0.5`) 23.08 s; hit rates about 99 %. E7 asks a 3–6 minute
+    median; the 104–306 s of §13m and §13n.3 were prototype v2's script.
+    Information, not a failure of L5d (E7 is L5e's criterion). Due: L5e's
+    plan, which measures it on the reference set before any lever, the
+    rung-1 levers in order being the presets' facing and dodge (data),
+    `kinetic.hitsToWreck` and `armour.plateThickness`, then
+    `magazine.detonationSpeed` (the owner's choice of 400, #288: the owner
+    decides a change); and the prototype page task, whose owner will see
+    battles of under a minute with Fire's defaults.
+
 ## 18. Decisions in force
 
 One row per decision of `DECISIONS.md`, #1 to the last row, with its status today (#241 (5)). **current**: stands as written; **superseded by #n**: replaced; **partly superseded by #n (what remains)**; **report**: the row records a result or a process step, not a rule; **owner question open**: waits for the owner; **current (unchecked)**: not checked against the current text. The log itself is append-only and unchanged, so a row there may still read as if it stood. Compiled from the documents audit (B1, H), the decisions' own "supersedes" words and the current text of this file; the lead designer reviews it.

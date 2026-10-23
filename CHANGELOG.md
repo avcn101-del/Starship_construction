@@ -2,6 +2,8 @@
 
 ## Unreleased — 2026-10-23 — L5d probed and planned (#301–#306)
 
+- `DESIGN.md` §17 item 49: the pace on the symmetric loop (R1d-A duels
+  23–107 s on PR #94's head; E7's question for L5e).
 - `IDEAS.md` restructured (the design partner, `3fabc06`, the owner's ask):
   an index table, one section per worked idea, the short lists for ideas not
   yet worked, deferred or rejected, and moved out; the same 18 ideas, stale
