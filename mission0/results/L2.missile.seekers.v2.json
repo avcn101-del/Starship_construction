@@ -1,0 +1,210 @@
+{
+  "id": "L2.missile.seekers.v2",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.missile.seekers.v2",
+  "code": "b0838e9",
+  "criterionHash": "dcf13bc2",
+  "lockedHash": "dcf13bc2",
+  "runHash": "968268ee",
+  "dataHash": "d540e777",
+  "rowsHash": "5539668e",
+  "rows": [
+    {
+      "case": {
+        "seeker": "ir",
+        "with": true
+      },
+      "expected": {
+        "seeker": "ir",
+        "with": true
+      },
+      "actual": {
+        "steps": 453,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "panel"
+        ],
+        "last": "panel:8",
+        "finalErr": 0,
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "ir",
+        "with": false
+      },
+      "expected": {
+        "seeker": "ir",
+        "with": false
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette"
+        ],
+        "last": "silhouette",
+        "finalErr": 18.027756377319946,
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "radar",
+        "with": true
+      },
+      "expected": {
+        "seeker": "radar",
+        "with": true
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette",
+          "zone-1"
+        ],
+        "last": "zone-1",
+        "finalErr": null,
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "radar",
+        "with": false
+      },
+      "expected": {
+        "seeker": "radar",
+        "with": false
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette"
+        ],
+        "last": "silhouette",
+        "finalErr": null,
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "antiRadiation",
+        "with": true
+      },
+      "expected": {
+        "seeker": "antiRadiation",
+        "with": true
+      },
+      "actual": {
+        "steps": 453,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "antenna"
+        ],
+        "last": "antenna:21",
+        "finalErr": 0,
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "antiRadiation",
+        "with": false
+      },
+      "expected": {
+        "seeker": "antiRadiation",
+        "with": false
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette"
+        ],
+        "last": "silhouette",
+        "finalErr": 21.213203435596427,
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "designated",
+        "with": true
+      },
+      "expected": {
+        "seeker": "designated",
+        "with": true
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette",
+          "magazine"
+        ],
+        "last": "magazine",
+        "finalErr": null,
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "seeker": "designated",
+        "with": false
+      },
+      "expected": {
+        "seeker": "designated",
+        "with": false
+      },
+      "actual": {
+        "steps": 456,
+        "mismatched": 0,
+        "maxErr": 0,
+        "kinds": [
+          "silhouette"
+        ],
+        "last": "silhouette",
+        "finalErr": null,
+        "over": "hit"
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

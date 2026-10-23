@@ -85,7 +85,8 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L1.magazine.cookoff.v3` | bf9994f2 | PASS | c60a263a | 0501899 | none | `node tools/m0.js run L1.magazine.cookoff.v3` |
 | `L1.magazine.cookoff` | dac098d6 | PASS, WITHDRAWN (successor `L1.magazine.cookoff.v2`, #240) | ce8eb1a8 | f7bf5c6 | none | `node tools/m0.js run L1.magazine.cookoff` |
 | `L1.missilebay.launch` | 69754c0a | PASS | e5d997fd | 0501899 | none | `node tools/m0.js run L1.missilebay.launch` |
-| `L1.pd.kinetic` | f3759ef6 | PASS | dfa0713b | 0501899 | none | `node tools/m0.js run L1.pd.kinetic` |
+| `L1.pd.kinetic.v2` | 53c147fe | PASS | dfa0713b | b0838e9 | none | `node tools/m0.js run L1.pd.kinetic.v2` |
+| `L1.pd.kinetic` | f3759ef6 | PASS, WITHDRAWN (successor `L1.pd.kinetic.v2`, #298) | dfa0713b | 0501899 | none | `node tools/m0.js run L1.pd.kinetic` |
 | `L1.pd.laser` | d02972ee | PASS | a0c8a3ba | 0501899 | none | `node tools/m0.js run L1.pd.laser` |
 | `L1.quarters.repair.v2` | 2c289dd3 | PASS, WITHDRAWN (successor `L1.quarters.repair.v3`, #240) | 4b8d2a9c | f7bf5c6 | none | `node tools/m0.js run L1.quarters.repair.v2` |
 | `L1.quarters.repair.v3` | ee090ddf | PASS | 4b8d2a9c | 0501899 | none | `node tools/m0.js run L1.quarters.repair.v3` |
@@ -168,7 +169,8 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L2.magazine.types.v2` | 3954370a | PASS, WITHDRAWN (successor `L2.magazine.types.v3`, #296) | 61f1b7f5 | d4a6dea | none | `node tools/m0.js run L2.magazine.types.v2` |
 | `L2.magazine.types.v3` | 341c29fb | PASS | 0bf4c5bb | 0501899 | none | `node tools/m0.js run L2.magazine.types.v3` |
 | `L2.magazine.types` | 29c95048 | PASS, WITHDRAWN (successor `L2.magazine.types.v2`, #282) | 31808c1b | 4e217c0 | none | `node tools/m0.js run L2.magazine.types` |
-| `L2.missile.seekers` | f436332f | PASS | 4a85a679 | 0501899 | none | `node tools/m0.js run L2.missile.seekers` |
+| `L2.missile.seekers.v2` | dcf13bc2 | PASS | 968268ee | b0838e9 | none | `node tools/m0.js run L2.missile.seekers.v2` |
+| `L2.missile.seekers` | f436332f | PASS, WITHDRAWN (successor `L2.missile.seekers.v2`, #298) | 4a85a679 | 0501899 | none | `node tools/m0.js run L2.missile.seekers` |
 | `L2.missile.warheads.v2` | ba40f09b | PASS | c62e4d71 | 0501899 | none | `node tools/m0.js run L2.missile.warheads.v2` |
 | `L2.missile.warheads` | 96a8ef17 | PASS, WITHDRAWN (successor `L2.missile.warheads.v2`, #296) | 93c34a91 | 9c21d46 | none | `node tools/m0.js run L2.missile.warheads` |
 | `L2.pd.swarm` | 7cfddc96 | PASS | d23d9520 | 0501899 | none | `node tools/m0.js run L2.pd.swarm` |

@@ -1152,5 +1152,21 @@
     "recordHash": "ec2f50a4",
     "reason": "Superseded under #296 (3), the L5c engineer's Q7 (PR #88): a missile's body at impact is a stopped projectile of its mass at its speed (its momentum to the hull at the entry point, its kinetic energy heat in the hit cell, nothing spent), which moves its rows; and its penetrator case fired a hand-built rod, not the battle's warhead path (the l5c.warhead.penetrator survivor). Its successor keeps every case and check, measures the body's impulse and heat in battle cases and flies the penetrator through createBattle. Recorded PASS at lock 9c21d46, frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L1.pd.kinetic",
+    "successor": "L1.pd.kinetic.v2",
+    "decision": "#298",
+    "recordHash": "e7b6a99d",
+    "reason": "Superseded under #298 (1), the blind checker's blocking finding (PR #88): its criterion named the dose law E / (1 + (d / flak.radius)^2) but its compare checked only dose >= hp and d <= 15.275 m, so a d^-4 field passed both cases. Its successor keeps every case and check and asserts the dose at the kill equals the sum of E / (1 + (d_i / flak.radius)^2) over the recorded bursts at 1e-12. Recorded PASS on the data of pd.range (code 0501899, data d540e777), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L2.missile.seekers",
+    "successor": "L2.missile.seekers.v2",
+    "decision": "#298",
+    "recordHash": "70aa668f",
+    "reason": "Superseded under #298 (2), the blind checker's item 4 (PR #88): its IR and anti-radiation cases compared the aim point with the nearest source of the model's own list (a labelled re-statement of the selector), so every panel shifted by (+1, +1) m still passed. Its successor keeps every case and check and asserts the hand-worked final points (panel 8's midpoint, grid (17.5, 0); the antenna's edge midpoint, grid (42.5, 0)) on the target's pose at 1e-9 m. Recorded PASS on the data of pd.range (code 0501899, data d540e777), frozen (#245).",
+    "frozen": true
   }
 ]
