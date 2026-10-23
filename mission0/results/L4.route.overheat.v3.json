@@ -1,0 +1,154 @@
+{
+  "id": "L4.route.overheat.v3",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.overheat.v3",
+  "code": "17c09e0",
+  "criterionHash": "c80efbfa",
+  "lockedHash": "c80efbfa",
+  "runHash": "683b4163",
+  "dataHash": "e6752b27",
+  "rowsHash": "fc6c6b0b",
+  "rows": [
+    {
+      "case": {
+        "target": "R1",
+        "bearing": "-y",
+        "room": "bridge"
+      },
+      "expected": {
+        "kind": "disabled",
+        "why": "no-control",
+        "root": "heat",
+        "rest": 290,
+        "surviving": 2,
+        "C": 1200000,
+        "bound": 14.117647058823529,
+        "literal": 14.118,
+        "shutdownStep": 1379,
+        "step": 1979,
+        "gap": 600
+      },
+      "actual": {
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "t": 32.983333333333334,
+          "step": 1979,
+          "why": "no-control"
+        },
+        "parent": {
+          "type": "control-lost",
+          "room": "turret",
+          "cause": "control-loss"
+        },
+        "explosions": 0,
+        "room": {
+          "destroyed": false,
+          "shutdowns": 1
+        },
+        "chain": [
+          "disabled:turret:T1395",
+          "control-lost:turret:control-loss",
+          "control-lost:bridge:overheat",
+          "shutdown:bridge:heat",
+          "overheated:bridge:heat",
+          "heat"
+        ],
+        "rest": 290,
+        "shutdown": {
+          "t": 22.983333333333334,
+          "step": 1379,
+          "cause": "heat",
+          "surviving": 2,
+          "C": 1200000
+        },
+        "wallsIn": 0,
+        "bridgeControl": false,
+        "lostUnderBridge": [
+          "beamBay",
+          "engine",
+          "heatSink",
+          "hold",
+          "magazine",
+          "quarters",
+          "reactor",
+          "shield",
+          "turret"
+        ],
+        "placed": [
+          "beamBay",
+          "engine",
+          "heatSink",
+          "hold",
+          "magazine",
+          "quarters",
+          "reactor",
+          "shield",
+          "turret"
+        ],
+        "controlled": [],
+        "reactors": [
+          {
+            "id": "reactor",
+            "scrammed": true
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "target": "T-gun",
+        "bearing": "+x",
+        "room": "turret"
+      },
+      "expected": {
+        "kind": "disabled",
+        "why": "destroyed",
+        "parent": "cell-destroyed:turret",
+        "cell": 811,
+        "step": 1411,
+        "gap": 600
+      },
+      "actual": {
+        "ended": {
+          "kind": "disabled",
+          "side": "T",
+          "t": 23.516666666666666,
+          "step": 1411,
+          "why": "destroyed"
+        },
+        "parent": {
+          "type": "cell-destroyed",
+          "room": "turret",
+          "cause": "beam-1"
+        },
+        "explosions": 0,
+        "room": {
+          "destroyed": true,
+          "shutdowns": 0
+        },
+        "chain": [
+          "disabled:turret:T815",
+          "cell-destroyed:turret:beam-1",
+          "beam-1"
+        ],
+        "lastCell": 811
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

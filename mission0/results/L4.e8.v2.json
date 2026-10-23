@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.e8.v2",
-  "code": "09869d0",
+  "code": "17c09e0",
   "criterionHash": "caff0ba0",
   "lockedHash": "caff0ba0",
   "runHash": "f107459e",
-  "dataHash": "cce4799a",
+  "dataHash": "e6752b27",
   "rowsHash": "32ef3829",
   "rows": [
     {
@@ -22,7 +22,7 @@
         "ended": "disabled"
       },
       "pass": true,
-      "note": "measured 0.2500 ms per step over 1987 steps (T1); 4 x Intel(R) Xeon(R) Processor @ 2.10GHz, Node v22.22.0, linux x64"
+      "note": "measured 0.1293 ms per step over 1987 steps (T1); 4 x Intel(R) Xeon(R) Processor @ 2.10GHz, Node v22.22.0, linux x64"
     }
   ],
   "invariants": [

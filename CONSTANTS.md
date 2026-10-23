@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `edcf0bd`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `d502275`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -46,8 +46,8 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | thermal.coupledArmour | 4500000 | J/K | 2000000 | 8000000 | 3 | true | per armour cell: 10 t of steel (450 J/(kg K)); an armour plate (#256) adds its mass x this / armour.cellMass to its room's heat capacity (#258, #248 Q13) |
 | thermal.coupledRailgun | 4500000 | J/K | 2000000 | 8000000 | 3 | true | per railgun cell: 10 t of steel; the railgun stays data only until L5 (#243) |
 | structure.cellMass | 3000 | kg | 2000 | 6000 | 3 | true | structure only (frames, decks, bulkheads): hold, magazine and heat sink before contents, and the structure under an engine's or a beam bay's machinery (#243); 24 kg/m^3 at T1, an estimate without a found source (#221, #235) |
-| cellMass.crewed | 14800 | kg | 11000 | 16500 | 3 | true | bridge, quarters, turret, missile bay: 118 kg/m^3, ISS Destiny (14.5 t in 8.5 m x 4.3 m), low end; ISS Harmony about 131 kg/m^3 (#234, #235) |
-| cellMass.reactor | 150000 | kg | 100000 | 200000 | 3 | true | 1200 kg/m^3: US submarine reactor compartments, 1130 t / (pi 5^2 x 12 m), the cited low end (#234, #235, #243, F24) |
+| cellMass.crewed | 14800 | kg | 11000 | 16500 | 3 | true | bridge, quarters, missile bay (the turret is structure.cellMass + turret.machineryMass, #285): 118 kg/m^3, ISS Destiny (14.5 t in 8.5 m x 4.3 m), low end; ISS Harmony about 131 kg/m^3 (#234, #235) |
+| cellMass.reactor | 150000 | kg | 100000 | 200000 | 3 | true | 1200 kg/m^3: US submarine reactor compartments, 1130 t / (pi 5^2 x 12 m), the cited low end (#234, #235, #243, F24); the 1130 t compartment is a secondary source, contested (650 t for the S5W elsewhere, #281 (1)) |
 | cellMass.shieldGenerator | 10000 | kg | 5000 | 20000 | 3 | true | no real analogue (the shield is the premise, #202): the old average (#235) |
 | cellMass.railgun | 10000 | kg | 5000 | 20000 | 3 | true | no real analogue yet: the old average (#235) |
 | radiator.area | 25 | m^2 | 10 | 100 | 2 | true | one panel per hull segment; radiates emissivity x sigma x area x T^4 of its room (#143, #183) |
@@ -90,7 +90,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | power.wallCapacity | 2000000 | W/m | 500000 | 5000000 | 1 | true | power a live shared wall carries per metre: 10 m carries 20 MW, a whole M reactor (#12, #193, #195) |
 | ammo.wallFeed | 0.72 | kg/(s*m) | 0.24 | 3.6 | 1 | true | rounds a live wall between a magazine and a room it feeds carries per second per metre: 5 m feeds 3.6 kg/s, 0.6 M rounds/s (#18, #193, #195, #206) |
 | battle.cullDistance | 3000 | m | 1000 | 10000 | 1 | true | a round or debris farther than this from every body leaves play, its momentum booked as left; twice the engagement band (#54, #222 (7), #243) |
-| battle.openingRange | 900 | m | 500 | 2000 | 1 | true | the attacker's distance from the target's centre of mass when a battle opens (createBattle's default); #54's band; k = 1 so the dodge in one time of flight is the same number of cells at every tier (T2 of the L4 physics audit, §17 item 35, #269) |
+| battle.openingRange | 900 | m | 500 | 2000 | 1 | true | the attacker's distance from the target's centre of mass when a battle opens (createBattle's default); #54's band; k = 1 so the dodge in one time of flight is the same number of cells at every tier (T2 of the L4 physics audit, §17 item 35, #270 (9)) |
 | battle.disabledSeconds | 10 | s | 3 | 30 | 0 | true | no weapon able to fire for this long, whatever the engine does: Disabled (#82, #243, #255) |
 | battle.wreckFraction | 0.5 |  | 0.3 | 0.8 | 0 | true | a ship whose largest fragment holds less than this fraction of its mass at undock has broken into too many pieces: destroyed (#83, #253) |
 | crewRequired.bridge | 4 | crew | 4 | 12 | 2 | true | #183 |

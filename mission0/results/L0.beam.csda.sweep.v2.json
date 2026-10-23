@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.beam.csda.sweep.v2",
-  "code": "09869d0",
+  "code": "17c09e0",
   "criterionHash": "ce69b8ca",
   "lockedHash": "ce69b8ca",
   "runHash": "a3899b15",
-  "dataHash": "cce4799a",
+  "dataHash": "e6752b27",
   "rowsHash": "7974a552",
   "rows": [
     {
