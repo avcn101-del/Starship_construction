@@ -1,7 +1,10 @@
 # Changelog
 
-## Unreleased — 2026-10-23 — L5d probed and planned (#301–#306)
+## Unreleased — 2026-10-23 — L5d probed and planned (#301–#307)
 
+- #307: the style slot, repair priority and the escape count, on the L5d
+  fix round's questions; H15 restated, H19 new. `DESIGN.md` §13n.1 (d),
+  §13n.4, §18.
 - `DESIGN.md` §17 item 49: the pace on the symmetric loop (R1d-A duels
   23–107 s on PR #94's head; E7's question for L5e).
 - `IDEAS.md` restructured (the design partner, `3fabc06`, the owner's ask):
