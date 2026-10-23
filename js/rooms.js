@@ -39,9 +39,20 @@
 // the parents of events that follow later. L5b (13n.1 (a), #289): the antenna
 // fitting (sensor.mass at its edge's midpoint) draws sensor.scanPower from its
 // host while it scans, as heat there; a shield's payment for a round is EM
-// brightness over that step (js/sensors.js reads it).
+// brightness over that step (js/sensors.js reads it). L5c (13n.1 (c), #278, #292,
+// #295): room size S (one cell of a 2 x 2 room; its rate-like quantities by its
+// cell count over M's); the spinal railgun (a steel slug along the axis at
+// railgun.muzzleVelocity x sqrt(N / 2), fed from a railgun magazine on a live
+// wall, its draw spread over the reload, the rest heat); the missile bay (a ready
+// store fed from a missile magazine, one launch per interval from its open face,
+// it explodes by its store); typed rounds (ROUNDS: one parameter traded and paid
+// for, one type per load slot); a contact burst at a hull entry (HE rounds and
+// warheads) and the EMP warhead's field (a reactor SCRAMs, another powered room
+// shuts down for emp.outageTime); point-defence fittings (kinetic with its own
+// store of flak rounds, laser with its draw) on hull edges. Missiles fly in
+// js/missile.js, point defence engages in js/defence.js, both run by the battle.
 // No DOM, no Math.random.
-import { ROOMS, FIXED, BASE_EDGE, scaled } from './data.js';
+import { ROOMS, ROUNDS, FIXED, BASE_EDGE, scaled } from './data.js';
 import { createHeat, temperature, radiatorPower, heatStep, crossings, wallConductance, conductionFlows, ventCell, ventCapacity, addCapacity, depositHeat } from './heat.js';
 import { createLog, emit, within } from './events.js';
 import { absorbBeamStep, shieldStrength, stopRound } from './field.js';
@@ -50,7 +61,7 @@ import { createLayout, roomFootprint, placeRoom, openEdges, roomCentre, sharedWa
 import { liveWalls, priorityMaxFlow, feedAmmo, cellComponents, reachedThrough } from './graph.js';
 import { massProperties, createBody, worldPoint, pointVelocity, applyImpulse, integrate, reshape, fragmentOf, redistribute, rotate, momentumOf, cross, frameOrigin } from './body.js';
 import { penetrateRound, beamDeposit, csdaRange } from './damage.js';
-import { sectionalMomentum } from './projectile.js';
+import { sectionalMomentum, roundGeometry } from './projectile.js';
 
 // A time within 1e-9 of a step boundary counts as that boundary (as stepsAtLeast).
 const onStep = (time, dt) => Math.abs(time / dt - Math.round(time / dt)) <= 1e-9 * Math.max(1, Math.abs(time / dt));
@@ -94,13 +105,16 @@ export function addRoom(world, type, { id = `${type}-${world.rooms.length}`, siz
     position = roomCentre(world.layout, id);
   }
   const sizeLinear = FIXED.sizeLinear.value[size];
+  // Rate-like constants (#183): an L room's sizeLinear^2 (9/4, its cell count over M's); an S room's its cell count over
+  // M's at the same length (13n.1 (c): one cell of a 2 x 2 room is 1/4, not sizeLinear.S^2; the round keeps sizeLinear).
+  const fpM = size === 'S' ? roomFootprint(def, type, 'M', length) : null;
   // C = cells x the room type's thermally coupled heat capacity per cell (#240 (1), 13k.1); a heat sink x capacityFactor (#198).
   const C = n * tierScaled(world, param(world, def.heatCapacity)) * (def.capacityFactor ? param(world, def.capacityFactor).value : 1);
   const cls = def.thermalClass, th = world.params.thermal;
   const room = {
     id, type, size, def, position,
     length: def.spinal ? fp[0] : null, // N of a spinal room, its cells along x (#234)
-    footprintFactor: sizeLinear * sizeLinear, // rate-like constants: L = 9/4 of M (#183)
+    footprintFactor: fpM ? n / (fpM[0] * fpM[1]) : sizeLinear * sizeLinear, // rate-like constants: L = 9/4 of M (#183), S by its cells (13n.1 (c))
     cells: Array.from({ length: n }, () => ({ integrity: 1, destroyed: false })),
     thresholds: { hot: th[`${cls}Hot`].value, overheated: th[`${cls}Overheated`].value, critical: th[`${cls}Critical`].value },
     heat: createHeat(C, T0),
@@ -149,7 +163,7 @@ export function irBrightness(world, room) {
 }
 
 // Events that can cut a room off from its power (a wall, a reactor): the parent of a later 'no-power' (13l.1).
-const CUTS = new Set(['cell-destroyed', 'explosion', 'scram', 'shutdown', 'control-lost', 'unmanned']);
+const CUTS = new Set(['cell-destroyed', 'explosion', 'scram', 'shutdown', 'control-lost', 'unmanned', 'outage']);
 /** Emit an event of `room`; `parent` names its parent in the cascade tree (13l.1), else the event being handled or its cause. */
 function event(world, room, type, cause, extra = {}, parent = null) {
   const e = emit(world.log, { t: world.t, type, room: room.id, cause, crew: room.crew, ...extra, ...(parent ? { parent } : {}) });
@@ -166,6 +180,7 @@ function reasonParent(world, room, why) {
   const m = room.marks;
   if (why === 'heat' || why === 'overheat') return m.shutdown || 'heat';
   if (why === 'unmanned') return m.unmanned || 'launch';
+  if (why === 'outage') return m.outage || 'launch';
   if (why === 'no-control') return m.controlLost || 'launch';
   if (why === 'destroyed') return m.destroyed || 'launch';
   if (why === 'dry') return m.lastShot || 'launch';
@@ -187,8 +202,8 @@ function killCrew(world, room, deaths, cause) {
     if (!room.shutdown) within(world.log, ev, () => ON_SHUTDOWN[room.type]?.(world, room));
   }
 }
-/** No function (13n.1 (b)): shut down by heat or unmanned. */
-const down = (room) => room.shutdown || room.unmanned;
+/** No function (13n.1 (b)): shut down by heat, unmanned, or in an EMP's outage (13n.1 (c), #292). */
+const down = (room) => room.shutdown || room.unmanned || !!room.outage;
 
 /** Radiators on the room's hull segments; in a cluster at most one per open edge (#15, #192). */
 export function setRadiators(room, n, world = null) {
@@ -476,14 +491,15 @@ export function fireRound(world, { mass, velocity, area, direction = null }, pat
   const tookAll = took.reduce((x, y) => x + y, 0);
   const heats = took.map((e) => (taken > 0 && tookAll > 0 ? (heat * e) / tookAll : 0));
   heats.forEach((q, i) => { if (q !== 0) depositHeat(path[i].room.heat, q); });
-  // The detonation (#273 (c)): the first standing cell of a magazine with rounds the round enters at the threshold or more.
+  // The detonation (#273 (c)): the first standing cell of a magazine with rounds (or a missile bay with missiles in its
+  // store, #148, 13n.1 (c)) the round enters at the threshold or more.
   const vd = world.params.magazine.detonationSpeed.value;
-  const trigger = path.findIndex((x, i) => i < entry.length && !x.plate && x.room.type === 'magazine' && r[i] > 0 && entry[i] / mass >= vd && !x.room.exploded && magazineContents(world, x.room).energy > 0);
+  const trigger = path.findIndex((x, i) => i < entry.length && !x.plate && (x.room.type === 'magazine' || x.room.type === 'missileBay') && r[i] > 0 && entry[i] / mass >= vd && !x.room.exploded && storeEnergy(world, x.room) > 0);
   let detonated = null;
   losses.forEach((loss, i) => {
     if (i === trigger) {
       const x = path[i];
-      if (!x.room.exploded && !x.room.cells[x.cell].destroyed && magazineContents(world, x.room).energy > 0) {
+      if (!x.room.exploded && !x.room.cells[x.cell].destroyed && storeEnergy(world, x.room) > 0) {
         detonated = { entry: i, speed: entry[i] / mass };
         const ev = event(world, x.room, 'detonation', cause, { cell: x.cell, speed: detonated.speed, channel: 'kinetic' });
         within(world.log, ev, () => detonate(world, x.room, cause));
@@ -612,7 +628,7 @@ export function step(world) {
   if (world.layout && world.beams.length) shieldPayments(world);
   repairGrants(world);
   for (const room of world.rooms) {
-    const own = room.exploded || !room.active ? 0 : (BEHAVIOUR[room.type]?.(world, room) || 0) + (room.rcs ? rcsHeat(world, room) : 0) + (room.antennas ? scanHeat(world, room) : 0);
+    const own = room.exploded || !room.active ? 0 : (BEHAVIOUR[room.type]?.(world, room) || 0) + (room.rcs ? rcsHeat(world, room) : 0) + (room.antennas ? scanHeat(world, room) : 0) + (room.pdLasers ? laserHeat(world, room) : 0);
     const external = room.externalPower * dt;
     if (conducted) heatStep(room.heat, own + external, irBrightness(world, room), dt, conducted.get(room) || 0, pumped.get(room) || 0);
     else heatStep(room.heat, own + external, irBrightness(world, room), dt);
@@ -624,6 +640,8 @@ export function step(world) {
   // A state reached during the step is reported at its end, like the thresholds.
   for (const r of world.repaired) event(world, r.room, 'cell-repaired', r.cause, { cell: r.cell }, r.room.cells[r.cell].lastEvent || 'launch'); // its parent: the damage it repaired
   world.repaired = [];
+  // An EMP's outage ends at the first step boundary at or after its end (13n.1 (c), #292): the room works from the next step.
+  for (const room of world.rooms) if (room.outage && world.t >= room.outage.end) { room.outage = null; event(world, room, 'outage-ended', 'emp', {}, room.marks.outage); }
   for (const room of world.rooms) {
     for (const x of crossings(room.heat, room.thresholds)) onThreshold(world, room, x);
     TIMERS[room.type]?.(world, room);
@@ -732,6 +750,15 @@ const INIT = {
   beamBay(world, room) {
     room.beamBay = { firing: false, beam: 0, draw: 0, stopped: false, beamEnergy: 0, energyDrawn: 0 };
   },
+  railgun(world, room) {
+    // firing: the order (a battle sets it); slugs: kg of slugs of a railgun alone (L1: no magazine without a cluster).
+    room.railgun = { firing: false, slugs: 0, shots: 0, impulse: 0, energyDrawn: 0, draw: 0, ceased: true, anchor: 0, sinceAnchor: 0, lastShot: null };
+  },
+  missileBay(world, room) {
+    // ready: the store, one { seeker, warhead } per missile (#148); launching: the order; face: the open edge it launches
+    // from ({ cell, side }, else its first open edge).
+    room.missileBay = { ready: [], launches: 0, launching: false, lastLaunch: null, face: null };
+  },
 };
 
 const BEHAVIOUR = {
@@ -752,7 +779,7 @@ const BEHAVIOUR = {
     if (!able) {
       if (!s.ceased) {
         s.ceased = true;
-        const cause = s.ammo <= 0 ? 'dry' : !room.powered ? 'no-power' : room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : !room.controlled ? 'no-control' : 'destroyed';
+        const cause = s.ammo <= 0 ? 'dry' : !room.powered ? 'no-power' : room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : room.outage ? 'outage' : !room.controlled ? 'no-control' : 'destroyed';
         event(world, room, 'cease-fire', cause, {}, reasonParent(world, room, cause));
       }
       return 0;
@@ -768,23 +795,35 @@ const BEHAVIOUR = {
     // is fired in the step that contains its due time, at that time.
     // Fire rate: L1, x 1 / sizeLinear in a cluster (size rule), x the power fraction (#193).
     const rate = world.sizeRule ? (tierScaled(world, p.turret.fireRate) / FIXED.sizeLinear.value[room.size]) * supply(world, room) : tierScaled(world, p.turret.fireRate);
+    // A typed store (13n.1 (c), #95): the type the battle chose for its target if the store holds it, else Standard, else
+    // what it holds; rounds fed from a magazine's untyped slots fly as Standard. An AP round rams slower: the interval
+    // before it is rounds.apLength / rate (#295), carried in s.extra (whole intervals added) so a store without AP fires
+    // on L1's schedule.
+    const pick = s.typed ? pickRound(s) : null;
+    const factor = pick ? roundFactor(world, ROUNDS[pick.type].rate) : 1;
     // Able again (fed, powered): the next shot is due now, but never sooner than 1 / rate after the last one.
-    if (s.ceased) { s.ceased = false; s.anchor = s.lastShot === null ? world.t : Math.max(world.t, s.lastShot + 1 / rate); s.sinceAnchor = 0; }
-    const due = s.anchor + s.sinceAnchor / rate;
+    if (s.ceased) { s.ceased = false; s.anchor = s.lastShot === null ? world.t : Math.max(world.t, s.lastShot + factor / rate); s.sinceAnchor = 0; if (s.typed) s.extra = 0; }
+    const pend = pick && s.sinceAnchor > 0 ? factor - 1 : 0;
+    const due = s.anchor + (s.typed ? s.sinceAnchor + s.extra + pend : s.sinceAnchor) / rate;
     let heat = 0, until = dt; // the part of this step during which a round is left
     if (world.step >= stepContaining(due, dt)) {
       // Offset of the shot within the step: 0 on a step boundary or when late.
       const at = world.step === stepContaining(due, dt) && !onStep(due, dt) ? Math.min(dt, Math.max(0, due - world.t)) : 0;
-      const m = tierScaled(world, p.kinetic.roundMass) * FIXED.sizeLinear.value[room.size] ** 3;
-      const v = tierScaled(world, p.kinetic.muzzleVelocity);
+      const typed = pick && !pick.legacy ? roundOf(world, room.size, pick.type) : null;
+      const m = typed ? typed.m : tierScaled(world, p.kinetic.roundMass) * FIXED.sizeLinear.value[room.size] ** 3;
+      const v = typed ? typed.v : tierScaled(world, p.kinetic.muzzleVelocity);
       s.ammo--;
+      if (typed) s.typed[pick.type]--;
+      if (pick) s.extra += pend;
       s.shots++;
       s.sinceAnchor++;
-      s.impulse += m * v; // recoil (Newton 3)
-      if (world.ship) recoil(world, room, m, v, at, `${room.id}:shot-${s.shots}`); // on the ship's body (13f.1), launched at world.t + at (F20)
+      s.impulse += (typed ? m + typed.petals : m) * v; // recoil (Newton 3): a sabot's petals leave with the penetrator (#295)
+      const cause = `${room.id}:shot-${s.shots}`;
+      if (world.ship) recoil(world, room, m, v, at, cause, typed ? { A: typed.A, type: typed.type, petals: typed.petals, burst: typed.burst } : null); // on the ship's body (13f.1), launched at world.t + at (F20)
       s.lastShot = world.t + at;
       heat += world.sizeRule ? tierScaled(world, p.turret.heatPerShot) * FIXED.sizeLinear.value[room.size] ** 3 : tierScaled(world, p.turret.heatPerShot);
-      room.marks.lastShot = event(world, room, 'shot', `${room.id}:shot-${s.shots}`, { t: world.t + at, energy: 0.5 * m * v * v, channel: 'kinetic' }).id; // a root: its parent is its own shot id
+      const what = pick ? { roundType: pick.type } : {}; // a typed store names the type it fired
+      room.marks.lastShot = event(world, room, 'shot', cause, { t: world.t + at, energy: 0.5 * (typed ? m + typed.petals : m) * v * v, channel: 'kinetic', ...what }).id; // a root: its parent is its own shot id
       if (s.ammo <= 0) {
         until = at;
         s.ceased = true;
@@ -799,7 +838,7 @@ const BEHAVIOUR = {
     s.roundEm = 0; // the rounds' part of the EM brightness, paid after the last step (shieldRound, 13n.1 (a))
     const able = s.on && room.powered && room.controlled && !down(room) && !isDestroyed(room);
     if (!able) {
-      if (!s.down) { s.down = true; const why = !s.on ? 'off' : !room.powered ? 'no-power' : room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'shield-down', why, {}, reasonParent(world, room, why)); }
+      if (!s.down) { s.down = true; const why = !s.on ? 'off' : !room.powered ? 'no-power' : room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : room.outage ? 'outage' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'shield-down', why, {}, reasonParent(world, room, why)); }
       s.absorbed = 0; s.em = 0; s.passed = s.incoming;
       s.passedEnergy += s.incoming * dt;
       return 0;
@@ -857,7 +896,7 @@ const BEHAVIOUR = {
     const able = s.firing && room.powered && room.controlled && !down(room) && !isDestroyed(room);
     if (!able) {
       // An overheated bay under routing asks for no power, so heat is named before power (#227 Q9, 13k.1).
-      if (s.firing && !s.stopped) { s.stopped = true; const why = room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped', why, {}, reasonParent(world, room, why)); }
+      if (s.firing && !s.stopped) { s.stopped = true; const why = room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : room.outage ? 'outage' : !room.powered ? 'no-power' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'beam-stopped', why, {}, reasonParent(world, room, why)); }
       s.beam = 0; s.draw = 0;
       return 0;
     }
@@ -867,7 +906,147 @@ const BEHAVIOUR = {
     s.beamEnergy += s.beam * dt; s.energyDrawn += s.draw * dt;
     return (s.draw - s.beam) * dt;
   },
+  /**
+   * The spinal railgun (13n.1 (c), #236 (6)): while ordered to fire, fed (a railgun magazine with a slug on a live wall;
+   * a railgun alone its own slugs), powered, controlled and up, it fires a steel slug along its ship's axis (+x) at
+   * railgunSlug's speed, shot k due at anchor + k / rate as the turret's (rate railgun.fireRate, x 1 / sizeLinear in a
+   * cluster, x the power fraction); its draw is the muzzle energy / railgun.efficiency spread over the reload (a capacitor
+   * is not modelled), and the draw less the muzzle energy is heat in the room each step. Recoil -m v along the axis at
+   * the room's centre (#5).
+   */
+  railgun(world, room) {
+    const s = room.railgun, dt = world.dt;
+    const source = s.firing ? slugSource(world, room) : null;
+    const able = s.firing && room.powered && room.controlled && !down(room) && !isDestroyed(room) && source !== null;
+    if (!able) {
+      if (!s.ceased) {
+        s.ceased = true; // not able, or not ordered: the next shot is due when it is again
+        if (!s.firing) { s.draw = 0; return 0; }
+        const cause = source === null ? 'dry' : !room.powered ? 'no-power' : room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : room.outage ? 'outage' : !room.controlled ? 'no-control' : 'destroyed';
+        event(world, room, 'cease-fire', cause, {}, reasonParent(world, room, cause));
+      }
+      s.draw = 0;
+      return 0;
+    }
+    const slug = railgunSlug(world, room), f = supply(world, room), rate = railgunRate(world, room) * f;
+    if (s.ceased) { s.ceased = false; s.anchor = s.lastShot === null ? world.t : Math.max(world.t, s.lastShot + 1 / rate); s.sinceAnchor = 0; }
+    const due = s.anchor + s.sinceAnchor / rate;
+    const eff = world.params.railgun.efficiency.value;
+    s.draw = (slug.energy / eff) * rate; // W: the muzzle energy over the efficiency, spread over the reload
+    s.energyDrawn += s.draw * dt;
+    const heat = s.draw * (1 - eff) * dt; // the draw less what becomes muzzle energy, every step of the reload
+    if (world.step >= stepContaining(due, dt)) {
+      const at = world.step === stepContaining(due, dt) && !onStep(due, dt) ? Math.min(dt, Math.max(0, due - world.t)) : 0;
+      if (source === 'own') s.slugs -= slug.m;
+      else {
+        // The slug moves from the magazine into the barrel (mass moved inside, books kept: moveInside), then leaves it.
+        source.magazine.slugMass -= slug.m;
+        s.chamber = slug.m;
+        if (world.ship) moveInside(world);
+        s.chamber = 0;
+      }
+      s.shots++;
+      s.sinceAnchor++;
+      s.impulse += slug.m * slug.v;
+      const cause = `${room.id}:slug-${s.shots}`;
+      if (world.ship) recoil(world, room, slug.m, slug.v, at, cause, { dir: [1, 0], A: slug.A, type: 'slug' }); // along the axis (+x of its ship) at its centre
+      s.lastShot = world.t + at;
+      room.marks.lastShot = event(world, room, 'slug', cause, { t: world.t + at, energy: slug.energy, channel: 'kinetic' }).id; // a root
+    }
+    return heat;
+  },
+  /**
+   * The missile bay (#148, 13n.1 (c)): while ordered to launch, controlled and up, with a missile in its ready store, it
+   * launches one at the start of a step, never sooner than missilebay.launchInterval after the last: the missile leaves
+   * its open face at that point's velocity (no recoil: it leaves the tube at rest relative to the hull) with its heading
+   * along the face's outward normal, into world.ship.missiles (js/missile.js flies it). Needs a ship.
+   */
+  missileBay(world, room) {
+    const s = room.missileBay, p = world.params;
+    if (!s.launching || !world.ship || !room.controlled || down(room) || isDestroyed(room) || s.ready.length === 0) return 0;
+    const interval = p.missilebay.launchInterval.value;
+    if (s.lastLaunch !== null && world.t < s.lastLaunch + interval - 1e-9 * interval) return 0;
+    const kind = s.ready.shift(), face = launchFace(world, room);
+    const b = world.ship.bodies.find((x) => x.id === room.cells[face.k].fragment) || world.ship.bodies.find((x) => x.id === room.body);
+    if (!b) return 0;
+    const q = worldPoint(b, face.p), vq = pointVelocity(b, q), n = rotate(face.side, b.theta);
+    world.ship.items = shipItems(world); // the missile has left the store (its mass sat at the face)
+    reshape(b, propsOf(world.ship.items, b.id));
+    s.launches++;
+    s.lastLaunch = world.t;
+    const cause = `${room.id}:missile-${s.launches}`, m = tierScaled(world, p.missile.mass);
+    world.ship.missiles.push({ m, x: q, v: [...vq], heading: [...n], t: world.t, from: room.id, cause, seeker: kind.seeker, warhead: kind.warhead, x0: [...q] });
+    room.marks.lastShot = event(world, room, 'missile-launched', cause, { seeker: kind.seeker, warhead: kind.warhead, energy: 0, channel: 'kinetic' }).id; // a root
+    return 0;
+  },
 };
+
+// ---------- round types, the railgun's slug, the missile bay's face (13n.1 (c)) ----------
+/** A ROUNDS entry's factor: 1, or the value of the PARAMS constant it names (k = 0). */
+const roundFactor = (world, f) => (typeof f === 'string' ? param(world, f).value : f);
+/**
+ * A round of `type` (ROUNDS) at a size: `full` the M round's mass x size^3 (what a magazine slot holds), `m` the mass
+ * that flies (x its steel fraction), `v` its muzzle speed (x its velocity factor), `A` its cross-section (a steel
+ * cylinder of FIXED.roundLengthToDiameter x its length factor), `petals` what leaves with it at v without being part
+ * of it (a sabot's, when its impulse is the full round's), `burst` its burst energy (he.blastEnergy x size^3) or 0, and
+ * `held` the mass it weighs in a store (an HE round its steel: its burst is energy, not mass).
+ */
+export function roundOf(world, size = 'M', type = 'standard') {
+  const t = ROUNDS[type];
+  if (!t) throw new Error(`unknown round type ${type}`);
+  const s3 = FIXED.sizeLinear.value[size] ** 3, p = world.params, full = tierScaled(world, p.kinetic.roundMass) * s3;
+  const m = full * roundFactor(world, t.steel), v = tierScaled(world, p.kinetic.muzzleVelocity) * roundFactor(world, t.velocity);
+  const { A } = roundGeometry(m, FIXED.steelDensity.value, FIXED.roundLengthToDiameter.value * roundFactor(world, t.length));
+  const petals = t.impulse === 'full' ? full - m : 0;
+  return { type, full, m, v, A, petals, held: m + petals, burst: t.burst ? tierScaled(world, param(world, t.burst)) * s3 : 0 };
+}
+/** The turret's round types, in the order a store falls back through. */
+export const TURRET_TYPES = ['standard', 'ap', 'he', 'sabot'];
+const typedCount = (store) => (store ? TURRET_TYPES.reduce((n, k) => n + (store[k] || 0), 0) : 0);
+/** The round a typed turret fires (#95, 13n.1 (c)): its wanted type if held, else Standard, else the first it holds; Standard from untyped rounds first. */
+function pickRound(s) {
+  const legacy = s.ammo - typedCount(s.typed);
+  const has = (k) => (k === 'standard' && legacy > 0) || s.typed[k] > 0;
+  const type = s.want && has(s.want) ? s.want : has('standard') ? 'standard' : TURRET_TYPES.find(has) || 'standard';
+  return { type, legacy: type === 'standard' && legacy > 0 };
+}
+/** The railgun's slug (13n.1 (c)): railgun.roundMass x size^3 of steel at railgun.muzzleVelocity x sqrt(N / 2), N its cells along the axis. */
+export function railgunSlug(world, room) {
+  const p = world.params.railgun, m = tierScaled(world, p.roundMass) * FIXED.sizeLinear.value[room.size] ** 3;
+  const v = tierScaled(world, p.muzzleVelocity) * Math.sqrt(room.length / 2), { A } = roundGeometry(m, FIXED.steelDensity.value, FIXED.roundLengthToDiameter.value);
+  return { m, v, A, energy: 0.5 * m * v * v };
+}
+/** Slugs a second at most: railgun.fireRate (k = -1), x 1 / sizeLinear in a cluster (the size rule's per-round rate). */
+const railgunRate = (world, room) => (world.sizeRule ? tierScaled(world, world.params.railgun.fireRate) / FIXED.sizeLinear.value[room.size] : tierScaled(world, world.params.railgun.fireRate));
+/** The railgun's mean draw (W) while it fires at its full rate: the muzzle energy / railgun.efficiency x the rate. */
+const railgunDraw = (world, room) => (railgunSlug(world, room).energy / world.params.railgun.efficiency.value) * railgunRate(world, room);
+/** Where the railgun's next slug comes from: a railgun magazine holding one on a live wall (first by room id), 'own' for a railgun alone holding one, else null. */
+function slugSource(world, room) {
+  const m = railgunSlug(world, room).m;
+  if (!world.layout) return room.railgun.slugs >= m ? 'own' : null;
+  for (const w of liveWalls(world)) {
+    if (!(w.live > 0)) continue;
+    const mag = w.a === room ? w.b : w.b === room ? w.a : null;
+    if (mag && mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'railgun' && mag.magazine.slugMass >= m) return mag;
+  }
+  return null;
+}
+/** Slugs for a railgun alone (L1, no magazine): kg of steel. */
+export function loadRailgun(room, kg) {
+  room.railgun.slugs = kg;
+}
+/** The open edge a missile bay launches from: its `face` ({ cell, side }) or its first open edge (cell order; sides +y, -y, +x, -x); { k, cell, side, p (grid m) }. */
+function launchFace(world, room) {
+  const cells = world.layout.rooms.get(room.id).cells, set = room.missileBay.face;
+  const open = (c, sd) => !world.layout.occupied.has(`${c[0] + sd[0]},${c[1] + sd[1]}`);
+  for (let k = 0; k < cells.length; k++) {
+    for (const side of [[0, 1], [0, -1], [1, 0], [-1, 0]]) {
+      if (set && !(set.cell[0] === cells[k][0] && set.cell[1] === cells[k][1] && set.side[0] === side[0] && set.side[1] === side[1])) continue;
+      if (open(cells[k], side)) return { k, cell: [...cells[k]], side, p: edgeMidpoint(world.edge, cells[k], side) };
+    }
+  }
+  throw new Error(`${room.id}: a missile bay needs an open face`);
+}
 
 const ON_SHUTDOWN = {
   reactor(world, room) {
@@ -897,10 +1076,13 @@ const ON_CELL_DESTROYED = {
       r.breachEvent = event(world, room, 'breach', cause).id; // the parent of the explosion it leads to (13l.1)
     }
   },
+  missileBay(world, room) {
+    if (survivingCells(room) === 0) room.missileBay.ready = []; // its missiles leave as debris with its last cell (rebalance)
+  },
   magazine(world, room) {
     // A destroyed cell alone no longer detonates it (#273 (c)); with its last cell its rounds leave as debris,
     // unexploded (13n.1 (b)): their mass leaves with the room's contents (rebalance), nothing is left to cook off.
-    if (survivingCells(room) === 0) { room.magazine.ap = 0; room.magazine.he = 0; if (room.magazine.slugMass) room.magazine.slugMass = 0; }
+    if (survivingCells(room) === 0) emptyMagazine(room);
   },
   bridge(world, room, cause) {
     if (survivingCells(room) === 0 && room.bridge.control) { room.bridge.control = false; room.marks.controlLost = world.log.bridgeChange = event(world, room, 'control-lost', cause).id; }
@@ -927,7 +1109,7 @@ const TIMERS = {
     // Control while any cell survives (#147: power cut does not matter). An
     // overheated or switched-off bridge gives no control (13c.1).
     const control = survivingCells(room) > 0 && !down(room) && room.active;
-    if (room.bridge.control && !control) { room.bridge.control = false; const why = !room.active ? 'off' : room.shutdown ? 'overheat' : 'unmanned'; room.marks.controlLost = world.log.bridgeChange = event(world, room, 'control-lost', why, {}, reasonParent(world, room, why)).id; }
+    if (room.bridge.control && !control) { room.bridge.control = false; const why = !room.active ? 'off' : room.shutdown ? 'overheat' : room.outage ? 'outage' : 'unmanned'; room.marks.controlLost = world.log.bridgeChange = event(world, room, 'control-lost', why, {}, reasonParent(world, room, why)).id; }
     else if (!room.bridge.control && control) { room.bridge.control = true; const why = room.active && !room.bridge.wasOff ? 'restart' : 'on'; world.log.bridgeChange = event(world, room, 'control-restored', why, {}, why === 'restart' ? room.marks.restart || 'heat' : 'launch').id; }
     room.bridge.wasOff = !room.active;
   },
@@ -943,48 +1125,91 @@ export function magazineCapacity(world, room) {
 export const MAGAZINE_TYPES = ['turret', 'railgun', 'missile'];
 /** A magazine's weapon type: `turret` unless loaded for another. */
 export const magazineType = (room) => room.magazine.type || 'turret';
-// The missile's mass, warhead energy and burnout speed are L5c's constants (13n.1 (c)), not in data.js yet.
-const MISSILE_TODO = 'a missile magazine: its energy is missile.warheadEnergy + 1/2 m v_burnout^2 per missile, constants L5c adds (13n.1 (c)); not built in L5a';
 /**
  * Load a magazine for one weapon type (13n.1 (b)): `turret` rounds of one size by mass (kg; counts are whole
  * rounds; `order` is the loading order the feed takes them in), `railgun` slugs by mass (`slugMass`, kg: steel,
- * no propellant). `missile` throws until L5c adds the missile's constants (MISSILE_TODO). A weapon is fed only by a
- * magazine of its type (feedTurrets, js/battle.js weaponStates).
+ * no propellant), `missile`s by mass (`missileMass`, kg; whole missiles of missile.mass, one `seeker` and `warhead` per
+ * load slot, 13n.1 (c)). Typed turret rounds (L5c, ROUNDS, #94): `rounds` { standard, ap, he, sabot } in kg, one
+ * type per load slot, each round a full round's mass of the slot (a sabot's petals included; an HE round's burst
+ * takes the rest of its slot), fed in the order the object lists them after the untyped `apMass` and `heMass`
+ * (L4's, which fly as Standard). A weapon is fed only by a magazine of its type (feedTurrets, js/battle.js weaponStates).
  */
-export function loadMagazine(world, room, { type = 'turret', size = 'M', apMass = 0, heMass = 0, slugMass = 0, order = ['ap', 'he'] }) {
+export function loadMagazine(world, room, { type = 'turret', size = 'M', apMass = 0, heMass = 0, slugMass = 0, missileMass = 0, seeker = 'designated', warhead = 'he', rounds = null, order = ['ap', 'he'] }) {
   if (!MAGAZINE_TYPES.includes(type)) throw new Error(`unknown magazine type ${type}`);
-  if (type === 'missile') throw new Error(`TODO: ${MISSILE_TODO}`);
-  const capacity = magazineCapacity(world, room);
+  const capacity = magazineCapacity(world, room), typedMass = rounds ? Object.values(rounds).reduce((x, y) => x + y, 0) : 0;
   room.loadingOrder = order;
-  if (apMass + heMass + slugMass > capacity) throw new Error(`magazine holds at most ${capacity} kg`);
+  if (apMass + heMass + slugMass + missileMass + typedMass > capacity) throw new Error(`magazine holds at most ${capacity} kg`);
   if (type === 'railgun') { Object.assign(room.magazine, { type, size, ap: 0, he: 0, slugMass }); return room.magazine; }
+  if (type === 'missile') {
+    if (!SEEKER_KINDS.includes(seeker) || !WARHEAD_KINDS.includes(warhead)) throw new Error(`unknown missile type ${seeker} / ${warhead}`);
+    delete room.magazine.typed;
+    Object.assign(room.magazine, { type, size, ap: 0, he: 0, missiles: Math.floor(missileMass / tierScaled(world, world.params.missile.mass)), seeker, warhead });
+    return room.magazine;
+  }
   const m = tierScaled(world, world.params.kinetic.roundMass) * FIXED.sizeLinear.value[size] ** 3;
   delete room.magazine.type; delete room.magazine.slugMass; // a turret magazine keeps L1's shape
+  delete room.magazine.missiles; delete room.magazine.seeker; delete room.magazine.warhead; delete room.magazine.typed;
   Object.assign(room.magazine, { size, ap: Math.floor(apMass / m), he: Math.floor(heMass / m) });
+  if (rounds) {
+    for (const k of Object.keys(rounds)) if (!TURRET_TYPES.includes(k)) throw new Error(`unknown round type ${k} (a turret fires ${TURRET_TYPES.join(', ')})`);
+    room.magazine.typed = Object.fromEntries(Object.entries(rounds).map(([k, kg]) => [k, Math.floor(kg / m)]));
+  }
   return room.magazine;
+}
+/** The seeker and warhead kinds a missile carries (data.js SEEKERS, WARHEADS, 13n.1 (c)). */
+export const SEEKER_KINDS = ['ir', 'radar', 'antiRadiation', 'designated'];
+export const WARHEAD_KINDS = ['he', 'penetrator', 'emp'];
+/** One missile's explosive energy (13n.1 (b) (c)): missile.warheadEnergy + 1/2 m (acceleration x burnTime)^2, its warhead and its fuel. */
+export function missileEnergy(world) {
+  const p = world.params.missile, m = tierScaled(world, p.mass), vb = p.acceleration.value * p.burnTime.value;
+  return tierScaled(world, p.warheadEnergy) + 0.5 * m * vb * vb;
 }
 /**
  * What a magazine holds and the energy it releases if it goes off: turret rounds by their propellant
- * (kinetic.chargeEnergy, + he.blastEnergy for HE, x size^3); a railgun's slugs 0 (no propellant, 13n.1 (b)).
+ * (kinetic.chargeEnergy, + he.blastEnergy for HE, x size^3); a railgun's slugs 0 (no propellant, 13n.1 (b)); missiles
+ * by their warheads and fuel (missileEnergy each, 13n.1 (c)). Typed rounds (L5c): each by its charge, an HE round's
+ * burst added.
  */
 export function magazineContents(world, room) {
   const g = room.magazine;
   if (magazineType(room) === 'railgun') return { ap: 0, he: 0, slugMass: g.slugMass, energy: 0 };
-  if (magazineType(room) === 'missile') throw new Error(`TODO: ${MISSILE_TODO}`);
+  if (magazineType(room) === 'missile') return { ap: 0, he: 0, missiles: g.missiles, energy: g.missiles * missileEnergy(world) };
   const s3 = FIXED.sizeLinear.value[g.size] ** 3, p = world.params;
   const charge = tierScaled(world, p.kinetic.chargeEnergy) * s3, warhead = tierScaled(world, p.he.blastEnergy) * s3;
-  return { ap: g.ap, he: g.he, energy: g.ap * charge + g.he * (charge + warhead) };
+  if (!g.typed) return { ap: g.ap, he: g.he, energy: g.ap * charge + g.he * (charge + warhead) };
+  const typed = typedCount(g.typed);
+  return { ap: g.ap, he: g.he, typed: { ...g.typed }, energy: g.ap * charge + g.he * (charge + warhead) + typed * charge + (g.typed.he || 0) * warhead };
 }
+/** What a missile bay's store holds and the energy it releases if it goes off (#148): its missiles' warheads and fuel. */
+export function bayContents(world, room) {
+  return { missiles: room.missileBay.ready.length, energy: room.missileBay.ready.length * missileEnergy(world) };
+}
+/** The explosive energy of a magazine or a missile bay's store (what a detonation releases). */
+const storeEnergy = (world, room) => (room.type === 'missileBay' ? bayContents(world, room).energy : magazineContents(world, room).energy);
 function detonate(world, room, cause) {
-  const { energy } = magazineContents(world, room);
+  const energy = storeEnergy(world, room);
+  if (room.type === 'missileBay') room.missileBay.ready = [];
+  else emptyMagazine(room);
+  explode(world, room, energy, cause);
+}
+/** A magazine's contents gone (detonated, or lost with its last cell). */
+function emptyMagazine(room) {
   room.magazine.ap = 0;
   room.magazine.he = 0;
-  explode(world, room, energy, cause);
+  if (room.magazine.slugMass) room.magazine.slugMass = 0;
+  if (room.magazine.missiles) room.magazine.missiles = 0;
+  if (room.magazine.typed) for (const k of Object.keys(room.magazine.typed)) room.magazine.typed[k] = 0;
 }
 
 // ---------- turret ----------
-export function loadTurret(room, rounds) {
+/** A turret's ready store: `rounds` rounds; `typed` ({ standard, ap, he, sabot } counts, L5c) makes them typed rounds. */
+export function loadTurret(room, rounds, typed = null) {
   room.turret.ammo = rounds;
+  if (typed) {
+    room.turret.typed = { standard: 0, ap: 0, he: 0, sabot: 0, ...typed };
+    room.turret.extra = 0;
+    if (typedCount(room.turret.typed) > rounds) throw new Error(`${room.id}: ${typedCount(room.turret.typed)} typed rounds in a store of ${rounds}`);
+  }
 }
 /** Rounds a turret's ready store holds: turret.readyRounds rounds of its own size (#193, #195). */
 export function readyStore(world, room) {
@@ -993,7 +1218,7 @@ export function readyStore(world, room) {
 
 /** Set a magazine's contents off now with `cause` (L2.blast.walls; a cook-off and a hit take the same path). */
 export function detonateMagazine(world, room, cause) {
-  if (!room.exploded && magazineContents(world, room).energy > 0) detonate(world, room, cause);
+  if (!room.exploded && storeEnergy(world, room) > 0) detonate(world, room, cause);
 }
 
 // ---------- cluster (L2, DESIGN.md 13d.1) ----------
@@ -1099,10 +1324,11 @@ const REQUEST = {
   shieldGenerator: (world, room) => (room.shield.on ? tierScaled(world, world.params.shield.powerDraw) * room.footprintFactor * survivingFraction(room) : 0),
   engine: (world, room) => (room.controlled ? room.engine.throttle * room.footprintFactor * survivingFraction(room) * tierScaled(world, world.params.engine.powerDraw) : 0),
   quarters: (world, room) => tierScaled(world, world.params.quarters.powerDraw) * survivingFraction(room),
+  railgun: (world, room) => (room.railgun.firing ? railgunDraw(world, room) : 0), // while ordered to fire (13n.1 (c))
 };
 export function powerRequest(world, room) {
-  if ((!REQUEST[room.type] && !room.rcs && !room.antennas) || room.exploded || !room.active || down(room) || isDestroyed(room)) return 0;
-  return (REQUEST[room.type] ? REQUEST[room.type](world, room) : 0) + (room.rcs ? rcsRequest(world, room) : 0) + (room.antennas ? scanRequest(world, room) : 0); // an RCS fitting's or a scanning antenna's draw joins its host's (13f.1, 13n.1 (a))
+  if ((!REQUEST[room.type] && !room.rcs && !room.antennas && !room.pdLasers) || room.exploded || !room.active || down(room) || isDestroyed(room)) return 0;
+  return (REQUEST[room.type] ? REQUEST[room.type](world, room) : 0) + (room.rcs ? rcsRequest(world, room) : 0) + (room.antennas ? scanRequest(world, room) : 0) + (room.pdLasers ? laserRequest(world, room) : 0); // an RCS fitting's, a scanning antenna's or a laser's draw joins its host's (13f.1, 13n.1 (a) (c))
 }
 
 function routePower(world) {
@@ -1112,7 +1338,7 @@ function routePower(world) {
   const sources = placed.filter((r) => r.type === 'reactor').map((r) => ({ id: r.id, capacity: r.active && reactorAble(r) ? r.reactor.demand * reactorPower(world, r) * survivingFraction(r) : 0 }));
   const listed = world.power.priority;
   const rank = (r) => (listed.includes(r.id) ? listed.indexOf(r.id) : listed.length);
-  const consumers = placed.filter((r) => REQUEST[r.type] || r.rcs || r.antennas).sort((a, b) => rank(a) - rank(b) || byId(a.id, b.id));
+  const consumers = placed.filter((r) => REQUEST[r.type] || r.rcs || r.antennas || r.pdLasers).sort((a, b) => rank(a) - rank(b) || byId(a.id, b.id));
   const draws = new Map(consumers.map((r) => [r.id, powerRequest(world, r)]));
   const { delivered, produced } = priorityMaxFlow({ nodes: placed.map((r) => r.id), edges, sources, sinks: consumers.map((r) => ({ id: r.id, capacity: draws.get(r.id) })) });
   for (const r of consumers) {
@@ -1297,18 +1523,38 @@ function repairGrants(world) {
 // ---------- ammunition feed (#18, #193) ----------
 function feedTurrets(world) {
   const p = world.params;
+  let moving = null; // the typed round or the missile a take() hands to its give()
   feedAmmo(world, {
     feedPerMetre: tierScaled(world, p.ammo.wallFeed),
     store: (room) => (room.type === 'turret' && !room.exploded && !isDestroyed(room)
       ? { capacity: readyStore(world, room), rounds: room.turret.ammo, roundMass: tierScaled(world, p.kinetic.roundMass) * FIXED.sizeLinear.value[room.size] ** 3, size: room.size }
       : null),
-    has: (mag) => magazineType(mag) === 'turret' && mag.magazine.ap + mag.magazine.he > 0, // a turret is fed by a turret magazine only (13n.1 (b))
+    has: (mag) => magazineType(mag) === 'turret' && (mag.magazine.ap + mag.magazine.he > 0 || typedCount(mag.magazine.typed) > 0), // a turret is fed by a turret magazine only (13n.1 (b))
     take: (mag) => {
+      moving = null;
       for (const kind of mag.loadingOrder || ['ap', 'he']) if (mag.magazine[kind] > 0) { mag.magazine[kind]--; return true; }
+      // Typed slots (13n.1 (c)) after the untyped ones, in the order they were loaded.
+      for (const kind of Object.keys(mag.magazine.typed || {})) if (mag.magazine.typed[kind] > 0) { mag.magazine.typed[kind]--; moving = kind; return true; }
       return false;
     },
-    give: (room) => { room.turret.ammo++; room.turret.fed = (room.turret.fed || 0) + 1; if (world.ship) world.ship.moved = true; },
+    give: (room) => {
+      room.turret.ammo++; room.turret.fed = (room.turret.fed || 0) + 1;
+      if (moving) { room.turret.typed ??= { standard: 0, ap: 0, he: 0, sabot: 0 }; room.turret.typed[moving]++; room.turret.extra ??= 0; }
+      if (world.ship) world.ship.moved = true;
+    },
   });
+  // The missile bay's ready store (#148, 13n.1 (c)): whole missiles from a missile magazine, by mass at the same feed.
+  if (world.rooms.some((r) => r.type === 'missileBay')) {
+    feedAmmo(world, {
+      feedPerMetre: tierScaled(world, p.ammo.wallFeed),
+      store: (room) => (room.type === 'missileBay' && !room.exploded && !isDestroyed(room)
+        ? { capacity: p.missilebay.readyMissiles.value, rounds: room.missileBay.ready.length, roundMass: tierScaled(world, p.missile.mass), size: 'M' }
+        : null),
+      has: (mag) => magazineType(mag) === 'missile' && mag.magazine.size === 'M' && mag.magazine.missiles > 0,
+      take: (mag) => { mag.magazine.missiles--; moving = { seeker: mag.magazine.seeker, warhead: mag.magazine.warhead }; return true; },
+      give: (room) => { room.missileBay.ready.push(moving); if (world.ship) world.ship.moved = true; },
+    });
+  }
   if (world.ship && world.ship.moved) { world.ship.moved = false; moveInside(world); }
 }
 
@@ -1328,7 +1574,9 @@ function feedTurrets(world) {
  * world.blasts: absorbed per room and escaped.
  */
 const remainingIntegrity = (room) => room.cells.reduce((x, c) => x + (c.destroyed ? 0 : c.integrity), 0);
-function blastThroughWalls(world, origin, E, integrityBefore) {
+// `own` (a burst entering from outside, 13n.1 (c)): the origin room is damaged by what it absorbs like any other room
+// (an explosion has already destroyed its own room); `cause` names the burst (default the origin's explosion).
+function blastThroughWalls(world, origin, E, integrityBefore, { own = false, cause: named = null } = {}) {
   const qb = world.params.matter.blastPerKg.value;
   const rooms = world.rooms.filter((r) => r.placed).sort((a, b) => byId(a.id, b.id));
   const cap = new Map(rooms.map((r) => [r, (r === origin ? integrityBefore : remainingIntegrity(r)) * qb * cellMassOf(world, r)]));
@@ -1353,13 +1601,77 @@ function blastThroughWalls(world, origin, E, integrityBefore) {
     for (const r of rooms) if (weight.has(r)) left += take(r, (excess * weight.get(r)) / total);
     excess = left;
   }
-  const cause = `explosion:${origin.id}`;
+  const cause = named || `explosion:${origin.id}`;
   world.blasts.push({ room: origin.id, energy: E, escaped: excess, cause, absorbed: Object.fromEntries(rooms.filter((r) => reached.has(r)).map((r) => [r.id, absorbed.get(r)])), capacity: Object.fromEntries(rooms.map((r) => [r.id, cap.get(r)])) });
   for (const r of rooms) {
-    if (r === origin || !(absorbed.get(r) > 0) || survivors.get(r) === 0) continue;
+    if ((r === origin && !own) || !(absorbed.get(r) > 0) || survivors.get(r) === 0) continue;
     const frac = full.has(r) ? 1 : absorbed.get(r) / cap.get(r); // the share of each cell's remaining integrity it absorbed
     r.cells.forEach((c, i) => { if (!c.destroyed) damageCell(world, r, i, frac === 1 ? 1 : c.integrity * frac, cause, 'blast'); });
   }
+}
+
+// ---------- warheads at the hull (13n.1 (c), #97, #141, #292) ----------
+/**
+ * A contact burst of `energy` at hull entry x (an HE round at its stopping entry, an HE warhead at the hit; 13n.1
+ * (c), #141, #169): at a room cell, he.coupling of it enters that cell's room and spreads through walls by 13d.1's
+ * rule (the room itself damaged by what it absorbs), the rest vents at the face; at a plate the burst is outside the
+ * hull and nothing enters (fragments carry nothing beyond it). Returns { room, entered, vented }.
+ */
+export function contactBurst(world, x, energy, cause) {
+  if (x.plate) return { room: x.plate.room, entered: 0, vented: energy };
+  const E = world.params.he.coupling.value * energy;
+  blastThroughWalls(world, x.room, E, remainingIntegrity(x.room), { own: true, cause });
+  return { room: x.room.id, entered: E, vented: energy - E };
+}
+/**
+ * The rooms an EMP can hit (#292): each room with a power function (a consumer, a fitting that draws, a producing
+ * reactor) joined through live walls to a reactor able to produce, and the bridge on its backup (#147); a switched-off
+ * generator still on the grid counts (its electronics are live). Holds, magazines and heat sinks have none.
+ */
+function poweredRooms(world) {
+  const walls = liveWalls(world).filter((w) => w.live > 0), reached = suppliedRooms(world, walls), out = new Set();
+  for (const r of world.rooms) {
+    if (!r.placed || r.exploded || isDestroyed(r) || !r.active) continue;
+    if (r.type === 'bridge') out.add(r);
+    else if (r.type === 'reactor') { if (producing(r)) out.add(r); }
+    else if ((REQUEST[r.type] || r.rcs || r.antennas || r.pdLasers) && reached.has(r)) out.add(r);
+  }
+  return out;
+}
+/**
+ * An EMP burst at grid point `point` (m, this world's grid) of `energy` (missile.empEnergy; 13n.1 (c), #292) at time
+ * `t` (s, within the step it came in): first the shield buffers there pay as for a round, min(E, sum of buffer_i g_i)
+ * shared by buffer_i g_i (heat in the generators, EM-bright that step); the rest E' is a field of #99's shape, g = 1 /
+ * (1 + (r / emp.radius)^2); every powered room (poweredRooms) whose centre receives E' g(r) >= emp.scramDose is hit: a
+ * reactor SCRAMs (and restarts reactor.restartTime later, its control kept), any other room shuts down for
+ * emp.outageTime from `t` ('outage'; down() while it lasts; 'outage-ended' at the first step boundary at or after its
+ * end), a bridge's outage taking control from every room it reaches (#292: a bridge in reach still decapitates).
+ * Returns { paid, field, hit: [{ room, dose, effect }] }.
+ */
+export function empBurst(world, point, energy, cause, t = world.t) {
+  const p = world.params, gens = world.rooms.filter(shieldAble);
+  for (const x of gens) x.shield.buffer = shieldBuffer(world, x);
+  const w = gens.map((x) => x.shield.buffer * fieldAt(world, x, point)), W = w.reduce((x, y) => x + y, 0);
+  const paid = Math.min(energy, W), shares = w.map((wi) => (W > 0 ? (paid * wi) / W : 0));
+  gens.forEach((x, i) => { if (shares[i] > 0) { x.shield.buffer -= shares[i]; x.shield.impulseHeat += shares[i]; x.shield.roundEm += shares[i] / world.dt; } });
+  const field = energy - paid, R = tierScaled(world, p.emp.radius), D = tierScaled(world, p.emp.scramDose), powered = poweredRooms(world);
+  const hit = [];
+  for (const room of [...world.rooms].sort((a, b) => byId(a.id, b.id))) {
+    if (!powered.has(room)) continue;
+    const dose = field * shieldStrength(distance(room.position, point), R, FIXED.shieldFalloffExponent.value);
+    if (!(dose >= D)) continue;
+    if (room.type === 'reactor') {
+      scram(world, room, cause);
+      if (room.controlled) room.reactor.restartStep = world.step + stepsAtLeast(p.reactor.restartTime.value, world.dt); // its control kept: the restart clock runs now (#82)
+      hit.push({ room: room.id, dose, effect: 'scram' });
+      continue;
+    }
+    const end = t + p.emp.outageTime.value;
+    room.outage = { end: room.outage ? Math.max(room.outage.end, end) : end };
+    room.marks.outage = event(world, room, 'outage', cause, { dose, until: room.outage.end }).id;
+    hit.push({ room: room.id, dose, effect: 'outage' });
+  }
+  return { paid, field, hit };
 }
 
 // ---------- the ship (L3, DESIGN.md 13f.1, #208) ----------
@@ -1369,27 +1681,35 @@ function blastThroughWalls(world, origin, E, integrityBefore) {
  * the edge. 'radiator' adds a panel to its room; 'rcs' a thruster that
  * pushes along the edge's inward normal at its midpoint; 'antenna' a sensor
  * (L5b, js/sensors.js, 13n.1 (a), #289) that scans one zone at a time while
- * its host is controlled and powered, drawing sensor.scanPower from it. Each
- * adds its mass (radiator.mass, rcs.mass, sensor.mass) at that midpoint.
+ * its host is controlled and powered, drawing sensor.scanPower from it; 'pd'
+ * kinetic point defence with its own store of pd.ammo flak rounds and 'pdLaser'
+ * laser point defence drawing from its host (L5c, js/defence.js, 13n.1 (c)).
+ * Each adds its mass (radiator.mass, rcs.mass, sensor.mass, pd.mass with its
+ * flak rounds, pdLaser.mass) at that midpoint.
  * Throws on a rule of validation (layout.fittingProblem).
  */
 export function addFitting(world, type, roomId, cell, side) {
   if (!world.layout) throw new Error('a fitting needs a cluster (createWorld with a grid)');
   if (type === 'armour') return addPlate(world, roomId, cell, side);
-  if (type !== 'radiator' && type !== 'rcs' && type !== 'antenna') throw new Error(`unknown fitting ${type}`);
+  if (!FITTING_MASS[type]) throw new Error(`unknown fitting ${type}`);
   const problem = fittingProblem(world.layout, ROOMS, { room: roomId, cell, side }, world.fittings);
   if (problem) throw new Error(`${problem.rule}: ${problem.detail}`);
   const room = roomById(world, roomId), grid = world.layout.rooms.get(roomId).cells;
   const k = grid.findIndex((c) => c[0] === cell[0] && c[1] === cell[1]);
-  const mass = tierScaled(world, type === 'radiator' ? world.params.radiator.mass : type === 'rcs' ? world.params.rcs.mass : world.params.sensor.mass);
+  const mass = tierScaled(world, param(world, FITTING_MASS[type]));
   const f = { id: world.fittings.length, type, room: roomId, k, cell: [...cell], side: [...side], p: edgeMidpoint(world.edge, cell, side), mass, fired: false };
   if (type === 'antenna') f.scan = null; // the zone it scans and its progress (js/sensors.js)
+  if (type === 'pd') Object.assign(f, { ammo: world.params.pd.ammo.value, shots: 0, anchor: null, target: null }); // its own store of flak rounds (#93)
+  if (type === 'pdLaser') Object.assign(f, { target: null, energy: 0 }); // the missile it holds its beam on this step
   world.fittings.push(f);
   if (type === 'radiator') room.radiators++;
   else if (type === 'rcs') room.rcs = true;
-  else room.antennas = true;
+  else if (type === 'antenna') room.antennas = true;
+  else if (type === 'pdLaser') room.pdLasers = true;
   return f;
 }
+/** Each fitting type's mass constant, at its edge's midpoint (13f.1, 13n.1 (a) (c)). */
+const FITTING_MASS = { radiator: 'radiator.mass', rcs: 'rcs.mass', antenna: 'sensor.mass', pd: 'pd.mass', pdLaser: 'pdLaser.mass' };
 /**
  * An armour plate (13l.1, #255, #256) of armour.plateThickness (k = 1) on the wall segment on `side` of grid cell
  * `cell` of room `roomId`: a hull edge or a shared wall (layout.plateProblem). Its mass, thickness x
@@ -1426,10 +1746,25 @@ export function cellAt(world, [x, y]) {
 }
 
 const roundMassOf = (world, size) => tierScaled(world, world.params.kinetic.roundMass) * FIXED.sizeLinear.value[size] ** 3;
-/** Mass (kg) of what a room holds: a magazine's rounds, a turret's ready store (13f.1). */
+/** Mass (kg) of typed rounds { type: count } of a size: each its `held` mass (an HE round its steel, 13n.1 (c)). */
+const typedMass = (world, size, typed) => (typed ? TURRET_TYPES.reduce((x, k) => x + (typed[k] ? typed[k] * roundOf(world, size, k).held : 0), 0) : 0);
+/**
+ * Mass (kg) of what a room holds: a magazine's rounds, slugs or missiles, a turret's ready store (13f.1), a missile
+ * bay's store, a railgun alone's slugs (L5c).
+ */
 export function contentsMass(world, room) {
-  if (room.type === 'magazine') return magazineType(room) === 'railgun' ? room.magazine.slugMass : (room.magazine.ap + room.magazine.he) * roundMassOf(world, room.magazine.size);
-  if (room.type === 'turret') return room.turret.ammo * roundMassOf(world, room.size);
+  if (room.type === 'magazine') {
+    if (magazineType(room) === 'railgun') return room.magazine.slugMass;
+    if (magazineType(room) === 'missile') return room.magazine.missiles * tierScaled(world, world.params.missile.mass);
+    const untyped = (room.magazine.ap + room.magazine.he) * roundMassOf(world, room.magazine.size);
+    return room.magazine.typed ? untyped + typedMass(world, room.magazine.size, room.magazine.typed) : untyped;
+  }
+  if (room.type === 'turret') {
+    if (!room.turret.typed) return room.turret.ammo * roundMassOf(world, room.size);
+    return (room.turret.ammo - typedCount(room.turret.typed)) * roundMassOf(world, room.size) + typedMass(world, room.size, room.turret.typed);
+  }
+  if (room.type === 'missileBay') return room.missileBay.ready.length * tierScaled(world, world.params.missile.mass);
+  if (room.type === 'railgun') return (world.layout ? 0 : room.railgun.slugs) + (room.railgun.chamber || 0); // a railgun alone's slugs; a slug in the barrel
   return 0;
 }
 /**
@@ -1448,11 +1783,13 @@ function shipItems(world) {
     const grid = world.layout.rooms.get(room.id).cells;
     room.cells.forEach((c, k) => { if (!c.destroyed) items.set(`${room.id}:${k}`, { m, p: [(grid[k][0] + 0.5) * e, (grid[k][1] + 0.5) * e], a: e, body: c.fragment }); });
     const cm = contentsMass(world, room);
-    if (cm > 0 && !isDestroyed(room)) items.set(`${room.id}:contents`, { m: cm, p: room.position, a: 0, body: room.body });
+    // A missile bay's store sits at its launch face, so a missile leaves exactly where its mass was (13n.1 (c)).
+    if (cm > 0 && !isDestroyed(room)) items.set(`${room.id}:contents`, { m: cm, p: room.type === 'missileBay' ? launchFace(world, room).p : room.position, a: 0, body: room.body });
   }
   for (const f of world.fittings) {
     const c = roomById(world, f.room).cells[f.k];
-    if (!c.destroyed && !f.destroyed) items.set(`fit:${f.id}`, { m: f.mass, p: f.p, a: 0, body: c.fragment }); // a wrecked plate leaves (13l.1)
+    // A wrecked plate leaves (13l.1); a kinetic point-defence fitting carries its flak rounds (13n.1 (c)).
+    if (!c.destroyed && !f.destroyed) items.set(`fit:${f.id}`, { m: f.type === 'pd' ? f.mass + f.ammo * roundOf(world, 'M', 'flak').held : f.mass, p: f.p, a: 0, body: c.fragment });
   }
   // Rounds stopped in the hull (B4, embedRound): with their host cell or plate while it stands.
   for (const x of (world.ship && world.ship.embedded) || []) {
@@ -1484,6 +1821,7 @@ export function enableShip(world, { origin = [0, 0], heading = 0, velocity = [0,
   Object.defineProperty(world.ship, 'energy', { value: { shots: 0, work: 0, internal: 0, heat: 0 }, enumerable: false });
   Object.defineProperty(world.ship, 'exchange', { value: { H: 0 }, enumerable: false });
   Object.defineProperty(world.ship, 'embedded', { value: [], enumerable: false }); // rounds stopped in the hull (B4)
+  Object.defineProperty(world.ship, 'missiles', { value: [], writable: true, enumerable: false }); // missiles in flight (L5c, js/missile.js)
   for (const room of world.rooms) {
     if (!room.placed) continue;
     room.body = 'body-0';
@@ -1564,17 +1902,71 @@ function moveInside(world) {
  * at world.t + at, and moves (dt - at) v in its first step (F20, 13k.1); x0 is
  * where it left, `cause` the shot's cause id.
  */
-function recoil(world, room, m, u, at = 0, cause = null) {
+function recoil(world, room, m, u, at = 0, cause = null, extra = null) {
   const b = world.ship.bodies.find((x) => x.id === room.body);
   if (!b) return;
-  const q = worldPoint(b, room.position), vq = pointVelocity(b, q), d = rotate(room.turret.aim, b.theta);
+  // `extra` (L5c, 13n.1 (c)): `dir` the firing direction in the ship's frame (the railgun's axis), `A` and `type` the
+  // round's cross-section and type (a typed round, a slug), `petals` a sabot's mass leaving with it at u as debris.
+  const q = worldPoint(b, room.position), vq = pointVelocity(b, q), d = rotate(extra && extra.dir ? extra.dir : room.turret.aim, b.theta);
   world.ship.items = shipItems(world); // the round has left the store
   reshape(b, propsOf(world.ship.items, b.id));
-  world.ship.rounds.push({ m, x: q, v: [vq[0] + u * d[0], vq[1] + u * d[1]], from: room.id, t: world.t + at, x0: [...q], cause, first: world.dt - at });
+  const round = { m, x: q, v: [vq[0] + u * d[0], vq[1] + u * d[1]], from: room.id, t: world.t + at, x0: [...q], cause, first: world.dt - at };
+  if (extra && extra.A !== undefined) Object.assign(round, { A: extra.A, type: extra.type, ...(extra.burst > 0 ? { burst: extra.burst } : {}) });
+  world.ship.rounds.push(round);
+  const petals = extra && extra.petals > 0 ? extra.petals : 0, M = m + petals;
+  if (petals > 0) world.ship.debris.push({ m: petals, x: [...q], v: [...round.v], omega: 0, spin: 0, from: room.id, cause: 'petals', t: world.t + at });
   // Muzzle energy (B3): the round's kinetic energy in the turret's frame plus the recoil's, J^2 / 2M + (r x J)^2 / 2I.
-  const Jr = [-m * u * d[0], -m * u * d[1]], h = cross([q[0] - b.x[0], q[1] - b.x[1]], Jr);
-  world.ship.energy.shots += 0.5 * m * u * u + (Jr[0] * Jr[0] + Jr[1] * Jr[1]) / (2 * b.M) + (h * h) / (2 * b.I);
+  const Jr = [-M * u * d[0], -M * u * d[1]], h = cross([q[0] - b.x[0], q[1] - b.x[1]], Jr);
+  world.ship.energy.shots += 0.5 * M * u * u + (Jr[0] * Jr[0] + Jr[1] * Jr[1]) / (2 * b.M) + (h * h) / (2 * b.I);
   applyImpulse(b, Jr, room.position);
+}
+/**
+ * A kinetic point-defence fitting fires one flak round (13n.1 (c), #93) along world unit direction `dir` from its
+ * edge's midpoint at kinetic.muzzleVelocity relative to that point: its store loses one round (its mass leaves the
+ * fitting), the ship takes the recoil -m u dir there (muzzle energy booked as a turret's, B3), and the round is
+ * returned { m, x, v, A, t, cause, from } for js/defence.js to fly. Emits 'flak' in its host's log (a root).
+ */
+export function fireFlak(world, f, dir, cause) {
+  const host = roomById(world, f.room), b = world.ship.bodies.find((x) => x.id === host.cells[f.k].fragment);
+  const R = roundOf(world, 'M', 'flak'), q = worldPoint(b, f.p), vq = pointVelocity(b, q), u = R.v;
+  f.ammo--;
+  f.shots++;
+  world.ship.items = shipItems(world);
+  reshape(b, propsOf(world.ship.items, b.id));
+  const round = { m: R.m, x: q, v: [vq[0] + u * dir[0], vq[1] + u * dir[1]], A: R.A, t: world.t, cause, from: host.id };
+  const J = [-R.m * u * dir[0], -R.m * u * dir[1]], h = cross([q[0] - b.x[0], q[1] - b.x[1]], J);
+  world.ship.energy.shots += 0.5 * R.m * u * u + (J[0] * J[0] + J[1] * J[1]) / (2 * b.M) + (h * h) / (2 * b.I);
+  applyImpulse(b, J, f.p);
+  event(world, host, 'flak', cause, { energy: 0.5 * R.m * u * u, channel: 'kinetic', fitting: f.id });
+  return round;
+}
+/**
+ * A point-defence fitting can engage (13n.1 (c)): its cell standing in its host's working fragment, the host
+ * controlled, switched on and up; a kinetic one with a round left, a laser powered (unless `aiming`: a laser picks its
+ * missile before the step whose routing powers it).
+ */
+export function pdAble(world, f, aiming = false) {
+  const host = roomById(world, f.room);
+  if (!cellAlive(host, f.k) || host.exploded || isDestroyed(host) || !host.controlled || !host.active || down(host)) return false;
+  return f.type === 'pd' ? f.ammo > 0 : aiming || host.powered;
+}
+/** The power (W) a laser fitting puts on its target this step: pdLaser.power x its host's power fraction, while it holds a target and can (13n.1 (c)). */
+export function laserPower(world, f) {
+  if (f.type !== 'pdLaser' || !f.target || !pdAble(world, f)) return 0;
+  return tierScaled(world, world.params.pdLaser.power) * supply(world, roomById(world, f.room));
+}
+/** The draw (W) of a room's laser fittings holding a target: pdLaser.power / beambay.efficiency each (13n.1 (c), #243 F26). */
+function laserRequest(world, room) {
+  if (!room.controlled) return 0;
+  let n = 0;
+  for (const f of world.fittings) if (f.type === 'pdLaser' && f.room === room.id && f.target && cellAlive(room, f.k)) n++;
+  return (n * tierScaled(world, world.params.pdLaser.power)) / world.params.beambay.efficiency.value;
+}
+/** Heat (J) of the step from the room's lasers: their draw as delivered less the beam each puts on its missile. */
+function laserHeat(world, room) {
+  let heat = 0;
+  for (const f of world.fittings) if (f.type === 'pdLaser' && f.room === room.id) { const P = laserPower(world, f); heat += (P / world.params.beambay.efficiency.value - P) * world.dt; }
+  return heat;
 }
 
 /**
@@ -1721,6 +2113,7 @@ function heatRate(world, room) {
   else if (room.type === 'beamBay') { const beam = tierScaled(world, p.beam.power) * f; rate = room.beamBay.firing ? beam / p.beambay.efficiency.value - beam : 0; }
   else if (room.type === 'bridge') rate = tierScaled(world, p.bridge.powerDraw) * sf;
   else if (room.type === 'quarters') rate = tierScaled(world, p.quarters.powerDraw) * sf;
+  else if (room.type === 'railgun') rate = room.railgun.firing ? railgunDraw(world, room) * (1 - p.railgun.efficiency.value) : 0;
   else if (room.type === 'turret' && !room.turret.hold && room.turret.ammo > 0) rate = tierScaled(world, p.turret.heatPerShot) * FIXED.sizeLinear.value[room.size] ** 3 * (tierScaled(world, p.turret.fireRate) / FIXED.sizeLinear.value[room.size]);
   for (const fit of world.fittings) if (fit.type === 'rcs' && fit.room === room.id && fit.fired && cellAlive(room, fit.k)) rate += tierScaled(world, p.rcs.powerDraw) * p.engine.heatFraction.value;
   return rate;

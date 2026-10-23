@@ -1,5 +1,28 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5c: weapons (DESIGN.md §13n.1 (c), §13n.4 W1–W14)
+
+- `js/data.js`: the L5c constants of §13n.2 (`railgun.*`, `missilebay.*`
+  with the launcher's mass, `missile.*`, `emp.*`, `pd.*`, `flak.radius`,
+  `pdLaser.*`, `rounds.*`; `approved: true` as the plan's, #272 (2)); the
+  `ROUNDS` table (Standard, AP, HE, Sabot, Flak), `SEEKERS`, `WARHEADS`;
+  S footprints for every room; the railgun a spinal room (N × 2, hull,
+  axis, bow clear); the missile bay structure plus launcher.
+- `js/rooms.js`: S rooms by their cell count; the railgun (slug, draw,
+  heat, recoil, fed from a railgun magazine); the missile bay (ready store,
+  feed, launch, explosion by its store); missile magazines; typed rounds
+  (one type per slot, AP's rate, Sabot's recoil and petals, HE's burst);
+  `contactBurst`, `empBurst` and the EMP outage; point-defence fittings.
+- `js/missile.js` (new): flight, seekers. `js/defence.js` (new): point
+  defence. `js/battle.js`: the railgun, missiles and point defence in the
+  loop, the shot's type against its target, the firing window, the books
+  with missiles and flak; `buildShip` threads `size`, `length` and `load`.
+  `js/sensors.js`: missiles as sources; an outage stops a scan.
+  `js/events.js`: the new events and roots.
+- Scenarios W1–W8, W10–W14 (15 files; W9 waits on a question).
+  `mission0/targets.js`: R1d-L, R1-M. `tools/mutations.json`: 30 L5c
+  rules; 16 entries re-anchored on the rewritten lines.
+
 ## Unreleased — 2026-10-23 — L5c probed and its plan amended (#295)
 
 - `DECISIONS.md` #295: the probe (125 of 125 rows unchanged), `pd.mass` and

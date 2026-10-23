@@ -77,3 +77,19 @@ export const SENSOR_SHIPS = {
   'R1d-A': { rooms: R1_ROOMS, fittings: [...R1_FITTINGS, ...R1C_PLATES, ...R1D_PLATES, HOLD_ANTENNA] },
   'R1-A': { rooms: R1_ROOMS, fittings: [...R1_FITTINGS, HOLD_ANTENNA] },
 };
+
+// L5c (13n.1 (c)): the weapons' ships. R1d-L: R1d with an N = 2 spinal railgun in place of its beam bay ([9, 11) x
+// [2, 4), the bay's fittings on it) and its magazine full of slugs (a railgun magazine on the railgun's wall).
+export const RAILGUN_ROOMS = R1_ROOMS.map((r) => (r.id === 'beamBay' ? { id: 'railgun', type: 'railgun', cell: [9, 2], length: 2 } : r.id === 'magazine' ? { ...r, load: { type: 'railgun' } } : r));
+const onRailgun = (fittings) => fittings.map(([type, room, cell, side]) => [type, room === 'beamBay' ? 'railgun' : room, cell, side]);
+// R1-M: R1 with a missile bay (3 x 2, rotated 90 degrees: [8, 10) x [4, 7)) in place of its turret (it launches from
+// its first open edge, (9, 4) +x, toward the bow), its magazine full of missiles (on the bay's wall (8, 3)-(8, 4) and
+// (9, 3)... no: (8, 3)-(8, 4) only, 5 m), and the antenna on its hold (the seekers read the model). `missileShip(seeker, warhead)` loads both with that missile type.
+export const missileShip = (seeker = 'designated', warhead = 'he') => ({
+  rooms: R1_ROOMS.map((r) => (r.id === 'turret' ? { id: 'bay', type: 'missileBay', cell: [8, 4], rotation: 90, load: { seeker, warhead } } : r.id === 'magazine' ? { ...r, load: { type: 'missile', seeker, warhead } } : r)),
+  fittings: [...R1_FITTINGS, HOLD_ANTENNA],
+});
+export const WEAPON_SHIPS = {
+  'R1d-L': { rooms: RAILGUN_ROOMS, fittings: onRailgun([...R1_FITTINGS, ...R1C_PLATES, ...R1D_PLATES]) },
+  'R1-M': missileShip(),
+};
