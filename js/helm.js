@@ -50,7 +50,7 @@
 // No DOM, no Math.random, no Math.sin or Math.cos (util.js's, #239 Q6): the only draws are the enemy's dodge intervals, on the
 // battle's seeded stream.
 import { scaled, PRESETS, FIXED } from './data.js';
-import { sin, cos } from './util.js';
+import { sin, cos, atan2 } from './util.js';
 import { worldPoint, rotate, pointVelocity } from './body.js';
 import { setScan, antennas, knownAim, zoneCentre } from './sensors.js';
 import { isDestroyed, roomTemperature, shieldBuffer, survivingFraction, survivingCells, roundOf } from './rooms.js';
@@ -257,7 +257,7 @@ export function helmStep(battle, side) {
   const o = { ...h.orders, ...(h.override || {}) };
   if (!me || !them) return;
   const t = battle.t, edge = battle.edge, p = battle.params;
-  const D = sub(them.x, me.x), r = len(D), u = r > 0 ? [D[0] / r, D[1] / r] : [1, 0], los = Math.atan2(u[1], u[0]);
+  const D = sub(them.x, me.x), r = len(D), u = r > 0 ? [D[0] / r, D[1] / r] : [1, 0], los = atan2(u[1], u[0]);
   const { v: vo, a: ao } = observed(battle, side);
   const { a: a1, t180 } = shipDynamics(battle, side), throttle = o.throttle, a = a1 * throttle;
   const hot = heatFraction(w) >= o.heat.threshold, cold = o.emission === 'cold';
@@ -291,7 +291,7 @@ export function helmStep(battle, side) {
     // A ship with no RCS couple (t180 infinite) cannot point its engine: the order does not engage (#306 (8)).
     const able = throttle > 0 && a > 0 && t180 < Infinity;
     h.engaged = able && (moving ? styleEngaged(h.engaged, { e, error: errLen, vt: Math.abs(vt), step: a * battle.dt, band }) : rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band }));
-    if (h.engaged) { heading = Math.atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
+    if (h.engaged) { heading = atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
     h.range = { R, e, want, rel, vt, error: errLen, threshold: a * t180, band, letGo: band / t180 };
   }
   // Facing (second), then dodging (third, broadside only).

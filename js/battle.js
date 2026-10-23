@@ -56,7 +56,7 @@ import { validateShip, segmentKey } from './layout.js';
 import { liveWalls } from './graph.js';
 import { rotate, worldPoint, pointVelocity, momentumOf, cross } from './body.js';
 import { roundGeometry } from './projectile.js';
-import { rng, stepsAtLeast, hash } from './util.js';
+import { rng, stepsAtLeast, hash, atan2 } from './util.js';
 import { emit, within, createLog, cascadeTree, treeLines } from './events.js';
 import { createKnowledge, sense, setScan, knownAim, zoneCentre } from './sensors.js';
 import { moveMissile, seekerAim, steer } from './missile.js';
@@ -151,7 +151,7 @@ export function createBattle({ params, tier = 'T1', attacker, target, bearing = 
   const u = typeof bearing === 'string' ? rotate(BEARINGS[bearing], targetHeading) : bearing;
   const T = buildShip(params, tier, target, { prefix: 'T', heading: targetHeading, velocity: targetVelocity, setup: setup.target, validate });
   const centre = T.world.ship.bodies[0].x, A0 = [centre[0] + distance * u[0], centre[1] + distance * u[1]];
-  const A = buildShip(params, tier, attacker, { prefix: 'A', heading: attackerHeading ?? Math.atan2(-u[1], -u[0]), at: A0, setup: setup.attacker, validate });
+  const A = buildShip(params, tier, attacker, { prefix: 'A', heading: attackerHeading ?? atan2(-u[1], -u[0]), at: A0, setup: setup.attacker, validate });
   const mass = scaled(k.roundMass, edge) * FIXED.sizeLinear.value.M ** 3;
   const side = (name, s, heading) => ({
     name, world: s.world, room: s.room, heading, undock: s.world.ship.bodies.reduce((m, b) => m + b.M, 0),
@@ -246,9 +246,9 @@ function bayFace(side, bay) {
  * that lateral coordinate: theta = phi - asin(b / rho), with the forward solution.
  */
 function headingThrough(body, face, P) {
-  const D = sub(P, body.x), rho = len(D), b = face[1] - body.c[1], phi = Math.atan2(D[1], D[0]);
+  const D = sub(P, body.x), rho = len(D), b = face[1] - body.c[1], phi = atan2(D[1], D[0]);
   if (!(rho > Math.abs(b))) return phi;
-  return phi - Math.atan2(b, Math.sqrt(rho * rho - b * b));
+  return phi - atan2(b, Math.sqrt(rho * rho - b * b));
 }
 
 /** Before the step: the attacker's turret and beam on the plan's first standing rooms, its wanted heading; the target's fire order. */
@@ -285,7 +285,7 @@ function aimPlan(battle) {
   // The railgun (13n.1 (c)): fires while the plan names a standing room; its axis turned onto it when the beam has none.
   const rail = A.world.rooms.find((r) => r.type === 'railgun'), Pr = rail ? pointAt(planPick(battle, battle.plan.railgun)) : null;
   if (rail) rail.railgun.firing = !!Pr;
-  A.heading = P && bay ? headingThrough(ab, bayFace(A, bay), P) : Pr ? headingThrough(ab, bayFace(A, rail), Pr) : (() => { const D = sub(mainBody(T).x, ab.x); return Math.atan2(D[1], D[0]); })();
+  A.heading = P && bay ? headingThrough(ab, bayFace(A, bay), P) : Pr ? headingThrough(ab, bayFace(A, rail), Pr) : (() => { const D = sub(mainBody(T).x, ab.x); return atan2(D[1], D[0]); })();
   // The missile bay launches while the plan asks for missiles it has not launched yet (13n.1 (c)).
   const mb = A.world.rooms.find((r) => r.type === 'missileBay'), mp = battle.plan.missile;
   if (mb) mb.missileBay.launching = !!mp && mb.missileBay.launches < (mp.count ?? Infinity);

@@ -56,7 +56,7 @@ import { ROOMS, ROUNDS, FIXED, BASE_EDGE, scaled } from './data.js';
 import { createHeat, temperature, radiatorPower, heatStep, crossings, wallConductance, conductionFlows, ventCell, ventCapacity, addCapacity, depositHeat } from './heat.js';
 import { createLog, emit, within } from './events.js';
 import { absorbBeamStep, shieldStrength, stopRound } from './field.js';
-import { stepsAtLeast, exp } from './util.js';
+import { stepsAtLeast, exp, hypot } from './util.js';
 import { createLayout, roomFootprint, placeRoom, openEdges, roomCentre, sharedWalls, byId, fittingProblem, plateProblem, segmentKey, edgeMidpoint, exhaustFace } from './layout.js';
 import { liveWalls, priorityMaxFlow, feedAmmo, cellComponents, reachedThrough } from './graph.js';
 import { massProperties, createBody, worldPoint, pointVelocity, applyImpulse, integrate, reshape, fragmentOf, redistribute, rotate, momentumOf, cross, frameOrigin } from './body.js';
@@ -347,7 +347,7 @@ export function plateBetween(world, a, b) {
 export function plateEntry(world, a, b, direction = null) {
   const f = plateBetween(world, a, b);
   if (!f) return null;
-  const cos = direction ? Math.abs(direction[0] * (b[0] - a[0]) + direction[1] * (b[1] - a[1])) / Math.hypot(direction[0], direction[1]) : 1;
+  const cos = direction ? Math.abs(direction[0] * (b[0] - a[0]) + direction[1] * (b[1] - a[1])) / hypot(direction[0], direction[1]) : 1;
   return { plate: f, chord: 1, cos };
 }
 /**
@@ -1373,7 +1373,7 @@ export function setBeams(world, beams) {
 }
 const shieldAble = (room) => room.type === 'shieldGenerator' && room.shield.on && room.powered && room.controlled && room.active && !down(room) && !isDestroyed(room);
 const shieldBudget = (world, room) => tierScaled(world, world.params.shield.budget) * room.footprintFactor * survivingFraction(room) * supply(world, room);
-const distance = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+const distance = (a, b) => hypot(a[0] - b[0], a[1] - b[1]);
 const fieldAt = (world, room, point) => shieldStrength(distance(room.position, point), tierScaled(world, world.params.shield.radius), FIXED.shieldFalloffExponent.value);
 
 /**
@@ -1524,7 +1524,7 @@ function repairGrants(world) {
     const base = world.power ? tierScaled(world, p.repair.massRate) * survivingFraction(room) * supply(world, room) : tierScaled(world, p.repair.massRate) * survivingFraction(room);
     for (const other of world.rooms) {
       if (other === room || other.exploded) continue;
-      const r = Math.hypot(other.position[0] - room.position[0], other.position[1] - room.position[1]);
+      const r = hypot(other.position[0] - room.position[0], other.position[1] - room.position[1]);
       const rate = base * shieldStrength(r, radius, FIXED.repairFalloffExponent.value);
       other.cells.forEach((c, i) => { if (!c.destroyed && c.integrity < 1 && rate > 0) q.grants.push({ room: other, cell: i, mass: rate }); });
     }

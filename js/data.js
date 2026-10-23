@@ -7,7 +7,7 @@
 // approved: false marks a constant whose range the owner has not approved yet;
 // agents may not tune it (CLAUDE.md, Agents).
 
-import { pow } from './util.js';
+import { pow, cbrt } from './util.js';
 
 export const BASE_EDGE = 5; // m, the T1 cell
 
@@ -67,7 +67,7 @@ const KINETIC = {
 // overridden round, so a kinetic override reaches it (#184).
 function sRoundStop(kinetic) {
   const mass = kinetic.roundMass.value * FIXED.sizeLinear.value.S ** 3;
-  const D = Math.cbrt((4 * mass) / (Math.PI * FIXED.steelDensity.value * FIXED.roundLengthToDiameter.value));
+  const D = cbrt((4 * mass) / (Math.PI * FIXED.steelDensity.value * FIXED.roundLengthToDiameter.value));
   const A = (Math.PI * D * D) / 4;
   return (mass * kinetic.muzzleVelocity.value) / A;
 }
@@ -85,7 +85,7 @@ export const PARAMS = {
   // Everything that resists follows the cell's mass (#240 (1), 13k.1): burn and
   // blast per kilogram, both calibrated on L0's armour cell (30 MJ and 1 MJ over 10 t).
   matter: {
-    kineticResistance: P((2.7e5 * Math.cbrt(12)) / 400, 750, 3125, 0, 'm/s', true, 'c: sectional momentum a cell resists per kg/m^2 of its matter, 1545.4 m/s; a round is as strong per kg of steel (S = c rho L) (#232, #235)'),
+    kineticResistance: P((2.7e5 * cbrt(12)) / 400, 750, 3125, 0, 'm/s', true, 'c: sectional momentum a cell resists per kg/m^2 of its matter, 1545.4 m/s; a round is as strong per kg of steel (S = c rho L) (#232, #235)'),
     burnEnergyPerKg: P(3000, 1000, 1e4, 0, 'J/kg', true, 'q: beam energy that ruins a cell per kg of the cell; a cell loses P F_i dt / (q x cell mass) of its integrity per step; 30 MJ / 10 t on L0\'s armour cell; 1.2 MJ/kg melts steel, so ruin is 0.25 % of the cell melted along the channel (#240 (1), #243, F1)'),
     blastPerKg: P(100, 30, 300, 0, 'J/kg', true, 'q_b: blast energy a cell absorbs per kg of the cell before it is destroyed; 1 MJ / 10 t on L0\'s armour cell; a hold cell absorbs 0.3 MJ, a reactor cell 15 MJ (#240 (1), (6), #243, F3)'),
   },
