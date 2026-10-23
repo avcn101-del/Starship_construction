@@ -343,8 +343,8 @@
     "id": "f1.rcs.drawJoinsHost",
     "rule": "13f.1 RCS",
     "file": "js/rooms.js",
-    "old": "+ (room.rcs ? rcsRequest(world, room) : 0); // an RCS",
-    "new": "+ 0; // an RCS"
+    "old": "+ (room.rcs ? rcsRequest(world, room) : 0) + (room.antennas",
+    "new": "+ 0 + (room.antennas"
   },
   {
     "id": "f1.rcs.hostShutdown",
@@ -506,7 +506,7 @@
     "id": "f1.val.rcsUnknownType",
     "rule": "13f.1 Validation",
     "file": "js/rooms.js",
-    "old": "if (type !== 'radiator' && type !== 'rcs') throw new Error(`unknown fitting ${type}`);",
+    "old": "if (type !== 'radiator' && type !== 'rcs' && type !== 'antenna') throw new Error(`unknown fitting ${type}`);",
     "new": ""
   },
   {
