@@ -792,8 +792,8 @@ function checkEnd(battle) {
     if (battle.step - s.sinceStep >= battle.disabledSteps) {
       const lost = last();
       end(battle, s, 'disabled', { room: lost ? lost.id : 'ship', parent: lost ? lost.parent : 'launch', why: lost ? lost.why : null });
-    } else if (s.enemy && battle.step - s.sinceStep >= stepsAtLeast(scaled(battle.params.battle.disabledSeconds, battle.edge) * (1 - s.enemy.personality.resolve), battle.dt)) {
-      // Surrender (#85, #86, #273 (5), 13n.1 (d)): the enemy strikes its colours battle.disabledSeconds x (1 - resolve)
+    } else if (s.enemy && battle.step - s.sinceStep >= stepsAtLeast(scaled(battle.params.battle.disabledSeconds, battle.edge) * s.enemy.personality.resolve, battle.dt)) {
+      // Surrender (#85, #86, #273 (5), 13n.1 (d), #303): the enemy strikes its colours battle.disabledSeconds x resolve
       // after losing its last weapon; a capture, its own end kind (the same loot, #83). At resolve 1 it is Disabled first.
       const lost = last();
       end(battle, s, 'surrender', { room: lost ? lost.id : 'ship', parent: lost ? lost.parent : 'launch', why: lost ? lost.why : null });

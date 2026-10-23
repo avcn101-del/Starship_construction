@@ -1876,10 +1876,10 @@
   },
   {
     "id": "l5d.surrender.formula",
-    "rule": "13n.1 (d) surrender",
+    "rule": "13n.1 (d) surrender (#303)",
     "file": "js/battle.js",
-    "old": "* (1 - s.enemy.personality.resolve), battle.dt)",
-    "new": "* s.enemy.personality.resolve, battle.dt)",
+    "old": "* s.enemy.personality.resolve, battle.dt)",
+    "new": "* (1 - s.enemy.personality.resolve), battle.dt)",
     "note": "L5d (#301)"
   },
   {

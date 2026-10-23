@@ -11,7 +11,7 @@
 // floor(6 x patience); caution the thresholds (Cool when the heat fraction of
 // js/helm.js is above 1 - caution, Evade when the buffers' fraction is below
 // caution); resolve the surrender rule (js/battle.js: it strikes its colours
-// battle.disabledSeconds x (1 - resolve) after its last weapon) and escape: at
+// battle.disabledSeconds x resolve after its last weapon, #303) and escape: at
 // resolve < 0.5, when its heat or its buffer crosses its caution threshold while
 // it still has thrust, it orders `disengage` (#293) and keeps that order.
 // Deterministic, no learning: its only draws are its dodge intervals (js/helm.js)
