@@ -27,7 +27,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // the prototype's duel (L0.determinism runs tools/determinism.mjs on it).
 const COPY = ['js', 'tools', 'mission0', 'proto'];
 // Scenarios that must not run at the same time in two copies (a fixed port).
-const SERIAL = ['L0.determinism'];
+const SERIAL = ['L0.determinism', 'L0.determinism.v2'];
 
 function parseArgs(argv) {
   const o = { jobs: os.cpus().length, timeout: 600, only: null, rule: null, out: null, catalogue: path.join(ROOT, 'tools', 'mutations.json'), failFast: true };
