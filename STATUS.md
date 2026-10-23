@@ -1,8 +1,11 @@
 # STATUS — hand-over between chats (#179)
 
-Updated 2026-10-22 by the lead designer chat
-`session_01VL5M5dKNeREUVf7y1y3P87` (took over from
-`session_014nrUDvPgiLEjm64scJFkyW` at the L4 block boundary, #247 (2); that chat took over from `session_01Ld11QmhkPubc8PkfKtd7CT`). The owner switched this chat to `claude-opus-5-5` at 15:40 UTC (`/model`). Read this
+Updated 2026-10-23 by the lead designer chat
+`session_01VL5M5dKNeREUVf7y1y3P87` at the L5a/L5m block boundary, **handing
+over to a new lead designer chat** the owner asked for (#247 (2)); the new
+chat writes its own id here first thing. Chain: `session_01Ld11QmhkPubc8PkfKtd7CT`
+→ `session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
+the new chat. Read this
 first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 ## For the owner (five lines, kept at every block, #246 (5))
@@ -14,13 +17,13 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge.
 - **Running**: nothing. The pace study is reported and the threshold chosen (#288: 400 m/s); L5m's full mutation run is recorded (#288).
-- **Waiting on you**: **the go for L5b** (senses and the knowledge model, §13n.1 (a); 60–84 USD by the rule, 20–30 expected), and later the frame on the overheat route (§17 item 43). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#288. The prototype page is on the L4b kernel (version 5).
+- **Waiting on you**: nothing. You gave **the go for L5b** (2026-10-23) and asked for a new lead designer chat to run it. Later: the frame on the overheat route (§17 item 43). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#288.
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (ratio 1.21). 2026-10-21/23 in all about 205 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
   L4 in all ≥ 64.27 (#191: past 40).
-- **Next**: L5m merges (engineer → blind checker → reviewer → answers row), then the pace study on R1d with the threshold table for you, then L5b senses, L5c weapons, L5d helm and enemy with `tools/play.mjs`, L5e ship versus ship with `tools/sweep.mjs` (§13n). Cost: the rule's 421–598 USD against the lead designer's expectation 150–228 for all of L5 (#270 (2); L5m 25–38 / 12–18), about three days.
+- **Next**: **L5b, senses and the knowledge model** (§13n.1 (a), scenarios S1–S9, constants `sensor.*` and `engine.exhaustVelocity` in §13n.2): the new lead designer chat writes its engineer task and runs engineer → blind checker → reviewer → answers row → merge; then L5c weapons, L5d helm and enemy with `tools/play.mjs`, L5e ship versus ship with `tools/sweep.mjs`. Cost: L5b 60–84 USD by the rule, 20–30 expected; L5 in all 421–598 by the rule, 150–228 expected (L5a 23.54 and L5m 15.09 spent).
 - **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
   surprised by a prototype): missiles (seekers, warheads, EMP), point
   defence, the railgun as a weapon, round types, the firing window, every
@@ -157,13 +160,24 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Next steps
 
-1. **L5a and L5m are merged** (#283, #287); L5a's full mutation run recorded (#284), L5m's running.
-2. **The pace study** is done (#288). Next: L5b's engineer task on the owner's go; this chat is at a block boundary (the kinetic and mass passes closed), so the lead designer chat may be replaced here (#247 (2)).
-3. Each L5 pass: engineer (opus) → blind physics checker (sonnet) →
-   reviewer (sonnet) → answers row → merge; `--only` mutations before the
-   review, the full run after (#270 (5)); the pace study (`pace.mjs` on
-   R1d) after L5m, reported before L5b's lock.
-4. `.claude/agents/lead-designer.md` exists since PR #69 (the owner asked).
+1. **L5a and L5m are merged** (#283, #287), the pace study reported and the
+   threshold kept at 400 m/s (#288); each pass's full mutation run is
+   recorded (#284, #288).
+2. **L5b** (the owner's go, 2026-10-23): the new lead designer chat reads
+   §13n.1 (a), §13n.2's `sensor.*` and `engine.exhaustVelocity`, §13n.3 (1),
+   §13n.4 S1–S9 and `tools/estimates/l5.mjs` section (1); before writing the
+   engineer's task it **probes** the plan (a scratch copy, nothing recorded:
+   which locked scenarios the new fitting, the knowledge model and the
+   events touch) and re-costs if the probe disagrees (#285's lesson); then
+   engineer (opus) → blind physics checker (sonnet) → reviewer (sonnet) →
+   answers row → merge; `--only` mutations before the review, the full run
+   after (#270 (5)).
+3. **Open for the owner later**: §17 item 43, the overheat route resting on
+   `thermal.coupledCrewed` (no source), as a #247 (3) frame before L5d's
+   routes and E6's overheat path are measured. R1d bow-on under E7's band
+   (#288) is for L5e.
+4. Not yet done and due when their files are touched: §17 item 35's rest
+   (L5d), item 39's residue, item 43's scenario notes.
 
 ## Scheduled tasks
 
@@ -184,9 +198,34 @@ Sessions and costs (the sessions table, the per-level totals and the usage-limit
 At a block boundary (a pass merged, the next not planned) or as soon as
 this chat's context is compressed or it repeats itself. Hand over through
 this file; the new chat re-creates the check-ins (`send_later`), which die
-with the chat that made them. The next natural boundary: **after L5m merges and the pace study is reported** (the kinetic and mass passes closed, L5b not yet planned in detail).
+with the chat that made them. The next natural boundary: **after L5b
+merges**. This chat (`session_01VL5M5dKNeREUVf7y1y3P87`) has no pending
+check-in and no running session at hand-over.
 
 ## Lessons for whoever continues
+
+- **Probe before costing a pass** (#285): apply the planned change in a
+  scratch worktree, run `regress` there (nothing recorded), restore it,
+  and count what fails and what moves. #281 costed "the turret only" at
+  5–8 USD; the probe showed 15 failing scenarios, about twice the work.
+- **A mass or constant change can change a route, not only literals**
+  (#286): the light turret turned R1's mission kill into a magazine kill
+  and T-gun's overheat into a burn-out. The engineer rightly built nothing
+  for those three and asked; probe candidate targets with `createBattle`
+  / `runBattle` before deciding.
+- **The blind checker finds what the plan assumed away** (#282, #287): the
+  reactor's immediate explosion at its last cell (undocumented since L1),
+  the repair field slowing a beam's burn, the overheat route resting on an
+  unsourced heat capacity. Give it the setup, never the expected numbers.
+- **A check that passes whatever the code does** (#282 (7)): the reviewer
+  caught K4's feed check; a mutant that SURVIVES is a gap until shown
+  equivalent, not a "redundant guard" by default.
+- **The design partner's documentation checks are worth reading at once**
+  (#288): three numbers in a frame to the owner were wrong; re-run before
+  accepting, and correct the row before writing it.
+- Use the full 40-character sha for `expectedHeadSha` when merging.
+- Session costs are in `get_session`'s `external_metadata.usage.cost_usd`;
+  engineers cannot see their own cost.
 
 - **Give a session its whole task in its initial prompt.** A message sent
   later from another session is treated as data, not as an instruction, so
