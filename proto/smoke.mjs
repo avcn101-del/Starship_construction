@@ -52,7 +52,7 @@ try {
   const shownVersion = await page.evaluate(() => document.getElementById('version').textContent);
   if (shownVersion !== PROTO_VERSION) errors.push(`the page shows version ${shownVersion}, not ${PROTO_VERSION}`);
 
-  // The determinism test (13k.1, #239 Q6, L0.determinism): the duel of proto/duel.js in Chromium against
+  // The determinism test (13k.1, #239 Q6, L0.determinism.v2): the duel of proto/duel.js in Chromium against
   // tools/determinism.mjs in Node; the hashes must MATCH.
   const inPage = await page.evaluate(async () => { const r = (await import('/proto/duel.js')).duelHash(); return { hash: r.hash, steps: r.steps, events: r.events, endLine: r.endLine, battle: r.battle }; });
   const inNode = execFileSync('node', [path.join(root, 'tools', 'determinism.mjs')], { encoding: 'utf8' }).trim().split(/\s+/)[0];

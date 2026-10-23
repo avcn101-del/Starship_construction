@@ -102,6 +102,9 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, L5d fix rounds (#306, #307, #308; `m0/l5d-helm` `dd67aa0` → `dc50c56`; H15–H20, H9′; 32 of 32 `l5d.*` KILLED; notified by trigger) | session_01ND3BEPMGkBojwdudZAByyY | opus-5-5 | 13.24 |
 | Physics checker, L5d fix rounds (blind; H8′, H15–H20, H9′; 8 VERIFIED, 8 discrepancies, 0 blocking; notified by trigger) | session_01WHewLv1j6FaAWN78ZSEkVW | sonnet-5-5 | 1.95 |
 | Reviewer, L5d fix rounds (light re-review; 0 blocking, 4 non-blocking; worker restarted, earlier cost not reported; notified by trigger) | session_012Ee2P2wf6zEmTbZ9kRW9EZ | sonnet-5-5 | ≥ 0.32 |
+| Engineer, the prototype page on the L5d loop (#310; `proto/l5d` `8c05cfc`, PR #96; L0.determinism MISMATCH found; notified by trigger) | session_017Jhxt1rVP4N6Dcqh48Ykuu | opus-5-5 | 6.84 |
+| Engineer, deterministic transcendentals (#310, #311; `m0/det-math` `f2318c9`, PR #97; notified by trigger) | session_01Wvk2oq2CyopWPzKgNQJYss | opus-5-5 | 4.22 |
+| Reviewer, PR #97 (0 blocking, 5 non-blocking; notified by trigger) | session_0185K3jWeLwLK3XyEXU5UdcG | sonnet-5-5 | 0.82 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

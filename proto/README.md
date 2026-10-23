@@ -162,7 +162,7 @@ once the battle is over.
   visible button under 44 px, a verb that did not reach the inputs or a
   MISMATCH; writes `proto/screens/loadout.png`, `start.png`, `export.png`,
   `end.png` and `restart.png`.
-- `proto/duel.js` `duelHash()` is the duel of `L0.determinism`:
+- `proto/duel.js` `duelHash()` is the duel of `L0.determinism.v2`:
   `createDuel({ seed: 7, inputs: [{ t: 0, verb: 'preset', arg: 'evade' }] })`
   run for 60 s (it ends at 36.5 s, A destroyed), the hash of every event and
   every body's final state; `tools/determinism.mjs [--chromium]` prints it.

@@ -5,7 +5,7 @@
 // its verbs as the kernel's inputs, the enemy T by js/enemy.js at personality
 // 0.5 each (the standard enemy). proto/replay.mjs checks the mirror against
 // tools/duel.js on every export. duelHash() is the determinism test's duel
-// (13k.1, #239 Q6, scenario L0.determinism): seed 7, the player on Evade from
+// (13k.1, #239 Q6, scenario L0.determinism.v2): seed 7, the player on Evade from
 // t = 0 (broadside, so both ships turn), 60 s, the hash of every event and
 // every body's final state. No DOM: tools/determinism.mjs runs it in Node and
 // proto/smoke.mjs in Chromium; MATCH is the criterion.
@@ -37,7 +37,7 @@ export function replayLine({ player, enemy, seed, range, limit, inputs, personal
   return `node tools/duel.js ${player} ${enemy} --seed ${seed}${range !== null && range !== undefined ? ` --range ${range}` : ''} --limit ${limit}${pers}${sets} --inputs '${JSON.stringify(inputs.map(({ t, verb, arg }) => ({ t, verb, arg })))}'`;
 }
 
-// The determinism test's duel (L0.determinism): the lead designer's line, node tools/duel.js --seed 7 --inputs
+// The determinism test's duel (L0.determinism.v2): the lead designer's line, node tools/duel.js --seed 7 --inputs
 // '[{"t":0,"verb":"preset","arg":"evade"}]' --limit 60.
 export const DUEL = { seed: 7, seconds: 60, inputs: [{ t: 0, verb: 'preset', arg: 'evade' }] };
 

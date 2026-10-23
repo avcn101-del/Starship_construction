@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.symmetric",
-  "code": "31187a9",
+  "code": "1a8e71a",
   "criterionHash": "c8f3248b",
   "lockedHash": "c8f3248b",
   "runHash": "17e5ff02",
   "dataHash": "fee97350",
-  "rowsHash": "48e2df89",
+  "rowsHash": "f5831b7d",
   "rows": [
     {
       "case": {
@@ -225,10 +225,10 @@
         "scenario": "L4.helm.style"
       },
       "expected": {
-        "rowsHash": "96c74a7d"
+        "rowsHash": "09058f0e"
       },
       "actual": {
-        "rowsHash": "96c74a7d",
+        "rowsHash": "09058f0e",
         "cases": 3
       },
       "pass": true,

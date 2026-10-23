@@ -1208,5 +1208,13 @@
     "recordHash": "955153bf",
     "reason": "Superseded under #306 (10) (DESIGN.md 13n.4 H9'): its bow case's text placed the burst on the turret's +x face, where the missile's path meets the beam bay's first (the checker's 3), and its shielded case asserted only that nothing is hit (the checker's 2). Its successor keeps every case and check, corrects the bow case's text and asserts that the charged buffer pays the EMP's 2 MJ and books it as the generator's heat (1e-9 relative). Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L0.determinism",
+    "successor": "L0.determinism.v2",
+    "decision": "#310",
+    "recordHash": "ea073974",
+    "reason": "Superseded under #310 (the lead designer's task on PR #96's finding): its grep named only Math.pow, Math.sin and Math.cos, so Math.atan2, Math.cbrt and Math.hypot, which ECMAScript leaves implementation-approximated, stayed in the kernel and a battle on the L5d loop hashed differently in Node and Chromium. Its successor keeps the hash part and greps every Math member, allowing only the exact or correctly rounded ones (the list inside its lock). Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
+    "frozen": true
   }
 ]

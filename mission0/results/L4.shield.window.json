@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.shield.window",
-  "code": "f7833b3",
+  "code": "1a8e71a",
   "criterionHash": "963d673a",
   "lockedHash": "963d673a",
   "runHash": "1843643f",
   "dataHash": "fee97350",
-  "rowsHash": "054abd93",
+  "rowsHash": "65f22cab",
   "rows": [
     {
       "case": {
@@ -60,7 +60,7 @@
         "open": [],
         "hit": {
           "speed": 799.999156938943,
-          "afterShield": 495.9159969514215
+          "afterShield": 495.91599695142156
         }
       },
       "pass": true,
@@ -101,7 +101,7 @@
       "actual": {
         "hit": {
           "speed": 800,
-          "afterShield": 481.7404817404821
+          "afterShield": 481.74048174048227
         },
         "firing": [
           "10,2|1,0 10,3|1,0"

@@ -3,7 +3,7 @@
 // symmetric loop (proto/duel.js duelHash: createDuel({ seed: 7, inputs: [{ t: 0,
 // verb: 'preset', arg: 'evade' }] }), both ships R1d-A, the player on Evade from
 // t = 0 so both ships turn, run for 60 s; every event and every body's final
-// state) in Node (DESIGN.md 13k.1, #239 Q6, #301 (5), scenario L0.determinism).
+// state) in Node (DESIGN.md 13k.1, #239 Q6, #301 (5), scenario L0.determinism.v2).
 // proto/smoke.mjs computes the same in Chromium; the two must MATCH. Prints
 // one line: the hash, then the steps, the events, the end, the kernel's battle
 // hash (js/battle.js battleHash) and the final headings.

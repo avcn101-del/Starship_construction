@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.rules",
-  "code": "f7833b3",
+  "code": "1a8e71a",
   "criterionHash": "abb3deaf",
   "lockedHash": "abb3deaf",
   "runHash": "cc74a636",
   "dataHash": "fee97350",
-  "rowsHash": "050f0385",
+  "rowsHash": "aa5f7351",
   "rows": [
     {
       "case": {
@@ -77,9 +77,9 @@
       },
       "actual": {
         "worst": {
-          "P": 1.4979638061381856e-15,
-          "E": 6.088648769173569e-16,
-          "L": 2.264658088867956e-15
+          "P": 2.1786745190651986e-15,
+          "E": 1.0457300233284378e-15,
+          "L": 1.8063614728427803e-15
         },
         "offField": 0,
         "fieldSteps": 0,
@@ -98,8 +98,8 @@
       },
       "actual": {
         "worst": {
-          "P": 3.69846051122093e-15,
-          "E": 1.5008158782004404e-15,
+          "P": 4.498773821341959e-15,
+          "E": 9.520410972517922e-16,
           "L": 0.000010370858673900659
         },
         "offField": 0,

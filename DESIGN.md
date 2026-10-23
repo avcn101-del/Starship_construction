@@ -869,7 +869,7 @@ Each locked in a commit of its own before its first canonical run; the engineer 
 | S6 | `L0.beam.tier` | N = 2 and N = 8 bays into armour columns at T1–T6 | the first cell's fraction and the depth identical across tiers within 2 % (the k = −0.41 fit's error), by the scenario's own Bethe integration |
 | S7 | `L0.shield.buffer.tier` | M rounds at g = 1 at T1–T6 | rounds per buffer 5.86 ± 1e-6 at every tier |
 | S8 | `L3.mass.props.v5` | R1 at T1 and T6 | mass, centre, inertia from the split masses; thrust per machinery kilogram identical across tiers |
-| S9 | `L0.determinism` | `tools/determinism.mjs` in Node and `proto/smoke.mjs` in Chromium | the same event hash (MATCH); no `**` with a non-integer and no `Math.pow`, `Math.sin`, `Math.cos` in `js/` (a grep in the scenario) |
+| S9 | `L0.determinism.v2` (#311; `L0.determinism` withdrawn) | `tools/determinism.mjs` in Node and `proto/smoke.mjs` in Chromium; `tools/mathcheck.mjs --chromium` for `util.js`'s functions | the same event hash (MATCH); no `**` with a non-integer and no `Math` member in `js/` but the exact or correctly rounded ones (`abs`, `ceil`, `floor`, `round`, `trunc`, `sign`, `min`, `max`, `sqrt`, `fround`, `imul`, `clz32`, the constants): `atan2`, `cbrt`, `hypot`, `sin`, `cos`, `exp`, `log`, `pow` come from `js/util.js` (a grep in the scenario) |
 | S10 | `L1.reactor.restart` | a reactor SCRAMmed by lost control, control back at t₁, T below hot | delivers again at t₁ + restartTime within dt; not before; not while hot |
 | S11 | `L0.kinetic.chord` | an M round along a 45° line through armour cells (chord 1/√2 each) | depth in cells = the straight depth × √2 within 1e-9 by the round rule with r chord |
 | S12 | `L0.beam.pstar` | `csdaRange` with water constants at 100 and 200 MeV | 7.718 and 25.96 g/cm² within 1 % |
@@ -1119,7 +1119,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Shields: absorb, buffer, the field (#21, #99, #139) | built | `L0.shield.*`, `L1.shield.generator.v3`, `L2.shield.*`, `L3.shield.*` | proven L0–L4 |
 | Engines as self-fuelled torches (#140, #203 A) | thrust, draw, heat | `L1.engine.thrust.v3`, `L3.thrust.v5` | proven L1, L3 |
 | Crew die per cell, by integrity, at critical heat (#49, #18b, #206) | built | `L1.kinetic.damage.v2`, `L2.repair.crew`, `L1.room.thresholds.v3` | proven L1–L2 |
-| No dice (#7, #240 (3)) | the seeded stream only | `L0.determinism` (Node = Chromium = the owner's phone, #263) | proven |
+| No dice (#7, #240 (3)) | the seeded stream only | `L0.determinism.v2` (#311; Node = Chromium = the owner's phone, #263) | proven |
 
 ### B. Rooms (§5.2)
 
@@ -1774,6 +1774,17 @@ Each line names its decision and when it is due; a closed one is removed.
     would escape (1558, not 1501); the `1e-9` margins in `js/helm.js` want
     a comment naming them float resolution. Due: successors when their
     files are next touched (L5e's helm work).
+51. **Events below float resolution and a scenario that reads other
+    records** (#311, PR #97's review 1, 2): `damageCell` emits
+    `cell-damaged` for a loss of ~1e-17 with the integrity still 1, so
+    whether a repaired cell sits at exactly 1 or one ulp below decides an
+    event, and a one-ulp move changes the event count and every hash
+    over events (the determinism duel 30 → 27); `L4.loop.symmetric`
+    compares against other scenarios' recorded rows hashes with
+    `dependsOn: []`, so it proves "the loop equals the latest records",
+    and fails until they are re-recorded. Due: a minimum loss for an event
+    (or no event without a change of state) and the dependency declared,
+    when `js/rooms.js`'s damage or the scenario is next touched (L5e).
 
 ## 18. Decisions in force
 
@@ -2092,3 +2103,5 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 307 | The style slot (orbit and strafe ignore the position slot; engage at a deviation ≥ v_t, let go within a dt), repair priority `none` by default, and the escape count only while ordered; on the fix round's questions | current |
 | 308 | H20 pins the escape count's reset on a re-order; the 1e-9 float margin on "at least v_t" confirmed | current |
 | 309 | L5d merged (PR #94): the helm and the enemy, H1–H20 and H9′; three §13m rows the plan gave L5d without a case moved to L5e; the fix rounds' weak checks in §17 item 50 | report |
+| 310 | The prototype page on the kernel loop (PR #96); `L0.determinism`'s duel on the kernel loop; cross-engine `Math` differences fixed in its own pass `m0/det-math` | current |
+| 311 | `m0/det-math` merged (PR #97): `util.js`'s deterministic `atan2`, `cbrt`, `hypot` (with the existing `exp`, `log`, `pow`), `tools/mathcheck.mjs`, `L0.determinism.v2`; the review's findings in §17 item 51 | current |

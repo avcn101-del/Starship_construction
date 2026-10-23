@@ -1,14 +1,14 @@
 {
   "id": "L0.determinism",
   "level": "L0",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L0.determinism",
-  "code": "ca65964",
+  "code": "f7833b3",
   "criterionHash": "381f764c",
   "lockedHash": "381f764c",
   "runHash": "95f06978",
   "dataHash": "fee97350",
-  "rowsHash": "ded9b16d",
+  "rowsHash": "2f300ec7",
   "rows": [
     {
       "case": {
@@ -18,12 +18,12 @@
         "verdict": "MATCH"
       },
       "actual": {
-        "node": "94999b20",
-        "chromium": "9c3f2d84",
-        "verdict": "MISMATCH"
+        "node": "27f10ee0",
+        "chromium": "27f10ee0",
+        "verdict": "MATCH"
       },
-      "pass": false,
-      "note": "hash mismatch"
+      "pass": true,
+      "note": ""
     },
     {
       "case": {
