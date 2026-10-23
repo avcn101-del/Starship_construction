@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — The pace study after L5m (#288)
+
+- `DECISIONS.md` #288: the owner kept `magazine.detonationSpeed` at 400 m/s;
+  the pace table on R1 and R1d at 400, 500 and 600 m/s (three corrections
+  by the design partner); the full mutation run on `afa73b4`
+  (`mission0/mutations/2026-10-23-afa73b4.txt`). `DESIGN.md` §13n.1 (b), §18.
+
 ## Unreleased — 2026-10-23 — L5m merged (#287)
 
 - `DECISIONS.md` #287: L5m merged (PR #78); answers to its engineers,

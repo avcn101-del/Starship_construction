@@ -13,8 +13,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge.
-- **Running**: no session. In this chat: the full mutation run on the L5m merge `afa73b4` and **the pace study** on R1d at four detonation thresholds (400, 500, 650, 750 m/s) and R1 at 400. `regress` on L5m's head: 116 VERIFIED + 136 WITHDRAWN + 5 RETIRED.
-- **Waiting on you**: soon, the pace table and your choice of `magazine.detonationSpeed` (§13n.1 (b)); later, a frame on the overheat route (§17 item 43: it rests on a heat capacity with no source). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#287. The prototype page is on the L4b kernel (version 5).
+- **Running**: nothing. The pace study is reported and the threshold chosen (#288: 400 m/s); L5m's full mutation run is recorded (#288).
+- **Waiting on you**: **the go for L5b** (senses and the knowledge model, §13n.1 (a); 60–84 USD by the rule, 20–30 expected), and later the frame on the overheat route (§17 item 43). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#288. The prototype page is on the L4b kernel (version 5).
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (ratio 1.21). 2026-10-21/23 in all about 205 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
@@ -158,7 +158,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 ## Next steps
 
 1. **L5a and L5m are merged** (#283, #287); L5a's full mutation run recorded (#284), L5m's running.
-2. **The pace study K7** (§13n.1 (b)): the threshold table to the owner before L5b's lock; then L5b's engineer task.
+2. **The pace study** is done (#288). Next: L5b's engineer task on the owner's go; this chat is at a block boundary (the kinetic and mass passes closed), so the lead designer chat may be replaced here (#247 (2)).
 3. Each L5 pass: engineer (opus) → blind physics checker (sonnet) →
    reviewer (sonnet) → answers row → merge; `--only` mutations before the
    review, the full run after (#270 (5)); the pace study (`pace.mjs` on
