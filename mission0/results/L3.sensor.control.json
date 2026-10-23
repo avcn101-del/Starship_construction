@@ -1,0 +1,264 @@
+{
+  "id": "L3.sensor.control",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.sensor.control",
+  "code": "a1174e7+dirty",
+  "criterionHash": "dee47661",
+  "lockedHash": "dee47661",
+  "runHash": "2a503c22",
+  "dataHash": "57b28bb3",
+  "rowsHash": "617d7bf1",
+  "rows": [
+    {
+      "case": {
+        "name": "connected"
+      },
+      "expected": {
+        "n": 249,
+        "scans": 1
+      },
+      "actual": {
+        "resolved": {
+          "1": 249
+        },
+        "first": {
+          "delivered": null,
+          "heat": 1666.6666666666667
+        },
+        "unpowered": [],
+        "controlledEver": true,
+        "starts": [
+          {
+            "id": "e19",
+            "cause": "scan-1",
+            "zone": 1
+          }
+        ],
+        "zoneEvents": [
+          {
+            "zone": 1,
+            "parent": "e19",
+            "cause": "scan-1"
+          }
+        ],
+        "panels": 17
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "cut"
+      },
+      "expected": {
+        "n": null,
+        "scans": 0
+      },
+      "actual": {
+        "resolved": {},
+        "first": {
+          "delivered": null,
+          "heat": 0
+        },
+        "unpowered": [],
+        "controlledEver": false,
+        "starts": [],
+        "zoneEvents": [],
+        "panels": 17
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "control-reset"
+      },
+      "expected": {
+        "n": 399,
+        "scans": 2
+      },
+      "actual": {
+        "resolved": {
+          "1": 399
+        },
+        "first": {
+          "delivered": null,
+          "heat": 1666.6666666666667
+        },
+        "unpowered": [],
+        "controlledEver": true,
+        "starts": [
+          {
+            "id": "e19",
+            "cause": "scan-1",
+            "zone": 1
+          },
+          {
+            "id": "e24",
+            "cause": "scan-2",
+            "zone": 1
+          }
+        ],
+        "zoneEvents": [
+          {
+            "zone": 1,
+            "parent": "e24",
+            "cause": "scan-2"
+          }
+        ],
+        "panels": 17
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "zone-change"
+      },
+      "expected": {
+        "n": 366,
+        "zone": 5,
+        "scans": 2
+      },
+      "actual": {
+        "resolved": {
+          "5": 366
+        },
+        "first": {
+          "delivered": null,
+          "heat": 1666.6666666666667
+        },
+        "unpowered": [],
+        "controlledEver": true,
+        "starts": [
+          {
+            "id": "e19",
+            "cause": "scan-1",
+            "zone": 1
+          },
+          {
+            "id": "e20",
+            "cause": "scan-2",
+            "zone": 5
+          }
+        ],
+        "zoneEvents": [
+          {
+            "zone": 5,
+            "parent": "e20",
+            "cause": "scan-2"
+          }
+        ],
+        "panels": 17
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "power-reset"
+      },
+      "expected": {
+        "n": 399,
+        "scans": 2,
+        "draw": 100000,
+        "heat": 1666.6666666666667
+      },
+      "actual": {
+        "resolved": {
+          "1": 399
+        },
+        "first": {
+          "delivered": 100000,
+          "heat": 1666.6666666666667
+        },
+        "unpowered": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "controlledEver": true,
+        "starts": [
+          {
+            "id": "e18",
+            "cause": "scan-1",
+            "zone": 1
+          },
+          {
+            "id": "e19",
+            "cause": "scan-2",
+            "zone": 1
+          }
+        ],
+        "zoneEvents": [
+          {
+            "zone": 1,
+            "parent": "e19",
+            "cause": "scan-2"
+          }
+        ],
+        "panels": 17
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

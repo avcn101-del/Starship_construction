@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `d502275`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `ec30c3f`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -69,6 +69,13 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | engine.machineryMass | 2700 | kg | 1500 | 6000 | 2 | true | engine per cell: a 15 MN engine at the F-1's vacuum thrust per kg (7.77 MN / 8.4 t, 925 N/kg) over 6 cells; k = 2 with the thrust; a cell is structure.cellMass + this (#243, F11, F23) |
 | engine.powerDraw | 10000000 | W | 2000000 | 40000000 | 2 | true | at full throttle; ships have no propellant (#140, #183) |
 | engine.heatFraction | 0.3 |  | 0.1 | 1 | 0 | true | heat per watt drawn (#183) |
+| engine.exhaustVelocity | 10000 | m/s | 3000 | 30000 | 0 | true | a fusion torch's jet (chemical 4.5, nuclear-thermal 9, fusion 10-100+ km/s); its jet power, thrust x this / 2 (75 GW at T1 at full thrust), is the exhaust's IR brightness, a point at the exhaust face's centre (13n.1 (a), #203 A, #278, #289; approved as the plan's, #272 (2)) |
+| sensor.area | 4 | m^2 | 1 | 16 | 2 | true | one antenna fitting's aperture, a phone-sized fitting on a 5 m segment: an estimate; it receives P x this / (4 pi d^2) from a source of power P at d (13n.1 (a), #278, #289; approved as the plan's, #272 (2)) |
+| sensor.sensitivity | 0.001 | W | 0.0001 | 0.01 | 2 | true | the least received power an antenna resolves, IR and EM alike; chosen so a panel at rest fades at 1.7 km (the band's top) and one at plant hot holds to 7.3 km; no source beyond the chosen band (13n.1 (a), #278, #289; approved as the plan's, #272 (2)) |
+| sensor.scanPower | 100000 | W | 20000 | 500000 | 2 | true | an antenna's draw from its host while it scans (heat in the host), and its EM brightness: a ship radar's peak at a tenth (13n.1 (a), #278, #289; approved as the plan's, #272 (2)) |
+| sensor.scanTime | 4 | s | 2 | 10 | 0 | true | one zone at sensor.scanRange; at d a zone takes this x (d / scanRange)^4, the radar law (13n.1 (a), #278, #289; approved as the plan's, #272 (2)) |
+| sensor.scanRange | 900 | m | 500 | 2000 | 1 | true | the reference range, battle.openingRange's band; k = 1 so a zone at the same distance in cells takes the same time at every tier (#273 (3), 13n.1 (a), #278, #289; approved as the plan's, #272 (2)) |
+| sensor.mass | 1000 | kg | 250 | 4000 | 2 | true | one antenna fitting at its edge's midpoint, 250 kg/m^2 of aperture: an estimate, no source (#289; approved as the plan's, #272 (2)) |
 | turret.fireRate | 0.5 | 1/s | 0.2 | 2 | -1 | true | size M; big guns fire slower (#183) |
 | turret.powerDraw | 200000 | W | 50000 | 1000000 | 2 | true | size M, while able to fire (#183) |
 | turret.heatPerShot | 300000 | J | 100000 | 1000000 | 3 | true | size M (#183) |

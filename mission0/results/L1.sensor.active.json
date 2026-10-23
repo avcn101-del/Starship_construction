@@ -1,0 +1,498 @@
+{
+  "id": "L1.sensor.active",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.sensor.active",
+  "code": "a1174e7+dirty",
+  "criterionHash": "9493b33b",
+  "lockedHash": "9493b33b",
+  "runHash": "49ceb536",
+  "dataHash": "57b28bb3",
+  "rowsHash": "d93a20ef",
+  "rows": [
+    {
+      "case": {
+        "D": 600
+      },
+      "expected": {
+        "t": 0.83108,
+        "n": 50,
+        "dt": 0.016666666666666666,
+        "cells": [
+          "4,0",
+          "4,1",
+          "7,0",
+          "7,1",
+          "4,2",
+          "5,2",
+          "6,2",
+          "7,2"
+        ],
+        "rooms": [
+          "bridge",
+          "hold",
+          "magazine",
+          "reactor",
+          "shield"
+        ]
+      },
+      "actual": {
+        "before": {
+          "cells": 0,
+          "silhouetteCells": 44,
+          "segments": 38,
+          "pose": true
+        },
+        "resolvedAt": 50,
+        "t": 0.8333333333333334,
+        "cells": [
+          {
+            "cell": "4,0",
+            "room": "shield",
+            "type": "shieldGenerator",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "7,0",
+            "room": "hold",
+            "type": "hold",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "4,1",
+            "room": "shield",
+            "type": "shieldGenerator",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "7,1",
+            "room": "hold",
+            "type": "hold",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "4,2",
+            "room": "reactor",
+            "type": "reactor",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "5,2",
+            "room": "bridge",
+            "type": "bridge",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "6,2",
+            "room": "bridge",
+            "type": "bridge",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "7,2",
+            "room": "magazine",
+            "type": "magazine",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          }
+        ],
+        "rooms": [
+          {
+            "id": "bridge",
+            "cells": [
+              "5,2",
+              "6,2"
+            ]
+          },
+          {
+            "id": "hold",
+            "cells": [
+              "7,0",
+              "7,1"
+            ]
+          },
+          {
+            "id": "magazine",
+            "cells": [
+              "7,2"
+            ]
+          },
+          {
+            "id": "reactor",
+            "cells": [
+              "4,2"
+            ]
+          },
+          {
+            "id": "shield",
+            "cells": [
+              "4,0",
+              "4,1"
+            ]
+          }
+        ],
+        "event": {
+          "zone": 1,
+          "rooms": [
+            "bridge",
+            "hold",
+            "magazine",
+            "reactor",
+            "shield"
+          ],
+          "parent": "A20",
+          "cause": "scan-1"
+        },
+        "start": {
+          "id": "A20",
+          "zone": 1,
+          "cause": "scan-1",
+          "parent": "scan-1"
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "D": 900
+      },
+      "expected": {
+        "t": 4.136578,
+        "n": 249,
+        "dt": 0.016666666666666666,
+        "cells": [
+          "4,0",
+          "4,1",
+          "7,0",
+          "7,1",
+          "4,2",
+          "5,2",
+          "6,2",
+          "7,2"
+        ],
+        "rooms": [
+          "bridge",
+          "hold",
+          "magazine",
+          "reactor",
+          "shield"
+        ]
+      },
+      "actual": {
+        "before": {
+          "cells": 0,
+          "silhouetteCells": 44,
+          "segments": 38,
+          "pose": true
+        },
+        "resolvedAt": 249,
+        "t": 4.15,
+        "cells": [
+          {
+            "cell": "4,0",
+            "room": "shield",
+            "type": "shieldGenerator",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "7,0",
+            "room": "hold",
+            "type": "hold",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "4,1",
+            "room": "shield",
+            "type": "shieldGenerator",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "7,1",
+            "room": "hold",
+            "type": "hold",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "4,2",
+            "room": "reactor",
+            "type": "reactor",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "5,2",
+            "room": "bridge",
+            "type": "bridge",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "6,2",
+            "room": "bridge",
+            "type": "bridge",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "7,2",
+            "room": "magazine",
+            "type": "magazine",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          }
+        ],
+        "rooms": [
+          {
+            "id": "bridge",
+            "cells": [
+              "5,2",
+              "6,2"
+            ]
+          },
+          {
+            "id": "hold",
+            "cells": [
+              "7,0",
+              "7,1"
+            ]
+          },
+          {
+            "id": "magazine",
+            "cells": [
+              "7,2"
+            ]
+          },
+          {
+            "id": "reactor",
+            "cells": [
+              "4,2"
+            ]
+          },
+          {
+            "id": "shield",
+            "cells": [
+              "4,0",
+              "4,1"
+            ]
+          }
+        ],
+        "event": {
+          "zone": 1,
+          "rooms": [
+            "bridge",
+            "hold",
+            "magazine",
+            "reactor",
+            "shield"
+          ],
+          "parent": "A20",
+          "cause": "scan-1"
+        },
+        "start": {
+          "id": "A20",
+          "zone": 1,
+          "cause": "scan-1",
+          "parent": "scan-1"
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "D": 1500
+      },
+      "expected": {
+        "t": 31.490456,
+        "n": 1890,
+        "dt": 0.016666666666666666,
+        "cells": [
+          "4,0",
+          "4,1",
+          "7,0",
+          "7,1",
+          "4,2",
+          "5,2",
+          "6,2",
+          "7,2"
+        ],
+        "rooms": [
+          "bridge",
+          "hold",
+          "magazine",
+          "reactor",
+          "shield"
+        ]
+      },
+      "actual": {
+        "before": {
+          "cells": 0,
+          "silhouetteCells": 44,
+          "segments": 38,
+          "pose": true
+        },
+        "resolvedAt": 1890,
+        "t": 31.5,
+        "cells": [
+          {
+            "cell": "4,0",
+            "room": "shield",
+            "type": "shieldGenerator",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "7,0",
+            "room": "hold",
+            "type": "hold",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "4,1",
+            "room": "shield",
+            "type": "shieldGenerator",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "7,1",
+            "room": "hold",
+            "type": "hold",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "4,2",
+            "room": "reactor",
+            "type": "reactor",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "5,2",
+            "room": "bridge",
+            "type": "bridge",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "6,2",
+            "room": "bridge",
+            "type": "bridge",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          },
+          {
+            "cell": "7,2",
+            "room": "magazine",
+            "type": "magazine",
+            "integrity": 1,
+            "truth": 1,
+            "plates": 0
+          }
+        ],
+        "rooms": [
+          {
+            "id": "bridge",
+            "cells": [
+              "5,2",
+              "6,2"
+            ]
+          },
+          {
+            "id": "hold",
+            "cells": [
+              "7,0",
+              "7,1"
+            ]
+          },
+          {
+            "id": "magazine",
+            "cells": [
+              "7,2"
+            ]
+          },
+          {
+            "id": "reactor",
+            "cells": [
+              "4,2"
+            ]
+          },
+          {
+            "id": "shield",
+            "cells": [
+              "4,0",
+              "4,1"
+            ]
+          }
+        ],
+        "event": {
+          "zone": 1,
+          "rooms": [
+            "bridge",
+            "hold",
+            "magazine",
+            "reactor",
+            "shield"
+          ],
+          "parent": "A20",
+          "cause": "scan-1"
+        },
+        "start": {
+          "id": "A20",
+          "zone": 1,
+          "cause": "scan-1",
+          "parent": "scan-1"
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

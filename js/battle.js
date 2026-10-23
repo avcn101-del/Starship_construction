@@ -20,6 +20,11 @@
 // action (B2), a round stopped in a hull joins its body (B4), and the battle
 // books energy and angular momentum across the two ships (B3, battleEnergy,
 // battleAngular).
+// The knowledge model (L5b, 13n.1 (a), #289) is a battle setting: with
+// `knowledge` on each side has a model (js/sensors.js) sensed after every step,
+// a case may command scans, and the attacker's plan aims at what its model
+// knows (a room it does not know at the centre of the zone the case names);
+// with it off nothing of this runs and the loop is L4b's.
 // The per-second log (#129) and the cascade tree (#41) are built from the
 // kernel's events. No DOM, no Math.random (one seed per battle, #7, though no
 // rule draws from it yet), no Math.sin, Math.cos or Math.pow.
@@ -31,6 +36,7 @@ import { rotate, worldPoint, pointVelocity, momentumOf, cross } from './body.js'
 import { roundGeometry } from './projectile.js';
 import { rng, stepsAtLeast, hash } from './util.js';
 import { emit, cascadeTree, treeLines } from './events.js';
+import { createKnowledge, sense, setScan, knownAim, zoneCentre } from './sensors.js';
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
 const len = (a) => Math.sqrt(a[0] * a[0] + a[1] * a[1]); // Math.sqrt is correctly rounded on every engine
@@ -44,9 +50,10 @@ const CORNER = 1e-9;
  * One ship of a battle from a blueprint { rooms: [{ id, type, cell, rotation }], fittings: [[type, room, cell,
  * side]] }, validated by the kernel's validateShip (with the crew rule) unless `validate` is false: the magazine full
  * of HE, the turret's ready store full and holding fire, the shield off, power routed with every reactor at full
- * demand (as the estimates build them, 13l.3). `setup(world, room)` runs before enableShip.
+ * demand (as the estimates build them, 13l.3). `setup(world, room)` runs before enableShip. `origin`, when given, is
+ * the world point of the grid's corner (enableShip's frame origin) instead of `at`, the centre of mass's.
  */
-export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, at = [0, 0], velocity = [0, 0], setup = null, validate = true } = {}) {
+export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, at = [0, 0], velocity = [0, 0], setup = null, validate = true, origin = null } = {}) {
   const T = TIERS[tier], edge = T.edge;
   if (validate) {
     const v = validateShip({ grid: T.grid, edge, rooms: blueprint.rooms.map((r) => ({ size: 'M', rotation: 0, ...r })), fittings: blueprint.fittings.map(([type, room, cell, side]) => ({ type, room, cell, side })) }, ROOMS, params);
@@ -65,8 +72,11 @@ export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, 
   enablePowerRouting(world);
   for (const r of world.rooms) if (r.type === 'reactor') setDemand(world, r, 1);
   if (setup) setup(world, room);
-  const c = readout(world).centre, rc = rotate(c, heading);
-  enableShip(world, { origin: [at[0] - rc[0], at[1] - rc[1]], heading, velocity });
+  if (origin) enableShip(world, { origin: [...origin], heading, velocity });
+  else {
+    const c = readout(world).centre, rc = rotate(c, heading);
+    enableShip(world, { origin: [at[0] - rc[0], at[1] - rc[1]], heading, velocity });
+  }
   return { world, room };
 }
 
@@ -79,8 +89,12 @@ export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, 
  * `targetFire`: { aim: [x, y] } makes the target's turret fire along that direction of its own frame (a case's
  * order, B5); `setup`: { attacker, target } (world, room) before enableShip; `shield`: { attacker, target } turns a
  * shield generator on. `seed`: the battle's seed (#7).
+ * `knowledge` (default false, 13n.1 (a), #289): each side gets a knowledge model; `scans`: [{ side: 'A' | 'T',
+ * antenna: its index among the side's antennas, zone: 0-5 or null to stop, at: s }], each applied before the first
+ * step that starts at or after `at`; `plan.zone`: the zone whose centre a plan room the attacker's model does not
+ * know is aimed at (without it such a room is not aimed at).
  */
-export function createBattle({ params, tier = 'T1', attacker, target, bearing = '-y', distance = scaled(params.battle.openingRange, TIERS[tier].edge), seed = 1, plan = {}, targetFire = null, targetHeading = 0, targetVelocity = [0, 0], setup = {}, shield = {}, validate = true }) {
+export function createBattle({ params, tier = 'T1', attacker, target, bearing = '-y', distance = scaled(params.battle.openingRange, TIERS[tier].edge), seed = 1, plan = {}, targetFire = null, targetHeading = 0, targetVelocity = [0, 0], setup = {}, shield = {}, validate = true, knowledge = false, scans = [] }) {
   const edge = TIERS[tier].edge, k = params.kinetic;
   const u = typeof bearing === 'string' ? rotate(BEARINGS[bearing], targetHeading) : bearing;
   const T = buildShip(params, tier, target, { prefix: 'T', heading: targetHeading, velocity: targetVelocity, setup: setup.target, validate });
@@ -94,7 +108,7 @@ export function createBattle({ params, tier = 'T1', attacker, target, bearing = 
   const battle = {
     params, tier, edge, grid: TIERS[tier].grid, dt: A.world.dt, seed, rng: rng(seed), t: 0, step: 0,
     round: { mass, area: roundGeometry(mass, FIXED.steelDensity.value, FIXED.roundLengthToDiameter.value).A },
-    plan: { turret: plan.turret || [], beam: plan.beam || [], turretPoint: plan.turretPoint || null }, targetFire,
+    plan: { turret: plan.turret || [], beam: plan.beam || [], turretPoint: plan.turretPoint || null, zone: plan.zone ?? null }, targetFire,
     rounds: [], shots: 0, beams: 0, hits: [], misses: [], spent: { m: 0, P: [0, 0], L: 0, K: 0, rounds: 0 }, embedded: 0,
     beam: null, lines: [], ended: null,
     disabledSteps: stepsAtLeast(params.battle.disabledSeconds.value, A.world.dt),
@@ -104,6 +118,13 @@ export function createBattle({ params, tier = 'T1', attacker, target, bearing = 
   battle.attacker.other = battle.target; battle.target.other = battle.attacker;
   battle.sides = [battle.attacker, battle.target];
   for (const s of battle.sides) for (const g of s.world.rooms) if (g.type === 'shieldGenerator' && shield[s === battle.attacker ? 'attacker' : 'target']) g.shield.on = true;
+  battle.knowledge = !!knowledge;
+  if (battle.knowledge) {
+    for (const s of battle.sides) s.model = createKnowledge(s.world, s.other.world);
+    battle.pairs = battle.sides.map((s) => ({ world: s.world, model: s.model }));
+    battle.scans = scans.map((x) => ({ ...x, step: stepsAtLeast(x.at || 0, A.world.dt), done: false }));
+    sense(battle.pairs, { scan: false }); // the silhouette and what is seen at undock, before any step
+  }
   aim(battle);
   // The attacker's first heading: its beam on its first aim point, else bow-on to the target's centre of mass.
   const ab = mainBody(battle.attacker);
@@ -155,15 +176,18 @@ function aim(battle) {
   const A = battle.attacker, T = battle.target, ab = mainBody(A);
   const turret = A.world.rooms.find((r) => r.type === 'turret'), bay = A.world.rooms.find((r) => r.type === 'beamBay');
   const tr = firstStanding(T, battle.plan.turret), br = firstStanding(T, battle.plan.beam);
+  // With the knowledge model (13n.1 (a), #289) a plan room is aimed at as the model knows it, else at the centre of the
+  // zone the case names; without it, at the room itself (L4b).
+  const pointAt = (room) => !room ? null : !battle.knowledge ? aimPoint(T, room) : knownAim(A.model, room.id) || (battle.plan.zone !== null ? zoneCentre(A.model, battle.plan.zone) : null);
   if (turret) {
-    const P = battle.plan.turretPoint ? [...battle.plan.turretPoint] : tr && aimPoint(T, tr); // turretPoint: a world point the case names (B11)
+    const P = battle.plan.turretPoint ? [...battle.plan.turretPoint] : pointAt(tr); // turretPoint: a world point the case names (B11)
     turret.turret.hold = !P;
     if (P) {
       const b = bodyOfRoom(A, turret), S = worldPoint(b, turret.position), d = sub(P, S), L = len(d);
       if (L > 0) turret.turret.aim = rotate([d[0] / L, d[1] / L], -b.theta);
     }
   }
-  const P = br && aimPoint(T, br);
+  const P = pointAt(br);
   if (bay) {
     const was = bay.beamBay.firing;
     bay.beamBay.firing = !!P;
@@ -325,6 +349,7 @@ function launch(battle) {
       const id = `shot-${++battle.shots}`;
       ref.battle = id;
       battle.rounds.push({ id, shooter: s, other: s.other, ref, prev: [...ref.x0], t0: e.t, event: e.id });
+      if (battle.knowledge) s.model.shots.push({ id, t: e.t });
     }
   }
 }
@@ -379,6 +404,8 @@ function lineOfAction(X, u, b, path, x) {
 }
 function strike(battle, r, hit) {
   const w = r.other.world, b = w.ship.bodies.find((x) => x.id === hit.body), m = battle.round.mass, A = battle.round.area;
+  // The shooter's model (13n.1 (a)): where its round entered, and the hit's path only where the model knows the cells.
+  if (battle.knowledge) r.shooter.model.hits.push({ id: r.id, t: battle.t, entry: worldPoint(b, hit.entry), cells: hit.cells.filter((c) => r.shooter.model.cells.has(`${c[0]},${c[1]}`)).map((c) => [...c]) });
   // The momentum exchange runs along the round's velocity relative to the hull, in the body's frame (B1 of the L4
   // physics audit, #269); lineHit's dir (the round's displacement between two poses) decides only whether and where
   // it hits. Each kernel call takes the round's world velocity relative to the hull at the point it books the hull
@@ -498,6 +525,7 @@ function end(battle, s, kind, { by = null, room, parent, why = null }) {
 /** One step of the battle (13l.1). */
 export function tick(battle) {
   if (battle.ended) return;
+  if (battle.knowledge) for (const x of battle.scans) if (!x.done && battle.step >= x.step) { setScan(battle[x.side === 'T' ? 'target' : 'attacker'].world, x.antenna, x.zone); x.done = true; }
   aim(battle);
   for (const s of battle.sides) holdHeading(battle, s);
   beamsIn(battle);
@@ -513,6 +541,7 @@ export function tick(battle) {
     for (const r of battle.rounds) if (r.shooter === s && !r.over && !s.world.ship.rounds.includes(r.ref)) { r.over = 'left'; if (!r.done) battle.misses.push({ id: r.id, t: battle.t }); }
   }
   battle.rounds = battle.rounds.filter((r) => !r.over);
+  if (battle.knowledge) sense(battle.pairs);
   checkEnd(battle);
   logLine(battle);
 }

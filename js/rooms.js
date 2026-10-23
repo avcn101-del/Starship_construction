@@ -36,7 +36,10 @@
 // L4b (13l.1): every event has an id and a parent (events.js), so the cascade
 // tree runs from each root (a shot, a beam, heat, launch) through every event
 // it caused; a room remembers the events that took its state (room.marks) for
-// the parents of events that follow later.
+// the parents of events that follow later. L5b (13n.1 (a), #289): the antenna
+// fitting (sensor.mass at its edge's midpoint) draws sensor.scanPower from its
+// host while it scans, as heat there; a shield's payment for a round is EM
+// brightness over that step (js/sensors.js reads it).
 // No DOM, no Math.random.
 import { ROOMS, FIXED, BASE_EDGE, scaled } from './data.js';
 import { createHeat, temperature, radiatorPower, heatStep, crossings, wallConductance, conductionFlows, ventCell, ventCapacity, addCapacity, depositHeat } from './heat.js';
@@ -609,7 +612,7 @@ export function step(world) {
   if (world.layout && world.beams.length) shieldPayments(world);
   repairGrants(world);
   for (const room of world.rooms) {
-    const own = room.exploded || !room.active ? 0 : (BEHAVIOUR[room.type]?.(world, room) || 0) + (room.rcs ? rcsHeat(world, room) : 0);
+    const own = room.exploded || !room.active ? 0 : (BEHAVIOUR[room.type]?.(world, room) || 0) + (room.rcs ? rcsHeat(world, room) : 0) + (room.antennas ? scanHeat(world, room) : 0);
     const external = room.externalPower * dt;
     if (conducted) heatStep(room.heat, own + external, irBrightness(world, room), dt, conducted.get(room) || 0, pumped.get(room) || 0);
     else heatStep(room.heat, own + external, irBrightness(world, room), dt);
@@ -715,6 +718,7 @@ const INIT = {
   },
   shieldGenerator(world, room) {
     room.shield = { on: true, incoming: 0, strength: 1, absorbed: 0, passed: 0, em: 0, absorbedEnergy: 0, passedEnergy: 0, energyDrawn: 0, down: false, buffer: null, paid: 0, impulseHeat: 0 };
+    Object.defineProperty(room.shield, 'roundEm', { value: 0, writable: true, enumerable: false }); // W: rounds' payments as EM (13n.1 (a)); not enumerable, so a record of the shield's state stays as it was
   },
   engine(world, room) {
     room.engine = { throttle: 0, thrust: 0, draw: 0, acceleration: 0 };
@@ -792,6 +796,7 @@ const BEHAVIOUR = {
   },
   shieldGenerator(world, room) {
     const s = room.shield, dt = world.dt, p = world.params.shield;
+    s.roundEm = 0; // the rounds' part of the EM brightness, paid after the last step (shieldRound, 13n.1 (a))
     const able = s.on && room.powered && room.controlled && !down(room) && !isDestroyed(room);
     if (!able) {
       if (!s.down) { s.down = true; const why = !s.on ? 'off' : !room.powered ? 'no-power' : room.shutdown ? 'heat' : room.unmanned ? 'unmanned' : !room.controlled ? 'no-control' : 'destroyed'; event(world, room, 'shield-down', why, {}, reasonParent(world, room, why)); }
@@ -1096,8 +1101,8 @@ const REQUEST = {
   quarters: (world, room) => tierScaled(world, world.params.quarters.powerDraw) * survivingFraction(room),
 };
 export function powerRequest(world, room) {
-  if ((!REQUEST[room.type] && !room.rcs) || room.exploded || !room.active || down(room) || isDestroyed(room)) return 0;
-  return (REQUEST[room.type] ? REQUEST[room.type](world, room) : 0) + (room.rcs ? rcsRequest(world, room) : 0); // an RCS fitting's draw joins its host's (13f.1)
+  if ((!REQUEST[room.type] && !room.rcs && !room.antennas) || room.exploded || !room.active || down(room) || isDestroyed(room)) return 0;
+  return (REQUEST[room.type] ? REQUEST[room.type](world, room) : 0) + (room.rcs ? rcsRequest(world, room) : 0) + (room.antennas ? scanRequest(world, room) : 0); // an RCS fitting's or a scanning antenna's draw joins its host's (13f.1, 13n.1 (a))
 }
 
 function routePower(world) {
@@ -1107,7 +1112,7 @@ function routePower(world) {
   const sources = placed.filter((r) => r.type === 'reactor').map((r) => ({ id: r.id, capacity: r.active && reactorAble(r) ? r.reactor.demand * reactorPower(world, r) * survivingFraction(r) : 0 }));
   const listed = world.power.priority;
   const rank = (r) => (listed.includes(r.id) ? listed.indexOf(r.id) : listed.length);
-  const consumers = placed.filter((r) => REQUEST[r.type] || r.rcs).sort((a, b) => rank(a) - rank(b) || byId(a.id, b.id));
+  const consumers = placed.filter((r) => REQUEST[r.type] || r.rcs || r.antennas).sort((a, b) => rank(a) - rank(b) || byId(a.id, b.id));
   const draws = new Map(consumers.map((r) => [r.id, powerRequest(world, r)]));
   const { delivered, produced } = priorityMaxFlow({ nodes: placed.map((r) => r.id), edges, sources, sinks: consumers.map((r) => ({ id: r.id, capacity: draws.get(r.id) })) });
   for (const r of consumers) {
@@ -1252,6 +1257,9 @@ export function shieldRound(world, round) {
     }
   }
   gens.forEach((x, i) => { x.shield.impulseHeat += heats[i]; });
+  // EM-bright while absorbing (#103, 13n.1 (a)): what the buffer paid for the round, as power over the step it was paid
+  // in; js/sensors.js reads it with s.em until the generator's next step resets it.
+  gens.forEach((x, i) => { if (paid[i] > 0) x.shield.roundEm += paid[i] / world.dt; });
   return { velocity: r.velocity, energy: total, heat, by: gens.length === 1 ? gens[0].id : gens.map((x) => x.id), paid: Object.fromEntries(gens.map((x, i) => [x.id, paid[i]])), strength, impulse };
 }
 
@@ -1359,23 +1367,27 @@ function blastThroughWalls(world, origin, E, integrityBefore) {
  * A fitting on an open edge of a placed room (#15, 13f.1): `cell` [x, y] is
  * one of the room's grid cells and `side` [dx, dy] the outward direction of
  * the edge. 'radiator' adds a panel to its room; 'rcs' a thruster that
- * pushes along the edge's inward normal at its midpoint. Each adds its mass
- * (radiator.mass, rcs.mass) at that midpoint. Throws on a rule of
- * validation (layout.fittingProblem).
+ * pushes along the edge's inward normal at its midpoint; 'antenna' a sensor
+ * (L5b, js/sensors.js, 13n.1 (a), #289) that scans one zone at a time while
+ * its host is controlled and powered, drawing sensor.scanPower from it. Each
+ * adds its mass (radiator.mass, rcs.mass, sensor.mass) at that midpoint.
+ * Throws on a rule of validation (layout.fittingProblem).
  */
 export function addFitting(world, type, roomId, cell, side) {
   if (!world.layout) throw new Error('a fitting needs a cluster (createWorld with a grid)');
   if (type === 'armour') return addPlate(world, roomId, cell, side);
-  if (type !== 'radiator' && type !== 'rcs') throw new Error(`unknown fitting ${type}`);
+  if (type !== 'radiator' && type !== 'rcs' && type !== 'antenna') throw new Error(`unknown fitting ${type}`);
   const problem = fittingProblem(world.layout, ROOMS, { room: roomId, cell, side }, world.fittings);
   if (problem) throw new Error(`${problem.rule}: ${problem.detail}`);
   const room = roomById(world, roomId), grid = world.layout.rooms.get(roomId).cells;
   const k = grid.findIndex((c) => c[0] === cell[0] && c[1] === cell[1]);
-  const mass = tierScaled(world, type === 'radiator' ? world.params.radiator.mass : world.params.rcs.mass);
+  const mass = tierScaled(world, type === 'radiator' ? world.params.radiator.mass : type === 'rcs' ? world.params.rcs.mass : world.params.sensor.mass);
   const f = { id: world.fittings.length, type, room: roomId, k, cell: [...cell], side: [...side], p: edgeMidpoint(world.edge, cell, side), mass, fired: false };
+  if (type === 'antenna') f.scan = null; // the zone it scans and its progress (js/sensors.js)
   world.fittings.push(f);
   if (type === 'radiator') room.radiators++;
-  else room.rcs = true;
+  else if (type === 'rcs') room.rcs = true;
+  else room.antennas = true;
   return f;
 }
 /**
@@ -1604,6 +1616,22 @@ function rcsHeat(world, room) {
   let heat = 0;
   for (const f of world.fittings) if (f.type === 'rcs' && f.room === room.id) heat += rcsFraction(world, f) * tierScaled(world, world.params.rcs.powerDraw) * world.params.engine.heatFraction.value * world.dt;
   return heat;
+}
+
+/**
+ * The draw (W) of a room's scanning antennas (13n.1 (a), #289): sensor.scanPower for each antenna given a zone
+ * (js/sensors.js setScan) on a standing cell, while the host is controlled.
+ */
+function scanRequest(world, room) {
+  if (!room.controlled) return 0;
+  let n = 0;
+  for (const f of world.fittings) if (f.type === 'antenna' && f.room === room.id && f.scan && !room.cells[f.k].destroyed) n++;
+  return n * tierScaled(world, world.params.sensor.scanPower);
+}
+/** Heat (J) of the step from the room's scanning antennas: their draw as delivered, all of it heat in the host (#289). */
+function scanHeat(world, room) {
+  if (!room.powered || down(room) || isDestroyed(room)) return 0;
+  return scanRequest(world, room) * supply(world, room) * world.dt;
 }
 
 /**

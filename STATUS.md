@@ -16,23 +16,25 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   L4a (PR #58, #253–#258, #260), **L4b (PR #62, #261–#264, #267): L4 is
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
-  (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge.
-- **Running**: **L5b** (senses and the knowledge model): probed (#289: 116 of 116 rows unchanged, the cost stands), plan made buildable; the engineer (opus, `m0/l5b-senses`) next.
-- **Waiting on you**: nothing. You gave **the go for L5b** (2026-10-23) and asked for a new lead designer chat to run it. Later: the frame on the overheat route (§17 item 43). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#288.
-- **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (ratio 1.21). 2026-10-21/23 in all about 205 USD.
+  (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge. **L5b the senses and the knowledge model (PR #84, #289, #290)**: `js/sensors.js`, the antenna fitting, passive IR/EM at d⁻², zones scanned at d⁴ revealing their own cells, one knowledge model per side as a battle setting; S1–S9 all PASS, every literal reproduced blind.
+- **Running**: the full `tools/mutate.js` run on the L5b merge (about 80 minutes, in the lead designer's chat); its row follows.
+- **Waiting on you**: (1) **the go for L5c** (weapons: missiles, point defence, the railgun, round types, the firing window, S footprints; 104–148 USD by the rule, 35–55 expected; the lead designer probes the plan first, as for L5b); (2) **the frame on §17 item 43** (the overheat route), drafted and put to you in the chat: option 1 (keep `thermal.coupledCrewed`, narrow its range) recommended; (3) whether this chat continues into L5c or hands over now (the natural boundary of #247 (2) is here). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#290.
+- **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (1.21), **L5b 11.62 (0.65)**: L5 so far 50.25. 2026-10-21/23 in all about 217 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
   L4 in all ≥ 64.27 (#191: past 40).
-- **Next**: **L5b, senses and the knowledge model** (§13n.1 (a), scenarios S1–S9, constants `sensor.*` and `engine.exhaustVelocity` in §13n.2): the new lead designer chat writes its engineer task and runs engineer → blind checker → reviewer → answers row → merge; then L5c weapons, L5d helm and enemy with `tools/play.mjs`, L5e ship versus ship with `tools/sweep.mjs`. Cost: L5b 60–84 USD by the rule, 20–30 expected; L5 in all 421–598 by the rule, 150–228 expected (L5a 23.54 and L5m 15.09 spent).
+- **Next**: **L5c weapons** (§13n.1 (c), W1–W14, `tools/estimates/l5.mjs` sections (3), (4), (6)) on your go: probe first, then engineer → blind checker → reviewer → answers row → merge; then L5d helm and enemy with `tools/play.mjs`, L5e ship versus ship with `tools/sweep.mjs`. Cost: L5c 104–148 USD by the rule, 35–55 expected; L5 in all 421–598 by the rule, 150–228 expected (50.25 spent).
 - **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
   surprised by a prototype): missiles (seekers, warheads, EMP), point
-  defence, the railgun as a weapon, round types, the firing window, every
-  sense (passive, active, jamming, the knowledge model), the enemy's
-  choices, standing orders and presets, room size S, the economy, the campaign, sound and rendering. All planned
-  L5b–L5e (§13n) or after Mission 0; the line shrinks as passes merge.
-  The prototype page still ends a duel on a magazine's explosion only
-  until it is republished on the L5a kernel.
+  defence, the railgun as a weapon, round types, the firing window, the
+  enemy's choices and the helm's orders (the knowledge model exists; nothing
+  reads it to decide yet), standing orders and presets, room size S, the
+  economy, the campaign, sound and rendering. All planned L5c–L5e (§13n) or
+  after Mission 0; the line shrinks as passes merge. The prototype page
+  (version 5) still runs on the L4b kernel and ends a duel on a magazine's
+  explosion; `proto/` itself already follows the kernel's end rules, so a
+  republish (no session, 0 USD) is all it needs.
 - **Owner chose** #261 (R1d the pace lever) and #252 (L4: one target per route; EMP and surrender at L5).
   The owner played v2: the magazine always wins in 7.1 s (#254). Pace
   study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
@@ -43,7 +45,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
 
 - Design settled: `DECISIONS.md` #1–#268, current design in `DESIGN.md`,
   decisions in force in its §18, open obligations in its §17.
-- **Mission 0 L0–L4 are merged**, with the D pass, the mass pass, the path
+- **Mission 0 L0–L4 are merged, and L5a, L5m and L5b of L5**, with the D pass, the mass pass, the path
   model, physics pass 2, `tools/mutate`, the armour plates (L4a), the L4
   fix round (#272) and the scenario-hygiene round (#276). `regress` on the
   hygiene merge: **109 VERIFIED + 106 WITHDRAWN + 5 RETIRED**.
@@ -161,24 +163,10 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Next steps
 
-1. **L5a and L5m are merged** (#283, #287), the pace study reported and the
-   threshold kept at 400 m/s (#288); each pass's full mutation run is
-   recorded (#284, #288).
-2. **L5b** (the owner's go, 2026-10-23): **probed and amended (#289)**; then engineer → blind checker → reviewer → answers row → merge. The plan as it was: the new lead designer chat reads
-   §13n.1 (a), §13n.2's `sensor.*` and `engine.exhaustVelocity`, §13n.3 (1),
-   §13n.4 S1–S9 and `tools/estimates/l5.mjs` section (1); before writing the
-   engineer's task it **probes** the plan (a scratch copy, nothing recorded:
-   which locked scenarios the new fitting, the knowledge model and the
-   events touch) and re-costs if the probe disagrees (#285's lesson); then
-   engineer (opus) → blind physics checker (sonnet) → reviewer (sonnet) →
-   answers row → merge; `--only` mutations before the review, the full run
-   after (#270 (5)).
-3. **Open for the owner later**: §17 item 43, the overheat route resting on
-   `thermal.coupledCrewed` (no source), as a #247 (3) frame before L5d's
-   routes and E6's overheat path are measured. R1d bow-on under E7's band
-   (#288) is for L5e.
-4. Not yet done and due when their files are touched: §17 item 35's rest
-   (L5d), item 39's residue, item 43's scenario notes.
+1. **L5b is merged** (#290); the full mutation run on the merge runs in the lead designer's chat and gets its own row (as #284, #288).
+2. **L5c weapons** needs the owner's go (#277 O5). Before any session the lead designer probes §13n.1 (c) in a scratch copy (#285's lesson): which locked scenarios the railgun room, the missile bay, point defence, the round types, the firing window and the S footprints touch (`validateShip` gains sizes; `L2.layout.invalid.v2` and `L3.validation.v2` run against it before W13's lock, §13n.6), and whether W1–W14 can be built as written; re-cost if the probe disagrees with §13n.5 (raw 26–37).
+3. **Open for the owner**: §17 item 43 (the overheat route), frame drafted (option 1 recommended); the republish of the prototype page on the current kernel (0 USD, the lead designer's act); phone play against a deciding enemy needs the page republished on the L5d kernel reading `enemy.js` (to be added to L5d's plan).
+4. Due when their files are touched: §17 items 35 (rest, L5d), 39 (residue), 43 (scenario notes), 44 (k = 0 reads), 45 (L5b's leftovers for L5c and L5d).
 
 ## Scheduled tasks
 
@@ -190,7 +178,7 @@ The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
 the old chat's pending check-in was deleted at hand-over; the new chat
 creates its own (`send_later`, 20–45 min after starting a session). This
-chat's pending check-in: `trig_01FNCFgNTUqXwQCtwD2hecPr` (01:10 UTC, L5m's review; obsolete once read).
+chat has no pending check-in (the L5b check-in `trig_01LGmc5wx9S6KycAJmRECRA6` is deleted: both sessions reported by trigger).
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
 
@@ -199,12 +187,16 @@ Sessions and costs (the sessions table, the per-level totals and the usage-limit
 At a block boundary (a pass merged, the next not planned) or as soon as
 this chat's context is compressed or it repeats itself. Hand over through
 this file; the new chat re-creates the check-ins (`send_later`), which die
-with the chat that made them. The next natural boundary: **after L5b
-merges**. This chat (`session_01VL5M5dKNeREUVf7y1y3P87`) has no pending
-check-in and no running session at hand-over.
+with the chat that made them. **L5b is merged: this is a boundary.** This
+chat (`session_01DFw3o4EBEtf1adcpyJ5786`) has no pending check-in; its only
+running work is the full mutation run on the L5b merge, whose row the chat
+that reads the report writes. The owner decides whether it continues into
+L5c.
 
 ## Lessons for whoever continues
 
+- **Commit `tools/mutations.json` (and anything in `js`, `tools` or `mission0/scenarios`) before the canonical runs** (#290): the L5b records carry `a1174e7+dirty` because the mutation entries were uncommitted while the records were written; the results are right, the stamp is not clean.
+- **A probe that moves no locked row still pays for itself** (#289): it found that a zone revealing whole rooms would have contradicted S2, that S9 as written could not resolve a shield, and where an antenna can sit on R1d, before the engineer started; L5b landed at 0.65 of its raw estimate.
 - **Probe before costing a pass** (#285): apply the planned change in a
   scratch worktree, run `regress` there (nothing recorded), restore it,
   and count what fails and what moves. #281 costed "the turret only" at

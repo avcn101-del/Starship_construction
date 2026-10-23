@@ -1,0 +1,120 @@
+{
+  "id": "L2.sensor.reveal",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.sensor.reveal",
+  "code": "a1174e7+dirty",
+  "criterionHash": "a28db7f1",
+  "lockedHash": "a28db7f1",
+  "runHash": "4a2dd645",
+  "dataHash": "57b28bb3",
+  "rowsHash": "7517991e",
+  "rows": [
+    {
+      "case": {
+        "mode": "passive"
+      },
+      "expected": {
+        "seenAt": 1,
+        "received": 0.0393,
+        "scannerAt": [
+          42.5,
+          -900
+        ],
+        "targetAt": [
+          42.5,
+          0
+        ],
+        "scannerZone": 249,
+        "targetZone": null
+      },
+      "actual": {
+        "A": {
+          "antennaAt": null,
+          "zoneAt": 249,
+          "event": null
+        },
+        "T": {
+          "antennaAt": 1,
+          "zoneAt": null,
+          "position": [
+            42.5,
+            -900
+          ],
+          "received": 0.03929751681281367,
+          "event": {
+            "step": 1,
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "mode": "back"
+      },
+      "expected": {
+        "seenAt": 1,
+        "received": 0.0393,
+        "scannerAt": [
+          42.5,
+          -900
+        ],
+        "targetAt": [
+          42.5,
+          0
+        ],
+        "scannerZone": 249,
+        "targetZone": 233
+      },
+      "actual": {
+        "A": {
+          "antennaAt": 1,
+          "zoneAt": 249,
+          "position": [
+            42.5,
+            0
+          ],
+          "received": 0.03929751681281367,
+          "event": {
+            "step": 1,
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        },
+        "T": {
+          "antennaAt": 1,
+          "zoneAt": 233,
+          "position": [
+            42.5,
+            -900
+          ],
+          "received": 0.03929751681281367,
+          "event": {
+            "step": 1,
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

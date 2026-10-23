@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.books.two.v2",
-  "code": "17c09e0",
+  "code": "a1174e7+dirty",
   "criterionHash": "8640465c",
   "lockedHash": "8640465c",
   "runHash": "d4490342",
-  "dataHash": "e6752b27",
+  "dataHash": "57b28bb3",
   "rowsHash": "452cd0c2",
   "rows": [
     {
