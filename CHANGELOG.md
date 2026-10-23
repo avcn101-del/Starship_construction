@@ -1,7 +1,9 @@
 # Changelog
 
-## Unreleased — 2026-10-23 — L5d probed and planned (#301, #302)
+## Unreleased — 2026-10-23 — L5d probed and planned (#301–#303)
 
+- #303: the surrender timer is `battle.disabledSeconds` × resolve (the
+  L5d engineer's second question); `DESIGN.md` §13n.1 (d), H8, §18.
 - #302: the range order's engagement (`helm.rangeBand`, new), on the L5d
   engineer's early question; `DESIGN.md` §13n.1 (d), §13n.2, §18.
 - `DESIGN.md` §13n.1 (d) (the row "L5d's amendment"), §13n.2
@@ -14,7 +16,10 @@
   `STATUS.md`: this lead designer chat took over.
 - `IDEAS.md` (the design partner, `4670d7a`): the battle screen, an outside
   view plus a knowledge panel, the layout the owner chose from the mockups;
-  presentation, after Mission 0, nothing built now.
+  presentation, after Mission 0, nothing built now. Two follow-ups to the
+  same row (`0701f39`: a tell strip, a dynamic camera, a zone zoom;
+  `d506a7c`: the outside hull drawn smooth, the inside kept on the cell
+  grid, adding to #45).
 
 ## Unreleased — 2026-10-23 — The mutation run on the L5c merge (#300)
 

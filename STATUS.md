@@ -17,8 +17,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge. **L5b the senses and the knowledge model (PR #84, #289, #290)**: `js/sensors.js`, the antenna fitting, passive IR/EM at d⁻², zones scanned at d⁴ revealing their own cells, one knowledge model per side as a battle setting; S1–S9 all PASS, every literal reproduced blind. **L5c weapons (PR #88, #295, #296, #298, #299)**: the railgun, missiles with seekers and warheads (EMP by section), point defence with a range, the round types with their prices, the firing window, S footprints; 39.06 USD.
-- **Running**: **the L5d engineer** `session_01LpASMAypvQc8EhHRGaN8k9` (opus, `m0/l5d-helm` from `ld/l5d`, started 11:13 UTC; its first message is the task of #301; it notifies this chat by trigger); the lead designer's fallback check-in `trig_01WnKocXue9on7mcLet1z2jo` at 11:59 UTC. The old chat's full mutation run on `c1b2c4a` is recorded (#300: no new survivor).
-- **Waiting on you**: nothing. You chose option A on L5d's changed cost (#301: L5d raw 33–47, expected 40–52; the prototype page after it, expected 6–8) and asked that this lead designer chat run on `claude-fable-5-1`. Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#299, #301.
+- **Running**: **the L5d engineer** `session_01LpASMAypvQc8EhHRGaN8k9` (opus, `m0/l5d-helm` from `ld/l5d`, started 11:13 UTC; its first message is the task of #301; it notifies this chat by trigger); two questions answered before its lock (#302 the range order's engagement, #303 the surrender timer); it notifies this chat by trigger when its PR is open (no timed check-in, the owner's rule); at 13:09 UTC the engineer was running its `--only` mutations (24). The old chat's full mutation run on `c1b2c4a` is recorded (#300: no new survivor).
+- **Waiting on you**: nothing. You chose option A on L5d's changed cost (#301: L5d raw 33–47, expected 40–52; the prototype page after it, expected 6–8) and asked that this lead designer chat run on `claude-fable-5-1`; later (2026-10-23) back on `claude-opus-5-5` by the owner's choice. Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#299, #301.
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (1.21), L5b 11.62 (0.65), **L5c 39.06 (1.18)**: L5 so far 89.31. 2026-10-21/23 in all about 256 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
@@ -192,7 +192,29 @@ larger than L5c). The old chat (`session_01DFw3o4EBEtf1adcpyJ5786`) has
 nothing left to do (#300 written). The next natural boundary: **after
 L5d merges**, or earlier if the new chat's context is compressed.
 
+**The owner's standing instruction (2026-10-23) for this chat
+(`session_01S8gXf1kch2FCFHYE8nwhrn`)**: right after L5d merges, hand over
+to a new lead designer chat, no change before. (1) Write this file for it:
+open PRs, running sessions, scheduled tasks, next steps; the next step is
+**the prototype page session** (#301, option A, already approved). (2) Open
+the new chat on **`claude-opus-5-5`**, the whole task in its first message.
+**Lead designer chats are opened on opus**: fable kept stopping on safety
+grounds in this project (several of this chat's turns on
+`claude-fable-5-1` were withheld by a safety classifier). (3) Delete this
+chat's own pending check-ins; the new chat re-creates its own. (4) The last
+act: tell the owner the new chat's link. Hand over earlier only if the
+context is compressed or the chat repeats itself; then also tell every
+running session where to send its trigger (the new chat's id).
+**The owner is in Vietnam: give times in Vietnam time (UTC+7).**
+**The owner's rule (2026-10-23): sessions notify the lead designer when
+they finish, by their one-shot trigger into its chat; the lead designer
+does not arm timed check-ins (`send_later`).** Every session's first
+message ends with that notification (the chat's id from this header); the
+new chat's first message says so.
+
 ## Lessons for whoever continues
+
+- **Test a control law against the case's own starting state before writing it into a plan** (#302, #303): the L5d engineer found within an hour that #301's range-order threshold never engages from rest and that #278's surrender formula contradicted its own gloss. Both were caught before the lock because the engineer asked early by message; keep inviting that.
 
 - **Commit `tools/mutations.json` (and anything in `js`, `tools` or `mission0/scenarios`) before the canonical runs** (#290): the L5b records carry `a1174e7+dirty` because the mutation entries were uncommitted while the records were written; the results are right, the stamp is not clean.
 - **A probe that moves no locked row still pays for itself** (#289): it found that a zone revealing whole rooms would have contradicted S2, that S9 as written could not resolve a shield, and where an antenna can sit on R1d, before the engineer started; L5b landed at 0.65 of its raw estimate.
