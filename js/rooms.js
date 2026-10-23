@@ -231,7 +231,7 @@ export function setControl(world, room, on, cause) {
  * hot; losing control again stops the clock.
  */
 function controlChanged(world, room, on) {
-  room.reactor.restartStep = on ? world.step + stepsAtLeast(world.params.reactor.restartTime.value, world.dt) : null;
+  room.reactor.restartStep = on ? world.step + stepsAtLeast(tierScaled(world, world.params.reactor.restartTime), world.dt) : null;
 }
 
 /**
@@ -311,7 +311,7 @@ export function cellArealDensity(world, room, index) {
  * own areal density along its axis (a steel cylinder of length L).
  */
 export function roundStrength(world, mass, area) {
-  return world.params.matter.kineticResistance.value * (mass / area);
+  return tierScaled(world, world.params.matter.kineticResistance) * (mass / area);
 }
 /** The grid point (m) of the centre of a placed room's cell `index`. */
 function cellCentre(world, room, index) {
@@ -449,7 +449,7 @@ function receive(world, b, J, p) {
  * that cell's room.
  */
 export function fireRound(world, { mass, velocity, area, direction = null }, path, cause) {
-  const c = world.params.matter.kineticResistance.value, hits = world.params.kinetic.hitsToWreck.value;
+  const c = tierScaled(world, world.params.matter.kineticResistance), hits = tierScaled(world, world.params.kinetic.hitsToWreck);
   const s0 = sectionalMomentum(mass, velocity, area), strength = roundStrength(world, mass, area);
   path = withRooms(world, path); // a plate entry's heat goes to the room it is mounted on (13l.1)
   const r = path.map((x) => c * entryArealDensity(world, x) * (x.chord ?? 1));
@@ -493,7 +493,7 @@ export function fireRound(world, { mass, velocity, area, direction = null }, pat
   heats.forEach((q, i) => { if (q !== 0) depositHeat(path[i].room.heat, q); });
   // The detonation (#273 (c)): the first standing cell of a magazine with rounds (or a missile bay with missiles in its
   // store, #148, 13n.1 (c)) the round enters at the threshold or more.
-  const vd = world.params.magazine.detonationSpeed.value;
+  const vd = tierScaled(world, world.params.magazine.detonationSpeed);
   const trigger = path.findIndex((x, i) => i < entry.length && !x.plate && (x.room.type === 'magazine' || x.room.type === 'missileBay') && r[i] > 0 && entry[i] / mass >= vd && !x.room.exploded && storeEnergy(world, x.room) > 0);
   let detonated = null;
   losses.forEach((loss, i) => {
@@ -558,7 +558,7 @@ export function beamEnergy(world, room) {
   const p = world.params, f = FIXED;
   const c = { protonRest: f.protonRestEnergy.value, electronRest: f.electronRestEnergy.value, K: f.betheK.value, ZA: f.ironZOverA.value, I: f.ironMeanExcitation.value };
   const sigma = (edge) => scaled(p.armour.cellMass, edge) / (edge * edge);
-  const E1 = p.beam.gradient.value * N * BASE_EDGE;
+  const E1 = tierScaled(world, p.beam.gradient) * N * BASE_EDGE;
   const target = csdaRange(E1, c) * (sigma(world.edge) / sigma(BASE_EDGE));
   let lo = E1, hi = E1, E = E1;
   if (csdaRange(lo, c) !== target) {
@@ -604,7 +604,7 @@ export function fireBeam(world, { power, energy, range = 0 }, path, cause) {
     dep = beamDeposit(energy, sigmas, { protonRest: f.protonRestEnergy.value, electronRest: f.electronRestEnergy.value, K: f.betheK.value, ZA: f.ironZOverA.value, I: f.ironMeanExcitation.value, lambda: f.ironInteractionLength.value });
     world.beamPaths.set(key, dep);
   }
-  const dt = world.dt, q = world.params.matter.burnEnergyPerKg.value;
+  const dt = world.dt, q = tierScaled(world, world.params.matter.burnEnergyPerKg);
   const energies = dep.fractions.map((F) => power * F * dt);
   const ruin = path.map((x) => q * (x.plate ? x.plate.mass : cellMassOf(world, x.room)));
   path.forEach((x, i) => { if (energies[i] > 0) depositHeat(x.room.heat, energies[i]); });
@@ -763,7 +763,7 @@ const INIT = {
 
 const BEHAVIOUR = {
   reactor(world, room) {
-    const r = room.reactor, dt = world.dt, tau = world.params.reactor.decayTime.value;
+    const r = room.reactor, dt = world.dt, tau = tierScaled(world, world.params.reactor.decayTime);
     // Decay heat integrated exactly over the step (the source is known in closed form).
     let decay = 0;
     for (const d of r.decay) decay += d.P0 * tau * (exp(-(world.t - d.start) / tau) - exp(-(world.t + dt - d.start) / tau));
@@ -771,7 +771,7 @@ const BEHAVIOUR = {
     if (world.power) r.delivered = reactorAble(room) ? r.routed : 0; // a reactor delivers only what is routed (#193)
     else r.delivered = reactorAble(room) ? r.demand * reactorPower(world, room) * survivingFraction(room) : 0;
     r.energyDelivered += r.delivered * dt;
-    return decay + world.params.reactor.heatPerPower.value * r.delivered * dt;
+    return decay + tierScaled(world, world.params.reactor.heatPerPower) * r.delivered * dt;
   },
   turret(world, room) {
     const s = room.turret, dt = world.dt, p = world.params;
@@ -902,7 +902,7 @@ const BEHAVIOUR = {
     }
     s.stopped = false;
     s.beam = tierScaled(world, p.beam.power) * room.footprintFactor * survivingFraction(room) * supply(world, room);
-    s.draw = s.beam / p.beambay.efficiency.value;
+    s.draw = s.beam / tierScaled(world, p.beambay.efficiency);
     s.beamEnergy += s.beam * dt; s.energyDrawn += s.draw * dt;
     return (s.draw - s.beam) * dt;
   },
@@ -931,7 +931,7 @@ const BEHAVIOUR = {
     const slug = railgunSlug(world, room), f = supply(world, room), rate = railgunRate(world, room) * f;
     if (s.ceased) { s.ceased = false; s.anchor = s.lastShot === null ? world.t : Math.max(world.t, s.lastShot + 1 / rate); s.sinceAnchor = 0; }
     const due = s.anchor + s.sinceAnchor / rate;
-    const eff = world.params.railgun.efficiency.value;
+    const eff = tierScaled(world, world.params.railgun.efficiency);
     s.draw = (slug.energy / eff) * rate; // W: the muzzle energy over the efficiency, spread over the reload
     s.energyDrawn += s.draw * dt;
     const heat = s.draw * (1 - eff) * dt; // the draw less what becomes muzzle energy, every step of the reload
@@ -963,8 +963,13 @@ const BEHAVIOUR = {
    */
   missileBay(world, room) {
     const s = room.missileBay, p = world.params;
-    if (!s.launching || !world.ship || !room.controlled || down(room) || isDestroyed(room) || s.ready.length === 0) return 0;
-    const interval = p.missilebay.launchInterval.value;
+    // Its draw as the turret's rule (#301, 13n.1 (d), §17 item 46): turret.powerDraw x its footprint factor x its surviving
+    // fraction x its power fraction, while it could launch (controlled, up, a missile in its store, power reaching it); a
+    // bay cut from every producing reactor (no power routed to it) neither draws nor launches.
+    if (!room.controlled || down(room) || isDestroyed(room) || s.ready.length === 0 || !room.powered) return 0;
+    s.energyDrawn = (s.energyDrawn || 0) + tierScaled(world, p.turret.powerDraw) * room.footprintFactor * survivingFraction(room) * supply(world, room) * world.dt;
+    if (!s.launching || !world.ship) return 0;
+    const interval = tierScaled(world, p.missilebay.launchInterval);
     if (s.lastLaunch !== null && world.t < s.lastLaunch + interval - 1e-9 * interval) return 0;
     const kind = s.ready.shift(), face = launchFace(world, room);
     const b = world.ship.bodies.find((x) => x.id === room.cells[face.k].fragment) || world.ship.bodies.find((x) => x.id === room.body);
@@ -1019,7 +1024,7 @@ export function railgunSlug(world, room) {
 /** Slugs a second at most: railgun.fireRate (k = -1), x 1 / sizeLinear in a cluster (the size rule's per-round rate). */
 const railgunRate = (world, room) => (world.sizeRule ? tierScaled(world, world.params.railgun.fireRate) / FIXED.sizeLinear.value[room.size] : tierScaled(world, world.params.railgun.fireRate));
 /** The railgun's mean draw (W) while it fires at its full rate: the muzzle energy / railgun.efficiency x the rate. */
-const railgunDraw = (world, room) => (railgunSlug(world, room).energy / world.params.railgun.efficiency.value) * railgunRate(world, room);
+const railgunDraw = (world, room) => (railgunSlug(world, room).energy / tierScaled(world, world.params.railgun.efficiency)) * railgunRate(world, room);
 /** Where the railgun's next slug comes from: a railgun magazine holding one on a live wall (first by room id), 'own' for a railgun alone holding one, else null. */
 function slugSource(world, room) {
   const m = railgunSlug(world, room).m;
@@ -1095,6 +1100,13 @@ const ON_CELL_DESTROYED = {
 };
 
 const TIMERS = {
+  // A missile bay's store cooks off at thermal.magazineCritical as a magazine's rounds do (#301, §17 item 46): its
+  // warheads and fuel (bayContents) explode, whatever its own (crewed) thresholds.
+  missileBay(world, room) {
+    if (room.exploded || bayContents(world, room).energy <= 0 || temperature(room.heat) < tierScaled(world, world.params.thermal.magazineCritical)) return;
+    const ev = event(world, room, 'cook-off', 'heat');
+    within(world.log, ev, () => detonate(world, room, 'heat'));
+  },
   reactor(world, room) {
     const r = room.reactor;
     if (r.breachStep !== null && !room.exploded && world.step >= r.breachStep) within(world.log, { id: r.breachEvent }, () => explode(world, room, explosionEnergy(world, room), r.breachCause));
@@ -1213,7 +1225,7 @@ export function loadTurret(room, rounds, typed = null) {
 }
 /** Rounds a turret's ready store holds: turret.readyRounds rounds of its own size (#193, #195). */
 export function readyStore(world, room) {
-  return world.params.turret.readyRounds.value;
+  return tierScaled(world, world.params.turret.readyRounds);
 }
 
 /** Set a magazine's contents off now with `cause` (L2.blast.walls; a cook-off and a hit take the same path). */
@@ -1319,12 +1331,14 @@ export function enablePowerRouting(world, priority = []) {
 
 /** The draw (W) a consumer asks for at the start of the step: its L1 draw in its current state. */
 const REQUEST = {
-  beamBay: (world, room) => (room.beamBay.firing ? (tierScaled(world, world.params.beam.power) * room.footprintFactor * survivingFraction(room)) / world.params.beambay.efficiency.value : 0),
+  beamBay: (world, room) => (room.beamBay.firing ? (tierScaled(world, world.params.beam.power) * room.footprintFactor * survivingFraction(room)) / tierScaled(world, world.params.beambay.efficiency) : 0),
   turret: (world, room) => (room.turret.ammo > 0 ? tierScaled(world, world.params.turret.powerDraw) * room.footprintFactor * survivingFraction(room) : 0),
   shieldGenerator: (world, room) => (room.shield.on ? tierScaled(world, world.params.shield.powerDraw) * room.footprintFactor * survivingFraction(room) : 0),
   engine: (world, room) => (room.controlled ? room.engine.throttle * room.footprintFactor * survivingFraction(room) * tierScaled(world, world.params.engine.powerDraw) : 0),
   quarters: (world, room) => tierScaled(world, world.params.quarters.powerDraw) * survivingFraction(room),
   railgun: (world, room) => (room.railgun.firing ? railgunDraw(world, room) : 0), // while ordered to fire (13n.1 (c))
+  // The missile bay asks as the turret does while its store holds a missile (#301, §17 item 46): so it is a powered room for EMP.
+  missileBay: (world, room) => (room.missileBay.ready.length > 0 ? tierScaled(world, world.params.turret.powerDraw) * room.footprintFactor * survivingFraction(room) : 0),
 };
 export function powerRequest(world, room) {
   if ((!REQUEST[room.type] && !room.rcs && !room.antennas && !room.pdLasers) || room.exploded || !room.active || down(room) || isDestroyed(room)) return 0;
@@ -1505,7 +1519,7 @@ function repairGrants(world) {
     const q = room.quarters;
     q.grants = []; q.budget = 0; q.paid = 0;
     if (room.exploded || !room.active || !room.powered || down(room) || isDestroyed(room)) continue;
-    const base = world.power ? p.repair.massRate.value * survivingFraction(room) * supply(world, room) : p.repair.massRate.value * survivingFraction(room);
+    const base = world.power ? tierScaled(world, p.repair.massRate) * survivingFraction(room) * supply(world, room) : tierScaled(world, p.repair.massRate) * survivingFraction(room);
     for (const other of world.rooms) {
       if (other === room || other.exploded) continue;
       const r = Math.hypot(other.position[0] - room.position[0], other.position[1] - room.position[1]);
@@ -1548,7 +1562,7 @@ function feedTurrets(world) {
     feedAmmo(world, {
       feedPerMetre: tierScaled(world, p.ammo.wallFeed),
       store: (room) => (room.type === 'missileBay' && !room.exploded && !isDestroyed(room)
-        ? { capacity: p.missilebay.readyMissiles.value, rounds: room.missileBay.ready.length, roundMass: tierScaled(world, p.missile.mass), size: 'M' }
+        ? { capacity: tierScaled(world, p.missilebay.readyMissiles), rounds: room.missileBay.ready.length, roundMass: tierScaled(world, p.missile.mass), size: 'M' }
         : null),
       has: (mag) => magazineType(mag) === 'missile' && mag.magazine.size === 'M' && mag.magazine.missiles > 0,
       take: (mag) => { mag.magazine.missiles--; moving = { seeker: mag.magazine.seeker, warhead: mag.magazine.warhead }; return true; },
@@ -1577,7 +1591,7 @@ const remainingIntegrity = (room) => room.cells.reduce((x, c) => x + (c.destroye
 // `own` (a burst entering from outside, 13n.1 (c)): the origin room is damaged by what it absorbs like any other room
 // (an explosion has already destroyed its own room); `cause` names the burst (default the origin's explosion).
 function blastThroughWalls(world, origin, E, integrityBefore, { own = false, cause: named = null } = {}) {
-  const qb = world.params.matter.blastPerKg.value;
+  const qb = tierScaled(world, world.params.matter.blastPerKg);
   const rooms = world.rooms.filter((r) => r.placed).sort((a, b) => byId(a.id, b.id));
   const cap = new Map(rooms.map((r) => [r, (r === origin ? integrityBefore : remainingIntegrity(r)) * qb * cellMassOf(world, r)]));
   const survivors = new Map(rooms.map((r) => [r, survivingCells(r)]));
@@ -1619,7 +1633,7 @@ function blastThroughWalls(world, origin, E, integrityBefore, { own = false, cau
  */
 export function contactBurst(world, x, energy, cause) {
   if (x.plate) return { room: x.plate.room, entered: 0, vented: energy };
-  const E = world.params.he.coupling.value * energy;
+  const E = tierScaled(world, world.params.he.coupling) * energy;
   blastThroughWalls(world, x.room, E, remainingIntegrity(x.room), { own: true, cause });
   return { room: x.room.id, entered: E, vented: energy - E };
 }
@@ -1662,11 +1676,11 @@ export function empBurst(world, point, energy, cause, t = world.t) {
     if (!(dose >= D)) continue;
     if (room.type === 'reactor') {
       scram(world, room, cause);
-      if (room.controlled) room.reactor.restartStep = world.step + stepsAtLeast(p.reactor.restartTime.value, world.dt); // its control kept: the restart clock runs now (#82)
+      if (room.controlled) room.reactor.restartStep = world.step + stepsAtLeast(tierScaled(world, p.reactor.restartTime), world.dt); // its control kept: the restart clock runs now (#82)
       hit.push({ room: room.id, dose, effect: 'scram' });
       continue;
     }
-    const end = t + p.emp.outageTime.value;
+    const end = t + tierScaled(world, p.emp.outageTime);
     room.outage = { end: room.outage ? Math.max(room.outage.end, end) : end };
     room.marks.outage = event(world, room, 'outage', cause, { dose, until: room.outage.end }).id;
     hit.push({ room: room.id, dose, effect: 'outage' });
@@ -1699,7 +1713,7 @@ export function addFitting(world, type, roomId, cell, side) {
   const mass = tierScaled(world, param(world, FITTING_MASS[type]));
   const f = { id: world.fittings.length, type, room: roomId, k, cell: [...cell], side: [...side], p: edgeMidpoint(world.edge, cell, side), mass, fired: false };
   if (type === 'antenna') f.scan = null; // the zone it scans and its progress (js/sensors.js)
-  if (type === 'pd') Object.assign(f, { ammo: world.params.pd.ammo.value, shots: 0, anchor: null, target: null }); // its own store of flak rounds (#93)
+  if (type === 'pd') Object.assign(f, { ammo: tierScaled(world, world.params.pd.ammo), shots: 0, anchor: null, target: null }); // its own store of flak rounds (#93)
   if (type === 'pdLaser') Object.assign(f, { target: null, energy: 0 }); // the missile it holds its beam on this step
   world.fittings.push(f);
   if (type === 'radiator') room.radiators++;
@@ -1960,12 +1974,12 @@ function laserRequest(world, room) {
   if (!room.controlled) return 0;
   let n = 0;
   for (const f of world.fittings) if (f.type === 'pdLaser' && f.room === room.id && f.target && cellAlive(room, f.k)) n++;
-  return (n * tierScaled(world, world.params.pdLaser.power)) / world.params.beambay.efficiency.value;
+  return (n * tierScaled(world, world.params.pdLaser.power)) / tierScaled(world, world.params.beambay.efficiency);
 }
 /** Heat (J) of the step from the room's lasers: their draw as delivered less the beam each puts on its missile. */
 function laserHeat(world, room) {
   let heat = 0;
-  for (const f of world.fittings) if (f.type === 'pdLaser' && f.room === room.id) { const P = laserPower(world, f); heat += (P / world.params.beambay.efficiency.value - P) * world.dt; }
+  for (const f of world.fittings) if (f.type === 'pdLaser' && f.room === room.id) { const P = laserPower(world, f); heat += (P / tierScaled(world, world.params.beambay.efficiency) - P) * world.dt; }
   return heat;
 }
 
@@ -2006,7 +2020,7 @@ function rcsRequest(world, room) {
 /** Heat (J) of the step from the room's fired RCS fittings: rcs.powerDraw x engine.heatFraction x fraction (13f.1). */
 function rcsHeat(world, room) {
   let heat = 0;
-  for (const f of world.fittings) if (f.type === 'rcs' && f.room === room.id) heat += rcsFraction(world, f) * tierScaled(world, world.params.rcs.powerDraw) * world.params.engine.heatFraction.value * world.dt;
+  for (const f of world.fittings) if (f.type === 'rcs' && f.room === room.id) heat += rcsFraction(world, f) * tierScaled(world, world.params.rcs.powerDraw) * tierScaled(world, world.params.engine.heatFraction) * world.dt;
   return heat;
 }
 
@@ -2107,15 +2121,15 @@ function heatRate(world, room) {
   if (room.exploded || !room.active || isDestroyed(room)) return 0;
   const p = world.params, sf = survivingFraction(room), f = room.footprintFactor * sf;
   let rate = 0;
-  if (room.type === 'reactor') rate = p.reactor.heatPerPower.value * room.reactor.demand * reactorPower(world, room) * sf;
+  if (room.type === 'reactor') rate = tierScaled(world, p.reactor.heatPerPower) * room.reactor.demand * reactorPower(world, room) * sf;
   else if (room.type === 'shieldGenerator') rate = room.shield.on ? tierScaled(world, p.shield.powerDraw) * f : 0;
-  else if (room.type === 'engine') rate = room.engine.throttle * tierScaled(world, p.engine.powerDraw) * f * p.engine.heatFraction.value;
-  else if (room.type === 'beamBay') { const beam = tierScaled(world, p.beam.power) * f; rate = room.beamBay.firing ? beam / p.beambay.efficiency.value - beam : 0; }
+  else if (room.type === 'engine') rate = room.engine.throttle * tierScaled(world, p.engine.powerDraw) * f * tierScaled(world, p.engine.heatFraction);
+  else if (room.type === 'beamBay') { const beam = tierScaled(world, p.beam.power) * f; rate = room.beamBay.firing ? beam / tierScaled(world, p.beambay.efficiency) - beam : 0; }
   else if (room.type === 'bridge') rate = tierScaled(world, p.bridge.powerDraw) * sf;
   else if (room.type === 'quarters') rate = tierScaled(world, p.quarters.powerDraw) * sf;
-  else if (room.type === 'railgun') rate = room.railgun.firing ? railgunDraw(world, room) * (1 - p.railgun.efficiency.value) : 0;
+  else if (room.type === 'railgun') rate = room.railgun.firing ? railgunDraw(world, room) * (1 - tierScaled(world, p.railgun.efficiency)) : 0;
   else if (room.type === 'turret' && !room.turret.hold && room.turret.ammo > 0) rate = tierScaled(world, p.turret.heatPerShot) * FIXED.sizeLinear.value[room.size] ** 3 * (tierScaled(world, p.turret.fireRate) / FIXED.sizeLinear.value[room.size]);
-  for (const fit of world.fittings) if (fit.type === 'rcs' && fit.room === room.id && fit.fired && cellAlive(room, fit.k)) rate += tierScaled(world, p.rcs.powerDraw) * p.engine.heatFraction.value;
+  for (const fit of world.fittings) if (fit.type === 'rcs' && fit.room === room.id && fit.fired && cellAlive(room, fit.k)) rate += tierScaled(world, p.rcs.powerDraw) * tierScaled(world, p.engine.heatFraction);
   return rate;
 }
 
@@ -2142,7 +2156,7 @@ export function readout(world) {
   const turn = (a) => (a > 0 ? 2 * Math.sqrt(Math.PI / 2 / a) : null);
   let generated = 0, panels = 0;
   for (const room of world.rooms) { generated += heatRate(world, room); panels += room.radiators; }
-  const capacity = radiatorPower(p.thermal.plantHot.value, panels, tierScaled(world, p.radiator.area), FIXED.radiatorEmissivity.value, FIXED.stefanBoltzmann.value);
+  const capacity = radiatorPower(tierScaled(world, p.thermal.plantHot), panels, tierScaled(world, p.radiator.area), FIXED.radiatorEmissivity.value, FIXED.stefanBoltzmann.value);
   return {
     mass: props.M, centre: props.c, inertia: props.I, accelerationG: thrust / props.M / FIXED.standardGravity.value,
     rcs: { ccw: ccw / props.I, cw: cw / props.I, turn90ccw: turn(ccw / props.I), turn90cw: turn(cw / props.I) },

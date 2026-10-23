@@ -37,9 +37,19 @@
 // round crossing its own hull segment in a step, or its beam leaving through it,
 // opens that segment, and a round of the other side entering through it in that
 // step meets no field. With none of these placed the loop is L5b's.
+// The helm and the enemy (L5d, 13n.1 (d), #301): the loop is symmetric, each side
+// with the same step (its beam, rounds, missiles and window against the other);
+// a side with `orders` flies them through its helm (js/helm.js) and a side with
+// an `enemy` personality decides through js/enemy.js, both from its own model
+// only (createBattle refuses either with knowledge off); a side with neither is
+// static as in L4 (the attacker on its plan, a case's test input read from its
+// model with knowledge on, #301 (1); the target on targetFire). Two ends join
+// Disabled and destroyed: the enemy's surrender (#85, #86) and escape (#293).
+// One id space (§17 item 35): battle.ids maps each world's own launch cause
+// (side:room:shot-k) to the battle's shot-n or missile-n id.
 // The per-second log (#129) and the cascade tree (#41) are built from the
-// kernel's events. No DOM, no Math.random (one seed per battle, #7, though no
-// rule draws from it yet), no Math.sin, Math.cos or Math.pow.
+// kernel's events. No DOM, no Math.random (one seed per battle, #7: the enemy's
+// dodge intervals and wildcard draw from it), no Math.sin, Math.cos or Math.pow.
 import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, enablePowerRouting, setDemand, step, fireRound, fireBeam, shieldRound, beamEnergy, setBeams, setRcs, cull, isDestroyed, survivingCells, magazineContents, magazineType, plateEntry, entryArealDensity, plateGone, cellAt, readout, roomTemperature, embedRound, contactBurst, empBurst, railgunSlug, magazineCapacity } from './rooms.js';
 import { TIERS, FIXED, ROOMS, scaled } from './data.js';
 import { validateShip, segmentKey } from './layout.js';
@@ -51,6 +61,8 @@ import { emit, within, createLog, cascadeTree, treeLines } from './events.js';
 import { createKnowledge, sense, setScan, knownAim, zoneCentre } from './sensors.js';
 import { moveMissile, seekerAim, steer } from './missile.js';
 import { aimLasers, pointDefence } from './defence.js';
+import { createHelm, helmStep } from './helm.js';
+import { createEnemy, enemyStep } from './enemy.js';
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
 const len = (a) => Math.sqrt(a[0] * a[0] + a[1] * a[1]); // Math.sqrt is correctly rounded on every engine
@@ -85,9 +97,9 @@ export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, 
   const loads = new Map(blueprint.rooms.filter((r) => r.load).map((r) => [r.id, r.load]));
   for (const r of world.rooms) {
     if (r.type === 'magazine') loadMagazine(world, r, loads.has(r.id) ? loadOf(world, r, loads.get(r.id)) : { heMass: scaled(params.magazine.capacity, edge) * r.cellRatio });
-    if (r.type === 'turret') { loadTurret(r, params.turret.readyRounds.value); r.turret.hold = true; }
+    if (r.type === 'turret') { loadTurret(r, scaled(params.turret.readyRounds, edge)); r.turret.hold = true; }
     if (r.type === 'shieldGenerator') r.shield.on = false;
-    if (r.type === 'missileBay') { const k = loads.get(r.id) || { seeker: 'designated', warhead: 'he' }; r.missileBay.ready = Array.from({ length: params.missilebay.readyMissiles.value }, () => ({ seeker: k.seeker, warhead: k.warhead })); }
+    if (r.type === 'missileBay') { const k = loads.get(r.id) || { seeker: 'designated', warhead: 'he' }; r.missileBay.ready = Array.from({ length: scaled(params.missilebay.readyMissiles, edge) }, () => ({ seeker: k.seeker, warhead: k.warhead })); }
   }
   enablePowerRouting(world);
   for (const r of world.rooms) if (r.type === 'reactor') setDemand(world, r, 1);
@@ -124,17 +136,26 @@ function loadOf(world, room, load) {
  * L5c (13n.1 (c)): `plan.railgun`, room ids the attacker's railgun fires at (its axis turned onto the first standing);
  * `plan.missile` { rooms: [ids], count }: the attacker's missile bay launches `count` missiles (default: every one it
  * has), each with its seeker, the designated one flying at the first standing of `rooms` as its model knows it.
+ * With `knowledge` on a plan is a test input read from the attacker's model (#301 (1)): a plan room is lost to it
+ * when its model knows the room and no standing cell of it (an unknown room stays the target, aimed at plan.zone).
+ * L5d (13n.1 (d), #301): `orders` { A, T }: a preset name or a full slot set (a case's test input) gives that side a
+ * helm (js/helm.js), which then flies, aims and fires it from its model in place of the plan or targetFire; `enemy`
+ * { A, T }: a personality ({ aggression, patience, caution, resolve } or { wildcard: true }) makes that side the
+ * enemy (js/enemy.js); both need `knowledge` (createBattle refuses them without it). `inputs`: the player's verbs,
+ * [{ t, side, verb: 'scan' | 'target' | 'preset', arg }], each applied before the first step that starts at or after
+ * t. `attackerHeading`: the attacker's heading at undock (default bow-on to the target).
  */
-export function createBattle({ params, tier = 'T1', attacker, target, bearing = '-y', distance = scaled(params.battle.openingRange, TIERS[tier].edge), seed = 1, plan = {}, targetFire = null, targetHeading = 0, targetVelocity = [0, 0], setup = {}, shield = {}, validate = true, knowledge = false, scans = [] }) {
+export function createBattle({ params, tier = 'T1', attacker, target, bearing = '-y', distance = scaled(params.battle.openingRange, TIERS[tier].edge), seed = 1, plan = {}, targetFire = null, targetHeading = 0, targetVelocity = [0, 0], setup = {}, shield = {}, validate = true, knowledge = false, scans = [], orders = {}, enemy = {}, inputs = [], attackerHeading = null }) {
+  if (!knowledge && (Object.keys(orders).length || Object.keys(enemy).length)) throw new Error('standing orders and the enemy read only their side\'s knowledge model: set knowledge: true (#301 (1), 13n.1 (d))');
   const edge = TIERS[tier].edge, k = params.kinetic;
   const u = typeof bearing === 'string' ? rotate(BEARINGS[bearing], targetHeading) : bearing;
   const T = buildShip(params, tier, target, { prefix: 'T', heading: targetHeading, velocity: targetVelocity, setup: setup.target, validate });
   const centre = T.world.ship.bodies[0].x, A0 = [centre[0] + distance * u[0], centre[1] + distance * u[1]];
-  const A = buildShip(params, tier, attacker, { prefix: 'A', heading: Math.atan2(-u[1], -u[0]), at: A0, setup: setup.attacker, validate });
+  const A = buildShip(params, tier, attacker, { prefix: 'A', heading: attackerHeading ?? Math.atan2(-u[1], -u[0]), at: A0, setup: setup.attacker, validate });
   const mass = scaled(k.roundMass, edge) * FIXED.sizeLinear.value.M ** 3;
   const side = (name, s, heading) => ({
     name, world: s.world, room: s.room, heading, undock: s.world.ship.bodies.reduce((m, b) => m + b.M, 0),
-    weapons: new Map(), since: null, sinceStep: null, ended: null, logIndex: 0, lineIndex: 0,
+    weapons: new Map(), since: null, sinceStep: null, ended: null, logIndex: 0, lineIndex: 0, helm: null, enemy: null, beam: null, beamId: null,
   });
   const battle = {
     params, tier, edge, grid: TIERS[tier].grid, dt: A.world.dt, seed, rng: rng(seed), t: 0, step: 0,
@@ -142,7 +163,7 @@ export function createBattle({ params, tier = 'T1', attacker, target, bearing = 
     plan: { turret: plan.turret || [], beam: plan.beam || [], turretPoint: plan.turretPoint || null, zone: plan.zone ?? null, railgun: plan.railgun || [], missile: plan.missile || null }, targetFire,
     rounds: [], shots: 0, beams: 0, hits: [], misses: [], spent: { m: 0, P: [0, 0], L: 0, K: 0, rounds: 0 }, embedded: 0,
     beam: null, lines: [], ended: null,
-    disabledSteps: stepsAtLeast(params.battle.disabledSeconds.value, A.world.dt),
+    disabledSteps: stepsAtLeast(scaled(params.battle.disabledSeconds, edge), A.world.dt),
   };
   // L5c (13n.1 (c)): missiles and flak rounds in flight, the missiles' thrust books, the window events' log.
   Object.assign(battle, { missiles: [], flak: [], missileShots: 0, flakShots: 0, thrust: { J: [0, 0], H: 0, Hgross: 0, work: 0 }, log: createLog('W') });
@@ -156,14 +177,26 @@ export function createBattle({ params, tier = 'T1', attacker, target, bearing = 
   battle.knowledge = !!knowledge;
   if (battle.knowledge) {
     for (const s of battle.sides) s.model = createKnowledge(s.world, s.other.world);
-    battle.pairs = battle.sides.map((s) => ({ world: s.world, model: s.model }));
+    battle.pairs = battle.sides.map((s) => ({ world: s.world, model: s.model, other: s.other.world })); // the model keeps no reference to the other world (#301, item 45 (a))
     battle.scans = scans.map((x) => ({ ...x, step: stepsAtLeast(x.at || 0, A.world.dt), done: false }));
     sense(battle.pairs, { scan: false }); // the silhouette and what is seen at undock, before any step
   }
+  // L5d (13n.1 (d)): the helms and the enemy; the verbs; escape's books.
+  for (const [name, s] of [['A', battle.attacker], ['T', battle.target]]) {
+    if (enemy[name]) createEnemy(battle, s, enemy[name]);
+    else if (orders[name]) s.helm = createHelm(battle, s, orders[name]);
+    if (s.helm && enemy[name] && orders[name]) s.helm.orders = createHelm(battle, s, orders[name]).orders;
+  }
+  battle.inputs = inputs.map((x) => ({ ...x, step: stepsAtLeast(x.t || 0, A.world.dt), done: false }));
+  battle.ids = new Map(); // one id space (§17 item 35): each world's own cause of a launch -> the battle's id
+  battle.separation = { last: null, passed: null, widening: 0 };
   aim(battle);
-  // The attacker's first heading: its beam on its first aim point, else bow-on to the target's centre of mass.
+  // The attacker's first heading: its beam on its first aim point, else bow-on to the target's centre of mass; a helm
+  // keeps the heading it undocked with until its first step.
   const ab = mainBody(battle.attacker);
-  ab.theta = battle.attacker.heading;
+  if (!battle.attacker.helm) ab.theta = battle.attacker.heading;
+  else battle.attacker.heading = ab.theta;
+  if (battle.target.helm) battle.target.heading = mainBody(battle.target).theta;
   checkEnd(battle);
   logLine(battle);
   return battle;
@@ -190,6 +223,18 @@ export function aimPoint(side, room) {
   return worldPoint(b, cellPoint(side, room, k));
 }
 const firstStanding = (side, ids) => ids.map((id) => side.room(id)).find((r) => r && !isDestroyed(r)) || null;
+/**
+ * A plan's room as the shooter's model has it (#301 (1), §17 item 45 (a)): the first of `ids` its model does not know
+ * (it stays the target, aimed at the case's zone) or knows with a standing cell; one its model knows with no standing
+ * cell is lost to it.
+ */
+const modelStanding = (shooter, side, ids) => ids.map((id) => side.room(id)).find((r) => {
+  if (!r) return false;
+  const k = shooter.model.rooms.get(r.id);
+  return !k || k.cells.some((c) => !shooter.model.cells.get(c).destroyed);
+}) || null;
+/** The plan's pick: by the truth with knowledge off, by the shooter's model with it on (#301 (1)). */
+const planPick = (battle, ids) => (battle.knowledge ? modelStanding(battle.attacker, battle.target, ids) : firstStanding(battle.target, ids));
 /** The bay's bow face (grid m): the beam leaves there along the ship's axis (#234). */
 function bayFace(side, bay) {
   const cells = side.world.layout.rooms.get(bay.id).cells, e = side.world.edge;
@@ -208,9 +253,17 @@ function headingThrough(body, face, P) {
 
 /** Before the step: the attacker's turret and beam on the plan's first standing rooms, its wanted heading; the target's fire order. */
 function aim(battle) {
+  if (!battle.attacker.helm) aimPlan(battle);
+  if (battle.targetFire && !battle.target.helm) {
+    const t = battle.target.world.rooms.find((r) => r.type === 'turret');
+    if (t) { t.turret.hold = false; t.turret.aim = [...battle.targetFire.aim]; }
+  }
+}
+/** The attacker's plan (a case's test input, #301 (1)): its turret, beam, railgun and first missile bay on the plan's rooms. */
+function aimPlan(battle) {
   const A = battle.attacker, T = battle.target, ab = mainBody(A);
   const turret = A.world.rooms.find((r) => r.type === 'turret'), bay = A.world.rooms.find((r) => r.type === 'beamBay');
-  const tr = firstStanding(T, battle.plan.turret), br = firstStanding(T, battle.plan.beam);
+  const tr = planPick(battle, battle.plan.turret), br = planPick(battle, battle.plan.beam);
   // With the knowledge model (13n.1 (a), #289) a plan room is aimed at as the model knows it, else at the centre of the
   // zone the case names; without it, at the room itself (L4b).
   const pointAt = (room) => !room ? null : !battle.knowledge ? aimPoint(T, room) : knownAim(A.model, room.id) || (battle.plan.zone !== null ? zoneCentre(A.model, battle.plan.zone) : null);
@@ -227,20 +280,17 @@ function aim(battle) {
     const was = bay.beamBay.firing;
     bay.beamBay.firing = !!P;
     if (P && !was) battle.beamId = `beam-${++battle.beams}`; // a new beam id each time the bay starts firing
+    A.beamId = battle.beamId;
   }
   // The railgun (13n.1 (c)): fires while the plan names a standing room; its axis turned onto it when the beam has none.
-  const rail = A.world.rooms.find((r) => r.type === 'railgun'), Pr = rail ? pointAt(firstStanding(T, battle.plan.railgun)) : null;
+  const rail = A.world.rooms.find((r) => r.type === 'railgun'), Pr = rail ? pointAt(planPick(battle, battle.plan.railgun)) : null;
   if (rail) rail.railgun.firing = !!Pr;
   A.heading = P && bay ? headingThrough(ab, bayFace(A, bay), P) : Pr ? headingThrough(ab, bayFace(A, rail), Pr) : (() => { const D = sub(mainBody(T).x, ab.x); return Math.atan2(D[1], D[0]); })();
   // The missile bay launches while the plan asks for missiles it has not launched yet (13n.1 (c)).
   const mb = A.world.rooms.find((r) => r.type === 'missileBay'), mp = battle.plan.missile;
   if (mb) mb.missileBay.launching = !!mp && mb.missileBay.launches < (mp.count ?? Infinity);
   // A typed turret store fires the type its target calls for (#95, 13n.1 (c)).
-  if (turret && turret.turret.typed) turret.turret.want = roundFor(battle, turret, tr);
-  if (battle.targetFire) {
-    const t = T.world.rooms.find((r) => r.type === 'turret');
-    if (t) { t.turret.hold = false; t.turret.aim = [...battle.targetFire.aim]; }
-  }
+  if (turret && turret.turret.typed) turret.turret.want = roundFor(battle, A, turret, tr);
 }
 
 /**
@@ -249,18 +299,18 @@ function aim(battle) {
  * the turret to the model's aim point before the aim cell) and AP when it lies behind at least one cell; Standard on a
  * zone (a room the model does not know), at a case's point, and without the model.
  */
-function roundFor(battle, turret, room) {
-  if (!room || !battle.knowledge || battle.plan.turretPoint) return 'standard';
-  const A = battle.attacker, model = A.model, known = model.rooms.get(room.id);
+function roundFor(battle, A, turret, room) {
+  if (!room || !battle.knowledge || (!A.helm && battle.plan.turretPoint)) return 'standard';
+  const model = A.model, known = model.rooms.get(room.id);
   const c = known && known.cells.map((k) => model.cells.get(k)).filter((x) => !x.destroyed).sort((x, y) => x.k - y.k)[0];
   if (!c) return 'standard';
   const sil = model.silhouette, id = sil.standing.get(`${c.cell[0]},${c.cell[1]}`);
   const pose = sil.bodies.find((b) => b.id === id) || sil.bodies.find((b) => b.id === 'body-0') || sil.bodies[0];
-  const e = model.other.edge, a = toGrid(pose, worldPoint(bodyOfRoom(A, turret), turret.position)), q = [(c.cell[0] + 0.5) * e, (c.cell[1] + 0.5) * e];
+  const e = model.edge, a = toGrid(pose, worldPoint(bodyOfRoom(A, turret), turret.position)), q = [(c.cell[0] + 0.5) * e, (c.cell[1] + 0.5) * e];
   const v = sub(q, a), L = len(v);
   if (!(L > 0)) return 'he';
   let before = 0;
-  for (const x of crossedCells(a, [v[0] / L, v[1] / L], model.other.layout.grid, e)) {
+  for (const x of crossedCells(a, [v[0] / L, v[1] / L], model.grid, e)) {
     if (x.cell[0] === c.cell[0] && x.cell[1] === c.cell[1]) break;
     if (sil.standing.has(`${x.cell[0]},${x.cell[1]}`) && (x.t1 - x.t0) / e > CORNER) before++;
   }
@@ -386,23 +436,29 @@ export function toGrid(pose, q) {
 const poseOf = (b) => ({ id: b.id, x: [...b.x], c: [...b.c], theta: b.theta });
 
 // ---------- weapons in flight ----------
-/** Before the step: the attacker's beam line on the target, the target's shield paying at the entry point (13d.1). */
+/** Before the step: each side's beam line on the other ship (its first beam bay's), the other's shield paying at the entry point (13d.1). */
 function beamsIn(battle) {
-  const A = battle.attacker, T = battle.target, bay = A.world.rooms.find((r) => r.type === 'beamBay');
-  battle.beam = null;
-  if (!bay || !bay.beamBay.firing || !(bay.beamBay.beam > 0)) { setBeams(T.world, []); return; }
-  const b = bodyOfRoom(A, bay), from = worldPoint(b, bayFace(A, bay)), dir = rotate([1, 0], b.theta);
-  const hit = lineHit(T, from, null, dir);
-  battle.beam = { id: battle.beamId, power: bay.beamBay.beam, from, dir, hit, energy: beamEnergy(A.world, bay) };
-  setBeams(T.world, hit ? [{ id: battle.beamId, position: hit.entry, power: bay.beamBay.beam }] : []);
+  for (const A of battle.sides) {
+    const T = A.other, bay = A.world.rooms.find((r) => r.type === 'beamBay');
+    A.beam = null;
+    if (A === battle.attacker) battle.beam = null;
+    if (!bay || !bay.beamBay.firing || !(bay.beamBay.beam > 0)) { setBeams(T.world, []); continue; }
+    const b = bodyOfRoom(A, bay), from = worldPoint(b, bayFace(A, bay)), dir = rotate([1, 0], b.theta);
+    const hit = lineHit(T, from, null, dir);
+    A.beam = { id: A.beamId, power: bay.beamBay.beam, from, dir, hit, energy: beamEnergy(A.world, bay) };
+    if (A === battle.attacker) battle.beam = A.beam;
+    setBeams(T.world, hit ? [{ id: A.beamId, position: hit.entry, power: bay.beamBay.beam }] : []);
+  }
 }
-/** After the step: what the shield let through goes along the path (fireBeam), with the beam's id as its cause. */
+/** After the step: what each shield let through goes along the path (fireBeam), with the beam's id as its cause. */
 function beamsOut(battle) {
-  const x = battle.beam, T = battle.target;
-  if (!x || !x.hit) return;
-  const res = T.world.beamResults.find((r) => r.id === x.id);
-  if (!res || !(res.passed > 0)) return;
-  x.result = fireBeam(T.world, { power: res.passed, energy: x.energy, range: len(sub(mainBody(T).x, x.from)) }, x.hit.path, x.id);
+  for (const A of battle.sides) {
+    const x = A.beam, T = A.other;
+    if (!x || !x.hit) continue;
+    const res = T.world.beamResults.find((r) => r.id === x.id);
+    if (!res || !(res.passed > 0)) continue;
+    x.result = fireBeam(T.world, { power: res.passed, energy: x.energy, range: len(sub(mainBody(T).x, x.from)) }, x.hit.path, x.id);
+  }
 }
 
 /**
@@ -419,6 +475,7 @@ function launch(battle) {
         const x = s.world.ship.missiles.find((y) => y.cause === e.cause && !y.id);
         if (!x) continue;
         Object.assign(x, { id: `missile-${++battle.missileShots}`, shooter: s, other: s.other, event: e.id, dose: 0 });
+        battle.ids.set(`${s.name}:${e.cause}`, x.id);
         battle.missiles.push(x);
         continue;
       }
@@ -427,6 +484,7 @@ function launch(battle) {
       if (!ref) continue;
       const id = `shot-${++battle.shots}`;
       ref.battle = id;
+      battle.ids.set(`${s.name}:${e.cause}`, id); // one id space (§17 item 35): the shooter's own cause names the battle's id
       battle.rounds.push({ id, shooter: s, other: s.other, ref, prev: [...ref.x0], t0: e.t, event: e.id });
       if (battle.knowledge) s.model.shots.push({ id, t: e.t });
     }
@@ -510,7 +568,7 @@ function strike(battle, r, hit) {
     // An HE round bursts at its stopping entry (13n.1 (c)): a contact burst of its he.blastEnergy there.
     if (r.ref.type === 'he' && res.stoppedIn >= 0) {
       const y = hit.path[res.stoppedIn], host = y.plate ? r.other.room(y.plate.room) : y.room, E = r.ref.burst;
-      const ev = emit(w.log, { t: battle.t, type: 'burst', room: host.id, cause: r.id, crew: host.crew, energy: E, entered: y.plate ? 0 : battle.params.he.coupling.value * E, channel: 'blast', parent: r.id });
+      const ev = emit(w.log, { t: battle.t, type: 'burst', room: host.id, cause: r.id, crew: host.crew, energy: E, entered: y.plate ? 0 : scaled(battle.params.he.coupling, battle.edge) * E, channel: 'blast', parent: r.id });
       within(w.log, ev, () => contactBurst(w, y, E, r.id));
     }
   }
@@ -575,12 +633,13 @@ function windows(battle, before) {
     for (const seg of res.segments) note(s, room, seg, r.id);
     if (res.outside) r.cleared = true;
   }
-  const x = battle.beam, A = battle.attacker;
-  if (x && x.power > 0) {
+  for (const A of battle.sides) {
+    const x = A.beam;
+    if (!x || !(x.power > 0)) continue;
     const bay = A.world.rooms.find((r) => r.type === 'beamBay'), cells = A.world.layout.rooms.get(bay.id).cells, e = A.world.edge;
     const x1 = Math.max(...cells.map((c) => c[0])), y = bay.position[1], j = Math.floor(y / e), rows = Math.abs(y - j * e) < 1e-9 ? [j - 1, j] : [j];
-    for (const row of rows) if (cells.some((c) => c[0] === x1 && c[1] === row)) { const seg = segmentKey([x1, row], [1, 0]); if (!A.open.has(seg)) { A.open.add(seg); if (battle.windowBeam !== x.id) note(A, bay, seg, x.id); } }
-    battle.windowBeam = x.id;
+    for (const row of rows) if (cells.some((c) => c[0] === x1 && c[1] === row)) { const seg = segmentKey([x1, row], [1, 0]); if (!A.open.has(seg)) { A.open.add(seg); if (A.windowBeam !== x.id) note(A, bay, seg, x.id); } }
+    A.windowBeam = x.id;
   }
 }
 
@@ -601,7 +660,9 @@ function flyMissiles(battle, before) {
   if (!battle.knowledge) throw new Error('missiles need the knowledge model: their seekers read only it (13n.1 (c)); set knowledge: true');
   const dt = battle.dt, t0 = battle.t - dt;
   for (const x of battle.missiles) {
-    const target = battle.plan.missile && firstStanding(x.other, battle.plan.missile.rooms || []);
+    // The designated seeker's room: its shooter's helm target, else the plan's (a test input, read by the model, #301 (1)).
+    const target = x.shooter.helm ? (x.shooter.helm.target && x.shooter.helm.target.room ? x.other.room(x.shooter.helm.target.room) : null)
+      : battle.plan.missile && modelStanding(x.shooter, x.other, battle.plan.missile.rooms || []);
     x.aim = seekerAim(x.shooter.model, x, target ? target.id : null);
     if (x.aim.point) steer(x, x.aim.point);
     const k = moveMissile(x.shooter.world, x, t0, dt), th = battle.thrust;
@@ -711,7 +772,7 @@ const eventIndex = (id) => Number(String(id).replace(/^\D+/, '')) || 0;
  * an event in the side's log ('destroyed', 'disabled') whose parent is the event that caused it.
  */
 function checkEnd(battle) {
-  const wreck = battle.params.battle.wreckFraction.value;
+  const wreck = scaled(battle.params.battle.wreckFraction, battle.edge);
   for (const s of battle.sides) {
     const w = s.world, ev = w.log.events;
     const boom = ev.slice(s.boomIndex || 0).find((e) => e.type === 'explosion' && s.room(e.room)?.type === 'reactor');
@@ -726,20 +787,62 @@ function checkEnd(battle) {
     }
     if (states.some((x) => x.able)) { s.since = null; s.sinceStep = null; continue; }
     if (s.sinceStep === null) { s.sinceStep = battle.step; s.since = battle.t; }
+    // The weapon that lost its ability last; a tie goes to the later event that took it.
+    const last = () => [...s.weapons.entries()].map(([id, x]) => ({ id, ...x })).sort((a, b) => b.step - a.step || eventIndex(b.parent) - eventIndex(a.parent))[0];
     if (battle.step - s.sinceStep >= battle.disabledSteps) {
-      // The weapon that lost its ability last; a tie goes to the later event that took it.
-      const lost = [...s.weapons.entries()].map(([id, x]) => ({ id, ...x })).sort((a, b) => b.step - a.step || eventIndex(b.parent) - eventIndex(a.parent))[0];
+      const lost = last();
       end(battle, s, 'disabled', { room: lost ? lost.id : 'ship', parent: lost ? lost.parent : 'launch', why: lost ? lost.why : null });
+    } else if (s.enemy && battle.step - s.sinceStep >= stepsAtLeast(scaled(battle.params.battle.disabledSeconds, battle.edge) * (1 - s.enemy.personality.resolve), battle.dt)) {
+      // Surrender (#85, #86, #273 (5), 13n.1 (d)): the enemy strikes its colours battle.disabledSeconds x (1 - resolve)
+      // after losing its last weapon; a capture, its own end kind (the same loot, #83). At resolve 1 it is Disabled first.
+      const lost = last();
+      end(battle, s, 'surrender', { room: lost ? lost.id : 'ship', parent: lost ? lost.parent : 'launch', why: lost ? lost.why : null });
     }
   }
+  escape(battle);
 }
-function end(battle, s, kind, { by = null, room, parent, why = null }) {
+/**
+ * Escape (#293, 13n.1 (d)): the separation of the two flown bodies' centres of mass beyond battle.cullDistance and
+ * growing for battle.disabledSeconds of consecutive steps counted only beyond it (the first such step is the step it
+ * passes the distance; the count runs from the next): the side that ordered `disengage` escapes (the first to order it
+ * when both did; neither: no escape), the event 'escaped' in its log with the separation, its own end kind.
+ */
+function escape(battle) {
+  const a = mainBody(battle.attacker), b = mainBody(battle.target), x = battle.separation;
+  if (!a || !b) return;
+  const d = len(sub(a.x, b.x)), D = scaled(battle.params.battle.cullDistance, battle.edge);
+  if (!(d > D)) { x.passed = null; x.widening = 0; }
+  else if (x.passed === null) { x.passed = battle.step; x.widening = 0; }
+  else if (d > x.last) x.widening++;
+  else { x.widening = 0; x.passed = battle.step; }
+  x.last = d;
+  if (battle.ended || x.widening < battle.disabledSteps) return;
+  const runners = battle.sides.filter((s) => s.helm && s.helm.disengageStep !== null && !s.ended).sort((p, q) => p.helm.disengageStep - q.helm.disengageStep);
+  if (runners.length) end(battle, runners[0], 'escaped', { room: 'ship', parent: 'launch', separation: d });
+}
+function end(battle, s, kind, { by = null, room, parent, why = null, separation = null }) {
   if (s.ended) return;
   const r = s.room(room), crew = r ? r.crew : s.world.rooms.reduce((x, y) => x + y.crew, 0);
-  const extra = kind === 'disabled' ? { since: s.since } : { by };
+  const extra = kind === 'disabled' || kind === 'surrender' ? { since: s.since } : kind === 'escaped' ? { separation } : { by };
   const e = emit(s.world.log, { t: battle.t, type: kind, room, cause: parent, crew, parent, ...extra });
   s.ended = { kind, t: battle.t, step: battle.step, event: e.id, parent, why, by };
   if (!battle.ended) battle.ended = { side: s.name, kind, t: battle.t, step: battle.step, event: e.id, parent, why, by };
+}
+
+// ---------- the player's verbs (13n.1 (d)) ----------
+/**
+ * A verb of the player's (a case's input, #39, 13n.1 (d)): 'scan' zone k (the side's first antenna, a one-shot command),
+ * 'target' room id (read only through the side's model: a room it does not know is no target until it does), 'preset'
+ * name (the whole set of twelve). Each recorded in battle.verbs.
+ */
+function verb(battle, x) {
+  const s = battle[x.side === 'T' ? 'target' : 'attacker'];
+  if (!s.helm) throw new Error(`a verb needs a side with a helm (orders), side ${x.side}`);
+  if (x.verb === 'scan') setScan(s.world, 0, x.arg);
+  else if (x.verb === 'target') s.helm.verbTarget = x.arg;
+  else if (x.verb === 'preset') s.helm.orders = createHelm(battle, s, x.arg).orders;
+  else throw new Error(`unknown verb ${x.verb}: scan, target or preset (13n.1 (d))`);
+  (battle.verbs ??= []).push({ step: battle.step, t: battle.t, side: s.name, verb: x.verb, arg: x.arg });
 }
 
 // ---------- the loop ----------
@@ -747,7 +850,12 @@ function end(battle, s, kind, { by = null, room, parent, why = null }) {
 export function tick(battle) {
   if (battle.ended) return;
   if (battle.knowledge) for (const x of battle.scans) if (!x.done && battle.step >= x.step) { setScan(battle[x.side === 'T' ? 'target' : 'attacker'].world, x.antenna, x.zone); x.done = true; }
+  for (const x of battle.inputs) if (!x.done && battle.step >= x.step) { verb(battle, x); x.done = true; }
   aim(battle);
+  for (const s of battle.sides) {
+    if (s.enemy && !s.ended) enemyStep(battle, s);
+    if (s.helm && !s.ended) { helmStep(battle, s); const t = s.world.rooms.find((r) => r.type === 'turret'); if (t && t.turret.typed) t.turret.want = roundFor(battle, s, t, s.helm.target && s.helm.target.room ? s.other.room(s.helm.target.room) : null); }
+  }
   for (const s of battle.sides) holdHeading(battle, s);
   beamsIn(battle);
   if (battle.pd) aimLasers(battle); // a laser holds its missile through the step (its draw is asked for in it)
