@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — The overheat route (#291) and EMP by section (#292)
+
+- `DECISIONS.md` #291: the owner's option 1 on §17 item 43 with a condition;
+  `thermal.coupledCrewed`'s range 0.2–1 MJ/K (`js/data.js`, every passing
+  scenario re-recorded); `L5.route.throughput` as an L5e measure;
+  `tools/estimates/item43.mjs`. #292: EMP disables a section: 2 MJ / 20 m /
+  1.47 MJ (12 m reach), `emp.outageTime` (new, 5 s); W7 and H9 reworded;
+  `tools/estimates/l5.mjs` (4) prints the section reach on R1. `DESIGN.md`
+  §13k.2, §13n.1 (c), (d), (e), §13n.2, §13n.3, §13n.4, §17 item 43, §18.
+  `IDEAS.md`: the tracking-mines idea (the design partner, `00864e8`).
+
 ## Unreleased — 2026-10-23 — L5b merged: the senses and the knowledge model (#290)
 
 - `js/sensors.js` (new): IR and EM point sources, passive resolution at

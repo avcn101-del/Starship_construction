@@ -18,6 +18,7 @@ import { radiatorPower } from '../../js/heat.js';
 import { penetrateRound } from '../../js/damage.js';
 import { roundGeometry, sectionalMomentum } from '../../js/projectile.js';
 import { shieldStrength } from '../../js/field.js';
+import { edgeMidpoint } from '../../js/layout.js';
 import { buildShip, createBattle, runBattle, weaponStates, largestFraction } from '../../js/battle.js';
 import { TARGETS, ATTACKER, R1_ROOMS, R1_FITTINGS } from '../../mission0/targets.js';
 
@@ -53,10 +54,11 @@ const PLANNED = {
   'missile.acceleration': 30, // m/s^2, k = 0: about 3 g, so a 900 m flight takes 7.7 s (#54: 8-15 s)
   'missile.burnTime': 20, // s, k = 0
   'missile.warheadEnergy': 2e7, // J, k = 3: the HE warhead (10 M HE rounds); the penetrator's mass below
-  'missile.empEnergy': 1e7, // J, k = 3: the EMP warhead's field budget (#99): one charged M shield buffer at g = 1
+  'missile.empEnergy': 2e6, // J, k = 3: the EMP warhead's field budget (#99); the floor of its range: a section's reach (#292; 1e7 in #278)
+  'emp.outageTime': 5, // s, k = 0: a powered room in the burst's reach is shut down this long; under battle.disabledSeconds (#292)
   'missile.penetratorMass': 50, // kg, k = 3: a steel rod, roundLengthToDiameter long
-  'emp.radius': 40, // m, k = 1: half-strength radius of the burst's field (the shield's shape, #99)
-  'emp.scramDose': 1e6, // J, k = 2: a reactor that receives at least this SCRAMs (the control electronics, not the vessel)
+  'emp.radius': 20, // m, k = 1: half-strength radius of the burst's field (the shield's shape, #99); 40 in #278 (#292)
+  'emp.scramDose': 1.47e6, // J, k = 2: a powered room whose centre receives at least this is hit: a reactor SCRAMs, another room shuts for emp.outageTime (#292; 1e6 in #278)
   // point defence (13n.1 (c))
   'pd.fireRate': 2, // 1/s, k = -1: the kinetic fitting, M flak rounds
   'pd.ammo': 40, // rounds, k = 0: its own store (#93)
@@ -194,7 +196,21 @@ line('\n# (4) Missiles (13n.1 (c)): flight, warheads against cell capacities, EM
   line(`  penetrator ${pen.mass} kg at ${f(pen.v, 0)} m/s (a 900 m flight): s0 ${f(pen.s0, 0)} (${f(pen.s0 / mRound.s0, 2)} x M): crewed cells passed ${t.res.passed}${t.res.stoppedIn >= 0 ? `, stops in entry ${t.res.stoppedIn}` : ''}`);
   const R = Pn('emp.radius'), dose = Pn('emp.scramDose'), buffer = scaled(params.shield.buffer, edge), Ee = Pn('missile.empEnergy');
   const reach = (E) => (E > dose ? R * Math.sqrt(E / dose - 1) : 0);
-  line(`  EMP burst of ${f(Ee / 1e6, 0)} MJ at the hull: a reactor at r receives E g(r), g = 1 / (1 + (r / ${R} m)^2) (#99, the shield's shape): SCRAMs (dose >= ${f(dose / 1e6, 1)} MJ) within ${f(reach(Ee), 0)} m of the burst (R1 is ${11 * edge} m long: every reactor); a charged shield buffer (${f(buffer / 1e6, 0)} MJ at g = 1) takes min(E, buffer x g) first: at g = 1 the whole burst, at g = 0.5 (40 m from the generator) half, leaving ${f((Ee - 0.5 * buffer) / 1e6, 0)} MJ that reaches ${f(reach(Ee - 0.5 * buffer), 0)} m; shields down (running cold, or a drained buffer) let it all through: the EMP route is the counter to a ship that runs cold`);
+  const reachM = reach(Ee);
+  line(`  EMP burst of ${f(Ee / 1e6, 1)} MJ at the hull (#292: a section, not the ship): a powered room whose centre is at r receives E g(r), g = 1 / (1 + (r / ${R} m)^2) (#99, the shield's shape); hit when the dose is at least ${f(dose / 1e6, 2)} MJ, within r* = R sqrt(E / D - 1) = ${f(reachM, 1)} m (${f(reachM / edge, 1)} cells): a reactor SCRAMs (reactor.restartTime ${params.reactor.restartTime.value} s > battle.disabledSeconds ${params.battle.disabledSeconds.value} s), another room shuts down for emp.outageTime ${Pn('emp.outageTime')} s (< ${params.battle.disabledSeconds.value} s: an outage alone ends nothing); a charged shield buffer (${f(buffer / 1e6, 0)} MJ at g = 1) takes min(E, buffer x g) first`);
+  {
+    const { world: r1 } = buildShip(params, 'T1', TARGETS.R1, { origin: [0, 0] });
+    const centres = r1.rooms.map((r) => ({ id: r.id, c: r.position })), inReach = (p) => centres.filter((r) => Ee * shieldStrength(Math.hypot(r.c[0] - p[0], r.c[1] - p[1]), R, 2) >= dose).map((r) => r.id);
+    const segs = [];
+    for (const [id, lay] of r1.layout.rooms) for (const c of lay.cells) for (const sd of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (!r1.layout.occupied.has(`${c[0] + sd[0]},${c[1] + sd[1]}`)) segs.push({ room: id, p: edgeMidpoint(edge, c, sd) });
+    const count = (pred) => segs.filter((sg) => pred(inReach(sg.p))).length;
+    line(`  R1 (room centres from the kernel): a burst at one of its ${segs.length} hull segments reaches the reactor from ${count((h) => h.includes('reactor'))}, the bridge from ${count((h) => h.includes('bridge'))}, both weapons from ${count((h) => h.includes('beamBay') && h.includes('turret'))}, the engine from ${count((h) => h.includes('engine'))}, nothing from ${count((h) => !h.length)}`);
+    const centre = [27.5, 15]; // the silhouette's centre: the occupied box 11 x 6 cells
+    for (const [name, p] of [['-y', [centre[0], 10]], ['+y', [centre[0], 30]], ['bow (+x)', [55, centre[1]]], ['stern (-x)', [0, centre[1]]]]) line(`    an unscanned missile at the silhouette's centre from ${name} bursts at (${p}) and reaches: ${inReach(p).join(', ') || 'nothing'}`);
+    const gen = centres.find((r) => r.id === 'shield').c, far = Math.max(...segs.map((sg) => Math.hypot(sg.p[0] - gen[0], sg.p[1] - gen[1])));
+    const gs = shieldStrength(far, scaled(params.shield.radius, edge), 2);
+    line(`    shields up, a charged buffer: at R1's hull point farthest from the generator (${f(far, 1)} m, g ${f(gs, 2)}) the buffer covers ${f((buffer * gs) / 1e6, 1)} MJ, so ${f(Math.max(0, Ee - buffer * gs) / 1e6, 2)} MJ gets through: the shield is the counter`);
+  }
   const rate = Pn('pd.fireRate'), ammo = Pn('pd.ammo'), fr = Pn('flak.radius'), Ef = scaled(params.he.blastEnergy, edge);
   const kill = fr * Math.sqrt(Ef / hp - 1);
   line(`  kinetic point defence: M flak (${f(Ef / 1e6, 1)} MJ) bursts at closest approach; the missile dies when E g(r) >= its hp: within ${f(kill, 1)} m; ${rate} rounds/s from a store of ${ammo} (#93): ${ammo / rate} s of fire; a missile accelerating at ${a} m/s^2 moves ${f(0.5 * a * 0.5 * 0.5, 2)} m across the line in a 0.5 s flak flight: the flak's miss is physical only at the last seconds`);
