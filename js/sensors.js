@@ -21,7 +21,11 @@
 // per side; the battle (js/battle.js) builds it when its `knowledge` setting is
 // on, and its aim reads only it. Events go to the observer's log, room the
 // antenna's host: 'scan-started' (root scan-<n>), 'zone-resolved' (its parent
-// the scan-started), 'source-resolved' (root 'sense').
+// the scan-started), 'source-resolved' (root 'sense'). L5c (13n.1 (c)): a
+// missile in flight is a source of its side: its exhaust in the IR while it
+// burned in the step (jet power m a v_e / 2, the engine's formula), and a radar
+// seeker's scan in the EM band (sensor.scanPower); an antenna's host in an EMP's
+// outage does not scan. The seekers (js/missile.js) read the model.
 // No DOM, no Math.random.
 import { scaled } from './data.js';
 import { irBrightness, isDestroyed, plateGone, roomTemperature } from './rooms.js';
@@ -87,7 +91,7 @@ export function setScan(world, antenna, zone) {
 /** An antenna can scan this step: given a zone, its cell standing, its host controlled, powered, switched on, not shut down, manned or destroyed (#289). */
 function scanAble(world, f) {
   const host = roomById(world, f.room);
-  return !!f.scan && !host.cells[f.k].destroyed && host.controlled && host.powered && host.active && !host.shutdown && !host.unmanned && !host.exploded && !isDestroyed(host);
+  return !!f.scan && !host.cells[f.k].destroyed && host.controlled && host.powered && host.active && !host.shutdown && !host.unmanned && !host.outage && !host.exploded && !isDestroyed(host);
 }
 /** The world point (m) of a fitting's edge midpoint, on the body holding its cell. */
 const fittingPoint = (world, f) => worldPoint(bodyById(world, roomById(world, f.room).cells[f.k].fragment), f.p);
@@ -124,6 +128,12 @@ export function sourcesOf(world) {
       const P = room.shield.em + room.shield.roundEm;
       if (P > 0) out.push({ id: `shield:${room.id}`, kind: 'shield', band: 'em', P, position: worldPoint(bodyById(world, room.body), room.position) });
     }
+  }
+  // Missiles in flight (L5c, 13n.1 (c)): the exhaust while it burned in the step, a radar seeker's scan.
+  const p = world.params;
+  for (const x of world.ship.missiles || []) {
+    if (world.t - world.dt < x.t + p.missile.burnTime.value) out.push({ id: `missile:${x.cause}`, kind: 'missile', band: 'ir', P: (x.m * p.missile.acceleration.value * p.engine.exhaustVelocity.value) / 2, position: [...x.x] });
+    if (x.seeker === 'radar') out.push({ id: `missile-radar:${x.cause}`, kind: 'missile', band: 'em', P: tierScaled(world, p.sensor.scanPower), position: [...x.x] });
   }
   return out;
 }

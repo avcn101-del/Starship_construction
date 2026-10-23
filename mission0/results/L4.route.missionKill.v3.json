@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.route.missionKill.v3",
-  "code": "d4a6dea",
+  "code": "0501899",
   "criterionHash": "a139c27d",
   "lockedHash": "a139c27d",
   "runHash": "3585dcee",
-  "dataHash": "b2b17548",
+  "dataHash": "d540e777",
   "rowsHash": "7be663ca",
   "rows": [
     {

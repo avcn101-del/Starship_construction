@@ -42,7 +42,17 @@ export const EVENT_FIELDS = {
   // Senses (L5b, js/sensors.js, 13n.1 (a), #289), in the observer's log, room the antenna's host:
   'scan-started': ['zone'], // an antenna began scanning zone `zone` of the other ship; root scan-<n>, the side's n-th scan
   'zone-resolved': ['zone', 'rooms'], // the zone resolved: its cells and the ids of the rooms they belong to (rooms) are in the model; parent the scan-started
-  'source-resolved': ['kind', 'position'], // a source of the other ship turned resolved this step (kind panel / exhaust / antenna / shield, its world position); root 'sense'
+  'source-resolved': ['kind', 'position'], // a source of the other ship turned resolved this step (kind panel / exhaust / antenna / shield / missile, its world position); root 'sense'
+  // Weapons (L5c, 13n.1 (c), #156): each with its cause; a shot of a typed store also carries `roundType`.
+  slug: ['energy', 'channel'], // the railgun fired a slug (energy: its muzzle energy, J); a root, its cause <room>:slug-<k>
+  'missile-launched': ['seeker', 'warhead', 'energy', 'channel'], // the missile bay launched a missile from its face; a root, its cause <room>:missile-<k>
+  flak: ['energy', 'channel', 'fitting'], // a kinetic point-defence fitting fired a flak round; a root, its cause <side>:flak-<n>
+  'missile-killed': ['by', 'dose'], // a missile of the other side died in this ship's point defence (by: flak / laser; dose J, its hp reached); room: the fitting's host; cause the missile's id
+  warhead: ['kind', 'channel', 'energy'], // a missile's warhead acted at this ship's hull (kind he / penetrator / emp; channel blast / kinetic / emp); cause the missile's id
+  burst: ['energy', 'entered'], // an HE round's contact burst at its stopping entry (entered: J into the hull); cause the shot's id
+  outage: ['dose', 'until'], // an EMP's dose shut a powered room down until `until` (s, emp.outageTime after the burst, #292)
+  'outage-ended': [], // the outage is over at this step's end: the room works again; parent the outage
+  window: ['segment'], // this ship's own round or beam crossed its field at hull segment `segment` this step: open for the other side's rounds (#100); room: the firing room
 };
 
 /** An event log; `prefix` starts every event id (a battle gives each ship its own). */
@@ -74,8 +84,11 @@ export function within(log, event, fn) {
   try { return fn(); } finally { log.context.pop(); }
 }
 
-/** A root of the cascade tree (13l.1): a shot id, a beam id, 'heat' or 'launch'; a scan id (scan-<n>) or 'sense' (13n.1 (a), #289). */
-export const isRoot = (cause) => cause === 'heat' || cause === 'launch' || cause === 'sense' || /(^|:)(shot|beam|scan)-\d+$/.test(String(cause));
+/**
+ * A root of the cascade tree (13l.1): a shot id, a beam id, 'heat' or 'launch'; a scan id (scan-<n>) or 'sense' (13n.1
+ * (a), #289); a slug, a missile or a flak round's id, or 'emp' (L5c, 13n.1 (c)).
+ */
+export const isRoot = (cause) => cause === 'heat' || cause === 'launch' || cause === 'sense' || cause === 'emp' || /(^|:)(shot|beam|scan|slug|missile|flak)-\d+$/.test(String(cause));
 
 /**
  * The cascade tree of a log (13l.1): roots in order of first use, each with its

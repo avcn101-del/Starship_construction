@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.kinetic.damage.v3",
-  "code": "d4a6dea",
+  "code": "0501899",
   "criterionHash": "73c650fa",
   "lockedHash": "73c650fa",
   "runHash": "c1e9045c",
-  "dataHash": "b2b17548",
+  "dataHash": "d540e777",
   "rowsHash": "5a4501b7",
   "rows": [
     {

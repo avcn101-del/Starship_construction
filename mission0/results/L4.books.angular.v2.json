@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.books.angular.v2",
-  "code": "d4a6dea",
+  "code": "0501899",
   "criterionHash": "a9358bf4",
   "lockedHash": "a9358bf4",
   "runHash": "850e738e",
-  "dataHash": "b2b17548",
+  "dataHash": "d540e777",
   "rowsHash": "e8f7df76",
   "rows": [
     {

@@ -1,0 +1,106 @@
+{
+  "id": "L0.missile.flight",
+  "level": "L0",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L0.missile.flight",
+  "code": "0501899",
+  "criterionHash": "2964f797",
+  "lockedHash": "2964f797",
+  "runHash": "0f717c54",
+  "dataHash": "d540e777",
+  "rowsHash": "30fabb94",
+  "rows": [
+    {
+      "case": {
+        "d": 600
+      },
+      "expected": {
+        "t": 6.324555320336759,
+        "a": 30
+      },
+      "actual": {
+        "k": 380,
+        "t": 6.333333333333333,
+        "v": 190,
+        "y": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 900
+      },
+      "expected": {
+        "t": 7.745966692414834,
+        "a": 30
+      },
+      "actual": {
+        "k": 465,
+        "t": 7.75,
+        "v": 232.5,
+        "y": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "d": 1500
+      },
+      "expected": {
+        "t": 10,
+        "a": 30
+      },
+      "actual": {
+        "k": 600,
+        "t": 10,
+        "v": 300,
+        "y": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "coast": 30
+      },
+      "expected": {
+        "v": 600,
+        "x": 12000,
+        "J": 120000,
+        "work": 36000000
+      },
+      "actual": {
+        "at": {
+          "1200": {
+            "x": 5999.9999999999645,
+            "v": 600
+          },
+          "1500": {
+            "x": 8999.999999999964,
+            "v": 600
+          },
+          "1800": {
+            "x": 11999.999999999964,
+            "v": 600
+          }
+        },
+        "J": 120000,
+        "work": 36000000
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

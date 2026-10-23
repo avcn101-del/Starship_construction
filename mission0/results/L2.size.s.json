@@ -1,0 +1,111 @@
+{
+  "id": "L2.size.s",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.size.s",
+  "code": "0501899",
+  "criterionHash": "6e4ac485",
+  "lockedHash": "6e4ac485",
+  "runHash": "5c30681f",
+  "dataHash": "d540e777",
+  "rowsHash": "0999ac03",
+  "rows": [
+    {
+      "case": {
+        "part": "rooms"
+      },
+      "expected": {
+        "power": 5000000,
+        "crew": {
+          "reactor": 1,
+          "turret": 1,
+          "quarters": 8
+        },
+        "capacity": 225,
+        "rounds": 37,
+        "energy": 296000000
+      },
+      "actual": {
+        "power": 5000000,
+        "cells": 1,
+        "crew": {
+          "reactor": 1,
+          "turret": 1,
+          "quarters": 8
+        },
+        "capacity": 225,
+        "rounds": 37,
+        "energy": 296000000
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "fire"
+      },
+      "expected": {
+        "m": 1.7777777777777772,
+        "times": [
+          0,
+          1.3333333333333333,
+          2.6666666666666665,
+          4,
+          5.333333333333333
+        ]
+      },
+      "actual": {
+        "times": [
+          0,
+          1.3333333333333333,
+          2.6666666666666665,
+          4,
+          5.333333333333333
+        ],
+        "m": 1.777777777777777
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "valid"
+      },
+      "expected": {
+        "valid": true,
+        "cells": {
+          "engine": 2,
+          "reactor": 1,
+          "bridge": 1,
+          "magazine": 1,
+          "turret": 1,
+          "quarters": 2
+        }
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "cells": {
+          "engine": 2,
+          "reactor": 1,
+          "bridge": 1,
+          "magazine": 1,
+          "turret": 1,
+          "quarters": 2
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

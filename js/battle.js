@@ -25,18 +25,32 @@
 // a case may command scans, and the attacker's plan aims at what its model
 // knows (a room it does not know at the centre of the zone the case names);
 // with it off nothing of this runs and the loop is L4b's.
+// Weapons (L5c, 13n.1 (c)): the attacker's spinal railgun fires along its axis at
+// the plan's railgun room (its RCS turn the axis onto it, as the beam's); its
+// missile bay launches at the plan's missile rooms; missiles fly on the shooter's
+// world (js/missile.js: thrust, coast, seekers from the side's own model, so they
+// need `knowledge`), each tested against the other hull along its segment, its
+// warhead acting at the hit (its body a stopped projectile joining the hull, #296;
+// HE a contact burst, the penetrator a round, EMP a
+// field); point defence engages them (js/defence.js); a typed turret store fires
+// the type its target calls for (#95); the firing window (#100): a side's own
+// round crossing its own hull segment in a step, or its beam leaving through it,
+// opens that segment, and a round of the other side entering through it in that
+// step meets no field. With none of these placed the loop is L5b's.
 // The per-second log (#129) and the cascade tree (#41) are built from the
 // kernel's events. No DOM, no Math.random (one seed per battle, #7, though no
 // rule draws from it yet), no Math.sin, Math.cos or Math.pow.
-import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, enablePowerRouting, setDemand, step, fireRound, fireBeam, shieldRound, beamEnergy, setBeams, setRcs, cull, isDestroyed, survivingCells, magazineContents, magazineType, plateEntry, entryArealDensity, plateGone, cellAt, readout, roomTemperature, embedRound } from './rooms.js';
+import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, enablePowerRouting, setDemand, step, fireRound, fireBeam, shieldRound, beamEnergy, setBeams, setRcs, cull, isDestroyed, survivingCells, magazineContents, magazineType, plateEntry, entryArealDensity, plateGone, cellAt, readout, roomTemperature, embedRound, contactBurst, empBurst, railgunSlug, magazineCapacity } from './rooms.js';
 import { TIERS, FIXED, ROOMS, scaled } from './data.js';
-import { validateShip } from './layout.js';
+import { validateShip, segmentKey } from './layout.js';
 import { liveWalls } from './graph.js';
 import { rotate, worldPoint, pointVelocity, momentumOf, cross } from './body.js';
 import { roundGeometry } from './projectile.js';
 import { rng, stepsAtLeast, hash } from './util.js';
-import { emit, cascadeTree, treeLines } from './events.js';
+import { emit, within, createLog, cascadeTree, treeLines } from './events.js';
 import { createKnowledge, sense, setScan, knownAim, zoneCentre } from './sensors.js';
+import { moveMissile, seekerAim, steer } from './missile.js';
+import { aimLasers, pointDefence } from './defence.js';
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
 const len = (a) => Math.sqrt(a[0] * a[0] + a[1] * a[1]); // Math.sqrt is correctly rounded on every engine
@@ -47,11 +61,15 @@ const WEAPONS = new Set(['turret', 'beamBay', 'railgun', 'missileBay']);
 const CORNER = 1e-9;
 
 /**
- * One ship of a battle from a blueprint { rooms: [{ id, type, cell, rotation }], fittings: [[type, room, cell,
- * side]] }, validated by the kernel's validateShip (with the crew rule) unless `validate` is false: the magazine full
- * of HE, the turret's ready store full and holding fire, the shield off, power routed with every reactor at full
- * demand (as the estimates build them, 13l.3). `setup(world, room)` runs before enableShip. `origin`, when given, is
- * the world point of the grid's corner (enableShip's frame origin) instead of `at`, the centre of mass's.
+ * One ship of a battle from a blueprint { rooms: [{ id, type, cell, rotation, size, length, load }], fittings: [[type,
+ * room, cell, side]] }, validated by the kernel's validateShip (with the crew rule) unless `validate` is false: the
+ * magazine full of HE, the turret's ready store full and holding fire, the shield off, power routed with every reactor
+ * at full demand (as the estimates build them, 13l.3). A room's `size` and `length` (a spinal room's N) go to addRoom
+ * (13n.1 (c): an S room is built with its S footprint). A magazine's `load` (L5c) fills it otherwise: { type:
+ * 'railgun' } with slugs, { type: 'missile', seeker, warhead } with missiles, { rounds: { standard, ap, he, sabot } }
+ * with typed rounds by fraction of its capacity; a missile bay's `load` { seeker, warhead } fills its ready store.
+ * `setup(world, room)` runs before enableShip. `origin`, when given, is the world point of the grid's corner
+ * (enableShip's frame origin) instead of `at`, the centre of mass's.
  */
 export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, at = [0, 0], velocity = [0, 0], setup = null, validate = true, origin = null } = {}) {
   const T = TIERS[tier], edge = T.edge;
@@ -61,13 +79,15 @@ export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, 
   }
   const world = createWorld({ params, edge, dt: FIXED.simStep.value, grid: T.grid });
   world.log.prefix = prefix;
-  for (const r of blueprint.rooms) addRoom(world, r.type, { id: r.id, cell: r.cell, rotation: r.rotation || 0 });
+  for (const r of blueprint.rooms) addRoom(world, r.type, { id: r.id, cell: r.cell, rotation: r.rotation || 0, ...(r.size ? { size: r.size } : {}), ...(r.length ? { length: r.length } : {}) });
   for (const [type, room, cell, side] of blueprint.fittings) addFitting(world, type, room, cell, side);
   const room = (id) => world.rooms.find((r) => r.id === id);
+  const loads = new Map(blueprint.rooms.filter((r) => r.load).map((r) => [r.id, r.load]));
   for (const r of world.rooms) {
-    if (r.type === 'magazine') loadMagazine(world, r, { heMass: scaled(params.magazine.capacity, edge) * r.cellRatio });
+    if (r.type === 'magazine') loadMagazine(world, r, loads.has(r.id) ? loadOf(world, r, loads.get(r.id)) : { heMass: scaled(params.magazine.capacity, edge) * r.cellRatio });
     if (r.type === 'turret') { loadTurret(r, params.turret.readyRounds.value); r.turret.hold = true; }
     if (r.type === 'shieldGenerator') r.shield.on = false;
+    if (r.type === 'missileBay') { const k = loads.get(r.id) || { seeker: 'designated', warhead: 'he' }; r.missileBay.ready = Array.from({ length: params.missilebay.readyMissiles.value }, () => ({ seeker: k.seeker, warhead: k.warhead })); }
   }
   enablePowerRouting(world);
   for (const r of world.rooms) if (r.type === 'reactor') setDemand(world, r, 1);
@@ -78,6 +98,14 @@ export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, 
     enableShip(world, { origin: [at[0] - rc[0], at[1] - rc[1]], heading, velocity });
   }
   return { world, room };
+}
+
+/** A magazine's load from a blueprint room's `load` (L5c): the magazine full of slugs, missiles or typed rounds (fractions of its capacity). */
+function loadOf(world, room, load) {
+  const cap = magazineCapacity(world, room);
+  if (load.type === 'railgun') return { type: 'railgun', slugMass: cap };
+  if (load.type === 'missile') return { type: 'missile', missileMass: cap, seeker: load.seeker, warhead: load.warhead };
+  return { rounds: Object.fromEntries(Object.entries(load.rounds).map(([k, f]) => [k, f * cap])) };
 }
 
 /**
@@ -93,6 +121,9 @@ export function buildShip(params, tier, blueprint, { prefix = 'e', heading = 0, 
  * antenna: its index among the side's antennas, zone: 0-5 or null to stop, at: s }], each applied before the first
  * step that starts at or after `at`; `plan.zone`: the zone whose centre a plan room the attacker's model does not
  * know is aimed at (without it such a room is not aimed at).
+ * L5c (13n.1 (c)): `plan.railgun`, room ids the attacker's railgun fires at (its axis turned onto the first standing);
+ * `plan.missile` { rooms: [ids], count }: the attacker's missile bay launches `count` missiles (default: every one it
+ * has), each with its seeker, the designated one flying at the first standing of `rooms` as its model knows it.
  */
 export function createBattle({ params, tier = 'T1', attacker, target, bearing = '-y', distance = scaled(params.battle.openingRange, TIERS[tier].edge), seed = 1, plan = {}, targetFire = null, targetHeading = 0, targetVelocity = [0, 0], setup = {}, shield = {}, validate = true, knowledge = false, scans = [] }) {
   const edge = TIERS[tier].edge, k = params.kinetic;
@@ -108,15 +139,19 @@ export function createBattle({ params, tier = 'T1', attacker, target, bearing = 
   const battle = {
     params, tier, edge, grid: TIERS[tier].grid, dt: A.world.dt, seed, rng: rng(seed), t: 0, step: 0,
     round: { mass, area: roundGeometry(mass, FIXED.steelDensity.value, FIXED.roundLengthToDiameter.value).A },
-    plan: { turret: plan.turret || [], beam: plan.beam || [], turretPoint: plan.turretPoint || null, zone: plan.zone ?? null }, targetFire,
+    plan: { turret: plan.turret || [], beam: plan.beam || [], turretPoint: plan.turretPoint || null, zone: plan.zone ?? null, railgun: plan.railgun || [], missile: plan.missile || null }, targetFire,
     rounds: [], shots: 0, beams: 0, hits: [], misses: [], spent: { m: 0, P: [0, 0], L: 0, K: 0, rounds: 0 }, embedded: 0,
     beam: null, lines: [], ended: null,
     disabledSteps: stepsAtLeast(params.battle.disabledSeconds.value, A.world.dt),
   };
+  // L5c (13n.1 (c)): missiles and flak rounds in flight, the missiles' thrust books, the window events' log.
+  Object.assign(battle, { missiles: [], flak: [], missileShots: 0, flakShots: 0, thrust: { J: [0, 0], H: 0, Hgross: 0, work: 0 }, log: createLog('W') });
+  battle.spentFlak = (r) => spend(battle, r.m, r.x, r.v);
   battle.attacker = side('A', A, null);
   battle.target = side('T', T, targetHeading);
   battle.attacker.other = battle.target; battle.target.other = battle.attacker;
   battle.sides = [battle.attacker, battle.target];
+  battle.pd = battle.sides.some((s) => s.world.fittings.some((f) => f.type === 'pd' || f.type === 'pdLaser'));
   for (const s of battle.sides) for (const g of s.world.rooms) if (g.type === 'shieldGenerator' && shield[s === battle.attacker ? 'attacker' : 'target']) g.shield.on = true;
   battle.knowledge = !!knowledge;
   if (battle.knowledge) {
@@ -193,11 +228,43 @@ function aim(battle) {
     bay.beamBay.firing = !!P;
     if (P && !was) battle.beamId = `beam-${++battle.beams}`; // a new beam id each time the bay starts firing
   }
-  A.heading = P && bay ? headingThrough(ab, bayFace(A, bay), P) : (() => { const D = sub(mainBody(T).x, ab.x); return Math.atan2(D[1], D[0]); })();
+  // The railgun (13n.1 (c)): fires while the plan names a standing room; its axis turned onto it when the beam has none.
+  const rail = A.world.rooms.find((r) => r.type === 'railgun'), Pr = rail ? pointAt(firstStanding(T, battle.plan.railgun)) : null;
+  if (rail) rail.railgun.firing = !!Pr;
+  A.heading = P && bay ? headingThrough(ab, bayFace(A, bay), P) : Pr ? headingThrough(ab, bayFace(A, rail), Pr) : (() => { const D = sub(mainBody(T).x, ab.x); return Math.atan2(D[1], D[0]); })();
+  // The missile bay launches while the plan asks for missiles it has not launched yet (13n.1 (c)).
+  const mb = A.world.rooms.find((r) => r.type === 'missileBay'), mp = battle.plan.missile;
+  if (mb) mb.missileBay.launching = !!mp && mb.missileBay.launches < (mp.count ?? Infinity);
+  // A typed turret store fires the type its target calls for (#95, 13n.1 (c)).
+  if (turret && turret.turret.typed) turret.turret.want = roundFor(battle, turret, tr);
   if (battle.targetFire) {
     const t = T.world.rooms.find((r) => r.type === 'turret');
     if (t) { t.turret.hold = false; t.turret.aim = [...battle.targetFire.aim]; }
   }
+}
+
+/**
+ * The round type a typed turret store fires at plan room `room` (#95, 13n.1 (c)): with the knowledge model, a room the
+ * model knows is HE when it is on the hull face (no standing cell of the other ship's silhouette lies on the line from
+ * the turret to the model's aim point before the aim cell) and AP when it lies behind at least one cell; Standard on a
+ * zone (a room the model does not know), at a case's point, and without the model.
+ */
+function roundFor(battle, turret, room) {
+  if (!room || !battle.knowledge || battle.plan.turretPoint) return 'standard';
+  const A = battle.attacker, model = A.model, known = model.rooms.get(room.id);
+  const c = known && known.cells.map((k) => model.cells.get(k)).filter((x) => !x.destroyed).sort((x, y) => x.k - y.k)[0];
+  if (!c) return 'standard';
+  const sil = model.silhouette, id = sil.standing.get(`${c.cell[0]},${c.cell[1]}`);
+  const pose = sil.bodies.find((b) => b.id === id) || sil.bodies.find((b) => b.id === 'body-0') || sil.bodies[0];
+  const e = model.other.edge, a = toGrid(pose, worldPoint(bodyOfRoom(A, turret), turret.position)), q = [(c.cell[0] + 0.5) * e, (c.cell[1] + 0.5) * e];
+  const v = sub(q, a), L = len(v);
+  if (!(L > 0)) return 'he';
+  let before = 0;
+  for (const x of crossedCells(a, [v[0] / L, v[1] / L], model.other.layout.grid, e)) {
+    if (x.cell[0] === c.cell[0] && x.cell[1] === c.cell[1]) break;
+    if (sil.standing.has(`${x.cell[0]},${x.cell[1]}`) && (x.t1 - x.t0) / e > CORNER) before++;
+  }
+  return before === 0 ? 'he' : 'ap';
 }
 
 /**
@@ -214,7 +281,7 @@ function holdHeading(battle, side) {
   let tp = 0, tm = 0;
   for (const f of fits) {
     const host = side.room(f.room), cell = host.cells[f.k];
-    if (cell.destroyed || cell.fragment !== b.id || isDestroyed(host) || !host.controlled || host.shutdown || host.unmanned || !host.active) continue;
+    if (cell.destroyed || cell.fragment !== b.id || isDestroyed(host) || !host.controlled || host.shutdown || host.unmanned || host.outage || !host.active) continue;
     const tau = (f.p[0] - b.c[0]) * (-f.side[1] * force) - (f.p[1] - b.c[1]) * (-f.side[0] * force);
     if (tau > 0) { ccw.push(f.id); tp += tau; } else if (tau < 0) { cw.push(f.id); tm -= tau; }
   }
@@ -279,7 +346,7 @@ export function lineHit(side, from, to, dir, before = null) {
     let d, L;
     if (to) { const v = sub(toGrid(b, to), a); L = len(v); if (!(L > 0)) continue; d = [v[0] / L, v[1] / L]; } else { d = rotate(dir, -b.theta); L = Infinity; }
     const cells = crossedCells(a, d, grid, e);
-    let first = -1;
+    let first = -1, enter = null;
     const path = [], at = [];
     const on = (q, v) => Math.abs(q - v) < 1e-9;
     for (let k = 0; k < cells.length; k++) {
@@ -287,14 +354,14 @@ export function lineHit(side, from, to, dir, before = null) {
       const prev = k > 0 ? cells[k - 1].cell : on(p0[0], i * e) ? [i - 1, j] : on(p0[0], (i + 1) * e) ? [i + 1, j] : on(p0[1], j * e) ? [i, j - 1] : on(p0[1], (j + 1) * e) ? [i, j + 1] : null;
       const x = prev ? plateEntry(w, prev, cells[k].cell, d) : null;
       if (x && side.room(x.plate.room).cells[x.plate.k].fragment === b.id) {
-        if (first < 0) { if (cells[k].t0 > L) break; first = k; }
+        if (first < 0) { if (cells[k].t0 > L) break; first = k; enter = segmentKey(prev, [cells[k].cell[0] - prev[0], cells[k].cell[1] - prev[1]]); }
         x.at = p0; // where the line crosses the plate's segment
         path.push(x);
       }
       const chord = Math.min(1, (cells[k].t1 - cells[k].t0) / e);
       const c = cellAt(w, cells[k].cell);
       if (!c || c.room.cells[c.index].fragment !== b.id || !(chord > CORNER)) continue;
-      if (first < 0) { if (cells[k].t0 > L) break; first = k; }
+      if (first < 0) { if (cells[k].t0 > L) break; first = k; enter = prev ? segmentKey(prev, [cells[k].cell[0] - prev[0], cells[k].cell[1] - prev[1]]) : null; }
       const tm = (cells[k].t0 + cells[k].t1) / 2;
       path.push({ room: c.room, cell: c.index, chord, at: [a[0] + d[0] * tm, a[1] + d[1] * tm] });
       at.push(cells[k].cell);
@@ -307,6 +374,7 @@ export function lineHit(side, from, to, dir, before = null) {
     const t = cells[first].t0;
     if (best && (to ? t / L : t) >= best.t) continue;
     best = { body: b.id, entry: [a[0] + d[0] * t, a[1] + d[1] * t], dir: d, from: a, path, cells: at, t: to ? t / L : t, length: L };
+    Object.defineProperty(best, 'enter', { value: enter, enumerable: false }); // the hull segment it enters through (the firing window, #100)
   }
   return best;
 }
@@ -337,13 +405,24 @@ function beamsOut(battle) {
   x.result = fireBeam(T.world, { power: res.passed, energy: x.energy, range: len(sub(mainBody(T).x, x.from)) }, x.hit.path, x.id);
 }
 
-/** Read each side's new events: a kernel shot launched a round (recoil put it in the shooter's world.ship.rounds). */
+/**
+ * Read each side's new events: a kernel shot or slug launched a round (recoil put it in the shooter's
+ * world.ship.rounds); a missile bay launched a missile (in world.ship.missiles), which gets its battle id and the
+ * room its seeker is designated on (L5c).
+ */
 function launch(battle) {
   for (const s of battle.sides) {
     const ev = s.world.log.events;
     for (; s.logIndex < ev.length; s.logIndex++) {
       const e = ev[s.logIndex];
-      if (e.type !== 'shot') continue;
+      if (e.type === 'missile-launched') {
+        const x = s.world.ship.missiles.find((y) => y.cause === e.cause && !y.id);
+        if (!x) continue;
+        Object.assign(x, { id: `missile-${++battle.missileShots}`, shooter: s, other: s.other, event: e.id, dose: 0 });
+        battle.missiles.push(x);
+        continue;
+      }
+      if (e.type !== 'shot' && e.type !== 'slug') continue;
       const ref = s.world.ship.rounds.find((r) => r.cause === e.cause && !r.battle);
       if (!ref) continue;
       const id = `shot-${++battle.shots}`;
@@ -403,7 +482,8 @@ function lineOfAction(X, u, b, path, x) {
   }
 }
 function strike(battle, r, hit) {
-  const w = r.other.world, b = w.ship.bodies.find((x) => x.id === hit.body), m = battle.round.mass, A = battle.round.area;
+  // A typed round, a slug or a penetrator carries its own mass and cross-section (L5c); an L4 round is the battle's M round.
+  const w = r.other.world, b = w.ship.bodies.find((x) => x.id === hit.body), m = r.ref.A !== undefined ? r.ref.m : battle.round.mass, A = r.ref.A !== undefined ? r.ref.A : battle.round.area;
   // The shooter's model (13n.1 (a)): where its round entered, and the hit's path only where the model knows the cells.
   if (battle.knowledge) r.shooter.model.hits.push({ id: r.id, t: battle.t, entry: worldPoint(b, hit.entry), cells: hit.cells.filter((c) => r.shooter.model.cells.has(`${c[0]},${c[1]}`)).map((c) => [...c]) });
   // The momentum exchange runs along the round's velocity relative to the hull, in the body's frame (B1 of the L4
@@ -414,7 +494,10 @@ function strike(battle, r, hit) {
   const q = worldPoint(b, hit.entry), hq = pointVelocity(b, q), rel = sub(r.ref.v, hq), speed = len(rel);
   const relative = (v, body) => { const d = len(v); return { speed: d, dir: d > 0 ? rotate([v[0] / d, v[1] / d], -body.theta) : hit.dir }; };
   const toShield = relative(rel, b);
-  const sh = shieldRound(w, { position: hit.entry, mass: m, velocity: speed, area: A, direction: toShield.dir });
+  // The firing window (#100): through a segment the other side's own round or beam opened this step it meets no field.
+  const open = hit.enter && r.other.open && r.other.open.has(hit.enter);
+  if (open) r.window = hit.enter;
+  const sh = open ? { velocity: speed, energy: 0 } : shieldRound(w, { position: hit.entry, mass: m, velocity: speed, area: A, direction: toShield.dir });
   let res = null, toHull = null;
   if (sh.velocity > 0) {
     const u = sh.velocity === speed ? r.ref.v : [hq[0] + (sh.velocity * rel[0]) / speed, hq[1] + (sh.velocity * rel[1]) / speed];
@@ -424,6 +507,12 @@ function strike(battle, r, hit) {
     lineOfAction(r.ref.x, u, bf, hit.path, x);
     toHull = relative(sub(u, pointVelocity(bf, worldPoint(bf, x.at))), bf);
     res = fireRound(w, { mass: m, velocity: toHull.speed, area: A, direction: toHull.dir }, hit.path, r.id);
+    // An HE round bursts at its stopping entry (13n.1 (c)): a contact burst of its he.blastEnergy there.
+    if (r.ref.type === 'he' && res.stoppedIn >= 0) {
+      const y = hit.path[res.stoppedIn], host = y.plate ? r.other.room(y.plate.room) : y.room, E = r.ref.burst;
+      const ev = emit(w.log, { t: battle.t, type: 'burst', room: host.id, cause: r.id, crew: host.crew, energy: E, entered: y.plate ? 0 : battle.params.he.coupling.value * E, channel: 'blast', parent: r.id });
+      within(w.log, ev, () => contactBurst(w, y, E, r.id));
+    }
   }
   r.done = true;
   const stopped = !res || res.stoppedIn >= 0 || res.wrecked || !res.u1;
@@ -446,6 +535,131 @@ function strike(battle, r, hit) {
   } else r.ref.v = [...res.u1];
 }
 
+// ---------- the firing window (#100, 13n.1 (c)) ----------
+/**
+ * The hull segments of side s's own ship a line from world point `from` (on the pose `pose0` of body b before the
+ * step) to `to` (on b now) crosses outward: where a cell of b's fragment is followed along the line by one that is
+ * not, within the segment. Returns { segments, outside } (outside: the line ends outside b's cells).
+ */
+function crossingsOut(side, b, pose0, from, to) {
+  const w = side.world, e = w.edge, a = toGrid(pose0 || b, from), v = sub(toGrid(b, to), a), L = len(v);
+  if (!(L > 0)) return { segments: [], outside: false };
+  const cells = crossedCells(a, [v[0] / L, v[1] / L], w.layout.grid, e), inside = (cell) => { const c = cell && cellAt(w, cell); return !!c && c.room.cells[c.index].fragment === b.id; };
+  const segments = [];
+  let last = null;
+  for (let k = 0; k < cells.length && cells[k].t0 <= L; k++) {
+    const next = k + 1 < cells.length ? cells[k + 1].cell : cells.exit ? cells.exit.cell : null;
+    if (inside(cells[k].cell) && cells[k].t1 <= L && next && !inside(next)) segments.push(segmentKey(cells[k].cell, [next[0] - cells[k].cell[0], next[1] - cells[k].cell[1]]));
+    last = cells[k].cell;
+  }
+  return { segments, outside: !inside(last) || cells[cells.length - 1].t1 < L };
+}
+/**
+ * After the step, before any round is tested: each side's open segments this step (#100). A round of the side still
+ * inside its own hull opens each segment its step's segment crosses outward (its first step for a hull turret); a
+ * firing beam opens its bay's bow-face segments its axis line leaves through (both, where the line runs on the
+ * boundary of two rows), every step it fires. Each opening is a 'window' event in the battle's own log (battle.log),
+ * room the firing room, cause the shot's or the beam's id.
+ */
+function windows(battle, before) {
+  for (const s of battle.sides) s.open = new Set();
+  const note = (s, room, segment, cause) => {
+    s.open.add(segment);
+    emit(battle.log, { t: battle.t, type: 'window', room: room.id, cause, crew: room.crew, segment, side: s.name, parent: cause });
+  };
+  for (const r of battle.rounds) {
+    if (r.over || r.cleared) continue;
+    const s = r.shooter, room = s.room(r.ref.from), b = room && s.world.ship.bodies.find((x) => x.id === room.body);
+    if (!b) { r.cleared = true; continue; }
+    const res = crossingsOut(s, b, before.get(s).get(b.id), r.prev, r.ref.x);
+    for (const seg of res.segments) note(s, room, seg, r.id);
+    if (res.outside) r.cleared = true;
+  }
+  const x = battle.beam, A = battle.attacker;
+  if (x && x.power > 0) {
+    const bay = A.world.rooms.find((r) => r.type === 'beamBay'), cells = A.world.layout.rooms.get(bay.id).cells, e = A.world.edge;
+    const x1 = Math.max(...cells.map((c) => c[0])), y = bay.position[1], j = Math.floor(y / e), rows = Math.abs(y - j * e) < 1e-9 ? [j - 1, j] : [j];
+    for (const row of rows) if (cells.some((c) => c[0] === x1 && c[1] === row)) { const seg = segmentKey([x1, row], [1, 0]); if (!A.open.has(seg)) { A.open.add(seg); if (battle.windowBeam !== x.id) note(A, bay, seg, x.id); } }
+    battle.windowBeam = x.id;
+  }
+}
+
+// ---------- missiles (13n.1 (c), js/missile.js) ----------
+/** A munition's mass m at world x with velocity v leaves the battle's flight: booked in battle.spent (momentum, angular momentum, energy). */
+function spend(battle, m, x, v) {
+  const sp = battle.spent;
+  sp.m += m; sp.P[0] += m * v[0]; sp.P[1] += m * v[1]; sp.L += m * cross(x, v); sp.K += 0.5 * m * (v[0] * v[0] + v[1] * v[1]);
+}
+/**
+ * After the step: each missile in flight turns onto its seeker's aim point (its side's model, read as sensed after the
+ * last step) and flies the step (thrust booked in battle.thrust); point defence acts (js/defence.js); each surviving
+ * missile's segment is tested against the other hull (on its pose before and after the step, as a round's) and a hit
+ * acts its warhead. A missile that dies or hits leaves flight (booked in battle.spent).
+ */
+function flyMissiles(battle, before) {
+  if (!battle.missiles.length) { if (battle.pd) pointDefence(battle); return; }
+  if (!battle.knowledge) throw new Error('missiles need the knowledge model: their seekers read only it (13n.1 (c)); set knowledge: true');
+  const dt = battle.dt, t0 = battle.t - dt;
+  for (const x of battle.missiles) {
+    const target = battle.plan.missile && firstStanding(x.other, battle.plan.missile.rooms || []);
+    x.aim = seekerAim(x.shooter.model, x, target ? target.id : null);
+    if (x.aim.point) steer(x, x.aim.point);
+    const k = moveMissile(x.shooter.world, x, t0, dt), th = battle.thrust;
+    th.J[0] += k.J[0]; th.J[1] += k.J[1]; th.H += k.H; th.Hgross += Math.abs(k.H); th.work += k.work;
+  }
+  if (battle.pd) pointDefence(battle);
+  for (const x of battle.missiles) {
+    if (x.dead || x.over) continue;
+    const hit = lineHit(x.other, x.prev, x.x, null, before.get(x.other));
+    if (hit) warhead(battle, x, hit);
+  }
+  for (const x of battle.missiles) if (x.dead && !x.over) { x.over = 'killed'; spend(battle, x.m, x.x, x.v); }
+  battle.missiles = battle.missiles.filter((x) => !x.over);
+  for (const s of battle.sides) s.world.ship.missiles = s.world.ship.missiles.filter((x) => !x.over);
+}
+/**
+ * A missile's warhead at its hit (13n.1 (c), #97, #292), at the first entry with matter on the other hull: HE a contact
+ * burst of missile.warheadEnergy there (rooms.js contactBurst); the penetrator a round of missile.penetratorMass at the
+ * missile's velocity (strike: the field, the round rule, a stop or a pass); EMP a field of missile.empEnergy from the
+ * hit point (rooms.js empBurst), timed within the step. Each a 'warhead' event in the other ship's log, cause the
+ * missile's id. The missile's body at impact (all of it for HE and EMP, the rest beyond the penetrator) is a stopped
+ * projectile of its mass at its velocity (#296 (3)): before the warhead acts it joins the body holding that first entry
+ * (rooms.js embedRound, the round rule's accounting for a stopped round, B4): its momentum and angular momentum go to
+ * that body, the kinetic energy the joining loses is heat in the entry's room; nothing is booked as spent.
+ */
+function warhead(battle, x, hit) {
+  const w = x.other.world, p = battle.params, edge = w.edge, y = hit.path.find((z) => entryArealDensity(w, z) > 0);
+  const host = y.plate ? x.other.room(y.plate.room) : y.room, tHit = battle.t - battle.dt + hit.t * battle.dt;
+  const mp = scaled(p.missile.penetratorMass, edge), V = x.v, speed = len(V);
+  const energy = x.warhead === 'he' ? scaled(p.missile.warheadEnergy, edge) : x.warhead === 'emp' ? scaled(p.missile.empEnergy, edge) : 0.5 * mp * speed * speed;
+  const channel = x.warhead === 'he' ? 'blast' : x.warhead === 'emp' ? 'emp' : 'kinetic';
+  const ev = emit(w.log, { t: tHit, type: 'warhead', room: host.id, cause: x.id, crew: host.crew, kind: x.warhead, channel, energy, missile: x.id, entry: [...hit.entry], parent: x.id });
+  x.hit = { t: tHit, entry: [...hit.entry], room: host.id, event: ev.id };
+  const body = x.warhead === 'penetrator' ? x.m - mp : x.m;
+  within(w.log, ev, () => {
+    x.hit.body = { m: body, heat: embedRound(w, y, body, [...V], [...x.x]) };
+    if (x.warhead === 'he') x.burst = contactBurst(w, y, energy, x.id);
+    else if (x.warhead === 'emp') x.burst = empBurst(w, hit.entry, energy, x.id, tHit);
+    else {
+      const ref = { m: mp, x: [...x.x], v: [...V], A: roundGeometry(mp, FIXED.steelDensity.value, FIXED.roundLengthToDiameter.value).A, type: 'penetrator', from: x.from, cause: x.id };
+      x.shooter.world.ship.rounds.push(ref);
+      const r = { id: x.id, shooter: x.shooter, other: x.other, ref, prev: [...x.prev], t0: x.t, event: x.event, cleared: true };
+      battle.rounds.push(r);
+      strike(battle, r, hit);
+    }
+  });
+  x.over = 'hit';
+}
+/** Missiles and flak rounds farther than battle.cullDistance from every body of both ships leave play (booked in battle.spent). */
+function cullMunitions(battle) {
+  const D = scaled(battle.params.battle.cullDistance, battle.edge), bodies = battle.sides.flatMap((s) => s.world.ship.bodies);
+  const far = (x) => bodies.every((b) => len(sub(x.x, b.x)) > D);
+  for (const x of battle.missiles) if (!x.over && far(x)) { x.over = 'left'; spend(battle, x.m, x.x, x.v); }
+  battle.missiles = battle.missiles.filter((x) => !x.over);
+  for (const s of battle.sides) s.world.ship.missiles = s.world.ship.missiles.filter((x) => !x.over);
+  battle.flak = battle.flak.filter((r) => { if (!far(r)) return true; spend(battle, r.m, r.x, r.v); return false; });
+}
+
 // ---------- able to fight, Disabled, destroyed (13l.1, #82, #83, #255) ----------
 /**
  * Each weapon room of a world and whether it is able (13l.1, #255): not destroyed, controlled, not shut down,
@@ -461,7 +675,11 @@ export function weaponStates(world) {
   const producing = world.rooms.filter((r) => r.type === 'reactor' && r.placed && !isDestroyed(r) && r.controlled && !r.reactor.scrammed && !r.shutdown && !r.unmanned);
   const reached = new Set(producing), queue = [...producing];
   for (let i = 0; i < queue.length; i++) for (const w of walls) { const o = w.a === queue[i] ? w.b : w.b === queue[i] ? w.a : null; if (o && !reached.has(o)) { reached.add(o); queue.push(o); } }
-  const fed = (t) => walls.some((w) => { const mag = w.a === t ? w.b : w.b === t ? w.a : null; return mag && mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'turret' && mag.magazine.size === t.size && mag.magazine.ap + mag.magazine.he > 0; });
+  const typed = (g) => (g.typed ? Object.values(g.typed).reduce((x, y) => x + y, 0) : 0);
+  const fed = (t) => walls.some((w) => { const mag = w.a === t ? w.b : w.b === t ? w.a : null; return mag && mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'turret' && mag.magazine.size === t.size && mag.magazine.ap + mag.magazine.he + typed(mag.magazine) > 0; });
+  // L5c (13n.1 (c)): a railgun is fed by a railgun magazine holding a slug, a missile bay by its store or a missile magazine.
+  const slugFed = (t) => walls.some((w) => { const mag = w.a === t ? w.b : w.b === t ? w.a : null; return mag && mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'railgun' && mag.magazine.slugMass >= railgunSlug(world, t).m; });
+  const bayFed = (t) => t.missileBay.ready.length > 0 || walls.some((w) => { const mag = w.a === t ? w.b : w.b === t ? w.a : null; return mag && mag.type === 'magazine' && !mag.exploded && magazineType(mag) === 'missile' && mag.magazine.missiles > 0; });
   const lastCut = world.log.lastCut || 'launch';
   return world.rooms.filter((r) => WEAPONS.has(r.type) && r.placed).map((r) => {
     const m = r.marks;
@@ -469,9 +687,12 @@ export function weaponStates(world) {
       : !r.controlled ? ['no-control', m.controlLost || 'launch']
       : r.shutdown ? ['heat', m.shutdown || 'heat']
       : r.unmanned ? ['unmanned', m.unmanned || 'launch']
+      : r.outage ? ['outage', m.outage || 'launch']
       : !r.active ? ['off', 'launch']
       : !reached.has(r) ? ['no-power', lastCut]
       : r.type === 'turret' && !(r.turret.ammo > 0) && !fed(r) ? ['dry', m.lastShot || 'launch']
+      : r.type === 'railgun' && !slugFed(r) ? ['dry', m.lastShot || 'launch']
+      : r.type === 'missileBay' && !bayFed(r) ? ['dry', m.lastShot || 'launch']
       : null;
     return { room: r, able: !fail, why: fail ? fail[0] : null, parent: fail ? fail[1] : null };
   });
@@ -529,17 +750,21 @@ export function tick(battle) {
   aim(battle);
   for (const s of battle.sides) holdHeading(battle, s);
   beamsIn(battle);
+  if (battle.pd) aimLasers(battle); // a laser holds its missile through the step (its draw is asked for in it)
   const before = new Map(battle.sides.map((s) => [s, new Map(s.world.ship.bodies.map((b) => [b.id, poseOf(b)]))]));
   for (const s of battle.sides) step(s.world);
   battle.step++;
   battle.t = battle.attacker.world.t;
   beamsOut(battle);
   launch(battle);
+  windows(battle, before);
   flyRounds(battle, before);
+  flyMissiles(battle, before);
   for (const s of battle.sides) {
     cull(s.world, s.other.world.ship.bodies);
     for (const r of battle.rounds) if (r.shooter === s && !r.over && !s.world.ship.rounds.includes(r.ref)) { r.over = 'left'; if (!r.done) battle.misses.push({ id: r.id, t: battle.t }); }
   }
+  cullMunitions(battle);
   battle.rounds = battle.rounds.filter((r) => !r.over);
   if (battle.knowledge) sense(battle.pairs);
   checkEnd(battle);
@@ -613,8 +838,13 @@ export function battleMomentum(battle) {
     for (const r of sh.rounds) gross += r.m * len(r.v);
   }
   P[0] += battle.spent.P[0]; P[1] += battle.spent.P[1];
+  // L5c: missiles and flak rounds in flight; the missiles' thrust is external, like an engine's.
+  for (const x of inFlight(battle)) { P[0] += x.m * x.v[0]; P[1] += x.m * x.v[1]; gross += x.m * len(x.v); }
+  J[0] += battle.thrust.J[0]; J[1] += battle.thrust.J[1];
   return { P, J, gross };
 }
+/** Missiles and flak rounds in flight (L5c). */
+const inFlight = (battle) => [...battle.missiles, ...battle.flak];
 /**
  * Energy of both ships (B3, 13n.1 (b)): the kinetic energy of bodies, debris, rounds in flight, what left play and
  * the rounds spent against a field, plus the heat of every hit, field and stopped round, less what entered: each
@@ -630,6 +860,8 @@ export function battleEnergy(battle) {
     heat += sh.energy.heat; shots += sh.energy.shots; work += sh.energy.work; internal += sh.energy.internal;
     gross += Math.abs(sh.energy.heat) + Math.abs(sh.energy.shots) + Math.abs(sh.energy.work) + Math.abs(sh.energy.internal);
   }
+  for (const x of inFlight(battle)) { const k = 0.5 * x.m * (x.v[0] * x.v[0] + x.v[1] * x.v[1]); K += k; gross += k; }
+  work += battle.thrust.work; gross += Math.abs(battle.thrust.work);
   return { K, heat, shots, work, internal, total: K + heat - shots - work - internal, gross };
 }
 /**
@@ -650,6 +882,8 @@ export function battleAngular(battle) {
     for (const d of sh.debris) gross += Math.abs(d.m * cross(d.x, d.v)) + Math.abs(d.spin * d.omega);
     for (const r of sh.rounds) gross += Math.abs(r.m * cross(r.x, r.v));
   }
+  for (const x of inFlight(battle)) { const l = x.m * cross(x.x, x.v); L += l; gross += Math.abs(l); }
+  H += battle.thrust.H; gross += battle.thrust.Hgross;
   return { L, H, total: L - H, gross };
 }
 export { survivingCells, magazineContents };

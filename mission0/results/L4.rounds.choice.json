@@ -1,0 +1,204 @@
+{
+  "id": "L4.rounds.choice",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.rounds.choice",
+  "code": "0501899",
+  "criterionHash": "a80e6c54",
+  "lockedHash": "a80e6c54",
+  "runHash": "a6b2e60a",
+  "dataHash": "d540e777",
+  "rowsHash": "97aaba58",
+  "rows": [
+    {
+      "case": {
+        "target": "hull"
+      },
+      "expected": {
+        "want": "he"
+      },
+      "actual": {
+        "shots": [
+          {
+            "t": 0,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 2,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 4,
+            "type": "he",
+            "known": true
+          },
+          {
+            "t": 6,
+            "type": "he",
+            "known": true
+          },
+          {
+            "t": 8,
+            "type": "he",
+            "known": true
+          },
+          {
+            "t": 10,
+            "type": "he",
+            "known": true
+          },
+          {
+            "t": 12,
+            "type": "he",
+            "known": true
+          },
+          {
+            "t": 14,
+            "type": "he",
+            "known": true
+          },
+          {
+            "t": 16,
+            "type": "he",
+            "known": true
+          },
+          {
+            "t": 18,
+            "type": "he",
+            "known": true
+          }
+        ],
+        "known": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "target": "deep"
+      },
+      "expected": {
+        "want": "ap"
+      },
+      "actual": {
+        "shots": [
+          {
+            "t": 0,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 2,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 5,
+            "type": "ap",
+            "known": true
+          },
+          {
+            "t": 8,
+            "type": "ap",
+            "known": true
+          },
+          {
+            "t": 11,
+            "type": "ap",
+            "known": true
+          },
+          {
+            "t": 14,
+            "type": "ap",
+            "known": true
+          },
+          {
+            "t": 17,
+            "type": "ap",
+            "known": true
+          }
+        ],
+        "known": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "target": "zone"
+      },
+      "expected": {
+        "want": "standard"
+      },
+      "actual": {
+        "shots": [
+          {
+            "t": 0,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 2,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 4,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 6,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 8,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 10,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 12,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 14,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 16,
+            "type": "standard",
+            "known": false
+          },
+          {
+            "t": 18,
+            "type": "standard",
+            "known": false
+          }
+        ],
+        "known": false
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
