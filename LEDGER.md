@@ -84,6 +84,10 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Reviewer, L5a (PR #73; 1 blocking, 3 decisions, 6 notes; notified by trigger) | session_01NDg1145HtJvSBDeUX9x453 | sonnet-5-5 | 1.03 |
 | Engineer, L5a fix round (#282 (7), head `d9e55d1`; 3 successors; notified by trigger) | session_01SvoQV7Y7js179KxHYMir2p | opus-5-5 | 3.34 |
 | Reviewer, L5a fix round (PR #73, light; 0 blocking, 3 notes; notified by trigger) | session_01NwAEJ4ozPa3ZESrSXUBpbN | sonnet-5-5 | 0.45 |
+| Engineer, L5m (`m0/l5m-turret`, PR #78; 12 successors, `L0.turret.mount`; stopped rightly on three route changes; notified by trigger) | session_01WLVDoUFqy72Yq2qdMomSCo | opus-5-5 | 7.97 |
+| Engineer, L5m route successors (#286; 3 successors, data notes; notified by trigger) | session_01CqGVA6ZLNPcKvXynVkDxjY | opus-5-5 | 4.04 |
+| Physics checker, L5m (blind; `checker/l5m`; 0 blocking, 5 notes; notified by trigger) | session_01RK9ndyzx6r1Vezi6AGKrpY | sonnet-5-5 | 1.73 |
+| Reviewer, L5m (PR #78; 0 blocking, 8 notes; notified by trigger) | session_01QHhyCxx64XvgAXGSeEBbaU | sonnet-5-5 | 1.35 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -105,6 +109,7 @@ Audits before L5 (2026-10-22, light): 6.91 USD (documents 1.70, process 0.91, ph
 L4 fix round total: 6.83 USD (engineer 6.41, reviewer 0.42).
 L4 scenario-hygiene round total: 15.89 USD (engineer 10.58, physics checker 4.06, reviewer 1.25). L4 total (L4a + L4b + fix + hygiene): ≥ 64.27 USD.
 L5a total: 23.54 USD (engineers 16.82 + 3.34, physics checker 1.90, reviewers 1.03 + 0.45).
+L5m total: 15.09 USD (engineers 7.97 + 4.04, physics checker 1.73, reviewer 1.35).
 
 The lead designer chat's own cost (planning, answers, checks, merges) is **not in this ledger** (#270 (7)): only the sessions it creates are costed.
 
@@ -121,5 +126,6 @@ One row per pass under the plan gate (#241): the raw range the plan stated, wher
 | L4 fix round | 3–5 | #270 (9) | 6.83 (#272 says 4.93: the engineer's cost rose after its last turn) | 1.71 |
 | L4 scenario-hygiene round | 10–15 | #271, §13l.7 | 15.89 | 1.27 |
 | L5a (the kinetic pass, with its fix round) | 11–16 | #278, §13n.5 | 23.54 | 1.74 |
+| L5m (the turret by its mount) | 10–15 (5–8 in #281, corrected by the probe of #285 before any session) | #285 | 15.09 | 1.21 |
 
 Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).

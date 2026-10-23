@@ -622,7 +622,7 @@ independently before the lock, as at L2.
 
 | Rule | Statement |
 |---|---|
-| Cell mass (#202 E; **superseded by #221 from the mass pass, §13g**) | A cell's mass and its heat capacity are one number: m = C / `thermal.specificHeat` (600 J/(kg·K), a steel-and-aluminium structure), so an M cell at T1 is **1 t** and the exponent is C's (k = 3). A heat sink cell is a cell plus the water that holds its extra capacity: m + (`heatsink.capacityFactor` − 1) × C / `FIXED.waterSpecificHeat` (4186 J/(kg·K)): 1.57 t. Contents add their real mass: a magazine its rounds (900 kg full, D pass), a turret its ready rounds. Fittings add `radiator.mass` and `rcs.mass` at their edge's midpoint |
+| Cell mass (#202 E; **superseded by #221 from the mass pass, §13g**) | A cell's mass and its heat capacity are one number: m = C / `thermal.specificHeat` (600 J/(kg·K), a steel-and-aluminium structure), so an M cell at T1 is **1 t** and the exponent is C's (k = 3). A heat sink cell is a cell plus the water that holds its extra capacity: m + (`heatsink.capacityFactor` − 1) × C / `FIXED.waterSpecificHeat` (4186 J/(kg·K)): 1.57 t. Contents add their real mass: a magazine its rounds (900 kg full, D pass), a turret its ready rounds, each **at its room's centre** (a point mass; stated by #287 after the L5m checker's F1). Fittings add `radiator.mass` and `rcs.mass` at their edge's midpoint |
 | Rigid body (`js/body.js`) | A ship is a 2D rigid body: mass M, centre of mass, moment of inertia I = Σ m (a²/6 + d²) over cells (a square cell of edge a about its own centre, plus parallel axis) and Σ m d² over fittings and contents (point masses). State: position, heading θ, velocity v, angular velocity ω. Forces and torques of the step are summed in the body frame, rotated to the world, and integrated by semi-implicit Euler at the step (v and ω first, then position and θ). Impulses (recoil, fixtures) change v and ω at once. Mass properties are recomputed whenever mass changes (a round leaves, a cell is destroyed, a fragment separates); the velocity field is kept (a rigid body that loses a part keeps v at each surviving point and ω), so momentum is booked exactly |
 | Thrust | An engine pushes along the ship's forward axis (+x, its exhaust faces aft) at the centre of its exhaust face, with `engine.thrust` × throttle × footprint factor × surviving fraction × power fraction, only while controlled and not shut down (L1); off the centre of mass it also turns the ship (#14: recommended through the CoM, not required) |
 | RCS (fitting, #15) | An RCS fitting on an open edge pushes the ship along the edge's inward normal at the edge's midpoint, `rcs.force` while fired; it takes its power and control from its host room (its draw joins the host's request; it fires at the host's power fraction and only while the host is controlled); its heat, `rcs.powerDraw` × `engine.heatFraction`, goes to the host room. Not on an inside room (#190 (2)) |
@@ -944,6 +944,7 @@ script. R1 is §13f.2's.
 |---|---|---|
 | R1 | §13f.2 | decapitation (its bridge is open from −y), mission kill; the magazine and the reactor as **kill** routes (destroyed) |
 | R1c (#256) | R1 with plates of `armour.plateThickness` on the 8 wall segments around its magazine (a citadel: 314 t at 0.2 m; R1c 1264.5 t, 1.21 g at T1) | the pace measure (#255, #260); R1 stays as it is for every locked scenario |
+| R1, R1c, R1d **after L5m** (#285, #287) | the turret by its mount (4975 kg cells) | R1 **911 234.057 kg**, 1.679 g; R1c **1 225 234.057 kg**, 1.248 g, centre (27.532010, 15.597919) m, I 1.68909391e8 kg·m²; R1d **1 421 484.057 kg**, 1.076 g, centre (30.28879, 17.03403) m (the successors' hand-worked literals, the blind checker's and the reviewer's own models agreeing); the figures in the two rows above and in §13k.3 and §13l.7 are those before L5m |
 | **R1d** (#261, the owner's pace lever) | R1c plus five plates around its turret: the four hull segments (8,5)+y, (9,5)+y, (9,4)+x, (9,5)+x and its wall to the beam bay (9,4)−y; 1 460 784.06 kg, **1.047 g**, centre (30.685, 17.248) m, I 2.707267e8 kg·m² (`tools/estimates/l4.mjs`) | **the reference ship of L4b and of the prototype**: the kill routes through a citadel (B6), the mission kill against a plated turret (B2), the pace measure. A note for L5: against a deliberate shot on a static R1d the citadel is **five M rounds thick** (a stopped round still costs the plate 0.215 of its integrity), so the magazine kill moves from 6 s to 18 s by rounds and 29.5 s by beam; in duels it held because no script aims at it. Thickness within its range (0.01–0.4 m) is the lever if that is too thin |
 | T-neck | engine [0,3)×[2,4) rotated 90°, reactor [3,5)×[2,4), shield generator [3,5)×[0,2), heat sink [3,5)×[4,6), **hold [5,7)×[2,4)** (the neck, open from −y and +y), bridge [7,9)×[2,4), magazine [9,11)×[2,4), beam bay [11,13)×[2,4), quarters [7,10)×[4,6), turret [10,12)×[4,6) | **split at a choke point** and **cut the power walls**: one cut through the neck leaves the bridge half without a reactor (no power) and the reactor half without a bridge (SCRAM). In this kernel the two routes of #82 are one mechanism, since power, control and structure share the live walls (#192): stated, not a defect |
 | T-gun | R1 with its beam bay replaced by a hold (the turret its only weapon, a crewed room with low heat thresholds, #182) | **overheat**: the beam held on the turret shuts it down by heat before it is ruined; **run it dry**: it fires its turret broadside until the ready store and the magazine are empty (#91). Under #255 the engine does not count, so one layout shows both |
@@ -1131,7 +1132,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Shield generator | built | `L1.shield.generator.v3`, `L2.shield.*` | proven |
 | Crew quarters (berths, repair field) | built | `L1.quarters.repair.v3`, `L2.repair.*`, `L4.crew.capacity` | proven |
 | Beam bay (spinal accelerator) | built | `L1.beambay.*`, `L2.beambay.cause`, `L0.beam.tier.v2` | proven |
-| Kinetic turret | built | `L1.turret.fire`, `L1.turret.timing.v2`, `L4.route.*` | proven; its mass by its mount (structure + `turret.machineryMass`) planned L5m (#281, #285) |
+| Kinetic turret | built; mass by its mount since L5m (`structure.cellMass` + `turret.machineryMass`, #285) | `L1.turret.fire`, `L1.turret.timing.v2`, `L4.route.*`, `L0.turret.mount` | proven; its mass by its mount proven L5m (#287) |
 | **Spinal railgun** (#236 (6)) | **data only** | none | planned L5c (#268) |
 | **Missile bay** (#148: ready store, launch, explodes by its missiles) | **a room with crew and mass only** | none | planned L5c (#268) |
 | Empty hold (insulates; blast buffer gone, #240 (6)) | built | `L2.heat.*` (hold factor), `L2.blast.integrity` | proven |
@@ -1205,8 +1206,8 @@ sit in no plan again. Each plan updates this table in the same commit.
 | **Disabled** (#82, #255) | built | `L4.disabled.rule` | proven L4 |
 | Route: cut the power walls / split at a choke point (one mechanism, #253) | built | `L4.route.split` | proven L4 |
 | Route: decapitate | built | `L4.route.decapitate` | proven L4 |
-| Route: mission kill | built | `L4.route.missionKill` | proven L4; on R1d from L5m (a light turret no longer screens R1's magazine: #286), planned L5m |
-| Route: overheat | built | `L4.route.overheat` | proven L4; through R1's bridge from L5m (a beam now burns a light turret out before it overheats: #286), planned L5m |
+| Route: mission kill | built | `L4.route.missionKill.v3` (on R1d since L5m; R1 from +y is destroyed through its magazine, a recorded case) | proven L4; on R1d proven L5m (#286, #287) |
+| Route: overheat | built | `L4.route.overheat.v3` (through R1's bridge since L5m; T-gun's turret burns out first, a recorded case) | proven L4; through the bridge proven L5m (#286, #287); it rests on `thermal.coupledCrewed`, a constant with no source (§17 item 43) |
 | Route: run it dry | built | `L4.route.dry` | proven L4 |
 | Route: EMP (forces a SCRAM, the enemy restarts) | the restart exists (`L1.reactor.restart`); no EMP | none | planned L5d (#252, with missiles from L5c) |
 | Route: surrender (strikes its colours, #85, #86) | nothing | none | planned L5d (#252, with the enemy's personality) |
@@ -1533,7 +1534,7 @@ Each line names its decision and when it is due; a closed one is removed.
     the sources the design partner checked): the turret in **L5m**
     between L5a and L5b, the missile bay (secondary source, flagged) and
     the railgun (no source found) in L5c, the reactor unchanged. Due:
-    L5m and L5c.
+    L5m and L5c. L5m merged (#287): the turret by its mount; the missile bay and the railgun in L5c.
 
 33. **The information law has no level** (the design partner, #265): no
     row of §13's table proves #24–#28 (passive d², active d⁴ that reveals
@@ -1606,6 +1607,26 @@ Each line names its decision and when it is due; a closed one is removed.
     debris as an obstacle to shots (#9) and magazines
     lasting a 3–6 minute battle with both ships firing (#92, needed by
     E7). Due: the L5 plan names the pass of each.
+
+43. **The overheat route rests on an unsourced heat capacity** (the L5m
+    blind checker's F5 and F4, #287): `thermal.coupledCrewed` is 0.6 MJ/K
+    per crewed cell, 41 J/(kg·K) for a 14.8 t bridge cell and 121 J/(kg·K)
+    for a 4975 kg turret cell, against 450 J/(kg·K) for the steel of plates,
+    armour and engines; at a mass-consistent value a 5 MW beam burns any
+    crewed cell out long before the room reaches 350 K, and the overheat
+    route through the bridge (#286) would not exist; T-gun's turret already
+    burns out 2.3 K short of its overheat threshold. Physically the beam's
+    heat lands in the cell's matter, not its air, so "overheat by beam" may
+    be an artefact; the throughput law's own route (radiators and heat
+    sinks shot away, the ship cooked by its own reactor and weapons) is
+    the physical one. Also from L5m: `L0.turret.mount` checks no cell
+    losses (F2); the overheat bound is loose, 14.1 s against 22.98 s (F3;
+    two cells' burn gives 21.5 s); the oblique literal 899 708 truncated
+    (reviewer 4); no battle-level check that a shut-down turret fires
+    nothing (reviewer 2). Due: a frame to the owner before L5d's routes
+    and E6's overheat path are measured (whether the overheat route is
+    the beam's or the radiators'); the scenario items with the next pass
+    that touches each file.
 
 ## 18. Decisions in force
 
@@ -1901,3 +1922,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 284 | The full mutation run on the L5a merge: 138 killed, 9 changed, 46 survived; one new survivor, a coverage gap for L5d | report |
 | 285 | The owner chose L5m now at the corrected cost (option A); the L5m plan: `turret.machineryMass` (new), 15 successors, one new scenario | current (amends #281 (6)) |
 | 286 | Answers to L5m's route question: mission kill moves to R1d, overheat to R1's bridge; R1 from +y and T-gun's turret kept as cases; data.js notes corrected in the pass | current |
+| 287 | L5m merged (PR #78): the turret by its mount; answers to its two engineers, the blind checker and the reviewer; contents at the room's centre stated; §17 item 43 (the overheat route rests on an unsourced heat capacity) | current |

@@ -12,10 +12,10 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   L4a (PR #58, #253–#258, #260), **L4b (PR #62, #261–#264, #267): L4 is
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
-  (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books.
-- **Running**: **L5m, the turret by its mount** (engineer on `m0/l5m-turret`, #285). The full mutation run on the L5a merge is recorded (#284).
-- **Waiting on you**: nothing. You chose L5m now (#285, option A, 25–38 USD by the rule, 12–18 expected); its engineer runs. After it: the pace study and your threshold choice. Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#285. The prototype page is on the L4b kernel (version 5): play it and say what is not fun (#223's ladder).
-- **Money**: L5a 23.54 USD (raw 11–16, ratio 1.74; the rule's 28–40, my 14–20). 2026-10-21/22 in all about 190 USD.
+  (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge.
+- **Running**: no session. In this chat: the full mutation run on the L5m merge `afa73b4` and **the pace study** on R1d at four detonation thresholds (400, 500, 650, 750 m/s) and R1 at 400. `regress` on L5m's head: 116 VERIFIED + 136 WITHDRAWN + 5 RETIRED.
+- **Waiting on you**: soon, the pace table and your choice of `magazine.detonationSpeed` (§13n.1 (b)); later, a frame on the overheat route (§17 item 43: it rests on a heat capacity with no source). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#287. The prototype page is on the L4b kernel (version 5).
+- **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (ratio 1.21). 2026-10-21/23 in all about 205 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
@@ -25,8 +25,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   surprised by a prototype): missiles (seekers, warheads, EMP), point
   defence, the railgun as a weapon, round types, the firing window, every
   sense (passive, active, jamming, the knowledge model), the enemy's
-  choices, standing orders and presets, room size S, the turret by its
-  mount (L5m), the economy, the campaign, sound and rendering. All planned
+  choices, standing orders and presets, room size S, the economy, the campaign, sound and rendering. All planned
   L5b–L5e (§13n) or after Mission 0; the line shrinks as passes merge.
   The prototype page still ends a duel on a magazine's explosion only
   until it is republished on the L5a kernel.
@@ -158,16 +157,13 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Next steps
 
-1. **L5a is merged** (#283); its full mutation run is recorded (#284).
-2. **Mass pass 2 (L5m)** after L5a: the turret only (#281 (2)); its engineer
-   task re-pins R1 and R1d; the pace study K7 after it (#281 (5)).
+1. **L5a and L5m are merged** (#283, #287); L5a's full mutation run recorded (#284), L5m's running.
+2. **The pace study K7** (§13n.1 (b)): the threshold table to the owner before L5b's lock; then L5b's engineer task.
 3. Each L5 pass: engineer (opus) → blind physics checker (sonnet) →
    reviewer (sonnet) → answers row → merge; `--only` mutations before the
    review, the full run after (#270 (5)); the pace study (`pace.mjs` on
-   R1d) between L5a and L5b, reported before L5b's lock.
-4. `.claude/agents/lead-designer.md` was missing (the hand-over named it)
-   and is written on this branch (the owner asked); it goes to `main` with
-   this block's documentation pull request.
+   R1d) after L5m, reported before L5b's lock.
+4. `.claude/agents/lead-designer.md` exists since PR #69 (the owner asked).
 
 ## Scheduled tasks
 
@@ -179,7 +175,7 @@ The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
 the old chat's pending check-in was deleted at hand-over; the new chat
 creates its own (`send_later`, 20–45 min after starting a session). This
-chat's pending check-in: `trig_015yzPVLNLBBY93vYQW1sNgz` (17:31 UTC, the L5a fix round; obsolete once read).
+chat's pending check-in: `trig_01FNCFgNTUqXwQCtwD2hecPr` (01:10 UTC, L5m's review; obsolete once read).
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
 
