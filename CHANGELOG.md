@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5b probed and made buildable (#289)
+
+- `DECISIONS.md` #289: the probe of L5b (116 of 116 rows unchanged) and the
+  lead designer's precisions to §13n.1 (a): the antenna fitting and
+  `sensor.mass` (new), the scan's power, progress and reset, the zone
+  bounds and what a zone reveals, point sources, the knowledge model as a
+  battle setting, the events' roots. `DESIGN.md` §13n.1 (a), §13n.2, §13n.4
+  (S2, S7, S9), §13n.6, §18. `tools/estimates/l5.mjs` section (1) prints
+  the zones and the antenna's mass. `STATUS.md`: the new lead designer chat.
+
 ## Unreleased — 2026-10-23 — The pace study after L5m (#288)
 
 - `DECISIONS.md` #288: the owner kept `magazine.detonationSpeed` at 400 m/s;

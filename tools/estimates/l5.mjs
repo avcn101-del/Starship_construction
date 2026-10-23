@@ -39,6 +39,7 @@ const PLANNED = {
   'sensor.scanPower': 1e5, // W, k = 2: the antenna's radiated power while scanning (EM-bright)
   'sensor.scanTime': 4, // s, k = 0: one zone at sensor.scanRange
   'sensor.scanRange': 900, // m, k = 1: the range at which a zone takes sensor.scanTime (the same battle in cells, #273 (3))
+  'sensor.mass': 1000, // kg, k = 2 (with the aperture): one antenna fitting, at its edge's midpoint; an estimate, 250 kg/m^2 of aperture (#289)
   'engine.exhaustVelocity': 1e4, // m/s, k = 0: a fusion torch's jet; jet power = thrust x v_e / 2 is its IR brightness
   // the kinetic pass (13n.1 (b))
   'magazine.detonationSpeed': 400, // m/s, k = 0: a round entering a magazine cell at or above this detonates it (#273 (c))
@@ -109,6 +110,17 @@ line('# (1) Information law at T1 (13n.1 (a)): IR and EM sources, passive ranges
   const xs = cells.map((q) => q[0]), ys = cells.map((q) => q[1]);
   const W = Math.max(...xs) - Math.min(...xs) + 1, H = Math.max(...ys) - Math.min(...ys) + 1;
   line(`  R1d's occupied box ${W} x ${H} cells -> 3 x 2 = 6 zones of about ${Math.ceil(W / 3)} x ${Math.ceil(H / 2)} cells; the whole ship at 600 / 900 / 1500 m: ${[600, 900, 1500].map((d) => f(6 * ts * (d / rs) ** 4, 1)).join(' / ')} s`);
+  // The zone rule of #289: column bounds x0 + ceil(i W / 3), i = 0..3 (stern to bow), row bounds y0 + ceil(j H / 2), j = 0..2;
+  // zone id = 3 j + i; a resolved zone reveals its own cells (room, type, integrity, plates on their segments) and
+  // nothing else; a room is known once one of its cells is.
+  const x0 = Math.min(...xs), y0 = Math.min(...ys), xb = [0, 1, 2, 3].map((i) => x0 + Math.ceil((i * W) / 3)), yb = [0, 1, 2].map((j) => y0 + Math.ceil((j * H) / 2));
+  for (let j = 0; j < 2; j++) for (let i = 0; i < 3; i++) {
+    const inZone = [...world.layout.rooms.entries()].filter(([, r]) => r.cells.some(([x, y]) => x >= xb[i] && x < xb[i + 1] && y >= yb[j] && y < yb[j + 1])).map(([id]) => id);
+    line(`  zone ${3 * j + i} (${['stern', 'middle', 'bow'][i]}, ${['y low', 'y high'][j]}): cells [${xb[i]}, ${xb[i + 1]}) x [${yb[j]}, ${yb[j + 1]}), rooms known once it resolves: ${inZone.join(', ')}`);
+  }
+  const mA = Pn('sensor.mass'), undock = readout(world).mass;
+  line(`  one antenna (sensor.mass ${mA} kg) on R1d: ${f(undock, 0)} -> ${f(undock + mA, 0)} kg (+${f((100 * mA) / undock, 3)} %); R1d's free open edges for it are the hold's six (the engine's two are its exhaust face)`);
+  line(`  a cold panel is resolved to ${f(range(panel(T0)), 0)} m: at 600 / 900 / 1500 m an antenna resolves every one of the target's 17 panels at rest (running cold hides rooms without panels, not the panels, inside the band)`);
   line(`  the scanner is seen passively at d^-2 while it scans: its EM is detected to ${f(range(Pn('sensor.scanPower')), 0)} m, so at every battle range the target knows the scanner's antenna before the scan resolves a zone (the design's asymmetry, #24)`);
   // IR at rest: every hull cell radiates as a 290 K surface? No: only radiators radiate in the kernel (irBrightness); hull cells do not.
   let rad = 0; for (const r of world.rooms) rad += irBrightness(world, r);

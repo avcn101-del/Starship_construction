@@ -17,7 +17,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge.
-- **Running**: nothing. The pace study is reported and the threshold chosen (#288: 400 m/s); L5m's full mutation run is recorded (#288).
+- **Running**: **L5b** (senses and the knowledge model): probed (#289: 116 of 116 rows unchanged, the cost stands), plan made buildable; the engineer (opus, `m0/l5b-senses`) next.
 - **Waiting on you**: nothing. You gave **the go for L5b** (2026-10-23) and asked for a new lead designer chat to run it. Later: the frame on the overheat route (§17 item 43). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#288.
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (ratio 1.21). 2026-10-21/23 in all about 205 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
@@ -164,7 +164,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 1. **L5a and L5m are merged** (#283, #287), the pace study reported and the
    threshold kept at 400 m/s (#288); each pass's full mutation run is
    recorded (#284, #288).
-2. **L5b** (the owner's go, 2026-10-23): the new lead designer chat reads
+2. **L5b** (the owner's go, 2026-10-23): **probed and amended (#289)**; then engineer → blind checker → reviewer → answers row → merge. The plan as it was: the new lead designer chat reads
    §13n.1 (a), §13n.2's `sensor.*` and `engine.exhaustVelocity`, §13n.3 (1),
    §13n.4 S1–S9 and `tools/estimates/l5.mjs` section (1); before writing the
    engineer's task it **probes** the plan (a scratch copy, nothing recorded:
