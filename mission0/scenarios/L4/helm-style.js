@@ -33,7 +33,7 @@ export default {
   tolerance: 'steps exact; the bearing\'s change against a dt^2 / R*',
   criterion: 'hold: never engaged, the tangential relative speed under band / t180 throughout; orbit and strafe: engaged at the helm\'s first step (step 0); orbit: the bearing never turns clockwise by more than a dt^2 / R* in a step and has advanced counter-clockwise after 60 s (kernel-read, labelled); strafe: its sense flips at 600, 1200, 1800, 2400 and 3000 exactly',
   tunable: ['helm.rangeBand', 'helm.rangeHold', 'helm.dodgeMin', 'helm.dodgeMax', 'rcs.force'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'a1186a41' },
   cases() {
     return [{ style: 'hold' }, { style: 'orbit' }, { style: 'strafe' }];
   },
