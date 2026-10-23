@@ -1,5 +1,6 @@
 // projectile.js — munitions: geometry and momentum of kinetic rounds.
 // (Trajectories, guidance and time of flight arrive with L3+.)
+import { cbrt } from './util.js';
 
 /**
  * A kinetic round is a steel cylinder `lengthToDiameter` diameters long.
@@ -7,7 +8,7 @@
  */
 export function roundGeometry(mass, density, lengthToDiameter) {
   // m = rho * (pi/4) D^2 * (LD * D)  =>  D = cbrt(4 m / (pi rho LD))
-  const D = Math.cbrt((4 * mass) / (Math.PI * density * lengthToDiameter));
+  const D = cbrt((4 * mass) / (Math.PI * density * lengthToDiameter));
   return { D, A: (Math.PI * D * D) / 4 };
 }
 
