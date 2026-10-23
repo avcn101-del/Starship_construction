@@ -63,23 +63,37 @@ export function parseVerb(line) {
 }
 
 /**
- * Play a duel: `next(text)` returns the next verb line (or '' for nothing) given the model's text. Returns { battle,
- * inputs, texts, replay }.
+ * A play session (13n.1 (d)): the duel's battle and, each `every` seconds of it, a prompt: `text()` the player's model as
+ * text, `answer(line)` one verb line (or '' for nothing) applied before the next step, `run()` the steps to the next
+ * prompt or the end. `inputs` the verbs played, `replay` the line that replays them (tools/duel.js).
  */
-export async function play(opts, next) {
+export function createPlay(opts) {
   const b = createDuel(opts), every = stepsAtLeast(opts.every ?? 5, b.dt), steps = stepsAtLeast(opts.limit, b.dt), inputs = [], texts = [];
-  while (!b.ended && b.step < steps) {
-    if (b.step % every === 0) {
-      const text = modelText(b, b.attacker);
-      texts.push(text);
-      const line = await next(text);
+  const self = {
+    battle: b, inputs, texts,
+    over: () => !!b.ended || b.step >= steps,
+    text: () => { const t = modelText(b, b.attacker); texts.push(t); return t; },
+    answer: (line) => {
       let v = null;
       try { v = parseVerb(line || ''); } catch (e) { texts.push(`(${e.message})`); }
       if (v) { const x = { t: b.t, ...v }; inputs.push(x); b.inputs.push({ ...x, side: 'A', step: b.step, done: false }); }
-    }
-    tick(b);
-  }
-  return { battle: b, inputs, texts, replay: replayLine({ ...opts, inputs }) };
+    },
+    run: () => { do tick(b); while (!self.over() && b.step % every !== 0); },
+    replay: () => replayLine({ ...opts, inputs }),
+  };
+  return self;
+}
+/** Play a duel with a synchronous player: `next(text, battle)` returns the verb line for each prompt. */
+export function playSync(opts, next) {
+  const p = createPlay(opts);
+  while (!p.over()) { p.answer(next(p.text(), p.battle)); p.run(); }
+  return { battle: p.battle, inputs: p.inputs, texts: p.texts, replay: p.replay() };
+}
+/** The same with an asynchronous player (a terminal). */
+export async function play(opts, next) {
+  const p = createPlay(opts);
+  while (!p.over()) { p.answer(await next(p.text(), p.battle)); p.run(); }
+  return { battle: p.battle, inputs: p.inputs, texts: p.texts, replay: p.replay() };
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === fs.realpathSync(process.argv[1])) {

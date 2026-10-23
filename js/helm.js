@@ -9,10 +9,12 @@
 // |w*| = a (sqrt(2 |e| / a + t180^2) - t180), e the distance to P, a the ship's
 // acceleration at the preset's throttle, t180 its 180-degree turn on the RCS
 // couple (a ship that must turn its engine round to brake brakes that much
-// earlier); it takes the heading and the engine while the relative velocity's
-// error from w* exceeds a t180 (#301 (2)); with the ship on the line from the
+// earlier); it engages when e is beyond helm.rangeBand or the relative
+// velocity's error from w* exceeds a t180 (a dodge's drift), and lets go when e
+// is within the band at a relative speed of at most band / t180, keeping its
+// state between the two (#302); with the ship on the line from the
 // other ship along the position's direction e is the range error and P lies on
-// the line of sight, #301's law as written. `disengage` (#293) turns the stern
+// the line of sight, #301's braking curve with #302's engagement. `disengage` (#293) turns the stern
 // to the other ship and thrusts away along the line of sight. The engine opens
 // at the preset's throttle x max(0, cos of the heading error) (no tolerance).
 //   Facing (second): bow-on the bow on the line of sight, broadside the nearer
@@ -64,13 +66,13 @@ export function silhouettePose(model) {
   return s.find((b) => b.id === 'body-0') || s[0] || null;
 }
 
-/** A full set of the twelve slots (and the throttle) from a preset name or a case's own set (a test input). */
+/** A full set of the twelve slots (and the throttle) from a preset name or a case's own set (a test input: the slots it names over Fire's). */
 export function ordersOf(x) {
   if (typeof x === 'string') {
     if (!PRESETS[x]) throw new Error(`unknown preset ${x}`);
     return { ...PRESETS[x], heat: { ...PRESETS[x].heat }, priority: [...PRESETS[x].priority], name: x };
   }
-  return { ...PRESETS.fire, ...x, heat: { ...PRESETS.fire.heat, ...(x.heat || {}) }, priority: [...(x.priority || [])], name: x.name || 'case' };
+  return { ...PRESETS.fire, ...x, heat: { ...PRESETS.fire.heat, ...(x.heat || {}) }, priority: [...(x.priority || PRESETS.fire.priority)], name: x.name || 'case' };
 }
 
 /**
@@ -115,8 +117,16 @@ export function brakingSpeed(e, a, t180) {
   if (!(a > 0) || !(e > 0)) return 0;
   return a * (Math.sqrt((2 * e) / a + t180 * t180) - t180);
 }
-/** Whether the range order takes the heading and the engine: the relative velocity's error beyond a t180 (#301 (2)). */
-export const rangeEngages = (error, a, t180) => error > a * t180;
+/**
+ * The range order's state (#302, superseding #301 (2)'s engagement): it engages when the distance to its point is beyond
+ * helm.rangeBand or the relative velocity's error exceeds a t180 (a dodge's drift); it lets go when the distance is
+ * within the band and the relative speed is at most band / t180; between the two it keeps its state (hysteresis).
+ */
+export function rangeEngaged(was, { e, error, speed, a, t180, band }) {
+  if (e > band || error > a * t180) return true;
+  if (e <= band && speed <= band / t180) return false;
+  return was;
+}
 
 /** The hottest room's fraction of the way from rest to its own hot threshold (heat discipline). */
 export function heatFraction(world) {
@@ -247,9 +257,10 @@ export function helmStep(battle, side) {
     const P = [them.x[0] + R * dir[0], them.x[1] + R * dir[1]], E = sub(P, me.x), e = len(E);
     const speed = brakingSpeed(e, a, t180), want = e > 0 ? [(E[0] / e) * speed, (E[1] / e) * speed] : [0, 0];
     const rel = sub(me.v, vo), err = sub(want, rel), errLen = len(err);
-    h.engaged = throttle > 0 && a > 0 && rangeEngages(errLen, a, t180);
+    const band = scaled(p.helm.rangeBand, edge);
+    h.engaged = throttle > 0 && a > 0 && rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band });
     if (h.engaged) { heading = Math.atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
-    h.range = { R, e, want, rel, error: errLen, threshold: a * t180 };
+    h.range = { R, e, want, rel, error: errLen, threshold: a * t180, band, letGo: band / t180 };
   }
   // Facing (second), then dodging (third, broadside only).
   if (heading === null) {

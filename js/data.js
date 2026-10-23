@@ -285,6 +285,7 @@ export const PARAMS = {
     rangeClose: P(600, 300, 800, 1, 'm', true, 'the range order\'s close value: #54\'s band, prototype v2\'s (13n.1 (d), #278; approved as the plan\'s, #272 (2))'),
     rangeHold: P(900, 600, 1200, 1, 'm', true, 'the range order\'s hold value: #54\'s band, prototype v2\'s (13n.1 (d), #278; approved as the plan\'s, #272 (2))'),
     rangeOpen: P(1500, 1000, 2500, 1, 'm', true, 'the range order\'s open value: #54\'s band, prototype v2\'s (13n.1 (d), #278; approved as the plan\'s, #272 (2))'),
+    rangeBand: P(100, 25, 300, 1, 'm', true, 'the range order\'s dead band: it engages beyond it (or at a dodge\'s drift, a t180) and lets go inside it at a relative speed of at most this / t180; between the two it keeps its state (hysteresis); prototype v2\'s dead band, the one the owner played (#263, #302; approved as the plan\'s, #272 (2))'),
     dodgeMin: P(6, 2, 10, 0, 's', true, 'the shortest interval between dodge flips, drawn on the seeded stream for the enemy, their midpoint with dodgeMax for the player: prototype v2\'s value, the one the owner played (#263, #301; approved as the plan\'s, #272 (2))'),
     dodgeMax: P(14, 6, 30, 0, 's', true, 'the longest interval between dodge flips (helm.dodgeMin\'s note; #263, #301; approved as the plan\'s, #272 (2))'),
   },
@@ -362,10 +363,12 @@ export const ORDERS = {
   },
 };
 // The three presets that ship with the kernel (#39, prototype v2's names and throttles, #237): each the twelve slots.
+// Their power priority puts the shield and the guns before the beam bay (12.5 MW of R1's 20) and the engine: without
+// an order the routing's room-id order feeds the beam bay first and the turret and the shield starve.
 export const PRESETS = {
-  fire: { range: 'hold', position: 'bow', style: 'hold', dodging: 'off', facing: 'bow', firing: 'salvo', openFire: 'inRange', target: 'weapons', priority: [], heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 0.5 },
+  fire: { range: 'hold', position: 'bow', style: 'hold', dodging: 'off', facing: 'bow', firing: 'salvo', openFire: 'inRange', target: 'weapons', priority: ['shieldGenerator', 'turret', 'railgun', 'missileBay', 'beamBay', 'engine'], heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 0.5 },
   cool: { range: 'hold', position: 'bow', style: 'hold', dodging: 'off', facing: 'bow', firing: 'salvo', openFire: 'inRange', target: 'weapons', priority: [], heat: { threshold: 0, response: 'weapons' }, emission: 'cold', autoScan: 'off', throttle: 0 },
-  evade: { range: 'hold', position: 'bow', style: 'hold', dodging: 'on', facing: 'broadside', firing: 'ripple', openFire: 'sureHit', target: 'weapons', priority: [], heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 1 },
+  evade: { range: 'hold', position: 'bow', style: 'hold', dodging: 'on', facing: 'broadside', firing: 'ripple', openFire: 'sureHit', target: 'weapons', priority: ['shieldGenerator', 'engine', 'turret', 'railgun', 'missileBay', 'beamBay'], heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 1 },
 };
 
 // Rooms (DESIGN.md 5.2, 13c). Footprints in cells per size (rate-like

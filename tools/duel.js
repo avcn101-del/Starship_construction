@@ -12,15 +12,15 @@
 //   node tools/duel.js list
 //
 // Ships are named as in mission0/targets.js (TARGETS, SENSOR_SHIPS, WEAPON_SHIPS; default R1d-A against R1d-A). The
-// enemy starts on bearing -y of the player at the range (default battle.openingRange), both at rest, bow-on. Inputs:
+// player starts on the enemy's bow (bearing +x of its heading 0), each on the other's bow, at the range (default battle.openingRange), both at rest, bow-on. Inputs:
 // a JSON list [{ t, verb: 'scan' | 'target' | 'preset', arg }] (inline or a file). Text only; never a canonical run.
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { withOverrides, PARAMS } from '../js/data.js';
 import { createBattle, runBattle, battleHash } from '../js/battle.js';
-import { TARGETS, SENSOR_SHIPS, WEAPON_SHIPS } from '../mission0/targets.js';
+import { TARGETS, SENSOR_SHIPS, WEAPON_SHIPS, HELM_SHIPS } from '../mission0/targets.js';
 
-export const SHIPS = { ...TARGETS, ...SENSOR_SHIPS, ...WEAPON_SHIPS };
+export const SHIPS = { ...TARGETS, ...SENSOR_SHIPS, ...WEAPON_SHIPS, ...HELM_SHIPS };
 
 /** The duel's battle (not yet run): `player` and `enemy` ship names, the seed, the range (m, or null), the inputs, the personality, the overrides. */
 export function createDuel({ player = 'R1d-A', enemy = 'R1d-A', seed = 1, range = null, inputs = [], personality = null, overrides = {} } = {}) {
@@ -28,7 +28,7 @@ export function createDuel({ player = 'R1d-A', enemy = 'R1d-A', seed = 1, range 
   if (!SHIPS[enemy]) throw new Error(`unknown ship ${enemy}`);
   const params = withOverrides(overrides);
   return createBattle({
-    params, attacker: SHIPS[player], target: SHIPS[enemy], bearing: '-y', ...(range !== null ? { distance: range } : {}), seed,
+    params, attacker: SHIPS[player], target: SHIPS[enemy], bearing: '+x', ...(range !== null ? { distance: range } : {}), seed,
     knowledge: true, orders: { A: 'fire' }, enemy: { T: personality || { aggression: 0.5, patience: 0.5, caution: 0.5, resolve: 0.5 } },
     inputs: inputs.map((x) => ({ ...x, side: 'A' })),
   });

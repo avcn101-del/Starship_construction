@@ -733,7 +733,7 @@ function cullMunitions(battle) {
  */
 export function weaponStates(world) {
   const walls = liveWalls(world).filter((w) => w.live > 0);
-  const producing = world.rooms.filter((r) => r.type === 'reactor' && r.placed && !isDestroyed(r) && r.controlled && !r.reactor.scrammed && !r.shutdown && !r.unmanned);
+  const producing = world.rooms.filter((r) => r.type === 'reactor' && r.placed && r.active && !isDestroyed(r) && r.controlled && !r.reactor.scrammed && !r.shutdown && !r.unmanned); // a switched-off reactor produces nothing (L5d)
   const reached = new Set(producing), queue = [...producing];
   for (let i = 0; i < queue.length; i++) for (const w of walls) { const o = w.a === queue[i] ? w.b : w.b === queue[i] ? w.a : null; if (o && !reached.has(o)) { reached.add(o); queue.push(o); } }
   const typed = (g) => (g.typed ? Object.values(g.typed).reduce((x, y) => x + y, 0) : 0);
