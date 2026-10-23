@@ -1,0 +1,534 @@
+{
+  "id": "L1.sensor.passive",
+  "level": "L1",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L1.sensor.passive",
+  "code": "a1174e7+dirty",
+  "criterionHash": "ed7e1e69",
+  "lockedHash": "ed7e1e69",
+  "runHash": "15c20395",
+  "dataHash": "57b28bb3",
+  "rowsHash": "b1512cf3",
+  "rows": [
+    {
+      "case": {
+        "kind": "panel290",
+        "d": 600
+      },
+      "expected": {
+        "resolved": true,
+        "power": 9023.73,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 9023.7325344615,
+        "sourceAt": [
+          10,
+          2.5
+        ],
+        "d": 600,
+        "resolved": true,
+        "received": 0.007978731322215025,
+        "position": [
+          10,
+          2.5
+        ],
+        "events": [
+          {
+            "kind": "panel",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "panel290",
+        "d": 900
+      },
+      "expected": {
+        "resolved": true,
+        "power": 9023.73,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 9023.7325344615,
+        "sourceAt": [
+          10,
+          2.5
+        ],
+        "d": 900,
+        "resolved": true,
+        "received": 0.003546102809873345,
+        "position": [
+          10,
+          2.5
+        ],
+        "events": [
+          {
+            "kind": "panel",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "panel290",
+        "d": 1500
+      },
+      "expected": {
+        "resolved": true,
+        "power": 9023.73,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 9023.7325344615,
+        "sourceAt": [
+          10,
+          2.5
+        ],
+        "d": 1500,
+        "resolved": true,
+        "received": 0.0012765970115544041,
+        "position": [
+          10,
+          2.5
+        ],
+        "events": [
+          {
+            "kind": "panel",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "panel290",
+        "d": 1650
+      },
+      "expected": {
+        "resolved": true,
+        "power": 9023.73,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 9023.7325344615,
+        "sourceAt": [
+          10,
+          2.5
+        ],
+        "d": 1650,
+        "resolved": true,
+        "received": 0.001055038852524301,
+        "position": [
+          10,
+          2.5
+        ],
+        "events": [
+          {
+            "kind": "panel",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "panel290",
+        "d": 1750
+      },
+      "expected": {
+        "resolved": false,
+        "power": 9023.73,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 9023.7325344615,
+        "sourceAt": [
+          10,
+          2.5
+        ],
+        "d": 1750,
+        "resolved": false,
+        "received": null,
+        "position": null,
+        "events": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "panel600",
+        "d": 600
+      },
+      "expected": {
+        "resolved": true,
+        "power": 165348.1,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 165348.10584,
+        "sourceAt": [
+          10,
+          2.5
+        ],
+        "d": 600,
+        "resolved": true,
+        "received": 0.1461998243073216,
+        "position": [
+          10,
+          2.5
+        ],
+        "events": [
+          {
+            "kind": "panel",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "panel600",
+        "d": 900
+      },
+      "expected": {
+        "resolved": true,
+        "power": 165348.1,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 165348.10584,
+        "sourceAt": [
+          10,
+          2.5
+        ],
+        "d": 900,
+        "resolved": true,
+        "received": 0.06497769969214294,
+        "position": [
+          10,
+          2.5
+        ],
+        "events": [
+          {
+            "kind": "panel",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "panel600",
+        "d": 1500
+      },
+      "expected": {
+        "resolved": true,
+        "power": 165348.1,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 165348.10584,
+        "sourceAt": [
+          10,
+          2.5
+        ],
+        "d": 1500,
+        "resolved": true,
+        "received": 0.023391971889171456,
+        "position": [
+          10,
+          2.5
+        ],
+        "events": [
+          {
+            "kind": "panel",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "panel600",
+        "d": 7200
+      },
+      "expected": {
+        "resolved": true,
+        "power": 165348.1,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 165348.10584,
+        "sourceAt": [
+          10,
+          2.5
+        ],
+        "d": 7200,
+        "resolved": true,
+        "received": 0.0010152765576897334,
+        "position": [
+          10,
+          2.5
+        ],
+        "events": [
+          {
+            "kind": "panel",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "panel600",
+        "d": 7300
+      },
+      "expected": {
+        "resolved": false,
+        "power": 165348.1,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 165348.10584,
+        "sourceAt": [
+          10,
+          2.5
+        ],
+        "d": 7300,
+        "resolved": false,
+        "received": null,
+        "position": null,
+        "events": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "exhaust",
+        "d": 600
+      },
+      "expected": {
+        "resolved": true,
+        "power": 75000000000,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 75000000000,
+        "sourceAt": [
+          0.047106351144014624,
+          7.517753881951399
+        ],
+        "d": 600.0471066137903,
+        "resolved": true,
+        "received": 66304.14799995047,
+        "position": [
+          0.047106351144014624,
+          7.517753881951399
+        ],
+        "events": [
+          {
+            "kind": "exhaust",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "exhaust",
+        "d": 900
+      },
+      "expected": {
+        "resolved": true,
+        "power": 75000000000,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 75000000000,
+        "sourceAt": [
+          0.047106351144014624,
+          7.517753881951399
+        ],
+        "d": 900.0471065262462,
+        "resolved": true,
+        "received": 29470.05256930966,
+        "position": [
+          0.047106351144014624,
+          7.517753881951399
+        ],
+        "events": [
+          {
+            "kind": "exhaust",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "exhaust",
+        "d": 1500
+      },
+      "expected": {
+        "resolved": true,
+        "power": 75000000000,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 75000000000,
+        "sourceAt": [
+          0.047106351144014624,
+          7.517753881951399
+        ],
+        "d": 1500.0471064562078,
+        "resolved": true,
+        "received": 10609.663150819328,
+        "position": [
+          0.047106351144014624,
+          7.517753881951399
+        ],
+        "events": [
+          {
+            "kind": "exhaust",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "exhaust",
+        "d": 4800000
+      },
+      "expected": {
+        "resolved": true,
+        "power": 75000000000,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 75000000000,
+        "sourceAt": [
+          0.047106351144014624,
+          7.517753881951399
+        ],
+        "d": 4800000.047106351,
+        "resolved": true,
+        "received": 0.0010361649737503807,
+        "position": [
+          0.047106351144014624,
+          7.517753881951399
+        ],
+        "events": [
+          {
+            "kind": "exhaust",
+            "parent": "sense",
+            "cause": "sense",
+            "room": "hold"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "kind": "exhaust",
+        "d": 5000000
+      },
+      "expected": {
+        "resolved": false,
+        "power": 75000000000,
+        "A": 4,
+        "S": 0.001
+      },
+      "actual": {
+        "sourceP": 75000000000,
+        "sourceAt": [
+          0.047106351144014624,
+          7.517753881951399
+        ],
+        "d": 5000000.047106351,
+        "resolved": false,
+        "received": null,
+        "position": null,
+        "events": []
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

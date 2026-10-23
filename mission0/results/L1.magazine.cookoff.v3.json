@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.magazine.cookoff.v3",
-  "code": "17c09e0",
+  "code": "a1174e7+dirty",
   "criterionHash": "bf9994f2",
   "lockedHash": "bf9994f2",
   "runHash": "c60a263a",
-  "dataHash": "e6752b27",
+  "dataHash": "57b28bb3",
   "rowsHash": "98d989ae",
   "rows": [
     {

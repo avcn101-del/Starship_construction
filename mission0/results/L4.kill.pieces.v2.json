@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.kill.pieces.v2",
-  "code": "17c09e0",
+  "code": "a1174e7+dirty",
   "criterionHash": "b6adb51e",
   "lockedHash": "b6adb51e",
   "runHash": "774b01f9",
-  "dataHash": "e6752b27",
+  "dataHash": "57b28bb3",
   "rowsHash": "1f47cee3",
   "rows": [
     {

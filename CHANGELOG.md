@@ -1,5 +1,32 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5b: senses and the knowledge model (#278, #289)
+
+- `js/sensors.js` (new): each side's sources (radiator panels by
+  `irBrightness`, an engine's exhaust at thrust x `engine.exhaustVelocity`
+  / 2, a scanning antenna, an absorbing shield), passive resolution at
+  d^-2 against `sensor.sensitivity`, scans by 3 x 2 zones at d^4, the
+  knowledge model per side (silhouette, resolved zones and their cells,
+  sources, own shots and hits) and the events `scan-started`,
+  `zone-resolved`, `source-resolved` (roots `scan-<n>` and `sense`).
+- Kernel: the `antenna` fitting (`addFitting`, `sensor.mass` at its edge's
+  midpoint); a scanning antenna's draw joins its host's `powerRequest` and
+  is heat in the host; a shield's payment for a round counts as its EM
+  brightness over that step (`roundEm`, read with `s.em`); `createBattle`
+  takes `knowledge` (default off), `scans` and `plan.zone`, `buildShip` an
+  `origin`; `tick` senses only with `knowledge` on. With it off no locked
+  row moves (116 of 116 unchanged); every passing scenario re-recorded on
+  the new data hash.
+- `js/data.js`: `sensor.area`, `sensor.sensitivity`, `sensor.scanPower`,
+  `sensor.scanTime`, `sensor.scanRange`, `sensor.mass`,
+  `engine.exhaustVelocity`, approved as the plan's (#272 (2)).
+- Scenarios S1-S9 (`L1.sensor.passive`, `L1.sensor.active`,
+  `L2.sensor.reveal`, `L2.sensor.memory`, `L2.sensor.shield`,
+  `L3.sensor.control`, `L4.target.known`, `L0.sensor.tier`,
+  `L2.sensor.posture`), locked and passing; `mission0/targets.js` gains
+  `HOLD_ANTENNA` and `SENSOR_SHIPS`; seven mutations in
+  `tools/mutations.json`.
+
 ## Unreleased — 2026-10-23 — L5b probed and made buildable (#289)
 
 - `DECISIONS.md` #289: the probe of L5b (116 of 116 rows unchanged) and the
