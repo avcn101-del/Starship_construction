@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5d merged: the helm and the enemy (#309)
+
+- Kernel (PR #94): the symmetric loop, `js/helm.js` (twelve standing
+  orders, presets, the range order, style, lead, surrender, escape),
+  `js/enemy.js` (personality, wildcard draw, surrender, disengage), the
+  missile bay's draw, power test and cook-off, `tools/play.mjs`,
+  `tools/duel.js`; 7 new constants (`helm.*`, `enemy.decisionInterval`);
+  H1–H20 and H9′, five withdrawals with successors. `DECISIONS.md` #309;
+  `DESIGN.md` §13m's L5d rows proven (three moved to L5e), §13n.1 (d),
+  §13n.6, §17 item 50, §18; `CONSTANTS.md` regenerated; `LEDGER.md`
+  (L5d ≥ 47.92 USD, ratio ≥ 1.20).
+
 ## Unreleased — 2026-10-23 — L5d probed and planned (#301–#308)
 
 - #308: H20 `L4.route.escape.reorder`; the float margin confirmed.
