@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — The mutation run on the L5c merge (#300)
+
+- `DECISIONS.md` #300: the full mutation run on `c1b2c4a`
+  (`mission0/mutations/2026-10-23-c1b2c4a.txt`): 186 KILLED, 6 CHANGED,
+  45 SURVIVED, 0 STALE of 237; no new survivor. `DESIGN.md` §18.
+
 ## Unreleased — 2026-10-23 — L5c merged: weapons (#299)
 
 - Kernel (PR #88): the spinal railgun, the missile bay and missiles

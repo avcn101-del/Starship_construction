@@ -17,7 +17,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge. **L5b the senses and the knowledge model (PR #84, #289, #290)**: `js/sensors.js`, the antenna fitting, passive IR/EM at d⁻², zones scanned at d⁴ revealing their own cells, one knowledge model per side as a battle setting; S1–S9 all PASS, every literal reproduced blind. **L5c weapons (PR #88, #295, #296, #298, #299)**: the railgun, missiles with seekers and warheads (EMP by section), point defence with a range, the round types with their prices, the firing window, S footprints; 39.06 USD.
-- **Running**: the full `tools/mutate.js` run on the L5c merge `c1b2c4a` (in the old chat `session_01DFw3o4EBEtf1adcpyJ5786`, started 09:14 UTC, 1.5–3 hours): **the old chat writes its row and report** in a small documentation pull request when it ends; the new chat does not re-run it. Nothing else runs.
+- **Running**: nothing of the old chat's: the full mutation run on the L5c merge is recorded (#300: no new survivor). The new chat's sessions are listed by it.
 - **Waiting on you**: nothing. You gave **the go for L5d** (2026-10-23) and asked for a new lead designer chat to run it; the prototype page is republished on the L5c kernel (version 6, 0 USD). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#299.
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (1.21), L5b 11.62 (0.65), **L5c 39.06 (1.18)**: L5 so far 89.31. 2026-10-21/23 in all about 256 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
@@ -162,7 +162,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Next steps
 
-1. **L5c is merged** (#299). The full mutation run on the merge runs in the old chat, which writes its row (the next number after #299) and `mission0/mutations/2026-10-23-c1b2c4a.txt` in a small documentation pull request; the new chat leaves that to it.
+1. **L5c is merged** (#299) and its full mutation run recorded (#300, by the old chat).
 2. **L5d** has the owner's go (2026-10-23). The new chat: (a) reads §13n.1 (d) with #292 (the EMP route: H9 as reworded), #293 (escape: the `disengage` order, H11, the 10 s counted beyond `battle.cullDistance`), #297 (the plume is L5e's, not L5d's), §17 items 45 (plan advancement and every target rule by the model, partial power, `roundEm` enumerable, every bay by orders), 46 (the bay's power test and draw, its cook-off), 44 (k = 0 reads, if the hygiene fits); (b) **amends the plan** with the prototype page republished on the L5d kernel reading `enemy.js` (a `proto/` change: the fixed script replaced by the enemy of §13n.1 (d) at personality 0.5; the republish is the lead designer's act with the Artifact tool, as version 6 was: copy `js/` beside the proto files with the import prefix `../js/` rewritten to `./js/`, `proto.css` as a file); (c) **probes** the symmetric loop in a scratch copy (#285's lesson): H1 replays every L4b case on it, so which records move, and whether H1–H11 can be built as written; re-costs if the probe disagrees with §13n.5 (raw 26–36 plus the items above); (d) then engineer (opus, `m0/l5d-helm`) → blind checker (sonnet, from the lock, H4, H8–H11) → reviewer (sonnet) → answers row → `regress` on the merge → merge → the full mutation run.
 3. **Open for the owner later**: nothing new; the frames of 2026-10-23 are all decided (#291, #292, #293, #297).
 4. Due when their files are touched: §17 items 35 (rest, L5d), 39 (residue), 43 (L5e's throughput measure), 44, 45–47.
@@ -188,8 +188,8 @@ this chat's context is compressed or it repeats itself. Hand over through
 this file; the new chat re-creates the check-ins (`send_later`), which die
 with the chat that made them. **Handed over at the L5c/L5d boundary**
 (2026-10-23, the owner's call: the old chat's context at about 70 %, L5d
-larger than L5c). The old chat (`session_01DFw3o4EBEtf1adcpyJ5786`) keeps
-only the mutation run's row to write. The next natural boundary: **after
+larger than L5c). The old chat (`session_01DFw3o4EBEtf1adcpyJ5786`) has
+nothing left to do (#300 written). The next natural boundary: **after
 L5d merges**, or earlier if the new chat's context is compressed.
 
 ## Lessons for whoever continues
