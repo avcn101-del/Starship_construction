@@ -1136,5 +1136,21 @@
     "recordHash": "f910fc09",
     "reason": "Superseded by #286, the routes the turret's mount moves (L5m): with the turret by its mount (#285, 4975 kg a cell at T1) its B2 (R1 from +y) ends destroyed and its B4 (the beam on T-gun's turret) ends with the turret destroyed. Its successor keeps every case, replacing B2 by the mission kill on R1d and B4 by overheat through R1's bridge, the Disabled event descending from the bridge's shutdown with cause heat. Recorded PASS on the old data, frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L2.magazine.types.v2",
+    "successor": "L2.magazine.types.v3",
+    "decision": "#296",
+    "recordHash": "865be15e",
+    "reason": "Superseded under #296 (1), the L5c engineer's Q1 (PR #88): its missile row said loadMagazine throws until L5c (a stated TODO of L5a), which #278's missile magazine, built in L5c, overtook. Its successor keeps every case and check and tests the built rule in that row (a missile magazine loads, its energy missile.warheadEnergy + 1/2 m (acceleration x burnTime)^2 per missile, it explodes by them). Its record is the one from main (PASS on the data before L5c), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L2.missile.warheads",
+    "successor": "L2.missile.warheads.v2",
+    "decision": "#296",
+    "recordHash": "ec2f50a4",
+    "reason": "Superseded under #296 (3), the L5c engineer's Q7 (PR #88): a missile's body at impact is a stopped projectile of its mass at its speed (its momentum to the hull at the entry point, its kinetic energy heat in the hit cell, nothing spent), which moves its rows; and its penetrator case fired a hand-built rod, not the battle's warhead path (the l5c.warhead.penetrator survivor). Its successor keeps every case and check, measures the body's impulse and heat in battle cases and flies the penetrator through createBattle. Recorded PASS at lock 9c21d46, frozen (#245).",
+    "frozen": true
   }
 ]

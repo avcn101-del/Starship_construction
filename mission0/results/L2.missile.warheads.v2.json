@@ -1,0 +1,370 @@
+{
+  "id": "L2.missile.warheads.v2",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.missile.warheads.v2",
+  "code": "1cee88d",
+  "criterionHash": "ba40f09b",
+  "lockedHash": "ba40f09b",
+  "runHash": "c62e4d71",
+  "dataHash": "d540e777",
+  "rowsHash": "a137363a",
+  "rows": [
+    {
+      "case": {
+        "part": "he"
+      },
+      "expected": {
+        "bridge": 5920000,
+        "entered": 10000000,
+        "vented": 10000000
+      },
+      "actual": {
+        "r": {
+          "room": "bridge",
+          "entered": 10000000,
+          "vented": 10000000
+        },
+        "bridge": 5920000,
+        "absorbed": 10000000,
+        "escaped": 0,
+        "bridgeCells": 4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "penetrator"
+      },
+      "expected": {
+        "passed": 1,
+        "stoppedIn": 1
+      },
+      "actual": {
+        "passed": 1,
+        "stoppedIn": 1,
+        "s0ratio": 0.5889066759281322
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "emp",
+        "at": "-y"
+      },
+      "expected": {
+        "scram": [
+          "reactor"
+        ],
+        "outage": [
+          "bridge",
+          "shield"
+        ],
+        "end": 5.025
+      },
+      "actual": {
+        "paid": 0,
+        "hit": [
+          {
+            "room": "bridge",
+            "effect": "outage",
+            "dose": 1855072.463768116
+          },
+          {
+            "room": "reactor",
+            "effect": "scram",
+            "dose": 1662337.6623376624
+          },
+          {
+            "room": "shield",
+            "effect": "outage",
+            "dose": 1662337.6623376624
+          }
+        ],
+        "ends": [
+          {
+            "room": "bridge",
+            "t": 5.033333333333333
+          },
+          {
+            "room": "shield",
+            "t": 5.033333333333333
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "emp",
+        "at": "bow"
+      },
+      "expected": {
+        "scram": [],
+        "outage": [
+          "beamBay"
+        ],
+        "end": 5.025
+      },
+      "actual": {
+        "paid": 0,
+        "hit": [
+          {
+            "room": "beamBay",
+            "effect": "outage",
+            "dose": 1882352.9411764706
+          }
+        ],
+        "ends": [
+          {
+            "room": "beamBay",
+            "t": 5.033333333333333
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "emp",
+        "at": "-y",
+        "shield": true
+      },
+      "expected": {
+        "paid": 2000000,
+        "hit": []
+      },
+      "actual": {
+        "paid": 2000000,
+        "hit": [],
+        "ends": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "battle"
+      },
+      "expected": {
+        "kind": "emp",
+        "body": 200,
+        "mass": 200,
+        "speed": [
+          225,
+          235
+        ],
+        "scram": true
+      },
+      "actual": {
+        "entry": [
+          27.43827418973919,
+          10
+        ],
+        "kind": "emp",
+        "hit": [
+          {
+            "room": "bridge",
+            "type": "outage"
+          },
+          {
+            "room": "reactor",
+            "type": "scram"
+          },
+          {
+            "room": "shield",
+            "type": "outage"
+          }
+        ],
+        "m": 200,
+        "V": [
+          2.8206545989608,
+          228.48258994425066
+        ],
+        "body": {
+          "m": 200,
+          "heat": 5219874.975593265
+        },
+        "dQ": [
+          564.13091979216,
+          45696.51798885013
+        ],
+        "spent": 0,
+        "B0": {
+          "E": 0,
+          "Eg": 0,
+          "P": [
+            0,
+            0
+          ],
+          "Pg": 0,
+          "L": 0,
+          "Lg": 0
+        },
+        "B1": {
+          "E": 0,
+          "Eg": 10442449.999999845,
+          "P": [
+            0,
+            0
+          ],
+          "Pg": 45699.999999999665,
+          "L": 2.9103830456733704e-11,
+          "Lg": 390634.8997427239
+        },
+        "passed": null,
+        "stoppedIn": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "battle",
+        "warhead": "he"
+      },
+      "expected": {
+        "kind": "he",
+        "body": 200,
+        "mass": 200,
+        "speed": [
+          225,
+          235
+        ]
+      },
+      "actual": {
+        "entry": [
+          27.43827418973919,
+          10
+        ],
+        "kind": "he",
+        "hit": [
+          {
+            "room": "reactor",
+            "type": "scram"
+          }
+        ],
+        "m": 200,
+        "V": [
+          2.8206545989608,
+          228.48258994425066
+        ],
+        "body": {
+          "m": 200,
+          "heat": 5219874.975593265
+        },
+        "dQ": [
+          564.1309197921571,
+          45696.51798885013
+        ],
+        "spent": 0,
+        "B0": {
+          "E": 0,
+          "Eg": 0,
+          "P": [
+            0,
+            0
+          ],
+          "Pg": 0,
+          "L": 0,
+          "Lg": 0
+        },
+        "B1": {
+          "E": 0,
+          "Eg": 10449220.102997478,
+          "P": [
+            -2.8421709430404007e-12,
+            0
+          ],
+          "Pg": 45751.507857388664,
+          "L": -6.984919309616089e-10,
+          "Lg": 31170610.74858534
+        },
+        "passed": null,
+        "stoppedIn": null
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "battle",
+        "warhead": "penetrator"
+      },
+      "expected": {
+        "kind": "penetrator",
+        "body": 150,
+        "mass": 200,
+        "speed": [
+          225,
+          235
+        ],
+        "passSpeed": 230.1509433962264,
+        "passed": 0,
+        "stoppedIn": 0
+      },
+      "actual": {
+        "entry": [
+          27.43827418973919,
+          10
+        ],
+        "kind": "penetrator",
+        "hit": [],
+        "m": 200,
+        "V": [
+          2.8206545989608,
+          228.48258994425066
+        ],
+        "body": {
+          "m": 150,
+          "heat": 3915159.311529449
+        },
+        "dQ": [
+          564.13091979216,
+          45696.51798885013
+        ],
+        "spent": 0,
+        "B0": {
+          "E": 0,
+          "Eg": 0,
+          "P": [
+            0,
+            0
+          ],
+          "Pg": 0,
+          "L": 0,
+          "Lg": 0
+        },
+        "B1": {
+          "E": -9.313225746154785e-10,
+          "Eg": 10442449.999999844,
+          "P": [
+            0,
+            0
+          ],
+          "Pg": 45699.999999999665,
+          "L": 5.820766091346741e-11,
+          "Lg": 439453.9381564184
+        },
+        "passed": 0,
+        "stoppedIn": 0
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
