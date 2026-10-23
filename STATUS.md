@@ -17,14 +17,14 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge. **L5b the senses and the knowledge model (PR #84, #289, #290)**: `js/sensors.js`, the antenna fitting, passive IR/EM at d⁻², zones scanned at d⁴ revealing their own cells, one knowledge model per side as a battle setting; S1–S9 all PASS, every literal reproduced blind. **L5c weapons (PR #88, #295, #296, #298, #299)**: the railgun, missiles with seekers and warheads (EMP by section), point defence with a range, the round types with their prices, the firing window, S footprints; 39.06 USD.
-- **Running**: **the L5d engineer** `session_01LpASMAypvQc8EhHRGaN8k9` (opus, `m0/l5d-helm` from `ld/l5d`, started 11:13 UTC; its first message is the task of #301; it notifies this chat by trigger); the lead designer's fallback check-in `trig_01WnKocXue9on7mcLet1z2jo` at 11:59 UTC. The old chat's full mutation run on `c1b2c4a` (it writes #300).
+- **Running**: **the L5d engineer** `session_01LpASMAypvQc8EhHRGaN8k9` (opus, `m0/l5d-helm` from `ld/l5d`, started 11:13 UTC; its first message is the task of #301; it notifies this chat by trigger); the lead designer's fallback check-in `trig_01WnKocXue9on7mcLet1z2jo` at 11:59 UTC. The old chat's full mutation run on `c1b2c4a` is recorded (#300: no new survivor).
 - **Waiting on you**: nothing. You chose option A on L5d's changed cost (#301: L5d raw 33–47, expected 40–52; the prototype page after it, expected 6–8) and asked that this lead designer chat run on `claude-fable-5-1`. Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#299, #301.
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (1.21), L5b 11.62 (0.65), **L5c 39.06 (1.18)**: L5 so far 89.31. 2026-10-21/23 in all about 256 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
   L4 in all ≥ 64.27 (#191: past 40).
-- **Next**: on your go, **L5d** (§13n.1 (d) with #301's row, H1–H14): engineer (opus, `m0/l5d-helm`) → blind checker (sonnet, from the lock, H4, H8–H12) → reviewer (sonnet) → answers row → `regress` on the merge → merge → the full mutation run; then **the prototype page on the L5d kernel** (engineer `proto/l5d`, reviewer, the lead designer's republish). The old chat writes #300 (its mutation run on `c1b2c4a`); `tools/lint-docs.mjs` fails on `ld/l5d` until #300 is on `main` (§18 must cover every row).
+- **Next**: **L5d** (§13n.1 (d) with #301's and #302's rows, H1–H14): the engineer runs; then the blind checker (sonnet, from the lock, H4, H8–H12) → reviewer (sonnet) → answers row → `regress` on the merge → merge → the full mutation run; then **the prototype page on the L5d kernel** (engineer `proto/l5d`, reviewer, the lead designer's republish).
 - **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
   surprised by a prototype): the enemy's choices and the helm's orders (the
   knowledge model and the weapons exist; nothing decides with them yet),
@@ -162,7 +162,7 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Next steps
 
-1. **L5c is merged** (#299). The full mutation run on the merge runs in the old chat, which writes its row **#300** and `mission0/mutations/2026-10-23-c1b2c4a.txt` in a small documentation pull request; this chat leaves that to it and merges `main` into `ld/l5d` once it lands (lint needs #300 in §18).
+1. **L5c is merged** (#299) and its full mutation run recorded (#300, by the old chat).
 2. **L5d is probed and amended** (#301, on `ld/l5d`, not yet on `main`): the probe's patch `tools/estimates/l5d-probe.diff`, section (11) of `tools/estimates/l5.mjs`. The owner chose option A (#301). Now: the engineer's task (opus, `m0/l5d-helm`; first message kept in the scratch directory), the blind checker from the lock (H4, H8–H12), the reviewer, the answers row, `regress` on the merge, the merge, the full mutation run; then the prototype session `proto/l5d` and the republish.
 3. **Open for the owner later**: nothing new; the frames of 2026-10-23 are all decided (#291, #292, #293, #297).
 4. Due when their files are touched: §17 items 35 (rest, L5d), 39 (residue), 43 (L5e's throughput measure), 44, 45–47.
@@ -188,8 +188,8 @@ this chat's context is compressed or it repeats itself. Hand over through
 this file; the new chat re-creates the check-ins (`send_later`), which die
 with the chat that made them. **Handed over at the L5c/L5d boundary**
 (2026-10-23, the owner's call: the old chat's context at about 70 %, L5d
-larger than L5c). The old chat (`session_01DFw3o4EBEtf1adcpyJ5786`) keeps
-only the mutation run's row to write. The next natural boundary: **after
+larger than L5c). The old chat (`session_01DFw3o4EBEtf1adcpyJ5786`) has
+nothing left to do (#300 written). The next natural boundary: **after
 L5d merges**, or earlier if the new chat's context is compressed.
 
 ## Lessons for whoever continues

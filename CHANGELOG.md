@@ -1,7 +1,9 @@
 # Changelog
 
-## Unreleased — 2026-10-23 — L5d probed and planned (#301)
+## Unreleased — 2026-10-23 — L5d probed and planned (#301, #302)
 
+- #302: the range order's engagement (`helm.rangeBand`, new), on the L5d
+  engineer's early question; `DESIGN.md` §13n.1 (d), §13n.2, §18.
 - `DESIGN.md` §13n.1 (d) (the row "L5d's amendment"), §13n.2
   (`helm.dodgeMin`, `helm.dodgeMax`), §13n.3 (11), §13n.4 (H1, H2, H4, H11
   reworded; H12–H14 new), §13n.5 (re-costed; the prototype page's
@@ -10,6 +12,15 @@
   integrator's sum; the escape cases driven by hand on today's kernel);
   `tools/estimates/l5d-probe.diff` (the probe's patch and command).
   `STATUS.md`: this lead designer chat took over.
+- `IDEAS.md` (the design partner, `4670d7a`): the battle screen, an outside
+  view plus a knowledge panel, the layout the owner chose from the mockups;
+  presentation, after Mission 0, nothing built now.
+
+## Unreleased — 2026-10-23 — The mutation run on the L5c merge (#300)
+
+- `DECISIONS.md` #300: the full mutation run on `c1b2c4a`
+  (`mission0/mutations/2026-10-23-c1b2c4a.txt`): 186 KILLED, 6 CHANGED,
+  45 SURVIVED, 0 STALE of 237; no new survivor. `DESIGN.md` §18.
 
 ## Unreleased — 2026-10-23 — L5c merged: weapons (#299)
 
