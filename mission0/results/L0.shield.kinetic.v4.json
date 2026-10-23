@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.shield.kinetic.v4",
-  "code": "a1174e7+dirty",
+  "code": "d4a6dea",
   "criterionHash": "76abfc09",
   "lockedHash": "76abfc09",
   "runHash": "bb8cd1ef",
-  "dataHash": "57b28bb3",
+  "dataHash": "b2b17548",
   "rowsHash": "238fd920",
   "rows": [
     {

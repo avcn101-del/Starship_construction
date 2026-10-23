@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.validation.v2",
-  "code": "a1174e7+dirty",
+  "code": "d4a6dea",
   "criterionHash": "66c78555",
   "lockedHash": "66c78555",
   "runHash": "51e87ff4",
-  "dataHash": "57b28bb3",
+  "dataHash": "b2b17548",
   "rowsHash": "7b7a689e",
   "rows": [
     {

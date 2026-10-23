@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.mass.props.v6",
-  "code": "a1174e7+dirty",
+  "code": "d4a6dea",
   "criterionHash": "f3d88d86",
   "lockedHash": "f3d88d86",
   "runHash": "dab24409",
-  "dataHash": "57b28bb3",
+  "dataHash": "b2b17548",
   "rowsHash": "52960875",
   "rows": [
     {

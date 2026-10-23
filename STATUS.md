@@ -17,8 +17,8 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge. **L5b the senses and the knowledge model (PR #84, #289, #290)**: `js/sensors.js`, the antenna fitting, passive IR/EM at d⁻², zones scanned at d⁴ revealing their own cells, one knowledge model per side as a battle setting; S1–S9 all PASS, every literal reproduced blind.
-- **Running**: the full `tools/mutate.js` run on the L5b merge (about 80 minutes, in the lead designer's chat); its row follows.
-- **Waiting on you**: (1) **the go for L5c** (weapons: missiles, point defence, the railgun, round types, the firing window, S footprints; 104–148 USD by the rule, 35–55 expected; the lead designer probes the plan first, as for L5b); (2) **the frame on §17 item 43** (the overheat route), drafted and put to you in the chat: option 1 (keep `thermal.coupledCrewed`, narrow its range) recommended; (3) whether this chat continues into L5c or hands over now (the natural boundary of #247 (2) is here). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#290.
+- **Running**: nothing. The full mutation run on the L5b merge is recorded (#294: no new survivor). Next: the L5c probe (the owner's go, 2026-10-23).
+- **Waiting on you**: nothing. You gave the go for L5c, chose option 1 on §17 item 43 (#291), EMP by section (#292) and escape (#293), and kept this chat for L5c. The L5c probe's result (with the railgun's counter and the round types' counters, #94) comes next. Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#294.
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (1.21), **L5b 11.62 (0.65)**: L5 so far 50.25. 2026-10-21/23 in all about 217 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
   consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
@@ -163,9 +163,9 @@ L2 merged into `main` by PR #22 (merge commit `72de1f2`).
 
 ## Next steps
 
-1. **L5b is merged** (#290); the full mutation run on the merge runs in the lead designer's chat and gets its own row (as #284, #288).
-2. **L5c weapons** needs the owner's go (#277 O5). Before any session the lead designer probes §13n.1 (c) in a scratch copy (#285's lesson): which locked scenarios the railgun room, the missile bay, point defence, the round types, the firing window and the S footprints touch (`validateShip` gains sizes; `L2.layout.invalid.v2` and `L3.validation.v2` run against it before W13's lock, §13n.6), and whether W1–W14 can be built as written; re-cost if the probe disagrees with §13n.5 (raw 26–37).
-3. **Open for the owner**: §17 item 43 (the overheat route), frame drafted (option 1 recommended); the republish of the prototype page on the current kernel (0 USD, the lead designer's act); phone play against a deciding enemy needs the page republished on the L5d kernel reading `enemy.js` (to be added to L5d's plan).
+1. **L5b is merged** (#290) and its full mutation run recorded (#294). The owner's decisions of 2026-10-23 are recorded: §17 item 43 option 1 (#291), EMP by section (#292), escape (#293, H11 for L5d).
+2. **L5c weapons** has the owner's go (2026-10-23). Before any session the lead designer probes §13n.1 (c) in a scratch copy (#285's lesson): which locked scenarios the railgun room, the missile bay, point defence, the round types, the firing window and the S footprints touch (`validateShip` gains sizes; `L2.layout.invalid.v2` and `L3.validation.v2` run against it before W13's lock, §13n.6), and whether W1–W14 can be built as written; re-cost if the probe disagrees with §13n.5 (raw 26–37).
+3. **Open for the owner**: the republish of the prototype page on the current kernel (0 USD, the lead designer's act); phone play against a deciding enemy needs the page republished on the L5d kernel reading `enemy.js` (to be added to L5d's plan).
 4. Due when their files are touched: §17 items 35 (rest, L5d), 39 (residue), 43 (scenario notes), 44 (k = 0 reads), 45 (L5b's leftovers for L5c and L5d).
 
 ## Scheduled tasks
@@ -178,7 +178,7 @@ The lead designer's own check-ins (one-shot reminders that wake the chat
 to read a finished session) **belong to the chat that made them** (#179):
 the old chat's pending check-in was deleted at hand-over; the new chat
 creates its own (`send_later`, 20–45 min after starting a session). This
-chat has no pending check-in (the L5b check-in `trig_01LGmc5wx9S6KycAJmRECRA6` is deleted: both sessions reported by trigger).
+chat has no pending check-in (the L5b check-in `trig_01LGmc5wx9S6KycAJmRECRA6` fired after both sessions had reported; a one-shot, spent).
 
 Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
 
@@ -187,11 +187,9 @@ Sessions and costs (the sessions table, the per-level totals and the usage-limit
 At a block boundary (a pass merged, the next not planned) or as soon as
 this chat's context is compressed or it repeats itself. Hand over through
 this file; the new chat re-creates the check-ins (`send_later`), which die
-with the chat that made them. **L5b is merged: this is a boundary.** This
-chat (`session_01DFw3o4EBEtf1adcpyJ5786`) has no pending check-in; its only
-running work is the full mutation run on the L5b merge, whose row the chat
-that reads the report writes. The owner decides whether it continues into
-L5c.
+with the chat that made them. The owner kept this chat (`session_01DFw3o4EBEtf1adcpyJ5786`) for L5c
+(2026-10-23): the next boundary is **L5c's merge**, or earlier if its
+context is compressed.
 
 ## Lessons for whoever continues
 

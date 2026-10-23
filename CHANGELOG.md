@@ -1,6 +1,13 @@
 # Changelog
 
-## Unreleased — 2026-10-23 — The overheat route (#291), EMP by section (#292), escape (#293)
+## Unreleased — 2026-10-23 — The overheat route (#291), EMP by section (#292), escape (#293), the mutation run (#294)
+
+- `DECISIONS.md` #294: the full mutation run on the L5b merge `928725c`
+  (`mission0/mutations/2026-10-23-928725c.txt`): 149 KILLED, 7 CHANGED,
+  45 SURVIVED, 2 STALE; the two stale mutations re-targeted at the lines L5b
+  rewrote (`tools/mutations.json`): one KILLED, one SURVIVED as before.
+  `js/data.js`: `thermal.coupledCrewed` 0.2–1 MJ/K (#291); every passing
+  scenario re-recorded. `DESIGN.md` §17 item 45 (f), §18.
 
 - `DECISIONS.md` #293: escape as a battle outcome (the owner): the
   `disengage` order, the rule beyond `battle.cullDistance` for

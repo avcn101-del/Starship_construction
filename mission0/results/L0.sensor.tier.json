@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.sensor.tier",
-  "code": "a1174e7+dirty",
+  "code": "d4a6dea",
   "criterionHash": "c34c1fb7",
   "lockedHash": "c34c1fb7",
   "runHash": "1e0ccaa7",
-  "dataHash": "57b28bb3",
+  "dataHash": "b2b17548",
   "rowsHash": "509f2e15",
   "rows": [
     {

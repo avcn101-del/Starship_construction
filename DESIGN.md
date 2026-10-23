@@ -1664,8 +1664,9 @@ Each line names its decision and when it is due; a closed one is removed.
     (e) the check gaps the checker listed: S4's class order and the
     rest → hot transition, S5's "the shield still absorbs at step 249", S6's
     draw while control is lost (successors when their files are touched);
-    (f) `L4.e8.v2`'s per-step time re-measured on an idle machine (0.242 ms
-    under a parallel regress; the criterion is 1 ms).
+    (f) `L4.e8.v2`'s per-step time re-measured on an idle machine: done in
+    the #291 re-record, 0.13–0.15 ms per step (0.242 ms was under a parallel
+    regress; the criterion is 1 ms).
 
 ## 18. Decisions in force
 
@@ -1968,3 +1969,5 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 291 | §17 item 43 decided (the owner's option 1): `thermal.coupledCrewed` kept, its range 0.2–1 MJ/K; L5e measures the throughput law's own overheat route (`L5.route.throughput`); `tools/estimates/item43.mjs` | current |
 | 292 | EMP disables a section, not the ship (the owner): `missile.empEnergy` 2 MJ, `emp.radius` 20 m, `emp.scramDose` 1.47 MJ (reach 12 m), `emp.outageTime` (new, 5 s) on every powered room in reach; W7 and H9 reworded before L5c's lock | current (amends #278's EMP) |
 | 293 | Escape is a battle outcome (the owner): a loss for the escaper (no loot, mission failed, ship and crew kept); the enemy may escape by personality; the rule is option (1) with the 10 s of widening counted beyond `battle.cullDistance`; H11 in L5d | current |
+| 294 | The full mutation run on the L5b merge: 149 KILLED, 7 CHANGED, 45 SURVIVED, 2 STALE (re-targeted: 150 / 7 / 46 / 0), no new survivor; `thermal.coupledCrewed`'s range in `data.js` with a clean re-record | report |
+

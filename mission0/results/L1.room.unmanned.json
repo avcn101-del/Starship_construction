@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.room.unmanned",
-  "code": "a1174e7+dirty",
+  "code": "d4a6dea",
   "criterionHash": "c98483b5",
   "lockedHash": "c98483b5",
   "runHash": "f6e89bb1",
-  "dataHash": "57b28bb3",
+  "dataHash": "b2b17548",
   "rowsHash": "29b093ac",
   "rows": [
     {
