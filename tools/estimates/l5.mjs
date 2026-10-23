@@ -55,6 +55,10 @@ const PLANNED = {
   'missile.burnTime': 20, // s, k = 0
   'missile.warheadEnergy': 2e7, // J, k = 3: the HE warhead (10 M HE rounds); the penetrator's mass below
   'missile.empEnergy': 2e6, // J, k = 3: the EMP warhead's field budget (#99); the floor of its range: a section's reach (#292; 1e7 in #278)
+  'rounds.apLength': 1.5, // k = 0: AP's length over the standard round's, the same mass (#94: one parameter traded)
+  'rounds.heSteel': 0.5, // k = 0: the steel fraction of an HE round's mass; the rest is he.blastEnergy
+  'rounds.sabotMass': 0.5, // k = 0: a sabot round's mass over the standard round's
+  'rounds.sabotVelocity': 1.3, // k = 0: its muzzle velocity over the standard round's
   'emp.outageTime': 5, // s, k = 0: a powered room in the burst's reach is shut down this long; under battle.disabledSeconds (#292)
   'missile.penetratorMass': 50, // kg, k = 3: a steel rod, roundLengthToDiameter long
   'emp.radius': 20, // m, k = 1: half-strength radius of the burst's field (the shield's shape, #99); 40 in #278 (#292)
@@ -282,4 +286,23 @@ line('\n# (9) Mass pass 2 (L5m, #281): the turret as structure plus its mount (O
     line(`  ${name} ${f(Mt / 1e3, 3)} t -> ${f(Mt2 / 1e3, 3)} t (${f(scaled(params.engine.thrust, edge) / Mt2 / g0, 4)} g); the probe of #285 (the change applied in a scratch copy, regress run there and discarded): 15 locked scenarios fail on it, 15 more move their results and still pass`);
   }
   line(`  reactor check (#279, the sources): 600 t for 20 MWe = ${f(Mr / scaled(params.reactor.power, edge) * 1e3, 1)} kg/kWe against a shadow-shielded 10 MWe NEP system's 9.9 kg/kWe (NASA TM-105212) and a 4-pi shield of 35-45 t at SP-100 scale (TM-101403 Table III); the 1130 t compartment behind cellMass.reactor is secondary and contested (650 t elsewhere: ${f(150 * 650 / 1130, 0)} t per cell, below the range's floor)`);
+}
+
+// ---------- (10) round types (13n.1 (c), #94): each type's one trade through the kernel's round rule ----------
+line('\n# (10) Round types (13n.1 (c), #94): depth, magazine-entry speed, the plate, recoil, by the round rule (penetrateRound) with each type\'s one parameter traded');
+{
+  const vd = Pn('magazine.detonationSpeed'), m = scaled(params.kinetic.roundMass, edge), v = params.kinetic.muzzleVelocity.value;
+  const types = [
+    ['Standard', roundOf(m, v), ''],
+    ['AP (length x rounds.apLength 1.5)', roundOf(m, v, LD * Pn('rounds.apLength')), 'thinner: higher s0 and S, no burst'],
+    ['HE (steel x rounds.heSteel 0.5; the rest he.blastEnergy)', roundOf(m * Pn('rounds.heSteel'), v), `a ${f(scaled(params.he.blastEnergy, edge) / 1e6, 1)} MJ burst at the stopping cell`],
+    ['Sabot (mass x rounds.sabotMass 0.5 at v x rounds.sabotVelocity 1.3)', roundOf(m * Pn('rounds.sabotMass'), v * Pn('rounds.sabotVelocity')), 'less recoil and momentum, a flatter flight'],
+  ];
+  for (const [name, rd, note] of types) {
+    const crew = through(rd, Array(8).fill(SIG.crewed)), holdMag = through(rd, [SIG.hold, SIG.magazine, SIG.magazine]), crewMag = through(rd, [SIG.crewed, SIG.magazine, SIG.magazine]), plate = through(rd, [SIG.plate, SIG.magazine]), holds = through(rd, Array(8).fill(SIG.hold));
+    const entry = (t, k) => (t.enter[k] === undefined ? 'never reached' : `${f(t.enter[k], 0)} m/s${t.enter[k] >= vd ? ' DETONATES' : ''}`);
+    line(`  ${name}: ${f(rd.mass, 2)} kg at ${f(rd.v, 0)} m/s, D ${f(rd.D, 4)} m, s0 ${f(rd.s0, 0)} (${f(rd.s0 / mRound.s0, 2)} x M), S ${f(rd.S, 0)} (${f(rd.S / mRound.S, 2)} x M), momentum ${f(rd.p / mRound.p, 2)} x M (recoil), time of flight x ${f(mRound.v / rd.v, 2)}${note ? `; ${note}` : ''}`);
+    line(`    passes ${crew.res.passed} crewed cells and ${holds.res.passed} hold cells; into a magazine behind a hold at ${entry(holdMag, 1)}, behind a crewed cell at ${entry(crewMag, 1)}; a ${f(scaled(params.armour.plateThickness, edge), 2)} m plate ${plate.res.stoppedIn === 0 ? 'stops it' : `does not stop it (the magazine behind it entered at ${entry(plate, 1)})`}`);
+  }
+  line(`  the time of flight at 900 m: Standard ${f(900 / v, 3)} s, Sabot ${f(900 / (v * Pn('rounds.sabotVelocity')), 3)} s; R1d dodges 1/2 a t^2 = ${f(0.5 * 1.076 * g0 * (900 / v) ** 2, 1)} / ${f(0.5 * 1.076 * g0 * (900 / (v * Pn('rounds.sabotVelocity'))) ** 2, 1)} m in it (its 1.076 g from (5))`);
 }
