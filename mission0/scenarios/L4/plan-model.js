@@ -35,7 +35,7 @@ export default {
   tolerance: 'the aim direction 1e-12 (each component); steps exact',
   criterion: 'knowledge on: zone 4 resolves before step 360 and again after it; from the first resolution to the second the aim is on the quarters every step (the truth destroyed them at 360), and from the step of the second it is on the heat sink every step (kernel-read steps, labelled); knowledge off: on the quarters every step before 360, on the heat sink every step from 360',
   tunable: ['sensor.scanTime', 'sensor.scanRange'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'eaff9a52' },
   cases() {
     return [{ knowledge: true }, { knowledge: false }];
   },

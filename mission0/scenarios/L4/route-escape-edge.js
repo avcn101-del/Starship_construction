@@ -53,7 +53,7 @@ export default {
   tolerance: 'steps exact',
   criterion: '(resolve-intact) no disengage ordered; (stall) the separation above 3000 m throughout, growing on 1-334, not on 335-748, again from 749, escaped (side A) at 1348 exactly, the rule on the recorded series agreeing; (withdrawn) no escaped end in 2400 steps, the disengage step cleared from step 1200, and the rule\'s condition holding on the recorded series',
   tunable: ['battle.cullDistance', 'battle.disabledSeconds', 'engine.thrust'],
-  locked: null,
+  locked: { date: '2026-10-23', hash: 'e5746503' },
   cases() {
     return [{ name: 'resolve-intact' }, { name: 'stall' }, { name: 'withdrawn' }];
   },
