@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — the prototype page on the L5d loop merged (#312)
+
+- PR #96 (feel-6): the page on the kernel's symmetric loop; `L0.determinism.v2`
+  re-recorded on its duel (Node = Chromium `5de002fe`). `tools/mutate.js`
+  serialises `L0.determinism.v2`. `DESIGN.md` §13n.1 (d), §18.
+
 ## Unreleased — 2026-10-23 — the feel prototype on the L5d kernel (#301 (5))
 
 - `proto/` rebuilt on the kernel's symmetric loop (`feel-6`): the page
