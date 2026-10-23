@@ -1114,8 +1114,8 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Kinetic channel: momentum per cell, the path model, relative velocity (#137, #230, #242) | built | `L0.kinetic.*`, `L3.kinetic.hole.v2`, `L4.relative` | proven L0–L4; a passed cell's loss by its chord proven L5a (`L0.kinetic.chord.loss.v2`, #273 (b), #283) |
 | Thermal channel: beam deposit and burn (#229, #240 (1)) | built | `L0.beam.*`, `L3.beam.deposit`, `L0.armour.plate.v2` | proven L0–L4 |
 | Blast channel, inside (#141, #169) | built | `L0.blast.surface.v4`, `L2.blast.*` | proven L0–L2 |
-| Blast outside the hull (#141, §17 item 5) | nothing | none | planned L5c (with missiles: a warhead on a hull cell) |
-| EMP channel (#138, #142: a warhead) | nothing | none | planned L5c (with missiles) |
+| Blast outside the hull (#141, §17 item 5) | an HE warhead or round stopped at a plate bursts outside: nothing enters (fragments carry nothing beyond the hull) | `L2.missile.warheads.v2`, `L0.rounds.types` | proven L5c |
+| EMP channel (#138, #142: a warhead) | a field of the shield's shape by section (#292): a reactor in reach SCRAMs, another powered room shuts for `emp.outageTime`; the buffer pays first | `L2.missile.warheads.v2` | proven L5c |
 | Shields: absorb, buffer, the field (#21, #99, #139) | built | `L0.shield.*`, `L1.shield.generator.v3`, `L2.shield.*`, `L3.shield.*` | proven L0–L4 |
 | Engines as self-fuelled torches (#140, #203 A) | thrust, draw, heat | `L1.engine.thrust.v3`, `L3.thrust.v5` | proven L1, L3 |
 | Crew die per cell, by integrity, at critical heat (#49, #18b, #206) | built | `L1.kinetic.damage.v2`, `L2.repair.crew`, `L1.room.thresholds.v3` | proven L1–L2 |
@@ -1133,8 +1133,8 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Crew quarters (berths, repair field) | built | `L1.quarters.repair.v3`, `L2.repair.*`, `L4.crew.capacity` | proven |
 | Beam bay (spinal accelerator) | built | `L1.beambay.*`, `L2.beambay.cause`, `L0.beam.tier.v2` | proven |
 | Kinetic turret | built; mass by its mount since L5m (`structure.cellMass` + `turret.machineryMass`, #285) | `L1.turret.fire`, `L1.turret.timing.v2`, `L4.route.*`, `L0.turret.mount` | proven; its mass by its mount proven L5m (#287) |
-| **Spinal railgun** (#236 (6)) | **data only** | none | planned L5c (#268) |
-| **Missile bay** (#148: ready store, launch, explodes by its missiles) | **a room with crew and mass only** | none | planned L5c (#268) |
+| Spinal railgun (#236 (6)) | a slug of `railgun.roundMass` at `railgun.muzzleVelocity` √(N / 2) along the axis, fed from a slug magazine, its draw over the reload, recoil on the axis | `L1.railgun.fire`, `L0.railgun.slug`, `L3.railgun.recoil` | proven L5c |
+| Missile bay (#148: ready store, launch, explodes by its missiles) | the store refilled from a missile magazine by mass, one launch per `missilebay.launchInterval`, explodes by its missiles (warhead + fuel); launches without a power test today (§17 item 46) | `L1.missilebay.launch`, `L2.magazine.types.v3` | proven L5c |
 | Empty hold (insulates; blast buffer gone, #240 (6)) | built | `L2.heat.*` (hold factor), `L2.blast.integrity` | proven |
 | Heat sink (#197, #198) | built | `L2.heatsink.*`, `L2.plate.vent` | proven |
 | Hangar bay (#107), jammer (#27), auxiliary bridge (#13) | nothing | none | after Mission 0 (carriers #110; counters #27) |
@@ -1146,8 +1146,8 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Armour plate (#15, #255, #256) | built, walls and hull | `L0.armour.plate.v2`, `L3.r1c.props`, `L4.kill` (R1d) | proven L4 |
 | Radiator | built | `L1.radiator.*` | proven |
 | RCS | built | `L3.rcs.turn.v5` | proven |
-| **Point defence, kinetic** (#93) | **nothing** | none | planned L5c (#268) |
-| **Point defence, laser** (#93) | **nothing** | none | planned L5c (#268) |
+| Point defence, kinetic (#93) | `pd.fireRate` flak rounds from `pd.ammo`, led on the missile, bursting at closest approach over `flak.radius`, within `pd.range` and the segment's half-plane | `L1.pd.kinetic.v2`, `L2.pd.swarm` | proven L5c |
+| Point defence, laser (#93) | `pdLaser.power` on the missile in arc and range, no falloff, draw at `beambay.efficiency` | `L1.pd.laser`, `L2.pd.swarm` | proven L5c |
 | Sensor antenna (#24: scan, needs a control path) | built: a fitting of `sensor.mass` on an open edge; a scan needs its host controlled and powered and draws `sensor.scanPower` as heat there | `L3.sensor.control`, `L1.sensor.active` | proven L5b |
 | Scan-proof plating (#27), decoy launcher (#149) | nothing | none | after Mission 0 (#27, #149: later modules) |
 
@@ -1158,7 +1158,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Connected to the bridge, hull rooms on the hull, axis, bow clear, exhaust clear, fitting rules | `validateShip` | `L3.validation.v2`, `L2.layout.invalid.v2` | proven |
 | Crew capacity (#60) | `validateShip` | `L4.crew.capacity` | proven L4 |
 | Live readout before undock (#58) | `readout` | `L4.readout.blueprint` | proven L4 |
-| Room size S (#62) | **no S footprint** | none | planned L5c (§17 item 30, #259, #278) |
+| Room size S (#62) | an S footprint of one cell (quarters and missile bay 2 × 1, engine 1 × 2, beam bay and railgun 1 × N); rate-like quantities by cell count | `L2.size.s` | proven L5c |
 | Dry run against a dummy, templates, drag and drop, mirror, export (#56–#59) | nothing | none | after Mission 0 (presentation) |
 
 ### E. Weapons, defence, ammunition (§6)
@@ -1167,15 +1167,15 @@ sit in no plan again. Each plan updates this table in the same commit.
 |---|---|---|---|
 | Beam: no falloff, deposit along the path, heat | built | `L0.beam.*`, `L2.beambay.cause` | proven |
 | Kinetic: time of flight, momentum along the path, recoil | built | `L0.kinetic.*`, `L4.route.*` | proven |
-| **Missile = seeker + warhead** (#97): flight, guidance, impact | **nothing** | none | planned L5c (#268) |
-| Seekers IR, radar, anti-radiation, designated (#97) | nothing | none | planned L5c (after `sensors.js`, L5b) |
-| Warheads HE, penetrator, EMP (#97, #142) | nothing (HE blast and penetration exist as channels) | none | planned L5c |
-| **Point defence against munitions** | nothing | none | planned L5c (#268) |
-| Firing window in the shield (#100) | the shield stops a round at its entry point; no hole for one's own round | none | planned L5c (ship versus ship: the first time one's own round crosses one's own field) |
+| Missile = seeker + warhead (#97): flight, guidance, impact | `js/missile.js`: `missile.acceleration` for `missile.burnTime`, then coasting; flown on the shooter's world; its body's impulse and heat at impact | `L0.missile.flight`, `L2.missile.warheads.v2` | proven L5c |
+| Seekers IR, radar, anti-radiation, designated (#97) | each from the shooter's model only; nothing resolved: the silhouette's centre | `L2.missile.seekers.v2` | proven L5c |
+| Warheads HE, penetrator, EMP (#97, #142) | HE a contact burst with `he.coupling` and the blast through walls; the penetrator by the round rule (228 m/s in a 900 m battle: it stops in R1's first crewed cell, #298); EMP by section | `L2.missile.warheads.v2` | proven L5c |
+| Point defence against munitions | missiles only, nearest first, within `pd.range`; saturation (the Swarm's law) is an L5e measure (#299) | `L1.pd.kinetic.v2`, `L1.pd.laser`, `L2.pd.swarm` | proven L5c (the rules); planned L5e (the throughput measure) |
+| Firing window in the shield (#100) | a segment a side's own round crosses or its beam fires through is open for that step | `L4.shield.window` | proven L5c |
 | Ammunition finite, reloaded between battles (#89, #90); running dry counts toward Disabled (#91) | built | `L2.ammo.feed`, `L4.route.dry` | proven |
 | Magazines last a disciplined 3–6 minute battle (#92) | measured only (T-gun 316 s) | none | planned L5e (the reference battle, E7) |
-| Round types Standard / AP / HE / Sabot / Flak (#96) | **one steel round**; AP and HE differ only in the magazine's explosion energy | none | planned L5c (#94's rule: one parameter traded, a best and a worst target) |
-| Each shot's type chosen against a scanned target (#95) | nothing | none | planned L5c (after `sensors.js`) |
+| Round types Standard / AP / HE / Sabot / Flak (#96) | `ROUNDS`: each one parameter traded and its price (AP's rate, Sabot's recoil, HE's depth, #295) | `L0.rounds.types` | proven L5c |
+| Each shot's type chosen against a scanned target (#95) | HE on a hull-face room, AP on a room behind a cell, Standard otherwise and on a zone, from the model | `L4.rounds.choice` | proven L5c |
 | Carriers (#104–#110) | nothing | none | after Mission 0 |
 
 ### F. Information (§7)
@@ -1202,7 +1202,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Helm conflicts: position, facing, dodging (#40) | the stand-in's order | none | planned L5d |
 | Verb: scan a zone | a battle's `scans` input (side, antenna, zone, time); one command scans one zone and stops when it resolves (#290 (4)) | `L4.target.known`, `L3.sensor.control` | proven L5b (a case input); planned L5d (the player's verb and the enemy's auto-scan) |
 | Verb: target a room | the prototype (tap); the loop's aim at a room | `L4.route.*` (the attacker's aim) | proven L4 (the kernel side) |
-| Automatic rules: RCS recoil compensation, point-defence target, repair order, reactor containment first, dark fragments, each shot's ammunition type | RCS and repair order built; the rest nothing | `L3.rcs.turn.v5`, `L2.repair.shared.v2` | partly proven; point-defence target and the shot's type planned L5c; containment first and dark fragments planned L5d |
+| Automatic rules: RCS recoil compensation, point-defence target, repair order, reactor containment first, dark fragments, each shot's ammunition type | RCS, repair order, the point-defence target (nearest in arc and range, L5c) and each shot's type (L5c) built; the rest nothing | `L3.rcs.turn.v5`, `L2.repair.shared.v2` | partly proven; point-defence target and the shot's type planned L5c; containment first and dark fragments planned L5d |
 | **Disabled** (#82, #255) | built | `L4.disabled.rule` | proven L4 |
 | Route: cut the power walls / split at a choke point (one mechanism, #253) | built | `L4.route.split` | proven L4 |
 | Route: decapitate | built | `L4.route.decapitate` | proven L4 |
@@ -1414,14 +1414,14 @@ is §13n.6.
 | S9 | L5b | `L2.sensor.posture` | a ship running cold (engine off, shield off, no scan) against one at full (engine at throttle 1, shield on, scanning), the cold ship's turret firing at the full one's shield (a shield is an EM source only while it absorbs, #103) | the cold ship's sources: panels only; the full one's: exhaust and antenna resolved, the shield in the steps it absorbs |
 | W1 | L5c | `L1.railgun.fire` | an N = 2 and an N = 4 railgun alone, fed, routed | muzzle speed 2000 / 2828 m/s (hand-worked), rate 0.1 /s, draw 6.67 / 13.3 MW mean, heat to plant hot one-sided (1196 s for N = 2 alone) |
 | W2 | L5c | `L0.railgun.slug` | the slug through crewed, plate and reactor columns; a 0.4 m plate (`--set`-free: the case builds the plate at the range's top through run-time params) for N = 2, 4, 6 (#295) | passed 3 crewed cells; 1078 m/s into a magazine behind a bridge; stopped by a reactor cell; the 0.4 m plate stops every slug (the round rule, hand-worked) |
-| W3 | L5c | `L3.railgun.recoil` | one shot on R1d | Δv 0.0137 m/s along the axis (hand-worked), no spin (on the axis) |
+| W3 | L5c | `L3.railgun.recoil` | one shot on R1d-L | Δv 0.013894 m/s along the axis (20 kN s over R1d-L's 1 439 484 kg less the slug, hand-worked; the plan's 0.0137 was the pre-L5m R1d, #296) and a spin of (r × J) / I with R1d-L's centre of mass 2.0 m off the bore (kernel-read r and I, labelled; #298) |
 | W4 | L5c | `L1.missilebay.launch` | a bay with its store and magazine | one launch per interval; the store refilled by the feed; the bay's explosion energy by its store |
 | W5 | L5c | `L0.missile.flight` | a missile from rest to 600 / 900 / 1500 m | arrival step by ½ a t² one-sided; speed a t; coasting after burnTime |
 | W6 | L5c | `L2.missile.seekers` | each seeker kind against a target with one resolved source of its kind and one without | the aim point is the source; with nothing resolved, the silhouette centre |
 | W7 | L5c | `L2.missile.warheads` (withdrawn under #296 for `L2.missile.warheads.v2`: the body's impulse and heat, the penetrator through the battle's warhead path) | HE, penetrator and EMP on R1's hull, each flown by `createBattle` | HE: the face coupling then the blast's absorbed table (hand-worked for the hit room); penetrator: the round rule at 232 m/s (one crewed cell); EMP (#292): a burst on R1's −y face under the reactor SCRAMs it and shuts the bridge and shield generator for `emp.outageTime` (their centres within 12.0 m, hand-worked from the field), nothing farther; a bow burst shuts the beam bay only; nothing behind a charged buffer; a room's outage ends at `emp.outageTime` one-sided |
 | W8 | L5c | `L1.pd.kinetic`, `L1.pd.laser` | one missile into each fitting's arc; one outside it | killed at the flak's closest approach ≤ 15.3 m (hand-worked) / after 0.6 s in the beam; the store counts down; outside the arc nothing |
 | W9 | L5c | `L2.pd.swarm` (#296) | six missiles 0.5 s apart from 900 m into one fitting of each kind, `pd.range` 600 m | the kills of each fitting hand-worked from the missiles' kinematics inside the range and the kill times (laser hp / P = 0.6 s each in turn; kinetic one flak per 1 / `pd.fireRate`, each killing at its closest approach), the rest hit; the laser's kill steps checked (the `l5c.laser.power` mutant) |
-| W9b | L5c | `L2.pd.saturation` (#298) | six missiles in two salvos of three (a three-bay variant of R1, `readyMissiles` 2 each, launches at 0 and 2 s) from 900 m into one fitting of each kind, `pd.range` 600 m | the kills of each fitting hand-worked from the kinematics and the kill times with the missiles overlapping inside the range; at least one missile hits the laser's ship (the Swarm's law: throughput) |
+| W9b | L5e (#299: moved out of L5c) | `L5.e6.mechanism` carries the Swarm's law | the Swarm's bays against R2's one point-defence fitting at the bay's own cadence | measured, not a criterion in L5c: at 1 MW and 600 m a laser kills six missiles launched 2 s apart with none landing (fix round 2's hand-working and run); `pd.range` and `pdLaser.power` are the rung-1 levers if the Swarm never lands |
 | W8b | L5c | `L1.pd.kinetic.v2` (successor of `L1.pd.kinetic`, withdrawn under #298: its dose law was not enforced) and `L2.missile.seekers.v2` (successor of `L2.missile.seekers`, withdrawn under #298: its IR and anti-radiation points restated the selector) | as the originals, plus a crossing missile whose bursts fall beyond the kill radius; the hand-worked IR point (panel 8's midpoint (17.5, 0)) and anti-radiation point (the antenna's (42.5, 0)) on the target's pose | the dose Σ E / (1 + (dᵢ / 10)²) at 1e-12 over the recorded bursts, a burst beyond 15.275 m killing nothing by itself; the aim points at 1e-9 m |
 | W10 | L5c | `L0.rounds.types` | each round type through crewed cells and into a magazine; a turret firing each type | depth and entry speed by the round rule with the type's parameter (hand-worked: Standard 705 / 333, AP 728 / 444, HE 681 / 212, Sabot 921 / 452 m/s behind a hold / a crewed cell); HE's burst at the stopping cell; Sabot's recoil × 1.3 (the full round's mass, #295); AP's rate 0.33 /s; a 0.2 m plate stops all four |
 | W11 | L5c | `L4.rounds.choice` | a resolved hull room, a resolved deep room, an unresolved zone | HE, AP, Standard chosen (#95) |
@@ -1475,6 +1475,7 @@ Time: five sequential passes, each an engineer session of 2–4 hours plus a che
 - [x] L5b probed before its engineer (#285's lesson, #289): the antenna fitting, the sources and the passive step in a scratch copy, run by `tools/m0.js cov`: **116 of 116 rows unchanged** (the data hash moves, a re-record as every pass); the knowledge model a battle setting so no locked case moves; R1d's free edges for an antenna are its hold's six; the cost of §13n.5 stands.
 - [x] **L5b exits** (#290): S1–S9 PASS at `3b2bd51`; regress on the merge in #290; §13m's L5b rows read proven L5b; the §13n.5 cost 11.62 USD against raw 15–21.
 - [x] L5c probed before its engineer (#295): the data and validation surface (S footprints, the planned constants with #292's values, a `ROUNDS` table, the point-defence fitting types, the new events) in a scratch copy, `tools/m0.js cov`: **125 of 125 rows unchanged**; `validateShip` takes S footprints without a new rule; `buildShip` drops a room's `size` (to thread); the cost stands at raw 27–39.
+- [x] **L5c exits** (#299): W1–W14 less W9b (moved to L5e as a measure) PASS at `a4005d4`; `regress` on the merge 140 VERIFIED + 140 WITHDRAWN + 5 RETIRED; §13m's L5c rows read proven L5c; 39.06 USD against raw 27–39.
 - [ ] Open: the threshold's value (K7, the owner's choice on the pace table, #277); the penetrator warhead is weak at 3 g (0.59 × M), by design until the Swarm's measure says otherwise; `beambay.efficiency` as a laser PD's (#243 F26) unresolved; `sensor.sensitivity` has no source beyond the chosen band.
 
 ### 13n.7 What the owner decided (#277, 2026-10-22, each as recommended; the frame of #247 (3) as it was put)
@@ -1675,7 +1676,10 @@ Each line names its decision and when it is due; a closed one is removed.
     draw while control is lost (successors when their files are touched);
     (f) `L4.e8.v2`'s per-step time re-measured on an idle machine: done in
     the #291 re-record, 0.13–0.15 ms per step (0.242 ms was under a parallel
-    regress; the criterion is 1 ms).
+    regress; the criterion is 1 ms); (g) from L5c (#299): the plan drives
+    only the first missile bay (`js/battle.js`, the plan's missile entry); the
+    symmetric loop fires every bay by its orders; the missile plan's
+    `firstStanding` reads the truth like the turret's and the beam's (a).
 
 46. **The missile bay's draw and cook-off** (#296, L5c's engineer Q6 and
     Q13): the bay has no power draw, so an EMP burst never reaches it, and
@@ -1683,7 +1687,11 @@ Each line names its decision and when it is due; a closed one is removed.
     explode as a magazine's rounds do. Due: a draw (as the turret's) and
     the magazine's cook-off rule on the bay, with cases, in the next pass
     that touches the bay (L5e's Swarm, or earlier if the EMP-against-Swarm
-    path is measured).
+    path is measured). Also (#299, the reviewer's finding 5): the bay
+    launches with no power test (`js/rooms.js`) while `weaponStates` counts
+    a bay cut from a producing reactor as unable, so a cut-off bay still
+    launches while its ship may read Disabled; decided: a bay needs to be
+    joined to a producing reactor to launch, built with its draw in L5d.
 
 47. **L5c's scenario notes** (the blind checker's items 7–8, #298; due when
     their files are touched): `L1.railgun.fire` samples the draw at step 0
@@ -1693,7 +1701,16 @@ Each line names its decision and when it is due; a closed one is removed.
     and 481.72 m/s; `L1.missilebay.launch` counts 32 kg in transit as out of
     the magazine; `L1.pd.laser`'s kill sits on the float boundary (36 ×
     1e6 / 60); the penetrator's margin is 1 % (230.2 m/s against 232.4 from
-    rest, and under it in battle).
+    rest, and under it in battle). From the reviewer (#299): `heatRate`
+    gives the railgun's heat while `firing` whether or not it is able (the
+    readout's load only); `js/sensors.js`'s inline burn test against
+    `missile.js`'s `burning()`; a missile killed in a step is skipped by the
+    hit test in the same step (a tie goes to the defender: deterministic,
+    now stated). The flak's "physical miss" (½ a t² over the flak's flight)
+    is ≲ 1 m against a homing missile, whose acceleration lies along the
+    line of sight; the law stays as the mechanism and has no reachable case
+    with the seekers built; a burst's dose beyond the kill radius (16.24 m,
+    0.55 MJ on a salvo neighbour) is exercised by L5e's saturation measure.
 
 ## 18. Decisions in force
 
@@ -2001,3 +2018,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 296 | Answers to L5c's engineer (PR #88): `pd.range` (new); K4's `.v2` and W7 withdrawn for successors; a missile's body books its impulse and heat; S by cell count; the as-built confirmations; a fix round | current |
 | 297 | The engine's plume has an effect (the owner): fittings only (mechanism C), built in L5e with `engine.plumeHalfAngle` (new) and `L4.engine.plume`; the exhaust is IR-only until then (recorded beside #140); the Engine boat joins E5's degenerate builds | current |
 | 298 | Answers to L5c's fix round and blind checker: `he.coupling` a flat burst efficiency; the body joins before the warhead; PD reads true positions within its range; `L1.pd.kinetic` and `L2.missile.seekers` withdrawn for successors; `L2.pd.saturation` (three bays); the penetrator's 228 m/s in battle; a second fix round | current |
+| 299 | L5c merged (PR #88): weapons; answers to its two fix rounds and the reviewer; W9b's saturation an L5e measure; the bay's power test and every bay driven by orders in L5d; §13m's L5c rows proven | current |

@@ -95,7 +95,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Physics checker, L5c (blind, from lock `9c21d46`; 0 numeric mismatches in 12 scenarios, 8 findings, 1 blocking: `L1.pd.kinetic` does not enforce the flak dose law; notified by trigger) | session_0121fPWd2hcCuvWibkuWPkBg | sonnet-5-5 | 2.81 |
 | Engineer, L5c fix round (#296; head `a7ee5f8`: `pd.range`, the body's impulse, three successors; 2 questions; notified by trigger) | session_01X1gtC7jUZGTc2g5jVkX1qk | opus-5-5 | 7.08 |
 | Engineer, L5c fix round 2 (#298; head `a4005d4`: `L1.pd.kinetic.v2`, `L2.missile.seekers.v2`; the crossing case and `L2.pd.saturation` not built, 2 questions; notified by trigger) | session_01XzQ7C4ro57Qy4dmmdkwsJM | opus-5-5 | 4.85 |
-| Reviewer, L5c (PR #88 at `a4005d4`; running) | session_01MKjVmvJumw88Rvj9oo3SGi | sonnet-5-5 | running |
+| Reviewer, L5c (PR #88 at `a4005d4`; 0 blocking, 7 findings; 34 of 34 `l5c.*` mutations KILLED; notified by trigger) | session_01MKjVmvJumw88Rvj9oo3SGi | sonnet-5-5 | 0.98 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -118,7 +118,8 @@ L4 fix round total: 6.83 USD (engineer 6.41, reviewer 0.42).
 L4 scenario-hygiene round total: 15.89 USD (engineer 10.58, physics checker 4.06, reviewer 1.25). L4 total (L4a + L4b + fix + hygiene): ≥ 64.27 USD.
 L5a total: 23.54 USD (engineers 16.82 + 3.34, physics checker 1.90, reviewers 1.03 + 0.45).
 L5m total: 15.09 USD (engineers 7.97 + 4.04, physics checker 1.73, reviewer 1.35).
-L5b total: 11.62 USD (engineer 9.59, physics checker 1.37, reviewer 0.66). L5 so far (L5a + L5m + L5b): 50.25 USD.
+L5b total: 11.62 USD (engineer 9.59, physics checker 1.37, reviewer 0.66).
+L5c total: 39.06 USD (engineers 23.34 + 7.08 + 4.85, physics checker 2.81, reviewer 0.98). L5 so far (L5a + L5m + L5b + L5c): 89.31 USD.
 
 The lead designer chat's own cost (planning, answers, checks, merges) is **not in this ledger** (#270 (7)): only the sessions it creates are costed.
 
@@ -137,5 +138,6 @@ One row per pass under the plan gate (#241): the raw range the plan stated, wher
 | L5a (the kinetic pass, with its fix round) | 11–16 | #278, §13n.5 | 23.54 | 1.74 |
 | L5m (the turret by its mount) | 10–15 (5–8 in #281, corrected by the probe of #285 before any session) | #285 | 15.09 | 1.21 |
 | L5b (senses and the knowledge model) | 15–21 | #278, §13n.5 (the probe of #289 confirmed it) | 11.62 | 0.65 |
+| L5c (weapons, with two fix rounds) | 27–39 | #295, §13n.5 | 39.06 | 1.18 |
 
 Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).

@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased — 2026-10-23 — L5c merged: weapons (#299)
+
+- Kernel (PR #88): the spinal railgun, the missile bay and missiles
+  (`js/missile.js`), seekers and warheads with EMP by section, point
+  defence (`js/defence.js`) with `pd.range`, the round types and the
+  shot's choice, the firing window, S footprints, the missile body's
+  impulse and heat; 30 new constants; scenarios W1–W14 less W9b, four
+  successors. `DECISIONS.md` #299: answers to the second fix round and the
+  reviewer; W9b an L5e measure; the bay's power test and every bay by
+  orders in L5d. `DESIGN.md` §13m's L5c rows proven, §13n.4 (W3, W9b),
+  §13n.6, §17 items 45–47, §18. `LEDGER.md` (L5c 39.06 USD, ratio 1.18).
+
 ## Unreleased — 2026-10-23 — L5c fix round 2 (#298)
 
 - Scenarios: `L1.pd.kinetic.v2` (successor of `L1.pd.kinetic`: the dose law
