@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.symmetric",
-  "code": "5ef44de",
+  "code": "5bafd82",
   "criterionHash": "c8f3248b",
   "lockedHash": "c8f3248b",
   "runHash": "17e5ff02",
   "dataHash": "fee97350",
-  "rowsHash": "d0165895",
+  "rowsHash": "b24bd7aa",
   "rows": [
     {
       "case": {
@@ -362,6 +362,20 @@
     },
     {
       "case": {
+        "scenario": "L4.route.surrender.v2"
+      },
+      "expected": {
+        "rowsHash": "9095693d"
+      },
+      "actual": {
+        "rowsHash": "9095693d",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
         "scenario": "L4.target.known"
       },
       "expected": {
@@ -386,7 +400,7 @@
         "targetHelm": null,
         "targetEnemy": null,
         "attackerHelm": null,
-        "replayed": 26
+        "replayed": 27
       },
       "pass": true,
       "note": ""
