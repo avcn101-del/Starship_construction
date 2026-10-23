@@ -1,7 +1,10 @@
 # Changelog
 
-## Unreleased — 2026-10-23 — L5d probed and planned (#301–#303)
+## Unreleased — 2026-10-23 — L5d probed and planned (#301–#304)
 
+- #304: #297's reason corrected (radiators do not overheat a ship inside a
+  battle; the design partner's check, `tools/estimates/radiators.mjs`); L5e's
+  plume measure reports it. `DESIGN.md` §13n.1 (e), §18.
 - #303: the surrender timer is `battle.disabledSeconds` × resolve (the
   L5d engineer's second question); `DESIGN.md` §13n.1 (d), H8, §18.
 - #302: the range order's engagement (`helm.rangeBand`, new), on the L5d
