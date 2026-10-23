@@ -98,7 +98,8 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Reviewer, L5c (PR #88 at `a4005d4`; 0 blocking, 7 findings; 34 of 34 `l5c.*` mutations KILLED; notified by trigger) | session_01MKjVmvJumw88Rvj9oo3SGi | sonnet-5-5 | 0.98 |
 | Engineer, L5d the helm and the enemy (`m0/l5d-helm` from `ld/l5d`, #301; PR #94, head `3da955c`, lock `97d2740`; 18 scenarios, 10 questions; then H8's successor under #303, head `dd67aa0`; notified by trigger) | session_01LpASMAypvQc8EhHRGaN8k9 | opus-5-5 | 29.39 |
 | Physics checker, L5d (blind, from lock `97d2740`; H4, H9–H12; H8 deferred to its successor; 0 numeric mismatches, 8 findings, 0 blocking; notified by trigger) | session_01JZxBhiqZeK8ytPxmzBx97E | sonnet-5-5 | 1.49 |
-| Reviewer, L5d (PR #94) | session_01EP7NCUqBPMwRgWJsLRq6P1 | sonnet-5-5 | running |
+| Reviewer, L5d (PR #94; reviews at `3da955c` and `dd67aa0`: 1 blocking, resolved by #303's successor, 12 non-blocking; notified by trigger and message) | session_01EP7NCUqBPMwRgWJsLRq6P1 | sonnet-5-5 | 1.53 |
+| Engineer, L5d fix round (#306; on `m0/l5d-helm` from `dd67aa0`) | session_01ND3BEPMGkBojwdudZAByyY | opus-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

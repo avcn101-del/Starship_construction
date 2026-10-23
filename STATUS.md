@@ -17,7 +17,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   done** (every capture route reaches Disabled; the cascade tree; E8
   0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
   (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge. **L5b the senses and the knowledge model (PR #84, #289, #290)**: `js/sensors.js`, the antenna fitting, passive IR/EM at d⁻², zones scanned at d⁴ revealing their own cells, one knowledge model per side as a battle setting; S1–S9 all PASS, every literal reproduced blind. **L5c weapons (PR #88, #295, #296, #298, #299)**: the railgun, missiles with seekers and warheads (EMP by section), point defence with a range, the round types with their prices, the firing window, S footprints; 39.06 USD.
-- **Running**: L5d's **PR #94** (`m0/l5d-helm`, head `3da955c`, lock `97d2740`; 18 scenarios PASS; `regress` 155 VERIFIED + 143 WITHDRAWN + 5 RETIRED; 10 questions for the lead designer). The engineer `session_01LpASMAypvQc8EhHRGaN8k9` applied #303 after the lock: head `dd67aa0`, `L4.route.surrender` withdrawn, `L4.route.surrender.v2` locked in `916e409` and PASS; `regress` 155 VERIFIED + 144 WITHDRAWN + 5 RETIRED. The blind checker finished (1.49 USD; 0 numeric mismatches, 8 findings, 0 blocking; H8's successor not yet checked blind). The **reviewer** `session_01EP7NCUqBPMwRgWJsLRq6P1` (sonnet) started 13:30 UTC (20:30 Vietnam time); each notifies this chat by trigger. No timed check-in (the owner's rule).
+- **Running**: L5d's **PR #94** (`m0/l5d-helm`, head `dd67aa0`; locks `97d2740`, `916e409`; `regress` 155 VERIFIED + 144 WITHDRAWN + 5 RETIRED). Engineer 29.39 USD, blind checker 1.49 (0 blocking), reviewer 1.53 (0 blocking open). **The fix round of #306** (`session_01ND3BEPMGkBojwdudZAByyY`, opus, started 14:38 UTC, 21:38 Vietnam time): the style slot, repair priority, a withdrawn disengage, the no-couple guard, H15–H18 and `L4.route.emp.v2`; then the blind checker (H8's successor, H15–H18, H9′) and a light re-review; then `regress` on the merge, the merge, the full mutation run, and **the hand-over** (the owner's standing instruction below). Each session notifies this chat by trigger.
 - **Waiting on you**: nothing. You chose option A on L5d's changed cost (#301: L5d raw 33–47, expected 40–52; the prototype page after it, expected 6–8) and asked that this lead designer chat run on `claude-fable-5-1`; later (2026-10-23) back on `claude-opus-5-5` by the owner's choice. Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#299, #301.
 - **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (1.21), L5b 11.62 (0.65), **L5c 39.06 (1.18)**: L5 so far 89.31. 2026-10-21/23 in all about 256 USD.
 - **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
@@ -25,6 +25,7 @@ first, then `CLAUDE.md`, `DESIGN.md` and the newest rows of `DECISIONS.md`.
   audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
   L4 in all ≥ 64.27 (#191: past 40).
 - **Next**: **L5d** (§13n.1 (d) with #301's and #302's rows, H1–H14): the engineer runs; then the blind checker (sonnet, from the lock, H4, H8–H12) → reviewer (sonnet) → answers row → `regress` on the merge → merge → the full mutation run; then **the prototype page on the L5d kernel** (engineer `proto/l5d`, reviewer, the lead designer's republish).
+- **Pace (information, §17 item 49)**: on the L5d loop R1d-A duels end in 23–107 s (25.08 s with Fire's defaults at 900 m, 20 hits of 20), against E7's 3–6 minutes: an L5e question, and what the owner will see first on the prototype page.
 - **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
   surprised by a prototype): the enemy's choices and the helm's orders (the
   knowledge model and the weapons exist; nothing decides with them yet),
@@ -213,6 +214,8 @@ message ends with that notification (the chat's id from this header); the
 new chat's first message says so.
 
 ## Lessons for whoever continues
+
+- **The design partner cannot create triggers** (its role forbids it): its pushes reach the lead designer through the owner's message, not a notification; do not ask it for one.
 
 - **Test a control law against the case's own starting state before writing it into a plan** (#302, #303): the L5d engineer found within an hour that #301's range-order threshold never engages from rest and that #278's surrender formula contradicted its own gloss. Both were caught before the lock because the engineer asked early by message; keep inviting that.
 
