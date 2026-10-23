@@ -97,7 +97,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, L5c fix round 2 (#298; head `a4005d4`: `L1.pd.kinetic.v2`, `L2.missile.seekers.v2`; the crossing case and `L2.pd.saturation` not built, 2 questions; notified by trigger) | session_01XzQ7C4ro57Qy4dmmdkwsJM | opus-5-5 | 4.85 |
 | Reviewer, L5c (PR #88 at `a4005d4`; 0 blocking, 7 findings; 34 of 34 `l5c.*` mutations KILLED; notified by trigger) | session_01MKjVmvJumw88Rvj9oo3SGi | sonnet-5-5 | 0.98 |
 | Engineer, L5d the helm and the enemy (`m0/l5d-helm` from `ld/l5d`, #301; PR #94, head `3da955c`, lock `97d2740`; 18 scenarios, 10 questions; then H8's successor under #303; notified by trigger) | session_01LpASMAypvQc8EhHRGaN8k9 | opus-5-5 | running |
-| Physics checker, L5d (blind, from lock `97d2740`; H4, H9–H12; H8 deferred to its successor) | session_01JZxBhiqZeK8ytPxmzBx97E | sonnet-5-5 | running |
+| Physics checker, L5d (blind, from lock `97d2740`; H4, H9–H12; H8 deferred to its successor; 0 numeric mismatches, 8 findings, 0 blocking; notified by trigger) | session_01JZxBhiqZeK8ytPxmzBx97E | sonnet-5-5 | 1.49 |
 | Reviewer, L5d (PR #94) | session_01EP7NCUqBPMwRgWJsLRq6P1 | sonnet-5-5 | running |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
