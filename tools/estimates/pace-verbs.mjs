@@ -4,8 +4,9 @@
 // side T the standard enemy on a reference build, on the locked builds of mission0/builds.js. The verbs: each preset,
 // a scan of each zone, a target on each of the other build's rooms. Run-time overrides only; never a canonical run:
 //   node tools/estimates/pace-verbs.mjs [--builds a,...] [--ranges m,...] [--openings bow,broadside] [--seed n]
-//                                       [--times s,... | --every s] [--limit s] [--cull2] [--set group.name=value ...]
-// --times lists the verb's moments (default 0); --every s tries every multiple of s before the baseline's end.
+//                                       [--times s,... | --every s [--max-moments n]] [--limit s] [--cull2] [--set group.name=value ...]
+// --times lists the verb's moments (default 0); --every s tries every multiple of s before the baseline's end, at most
+// --max-moments of them (default 12).
 // A result is the winner (A, T, draw or none); a verb flips a battle when its winner differs from the baseline's.
 import { PARAMS, withOverrides, PRESETS } from '../../js/data.js';
 import { createBattle, runBattle } from '../../js/battle.js';
@@ -16,7 +17,7 @@ const argv = process.argv.slice(2), opt = (n, d) => { const i = argv.indexOf(n);
 const list = (s) => s.split(',');
 const ranges = list(opt('--ranges', '600,900,1500')).map(Number), openings = list(opt('--openings', 'bow,broadside'));
 const seed = Number(opt('--seed', 1)), limit = Number(opt('--limit', 600)), builds = list(opt('--builds', Object.keys(REFERENCE).join(',')));
-const every = opt('--every', null), times = every ? null : list(opt('--times', '0')).map(Number);
+const every = opt('--every', null), maxMoments = Number(opt('--max-moments', 12)), times = every ? null : list(opt('--times', '0')).map(Number);
 const overrides = {};
 for (let i = 0; i < argv.length; i++) if (argv[i] === '--set') { const [k, v] = argv[++i].split('='); overrides[k] = Number(v); }
 if (argv.includes('--cull2')) overrides['battle.cullDistance'] = 2 * Math.max(...ranges);
@@ -39,7 +40,7 @@ const best = {};
 console.log(`# verb leverage (R2 the player on Fire, against the standard enemy), seed ${seed}, limit ${limit} s, overrides ${JSON.stringify(overrides)}`);
 for (const b of builds) for (const range of ranges) for (const opening of openings) {
   const base = duel(b, range, opening, []), end = base.t ?? limit;
-  const ts = times || Array.from({ length: Math.ceil(end / Number(every)) }, (_, i) => i * Number(every));
+  const ts = times || Array.from({ length: Math.min(maxMoments, Math.ceil(end / Number(every))) }, (_, i) => i * Number(every));
   const score = (w) => (w === 'A' ? 1 : w === 'draw' ? 0.5 : 0);
   let cellFlips = 0; const lines = [];
   for (const t of ts) {
