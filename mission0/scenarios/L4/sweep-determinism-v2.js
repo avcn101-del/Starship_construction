@@ -30,7 +30,7 @@ export default {
   tolerance: 'exact (hashes)',
   criterion: 'the three table hashes are equal; the --json table (jobs 4) has its hash too, one pair and two ends in the grid\'s order (1500 m, 600 m), the first ending later than the second',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '5e8b7b49' },
   cases() {
     return [{ name: 'two ranges, the longer battle first' }];
   },
