@@ -27,7 +27,7 @@ export default {
   tolerance: 'exact (the step)',
   criterion: '(mirror) a draw at step 1613: battle.ended.kind draw, sides A and T, each side\'s own end at step 1613, a draw event in each log whose parent is that side\'s own end event; (one-sided) no draw: one side ended, the other not',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '76c73e11' },
   cases() {
     return [{ name: 'mirror' }, { name: 'one-sided' }];
   },
