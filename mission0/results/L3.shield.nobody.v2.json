@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.shield.nobody.v2",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "485017b0",
   "lockedHash": "485017b0",
   "runHash": "ed88fbdc",
-  "dataHash": "cfcb3fa1",
+  "dataHash": "4b7cd27a",
   "rowsHash": "7913b7e9",
   "rows": [
     {

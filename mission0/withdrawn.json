@@ -1320,5 +1320,13 @@
     "recordHash": "b0a4dfe0",
     "reason": "Superseded under #316 (DESIGN.md 13n.8 J13; the fix round of PR #101, the review's finding 3): its grid let l5e1.sweep.byArrival survive (its battles returned in the cells' order); the successor's grid puts the longer battle first. Recorded PASS (code 7840cb9, data 394196fd), frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L4.beam.nobody",
+    "successor": "L4.beam.nobody.v2",
+    "decision": "#335",
+    "recordHash": "9e434038",
+    "reason": "Superseded under #335 (DESIGN.md 13n.9 K4, §17 item 55; #245, #327): it pinned step 9524 of one battle between two helms (R2 against the Lance, 600 m bow), which any helm change moves (under #335 the attacker is destroyed at step 4388); the successor keeps its criteria on a battle constructed with no helm. Recorded PASS (code 8dd7445, data cfcb3fa1), frozen (#245).",
+    "frozen": true
   }
 ]

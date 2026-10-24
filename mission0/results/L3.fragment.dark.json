@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.fragment.dark",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "79888f81",
   "lockedHash": "79888f81",
   "runHash": "25364290",
-  "dataHash": "cfcb3fa1",
+  "dataHash": "4b7cd27a",
   "rowsHash": "176c18b3",
   "rows": [
     {

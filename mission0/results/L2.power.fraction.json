@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.power.fraction",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "3777db12",
   "lockedHash": "3777db12",
   "runHash": "d3a47220",
-  "dataHash": "cfcb3fa1",
+  "dataHash": "4b7cd27a",
   "rowsHash": "f3d8b1b3",
   "rows": [
     {

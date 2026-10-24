@@ -290,6 +290,8 @@ export const PARAMS = {
     dodgeMin: P(6, 2, 10, 0, 's', true, 'the shortest interval between dodge flips, drawn on the seeded stream for the enemy, their midpoint with dodgeMax for the player: prototype v2\'s value, the one the owner played (#263, #301; approved as the plan\'s, #272 (2))'),
     dodgeMax: P(14, 6, 30, 0, 's', true, 'the longest interval between dodge flips (helm.dodgeMin\'s note; #263, #301; approved as the plan\'s, #272 (2))'),
     positionLead: P(60, 30, 90, 0, 'deg', true, 'the position law (#315): bow, stern and flank want the point on the circle of R* about the other ship moved from the own bearing toward the named one by at most this; a pilot\'s choice, no hardware (13n.1 (d), 13n.8, #315, #316; approved as the plan\'s, #272 (2))'),
+    positionPatience: P(15, 10, 20, 0, 's', true, 'the position yields (13n.9, #335): while the range order is engaged under the position law, the distance to its point must fall by helm.rangeBand within this, else the lead is dropped; the probe: 10, 15 and 20 s each cure the broadside race; a pilot\'s choice, no hardware (approved as the plan\'s, #272 (2))'),
+    positionReset: P(30, 30, 60, 0, 's', true, 'a yielded position comes back once the range order has been let go for this long (13n.9, #335; the probe: 0 s does not cure the race, 30 s and never give the same cells); a pilot\'s choice, no hardware (approved as the plan\'s, #272 (2))'),
   },
   enemy: {
     decisionInterval: P(1, 0.25, 5, 0, 's', true, 'the enemy decides (which zone to scan, which room to target, which preset) once per this: the same delay the player\'s taps have (13n.1 (d), #278; approved as the plan\'s, #272 (2))'),

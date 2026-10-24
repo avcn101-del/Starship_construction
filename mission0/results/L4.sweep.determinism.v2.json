@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.sweep.determinism.v2",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "5e8b7b49",
   "lockedHash": "5e8b7b49",
   "runHash": "85ee6c78",
-  "dataHash": "cfcb3fa1",
-  "rowsHash": "0a2b9702",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "fc67e68d",
   "rows": [
     {
       "case": {
@@ -23,24 +23,24 @@
       },
       "actual": {
         "hashes": [
-          "f7ec10cb",
-          "f7ec10cb",
-          "f7ec10cb",
-          "f7ec10cb"
+          "84afc376",
+          "84afc376",
+          "84afc376",
+          "84afc376"
         ],
         "pairs": 1,
         "ends": [
           {
             "range": 1500,
-            "kind": "surrender",
-            "side": "T",
-            "t": 34.916666666666664
+            "kind": "destroyed",
+            "side": "A",
+            "t": 180.53333333333333
           },
           {
             "range": 600,
             "kind": "destroyed",
             "side": "A",
-            "t": 2.95
+            "t": 132.93333333333334
           }
         ]
       },

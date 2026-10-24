@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.missile.field.v2",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "1399effc",
   "lockedHash": "1399effc",
   "runHash": "9aa26eb8",
-  "dataHash": "cfcb3fa1",
+  "dataHash": "4b7cd27a",
   "rowsHash": "db67979f",
   "rows": [
     {

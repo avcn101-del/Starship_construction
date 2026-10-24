@@ -51,7 +51,7 @@
 // The per-second log (#129) and the cascade tree (#41) are built from the
 // kernel's events. No DOM, no Math.random (one seed per battle, #7: the enemy's
 // dodge intervals and wildcard draw from it), no Math.sin, Math.cos or Math.pow.
-import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, enablePowerRouting, setDemand, step, fireRound, fireBeam, shieldRound, beamEnergy, setBeams, setRcs, cull, isDestroyed, survivingCells, magazineContents, magazineType, plateEntry, entryArealDensity, plateGone, cellAt, readout, roomTemperature, embedRound, contactBurst, empBurst, railgunSlug, magazineCapacity, burnFitting, PLUME_TYPES } from './rooms.js';
+import { createWorld, addRoom, addFitting, enableShip, loadMagazine, loadTurret, enablePowerRouting, setDemand, step, fireRound, fireBeam, shieldRound, beamEnergy, setBeams, cull, isDestroyed, survivingCells, magazineContents, magazineType, plateEntry, entryArealDensity, plateGone, cellAt, readout, roomTemperature, embedRound, contactBurst, empBurst, railgunSlug, magazineCapacity, burnFitting, PLUME_TYPES } from './rooms.js';
 import { TIERS, FIXED, ROOMS, scaled } from './data.js';
 import { validateShip, segmentKey } from './layout.js';
 import { liveWalls } from './graph.js';
@@ -63,11 +63,11 @@ import { createKnowledge, sense, setScan, knownAim, zoneCentre } from './sensors
 import { moveMissile, seekerAim, steer } from './missile.js';
 import { aimLasers, pointDefence } from './defence.js';
 import { createHelm, helmStep } from './helm.js';
+import { holdHeading } from './pilot.js';
 import { createEnemy, enemyStep } from './enemy.js';
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
 const len = (a) => Math.sqrt(a[0] * a[0] + a[1] * a[1]); // Math.sqrt is correctly rounded on every engine
-const wrap = (a) => a - 2 * Math.PI * Math.floor((a + Math.PI) / (2 * Math.PI));
 const BEARINGS = { '-y': [0, -1], '+y': [0, 1], '-x': [-1, 0], '+x': [1, 0] };
 const WEAPONS = new Set(['turret', 'beamBay', 'railgun', 'missileBay']);
 // A cell a line crosses for less than this fraction of its edge is a corner it touches, not crossed (float residue).
@@ -321,30 +321,6 @@ function roundFor(battle, A, turret, room) {
     if (sil.standing.has(`${x.cell[0]},${x.cell[1]}`) && (x.t1 - x.t0) / e > CORNER) before++;
   }
   return before === 0 ? 'he' : 'ap';
-}
-
-/**
- * Hold a side's heading on its RCS (13l.1): with the couple's angular accelerations a+ (every able fitting turning
- * it counter-clockwise) and a- (clockwise) about the main body's centre of mass, the time-optimal rate toward the
- * wanted heading is sign(d) sqrt(2 a d) on the couple that brakes it; the side fires the couple that brings omega
- * to it, or none within half a step's change (bang-bang over the steps; no constant).
- */
-function holdHeading(battle, side) {
-  const w = side.world, b = mainBody(side), fits = w.fittings.filter((f) => f.type === 'rcs');
-  setRcs(w, fits.map((f) => f.id), false);
-  if (!b || side.heading === null) return;
-  const force = scaled(battle.params.rcs.force, battle.edge), ccw = [], cw = [];
-  let tp = 0, tm = 0;
-  for (const f of fits) {
-    const host = side.room(f.room), cell = host.cells[f.k];
-    if (cell.destroyed || cell.fragment !== b.id || isDestroyed(host) || !host.controlled || host.shutdown || host.unmanned || host.outage || !host.active) continue;
-    const tau = (f.p[0] - b.c[0]) * (-f.side[1] * force) - (f.p[1] - b.c[1]) * (-f.side[0] * force);
-    if (tau > 0) { ccw.push(f.id); tp += tau; } else if (tau < 0) { cw.push(f.id); tm -= tau; }
-  }
-  const ap = tp / b.I, am = tm / b.I, d = wrap(side.heading - b.theta), dt = battle.dt;
-  const target = d > 0 ? Math.sqrt(2 * am * d) : d < 0 ? -Math.sqrt(2 * ap * -d) : 0;
-  if (ccw.length && b.omega < target - (ap * dt) / 2) setRcs(w, ccw, true);
-  else if (cw.length && b.omega > target + (am * dt) / 2) setRcs(w, cw, true);
 }
 
 // ---------- lines through a hull ----------
@@ -969,7 +945,7 @@ export function tick(battle) {
     if (s.enemy && !s.ended) enemyStep(battle, s);
     if (s.helm && !s.ended) { helmStep(battle, s); const t = s.world.rooms.find((r) => r.type === 'turret'); if (t && t.turret.typed) t.turret.want = roundFor(battle, s, t, s.helm.target && s.helm.target.room ? s.other.room(s.helm.target.room) : null); }
   }
-  for (const s of battle.sides) holdHeading(battle, s);
+  for (const s of battle.sides) holdHeading(battle, s); // the pilot's RCS (js/pilot.js)
   beamsIn(battle);
   if (battle.pd) aimLasers(battle); // a laser holds its missile through the step (its draw is asked for in it)
   const before = new Map(battle.sides.map((s) => [s, new Map(s.world.ship.bodies.map((b) => [b.id, poseOf(b)]))]));
