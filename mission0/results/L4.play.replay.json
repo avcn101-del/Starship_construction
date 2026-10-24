@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.play.replay",
-  "code": "7840cb9",
+  "code": "6a14d4f",
   "criterionHash": "9c10bc11",
   "lockedHash": "9c10bc11",
   "runHash": "78837ad5",
   "dataHash": "394196fd",
-  "rowsHash": "620e2dfd",
+  "rowsHash": "ca5477e1",
   "rows": [
     {
       "case": {
@@ -91,8 +91,8 @@
             "arg": 2
           }
         ],
-        "hash": "c6057a51",
-        "replayHash": "c6057a51",
+        "hash": "89633620",
+        "replayHash": "89633620",
         "end": "surrender T 3697",
         "replayEnd": "surrender T 3697",
         "prompts": 13,
