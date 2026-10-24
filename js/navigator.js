@@ -9,7 +9,8 @@
 //   Movement: the range order flies the wanted relative velocity w* toward the
 // wanted point P (on the circle of the range R* about the other ship, moved from
 // the own bearing toward the side the position goal names, by its silhouette's
-// heading, by at most helm.positionLead: the position law, #315) on the braking
+// heading, by at most helm.positionLead: the position law, #315; only at range,
+// and not once the position has yielded: 13n.9, #335) on the braking
 // curve |w*| = a (sqrt(2 |e| / a + t180^2) - t180), e the distance to P, a the
 // ship's acceleration at the throttle, t180 its 180-degree turn on the RCS couple
 // (a ship that must turn its engine round to brake brakes that much earlier); it
@@ -99,8 +100,10 @@ export function navigate(battle, side, goals, { them, vo }) {
     // The position law (#315, superseding #306 (2)'s): the point on the circle of R* about the other ship, moved from
     // the own bearing phi toward the named one phi* by at most helm.positionLead, so the path circles at R* instead of
     // crossing the other ship (no collision model, #20).
+    // The lead applies only at range (13n.9, #335: |r - R*| <= helm.rangeBand; outside it the point is on the own
+    // bearing at R*, the range first, then the position) and not while the position has yielded.
     let dir = [-u[0], -u[1]];
-    if (!moving) {
+    if (!moving && !h.yielded && Math.abs(r - R) <= band) {
       const named = goals.position === 'stern' ? [-tc, -ts] : goals.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 180;
       const phi = atan2(-u[1], -u[0]), phiP = phi + clamp(wrap(atan2(named[1], named[0]) - phi), -lead, lead);
       dir = [cos(phiP), sin(phiP)];
@@ -117,7 +120,19 @@ export function navigate(battle, side, goals, { them, vo }) {
     const rel = sub(me.v, vo), err = sub(want, rel), errLen = len(err);
     // A ship with no RCS couple (t180 infinite) cannot point its engine: the order does not engage (#306 (8)).
     const able = throttle > 0 && a > 0 && t180 < Infinity;
+    // The position yields (13n.9, #335): while the order is engaged under the position law, the distance to its point
+    // must fall by a band within helm.positionPatience, else the position yields (no lead) and stays yielded until the
+    // order has been let go for helm.positionReset.
+    if (!moving && h.engaged && !h.yielded) {
+      if (!h.posBest || e < h.posBest.e - band) h.posBest = { e, t };
+      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge)) h.yielded = true;
+    }
     h.engaged = able && (moving ? styleEngaged(h.engaged, { e, error: errLen, vt: Math.abs(vt), step: a * battle.dt, band }) : rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band }));
+    if (!h.engaged) {
+      h.posBest = null;
+      if (h.freeSince === null) h.freeSince = t;
+      if (t - h.freeSince >= scaled(p.helm.positionReset, edge)) h.yielded = false;
+    } else h.freeSince = null;
     if (h.engaged) { heading = atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
     h.range = { R, e, want, rel, vt, error: errLen, threshold: a * t180, band, letGo: band / t180 };
   }

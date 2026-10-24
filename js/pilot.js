@@ -27,7 +27,8 @@ export function pilotStep(side, { heading, throttle }) {
  * Hold a side's heading on its RCS (13l.1): with the couple's angular accelerations a+ (every able fitting turning
  * it counter-clockwise) and a- (clockwise) about the main body's centre of mass, the time-optimal rate toward the
  * wanted heading is sign(d) sqrt(2 a d) on the couple that brakes it; the side fires the couple that brings omega
- * to it, or none within half a step's change (bang-bang over the steps; no constant).
+ * to it, or none within half a step's change (bang-bang over the steps; no constant). A turn past 90 degrees keeps
+ * its sense (side.turnSense) until within 90 degrees.
  */
 export function holdHeading(battle, side) {
   const w = side.world, b = flownBody(w), fits = w.fittings.filter((f) => f.type === 'rcs');
@@ -41,18 +42,33 @@ export function holdHeading(battle, side) {
     const tau = (f.p[0] - b.c[0]) * (-f.side[1] * force) - (f.p[1] - b.c[1]) * (-f.side[0] * force);
     if (tau > 0) { ccw.push(f.id); tp += tau; } else if (tau < 0) { cw.push(f.id); tm -= tau; }
   }
-  const ap = tp / b.I, am = tm / b.I, d = wrap(side.heading - b.theta), dt = battle.dt;
+  const ap = tp / b.I, am = tm / b.I, dt = battle.dt;
+  // The turn sense (13n.9, #335): a turn of more than 90 degrees keeps the sense it started in until the error is
+  // within 90 degrees (d taken in that sense, d +- 2 pi); at an error of exactly 180 degrees the wanted heading's jitter
+  // would otherwise flip the bang-bang every few steps and the ship would never turn. No constant: 90 degrees is where
+  // the shorter turn is unambiguous.
+  let d = wrap(side.heading - b.theta);
+  if (Math.abs(d) > Math.PI / 2) {
+    if (!side.turnSense) side.turnSense = d >= 0 ? 1 : -1;
+    if (d * side.turnSense < 0) d += side.turnSense * 2 * Math.PI;
+  } else side.turnSense = 0;
   const target = d > 0 ? Math.sqrt(2 * am * d) : d < 0 ? -Math.sqrt(2 * ap * -d) : 0;
   if (ccw.length && b.omega < target - (ap * dt) / 2) setRcs(w, ccw, true);
   else if (cw.length && b.omega > target + (am * dt) / 2) setRcs(w, cw, true);
 }
 
-/** The ship's acceleration (m/s^2) at throttle 1 from its live engines and its flown body's mass; t180 (s), its 180-degree turn on the RCS couple. */
+/** The ship's acceleration (m/s^2) at throttle 1 from its live engines' delivered thrust and its flown body's mass; t180 (s), its 180-degree turn on the RCS couple. */
 export function shipDynamics(battle, side) {
   const w = side.world, b = flownBody(w), p = battle.params;
   if (!b) return { a: 0, t180: Infinity };
   let thrust = 0;
-  for (const r of w.rooms) if (r.type === 'engine' && r.placed && !isDestroyed(r)) thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r);
+  // The delivered thrust (13n.9, #335): each live engine counts at the power fraction it was given at the last step it
+  // was asked to thrust (1 until then, and without power routing), so a starved engine reports none and the braking
+  // curve and the range order's engagement use the thrust the ship has.
+  for (const r of w.rooms) if (r.type === 'engine' && r.placed && !isDestroyed(r)) {
+    if (r.engine.throttle > 0 && w.power) r.engine.lastSupply = r.powerFraction ?? 1;
+    thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r) * (r.engine.lastSupply ?? 1);
+  }
   const force = scaled(p.rcs.force, battle.edge);
   let ccw = 0, cw = 0;
   for (const f of w.fittings) {

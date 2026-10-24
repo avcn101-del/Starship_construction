@@ -76,7 +76,7 @@ export function createHelm(battle, side, orders, { dodge = 'fixed' } = {}) {
   return {
     orders: ordersOf(orders), dodge, dodgeSign: 1, nextFlip: null, strafeSign: 1, nextStrafe: null, history: [], engaged: false, mode: null,
     verbTarget: null, target: null, released: false, releaseAt: null, held: true, why: 'start', disengage: false, disengageStep: null,
-    patience: 0, autoScan: true, lastHeading: null, throttle: 0, scanCount: 0,
+    posBest: null, freeSince: null, yielded: false, patience: 0, autoScan: true, lastHeading: null, throttle: 0, scanCount: 0,
   };
 }
 
