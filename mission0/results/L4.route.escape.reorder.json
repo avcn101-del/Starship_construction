@@ -1,0 +1,58 @@
+{
+  "id": "L4.route.escape.reorder",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.route.escape.reorder",
+  "code": "31187a9",
+  "criterionHash": "918b39ed",
+  "lockedHash": "918b39ed",
+  "runHash": "f49c0bbe",
+  "dataHash": "fee97350",
+  "rowsHash": "2f0ce4f0",
+  "rows": [
+    {
+      "case": {
+        "withdraw": 20,
+        "again": 25
+      },
+      "expected": {
+        "passed": 958,
+        "cleared": [
+          1200,
+          1499
+        ],
+        "again": 1500,
+        "escaped": 2101,
+        "speed": 329.2238876073544,
+        "braking": 41.1529859509193
+      },
+      "actual": {
+        "passed": 958,
+        "shrink": null,
+        "cleared": [
+          1200,
+          1499
+        ],
+        "againStep": 1500,
+        "end": {
+          "kind": "escaped",
+          "side": "A",
+          "step": 2101
+        },
+        "steps": 2101
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

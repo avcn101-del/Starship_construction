@@ -99,7 +99,9 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, L5d the helm and the enemy (`m0/l5d-helm` from `ld/l5d`, #301; PR #94, head `3da955c`, lock `97d2740`; 18 scenarios, 10 questions; then H8's successor under #303, head `dd67aa0`; notified by trigger) | session_01LpASMAypvQc8EhHRGaN8k9 | opus-5-5 | 29.39 |
 | Physics checker, L5d (blind, from lock `97d2740`; H4, H9–H12; H8 deferred to its successor; 0 numeric mismatches, 8 findings, 0 blocking; notified by trigger) | session_01JZxBhiqZeK8ytPxmzBx97E | sonnet-5-5 | 1.49 |
 | Reviewer, L5d (PR #94; reviews at `3da955c` and `dd67aa0`: 1 blocking, resolved by #303's successor, 12 non-blocking; notified by trigger and message) | session_01EP7NCUqBPMwRgWJsLRq6P1 | sonnet-5-5 | 1.53 |
-| Engineer, L5d fix round (#306; on `m0/l5d-helm` from `dd67aa0`) | session_01ND3BEPMGkBojwdudZAByyY | opus-5-5 | running |
+| Engineer, L5d fix rounds (#306, #307, #308; `m0/l5d-helm` `dd67aa0` → `dc50c56`; H15–H20, H9′; 32 of 32 `l5d.*` KILLED; notified by trigger) | session_01ND3BEPMGkBojwdudZAByyY | opus-5-5 | 13.24 |
+| Physics checker, L5d fix rounds (blind; H8′, H15–H20, H9′; 8 VERIFIED, 8 discrepancies, 0 blocking; notified by trigger) | session_01WHewLv1j6FaAWN78ZSEkVW | sonnet-5-5 | 1.95 |
+| Reviewer, L5d fix rounds (light re-review; 0 blocking, 4 non-blocking; worker restarted, earlier cost not reported; notified by trigger) | session_012Ee2P2wf6zEmTbZ9kRW9EZ | sonnet-5-5 | ≥ 0.32 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -124,6 +126,7 @@ L5a total: 23.54 USD (engineers 16.82 + 3.34, physics checker 1.90, reviewers 1.
 L5m total: 15.09 USD (engineers 7.97 + 4.04, physics checker 1.73, reviewer 1.35).
 L5b total: 11.62 USD (engineer 9.59, physics checker 1.37, reviewer 0.66).
 L5c total: 39.06 USD (engineers 23.34 + 7.08 + 4.85, physics checker 2.81, reviewer 0.98). L5 so far (L5a + L5m + L5b + L5c): 89.31 USD.
+L5d total: ≥ 47.92 USD (engineer 29.39, fix rounds 13.24, physics checkers 1.49 + 1.95, reviewers 1.53 + ≥ 0.32). L5 so far (L5a + L5m + L5b + L5c + L5d): ≥ 137.23 USD.
 
 The lead designer chat's own cost (planning, answers, checks, merges) is **not in this ledger** (#270 (7)): only the sessions it creates are costed.
 
@@ -143,5 +146,6 @@ One row per pass under the plan gate (#241): the raw range the plan stated, wher
 | L5m (the turret by its mount) | 10–15 (5–8 in #281, corrected by the probe of #285 before any session) | #285 | 15.09 | 1.21 |
 | L5b (senses and the knowledge model) | 15–21 | #278, §13n.5 (the probe of #289 confirmed it) | 11.62 | 0.65 |
 | L5c (weapons, with two fix rounds) | 27–39 | #295, §13n.5 | 39.06 | 1.18 |
+| L5d (the helm and the enemy, with three fix rounds) | 33–47 (26–36 in #278, re-costed by the probe of #301) | #301, §13n.5 | ≥ 47.92 | ≥ 1.20 |
 
 Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).

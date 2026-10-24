@@ -26,6 +26,10 @@
 // burned in the step (jet power m a v_e / 2, the engine's formula), and a radar
 // seeker's scan in the EM band (sensor.scanPower); an antenna's host in an EMP's
 // outage does not scan. The seekers (js/missile.js) read the model.
+// L5d (#301, §17 item 45): the model keeps no reference to the other world (the
+// world it is about is the pair's `other`, else its creation's, kept here); a
+// scan under a browned-out host progresses and radiates at the host's power
+// fraction (#193).
 // No DOM, no Math.random.
 import { scaled } from './data.js';
 import { irBrightness, isDestroyed, plateGone, roomTemperature } from './rooms.js';
@@ -65,10 +69,15 @@ export function zonesOf(world) {
   return zones;
 }
 
-/** The knowledge model of the ship of `world` about the ship of `other` (13n.1 (a)). */
+// The world each model is about (L5d, #301, §17 item 45 (a)): kept here, not in the model, so the model holds only what
+// its side knows and nothing that reads the other world; sense() takes it from its pair or from here.
+const OTHER = new WeakMap();
+const otherOf = (p) => p.other || OTHER.get(p.model);
+
+/** The knowledge model of the ship of `world` about the ship of `other` (13n.1 (a)); `edge` and `grid` are the other's drydock's (free, #23). */
 export function createKnowledge(world, other) {
-  return {
-    other, zones: zonesOf(other), scans: 0,
+  const model = {
+    edge: other.edge, grid: [...other.layout.grid], zones: zonesOf(other), scans: 0,
     silhouette: { step: null, bodies: [], cells: [], segments: [] },
     cells: new Map(), // 'x,y' -> { cell, room, type, size, k, integrity, destroyed, plates, step, zone }
     rooms: new Map(), // id -> { id, type, size, cells: [keys], step, ir: { class, step } | null }
@@ -76,6 +85,8 @@ export function createKnowledge(world, other) {
     sources: new Map(), // source id -> { kind, band, position, received, class, cell, step (last resolved), now }
     shots: [], hits: [],
   };
+  OTHER.set(model, other);
+  return model;
 }
 
 /** Command an antenna (a fitting, or its index among the world's antennas) to scan zone `zone`, or stop with null. */
@@ -93,6 +104,8 @@ function scanAble(world, f) {
   const host = roomById(world, f.room);
   return !!f.scan && !host.cells[f.k].destroyed && host.controlled && host.powered && host.active && !host.shutdown && !host.unmanned && !host.outage && !host.exploded && !isDestroyed(host);
 }
+/** The power fraction of an antenna's host this step (#193): under routing what it received of its draw, else 1 (#301, §17 item 45 (b)). */
+const hostFraction = (world, f) => (world.power ? roomById(world, f.room).powerFraction : 1);
 /** The world point (m) of a fitting's edge midpoint, on the body holding its cell. */
 const fittingPoint = (world, f) => worldPoint(bodyById(world, roomById(world, f.room).cells[f.k].fragment), f.p);
 
@@ -116,13 +129,13 @@ export function sourcesOf(world) {
       if (!cellAlive(room, f.k) || !(room.radiators > 0)) continue;
       out.push({ id: `panel:${f.id}`, kind: 'panel', band: 'ir', P: irBrightness(world, room) / room.radiators, position: fittingPoint(world, f), class: temperatureClass(room), cell: [...f.cell], side: [...f.side] });
     } else if (f.type === 'antenna' && scanAble(world, f)) {
-      out.push({ id: `antenna:${f.id}`, kind: 'antenna', band: 'em', P: tierScaled(world, world.params.sensor.scanPower), position: fittingPoint(world, f), cell: [...f.cell], side: [...f.side] });
+      out.push({ id: `antenna:${f.id}`, kind: 'antenna', band: 'em', P: tierScaled(world, world.params.sensor.scanPower) * hostFraction(world, f), position: fittingPoint(world, f), cell: [...f.cell], side: [...f.side] });
     }
   }
   for (const room of world.rooms) {
     if (!room.placed || isDestroyed(room)) continue;
     if (room.type === 'engine' && room.engine.thrust > 0) {
-      out.push({ id: `exhaust:${room.id}`, kind: 'exhaust', band: 'ir', P: (room.engine.thrust * world.params.engine.exhaustVelocity.value) / 2, position: worldPoint(bodyById(world, room.body), room.exhaust) });
+      out.push({ id: `exhaust:${room.id}`, kind: 'exhaust', band: 'ir', P: (room.engine.thrust * tierScaled(world, world.params.engine.exhaustVelocity)) / 2, position: worldPoint(bodyById(world, room.body), room.exhaust) });
     }
     if (room.type === 'shieldGenerator') {
       const P = room.shield.em + room.shield.roundEm;
@@ -132,7 +145,7 @@ export function sourcesOf(world) {
   // Missiles in flight (L5c, 13n.1 (c)): the exhaust while it burned in the step, a radar seeker's scan.
   const p = world.params;
   for (const x of world.ship.missiles || []) {
-    if (world.t - world.dt < x.t + p.missile.burnTime.value) out.push({ id: `missile:${x.cause}`, kind: 'missile', band: 'ir', P: (x.m * p.missile.acceleration.value * p.engine.exhaustVelocity.value) / 2, position: [...x.x] });
+    if (world.t - world.dt < x.t + tierScaled(world, p.missile.burnTime)) out.push({ id: `missile:${x.cause}`, kind: 'missile', band: 'ir', P: (x.m * tierScaled(world, p.missile.acceleration) * tierScaled(world, p.engine.exhaustVelocity)) / 2, position: [...x.x] });
     if (x.seeker === 'radar') out.push({ id: `missile-radar:${x.cause}`, kind: 'missile', band: 'em', P: tierScaled(world, p.sensor.scanPower), position: [...x.x] });
   }
   return out;
@@ -222,13 +235,14 @@ export function knownAim(model, id) {
   if (!r) return null;
   const c = r.cells.map((k) => model.cells.get(k)).filter((x) => !x.destroyed).sort((a, b) => a.k - b.k)[0];
   if (!c) return null;
-  const e = model.other.edge;
+  const e = model.edge;
   return worldPoint(poseOf(model, c.cell), [(c.cell[0] + 0.5) * e, (c.cell[1] + 0.5) * e]);
 }
 
 /** Active (d^4): each antenna given a zone progresses on it while it can scan, else its scan resets (#289 (2)). */
-function scans(model, world) {
-  const dt = world.dt, T0 = world.params.sensor.scanTime.value, R = tierScaled(world, world.params.sensor.scanRange);
+function scans(model, world, other) {
+  if (!model.silhouette.bodies.length) return; // nothing of the other ship left to scan
+  const dt = world.dt, T0 = tierScaled(world, world.params.sensor.scanTime), R = tierScaled(world, world.params.sensor.scanRange);
   for (const f of antennas(world)) {
     if (!f.scan) continue;
     if (!scanAble(world, f)) { f.scan.progress = 0; f.scan.started = null; continue; }
@@ -238,9 +252,9 @@ function scans(model, world) {
       f.scan.started = emit(world.log, { t: world.t, type: 'scan-started', room: host.id, cause: root, crew: host.crew, zone: f.scan.zone, antenna: f.id, parent: root });
     }
     const q = dist2(fittingPoint(world, f), zoneCentre(model, f.scan.zone)) / (R * R); // (d / scanRange)^2
-    f.scan.progress += dt / (T0 * q * q);
+    f.scan.progress += (dt / (T0 * q * q)) * hostFraction(world, f); // a browned-out host scans at its power fraction (#301, item 45 (b))
     if (f.scan.progress >= 1) {
-      const z = f.scan.zone, rooms = reveal(model, model.other, z), start = f.scan.started;
+      const z = f.scan.zone, rooms = reveal(model, other, z), start = f.scan.started;
       f.scan = null; // resolved: the antenna stops; a re-scan is a new command
       emit(world.log, { t: world.t, type: 'zone-resolved', room: host.id, cause: start.cause, crew: host.crew, zone: z, rooms, antenna: f.id, parent: start.id });
     }
@@ -248,12 +262,13 @@ function scans(model, world) {
 }
 
 /**
- * One sensing pass after a step (13n.1 (a)) for `pairs` [{ world, model }], each model about the other's world: the
+ * One sensing pass after a step (13n.1 (a)) for `pairs` [{ world, model, other }], each model about `other` (its creation's
+ * other world when a pair names none, #301): the
  * sources of every world as they were in the step, then each side's silhouette and passive resolution, then (unless
  * `scan` is false) each side's scans.
  */
 export function sense(pairs, { scan = true } = {}) {
-  const emitted = new Map(pairs.map((p) => [p.model.other, sourcesOf(p.model.other)]));
-  for (const p of pairs) { silhouette(p.model, p.model.other); passive(p.model, p.world, emitted.get(p.model.other)); }
-  if (scan) for (const p of pairs) scans(p.model, p.world);
+  const emitted = new Map(pairs.map((p) => [otherOf(p), sourcesOf(otherOf(p))]));
+  for (const p of pairs) { silhouette(p.model, otherOf(p)); passive(p.model, p.world, emitted.get(otherOf(p))); }
+  if (scan) for (const p of pairs) scans(p.model, p.world, otherOf(p));
 }

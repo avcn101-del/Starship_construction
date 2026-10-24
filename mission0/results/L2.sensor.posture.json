@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.sensor.posture",
-  "code": "0501899",
+  "code": "f7833b3",
   "criterionHash": "270543b8",
   "lockedHash": "270543b8",
   "runHash": "abd098ea",
-  "dataHash": "d540e777",
+  "dataHash": "fee97350",
   "rowsHash": "c6860f75",
   "rows": [
     {

@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.shield.energy.v2",
-  "code": "0501899",
+  "code": "f7833b3",
   "criterionHash": "4275ce26",
   "lockedHash": "4275ce26",
   "runHash": "0674f6f6",
-  "dataHash": "d540e777",
+  "dataHash": "fee97350",
   "rowsHash": "f094f861",
   "rows": [
     {

@@ -113,3 +113,10 @@ export const missileShip3 = (seeker = 'designated', warhead = 'he') => {
     ],
   };
 };
+
+// L5d (13n.1 (d), #301): R1-2T, R1 with a second turret (turret2, M) in its hold's place ([7, 9) x [0, 2), on the
+// magazine's -y wall, so both turrets are fed) and the antenna on turret2's -y edge of cell (8, 0) (HOLD_ANTENNA's
+// edge): the ship of the ripple case (two discrete weapons). 23 crew against the quarters' 24 berths.
+export const HELM_SHIPS = {
+  'R1-2T': { rooms: R1_ROOMS.map((r) => (r.id === 'hold' ? { id: 'turret2', type: 'turret', cell: [7, 0] } : r)), fittings: [...R1_FITTINGS, ['antenna', 'turret2', [8, 0], [0, -1]]] },
+};

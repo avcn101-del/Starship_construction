@@ -1,0 +1,181 @@
+{
+  "id": "L2.sensor.memory.v2",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.sensor.memory.v2",
+  "code": "f7833b3",
+  "criterionHash": "b5d2f604",
+  "lockedHash": "b5d2f604",
+  "runHash": "122100e4",
+  "dataHash": "fee97350",
+  "rowsHash": "462c373d",
+  "rows": [
+    {
+      "case": {
+        "zone": 0
+      },
+      "expected": {
+        "n0": 249,
+        "ladder": [
+          [
+            250,
+            "rest"
+          ],
+          [
+            251,
+            "hot"
+          ],
+          [
+            252,
+            "overheated"
+          ],
+          [
+            253,
+            "critical"
+          ]
+        ],
+        "rescan": 502,
+        "last": 253
+      },
+      "actual": {
+        "resolved": [
+          249,
+          502
+        ],
+        "ladder": [
+          {
+            "step": 250,
+            "cls": "rest",
+            "irStep": 250,
+            "panels": [
+              "rest",
+              "rest",
+              "rest",
+              "rest",
+              "rest",
+              "rest"
+            ],
+            "a": {
+              "integrity": 1,
+              "destroyed": false
+            },
+            "b": {
+              "integrity": 1,
+              "destroyed": false
+            }
+          },
+          {
+            "step": 251,
+            "cls": "hot",
+            "irStep": 251,
+            "panels": [
+              "hot",
+              "hot",
+              "hot",
+              "hot",
+              "hot",
+              "hot"
+            ],
+            "a": {
+              "integrity": 1,
+              "destroyed": false
+            },
+            "b": {
+              "integrity": 1,
+              "destroyed": false
+            }
+          },
+          {
+            "step": 252,
+            "cls": "overheated",
+            "irStep": 252,
+            "panels": [
+              "overheated",
+              "overheated",
+              "overheated",
+              "overheated",
+              "overheated",
+              "overheated"
+            ],
+            "a": {
+              "integrity": 1,
+              "destroyed": false
+            },
+            "b": {
+              "integrity": 1,
+              "destroyed": false
+            }
+          },
+          {
+            "step": 253,
+            "cls": "critical",
+            "irStep": 253,
+            "panels": [
+              "critical",
+              "critical",
+              "critical",
+              "critical",
+              "critical",
+              "critical"
+            ],
+            "a": {
+              "integrity": 1,
+              "destroyed": false
+            },
+            "b": {
+              "integrity": 1,
+              "destroyed": false
+            }
+          }
+        ],
+        "after": {
+          "first": 254,
+          "ok": true,
+          "last": 501
+        },
+        "scan": {
+          "a": {
+            "integrity": 1,
+            "destroyed": false
+          },
+          "b": {
+            "integrity": 1,
+            "destroyed": false
+          },
+          "ir": null
+        },
+        "rescan": {
+          "step": 502,
+          "a": {
+            "integrity": 1,
+            "destroyed": false
+          },
+          "b": {
+            "integrity": 0,
+            "destroyed": true
+          },
+          "panel": {
+            "now": false,
+            "position": [
+              15,
+              7.5
+            ],
+            "step": 253
+          }
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
