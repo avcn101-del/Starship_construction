@@ -127,7 +127,8 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Physics checker, PR #105 K1–K3 (blind, partly: saw two criterion fragments by grep, disclosed; 0 blocking; its trigger refused at lineage depth 8) | session_019miu9xqavcWsHTbJDL89V9 | sonnet-5-5 | 0.88 |
 | Reviewer, PR #105 (0 blocking, 2 non-blocking; its trigger refused at lineage depth 8) | session_01BT4vDUMpSEphfNWJsVoywM | sonnet-5-5 | 0.92 |
 | Runner, `regress` on PR #105's merge (179 + 160 + 5) | session_01LZ6Y5jV6Y3KTdTs6BLBmVP | sonnet-5-5 | 0.54 |
-| Lead designer chat (2026-10-24, took over at item 55's review; cost at 241k tokens) | session_01VnsqF6AQX456h5ihxqZjh5 | opus-5-5 | 6.85 |
+| Lead designer chat (2026-10-24, item 55's review and merge, item 58's probe; handed over at 278k tokens) | session_01VnsqF6AQX456h5ihxqZjh5 | opus-5-5 | 8.65 |
+| Runner, item 58's probe (running at hand-over) | session_01YWf1ajvoEXsTuTsQYyJLuJ | sonnet-5-5 | — |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

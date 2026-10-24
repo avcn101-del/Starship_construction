@@ -1,16 +1,18 @@
 # STATUS — hand-over between chats (#179; process v2, #325)
 
-Lead designer chat: `session_01VnsqF6AQX456h5ihxqZjh5` (opus; took over
-2026-10-24 ~16:12 UTC from `session_01DJwKiaxa29KDtFqVjBviSe`, which handed
-over at about 320k tokens while the item 55 engineer works, PR #105). Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
+Lead designer chat: **the new chat writes its own id here first thing.** Handed
+over 2026-10-24 ~23:25 UTC by `session_01VnsqF6AQX456h5ihxqZjh5` at about 280k
+tokens, after item 55's merge, while the item 58 probe runner works. **The new
+chat is opened by the owner from claude.ai** (lineage depth 0): this chat was at
+depth 7 of 8, and its children could not create triggers or sessions. Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
 `session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
 `session_01DFw3o4EBEtf1adcpyJ5786` → `session_01S8gXf1kch2FCFHYE8nwhrn` →
 `session_01Bt5RVRLCv85dFpXLq4qB5W` → `session_01EAtiqegHjnDwsoHwD7cjur` →
-`session_01DJwKiaxa29KDtFqVjBviSe` → `session_01VnsqF6AQX456h5ihxqZjh5` (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
+`session_01DJwKiaxa29KDtFqVjBviSe` → `session_01VnsqF6AQX456h5ihxqZjh5` → the new chat (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
 
 **Reading order (#325)**: this file, `BRIEF.md`, `CLAUDE.md`,
 `.claude/agents/lead-designer.md`, `DESIGN.md` §18 and the plan in force
-(§13n, §13n.8, §17 item 52); `audits/2026-10-24-process.md` §1; everything
+(§13n, §13n.9, §17 items 57–58); `audits/2026-10-24-process.md` §1; everything
 else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
 ## For the owner (five lines)
@@ -18,8 +20,8 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 - **Done**: §17 item 55 merged (PR #105, `da029d3`: the helm's layers, the broadside race cured, K1–K6; `regress` 179 VERIFIED + 160 WITHDRAWN + 5 RETIRED); the owner's rows #336–#338 (outcomes counted apart, the clock and the stalemate, the sweep's tie-break); #339 (item 55's answers, K6); ideas merged: room variants, the phases' gaps.
 - **Next**: §17 item 58 (a starved engine latches the pilot's thrust at 0; the yield clocks' `RES`): probe, then a small pass, before the builds are locked; then the builds (PR #104, #330, #332); then the runner's baseline re-measure (with #336/#337's columns); then battle phases.
 - **Waiting on you**: **the next lead designer chat must be opened by the owner from claude.ai**, not by this chat: this chat is at lineage depth 7 of 8; sessions it creates (depth 8) cannot create triggers or sessions (the checker's and the reviewer's notifications were refused), and a chat it created could not create engineers.
-- **Money**: item 55's pass 16.39 USD (expected 11–17); this chat 6.85 USD at 241k tokens.
-- **Running**: the item 58 probe runner `session_01YWf1ajvoEXsTuTsQYyJLuJ` (sonnet; latch counts, helm suites and `regress` under `tools/estimates/item58-a.diff` and `-b.diff`). The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104 (it continues after item 58).
+- **Money**: item 55's pass 16.39 USD (expected 11–17); this chat 8.65 USD at 278k tokens.
+- **Running**: the item 58 probe runner `session_01YWf1ajvoEXsTuTsQYyJLuJ` (sonnet; latch counts, helm suites and `regress` under `tools/estimates/item58-a.diff` and `-b.diff`; it cannot notify: read its last assistant message with `list_events`, and tell it nothing unless it stalls). No check-in is scheduled. The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104 (it continues after item 58).
 
 Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidance), 57 (a leading navigator), 58 (the starved-thrust latch).
 
@@ -29,6 +31,7 @@ Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidanc
 
 ## Next steps
 
+0. **Documentation to `main`** (#325 (7)): item 55's pass is done; one pull request `ld/pace` → `main` after `node tools/lint-docs.mjs` (not yet opened).
 1. **§17 item 58** (`DESIGN.md` §17; PR #105's checker H1 and reviewer finding 1): a starved engine latches the pilot's reported thrust at 0 (refreshed only while asked to thrust; the navigator then never asks); and the yield's and reset's clocks compare without `RES` (`js/navigator.js` ~128, ~134). Probe first on a scratch tree (a runner): count the helm-suite cells where `lastSupply` stays 0 while the router could feed the engine, under (a) the fraction the router would give at full draw and (b) a starved report that expires after one step not asked; `regress` under the chosen one. Then a small engineer pass (opus) with a scenario that kills the latch (K2 is locked: a new one), the blind checker if the thrust rule changes, a reviewer. Item 55's probe and history: `HISTORY.md` and §13n.9.
 2. **The builds** (#330): after item 58, the builds engineer (or a new one) continues PR #104 under #332 (retry without the S turret first). `L4.builds.lethal` is not yet written or locked.
 3. **The owner's battle-phases direction** (2026-10-24, `IDEAS.md` from `ideas/battle-phases` `d0bffd5`; the owner's answer to #329's B): phases contact / range / position and control / finish, one side attacking and one defending, a defence sends the battle back a phase, tapping out open in every phase, each side judging its phase from its own model; a strategy is per phase a preset plus an exit condition at an aggression level; the player takes decision points from a short menu (auto by default). **When**: after item 55 and the rebuilt builds, before L5e2's E5–E7; the runner's re-measure below is the baseline without phases, the same measures with phases decide. Item 55 keeps the navigator's inputs as goals (range, aspect) set from above; a one-phase plan must reproduce the behaviour exactly. Record as an owner row when the phases pass is planned.

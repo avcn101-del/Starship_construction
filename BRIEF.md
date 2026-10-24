@@ -6,7 +6,7 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
 ## Where things stand
 
 - Mission 0: L0–L4 merged; L5a, L5m, L5b, L5c, L5d and **L5e1** merged.
-  Next: **the builds' rebuild** (#329–#331, draft PR #104; the helm race §17 item 55 first), then E7 re-measured on two-sided battles, then **L5e2** (E5–E8), then **L6** (scaling, mixed classes). The owner:
+  Next: §17 **item 58** (a starved engine latches the pilot's thrust at 0; probe running), then **the builds' rebuild** (#329–#331, draft PR #104; item 55 merged, PR #105), then E7 re-measured on two-sided battles, then **L5e2** (E5–E8), then **L6** (scaling, mixed classes). The owner:
   Mission 0 through L6 before any playable slice (#323).
 - The plan in force is `DESIGN.md` §13n (L5); §13n.8 is L5e1's.
 
@@ -37,6 +37,8 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
 
 ## Traps (each cost a run or a fix round)
 
+- Session lineage is capped at depth 8: a chat deep in the chain creates sessions that cannot notify or create sessions; the owner opens each new lead designer chat from claude.ai.
+- A checker grepping `DESIGN.md` for a formula can see the scenario table's criteria: point it at named rows, or extract its section for it.
 - The clones are single-branch: fetch with an explicit refspec.
 - `tools/mutate.js` copies the live working tree at each mutation: run it on
   a detached worktree pinned to the commit it measures; nothing else on
@@ -53,7 +55,7 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
 ## Open obligations (`DESIGN.md` §17; due)
 
 - **54** the energy book has no beam term (due with `js/battle.js`'s books).
-- **55** the broadside mirror race (helm position law; before the builds lock); **56** missiles fly pure pursuit.
+- **58** a starved engine latches the pilot's thrust at 0, and the yield clocks lack `RES` (before the builds lock); **56** missiles fly pure pursuit; **57** a leading navigator (if the builds' tables show it).
 
 - **52** the pace study's questions: the bimodal pace, a close order's
   overshoot (about 230 m), the battle's **shape** (first hit on the loser
