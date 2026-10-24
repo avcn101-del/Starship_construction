@@ -29,7 +29,7 @@ export default {
   tolerance: 'exact (hashes)',
   criterion: 'the three table hashes are equal; the table has one pair',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '790917e5' },
   cases() {
     return [{ name: 'small grid' }];
   },
