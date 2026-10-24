@@ -1,12 +1,11 @@
 # STATUS — hand-over between chats (#179; process v2, #325)
 
-Updated 2026-10-24 by the lead designer chat `session_01Bt5RVRLCv85dFpXLq4qB5W`
-at **L5e1's merge**, handing over (#322 (4)). **The new chat writes its own id
-here first thing.** Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
+Updated 2026-10-24 by the lead designer chat `session_01EAtiqegHjnDwsoHwD7cjur`
+(took over at L5e1's merge, #322 (4); branch `ld/pace`). Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
 `session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
 `session_01DFw3o4EBEtf1adcpyJ5786` → `session_01S8gXf1kch2FCFHYE8nwhrn` →
-`session_01Bt5RVRLCv85dFpXLq4qB5W` → the new chat (sessions notify it with
-`persistent_session_id` = its id).
+`session_01Bt5RVRLCv85dFpXLq4qB5W` → `session_01EAtiqegHjnDwsoHwD7cjur` (sessions
+notify it with `persistent_session_id` = its id).
 
 **Reading order (#325)**: this file, `BRIEF.md`, `CLAUDE.md`,
 `.claude/agents/lead-designer.md`, `DESIGN.md` §18 and the plan in force
