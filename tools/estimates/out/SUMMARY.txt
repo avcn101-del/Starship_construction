@@ -1,0 +1,67 @@
+== tools/estimates/out/SUMMARY.txt
+== tools/estimates/out/e7-default.txt
+kernel errors: 0
+E7: median end 38.1 s over 24 of 24 ended (no end by 600 s counts as 600 s: median 38.1 s); ends {"draw":3,"destroyed":8,"surrender":13}
+shape over 21 decided: first hit on the loser median 0.34 of the battle; hits on the loser median 13 (1-43); hit rate 93 %
+== tools/estimates/out/e7-dodge-open.txt
+kernel errors: 0
+E7: median end 62.9 s over 96 of 96 ended (no end by 600 s counts as 600 s: median 62.9 s); ends {"draw":8,"destroyed":45,"surrender":43}
+shape over 88 decided: first hit on the loser median 0.25 of the battle; hits on the loser median 29 (1-42); hit rate 98 %
+== tools/estimates/out/e7-dodge.txt
+kernel errors: 0
+E7: median end 41.5 s over 96 of 96 ended (no end by 600 s counts as 600 s: median 41.5 s); ends {"draw":8,"destroyed":20,"surrender":68}
+shape over 88 decided: first hit on the loser median 0.31 of the battle; hits on the loser median 14 (0-43); hit rate 66 %
+== tools/estimates/out/e7-far-strafe-open.txt
+kernel errors: 0
+E7: median end 230.0 s over 43 of 64 ended (no end by 600 s counts as 600 s: median 464.2 s); ends {"destroyed":26,"surrender":17,"none":21}
+shape over 43 decided: first hit on the loser median 0.54 of the battle; hits on the loser median 41 (0-103); hit rate 81 %
+== tools/estimates/out/e7-far.txt
+kernel errors: 0
+E7: median end 64.2 s over 16 of 16 ended (no end by 600 s counts as 600 s: median 64.2 s); ends {"draw":2,"destroyed":2,"surrender":12}
+shape over 14 decided: first hit on the loser median 0.51 of the battle; hits on the loser median 14 (9-43); hit rate 92 %
+== tools/estimates/out/e7-htw8.txt
+kernel errors: 0
+E7: median end 73.7 s over 24 of 24 ended (no end by 600 s counts as 600 s: median 73.7 s); ends {"draw":3,"surrender":16,"destroyed":5}
+shape over 21 decided: first hit on the loser median 0.16 of the battle; hits on the loser median 34 (1-43); hit rate 87 %
+== tools/estimates/out/e7-open.txt
+kernel errors: 0
+E7: median end 76.3 s over 24 of 24 ended (no end by 600 s counts as 600 s: median 76.3 s); ends {"draw":3,"destroyed":13,"surrender":8}
+shape over 21 decided: first hit on the loser median 0.22 of the battle; hits on the loser median 28 (1-42); hit rate 98 %
+== tools/estimates/out/e7-orbit.txt
+kernel errors: 0
+E7: median end 91.1 s over 68 of 96 ended (no end by 600 s counts as 600 s: median 135.8 s); ends {"draw":8,"destroyed":40,"none":28,"surrender":20}
+shape over 60 decided: first hit on the loser median 0.27 of the battle; hits on the loser median 28 (1-50); hit rate 88 %
+== tools/estimates/out/e7-pd.txt
+kernel errors: 0
+E7: median end 38.1 s over 24 of 24 ended (no end by 600 s counts as 600 s: median 38.1 s); ends {"draw":3,"destroyed":8,"surrender":13}
+shape over 21 decided: first hit on the loser median 0.34 of the battle; hits on the loser median 13 (1-43); hit rate 93 %
+== tools/estimates/out/e7-scan10.txt
+kernel errors: 0
+E7: median end 44.3 s over 24 of 24 ended (no end by 600 s counts as 600 s: median 44.3 s); ends {"draw":3,"destroyed":9,"surrender":12}
+shape over 21 decided: first hit on the loser median 0.45 of the battle; hits on the loser median 12 (0-42); hit rate 93 %
+== tools/estimates/out/e7-strafe-open.txt
+kernel errors: 0
+E7: median end 200.6 s over 68 of 96 ended (no end by 600 s counts as 600 s: median 405.5 s); ends {"draw":1,"destroyed":46,"surrender":21,"none":28}
+shape over 67 decided: first hit on the loser median 0.30 of the battle; hits on the loser median 34 (0-125); hit rate 82 %
+== tools/estimates/out/e7-strafe.txt
+kernel errors: 0
+E7: median end 112.4 s over 73 of 96 ended (no end by 600 s counts as 600 s: median 145.8 s); ends {"destroyed":32,"surrender":41,"none":23}
+shape over 73 decided: first hit on the loser median 0.17 of the battle; hits on the loser median 41 (1-113); hit rate 84 %
+== tools/estimates/out/verbs-every10.txt
+verb leverage: 80 of 570 single-verb battles flip the result (14.0 %): 2 toward the player, 78 against; moments with a flip 25 of 30
+verbs that turn a result toward the player: {"preset evade":2}
+kernel errors: 0
+== tools/estimates/out/verbs-far.txt
+verb leverage: 6 of 152 single-verb battles flip the result (3.9 %): 0 toward the player, 6 against; moments with a flip 6 of 8
+verbs that turn a result toward the player: {}
+kernel errors: 0
+== tools/estimates/out/verbs-t0.txt
+verb leverage: 45 of 455 single-verb battles flip the result (9.9 %): 2 toward the player, 43 against; moments with a flip 18 of 24
+verbs that turn a result toward the player: {"preset evade":2}
+kernel errors: 1
+  ERROR Lance 600 bow [{"t":0,"verb":"target","arg":"shield"}]: step 9524: Cannot read properties of null (reading 'x')
+== tools/estimates/out/verbs-t10.txt
+verb leverage: 41 of 455 single-verb battles flip the result (9.0 %): 1 toward the player, 40 against; moments with a flip 17 of 24
+verbs that turn a result toward the player: {"preset evade":1}
+kernel errors: 1
+  ERROR Lance 600 bow [{"t":10,"verb":"target","arg":"shield"}]: step 9764: Cannot read properties of null (reading 'x')

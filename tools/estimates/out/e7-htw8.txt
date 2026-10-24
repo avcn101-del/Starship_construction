@@ -1,0 +1,28 @@
+# E7 pace (R2 against R2, Lance, Swarm, Furnace), ranges 600,900,1500, bow,broadside, seeds 1, limit 600 s, overrides {"kinetic.hitsToWreck":8}, orders {}
+R2 v R2       600 bow       s1: draw      A,T t   45.5 s  win draw hits A/T 22/22 of 44; first hit 3.4 s, on loser -; end draw
+R2 v R2       600 broadside s1: surrender A   t  313.7 s  win T    hits A/T 34/98 of 188; first hit 3.4 s, on loser 0.01 of the battle, 34 hits; end dry
+R2 v R2       900 bow       s1: draw      A,T t   50.9 s  win draw hits A/T 20/20 of 40; first hit 12.9 s, on loser -; end draw
+R2 v R2       900 broadside s1: surrender A   t  320.3 s  win T    hits A/T 36/104 of 190; first hit 10.3 s, on loser 0.04 of the battle, 36 hits; end dry
+R2 v R2      1500 bow       s1: draw      A,T t  127.2 s  win draw hits A/T 54/54 of 108; first hit 20.9 s, on loser -; end draw
+R2 v R2      1500 broadside s1: surrender A   t  333.1 s  win T    hits A/T 38/115 of 192; first hit 23.0 s, on loser 0.07 of the battle, 38 hits; end dry
+R2 v Lance    600 bow       s1: destroyed A   t    3.0 s  win T    hits A/T 1/0 of 2; first hit 3.0 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance    600 broadside s1: surrender T   t   44.3 s  win A    hits A/T 0/20 of 24; first hit 3.4 s, on loser 0.08 of the battle, 20 hits; end no-control
+R2 v Lance    900 bow       s1: destroyed A   t   12.2 s  win T    hits A/T 1/0 of 2; first hit 12.2 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance    900 broadside s1: surrender T   t   52.9 s  win A    hits A/T 0/21 of 25; first hit 10.3 s, on loser 0.20 of the battle, 21 hits; end no-control
+R2 v Lance   1500 bow       s1: surrender T   t   63.4 s  win A    hits A/T 0/21 of 25; first hit 20.8 s, on loser 0.33 of the battle, 21 hits; end no-control
+R2 v Lance   1500 broadside s1: surrender T   t   65.8 s  win A    hits A/T 0/21 of 25; first hit 23.1 s, on loser 0.35 of the battle, 21 hits; end no-control
+R2 v Swarm    600 bow       s1: destroyed T   t    3.4 s  win A    hits A/T 0/1 of 1; first hit 3.4 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Swarm    600 broadside s1: surrender T   t   91.2 s  win A    hits A/T 0/42 of 42; first hit 3.4 s, on loser 0.04 of the battle, 42 hits; end dry
+R2 v Swarm    900 bow       s1: destroyed T   t   12.9 s  win A    hits A/T 0/1 of 1; first hit 12.9 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Swarm    900 broadside s1: surrender T   t   98.7 s  win A    hits A/T 0/42 of 42; first hit 10.2 s, on loser 0.10 of the battle, 42 hits; end dry
+R2 v Swarm   1500 bow       s1: surrender T   t  191.5 s  win A    hits A/T 0/43 of 43; first hit 21.6 s, on loser 0.11 of the battle, 43 hits; end dry
+R2 v Swarm   1500 broadside s1: surrender T   t  110.7 s  win A    hits A/T 0/42 of 42; first hit 22.9 s, on loser 0.21 of the battle, 42 hits; end dry
+R2 v Furnace  600 bow       s1: surrender T   t   68.4 s  win A    hits A/T 0/32 of 33; first hit 3.4 s, on loser 0.05 of the battle, 32 hits; end no-control
+R2 v Furnace  600 broadside s1: surrender T   t   70.4 s  win A    hits A/T 0/34 of 34; first hit 3.4 s, on loser 0.05 of the battle, 34 hits; end no-control
+R2 v Furnace  900 bow       s1: destroyed T   t   80.8 s  win A    hits A/T 0/35 of 35; first hit 12.8 s, on loser 0.16 of the battle, 35 hits; end destroyed
+R2 v Furnace  900 broadside s1: surrender T   t   77.1 s  win A    hits A/T 0/34 of 34; first hit 10.3 s, on loser 0.13 of the battle, 34 hits; end no-control
+R2 v Furnace 1500 bow       s1: surrender T   t   87.6 s  win A    hits A/T 0/34 of 34; first hit 20.7 s, on loser 0.24 of the battle, 34 hits; end no-control
+R2 v Furnace 1500 broadside s1: surrender T   t   87.9 s  win A    hits A/T 0/33 of 33; first hit 23.1 s, on loser 0.26 of the battle, 33 hits; end no-control
+kernel errors: 0
+E7: median end 73.7 s over 24 of 24 ended (no end by 600 s counts as 600 s: median 73.7 s); ends {"draw":3,"surrender":16,"destroyed":5}
+shape over 21 decided: first hit on the loser median 0.16 of the battle; hits on the loser median 34 (1-43); hit rate 87 %
