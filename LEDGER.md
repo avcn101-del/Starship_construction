@@ -115,6 +115,9 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Reviewer, L5e1 fix round (light; no finding; notified by trigger) | session_01FE4deyhxBY2ggmvGVdHCx5 | sonnet-5-5 | 0.73 |
 | Runner, `battle.openingRange` 500–3000 m and the re-records (#318; `run/opening-range` `2cec56a`; 174 VERIFIED; notified by trigger; a first copy archived empty at once, the prompt not expanded) | session_01U2gpT1cMDWBKhTe3kBhwye | sonnet-5-5 | 0.72 |
 | Runner, the pace study's grid (§17 item 52; `run/pace` `8dd35d6`, `tools/estimates/out/`; notified by trigger) | session_018bqyYRiZUXXkB8Znd3CZek | sonnet-5-5 | 0.53 |
+| Engineer, §17 item 53 and the field's energy frame (#327; PR #103, `ac91efd`; notified by trigger) | session_01CAL2Wwfpzq5LmqxiRWAdDK | opus-5-5 | 6.00 |
+| Physics checker, PR #103 (blind; 0 blocking, 3 non-blocking; notified by trigger) | session_012Y3cHk3UTBGdUTxEqxnWin | sonnet-5-5 | 0.45 |
+| Reviewer, PR #103 (0 blocking, 4 non-blocking; notified by trigger) | session_01AV1zutGsj1uUQQm6rgJuLk | sonnet-5-5 | 0.50 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

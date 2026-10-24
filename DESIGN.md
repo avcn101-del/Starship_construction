@@ -119,7 +119,7 @@ Deferred: sloped armour (#6), now with tumble in `IDEAS.md`, after prototype v2 
 | Topic | Decision |
 |---|---|
 | Hits | A shot enters the first cell on its path; over-penetration loses the remaining momentum; debris blocks shots (#9) |
-| Damage channels | **Kinetic** (momentum: each cell takes part by its resistance; `fireRound` receives the round's velocity **relative to the hull** it hits (#242, superseding #137's 'relative velocity not counted' and #202 F's deferral): ships at rest give the muzzle velocity; L4 and L5 pass the relative velocity, as prototype v2 does), **thermal** (absorbed beam energy, which also becomes heat in the target room), **blast**, **EMP** (#137, #138) |
+| Damage channels | **Kinetic** (momentum: each cell takes part by its resistance; `fireRound` receives the round's velocity **relative to the hull** it hits (#242, superseding #137's 'relative velocity not counted' and #202 F's deferral; a charged field slows the round in the same frame, the hit body's, never the generator's, #327): ships at rest give the muzzle velocity; L4 and L5 pass the relative velocity, as prototype v2 does), **thermal** (absorbed beam energy, which also becomes heat in the target room), **blast**, **EMP** (#137, #138) |
 | Shields | An energy screen: an absorption rate plus a small buffer; everything stopped, kinetic included, costs budget and becomes heat (#21, #139) |
 | Fields | One rule: each source has a finite budget spread over its coverage with falloff; overlaps add, each source paying from its own budget (#99) |
 | Explosions | Through shared walls inside a ship; a radial field outside it (#141) |
@@ -1165,7 +1165,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 
 | Element | Today | Proof | Status |
 |---|---|---|---|
-| Beam: no falloff, deposit along the path, heat | built | `L0.beam.*`, `L2.beambay.cause` | proven |
+| Beam: no falloff, deposit along the path, heat | built; a beam into a ship with no body deposits nothing, its passed energy escaped (#327) | `L0.beam.*`, `L2.beambay.cause`, `L4.beam.nobody` | proven |
 | Kinetic: time of flight, momentum along the path, recoil | built | `L0.kinetic.*`, `L4.route.*` | proven |
 | Missile = seeker + warhead (#97): flight, guidance, impact | `js/missile.js`: `missile.acceleration` for `missile.burnTime`, then coasting; flown on the shooter's world; its body's impulse and heat at impact | `L0.missile.flight`, `L2.missile.warheads.v2` | proven L5c |
 | Seekers IR, radar, anti-radiation, designated (#97) | each from the shooter's model only; nothing resolved: the silhouette's centre | `L2.missile.seekers.v2` | proven L5c |
@@ -1866,9 +1866,13 @@ Each line names its decision and when it is due; a closed one is removed.
     `beamsOut` reads `mainBody(T).x` after a step in which T's reactor
     explosion destroyed every cell, before the end is judged: a TypeError
     (`node tools/estimates/pace-verbs.mjs --builds Lance --ranges 600
-    --openings bow`, R2 targeting the shield, step 9524). An engineer's fix
-    with a scenario (where the passed beam energy is booked); due before
-    L5e2's sweep.
+    --openings bow`, R2 targeting the shield, step 9524). **Done** (#327,
+    PR #103, `L4.beam.nobody`).
+54. **The energy book has no beam term** (PR #103's blind checker, #327):
+    `battleEnergy` (`js/battle.js`) counts kinetic energy, heat, shots,
+    work and internal energy, but not a beam's escaped energy, which
+    `fireBeam` only returns; a deposit into a missing room would not show.
+    Due when `js/battle.js`'s books are next touched (L5e2 at the latest).
 
 ## 18. Decisions in force
 
@@ -2204,3 +2208,5 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 324 | L5e1 merged: the position law, the plume with occlusion, containment first, dark fragments, a simultaneous end as a draw, items 35/48/50/51, builds (locked) and sweep | report |
 | 325 | Process v2: rows ≤ 800 B, `BRIEF.md`, a slim reading order, a five-line owner block, the lead designer's cost in the ledger, no third regress on a documents-only merge, one documentation PR per pass; two items to the owner (the plan checklist, the full mutation run's frequency) | current |
 | 326 | The plan checklist three items (§13m rows, probe, tolerances) and lint check 10 (§13m to scenarios); the full mutation run only at a level's exit or on STALE/CHANGED, by a runner (the owner) | current |
+| 327 | §17 item 53 merged: a beam into a ship with no body; the field slows a round in the hit body's frame; `L4.beam.nobody` | current |
+| 328 | The pace study measured: E7 38 s; rung 1 reaches 230 s only by misses (hits to kill 41, a third unended); verbs mostly harm; E7 to the owner | report |

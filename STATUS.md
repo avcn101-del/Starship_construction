@@ -14,13 +14,13 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
 ## For the owner (five lines)
 
-- **Done**: #326 (the plan checklist three items, lint check 10; the full mutation run only at a level's exit); `battle.openingRange` 500–3000 m, 174 VERIFIED.
-- **Next**: the pace study's grid (a runner); then the lead designer decides within approved ranges or asks you about E7 before L5e2.
-- **Waiting on you**: E7 after the pace study (A / B / C, put 2026-10-24 16:20 VN).
-- **Money**: this chat's sessions so far 0.72 USD (the openingRange runner); the pace runner running.
-- **Running**: PR #103 (§17 item 53 and the field's energy frame; engineer 6.00 USD, above the 4–7 expected for the whole) under the blind checker `session_012Y3cHk3UTBGdUTxEqxnWin` and reviewer `session_01AV1zutGsj1uUQQm6rgJuLk`. **Waiting on the owner**: the E7 question (A rung 1 / B rung 2, recommended / C change E7).
+- **Done**: #326 (process); `battle.openingRange` 500–3000 m; the pace study (#328); §17 item 53 merged (#327, PR #103, 175 VERIFIED).
+- **Next**: on the owner's E7 answer: B (recommended) = the design partner looks for a rung-2 mechanism in `IDEAS.md`, the lead designer sets the opening at 2500 m; A = rung-1 orders and a stalemate end rule; C = E7 rewritten.
+- **Waiting on you**: the E7 question (A / B / C), put 2026-10-24 ~16:20 VN.
+- **Money**: this chat's sessions 8.20 USD (runners 0.72 + 0.53; item 53: 6.00 + 0.45 + 0.50, within its 4–7 expected).
+- **Running**: nothing.
 
-Not built yet: a fix for §17 item 53 (a beam into a ship with no body crashes the kernel).
+Not built yet: §17 item 54 (the energy book's beam term).
 
 ## Open pull requests
 
@@ -28,8 +28,8 @@ None; `ld/pace` carries this pass's documents and the openingRange records.
 
 ## Next steps
 
-1. **The pace study** (§17 item 52, #318, #319): the runner's grid is `tools/estimates/pace-e7.mjs` and `pace-verbs.mjs` (outputs on `run/pace`). The lead designer's probe (seed 1, `ld/pace`): E7 median 38 s on the locked builds; the levers alone 44–96 s; strafe with range open 217 s (6 of 24 without an end); the seed acts only through the dodge intervals (the design partner's check, verified), so seeds 1–4 only where a side strafes or dodges. Verb leverage on one cell: 5 of 19 verbs flip it, all against the player.
-2. **§17 item 53**: engineer `session_01CAL2Wwfpzq5LmqxiRWAdDK` fixes `beamsOut` with `L4.beam.nobody`; then the blind physics checker (the beam's energy book) and a reviewer. The task's "destroyed at step 9524" is the lead designer's reading of the end rule, not run: the engineer checks it.
+1. **The pace study is measured (#328); E7 waits on the owner.** The runner's grid is `tools/estimates/pace-e7.mjs` and `pace-verbs.mjs` (outputs on `run/pace`). The lead designer's probe (seed 1, `ld/pace`): E7 median 38 s on the locked builds; the levers alone 44–96 s; strafe with range open 217 s (6 of 24 without an end); the seed acts only through the dodge intervals (the design partner's check, verified), so seeds 1–4 only where a side strafes or dodges. Verb leverage on one cell: 5 of 19 verbs flip it, all against the player.
+2. **§17 item 54** (the energy book's beam term): with L5e2.
 3. **L5e2** (E5–E8, W9b, `L5.route.throughput`): planned after the study, costed raw × 1.24.
 4. Due when their files are touched: §17 items 47, 50, 51.
 

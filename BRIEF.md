@@ -53,6 +53,8 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
 
 ## Open obligations (`DESIGN.md` §17; due)
 
+- **54** the energy book has no beam term (due with `js/battle.js`'s books).
+
 - **52** the pace study's questions: the bimodal pace, a close order's
   overshoot (about 230 m), the battle's **shape** (first hit on the loser
   as a share, hits to kill, the end; #318), **verb leverage** and the
