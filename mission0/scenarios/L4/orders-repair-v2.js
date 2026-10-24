@@ -42,7 +42,7 @@ export default {
   tolerance: '1e-9 relative',
   criterion: '\'none\': the gains q dt / m with q = R g / sum g (proportional); [turret]: the turret\'s whole ask R g_t, the bridge R (1 - g_t); [bridge]: the bridge\'s whole ask R g_b, the turret R (1 - g_b); R = repair.massRate (the quarters fully powered, kernel-read); (fallback) the bridge R g_b, the beam bay R (1 - g_b), the turret 0; (invalid) both throw',
   tunable: ['repair.massRate', 'repair.radius', 'turret.machineryMass', 'cellMass.crewed', 'structure.cellMass', 'beambay.machineryMass'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '27515b0c' },
   cases() {
     return [{ repair: 'none' }, { repair: ['turret'] }, { repair: ['bridge'] }, { name: 'fallback', repair: ['bridge'] }, { name: 'invalid', repair: 'nonsense' }, { name: 'invalid', repair: ['nonsense'] }];
   },
