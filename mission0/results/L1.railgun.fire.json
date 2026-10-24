@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.railgun.fire",
-  "code": "f7833b3",
+  "code": "5ee1bbb",
   "criterionHash": "c0320b04",
   "lockedHash": "c0320b04",
   "runHash": "834aeedd",
-  "dataHash": "fee97350",
+  "dataHash": "394196fd",
   "rowsHash": "dfd7455a",
   "rows": [
     {

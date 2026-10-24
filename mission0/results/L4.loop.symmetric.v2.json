@@ -1,0 +1,601 @@
+{
+  "id": "L4.loop.symmetric.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.loop.symmetric.v2",
+  "code": "7840cb9",
+  "criterionHash": "e5fb013a",
+  "lockedHash": "e5fb013a",
+  "runHash": "17e5ff02",
+  "dataHash": "394196fd",
+  "rowsHash": "990e8a7a",
+  "rows": [
+    {
+      "case": {
+        "scenario": "L1.pd.kinetic.v2"
+      },
+      "expected": {
+        "rowsHash": "22fd9862"
+      },
+      "actual": {
+        "rowsHash": "22fd9862",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L1.pd.laser"
+      },
+      "expected": {
+        "rowsHash": "de41e8dc"
+      },
+      "actual": {
+        "rowsHash": "de41e8dc",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L2.missile.field"
+      },
+      "expected": {
+        "rowsHash": "e6f4020d"
+      },
+      "actual": {
+        "rowsHash": "e6f4020d",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L2.missile.seekers.v2"
+      },
+      "expected": {
+        "rowsHash": "5539668e"
+      },
+      "actual": {
+        "rowsHash": "5539668e",
+        "cases": 8
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L2.missile.warheads.v2"
+      },
+      "expected": {
+        "rowsHash": "a137363a"
+      },
+      "actual": {
+        "rowsHash": "a137363a",
+        "cases": 8
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L2.pd.swarm"
+      },
+      "expected": {
+        "rowsHash": "9c5cbf6a"
+      },
+      "actual": {
+        "rowsHash": "9c5cbf6a",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L2.sensor.posture"
+      },
+      "expected": {
+        "rowsHash": "c6860f75"
+      },
+      "actual": {
+        "rowsHash": "c6860f75",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.books.angular.v2"
+      },
+      "expected": {
+        "rowsHash": "e8f7df76"
+      },
+      "actual": {
+        "rowsHash": "e8f7df76",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.books.energy"
+      },
+      "expected": {
+        "rowsHash": "226dc018"
+      },
+      "actual": {
+        "rowsHash": "226dc018",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.books.field"
+      },
+      "expected": {
+        "rowsHash": "e7190803"
+      },
+      "actual": {
+        "rowsHash": "e7190803",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.books.two.v2"
+      },
+      "expected": {
+        "rowsHash": "452cd0c2"
+      },
+      "actual": {
+        "rowsHash": "452cd0c2",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.cascade.v4"
+      },
+      "expected": {
+        "rowsHash": "f41b01cc"
+      },
+      "actual": {
+        "rowsHash": "f41b01cc",
+        "cases": 8
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.cull"
+      },
+      "expected": {
+        "rowsHash": "cacd4db9"
+      },
+      "actual": {
+        "rowsHash": "cacd4db9",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.disabled.rule.v2"
+      },
+      "expected": {
+        "rowsHash": "fcc78c50"
+      },
+      "actual": {
+        "rowsHash": "fcc78c50",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.e8.v2"
+      },
+      "expected": {
+        "rowsHash": "32ef3829"
+      },
+      "actual": {
+        "rowsHash": "32ef3829",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.e8.weapons"
+      },
+      "expected": {
+        "rowsHash": "509fe074"
+      },
+      "actual": {
+        "rowsHash": "509fe074",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.end.simultaneous"
+      },
+      "expected": {
+        "rowsHash": "3cf762e2"
+      },
+      "actual": {
+        "rowsHash": "3cf762e2",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.enemy.wildcard"
+      },
+      "expected": {
+        "rowsHash": "130a4d4d"
+      },
+      "actual": {
+        "rowsHash": "130a4d4d",
+        "cases": 4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.engine.plume"
+      },
+      "expected": {
+        "rowsHash": "a525eb17"
+      },
+      "actual": {
+        "rowsHash": "a525eb17",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.helm.conflict.v2"
+      },
+      "expected": {
+        "rowsHash": "9e91ba58"
+      },
+      "actual": {
+        "rowsHash": "9e91ba58",
+        "cases": 4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.helm.drift.v2"
+      },
+      "expected": {
+        "rowsHash": "53bdaa92"
+      },
+      "actual": {
+        "rowsHash": "53bdaa92",
+        "cases": 4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.helm.style.v2"
+      },
+      "expected": {
+        "rowsHash": "f8b86b97"
+      },
+      "actual": {
+        "rowsHash": "f8b86b97",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.hit.oblique.v3"
+      },
+      "expected": {
+        "rowsHash": "10baa559"
+      },
+      "actual": {
+        "rowsHash": "10baa559",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.kill.pieces.v2"
+      },
+      "expected": {
+        "rowsHash": "1f47cee3"
+      },
+      "actual": {
+        "rowsHash": "1f47cee3",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.kill.v3"
+      },
+      "expected": {
+        "rowsHash": "cfd07278"
+      },
+      "actual": {
+        "rowsHash": "cfd07278",
+        "cases": 4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.log.v2"
+      },
+      "expected": {
+        "rowsHash": "f9c980e9"
+      },
+      "actual": {
+        "rowsHash": "f9c980e9",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.orders.repair.v2"
+      },
+      "expected": {
+        "rowsHash": "c8cd0e87"
+      },
+      "actual": {
+        "rowsHash": "c8cd0e87",
+        "cases": 6
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.plan.model"
+      },
+      "expected": {
+        "rowsHash": "1bd754d3"
+      },
+      "actual": {
+        "rowsHash": "1bd754d3",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.relative.v2"
+      },
+      "expected": {
+        "rowsHash": "60f5c096"
+      },
+      "actual": {
+        "rowsHash": "60f5c096",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.rounds.choice"
+      },
+      "expected": {
+        "rowsHash": "97aaba58"
+      },
+      "actual": {
+        "rowsHash": "97aaba58",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.route.decapitate.v2"
+      },
+      "expected": {
+        "rowsHash": "a8225b24"
+      },
+      "actual": {
+        "rowsHash": "a8225b24",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.route.dry"
+      },
+      "expected": {
+        "rowsHash": "c10a6188"
+      },
+      "actual": {
+        "rowsHash": "c10a6188",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.route.emp.v3"
+      },
+      "expected": {
+        "rowsHash": "b958cd27"
+      },
+      "actual": {
+        "rowsHash": "b958cd27",
+        "cases": 4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.route.escape.edge"
+      },
+      "expected": {
+        "rowsHash": "e1b65522"
+      },
+      "actual": {
+        "rowsHash": "e1b65522",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.route.escape.reorder.v2"
+      },
+      "expected": {
+        "rowsHash": "2f0ce4f0"
+      },
+      "actual": {
+        "rowsHash": "2f0ce4f0",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.route.missionKill.v3"
+      },
+      "expected": {
+        "rowsHash": "7be663ca"
+      },
+      "actual": {
+        "rowsHash": "7be663ca",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.route.overheat.v3"
+      },
+      "expected": {
+        "rowsHash": "fc6c6b0b"
+      },
+      "actual": {
+        "rowsHash": "fc6c6b0b",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.route.split.v3"
+      },
+      "expected": {
+        "rowsHash": "e93a783b"
+      },
+      "actual": {
+        "rowsHash": "e93a783b",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.route.surrender.v2"
+      },
+      "expected": {
+        "rowsHash": "9095693d"
+      },
+      "actual": {
+        "rowsHash": "9095693d",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.target.known"
+      },
+      "expected": {
+        "rowsHash": "76fbc4f3"
+      },
+      "actual": {
+        "rowsHash": "76fbc4f3",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "static"
+      },
+      "expected": {
+        "static": true,
+        "replayed": 20
+      },
+      "actual": {
+        "targetHelm": null,
+        "targetEnemy": null,
+        "attackerHelm": null,
+        "replayed": 40
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

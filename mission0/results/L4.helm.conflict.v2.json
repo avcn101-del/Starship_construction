@@ -1,0 +1,112 @@
+{
+  "id": "L4.helm.conflict.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.helm.conflict.v2",
+  "code": "7840cb9",
+  "criterionHash": "c28f3f43",
+  "lockedHash": "c28f3f43",
+  "runHash": "38a79945",
+  "dataHash": "394196fd",
+  "rowsHash": "9e91ba58",
+  "rows": [
+    {
+      "case": {
+        "name": "stern",
+        "position": "stern",
+        "facing": "bow",
+        "dodging": "on"
+      },
+      "expected": {
+        "heading": 2.6179938779914944,
+        "throttle0": 0.5000000000000001,
+        "opens": true,
+        "mode": "range"
+      },
+      "actual": {
+        "heading": 2.6179938779914944,
+        "throttle": 0.49999999999999994,
+        "mode": "range",
+        "most": 0.9999984097330865
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "bow-dodge",
+        "position": "flank",
+        "facing": "bow",
+        "dodging": "on"
+      },
+      "expected": {
+        "heading": 1.5707963267948966,
+        "throttle0": 0,
+        "opens": false,
+        "mode": "bow"
+      },
+      "actual": {
+        "heading": 1.5707963267948966,
+        "throttle": 0,
+        "mode": "bow",
+        "most": 0
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "broadside-dodge",
+        "position": "flank",
+        "facing": "broadside",
+        "dodging": "on"
+      },
+      "expected": {
+        "heading": 3.141592653589793,
+        "throttle0": 0,
+        "opens": true,
+        "mode": "dodge"
+      },
+      "actual": {
+        "heading": -3.141592653589793,
+        "throttle": 6.123233995736766e-17,
+        "mode": "dodge",
+        "most": 0.9999964203176269
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "broadside",
+        "position": "flank",
+        "facing": "broadside",
+        "dodging": "off"
+      },
+      "expected": {
+        "heading": 3.141592653589793,
+        "throttle0": 0,
+        "opens": false,
+        "mode": "broadside"
+      },
+      "actual": {
+        "heading": -3.141592653589793,
+        "throttle": 0,
+        "mode": "broadside",
+        "most": 0
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

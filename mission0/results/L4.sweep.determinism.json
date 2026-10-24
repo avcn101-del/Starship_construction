@@ -1,0 +1,46 @@
+{
+  "id": "L4.sweep.determinism",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.sweep.determinism",
+  "code": "7840cb9",
+  "criterionHash": "790917e5",
+  "lockedHash": "790917e5",
+  "runHash": "0281e332",
+  "dataHash": "394196fd",
+  "rowsHash": "293061af",
+  "rows": [
+    {
+      "case": {
+        "name": "small grid"
+      },
+      "expected": {
+        "pairs": 1
+      },
+      "actual": {
+        "hashes": [
+          "65bc9cbd",
+          "65bc9cbd",
+          "65bc9cbd"
+        ],
+        "pairs": [
+          1,
+          1,
+          1
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

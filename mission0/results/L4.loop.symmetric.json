@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.symmetric",
-  "code": "1a8e71a",
+  "code": "7840cb9",
   "criterionHash": "c8f3248b",
   "lockedHash": "c8f3248b",
   "runHash": "17e5ff02",
-  "dataHash": "fee97350",
-  "rowsHash": "f5831b7d",
+  "dataHash": "394196fd",
+  "rowsHash": "990e8a7a",
   "rows": [
     {
       "case": {
@@ -34,6 +34,20 @@
       "actual": {
         "rowsHash": "de41e8dc",
         "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L2.missile.field"
+      },
+      "expected": {
+        "rowsHash": "e6f4020d"
+      },
+      "actual": {
+        "rowsHash": "e6f4020d",
+        "cases": 3
       },
       "pass": true,
       "note": ""
@@ -124,6 +138,20 @@
     },
     {
       "case": {
+        "scenario": "L4.books.field"
+      },
+      "expected": {
+        "rowsHash": "e7190803"
+      },
+      "actual": {
+        "rowsHash": "e7190803",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
         "scenario": "L4.books.two.v2"
       },
       "expected": {
@@ -208,13 +236,27 @@
     },
     {
       "case": {
-        "scenario": "L4.helm.drift"
+        "scenario": "L4.end.simultaneous"
       },
       "expected": {
-        "rowsHash": "4e6d6f37"
+        "rowsHash": "3cf762e2"
       },
       "actual": {
-        "rowsHash": "4e6d6f37",
+        "rowsHash": "3cf762e2",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.enemy.wildcard"
+      },
+      "expected": {
+        "rowsHash": "130a4d4d"
+      },
+      "actual": {
+        "rowsHash": "130a4d4d",
         "cases": 4
       },
       "pass": true,
@@ -222,13 +264,55 @@
     },
     {
       "case": {
-        "scenario": "L4.helm.style"
+        "scenario": "L4.engine.plume"
       },
       "expected": {
-        "rowsHash": "09058f0e"
+        "rowsHash": "a525eb17"
       },
       "actual": {
-        "rowsHash": "09058f0e",
+        "rowsHash": "a525eb17",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.helm.conflict.v2"
+      },
+      "expected": {
+        "rowsHash": "9e91ba58"
+      },
+      "actual": {
+        "rowsHash": "9e91ba58",
+        "cases": 4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.helm.drift.v2"
+      },
+      "expected": {
+        "rowsHash": "53bdaa92"
+      },
+      "actual": {
+        "rowsHash": "53bdaa92",
+        "cases": 4
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.helm.style.v2"
+      },
+      "expected": {
+        "rowsHash": "f8b86b97"
+      },
+      "actual": {
+        "rowsHash": "f8b86b97",
         "cases": 3
       },
       "pass": true,
@@ -292,14 +376,14 @@
     },
     {
       "case": {
-        "scenario": "L4.orders.repair"
+        "scenario": "L4.orders.repair.v2"
       },
       "expected": {
-        "rowsHash": "80c26144"
+        "rowsHash": "c8cd0e87"
       },
       "actual": {
-        "rowsHash": "80c26144",
-        "cases": 3
+        "rowsHash": "c8cd0e87",
+        "cases": 6
       },
       "pass": true,
       "note": ""
@@ -376,13 +460,13 @@
     },
     {
       "case": {
-        "scenario": "L4.route.emp.v2"
+        "scenario": "L4.route.emp.v3"
       },
       "expected": {
-        "rowsHash": "06e0ba0a"
+        "rowsHash": "b958cd27"
       },
       "actual": {
-        "rowsHash": "06e0ba0a",
+        "rowsHash": "b958cd27",
         "cases": 4
       },
       "pass": true,
@@ -404,7 +488,7 @@
     },
     {
       "case": {
-        "scenario": "L4.route.escape.reorder"
+        "scenario": "L4.route.escape.reorder.v2"
       },
       "expected": {
         "rowsHash": "2f0ce4f0"
@@ -498,7 +582,7 @@
         "targetHelm": null,
         "targetEnemy": null,
         "attackerHelm": null,
-        "replayed": 34
+        "replayed": 40
       },
       "pass": true,
       "note": ""

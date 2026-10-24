@@ -1,0 +1,61 @@
+{
+  "id": "L3.fragment.dark",
+  "level": "L3",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L3.fragment.dark",
+  "code": "5ee1bbb",
+  "criterionHash": "79888f81",
+  "lockedHash": "79888f81",
+  "runHash": "25364290",
+  "dataHash": "394196fd",
+  "rowsHash": "176c18b3",
+  "rows": [
+    {
+      "case": {
+        "name": "split"
+      },
+      "expected": {
+        "bodies": 2,
+        "steps": 600
+      },
+      "actual": {
+        "before": {
+          "shots": 1,
+          "thrust": 15000000,
+          "antenna": true,
+          "controlled": true
+        },
+        "at": {
+          "bodies": 2,
+          "onDark": true,
+          "bridgeElsewhere": true,
+          "uncontrolled": true,
+          "scramT": 0.5,
+          "t0": 0.5
+        },
+        "bad": {
+          "reactor": 0,
+          "shots": 0,
+          "thrust": 0,
+          "motion": 0,
+          "scan": 0,
+          "em": 0
+        },
+        "later": 0,
+        "steps": 600
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

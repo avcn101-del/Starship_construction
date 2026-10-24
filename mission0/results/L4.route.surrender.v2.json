@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.route.surrender.v2",
-  "code": "5bafd82",
+  "code": "7840cb9",
   "criterionHash": "8840bd1c",
   "lockedHash": "8840bd1c",
   "runHash": "e54f07d9",
-  "dataHash": "fee97350",
+  "dataHash": "394196fd",
   "rowsHash": "9095693d",
   "rows": [
     {

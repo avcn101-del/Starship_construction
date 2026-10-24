@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.orders.fire",
-  "code": "f7833b3",
+  "code": "7840cb9",
   "criterionHash": "0ff94ee2",
   "lockedHash": "0ff94ee2",
   "runHash": "db5c937b",
-  "dataHash": "fee97350",
+  "dataHash": "394196fd",
   "rowsHash": "713b8f4f",
   "rows": [
     {

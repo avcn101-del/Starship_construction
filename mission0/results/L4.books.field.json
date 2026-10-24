@@ -1,0 +1,108 @@
+{
+  "id": "L4.books.field",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.books.field",
+  "code": "5ee1bbb",
+  "criterionHash": "fb92a8af",
+  "lockedHash": "fb92a8af",
+  "runHash": "2546ae90",
+  "dataHash": "394196fd",
+  "rowsHash": "e7190803",
+  "rows": [
+    {
+      "case": {
+        "name": "still",
+        "omega": 0,
+        "v": [
+          0,
+          0
+        ]
+      },
+      "expected": {
+        "tol": 1e-9,
+        "abs": 1e-12,
+        "line": 1e-9
+      },
+      "actual": {
+        "worst": 0.00004482269287109375,
+        "gross": 40035024981.395454,
+        "worstP": 9.348809957929818e-9,
+        "grossP": 9671309.44107534,
+        "off": 2.958557843157905e-10,
+        "booked": 97,
+        "edge": 5,
+        "hits": 39,
+        "slowed": {
+          "A": 9,
+          "T": 30
+        },
+        "spent": 0,
+        "embedded": 39,
+        "ids": {
+          "n": 60,
+          "distinct": 60,
+          "shots": 60,
+          "causes": 58,
+          "unknown": 0
+        },
+        "ended": null,
+        "t": 60
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "spin",
+        "omega": 0.05,
+        "v": [
+          20,
+          0
+        ]
+      },
+      "expected": {
+        "tol": 1e-9,
+        "abs": 1e-12,
+        "line": 1e-9
+      },
+      "actual": {
+        "worst": 0.000002469867467880249,
+        "gross": 67375005152.003784,
+        "worstP": 1.49012748802517e-8,
+        "grossP": 18617118.71729627,
+        "off": 2.9558577807620168e-12,
+        "booked": 26,
+        "edge": 5,
+        "hits": 11,
+        "slowed": {
+          "A": 0,
+          "T": 11
+        },
+        "spent": 0,
+        "embedded": 4,
+        "ids": {
+          "n": 60,
+          "distinct": 60,
+          "shots": 60,
+          "causes": 15,
+          "unknown": 0
+        },
+        "ended": null,
+        "t": 60
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

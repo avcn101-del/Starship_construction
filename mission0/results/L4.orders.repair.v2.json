@@ -1,0 +1,206 @@
+{
+  "id": "L4.orders.repair.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.orders.repair.v2",
+  "code": "7840cb9",
+  "criterionHash": "27515b0c",
+  "lockedHash": "27515b0c",
+  "runHash": "eb4987f1",
+  "dataHash": "394196fd",
+  "rowsHash": "c8cd0e87",
+  "rows": [
+    {
+      "case": {
+        "repair": "none"
+      },
+      "expected": {
+        "R": 200,
+        "ask": {
+          "turret": 170.41420118343194,
+          "bridge": 178.88198757763976
+        },
+        "q": {
+          "turret": 97.57575757575758,
+          "bridge": 102.42424242424245
+        },
+        "gain": {
+          "turret": 0.0003268869600527892,
+          "bridge": 0.00011534261534261537
+        }
+      },
+      "actual": {
+        "before": {
+          "turret": 0.5,
+          "bridge": 0.5
+        },
+        "budget": 200,
+        "power": 1,
+        "gain": {
+          "turret": 0.0003268869600527857,
+          "bridge": 0.00011534261534262846
+        },
+        "others": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "repair": [
+          "turret"
+        ]
+      },
+      "expected": {
+        "R": 200,
+        "ask": {
+          "turret": 170.41420118343194,
+          "bridge": 178.88198757763976
+        },
+        "q": {
+          "turret": 170.41420118343194,
+          "bridge": 29.585798816568058
+        },
+        "gain": {
+          "turret": 0.0005709018465106598,
+          "bridge": 0.000033317341009648714
+        }
+      },
+      "actual": {
+        "before": {
+          "turret": 0.5,
+          "bridge": 0.5
+        },
+        "budget": 200,
+        "power": 1,
+        "gain": {
+          "turret": 0.0005709018465106519,
+          "bridge": 0.00003331734100964212
+        },
+        "others": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "repair": [
+          "bridge"
+        ]
+      },
+      "expected": {
+        "R": 200,
+        "ask": {
+          "turret": 170.41420118343194,
+          "bridge": 178.88198757763976
+        },
+        "q": {
+          "bridge": 178.88198757763976,
+          "turret": 21.118012422360238
+        },
+        "gain": {
+          "turret": 0.00007074711029266411,
+          "bridge": 0.00020144367970454928
+        }
+      },
+      "actual": {
+        "before": {
+          "turret": 0.5,
+          "bridge": 0.5
+        },
+        "budget": 200,
+        "power": 1,
+        "gain": {
+          "turret": 0.00007074711029264602,
+          "bridge": 0.00020144367970453825
+        },
+        "others": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "fallback",
+        "repair": [
+          "bridge"
+        ]
+      },
+      "expected": {
+        "R": 200,
+        "ask": {
+          "turret": 170.41420118343194,
+          "bridge": 178.88198757763976,
+          "beamBay": 137.79904306220095
+        },
+        "q": {
+          "bridge": 178.88198757763976,
+          "beamBay": 21.118012422360238,
+          "turret": 0
+        },
+        "gain": {
+          "bridge": 0.00020144367970454928,
+          "beamBay": 0.00006399397703745526,
+          "turret": 0
+        }
+      },
+      "actual": {
+        "before": {
+          "turret": 0.5,
+          "bridge": 0.5,
+          "beamBay": 0.5
+        },
+        "budget": 200,
+        "power": 1,
+        "gain": {
+          "turret": 0,
+          "bridge": 0.00020144367970453825,
+          "beamBay": 0.00006399397703749088
+        },
+        "others": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "invalid",
+        "repair": "nonsense"
+      },
+      "expected": {
+        "throws": true
+      },
+      "actual": {
+        "threw": "repair priority \"nonsense\": 'none' or a list of room types (#307)"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "invalid",
+        "repair": [
+          "nonsense"
+        ]
+      },
+      "expected": {
+        "throws": true
+      },
+      "actual": {
+        "threw": "repair priority [\"nonsense\"]: 'none' or a list of room types (#307)"
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

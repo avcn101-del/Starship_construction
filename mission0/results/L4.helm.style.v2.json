@@ -1,0 +1,131 @@
+{
+  "id": "L4.helm.style.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.helm.style.v2",
+  "code": "7840cb9",
+  "criterionHash": "b0c9af47",
+  "lockedHash": "b0c9af47",
+  "runHash": "92b7afef",
+  "dataHash": "394196fd",
+  "rowsHash": "f8b86b97",
+  "rows": [
+    {
+      "case": {
+        "style": "hold"
+      },
+      "expected": {
+        "t180": 4.842778638530427,
+        "vt": 20.64930228368763,
+        "a": 8.230596672322601,
+        "rate": 1.3145754119390596,
+        "back": 0.0000025403076149143834,
+        "first": null,
+        "flips": []
+      },
+      "actual": {
+        "first": null,
+        "total": 0,
+        "minStep": 0,
+        "flips": [],
+        "maxTan": 0,
+        "meanTan": 0,
+        "steps": 3600,
+        "letGo": null,
+        "maxStray": 0,
+        "took": [
+          false
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "style": "orbit"
+      },
+      "expected": {
+        "t180": 4.842778638530427,
+        "vt": 20.64930228368763,
+        "a": 8.230596672322601,
+        "rate": 1.3145754119390596,
+        "back": 0.0000025403076149143834,
+        "first": 0,
+        "flips": []
+      },
+      "actual": {
+        "first": 0,
+        "total": 75.67753256503882,
+        "minStep": 0,
+        "flips": [],
+        "maxTan": 22.26525288111024,
+        "meanTan": 19.806754232097422,
+        "steps": 3600,
+        "letGo": 366,
+        "maxStray": 1.6159505974226107,
+        "took": [
+          true
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "style": "strafe"
+      },
+      "expected": {
+        "t180": 4.842778638530427,
+        "vt": 20.64930228368763,
+        "a": 8.230596672322601,
+        "rate": 1.3145754119390596,
+        "back": 0.0000025403076149143834,
+        "first": 0,
+        "flips": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000
+        ]
+      },
+      "actual": {
+        "first": 0,
+        "total": 6.094456451710584,
+        "minStep": -0.0004070583170936448,
+        "flips": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000
+        ],
+        "maxTan": 22.26525288111024,
+        "meanTan": 1.624904144511823,
+        "steps": 3600,
+        "letGo": 366,
+        "maxStray": 42.29392224123146,
+        "took": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

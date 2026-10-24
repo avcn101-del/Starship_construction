@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.turret.fire",
-  "code": "f7833b3",
+  "code": "5ee1bbb",
   "criterionHash": "6687eaa4",
   "lockedHash": "6687eaa4",
   "runHash": "e498ae2f",
-  "dataHash": "fee97350",
+  "dataHash": "394196fd",
   "rowsHash": "e46a2f95",
   "rows": [
     {

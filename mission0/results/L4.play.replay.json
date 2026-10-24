@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.play.replay",
-  "code": "f7833b3",
+  "code": "7840cb9",
   "criterionHash": "9c10bc11",
   "lockedHash": "9c10bc11",
   "runHash": "78837ad5",
-  "dataHash": "fee97350",
-  "rowsHash": "5764e213",
+  "dataHash": "394196fd",
+  "rowsHash": "620e2dfd",
   "rows": [
     {
       "case": {
@@ -91,11 +91,11 @@
             "arg": 2
           }
         ],
-        "hash": "d20c9e40",
-        "replayHash": "d20c9e40",
-        "end": "destroyed T 4340",
-        "replayEnd": "destroyed T 4340",
-        "prompts": 15,
+        "hash": "c6057a51",
+        "replayHash": "c6057a51",
+        "end": "surrender T 3697",
+        "replayEnd": "surrender T 3697",
+        "prompts": 13,
         "leaks": 0,
         "sourceMismatch": 0,
         "replay": "node tools/duel.js R1d-A R1d-A --seed 1 --limit 90 --inputs '[{\"t\":0,\"verb\":\"scan\",\"arg\":1},{\"t\":10,\"verb\":\"scan\",\"arg\":4},{\"t\":15,\"verb\":\"target\",\"arg\":\"reactor\"},{\"t\":20,\"verb\":\"preset\",\"arg\":\"evade\"},{\"t\":30,\"verb\":\"preset\",\"arg\":\"fire\"},{\"t\":35,\"verb\":\"target\",\"arg\":\"turret\"},{\"t\":40,\"verb\":\"scan\",\"arg\":2}]'"
