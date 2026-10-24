@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.enemy.wildcard",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "18ce6370",
   "lockedHash": "18ce6370",
   "runHash": "b47d3edd",
-  "dataHash": "cfcb3fa1",
+  "dataHash": "4b7cd27a",
   "rowsHash": "130a4d4d",
   "rows": [
     {

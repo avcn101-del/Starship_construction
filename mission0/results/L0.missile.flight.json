@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.missile.flight",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "2964f797",
   "lockedHash": "2964f797",
   "runHash": "0f717c54",
-  "dataHash": "cfcb3fa1",
+  "dataHash": "4b7cd27a",
   "rowsHash": "30fabb94",
   "rows": [
     {

@@ -3,7 +3,7 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.beam.nobody.v2",
-  "code": "07b70b4",
+  "code": "c87d8d3",
   "criterionHash": "95aa7a13",
   "lockedHash": "95aa7a13",
   "runHash": "a06a10c3",

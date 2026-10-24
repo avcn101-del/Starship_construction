@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.helm.style.v2",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "b0c9af47",
   "lockedHash": "b0c9af47",
   "runHash": "92b7afef",
-  "dataHash": "cfcb3fa1",
-  "rowsHash": "f8b86b97",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "b7da0226",
   "rows": [
     {
       "case": {
@@ -91,8 +91,8 @@
       },
       "actual": {
         "first": 0,
-        "total": 6.094456451710584,
-        "minStep": -0.0004070583170936448,
+        "total": 13.63368293300575,
+        "minStep": -0.0004099341644199228,
         "flips": [
           600,
           1200,
@@ -101,10 +101,10 @@
           3000
         ],
         "maxTan": 22.26525288111024,
-        "meanTan": 1.624904144511823,
+        "meanTan": 3.5941714837411918,
         "steps": 3600,
         "letGo": 366,
-        "maxStray": 42.29392224123146,
+        "maxStray": 41.52362318043896,
         "took": [
           true,
           true,

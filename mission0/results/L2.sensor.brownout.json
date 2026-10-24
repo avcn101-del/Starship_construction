@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.sensor.brownout",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "0deb425b",
   "lockedHash": "0deb425b",
   "runHash": "9febd184",
-  "dataHash": "cfcb3fa1",
+  "dataHash": "4b7cd27a",
   "rowsHash": "6222c153",
   "rows": [
     {

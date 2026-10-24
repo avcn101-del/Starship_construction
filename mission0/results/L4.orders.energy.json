@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.orders.energy",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "0e15c362",
   "lockedHash": "0e15c362",
   "runHash": "e9f1b4d6",
-  "dataHash": "cfcb3fa1",
-  "rowsHash": "81ae839c",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "d6899c05",
   "rows": [
     {
       "case": {
@@ -53,7 +53,7 @@
       "actual": {
         "crossed": 325,
         "mismatch": 0,
-        "held": 728
+        "held": 718
       },
       "pass": true,
       "note": ""

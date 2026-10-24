@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.e8.weapons",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "a42e9273",
   "lockedHash": "a42e9273",
   "runHash": "b442bc71",
-  "dataHash": "cfcb3fa1",
+  "dataHash": "4b7cd27a",
   "rowsHash": "509fe074",
   "rows": [
     {
@@ -23,7 +23,7 @@
         "engaged": true
       },
       "pass": true,
-      "note": "measured 0.4014 ms per step over 1800 steps (T1); 4 x Intel(R) Xeon(R) Processor @ 2.10GHz, Node v22.22.0, linux x64"
+      "note": "measured 0.4774 ms per step over 1800 steps (T1); 4 x Intel(R) Xeon(R) Processor @ 2.10GHz, Node v22.22.0, linux x64"
     }
   ],
   "invariants": [

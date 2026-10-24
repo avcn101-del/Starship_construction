@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.symmetric",
-  "code": "2c2c9e1",
+  "code": "c87d8d3",
   "criterionHash": "c8f3248b",
   "lockedHash": "c8f3248b",
   "runHash": "17e5ff02",
-  "dataHash": "cfcb3fa1",
-  "rowsHash": "8b5f38b5",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "6c1d9acf",
   "rows": [
     {
       "case": {
@@ -110,13 +110,13 @@
     },
     {
       "case": {
-        "scenario": "L4.beam.nobody"
+        "scenario": "L4.beam.nobody.v2"
       },
       "expected": {
-        "rowsHash": "5134c1e3"
+        "rowsHash": "84ffc97a"
       },
       "actual": {
-        "rowsHash": "5134c1e3",
+        "rowsHash": "84ffc97a",
         "cases": 1
       },
       "pass": true,
@@ -334,13 +334,27 @@
     },
     {
       "case": {
+        "scenario": "L4.helm.race"
+      },
+      "expected": {
+        "rowsHash": "f52d133b"
+      },
+      "actual": {
+        "rowsHash": "f52d133b",
+        "cases": 8
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
         "scenario": "L4.helm.style.v2"
       },
       "expected": {
-        "rowsHash": "f8b86b97"
+        "rowsHash": "b7da0226"
       },
       "actual": {
-        "rowsHash": "f8b86b97",
+        "rowsHash": "b7da0226",
         "cases": 3
       },
       "pass": true,
@@ -407,11 +421,11 @@
         "scenario": "L4.loop.symmetric.v2"
       },
       "expected": {
-        "rowsHash": "18bee736"
+        "rowsHash": "2fca625d"
       },
       "actual": {
-        "rowsHash": "18bee736",
-        "cases": 43
+        "rowsHash": "2fca625d",
+        "cases": 46
       },
       "pass": true,
       "note": ""
@@ -426,6 +440,34 @@
       "actual": {
         "rowsHash": "c8cd0e87",
         "cases": 6
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.pilot.thrust"
+      },
+      "expected": {
+        "rowsHash": "42bd9c83"
+      },
+      "actual": {
+        "rowsHash": "42bd9c83",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.pilot.turn180"
+      },
+      "expected": {
+        "rowsHash": "5d270210"
+      },
+      "actual": {
+        "rowsHash": "5d270210",
+        "cases": 2
       },
       "pass": true,
       "note": ""
@@ -624,7 +666,7 @@
         "targetHelm": null,
         "targetEnemy": null,
         "attackerHelm": null,
-        "replayed": 43
+        "replayed": 46
       },
       "pass": true,
       "note": ""
