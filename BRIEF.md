@@ -1,4 +1,4 @@
-# BRIEF — what a reader of `DESIGN.md` §18 alone would miss (draft for process v2)
+# BRIEF — what a reader of `DESIGN.md` §18 alone would miss (process v2, #325)
 
 Kept current by the lead designer at every block. At most about 6 KB. The
 reading order for a new lead designer chat is in `STATUS.md`'s header.

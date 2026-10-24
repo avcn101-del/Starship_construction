@@ -2088,7 +2088,7 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 215 | A magazine’s explosion: propellant dominates, HE adds a third | current |
 | 216 | Answers to the D-pass reviewer; D pass merged | current; report in part (audit H) |
 | 217 | A rough feel prototype after L3 | current |
-| 218 | Fewer documentation pull requests | current |
+| 218 | Fewer documentation pull requests | partly superseded by #325 (one per pass, not per block; the rest current) |
 | 219 | Answers to the L3 engineer | current |
 | 220 | Answers to the L3 physics checker and Q13 | current |
 | 221 | Ships of real density | partly superseded by #232, #234, #235 (what remains: real density, thrust and RCS re-tuned; the single structure cell mass is replaced by cell mass per room type) |
@@ -2195,3 +2195,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 322 | Runner sessions for heavy jobs; one cost range, raw × 1.24 (the measured median), beside the expectation; a short brief; hand-over at each block or 350k tokens, on opus (the owner) | current |
 | 323 | Mission 0 through L6 before any playable slice (the owner); a steering mode would need a new helm input and a change to #2 | current |
 | 324 | L5e1 merged: the position law, the plume with occlusion, containment first, dark fragments, a simultaneous end as a draw, items 35/48/50/51, builds (locked) and sweep | report |
+| 325 | Process v2: rows ≤ 800 B, `BRIEF.md`, a slim reading order, a five-line owner block, the lead designer's cost in the ledger, no third regress on a documents-only merge, one documentation PR per pass; two items to the owner (the plan checklist, the full mutation run's frequency) | current |

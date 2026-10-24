@@ -126,9 +126,11 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   run <id>` without `--set` re-records.
 - **Sessions** (#241, #250): created with the model named explicitly, the
   whole task in the first message, the fetch refspec, the reading order and
-  the file it may write; no sub-agents unless the task says so; cost
-  estimates carry a ×2.5 factor (×4 for a kind of work not done before,
-  #246). A session's last act is to **notify the lead designer**: a one-shot
+  the file it may write; no sub-agents unless the task says so; a cost is
+  one range, raw × the measured ratio (1.24, #322), beside the lead
+  designer's expectation. Heavy jobs (`regress`, mutation runs, sweeps,
+  long probes) go to a **runner** session (sonnet; the commands and a
+  summary format only, #322). A session's last act is to **notify the lead designer**: a one-shot
   trigger into the lead designer's chat (`create_trigger` with
   `persistent_session_id` from `STATUS.md`'s header, one minute ahead)
   naming what it pushed; timed check-ins are the fallback. Independent read-only **audits** at the milestones of
@@ -143,6 +145,10 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
 - **`STATUS.md`** is the hand-over: read it first; update it at the end of
   every working block (open PRs, pending approvals, running sessions,
   scheduled tasks, next steps).
+- **`BRIEF.md`** (#325) holds what a reader of `DESIGN.md` §18 alone would
+  miss; kept current with `STATUS.md`. A lead designer chat hands over at
+  every block boundary or past about 350k tokens of context, on opus, with
+  no model switch inside a chat (#322).
 - Commit messages: a short imperative subject; the body explains why.
 - Docs and code are in English. Discussion with the owner is in Vietnamese
   mixed with English.
