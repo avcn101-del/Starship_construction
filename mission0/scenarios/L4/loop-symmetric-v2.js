@@ -52,7 +52,7 @@ export default {
   tolerance: 'exact (hashes)',
   criterion: 'every standing battle scenario\'s rows hash equals its record\'s (none moves); at least 20 are replayed (26 at the lock); the L4 battle\'s target has no helm, no enemy and no orders, its attacker no helm',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'e5fb013a' },
   cases() {
     return [...[...MODULES.keys()].map((id) => ({ scenario: id })), { scenario: 'static' }];
   },
