@@ -29,7 +29,7 @@ export default {
   tolerance: 'a ceiling on the error at the end (1 degree, against the jitter of 0.29 degrees); the sense exact',
   criterion: 'by 1.2 x t180 (t180 = 2 sqrt(pi / alpha), alpha = min(couple+, couple-) / I from the RCS fittings, rcs.force and the flown body, hand-worked) the heading is within 1 degree of pi, and omega never reverses its sense while the error is past 90 degrees; before #335 the ship never turns',
   tunable: ['rcs.force'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'd9e77c88' },
   cases() {
     return [{ parity: 'even +' }, { parity: 'even -' }];
   },
