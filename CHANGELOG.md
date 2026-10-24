@@ -1,5 +1,27 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — §17 item 55: the helm's layers and the broadside race (#333, #335)
+
+- `js/pilot.js` (new): the pilot takes a wanted heading and a throttle and
+  drives the RCS (`holdHeading`, moved from `js/battle.js`) and the
+  engines; it reports `shipDynamics` and `brakingSpeed`. A turn past 90°
+  keeps its sense until within 90° (no chatter at 180°); the reported
+  acceleration counts each engine at the power fraction it was last given
+  while asked to thrust (a starved engine reports none).
+- `js/navigator.js` (new): goals (range or `disengage`, position, style,
+  facing, dodging, throttle) to heading and throttle in #40's order. The
+  position's lead applies only within `helm.rangeBand` of R*; a lead that
+  does not close its point by a band within `helm.positionPatience`
+  (new, 15 s, 10–20, k 0) yields until the order has been let go for
+  `helm.positionReset` (new, 30 s, 30–60, k 0).
+- `js/helm.js` turns the orders into goals and keeps gunnery and systems;
+  it re-exports the moved names.
+- New scenarios `L4.pilot.turn180`, `L4.pilot.thrust`, `L4.helm.race`,
+  `L4.beam.nobody.v2` (successor of `L4.beam.nobody`, withdrawn: it pinned
+  a step of a helm battle; the successor is constructed with no helm);
+  every passing scenario re-recorded on the new data hash; mutations
+  `item55.*`.
+
 ## Unreleased — 2026-10-24 — §17 item 55's plan (#333–#335)
 
 - #333 (the owner): the helm in layers, pilot, navigator, gunnery and
