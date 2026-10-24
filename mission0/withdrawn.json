@@ -1216,5 +1216,85 @@
     "recordHash": "ea073974",
     "reason": "Superseded under #310 (the lead designer's task on PR #96's finding): its grep named only Math.pow, Math.sin and Math.cos, so Math.atan2, Math.cbrt and Math.hypot, which ECMAScript leaves implementation-approximated, stayed in the kernel and a battle on the L5d loop hashed differently in Node and Chromium. Its successor keeps the hash part and greps every Math member, allowing only the exact or correctly rounded ones (the list inside its lock). Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L4.helm.conflict",
+    "successor": "L4.helm.conflict.v2",
+    "decision": "#315",
+    "recordHash": "a8813e5b",
+    "reason": "Superseded under #315 (DESIGN.md 13n.8 J2): the position law moves the stern case's wanted point onto the circle of R*, so its locked heading 3 pi / 4 and throttle cos(pi / 4) are the old law's; the successor keeps the four cases and works the stern case from the new law (5 pi / 6, 0.5). Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.loop.symmetric",
+    "successor": "L4.loop.symmetric.v2",
+    "decision": "#316",
+    "recordHash": "e6ff7252",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8, §17 item 51): it replays other scenarios against their records with dependsOn [], so it proved only that the loop equals the latest records and failed until they were re-recorded; the successor keeps its cases and checks and declares the scenarios it replays as its dependencies. Recorded PASS (code 1a8e71a, data fee97350), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L2.shield.overlap.round.v2",
+    "successor": "L2.shield.overlap.round.v3",
+    "decision": "#316",
+    "recordHash": "7513f366",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8, §17 item 35): a field's impulse on a round now acts on the round's line of action at the field's surface, not at the generator, so its locked angular momentum change (the impulse at each generator) is the old rule's; the successor keeps every case and check with the change p x J at the round's point. Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.shield.bodies.v2",
+    "successor": "L3.shield.bodies.v3",
+    "decision": "#316",
+    "recordHash": "3b288aaf",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8, §17 item 35): each body's share of a field's impulse acts on the round's line of action, not at its generator; the successor keeps every case and check with each body's angular momentum change about its centre (p_i - x_i) x J_i at the round's point. Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L3.shield.energy.v2",
+    "successor": "L3.shield.energy.v3",
+    "decision": "#316",
+    "recordHash": "31940b4d",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8, §17 item 35): the field's impulse acts at the round's point, so the g = 0.6 case's ship gain (dL = (x_gen - x_c) J) is the old rule's; the successor keeps both cases with dL = (x_p - x_c) J. Recorded PASS (code f7833b3, data fee97350), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.route.emp.v2",
+    "successor": "L4.route.emp.v3",
+    "decision": "#316",
+    "recordHash": "c7cd920b",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8 J8 and J11, §17 items 48 and 50): the missile's body now meets a charged field before its warhead acts, so the shielded case's buffer pays the body's share as well as the EMP's 2 MJ; and item 50 asked the generator room's heat against a control. The successor keeps every case and check and asserts both. Recorded PASS (code e069f42, data fee97350), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.helm.drift",
+    "successor": "L4.helm.drift.v2",
+    "decision": "#316",
+    "recordHash": "d51c1763",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8 J11, §17 item 50, #309 (3)): its no-couple case did not assert that the engine stays shut; the successor keeps every case and check and asserts it every step. Recorded PASS (code e069f42, data fee97350), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.helm.style",
+    "successor": "L4.helm.style.v2",
+    "decision": "#316",
+    "recordHash": "2abd9666",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8 J11, §17 item 50, #309 (3)): it asserted orbit's sense but not its tangential speed, nor strafe's actual reversal; the successor keeps every case and check and asserts both. Recorded PASS (code 1a8e71a, data fee97350), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.orders.repair",
+    "successor": "L4.orders.repair.v2",
+    "decision": "#316",
+    "recordHash": "4ce357b4",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8 J11, §17 item 50, #309 (3)): it did not observe the fallback order of the rooms a list does not name, and the slot accepted any string as none; the successor keeps its three cases and adds the fallback order and the slot's validation (now in js/helm.js). Recorded PASS (code d9bf90f, data fee97350), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.route.escape.reorder",
+    "successor": "L4.route.escape.reorder.v2",
+    "decision": "#316",
+    "recordHash": "65080988",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8 J11, §17 item 50, #309 (3)): its header misstated the step a count not reset by the withdrawal would escape (1501; it is 958 + 600 = 1558); the successor keeps its case and criterion with the header corrected. Recorded PASS (code 31187a9, data fee97350), frozen (#245).",
+    "frozen": true
   }
 ]
