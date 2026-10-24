@@ -1226,14 +1226,6 @@
     "frozen": true
   },
   {
-    "id": "L4.loop.symmetric",
-    "successor": "L4.loop.symmetric.v2",
-    "decision": "#316",
-    "recordHash": "e6ff7252",
-    "reason": "Superseded under #316 (DESIGN.md 13n.8, §17 item 51): it replays other scenarios against their records with dependsOn [], so it proved only that the loop equals the latest records and failed until they were re-recorded; the successor keeps its cases and checks and declares the scenarios it replays as its dependencies. Recorded PASS (code 1a8e71a, data fee97350), frozen (#245).",
-    "frozen": true
-  },
-  {
     "id": "L2.shield.overlap.round.v2",
     "successor": "L2.shield.overlap.round.v3",
     "decision": "#316",
