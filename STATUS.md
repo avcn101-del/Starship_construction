@@ -19,7 +19,7 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 - **Next**: §17 item 58 (a starved engine latches the pilot's thrust at 0; the yield clocks' `RES`): probe, then a small pass, before the builds are locked; then the builds (PR #104, #330, #332); then the runner's baseline re-measure (with #336/#337's columns); then battle phases.
 - **Waiting on you**: **the next lead designer chat must be opened by the owner from claude.ai**, not by this chat: this chat is at lineage depth 7 of 8; sessions it creates (depth 8) cannot create triggers or sessions (the checker's and the reviewer's notifications were refused), and a chat it created could not create engineers.
 - **Money**: item 55's pass 16.39 USD (expected 11–17); this chat 6.85 USD at 241k tokens.
-- **Running**: nothing. The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104 (it continues after item 58).
+- **Running**: the item 58 probe runner `session_01YWf1ajvoEXsTuTsQYyJLuJ` (sonnet; latch counts, helm suites and `regress` under `tools/estimates/item58-a.diff` and `-b.diff`). The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104 (it continues after item 58).
 
 Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidance), 57 (a leading navigator), 58 (the starved-thrust latch).
 
