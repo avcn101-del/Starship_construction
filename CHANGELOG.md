@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — the room-variants idea
+
+- `IDEAS.md`: the design partner's room-variants idea from the owner's
+  discussion (one physical trade per room in three families: stored
+  energy, rate, reach; a turret's ready store filled by phase); on
+  `ideas/room-variants`.
+
 ## Unreleased — 2026-10-24 — §17 item 55's plan (#333–#335)
 
 - #333 (the owner): the helm in layers, pilot, navigator, gunnery and
