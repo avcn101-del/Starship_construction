@@ -39,7 +39,7 @@ export default {
   tolerance: 'headings 1e-9 rad; the throttle 1e-9',
   criterion: '(stern) heading 5 pi / 6, throttle 0.5 (cos pi / 3), mode range; (bow-dodge) heading pi / 2, throttle 0 throughout; (broadside-dodge) heading pi, throttle 0 at the first step and above 0 within the 10 s, mode dodge; (broadside) heading pi, throttle 0 throughout, mode broadside',
   tunable: ['helm.rangeHold', 'helm.positionLead', 'engine.thrust', 'rcs.force'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'c28f3f43' },
   cases() {
     return [
       { name: 'stern', position: 'stern', facing: 'bow', dodging: 'on' },
