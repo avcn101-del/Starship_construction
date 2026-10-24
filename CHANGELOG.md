@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — outcomes counted apart and the clock (#336, #337)
+
+- #336 (the owner): win / loss / escape / stalemate counted apart; E5's
+  win rate unchanged; a survival column. #337 (the owner): no new clock
+  now; a scenario clock after Mission 0; a stalemate after X s without
+  new cell damage, X the lead designer's from the baseline. `DESIGN.md`
+  §3 and §18; `IDEAS.md` merged from `ideas/phase-gaps`.
+
 ## Unreleased — 2026-10-24 — battle phases: gaps and the owner's choices
 
 - `IDEAS.md` (battle phases): twelve gaps from the design partner's probe

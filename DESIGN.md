@@ -83,7 +83,10 @@ cell's mass, heat by the **thermally coupled** mass of the room type
    dry-run headless against a dummy or a known enemy variant, undock.
 2. **Battle**: the ship fights on its orders; the player scans zones,
    targets rooms, switches presets, may pause. 3–6 minutes, with a physical
-   clock (#30).
+   clock (#30): today heat and ammunition; a stalemate when neither ship
+   takes new cell damage for X s (planned, X from the baseline); a scenario
+   clock after Mission 0 (#337). Outcomes are counted apart: win, loss,
+   escape, stalemate (#336).
 3. **Report**: the KIA list first, the cascade tree, scans and targets on a
    timeline, what the enemy learned of you, heat, salvage, kill-cam (#41).
 4. **Progress**: intact salvage unlocks room types; credits buy rooms,
@@ -2286,3 +2289,5 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 333 | The helm in layers: pilot, navigator (goals set from above), gunnery and systems; a manual mode later replaces only the navigator's output; nothing manual built (the owner) | current |
 | 334 | Battle phases (contact, range, position and control, finish; a strategy is a preset and an exit condition per phase; decision points from a menu): after item 55 and the builds, before L5e2's E5–E7 (the owner; #329's B) | current |
 | 335 | Item 55's pass: the layers; the pilot keeps its turn sense past 90° and reports the thrust its engines are given; the position's lead only at range and yielding after 15 s without closing until 30 s let go (two new helm constants); the helm suite; K0–K5 (§13n.9) | current |
+| 336 | Outcomes counted apart (win / loss / escape / stalemate); E5's win rate unchanged (escape or stalemate no win); a survival column for E6 and the phases (the owner) | current |
+| 337 | The clock: none new now (heat, ammunition; the baseline reports the first hot room); a scenario clock with its tell after Mission 0; a stalemate after X s without new cell damage on either ship, X set by the lead designer from the baseline (the owner) | current |
