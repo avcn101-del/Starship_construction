@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — §17 item 55's plan (#333–#335)
+
+- #333 (the owner): the helm in layers, pilot, navigator, gunnery and
+  systems. #334 (the owner): battle phases, after item 55 and the builds,
+  before L5e2's E5–E7; `IDEAS.md` merged from `ideas/battle-phases`.
+- #335: item 55's pass, `DESIGN.md` §13n.9 (the probe P3 on the helm
+  suite, `tools/estimates/helm-suite.mjs`; K0–K5); §17 items 56 and 57;
+  §13m row "The helm's layers"; §14 adds `pilot.js` and `navigator.js`.
+
 ## Unreleased — 2026-10-24 — the battle-phases idea
 
 - `IDEAS.md`: the design partner's battle-phases idea from the owner's

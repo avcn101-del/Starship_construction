@@ -1195,6 +1195,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Element | Today | Proof | Status |
 |---|---|---|---|
 | Standing orders, 12 slots (#38): movement (range, position, style, dodging) | `js/helm.js` (#301, #302, #307) | `L4.helm.range`, `L4.helm.conflict`, `L4.helm.dodge`, `L4.helm.style`, `L4.helm.drift` | proven L5d |
+| The helm's layers: pilot (heading and throttle to RCS and engines; reports the ship's acceleration and turn), navigator (goals to heading and throttle), gunnery and systems (the owner, #333) | `js/helm.js` and `js/battle.js` today | — | planned L5 (item 55, §13n.9, #335) |
 | Standing orders: firepower (facing, firing style, open fire, target priority) | `js/helm.js` | `L4.helm.dodge`, `L4.orders.fire` | proven L5d |
 | Standing orders: energy (power and repair priority, heat discipline) | `js/helm.js`, `routePower`, `repairGrants` (#307) | `L2.power.flow` (priority), `L4.orders.energy`, `L4.orders.repair` | proven L5d |
 | Standing orders: emission (posture, auto-scan) | `js/helm.js` with `sensors.js` | `L4.enemy.decide`, `L4.orders.fire` | proven L5d |
@@ -1570,12 +1571,60 @@ The rule's figure is up from #315's frame (104–152) by the three §17 items (3
 - [ ] Open: J5's clauses (SCRAM in the step of the split, scans end, EM 0) are read from #81 and §13d.1, not run on the kernel: the engineer's first commit runs them and asks if any does not hold; J8's cross-section is a stated stand-in, its source after Mission 0.
 - [x] **L5e1 exits** (#324): J1–J13 with their successors PASS at `7a4fe57`, plus plume occlusion (`L4.engine.plume.shadow`, `.v2`); `regress` 174 VERIFIED + 159 WITHDRAWN + 5 RETIRED; `l5e1.*` 21 of 21 KILLED; §13m's L5e1 rows proven; J5's clauses held on the kernel (no rule built); the builds locked.
 
+### 13n.9 §17 item 55: the helm's layers and the broadside race (#333, #335)
+
+The broadside mirror race (§17 item 55, #331) is greedy pursuit: each ship chases a point fixed to the other's current bow, and a ship under a range order points its bow along its thrust. The helm behaviour suite (`tools/estimates/helm-suite.mjs`, the design partner's proposal) judges a law on the whole duel grid at once: R2, Lance, Swarm, Furnace, each mirror and each against R2, 600 / 900 / 1500 / 2500 m, bow and broadside, default orders, strafe and orbit, seed 1 (168 battles); four properties: (1) separation ≥ 150 m while both ships can manoeuvre (thrust, an RCS couple, a throttle above 0, engines given a tenth of their draw), (2) no race (each main body's speed at the end ≤ 2 × the braking curve's from the larger of the opening range and `helm.rangeOpen`, plus `helm.rangeBand`), (3) spinal bearing ≥ 10 % of the battle within 2°, (4) a battle with cell damage on both ships ends by 600 s. (3) and (4) mostly measure the builds (#330), not the helm.
+
+**The probe** (PR #104's builds `1d7845e`; runners `session_018CzG2efzqJLEh5utTmS1AX`, `session_01JEsqkpArJ9unCs6ng4gGCF`, `session_01S9x8RHyzN6aW5YiUmiYCVn`; scratch diffs in `tools/estimates/`):
+
+| Law | Any property fails | Separation | Race | `regress` (today 175 VERIFIED) |
+|---|---|---|---|---|
+| today | 118 / 168 | 12 | 19 | — |
+| L1 (`pace-race-probe.diff`): the lead dropped after 15 s engaged without closing by a band, restored after 30 s let go | 102 | 7 | 3 | 9 MISMATCH, 3 fail |
+| P2 (`pace-race-p2.diff`): L1 + the lead only at range + the turn sense kept past 90° | 92 | 2 | 1 | 11 MISMATCH, 4 fail |
+| **P3** (`pace-race-p3.diff`): P2 + the pilot's thrust at its engines' delivered power | **86** | **0** | **2** | **12 MISMATCH, 3 fail** |
+
+Under L1 a yield reset at let-go does not cure the race; a patience of 10, 15 or 20 s all cure it; a reset of 30 s gives the same cells as none. P3's two race cells are Furnace v R2 under orbit or strafe after R2 lost most of its mass (the cap is computed at the start). A fourth candidate (P4: the lead also only when settled) fixed Furnace mirror 1500 m bow on the locked builds but broke R2 mirror 2500 m bow (50 m): not taken. What P3 leaves is §17 item 57.
+
+**Rules** (the owner's layers, #333; the laws, #335)
+
+| Rule | Statement |
+|---|---|
+| The layers | `js/pilot.js`: **the pilot** takes a wanted heading and a throttle and drives the RCS (`holdHeading`, moved from `js/battle.js`) and the engines, and reports what the ship can do now (`shipDynamics`: acceleration from the thrust its engines are given, t180 on the RCS couple). `js/navigator.js`: **the navigator** takes goals (the range R* or `disengage`; the aspect: position, style, facing, dodging; the throttle) and returns a wanted heading and throttle (#40's order: movement, facing, dodging). `js/helm.js` turns the orders into the navigator's goals each step and keeps gunnery and systems (aim, open fire, shield, power and repair priority, scans). A later phase layer or a manual mode replaces only the goals or the navigator's output (recorded per step like a verb); nothing manual is built (#323, #2). The split itself moves nothing: its commit runs `regress` with every scenario VERIFIED |
+| The turn sense (pilot) | A turn of more than 90° toward the wanted heading keeps the sense it started in until the error is within 90°: d is taken in that sense (d ± 2π). At an error of exactly 180° the wanted heading's jitter otherwise flips the bang-bang every few steps and the ship never turns (mirrors from a bow opening pass through each other). No constant: 90° is where the shorter turn is unambiguous |
+| The delivered thrust (pilot) | The pilot's acceleration counts each live engine's thrust × its footprint × its surviving fraction × the power fraction it was given at the last step it was asked to thrust (1 until then): a starved engine (the fire preset routes power to engines last) reports none, so the braking curve and the order's engagement use the thrust the ship has |
+| The position at range (navigator) | The position's lead (#315) applies only while \|r − R*\| ≤ `helm.rangeBand`; outside it the point is on the own bearing at R* (the range first, then the position): the other ship's bow is read only once the range is held |
+| The position yields (navigator) | While the range order is engaged with a lead, if the distance to its point has not fallen by `helm.rangeBand` within `helm.positionPatience` (15 s), the position yields (no lead) and stays yielded until the order has been let go for `helm.positionReset` (30 s) |
+
+**Constants**: `helm.positionPatience` (new, 15 s, 10–20 s, k 0; the probe: 10, 15 and 20 s each cure the race) and `helm.positionReset` (new, 30 s, 30–60 s, k 0; 0 s does not cure it; 30 s and never give the same cells); a pilot's choice, no hardware. No other constant moves.
+
+**Scenarios** (each locked in a commit of its own before its first canonical run, #273; the blind physics checker on K1–K3)
+
+| # | Scenario | Setup | Criterion |
+|---|---|---|---|
+| K0 | — | the layers' commit, no rule changed | `regress`: 175 VERIFIED + 159 WITHDRAWN + 5 RETIRED, every record unchanged |
+| K1 | `L4.pilot.turn180` | one ship at rest, the wanted heading its heading + π, jittered ±0.005 rad by step parity (a test input) | within 1° of the wanted heading by 1.2 × t180 (the bang-bang's time for π is t180 = 2√(π/α)), the sense of ω never reversing while the error is past 90°; today: never turns |
+| K2 | `L4.pilot.thrust` | a ship whose power priority puts its engine last, its load giving the engine a fraction f in (0, 1), and a case with f = 0 | the pilot's acceleration = Σ thrust·footprint·surviving·f / M at 1e-12 relative, f from `routePower`'s budget worked by hand; 0 for the starved case |
+| K3 | `L4.helm.race` | R2 mirror (R2 unchanged by #330), the standard enemy, default orders, seed 1, bow and broadside, 600 / 900 / 1500 / 2500 m, to 600 s | the suite's (1) and (2) in all 8 cells; today fails 6 (race at broadside 600–2500, separation at bow 1500 and 2500), P3 0 |
+| K4 | `L4.beam.nobody.v2` | successor of `L4.beam.nobody` (#245, #327; it pins step 9524 of one battle, which any helm change moves): a beam into a target whose last cell an explosion takes in the step, found under the new helm or constructed | #327's criteria at the new step |
+| K5 | re-records | `L0.determinism.v2`, `L4.helm.range`, `L4.helm.separation`, `L4.helm.style.v2`, `L4.loop.rules`, `L4.orders.energy`, `L4.play.replay`, `L4.route.escape`, `L4.sweep.determinism.v2` (still pass, results moved); `L4.loop.symmetric` and `.v2` after K4 (they replay the standing battle scenarios) | criteria unchanged; each listed in the PR with its old and new result |
+
+`regress` at the PR head: 178 VERIFIED + 160 WITHDRAWN + 5 RETIRED (175 − 1 withdrawn + 4 new). Mutations `item55.*` (turn sense, delivered thrust, at range, yield, reset), `--only`, all KILLED. The engineer reports the helm suite's table at the PR head on the locked builds and on PR #104's (information, not a criterion).
+
+**Process and cost**: one engineer (opus, branch `m0/helm55`), the blind physics checker (sonnet) on K1–K3, the reviewer (sonnet), a runner for `regress` and the suite. Raw: engineer 6–9, checker 1–1.5, reviewer 1–1.5, a fix round 1–2: 9–14; × 1.24: **11–17 USD**. #246 (4)'s figure (a repeated kind, × 2.5): 22–35, shown beside it (#270 (2)).
+
+**Checklist** (#326)
+
+- [x] **§13m rows**: "The helm's layers" (new, planned item 55) and "Standing orders: movement" (K3 added); the separation row stays `L4.helm.separation` (re-recorded).
+- [x] **The probe**: P3 on PR #104's builds, the whole suite and `regress` (the table above); the regress tally counted as before − withdrawn + new.
+- [x] **Tolerances**: K1's 1.2 × t180 against a discrete bang-bang's few steps (dt 1/60 s against R2's t180 of 8.12 s); K2 at 1e-12 relative (one product); K3's floors with margins on P3's worst (P3 on R2's eight cells: separation ≥ 600 m against 150; end speeds ≤ 45 m/s against caps of 188–256; the 2500 m bow cell fails only (4), not K3's).
+
 ## 14. Architecture
 
 | Layer | Files (planned) |
 |---|---|
 | Foundation | `data.js` (every number, ranges, scaling exponents, text), `util.js` (vectors, seeded RNG with separate simulation and effects streams), `events.js` |
-| Kernel (no DOM) | `layout.js`, `graph.js`, `body.js`, `heat.js`, `rooms.js`, `field.js`, `projectile.js`, `damage.js`, `sensors.js`, `helm.js`, `crew.js`, `enemy.js`, `battle.js` |
+| Kernel (no DOM) | `layout.js`, `graph.js`, `body.js`, `heat.js`, `rooms.js`, `field.js`, `projectile.js`, `damage.js`, `sensors.js`, `pilot.js`, `navigator.js`, `helm.js`, `crew.js`, `enemy.js`, `battle.js` |
 | Meta | `campaign.js`, `run.js` |
 | Presentation (after Mission 0) | `renderer.js`, `effects.js`, `ui.js`, `shipyard.js`, `report.js`, audio; `manifest.json`, `service-worker.js` |
 | Tools | Mission 0 runner (Node, e.g. `node tools/m0.js L1 reactor ...`), `tools/campaign.js` (Node), `tools/smoke.js` (Playwright, after Mission 0) |
@@ -1880,10 +1929,19 @@ Each line names its decision and when it is due; a closed one is removed.
     tools/estimates/pace-e7.mjs --pairs Lance:Lance --ranges 900 --openings
     broadside`). A spinal weapon never bears. The lead designer's two scratch
     laws (yield the position while the other accelerates; give it up after
-    10–20 s without closing) do not cure it. A helm-law pass, probed first.
+    10–20 s without closing) do not cure it. A helm-law pass, probed first. **In the item 55 pass** (§13n.9, #335: the layers, P3).
 56. **Missiles fly pure pursuit** (PR #104): no lead, so a missile passes
     about 50 m behind a target accelerating at about 5 m/s² (Swarm mirror,
-    600 m broadside, missile 1, t 8.9 s). A guidance-law question with item 55.
+    600 m broadside, missile 1, t 8.9 s). A guidance-law question: not probed, so
+    not in item 55's pass; the same class as item 57.
+57. **Two pilots on one relative variable** (the helm suite under P3, #335): each
+    side flies the relative range and velocity as if the other were passive;
+    when both correct the same error the effort doubles (overshoot, or a race
+    when they disagree). P3 leaves 86 of 168 cells failing a property, most of
+    them the builds' (#330), and two race cells whose cap ignores mass loss.
+    The design partner's candidate: a navigator that leads the other ship's
+    motion (as gunnery's intercept) and caps the relative speed; judged on the
+    suite. Due before L5e2's measures if the builds' tables show it.
 
 ## 18. Decisions in force
 
@@ -2225,3 +2283,6 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 330 | The reference builds' rebuild: each specialist kills its mirror and damages R2 (`L4.builds.lethal`); measures open at 2500 m too | current |
 | 331 | The builds' rebuild stopped: the broadside mirror race (§17 item 55), missiles in pure pursuit (item 56), Furnace against shields; an S secondary turret to the owner; an L beam bay allowed | current |
 | 332 | A secondary S turret: only if a specialist still fails #330 after item 55, at most one, recorded with and without (the owner) | current |
+| 333 | The helm in layers: pilot, navigator (goals set from above), gunnery and systems; a manual mode later replaces only the navigator's output; nothing manual built (the owner) | current |
+| 334 | Battle phases (contact, range, position and control, finish; a strategy is a preset and an exit condition per phase; decision points from a menu): after item 55 and the builds, before L5e2's E5–E7 (the owner; #329's B) | current |
+| 335 | Item 55's pass: the layers; the pilot keeps its turn sense past 90° and reports the thrust its engines are given; the position's lead only at range and yielding after 15 s without closing until 30 s let go (two new helm constants); the helm suite; K0–K5 (§13n.9) | current |
