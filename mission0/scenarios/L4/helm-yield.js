@@ -38,7 +38,7 @@ export default {
   tolerance: '+- 1 step on Y - E and on B - L',
   criterion: 'Y - E = ceil(helm.positionPatience / dt) +- 1 step (900 +- 1), the position stays yielded at every engaged step from Y, and B - L = ceil(helm.positionReset / dt) +- 1 step (1800 +- 1), yielded at every step from L to B - 1 (not restored before); item55.position.yield and item55.position.reset each fail it (#339)',
   tunable: ['helm.positionPatience', 'helm.positionReset', 'helm.rangeBand', 'helm.positionLead'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '4332b959' },
   cases() {
     return [{ name: 'at range' }, { name: 'beyond range' }];
   },
