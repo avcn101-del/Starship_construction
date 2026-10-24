@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.sensor.control.v2",
-  "code": "f7833b3",
+  "code": "5ee1bbb",
   "criterionHash": "d56cd76b",
   "lockedHash": "d56cd76b",
   "runHash": "329d9cf9",
-  "dataHash": "fee97350",
+  "dataHash": "394196fd",
   "rowsHash": "5f00343f",
   "rows": [
     {

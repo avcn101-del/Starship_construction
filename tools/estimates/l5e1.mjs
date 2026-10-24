@@ -53,7 +53,7 @@ for (const [name, o] of DUELS) {
   }
   line(`  ${name.padEnd(26)} ${f(min, 1)} m at ${f(at, 2)} s ${min >= floor ? 'meets' : 'FAILS'} L4.helm.separation's floor ${f(floor, 0)} m (half of helm.rangeClose's lowest approved value)`);
 }
-line(`  the new law (the circle of R*, lead ${f((PLANNED['helm.positionLead'] * 180) / Math.PI, 0)} deg) is not in the kernel: #315 records the lead designer's scratch-patch run, 900.0 / 367.2 / 597.7 / 440.4 / 481.1 m in the same order`);
+line(`  the kernel at the current head: the position law of #315 since L5e1 (lead ${f((PLANNED['helm.positionLead'] * 180) / Math.PI, 0)} deg); on main before it, 900.0 / 33.4 / 111.4 / 51.1 / 55.2 m (#315)`);
 
 // ---------- (2) the plume (#297, #304): formula on the kernel's constants ----------
 const theta = PLANNED['engine.plumeHalfAngle'], thrust = v('engine.thrust'), ve = v('engine.exhaustVelocity'), q = v('matter.burnEnergyPerKg');

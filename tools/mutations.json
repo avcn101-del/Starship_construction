@@ -759,17 +759,17 @@
     "id": "k1.shield.noImpulse",
     "rule": "13k.1 The shield's books",
     "file": "js/rooms.js",
-    "old": "          receive(world, b, J, gens[i].position);\n",
+    "old": "receive(world, b, J, gridPoint(b, Q));",
     "new": "",
-    "note": "the field's impulse is not applied to the generator's ship"
+    "note": "the field's impulse is not applied to the generator's ship (re-anchored at L5e1: the call now takes the round's line point)"
   },
   {
     "id": "k1.shield.impulseAtCentre",
     "rule": "13k.1 The shield's books",
     "file": "js/rooms.js",
-    "old": "receive(world, b, J, gens[i].position);",
+    "old": "receive(world, b, J, gridPoint(b, Q));",
     "new": "receive(world, b, J, [0, 0]);",
-    "note": "the field's impulse applied at the grid origin instead of the generator"
+    "note": "the field's impulse applied at the grid origin instead of the round's line (re-anchored at L5e1)"
   },
   {
     "id": "k1.tier.noSolve",
@@ -1015,9 +1015,9 @@
     "id": "l1.ov.impulseAtFirst",
     "rule": "13l.1 Rounds in overlapping fields",
     "file": "js/rooms.js",
-    "old": "receive(world, b, J, gens[i].position);",
+    "old": "receive(world, b, J, gridPoint(b, Q));",
     "new": "receive(world, b, J, gens[0].position);",
-    "note": "every generator's share of the impulse acts at the first generator"
+    "note": "every generator's share of the impulse acts at the first generator, not on the round's line (re-anchored at L5e1, §17 item 35)"
   },
   {
     "id": "l1.shield.heatOmitsGain",
@@ -1175,9 +1175,9 @@
     "id": "l4f.shield.oneFrame",
     "rule": "#258 (11) generators on different bodies (reviewer N5)",
     "file": "js/rooms.js",
-    "old": "const hull = pointVelocity(b, worldPoint(b, round.position)), d = rotate(round.direction, b.theta);",
-    "new": "const f0 = [...groups.keys()][0], hull = pointVelocity(f0, worldPoint(f0, round.position)), d = rotate(round.direction, b.theta);",
-    "note": "every body's share taken at the first body's hull velocity (the L4a books)"
+    "old": "const hull = pointVelocity(b, worldPoint(F, round.position)), d = rotate(round.direction, F.theta);",
+    "new": "const f0 = [...groups.keys()][0], hull = pointVelocity(f0, worldPoint(F, round.position)), d = rotate(round.direction, F.theta);",
+    "note": "every body's share taken at the first body's hull velocity (the L4a books) (re-anchored at L5e1: the round's point in its frame)"
   },
   {
     "id": "l4b.hit.holesHit",
@@ -1275,7 +1275,7 @@
   },
   {
     "id": "l4b.cull.ownBodiesOnly",
-    "rule": "13l.1 Battle (cull every step with both ships' bodies, \u00a717 item 26)",
+    "rule": "13l.1 Battle (cull every step with both ships' bodies, §17 item 26)",
     "file": "js/battle.js",
     "old": "cull(s.world, s.other.world.ship.bodies);",
     "new": "cull(s.world);"
@@ -1745,8 +1745,9 @@
     "id": "l5c.missile.bodyImpulse",
     "rule": "13n.4 W7 (.v2): a missile's body at impact joins the hull's body, its momentum and heat booked there, nothing spent (#296 (3))",
     "file": "js/battle.js",
-    "old": "x.hit.body = { m: body, heat: embedRound(w, y, body, [...V], [...x.x]) };",
-    "new": "x.hit.body = { m: body, heat: 0 };"
+    "old": "x.hit.body = { m: body, heat: embedRound(w, y, body, V1, [...x.x]) };",
+    "new": "x.hit.body = { m: body, heat: 0 };",
+    "note": "re-anchored at L5e1 (the body joins at the field's speed V1)"
   },
   {
     "id": "l5c.flak.doseExponent",
@@ -1892,7 +1893,7 @@
   },
   {
     "id": "l5d.ids.map",
-    "rule": "\u00a717 item 35 one id space",
+    "rule": "§17 item 35 one id space",
     "file": "js/battle.js",
     "old": "      battle.ids.set(`${s.name}:${e.cause}`, id); // one id space",
     "new": "      // battle.ids.set(`${s.name}:${e.cause}`, id); // one id space",
@@ -1908,7 +1909,7 @@
   },
   {
     "id": "l5d.able.reactorActive",
-    "rule": "\u00a717 item 46 the bay's power test",
+    "rule": "§17 item 46 the bay's power test",
     "file": "js/battle.js",
     "old": "r.type === 'reactor' && r.placed && r.active && !isDestroyed(r)",
     "new": "r.type === 'reactor' && r.placed && !isDestroyed(r)",
@@ -1916,7 +1917,7 @@
   },
   {
     "id": "l5d.bay.powered",
-    "rule": "\u00a717 item 46 the bay's power test",
+    "rule": "§17 item 46 the bay's power test",
     "file": "js/rooms.js",
     "old": "if (!room.controlled || down(room) || isDestroyed(room) || s.ready.length === 0 || !room.powered) return 0;",
     "new": "if (!room.controlled || down(room) || isDestroyed(room) || s.ready.length === 0) return 0;",
@@ -1924,7 +1925,7 @@
   },
   {
     "id": "l5d.bay.cookoff",
-    "rule": "\u00a717 item 46 the bay's cook-off",
+    "rule": "§17 item 46 the bay's cook-off",
     "file": "js/rooms.js",
     "old": "temperature(room.heat) < tierScaled(world, world.params.thermal.magazineCritical)) return;",
     "new": "temperature(room.heat) < tierScaled(world, world.params.thermal.plantCritical)) return;",
@@ -1932,7 +1933,7 @@
   },
   {
     "id": "l5d.bay.request",
-    "rule": "\u00a717 item 46 the bay as a powered room",
+    "rule": "§17 item 46 the bay as a powered room",
     "file": "js/rooms.js",
     "old": "  missileBay: (world, room) => (room.missileBay.ready.length > 0 ?",
     "new": "  missileBayOff: (world, room) => (room.missileBay.ready.length > 0 ?",
@@ -1940,7 +1941,7 @@
   },
   {
     "id": "l5d.scan.brownout",
-    "rule": "\u00a717 item 45 (b) brown-out",
+    "rule": "§17 item 45 (b) brown-out",
     "file": "js/sensors.js",
     "old": "f.scan.progress += (dt / (T0 * q * q)) * hostFraction(world, f);",
     "new": "f.scan.progress += dt / (T0 * q * q);",
@@ -1998,17 +1999,17 @@
     "id": "l5d.style.position",
     "rule": "13n.1 (d) the style slot (#307)",
     "file": "js/helm.js",
-    "old": "const dir = moving ? [-u[0], -u[1]] : o.position",
-    "new": "const dir = false ? [-u[0], -u[1]] : o.position",
-    "note": "L5d fix round (#307)"
+    "old": "let dir = [-u[0], -u[1]];\n    if (!moving) {",
+    "new": "let dir = [-u[0], -u[1]];\n    if (true) {",
+    "note": "L5d fix round (#307); re-anchored at L5e1 (the position law's block): orbit and strafe no longer ignore the position slot"
   },
   {
     "id": "l5d.repair.order",
     "rule": "13n.1 (d) repair priority (#307)",
     "file": "js/rooms.js",
-    "old": "if (sum > base && world.repairOrder) {",
-    "new": "if (sum > base && false) {",
-    "note": "L5d fix round (#307)"
+    "old": "if (asked > left && world.repairOrder) {",
+    "new": "if (asked > left && false) {",
+    "note": "L5d fix round (#307); re-anchored at L5e1 (containment first)"
   },
   {
     "id": "l5d.escape.standing",
@@ -2017,5 +2018,173 @@
     "old": "if (!(d > D) || !runners.length) { x.passed = null; x.widening = 0; }",
     "new": "if (!(d > D)) { x.passed = null; x.widening = 0; }",
     "note": "L5d fix round (#307)"
+  },
+  {
+    "id": "l5e1.position.noLead",
+    "rule": "13n.8 the position law (#315)",
+    "file": "js/helm.js",
+    "old": "const phi = atan2(-u[1], -u[0]), phiP = phi + clamp(wrap(atan2(named[1], named[0]) - phi), -lead, lead);",
+    "new": "const phi = atan2(-u[1], -u[0]), phiP = atan2(named[1], named[0]);",
+    "note": "L5e1: the old law: the point jumps to the named bearing"
+  },
+  {
+    "id": "l5e1.position.halfLead",
+    "rule": "13n.8 the position law (#315)",
+    "file": "js/helm.js",
+    "old": "const named = o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 180;",
+    "new": "const named = o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 360;",
+    "note": "L5e1: the lead read in half-degrees"
+  },
+  {
+    "id": "l5e1.plume.off",
+    "rule": "13n.8 the plume (#297)",
+    "file": "js/battle.js",
+    "old": "  plume(battle);\n",
+    "new": "",
+    "note": "L5e1:"
+  },
+  {
+    "id": "l5e1.plume.noCone",
+    "rule": "13n.8 the plume (#297)",
+    "file": "js/battle.js",
+    "old": "        if (lat > R || shadowed(o, apex, worldPoint(fb, f.p))) continue;\n",
+    "new": "        if (shadowed(o, apex, worldPoint(fb, f.p))) continue;\n",
+    "note": "L5e1: a fitting outside the cone burns too"
+  },
+  {
+    "id": "l5e1.plume.forward",
+    "rule": "13n.8 the plume (#297)",
+    "file": "js/battle.js",
+    "old": "axis = rotate([-1, 0], b.theta)",
+    "new": "axis = rotate([1, 0], b.theta)",
+    "note": "L5e1: the jet along +x"
+  },
+  {
+    "id": "l5e1.plume.face",
+    "rule": "13n.8 the plume (#297)",
+    "file": "js/battle.js",
+    "old": "face = edge * edge",
+    "new": "face = edge",
+    "note": "L5e1: the intercepted area edge, not edge^2"
+  },
+  {
+    "id": "l5e1.plume.radiatorWorks",
+    "rule": "13n.8 the plume (#297)",
+    "file": "js/rooms.js",
+    "old": "if (f.type === 'radiator' && !f.ruined && cellAlive(",
+    "new": "if (f.type === 'radiator' && cellAlive(",
+    "note": "L5e1: a ruined panel still counted"
+  },
+  {
+    "id": "l5e1.plume.antennaWorks",
+    "rule": "13n.8 the plume (#297)",
+    "file": "js/sensors.js",
+    "old": "return !!f.scan && !f.ruined && !host.cells[f.k].destroyed",
+    "new": "return !!f.scan && !host.cells[f.k].destroyed",
+    "note": "L5e1: a ruined antenna still scans"
+  },
+  {
+    "id": "l5e1.attackerFixed",
+    "rule": "13n.8 J3's case setting (attackerHeading for a static attacker)",
+    "file": "js/battle.js",
+    "old": "A.heading = battle.attackerFixed !== null ? battle.attackerFixed :",
+    "new": "A.heading = false ? 0 :",
+    "note": "L5e1: a static attacker turns to the plan's heading"
+  },
+  {
+    "id": "l5e1.contain.off",
+    "rule": "13n.8 reactor containment first (#37)",
+    "file": "js/rooms.js",
+    "old": "const contain = sum > base ? q.grants.filter((g) => g.room.type === 'reactor') : [];",
+    "new": "const contain = [];",
+    "note": "L5e1: no containment first"
+  },
+  {
+    "id": "l5e1.draw.off",
+    "rule": "13n.8 a simultaneous end (#315)",
+    "file": "js/battle.js",
+    "old": "  draw(battle);\n  escape(battle);",
+    "new": "  escape(battle);",
+    "note": "L5e1: no draw: side A's end by the processing order"
+  },
+  {
+    "id": "l5e1.missile.noField",
+    "rule": "§17 item 48 a missile's body and a charged field",
+    "file": "js/battle.js",
+    "old": "const sh = open || !(sp > 0) ? { velocity: sp, energy: 0 } :",
+    "new": "const sh = true ? { velocity: sp, energy: 0 } :",
+    "note": "L5e1: the body passes the field"
+  },
+  {
+    "id": "l5e1.missile.area",
+    "rule": "§17 item 48 the stated cross-section",
+    "file": "js/battle.js",
+    "old": "mass: x.m, velocity: sp, area: roundGeometry(x.m, FIXED.steelDensity.value, FIXED.roundLengthToDiameter.value).A,",
+    "new": "mass: x.m, velocity: sp, area: 2 * roundGeometry(x.m, FIXED.steelDensity.value, FIXED.roundLengthToDiameter.value).A,",
+    "note": "L5e1: twice the cross-section"
+  },
+  {
+    "id": "l5e1.missile.twice",
+    "rule": "§17 item 48 (a penetrator meets the field once)",
+    "file": "js/battle.js",
+    "old": "const sh = open || r.fielded ? { velocity: speed, energy: 0 } :",
+    "new": "const sh = open ? { velocity: speed, energy: 0 } :",
+    "note": "L5e1: the penetrator meets the field again"
+  },
+  {
+    "id": "l5e1.field.atEntry",
+    "rule": "§17 item 35 the field's impulse on the round's line",
+    "file": "js/battle.js",
+    "old": "shieldRound(w, { position: hit.entry, at: onLine(b, r.ref.x, rel, q), frame: b.id,",
+    "new": "shieldRound(w, { position: hit.entry, frame: b.id,",
+    "note": "L5e1: the impulse at the entry point, off the line"
+  },
+  {
+    "id": "l5e1.field.frame",
+    "rule": "§17 item 35 (one world line for every body's book)",
+    "file": "js/rooms.js",
+    "old": "const F = (round.frame && world.ship.bodies.find((y) => y.id === round.frame)) || b, Q",
+    "new": "const F = b, Q",
+    "note": "L5e1: each body takes the round in its own frame (the leak on main)"
+  },
+  {
+    "id": "l5e1.events.noChange",
+    "rule": "§17 item 51 no event without a change of state",
+    "file": "js/rooms.js",
+    "old": "  if (cell.integrity === was) return;\n",
+    "new": "",
+    "note": "L5e1: an event for a loss below float resolution"
+  },
+  {
+    "id": "l5e1.repair.anyString",
+    "rule": "§17 item 50 the repair slot's validation",
+    "file": "js/helm.js",
+    "old": "  throw new Error(`repair priority ${JSON.stringify(v)}: 'none' or a list of room types (#307)`);",
+    "new": "  return 'none';",
+    "note": "L5e1: any value read as none"
+  },
+  {
+    "id": "l5e1.sweep.byArrival",
+    "rule": "13n.8 tools/sweep.mjs deterministic",
+    "file": "tools/sweep.mjs",
+    "old": "else out[m.i] = m.r;",
+    "new": "else out[out.filter(Boolean).length] = m.r;",
+    "note": "L5e1: results in the order the workers return them"
+  },
+  {
+    "id": "l5e1.plume.noShadow",
+    "rule": "13n.8 the plume's occlusion (PR #101, the lead designer's answer 3)",
+    "file": "js/battle.js",
+    "old": "if (lat > R || shadowed(o, apex, worldPoint(fb, f.p))) continue;",
+    "new": "if (lat > R) continue;",
+    "note": "L5e1 fix round: no occlusion, a fitting behind its own hull burns"
+  },
+  {
+    "id": "l5e1.plume.shadowTouch",
+    "rule": "13n.8 the plume's occlusion (PR #101, the lead designer's answer 3)",
+    "file": "js/battle.js",
+    "old": "const e = side.world.edge, g = GRAZE * e, ends = new Map();",
+    "new": "const e = side.world.edge, g = -GRAZE * e, ends = new Map();",
+    "note": "L5e1 fix round: a segment touching its fitting's own cell counts as crossing it (every fitting shadowed)"
   }
 ]

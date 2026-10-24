@@ -1,0 +1,110 @@
+{
+  "id": "L4.books.field.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.books.field.v2",
+  "code": "c9dfe72",
+  "criterionHash": "210f8ebd",
+  "lockedHash": "210f8ebd",
+  "runHash": "4123e127",
+  "dataHash": "394196fd",
+  "rowsHash": "a8afc4b9",
+  "rows": [
+    {
+      "case": {
+        "name": "still",
+        "omega": 0,
+        "v": [
+          0,
+          0
+        ]
+      },
+      "expected": {
+        "tol": 1e-9,
+        "abs": 1e-12,
+        "line": 1e-9
+      },
+      "actual": {
+        "worst": 0.000026226043701171875,
+        "gross": 29568212741.623764,
+        "worstP": 1.0244589661355114e-8,
+        "grossP": 4466411.475531168,
+        "off": 6.39563069171345e-10,
+        "booked": 93,
+        "unmatched": 0,
+        "edge": 5,
+        "hits": 36,
+        "slowed": {
+          "A": 18,
+          "T": 18
+        },
+        "spent": 0,
+        "embedded": 36,
+        "ids": {
+          "n": 36,
+          "distinct": 36,
+          "shots": 36,
+          "causes": 54,
+          "unknown": 0
+        },
+        "ended": "destroyed",
+        "t": 35.13333333333333
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "spin",
+        "omega": 0.05,
+        "v": [
+          20,
+          0
+        ]
+      },
+      "expected": {
+        "tol": 1e-9,
+        "abs": 1e-12,
+        "line": 1e-9
+      },
+      "actual": {
+        "worst": 0.000007271766662597656,
+        "gross": 8299342299.256393,
+        "worstP": 2.2352954417480133e-8,
+        "grossP": 19166619.98747077,
+        "off": 5.275069270282984e-11,
+        "booked": 61,
+        "unmatched": 0,
+        "edge": 5,
+        "hits": 23,
+        "slowed": {
+          "A": 12,
+          "T": 11
+        },
+        "spent": 0,
+        "embedded": 16,
+        "ids": {
+          "n": 24,
+          "distinct": 24,
+          "shots": 24,
+          "causes": 35,
+          "unknown": 0
+        },
+        "ended": "destroyed",
+        "t": 23.266666666666666
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

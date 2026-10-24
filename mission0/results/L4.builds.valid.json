@@ -1,0 +1,224 @@
+{
+  "id": "L4.builds.valid",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.builds.valid",
+  "code": "5ee1bbb",
+  "criterionHash": "98a0843e",
+  "lockedHash": "98a0843e",
+  "runHash": "e527170c",
+  "dataHash": "394196fd",
+  "rowsHash": "d03f7a65",
+  "rows": [
+    {
+      "case": {
+        "name": "R2"
+      },
+      "expected": {
+        "budget": "R1d",
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1430724.0573339704,
+        "g": 1.0690910742894202,
+        "budget": 1421484.0573339704,
+        "shape": true,
+        "antenna": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "Lance"
+      },
+      "expected": {
+        "budget": "R1d",
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1433310.0573339704,
+        "g": 1.0671622037676751,
+        "budget": 1421484.0573339704,
+        "shape": true,
+        "antenna": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "Swarm"
+      },
+      "expected": {
+        "budget": "R1d",
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1421490.0573339704,
+        "g": 1.076035890349902,
+        "budget": 1421484.0573339704,
+        "shape": true,
+        "antenna": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "Furnace"
+      },
+      "expected": {
+        "budget": "R1d",
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1464910.0573339704,
+        "g": 1.0441421381532503,
+        "budget": 1421484.0573339704,
+        "shape": true,
+        "antenna": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "Brick"
+      },
+      "expected": {
+        "budget": "R2",
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1460056.111111111,
+        "g": 0.34920446043745484,
+        "budget": 1430724.0573339704,
+        "shape": true,
+        "antenna": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "Glass"
+      },
+      "expected": {
+        "budget": "R2",
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1484425,
+        "g": 0.34347178637449793,
+        "budget": 1430724.0573339704,
+        "shape": true,
+        "antenna": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "Porcupine"
+      },
+      "expected": {
+        "budget": "R2",
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1413387.612889526,
+        "g": 1.082204418319356,
+        "budget": 1430724.0573339704,
+        "shape": true,
+        "antenna": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "Fortress"
+      },
+      "expected": {
+        "budget": "R2",
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1468484.0573339704,
+        "g": 1.0416009025278976,
+        "budget": 1430724.0573339704,
+        "shape": true,
+        "antenna": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "Engine boat"
+      },
+      "expected": {
+        "budget": "R2",
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1446184.0573339704,
+        "g": 2.1153245490572634,
+        "budget": 1430724.0573339704,
+        "shape": true,
+        "antenna": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "Cold Brick"
+      },
+      "expected": {
+        "budget": "R2",
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1418234.0573339704,
+        "g": 1.0785062673944117,
+        "budget": 1430724.0573339704,
+        "shape": true,
+        "antenna": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

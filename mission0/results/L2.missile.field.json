@@ -1,0 +1,146 @@
+{
+  "id": "L2.missile.field",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.missile.field",
+  "code": "5ee1bbb",
+  "criterionHash": "e78614fb",
+  "lockedHash": "e78614fb",
+  "runHash": "4e0690f4",
+  "dataHash": "394196fd",
+  "rowsHash": "e6f4020d",
+  "rows": [
+    {
+      "case": {
+        "warhead": "he",
+        "shield": true
+      },
+      "expected": {
+        "m": 200,
+        "A": 0.03170274437013702,
+        "literal": {
+          "D": 0.200911,
+          "A": 0.0317027
+        },
+        "stop": 1045455.6555066435,
+        "radius": 40
+      },
+      "actual": {
+        "hit": true,
+        "entry": [
+          27.43827418973919,
+          10
+        ],
+        "field": {
+          "speed": 228.49999999999832,
+          "after": 70.70311788088927,
+          "energy": 4721331.912192032
+        },
+        "bufferBefore": 10000000,
+        "bufferAfter": 5278668.087807968,
+        "penetrator": null,
+        "energy": {
+          "d": 0,
+          "gross": 10449220.102997478
+        },
+        "momentum": {
+          "d": 3.069544618483633e-12,
+          "gross": 45751.50785738866
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "warhead": "penetrator",
+        "shield": true
+      },
+      "expected": {
+        "m": 200,
+        "A": 0.03170274437013702,
+        "literal": {
+          "D": 0.200911,
+          "A": 0.0317027
+        },
+        "stop": 1045455.6555066435,
+        "radius": 40
+      },
+      "actual": {
+        "hit": true,
+        "entry": [
+          27.43827418973919,
+          10
+        ],
+        "field": {
+          "speed": 228.49999999999832,
+          "after": 70.70311788088927,
+          "energy": 4721331.912192032
+        },
+        "bufferBefore": 10000000,
+        "bufferAfter": 5278668.087807968,
+        "penetrator": {
+          "speed": 70.64860348434445,
+          "afterShield": 70.64860348434445
+        },
+        "energy": {
+          "d": 0,
+          "gross": 10442449.999999845
+        },
+        "momentum": {
+          "d": 7.275957614183426e-12,
+          "gross": 45699.999999999665
+        }
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "warhead": "he",
+        "shield": false
+      },
+      "expected": {
+        "m": 200,
+        "A": 0.03170274437013702,
+        "literal": {
+          "D": 0.200911,
+          "A": 0.0317027
+        },
+        "stop": 1045455.6555066435,
+        "radius": 40
+      },
+      "actual": {
+        "hit": true,
+        "entry": [
+          27.43827418973919,
+          10
+        ],
+        "field": null,
+        "bufferBefore": 0,
+        "bufferAfter": 0,
+        "penetrator": null,
+        "energy": {
+          "d": 0,
+          "gross": 10449220.102997478
+        },
+        "momentum": {
+          "d": 2.8421709430404007e-12,
+          "gross": 45751.507857388664
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

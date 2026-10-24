@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `17ec4fd`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `6a06d6d`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -70,6 +70,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | engine.powerDraw | 10000000 | W | 2000000 | 40000000 | 2 | true | at full throttle; ships have no propellant (#140, #183) |
 | engine.heatFraction | 0.3 |  | 0.1 | 1 | 0 | true | heat per watt drawn (#183) |
 | engine.exhaustVelocity | 10000 | m/s | 3000 | 30000 | 0 | true | a fusion torch's jet (chemical 4.5, nuclear-thermal 9, fusion 10-100+ km/s); its jet power, thrust x this / 2 (75 GW at T1 at full thrust), is the exhaust's IR brightness, a point at the exhaust face's centre (13n.1 (a), #203 A, #278, #289; approved as the plan's, #272 (2)) |
+| engine.plumeHalfAngle | 30 | deg | 10 | 45 | 0 | true | the half-angle of the cone behind a live engine that carries its jet power (thrust x engine.exhaustVelocity / 2) at P / (pi (d tan this)^2), d along its axis; it burns the other ship's radiator panels, antennas and point-defence fittings inside it over one hull segment's face, edge^2, by matter.burnEnergyPerKg x their mass, never a hull cell (mechanism C); no source: a fusion torch's plume (13n.1 (e), 13n.8, #297, #304, #316; approved as the plan's, #272 (2)) |
 | sensor.area | 4 | m^2 | 1 | 16 | 2 | true | one antenna fitting's aperture, a phone-sized fitting on a 5 m segment: an estimate; it receives P x this / (4 pi d^2) from a source of power P at d (13n.1 (a), #278, #289; approved as the plan's, #272 (2)) |
 | sensor.sensitivity | 0.001 | W | 0.0001 | 0.01 | 2 | true | the least received power an antenna resolves, IR and EM alike; chosen so a panel at rest fades at 1.7 km (the band's top) and one at plant hot holds to 7.3 km; no source beyond the chosen band (13n.1 (a), #278, #289; approved as the plan's, #272 (2)) |
 | sensor.scanPower | 100000 | W | 20000 | 500000 | 2 | true | an antenna's draw from its host while it scans (heat in the host), and its EM brightness: a ship radar's peak at a tenth (13n.1 (a), #278, #289; approved as the plan's, #272 (2)) |
@@ -133,6 +134,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | helm.rangeBand | 100 | m | 25 | 300 | 1 | true | the range order's dead band: it engages beyond it (or at a dodge's drift, a t180) and lets go inside it at a relative speed of at most this / t180; between the two it keeps its state (hysteresis); prototype v2's dead band, the one the owner played (#263, #302; approved as the plan's, #272 (2)) |
 | helm.dodgeMin | 6 | s | 2 | 10 | 0 | true | the shortest interval between dodge flips, drawn on the seeded stream for the enemy, their midpoint with dodgeMax for the player: prototype v2's value, the one the owner played (#263, #301; approved as the plan's, #272 (2)) |
 | helm.dodgeMax | 14 | s | 6 | 30 | 0 | true | the longest interval between dodge flips (helm.dodgeMin's note; #263, #301; approved as the plan's, #272 (2)) |
+| helm.positionLead | 60 | deg | 30 | 90 | 0 | true | the position law (#315): bow, stern and flank want the point on the circle of R* about the other ship moved from the own bearing toward the named one by at most this; a pilot's choice, no hardware (13n.1 (d), 13n.8, #315, #316; approved as the plan's, #272 (2)) |
 | enemy.decisionInterval | 1 | s | 0.25 | 5 | 0 | true | the enemy decides (which zone to scan, which room to target, which preset) once per this: the same delay the player's taps have (13n.1 (d), #278; approved as the plan's, #272 (2)) |
 | crewRequired.bridge | 4 | crew | 4 | 12 | 2 | true | #183 |
 | crewRequired.reactor | 4 | crew | 4 | 12 | 2 | true | #183 |

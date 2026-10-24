@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.target.plates",
-  "code": "f7833b3",
+  "code": "5ee1bbb",
   "criterionHash": "30c3732c",
   "lockedHash": "30c3732c",
   "runHash": "796e1f62",
-  "dataHash": "fee97350",
+  "dataHash": "394196fd",
   "rowsHash": "3c280cb9",
   "rows": [
     {

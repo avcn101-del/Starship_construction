@@ -1188,7 +1188,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Jamming, burn-through (#101) | nothing | none | after Mission 0 (#27: later module) |
 | Shields EM-bright while absorbing, do not block scans (#103) | the generator's absorbed power this step (a beam's `s.em` and the buffer's payment for rounds, #290) is an EM point source; scans pass the field | `L2.sensor.shield`, `L2.sensor.posture` | proven L5b |
 | Symmetry: the enemy scans too; one knowledge model per side; the renderer and the enemy read only theirs (#26, #42, #112) | one model per side when the battle's `knowledge` is on; the attacker's aim reads only its model; plan advancement still reads the truth until L5d (#290 (1)) | `L4.target.known`, `L2.sensor.reveal` | proven L5b (the model); proven L5d (the enemy and the helm read only it, the plan advances by it: `L4.plan.model`, `L4.loop.symmetric`, `L4.enemy.decide`) |
-| Layout variants per named ship (#28) | nothing | none | after Mission 0 (content); the wildcard draw built in L5d (`enemy.js`), its case planned L5e1 (#316) |
+| Layout variants per named ship (#28) | nothing | none | after Mission 0 (content); the wildcard draw built in L5d (`enemy.js`), its case proven L5e1 (`L4.enemy.wildcard`, #324) |
 
 ### G. Battle (§8)
 
@@ -1202,7 +1202,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Helm conflicts: position, facing, dodging (#40) | `js/helm.js` | `L4.helm.conflict` | proven L5d |
 | Verb: scan a zone | a battle's `scans` input (side, antenna, zone, time); one command scans one zone and stops when it resolves (#290 (4)) | `L4.target.known`, `L3.sensor.control` | proven L5b (a case input); proven L5d (the player's verb, `L4.play.replay`; the enemy's auto-scan, `L4.enemy.decide`) |
 | Verb: target a room | the prototype (tap); the loop's aim at a room | `L4.route.*` (the attacker's aim) | proven L4 (the kernel side) |
-| Automatic rules: RCS recoil compensation, point-defence target, repair order, reactor containment first, dark fragments, each shot's ammunition type | RCS, repair order, the point-defence target (nearest in arc and range, L5c) and each shot's type (L5c) built; the rest nothing | `L3.rcs.turn.v5`, `L2.repair.shared.v2` | partly proven; point-defence target and the shot's type planned L5c; containment first and dark fragments planned L5e1 (#316: defined in §13n.8 from #37) |
+| Automatic rules: RCS recoil compensation, point-defence target, repair order, reactor containment first, dark fragments, each shot's ammunition type | RCS, repair order, the point-defence target (nearest in arc and range, L5c) and each shot's type (L5c) built; the rest nothing | `L3.rcs.turn.v5`, `L2.repair.shared.v2` | partly proven; point-defence target and the shot's type planned L5c; containment first and dark fragments proven L5e1 (#324: `L2.repair.containment`, `L3.fragment.dark`) |
 | **Disabled** (#82, #255) | built | `L4.disabled.rule` | proven L4 |
 | Route: cut the power walls / split at a choke point (one mechanism, #253) | built | `L4.route.split` | proven L4 |
 | Route: decapitate | built | `L4.route.decapitate` | proven L4 |
@@ -1222,7 +1222,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | The enemy runs the same automatic layer, orders, presets and verbs (#111) | `js/enemy.js` | `L4.enemy.decide`, `L4.route.escape` | proven L5d |
 | No information cheating, same delays, deterministic, no learning (#112–#116) | the model-only reads (the reviewer's check), seeded dodging only | `L4.enemy.decide` (same seed, same log hash), `L4.play.replay` | proven L5d |
 | Personality: aggression, patience, caution, resolve (#117) | `js/enemy.js` (#306 (4)) | `L4.enemy.decide`, `L4.route.surrender.v2`, `L4.route.escape`, `L4.route.escape.edge` | proven L5d (the levers; their values are content) |
-| Factions, wildcard, named ships, difficulty (#118–#124) | nothing | none | after Mission 0 (content); the wildcard mechanism built L5d, its case planned L5e1 (#316) |
+| Factions, wildcard, named ships, difficulty (#118–#124) | nothing | none | after Mission 0 (content); the wildcard mechanism built L5d, its case proven L5e1 (`L4.enemy.wildcard`, #324) |
 | Ship versus ship: no dominant build, degenerate builds punished (E5, E6) | the prototype duel only (measured, scripted) | none | planned L5e (`tools/sweep.mjs`, #277) |
 | The reference battle (E7) | the prototype's R1d duel, measured | none | planned L5e (#277 O2) |
 
@@ -1232,7 +1232,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 |---|---|
 | E1 (every scenario passes or is withdrawn with a successor) | holds for L0–L4: 107 VERIFIED + 87 WITHDRAWN + 5 RETIRED |
 | E2 (invariants: hash, momentum, heat, no NaN) | proven per scenario at L0–L4; the two-ship momentum book is planned L4 (the L4 fix's `L4.books.two`, #270); energy and angular momentum across two ships proven L5a (`L4.books.energy`, `L4.books.angular.v2`, #283; a shield field's impulse at its generator stays a stand-in, §17 item 35) |
-| E3 (every kept law proven) | the rows above marked proven (F, E, G and H by L5b–L5d, #309); **not yet**: the rows planned L5e (ship versus ship, the plume, the automatic rules moved by #309, the wildcard's case) |
+| E3 (every kept law proven) | the rows above marked proven (F, E, G and H by L5b–L5d, #309; the plume, containment first, dark fragments and the wildcard's case by L5e1, #324); **not yet**: the rows planned L5e2 (ship versus ship, E5–E8, the point-defence throughput, magazines lasting the battle) |
 | E4 (every attribute has a measured effect) | judged at L5c for recoil and the shield buffer (§17 items 6, 7); `thermal.coupledArmour` has its consumer since L4a |
 | E5, E6 (builds; underdog paths) | planned L5e: needs E and F above, room size S (D); the budget is mass at undock (#277 O1) |
 | E7 (3–6 minutes median) | planned L5e: the reference battle is §13n.1 (e) (#277 O2); R1d duels 104–306 s under the prototype's script |
@@ -1568,6 +1568,7 @@ The rule's figure is up from #315's frame (104–152) by the three §17 items (3
 - [x] Numbers recomputed from the kernel (sections (1), (3), (4)) or the stated formula on the kernel's constants (2).
 - [x] **The §13m rows L5e1 proves, each against the scenario list**: automatic rules, *containment first* (J4) and *dark fragments* (J5); the wildcard's case (J6, the rows "Layout variants per named ship" and "Factions, wildcard…" for the mechanism); the plume (J3, E3's row); point defence's throughput stays L5e2's (W9b); **not** L5e1's: E5, E6, E7, magazines lasting the battle (L5e2).
 - [ ] Open: J5's clauses (SCRAM in the step of the split, scans end, EM 0) are read from #81 and §13d.1, not run on the kernel: the engineer's first commit runs them and asks if any does not hold; J8's cross-section is a stated stand-in, its source after Mission 0.
+- [x] **L5e1 exits** (#324): J1–J13 with their successors PASS at `7a4fe57`, plus plume occlusion (`L4.engine.plume.shadow`, `.v2`); `regress` 174 VERIFIED + 159 WITHDRAWN + 5 RETIRED; `l5e1.*` 21 of 21 KILLED; §13m's L5e1 rows proven; J5's clauses held on the kernel (no rule built); the builds locked.
 
 ## 14. Architecture
 
@@ -2193,3 +2194,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 321 | Process audit opened; process v2 at L5e1's merge; two tracks and slim documents at Mission 0's exit (the owner's direction) | current |
 | 322 | Runner sessions for heavy jobs; one cost range, raw × 1.24 (the measured median), beside the expectation; a short brief; hand-over at each block or 350k tokens, on opus (the owner) | current |
 | 323 | Mission 0 through L6 before any playable slice (the owner); a steering mode would need a new helm input and a change to #2 | current |
+| 324 | L5e1 merged: the position law, the plume with occlusion, containment first, dark fragments, a simultaneous end as a draw, items 35/48/50/51, builds (locked) and sweep | report |
