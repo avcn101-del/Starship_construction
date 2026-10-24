@@ -123,7 +123,11 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Runner, item 55: the helm suite, today and L1 | session_018CzG2efzqJLEh5utTmS1AX | sonnet-5-5 | 0.47 |
 | Runner, item 55: the helm suite base / L1 / P2, `regress` under P2 | session_01JEsqkpArJ9unCs6ng4gGCF | sonnet-5-5 | 0.39 |
 | Runner, item 55: the helm suite and `regress` under P3 | session_01S9x8RHyzN6aW5YiUmiYCVn | sonnet-5-5 | 0.36 |
-| Engineer, §17 item 55 (#335, §13n.9; branch `m0/helm55`; running) | session_011bat8qrcsUMVXEQ4MPu2Qi | opus-5-5 | — |
+| Engineer, §17 item 55 (#335, #339, §13n.9; PR #105, merged `da029d3`; two rounds) | session_011bat8qrcsUMVXEQ4MPu2Qi | opus-5-5 | 14.05 |
+| Physics checker, PR #105 K1–K3 (blind, partly: saw two criterion fragments by grep, disclosed; 0 blocking; its trigger refused at lineage depth 8) | session_019miu9xqavcWsHTbJDL89V9 | sonnet-5-5 | 0.88 |
+| Reviewer, PR #105 (0 blocking, 2 non-blocking; its trigger refused at lineage depth 8) | session_01BT4vDUMpSEphfNWJsVoywM | sonnet-5-5 | 0.92 |
+| Runner, `regress` on PR #105's merge (179 + 160 + 5) | session_01LZ6Y5jV6Y3KTdTs6BLBmVP | sonnet-5-5 | 0.54 |
+| Lead designer chat (2026-10-24, took over at item 55's review; cost at 241k tokens) | session_01VnsqF6AQX456h5ihxqZjh5 | opus-5-5 | 6.85 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -172,5 +176,6 @@ One row per pass under the plan gate (#241): the raw range the plan stated, wher
 | L5c (weapons, with two fix rounds) | 27–39 | #295, §13n.5 | 39.06 | 1.18 |
 | L5d (the helm and the enemy, with three fix rounds) | 33–47 (26–36 in #278, re-costed by the probe of #301) | #301, §13n.5 | ≥ 47.92 | ≥ 1.20 |
 | L5e1 (rules, builds, sweep, with one fix round) | 20–30 | #316, §13n.8 | ≥ 20.27 | ≥ 0.81 |
+| §17 item 55 (with K6, #339) | 11–17 (raw 9–14 × 1.24) | #335, §13n.9 | 16.39 (engineer 14.05, checker 0.88, reviewer 0.92, runner 0.54; the probe's runners 1.51 not counted) | 1.17 of the × 1.24 midpoint |
 
 Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).

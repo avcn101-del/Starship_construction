@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — §17 item 55 merged (PR #105)
+
+- PR #105 merged into `ld/pace` (`da029d3`): the helm's layers
+  (`js/pilot.js`, `js/navigator.js`), K1–K4 and **K6 `L4.helm.yield`**
+  (#339), fourteen re-targeted mutations, the loop's re-records; `regress`
+  on the merge 179 VERIFIED + 160 WITHDRAWN + 5 RETIRED. §13m: "The helm's
+  layers" proven; §17 item 55 closed; item 58 (a starved engine latches
+  the pilot's thrust; the yield clocks without `RES`) opened.
+
 ## Unreleased — 2026-10-24 — §17 item 55: the helm's layers and the broadside race (#333, #335)
 
 - `js/pilot.js` (new): the pilot takes a wanted heading and a throttle and

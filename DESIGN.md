@@ -1197,8 +1197,8 @@ sit in no plan again. Each plan updates this table in the same commit.
 
 | Element | Today | Proof | Status |
 |---|---|---|---|
-| Standing orders, 12 slots (#38): movement (range, position, style, dodging) | `js/helm.js` (#301, #302, #307) | `L4.helm.range`, `L4.helm.conflict`, `L4.helm.dodge`, `L4.helm.style`, `L4.helm.drift` | proven L5d |
-| The helm's layers: pilot (heading and throttle to RCS and engines; reports the ship's acceleration and turn), navigator (goals to heading and throttle), gunnery and systems (the owner, #333) | `js/helm.js` and `js/battle.js` today | — | planned L5 (item 55, §13n.9, #335) |
+| Standing orders, 12 slots (#38): movement (range, position, style, dodging) | `js/helm.js` (#301, #302, #307) | `L4.helm.range`, `L4.helm.conflict`, `L4.helm.dodge`, `L4.helm.style`, `L4.helm.drift`, `L4.helm.race` (#335) | proven L5d; race L5 (item 55) |
+| The helm's layers: pilot (heading and throttle to RCS and engines; reports the ship's acceleration and turn), navigator (goals to heading and throttle), gunnery and systems (the owner, #333) | `js/pilot.js`, `js/navigator.js`, `js/helm.js` (#335) | `L4.pilot.turn180`, `L4.pilot.thrust`, `L4.helm.race`, `L4.helm.yield` | proven L5 (item 55, PR #105) |
 | Standing orders: firepower (facing, firing style, open fire, target priority) | `js/helm.js` | `L4.helm.dodge`, `L4.orders.fire` | proven L5d |
 | Standing orders: energy (power and repair priority, heat discipline) | `js/helm.js`, `routePower`, `repairGrants` (#307) | `L2.power.flow` (priority), `L4.orders.energy`, `L4.orders.repair` | proven L5d |
 | Standing orders: emission (posture, auto-scan) | `js/helm.js` with `sensors.js` | `L4.enemy.decide`, `L4.orders.fire` | proven L5d |
@@ -1926,14 +1926,6 @@ Each line names its decision and when it is due; a closed one is removed.
     work and internal energy, but not a beam's escaped energy, which
     `fireBeam` only returns; a deposit into a missing room would not show.
     Due when `js/battle.js`'s books are next touched (L5e2 at the latest).
-55. **The broadside mirror race** (PR #104, the builds engineer; #331): from a
-    broadside opening both sides fly `position: bow` (#315's law), each
-    chases the point ahead of the other's bow, and they race side by side
-    (Lance mirror at 900 m: 449 m apart, 1354 m/s by 300 s, 0 hits; `node
-    tools/estimates/pace-e7.mjs --pairs Lance:Lance --ranges 900 --openings
-    broadside`). A spinal weapon never bears. The lead designer's two scratch
-    laws (yield the position while the other accelerates; give it up after
-    10–20 s without closing) do not cure it. A helm-law pass, probed first. **In the item 55 pass** (§13n.9, #335: the layers, P3).
 56. **Missiles fly pure pursuit** (PR #104): no lead, so a missile passes
     about 50 m behind a target accelerating at about 5 m/s² (Swarm mirror,
     600 m broadside, missile 1, t 8.9 s). A guidance-law question: not probed, so
@@ -1946,6 +1938,19 @@ Each line names its decision and when it is due; a closed one is removed.
     The design partner's candidate: a navigator that leads the other ship's
     motion (as gunnery's intercept) and caps the relative speed; judged on the
     suite. Due before L5e2's measures if the builds' tables show it.
+
+58. **A starved engine latches the pilot's thrust at 0** (PR #105, the
+    physics checker's H1 and the reviewer's finding 1; #335's rule as
+    written): the delivered fraction is refreshed only while the engine is
+    asked to thrust; once a starved engine reports 0, the navigator's
+    `able` is false and a range order under bow facing (or broadside
+    without dodging) never asks again, even after power returns. Not seen
+    in four natural battles; reproduced by injected state. Also the yield's
+    and the reset's clocks compare without `RES` (#308 (2)), so a yield can
+    land one step late (`L4.helm.yield` engages at step 60 to stay inside
+    ± 1). A pilot pass, probed first (count the suite's cells where it
+    trips; candidates: the fraction the router would give at full draw, or
+    a starved report that expires), before the builds are locked (#330).
 
 ## 18. Decisions in force
 
