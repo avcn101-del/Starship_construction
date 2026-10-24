@@ -1491,11 +1491,11 @@ export function shieldRound(world, round) {
         // The round's frame (round.frame, the body whose grid frame position, direction and `at` are in; default b) gives
         // its point and direction in the world, so every body books the same world line (L5e1: a generator on another
         // fragment than the hit body took the direction in its own frame, and the momentum book leaked).
-        // The round's speed is relative to the hull at its point (position): its velocity there is the books' u0; the
+        // The round's speed is relative to the hit body F's hull at its point (position, §17 item 53): its velocity there is the books' u0; the
         // impulse acts at Q, on its line (`at`).
         const F = (round.frame && world.ship.bodies.find((y) => y.id === round.frame)) || b, Q = worldPoint(F, round.at || round.position);
         const part = list.reduce((x, i) => x + paid[i], 0), m = round.mass * (part / total);
-        const hull = pointVelocity(b, worldPoint(F, round.position)), d = rotate(round.direction, F.theta);
+        const hull = pointVelocity(F, worldPoint(F, round.position)), d = rotate(round.direction, F.theta);
         const u0 = [hull[0] + round.velocity * d[0], hull[1] + round.velocity * d[1]], K0 = bodiesEnergy(world), Jsum = [0, 0];
         for (const i of list) {
           const share = impulse * (paid[i] / total), J = [share * d[0], share * d[1]];
