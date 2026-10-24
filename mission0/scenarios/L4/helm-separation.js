@@ -34,7 +34,7 @@ export default {
   tolerance: 'a floor (the minimum at or above it)',
   criterion: 'in every duel the minimum separation of the main bodies is at least 150 m (helm.rangeClose\'s lowest approved value / 2, read from js/data.js); the old law failed it in 4 of 5',
   tunable: ['helm.positionLead', 'helm.rangeClose', 'helm.rangeHold', 'helm.rangeOpen', 'helm.rangeBand'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'd48d2ab2' },
   cases() {
     return Object.keys(DUELS).map((duel) => ({ duel }));
   },
