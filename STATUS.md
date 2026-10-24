@@ -16,9 +16,9 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
 - **Done**: #326 (the plan checklist three items, lint check 10; the full mutation run only at a level's exit); `battle.openingRange` 500–3000 m, 174 VERIFIED.
 - **Next**: the pace study's grid (a runner); then the lead designer decides within approved ranges or asks you about E7 before L5e2.
-- **Waiting on you**: nothing.
+- **Waiting on you**: E7 after the pace study (A / B / C, put 2026-10-24 16:20 VN).
 - **Money**: this chat's sessions so far 0.72 USD (the openingRange runner); the pace runner running.
-- **Running**: runner `session_018bqyYRiZUXXkB8Znd3CZek` (the pace grid, `run/pace`); engineer `session_01CAL2Wwfpzq5LmqxiRWAdDK` (§17 item 53, `m0/item53`, PR to `ld/pace`; raw 3–6, × 1.24: 4–7 USD with checker and reviewer).
+- **Running**: PR #103 (§17 item 53 and the field's energy frame; engineer 6.00 USD, above the 4–7 expected for the whole) under the blind checker `session_012Y3cHk3UTBGdUTxEqxnWin` and reviewer `session_01AV1zutGsj1uUQQm6rgJuLk`. **Waiting on the owner**: the E7 question (A rung 1 / B rung 2, recommended / C change E7).
 
 Not built yet: a fix for §17 item 53 (a beam into a ship with no body crashes the kernel).
 
