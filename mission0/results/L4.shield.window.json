@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.shield.window",
-  "code": "1a8e71a",
+  "code": "5ee1bbb",
   "criterionHash": "963d673a",
   "lockedHash": "963d673a",
   "runHash": "1843643f",
-  "dataHash": "fee97350",
+  "dataHash": "394196fd",
   "rowsHash": "65f22cab",
   "rows": [
     {

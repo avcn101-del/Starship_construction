@@ -1,5 +1,38 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — an idea from the owner's discussion
+
+- `IDEAS.md` (the design partner): command level (watch, captain, hands-on;
+  rewind and branch in the dry run), with verb leverage and the battle's
+  shape measured on `main` `ca57372`; nothing built.
+
+## Unreleased — 2026-10-24 — L5e1: the rules and the tools before ship versus ship (#315, #316)
+
+- `js/helm.js`: the position law (`helm.positionLead`, 60°): the wanted point
+  rides the circle of R* (#315); the repair slot refuses anything but `none`
+  or a list of room types; the `1e-9` margins named float resolution; a
+  `heatResponse` override (the sweep's).
+- `js/battle.js`: the engine's plume (`engine.plumeHalfAngle`, 30°; fittings
+  only, `fitting-ruined`); a simultaneous end is a draw (`draw`); a missile's
+  body meets a charged field as a round (§17 item 48); a static attacker may
+  hold `attackerHeading`; a magazine `load: { size }`.
+- `js/rooms.js`: reactor containment first in the repair grants (#37); a
+  field's impulse on the round's line of action, in the hit body's frame
+  (§17 item 35; the frame fixes a momentum leak on fragments); no
+  `cell-damaged` / `plate-damaged` without a change of integrity (§17 item
+  51); `burnFitting`. `js/sensors.js`: a ruined panel or antenna works no more.
+- `mission0/builds.js` (R2, Lance, Swarm, Furnace; Brick, Glass, Porcupine,
+  Fortress, Engine boat, Cold Brick), `tools/sweep.mjs`,
+  `mission0/probes/l5e1-j5.mjs`; J1–J13 and the successors; `tools/mutations.json`
+  (`l5e1.*`, seven entries re-anchored).
+- Fix round (PR #101's review, the physics checker, the lead designer's
+  answer 3): `js/battle.js` the plume's occlusion (a fitting behind its own
+  hull is shadowed); `L4.engine.plume.shadow`; successors
+  `L4.engine.plume.v2`, `L2.missile.field.v2`, `L4.books.field.v2`,
+  `L4.sweep.determinism.v2` (their originals withdrawn, frozen);
+  `tools/mutations.json` `l5e1.plume.noShadow`, `.shadowTouch`, `.noCone`
+  re-anchored.
+
 ## Unreleased — 2026-10-24 — L5e1 planned (#316)
 
 - `DESIGN.md` §13n.8 (L5e1: rules, J1–J13, cost, checklist), §13m's rows;

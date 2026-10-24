@@ -1,0 +1,107 @@
+{
+  "id": "L4.end.simultaneous",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.end.simultaneous",
+  "code": "7840cb9",
+  "criterionHash": "76c73e11",
+  "lockedHash": "76c73e11",
+  "runHash": "49d1d610",
+  "dataHash": "394196fd",
+  "rowsHash": "3cf762e2",
+  "rows": [
+    {
+      "case": {
+        "name": "mirror"
+      },
+      "expected": {
+        "kind": "draw",
+        "step": 1613
+      },
+      "actual": {
+        "ended": {
+          "kind": "draw",
+          "step": 1613,
+          "side": "A,T",
+          "sides": [
+            "A",
+            "T"
+          ],
+          "ends": {
+            "A": "destroyed",
+            "T": "destroyed"
+          }
+        },
+        "sides": [
+          {
+            "kind": "destroyed",
+            "step": 1613,
+            "event": "A143"
+          },
+          {
+            "kind": "destroyed",
+            "step": 1613,
+            "event": "T143"
+          }
+        ],
+        "draws": [
+          [
+            {
+              "parent": "A143",
+              "other": "destroyed"
+            }
+          ],
+          [
+            {
+              "parent": "T143",
+              "other": "destroyed"
+            }
+          ]
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "one-sided"
+      },
+      "expected": {
+        "kind": "not a draw"
+      },
+      "actual": {
+        "ended": {
+          "kind": "destroyed",
+          "step": 1505,
+          "side": "T",
+          "sides": null,
+          "ends": null
+        },
+        "sides": [
+          null,
+          {
+            "kind": "destroyed",
+            "step": 1505,
+            "event": "T145"
+          }
+        ],
+        "draws": [
+          [],
+          []
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

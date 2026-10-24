@@ -1,0 +1,106 @@
+{
+  "id": "L4.events.change",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.events.change",
+  "code": "5ee1bbb",
+  "criterionHash": "5700910b",
+  "lockedHash": "5700910b",
+  "runHash": "13bd4bf7",
+  "dataHash": "394196fd",
+  "rowsHash": "64a395ce",
+  "rows": [
+    {
+      "case": {
+        "from": 1,
+        "loss": 1e-17
+      },
+      "expected": {
+        "after": 1,
+        "events": [],
+        "literal": 1
+      },
+      "actual": {
+        "before": 1,
+        "after": 1,
+        "events": [],
+        "integrity": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "from": 0.9999999999999999,
+        "loss": 1e-17
+      },
+      "expected": {
+        "after": 0.9999999999999999,
+        "events": [],
+        "literal": 0.9999999999999999
+      },
+      "actual": {
+        "before": 0.9999999999999999,
+        "after": 0.9999999999999999,
+        "events": [],
+        "integrity": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "from": 1,
+        "loss": 0
+      },
+      "expected": {
+        "after": 1,
+        "events": [],
+        "literal": 1
+      },
+      "actual": {
+        "before": 1,
+        "after": 1,
+        "events": [],
+        "integrity": []
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "from": 1,
+        "loss": 0.001
+      },
+      "expected": {
+        "after": 0.999,
+        "events": [
+          "cell-damaged"
+        ],
+        "literal": 0.999
+      },
+      "actual": {
+        "before": 1,
+        "after": 0.999,
+        "events": [
+          "cell-damaged"
+        ],
+        "integrity": [
+          0.999
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

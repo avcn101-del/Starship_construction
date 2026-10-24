@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.sensor.shield.v2",
-  "code": "f7833b3",
+  "code": "5ee1bbb",
   "criterionHash": "54caeaef",
   "lockedHash": "54caeaef",
   "runHash": "4e11384f",
-  "dataHash": "fee97350",
+  "dataHash": "394196fd",
   "rowsHash": "4e67a747",
   "rows": [
     {

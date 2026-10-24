@@ -1,0 +1,147 @@
+{
+  "id": "L2.repair.containment",
+  "level": "L2",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L2.repair.containment",
+  "code": "5ee1bbb",
+  "criterionHash": "4e598892",
+  "lockedHash": "4e598892",
+  "runHash": "4e582997",
+  "dataHash": "394196fd",
+  "rowsHash": "81796804",
+  "rows": [
+    {
+      "case": {
+        "name": "turret first",
+        "order": [
+          "turret"
+        ],
+        "hurt": [
+          "reactor",
+          "turret"
+        ]
+      },
+      "expected": {
+        "R": 200,
+        "q": {
+          "reactor": 155.67567567567565,
+          "turret": 44.32432432432435
+        },
+        "gain": {
+          "reactor": 0.000017297297297297295,
+          "turret": 0.0001484901987414551
+        },
+        "literal": {
+          "reactor": 155.676,
+          "turret": 44.324
+        }
+      },
+      "actual": {
+        "budget": 200,
+        "power": 1,
+        "before": {
+          "reactor": 0.5,
+          "turret": 0.5
+        },
+        "gain": {
+          "reactor": 0.000017297297297269587,
+          "turret": 0.00014849019874141334
+        },
+        "others": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "none",
+        "order": null,
+        "hurt": [
+          "reactor",
+          "turret"
+        ]
+      },
+      "expected": {
+        "R": 200,
+        "q": {
+          "reactor": 155.67567567567565,
+          "turret": 44.32432432432435
+        },
+        "gain": {
+          "reactor": 0.000017297297297297295,
+          "turret": 0.0001484901987414551
+        },
+        "literal": {
+          "reactor": 155.676,
+          "turret": 44.324
+        }
+      },
+      "actual": {
+        "budget": 200,
+        "power": 1,
+        "before": {
+          "reactor": 0.5,
+          "turret": 0.5
+        },
+        "gain": {
+          "reactor": 0.000017297297297269587,
+          "turret": 0.00014849019874141334
+        },
+        "others": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "control",
+        "order": [
+          "turret"
+        ],
+        "hurt": [
+          "turret"
+        ]
+      },
+      "expected": {
+        "R": 200,
+        "q": {
+          "reactor": 0,
+          "turret": 170.41420118343194
+        },
+        "gain": {
+          "reactor": 0,
+          "turret": 0.0005709018465106598
+        },
+        "literal": {
+          "reactor": 155.676,
+          "turret": 170.414
+        }
+      },
+      "actual": {
+        "budget": 200,
+        "power": 1,
+        "before": {
+          "reactor": 1,
+          "turret": 0.5
+        },
+        "gain": {
+          "reactor": 0,
+          "turret": 0.0005709018465106519
+        },
+        "others": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

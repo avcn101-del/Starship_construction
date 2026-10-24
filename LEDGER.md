@@ -106,6 +106,13 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, deterministic transcendentals (#310, #311; `m0/det-math` `f2318c9`, PR #97; notified by trigger) | session_01Wvk2oq2CyopWPzKgNQJYss | opus-5-5 | 4.22 |
 | Reviewer, PR #97 (0 blocking, 5 non-blocking; notified by trigger) | session_0185K3jWeLwLK3XyEXU5UdcG | sonnet-5-5 | 0.82 |
 | Reviewer, PR #96 (0 blocking, 3 non-blocking; notified by trigger) | session_017U1vtCixpnBCJdGe9ZpXVv | sonnet-5-5 | 0.61 |
+| Auditor, process audit (#321; `audits/2026-10-24-process.md`; notified by trigger) | session_01T8f36eKFqDZPBk5qHurPue | sonnet-5-5 | 1.57 |
+| Engineer, L5e1 (#316, #317; `m0/l5e1` `e05a02b`, PR #101; worker restarted, cost may be low; notified by trigger) | session_01V1bdgeUjyqM9R6N6q37PRq | opus-5-5 | ≥ 5.99 |
+| Physics checker, L5e1 (blind; J3, J7–J9, the fragment fix; 0 blocking; notified by trigger) | session_016YzrysyeMRVpYwMSqxpcaB | sonnet-5-5 | 1.16 |
+| Reviewer, L5e1 (0 blocking, 4 non-blocking; notified by trigger) | session_011iShUBNoNDPRAPSbCDfCXd | sonnet-5-5 | 0.98 |
+| Engineer, L5e1 fix round (plume occlusion, the two survivors, weak checks; `7a4fe57`; notified by trigger) | session_01JusqyribLxSy75GET9Ye7e | opus-5-5 | 10.43 |
+| Physics checker, L5e1 fix round (plume occlusion; 0 blocking; not fully blind, disclosed; notified by trigger) | session_01EayNPAnem7QdoxibT8h6Ga | sonnet-5-5 | 0.98 |
+| Reviewer, L5e1 fix round (light; no finding; notified by trigger) | session_01FE4deyhxBY2ggmvGVdHCx5 | sonnet-5-5 | 0.73 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -134,6 +141,8 @@ L5d total: ≥ 47.92 USD (engineer 29.39, fix rounds 13.24, physics checkers 1.4
 
 The lead designer chat's own cost (planning, answers, checks, merges) is **not in this ledger** (#270 (7)): only the sessions it creates are costed.
 
+**From process v2 (#325) the lead designer chats are costed here too**, one row per chat (`get_session` `cost_usd`; the chain in `STATUS.md`): `session_01Ld11QmhkPubc8PkfKtd7CT` 43.0, `session_014nrUDvPgiLEjm64scJFkyW` 104.2, `session_01VL5M5dKNeREUVf7y1y3P87` 64.6, `session_01DFw3o4EBEtf1adcpyJ5786` 67.2, `session_01S8gXf1kch2FCFHYE8nwhrn` 91.3 (the figures the owner was given, 2026-10-24, not re-read by this chat), `session_01Bt5RVRLCv85dFpXLq4qB5W` **26.64** at its hand-over (read by itself, 2026-10-24 07:35 UTC).
+
 ## Estimates against actuals (#270 (1))
 
 One row per pass under the plan gate (#241): the raw range the plan stated, where it is recorded, the actual from the table above and the ratio of the actual to the raw midpoint. #246 (4)'s factors (×2.5 repeated, ×4 new) are shown to the owner beside the lead designer's own expectation (#270 (2)); the factor is reconsidered only when three consecutive rows land within 1.5×.
@@ -151,5 +160,6 @@ One row per pass under the plan gate (#241): the raw range the plan stated, wher
 | L5b (senses and the knowledge model) | 15–21 | #278, §13n.5 (the probe of #289 confirmed it) | 11.62 | 0.65 |
 | L5c (weapons, with two fix rounds) | 27–39 | #295, §13n.5 | 39.06 | 1.18 |
 | L5d (the helm and the enemy, with three fix rounds) | 33–47 (26–36 in #278, re-costed by the probe of #301) | #301, §13n.5 | ≥ 47.92 | ≥ 1.20 |
+| L5e1 (rules, builds, sweep, with one fix round) | 20–30 | #316, §13n.8 | ≥ 20.27 | ≥ 0.81 |
 
 Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).

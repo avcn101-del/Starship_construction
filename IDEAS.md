@@ -22,6 +22,8 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
 | [The battle screen: outside view and knowledge panel](#the-battle-screen-outside-view-and-knowledge-panel) | information (on screen) | – · – · yes · yes | the owner's feel on the phone | waiting |
 | [The hull radiates, fed by cooling manifolds](#the-hull-radiates-fed-by-cooling-manifolds) | throughput, dependency, information | yes · yes · yes · yes | share of L5e battles in which a side reaches plant hot, with and without the heat-sink cascade | waiting |
 | [A thin skin over the rooms, with cosmetic paint](#a-thin-skin-over-the-rooms-with-cosmetic-paint) | information | yes · – · yes · yes | the owner's feel on the phone; the cost of three kernel rules | waiting |
+| [Command level: watch, captain, hands-on](#command-level-watch-captain-hands-on) | not claimed (a way to play, not a law) | – · yes · yes · yes | verb leverage (the share of battles a player verb flips) and the battle's shape (quiet share, hits to kill), then the owner's feel on the phone | waiting |
+| [Ship classes: roles, forms and factions](#ship-classes-roles-forms-and-factions) | dependency, throughput, information (one per faction) | yes · yes · yes · yes | E6 against ships two classes larger (proposed) | waiting |
 | [Blast resistance from mass](#not-yet-worked) | not stated | not checked | not stated | waiting (#232, `DESIGN.md` §13i.1) |
 | [Tumble and sloped armour](#not-yet-worked) | not stated | not checked | not stated | waiting (#230) |
 | [Plasma toroid gun (MARAUDER)](#not-yet-worked) | not stated | not checked | not stated | waiting |
@@ -350,6 +352,192 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
   delegated); the lead designer's estimate of the three kernel rules' cost.
 - **Links.** #15, #23, #45, #46, #48, #141, #256; the battle screen (outside
   view and knowledge panel); the hull radiates (cooling manifolds).
+
+### Command level: watch, captain, hands-on
+
+*From the owner's discussion, 2026-10-24.*
+
+- **Problem it answers.** The owner wants to choose how involved to be:
+  sometimes to watch his own ship fight on its orders, sometimes to command
+  closely; and wants the feel of *The Expanse* and *Firefly*: tension and
+  drama, "not two ships duking it out to the death; sometimes one volley ends
+  it". Both are captains who give orders while a pilot flies, which is #2
+  (the player never steers).
+- **Mechanism.** One setting, three levels, all on the player's own ship.
+  (1) **Watch**: the player's ship fights on its standing orders while an
+  automatic captain switches its presets and scans; that captain is
+  `js/enemy.js` run for the player's side with a personality the player
+  sets (the kernel already runs both sides as enemies: #315's probe); the
+  player may pause, speed up, and take command at any moment by using a
+  verb. (2) **Captain**: today's three verbs (#2). (3) **Hands-on**: a few
+  more orders, each an existing standing-order slot made a live order
+  (flip and burn = the range slot, launch a salvo = the firing slot, hold
+  fire = heat discipline, repair here = the repair slot); this moves a
+  decision's owner in the coverage table (§8, #36). And (4) **rewind and
+  branch** in the dry run (#56) only, never in the campaign: the kernel is
+  deterministic (E2; `tools/duel.js --seed --inputs` replays a battle), so a
+  replay stopped at a moment can be continued with a different verb, the
+  "try it and learn why" the owner enjoys.
+- **Numbers.** `main` `ca57372`, R1d-A against R1d-A in `tools/duel.js`
+  (player Fire, enemy 0.5 unless stated); scratch scripts over
+  `createDuel`, `tick` and `battle.hits` / `battle.ended`, not committed, not
+  re-run by anyone else.
+  - **Verb leverage today** (one verb at t = 0, 26 variants per setup: target
+    each of the 10 rooms, scan each of the 6 zones, scan + target the
+    magazine, preset Evade / Cool, Evade at 10 s): default, 8 of 26 keep the
+    win and 18 lose it; `--personality 0.5,0,0.5,0.5` only 3 of 26 change
+    the result (a scan of zone 2 wins); `--personality 1,0,0.5,0.5` the
+    results spread widely (win or loss, destroyed, surrender or Disabled,
+    25–316 s); `--range 1500` only the presets change it, both to a loss.
+    In 3 of 4 setups the best play is **no verb**, and Evade loses 4 of 4:
+    today Watch would beat Captain.
+  - **The battle's shape** (13 duels: the default; `--personality`
+    1,0,.5,.5 / 0,0,.5,.5 / .5,0,.5,.5 / .5,1,.5,.5 / .5,.5,1,.5 / .5,.5,0,1;
+    `--range` 600 / 1500 / 2500; `--wildcard --seed` 2, 3, 5): today a
+    median of 58 s, the first hit on the losing ship at 1–3 s, 12–52 hits to
+    kill (median 29), 10 of 13 ended by an explosion: a slugfest from the
+    first second with a sudden end. `--set kinetic.hitsToWreck=8`: a median
+    of 155 s but 24–144 hits to kill (median 62): longer by toughness, more
+    of a slugfest. #315's position law (re-implemented in a scratch copy of
+    `js/helm.js`, its five minimum separations reproduced exactly): a
+    median of 41 s; its four long duels (307–323 s at 17–21 % hits) fizzle
+    to a surrender with no hit in their last 10 s. **From 2500 m under
+    #315's law: the first hit at 31 s of 74 s, 23 hits, an explosion**: the
+    shape the owner describes comes from the approach.
+  - Rate of fire is in the kernel already (`js/data.js`: the M turret 0.5 /s,
+    the railgun 0.1 /s, kinetic point defence 2 /s, AP slower by
+    `rounds.apLength`); a real 76 mm naval gun with a shell of about 6 kg
+    fires 80–120 rounds a minute (from memory, not checked), so 30 a minute
+    is slow, and a faster gun would shorten battles.
+- **Gates claimed, not measured.** No law (a way to play). Underdog: a
+  moment where the player's judgement wins (the time-window path) needs
+  verbs with positive leverage. Readable: one setting; Watch needs no new
+  screen. Reuses: `enemy.js` for the player's side, the existing slots, the
+  deterministic replay.
+- **Alternatives weighed in the discussion.** More verbs only (more taps on
+  a phone in landscape, a 3–6 minute battle in real time: Hands-on needs
+  pause or slow motion); watching AI-only battles without the player's ship
+  (the owner: his own ship); rewind in the campaign (cheating: dry run only).
+- **Risks and what it touches.** The levels must not be ranked: if Watch
+  wins (as the numbers above show today), commanding is pointless; if
+  Hands-on wins by far, Watch is a trap; verbs need positive but bounded
+  leverage. Hands-on changes the coverage table (§8, #36) and comes close to
+  #2 (orders, never a stick): the owner's call. E5–E6 assume the player's
+  side plays its standing orders; with Watch the reference player is an
+  automatic captain, which the sweep already is. For the shape: E7 measures
+  only the median length; the owner's taste is tension then a decisive
+  volley, so levers that add toughness (`kinetic.hitsToWreck`) go the wrong
+  way, and levers that lengthen the quiet phase (opening range, relative
+  motion, point defence, scan time) the right one; `battle.cullDistance`
+  (3000 m, also #293's escape threshold) caps the opening range: the lead
+  designer's.
+- **The measure that decides.** In the pace study and L5e2: (a) verb
+  leverage, the share of battles in which a player verb flips the result,
+  and the decisions available per battle; (b) the battle's shape beside
+  E7's median: the first hit on the losing ship as a share of the battle,
+  the hits needed to kill, how it ends; then (c) the owner's feel on the
+  phone in Watch and Captain. Thresholds are the lead designer's.
+- **Links.** #2, #36, #56, #117 (personality), #130 (the feel unverified
+  until after L5), #293, #297, #315, #317 (§17 item 52); the presets by
+  archetype above; E2, E7.
+
+### Ship classes: roles, forms and factions
+
+*From the owner's discussion, 2026-10-24.*
+
+- **Problem it answers.** What each of the six classes (#61, `DESIGN.md`
+  §5.4) is for, and which hull forms serve which way of playing, with
+  variety. Inspiration mixed from EVE (a role per class, specialised
+  variants, a silhouette that tells class and role), The Expanse (hard
+  physics: acceleration as a weapon, point defence against missile salvos,
+  spinal railguns, utilitarian hulls) and Firefly (lived-in, patched,
+  smuggling, a crew as a family); no name or term taken from any of them
+  (#161).
+- **The owner's direction in the discussion** (for the lead designer to log
+  as the owner's): keep the six classes; the player can rise to a capital;
+  the underdog beats a ship up to **two classes** larger; hull forms come
+  both as faction families and from free building.
+- **Mechanism.**
+  - Roles, a proposal: T1 Corvette, the poor privateer's start, lives by
+    dodging, scanning first and running (forms: courier, gunboat, picket);
+    T2 Frigate, the privateer's workhorse, fast enough to dodge and armed
+    enough to hurt a destroyer (hunter, escort heavy with point defence,
+    tramp freighter); T3 Destroyer, the first class with a long spinal,
+    hunts small ships (lance, torpedo boat, a screen against corvettes);
+    T4 Cruiser, the independent all-rounder of the middle game (line,
+    sensor, raider); T5 Battleship, armour and firepower, cannot dodge,
+    many dependency chains (fortress, broadside line, furnace); T6 Capital,
+    the campaign's set pieces and the player's last step (dreadnought, a
+    mobile base; carriers after Mission 0, #104–#110).
+  - Faction families, one per core law (#118, #119): dependency in compact
+    forms with deep rooms (disc, fortress); throughput in hot forms with a
+    large plant far from the crew (dumbbell, furnace; the skin's manifolds
+    glow); information in slender, cold forms (lance, slender). The same
+    family from corvette to capital, so a silhouette tells the faction and
+    the law, and so the underdog path to try. The named ships (#29) fit the
+    families.
+  - The player: free building as the shipyard already allows (#56, #59
+    mirror), the skin generated around the layout (the thin-skin section, after
+    Mission 0 by #313; an algorithm still to design). Capturing a faction's ship intact unlocks
+    its form templates and livery, as the first intact room unlocks its type
+    (#33), so the privateer's hull becomes a patchwork of the liveries it
+    took (cosmetic only, C4).
+  - A form gives no stat (#122): forms differ only by physics (inertia,
+    rooms exposed, radiating area, bow-on width).
+- **Numbers.** Kernel: R1's layout built at every tier with `buildShip` and
+  `readout` (`ld/l5d`); the rest by scratch scripts, not committed, not
+  re-run.
+  - R1 by class: T1 55×30 m, 911 t, 1.68 g; T2 83×45 m, 3033 t, 1.13 g; T3
+    110×60 m, 7145 t, 0.86 g; T4 165×90 m, 23 981 t, 0.57 g; T5 220×120 m,
+    56 699 t, 0.43 g; T6 330×180 m, 190 902 t, 0.29 g (mass by edge³, thrust
+    by edge²).
+  - Distance moved during a round's flight across 900 m at 800 m/s (1.1 s):
+    10.4 / 7.0 / 5.4 / 3.5 / 2.7 / 1.8 m from T1 to T6: a corvette leaves
+    about two of its cells, a capital stays put. Within one class the
+    opening range scales with the cell (`battle.openingRange`, k = 1), so
+    the dodge in cells is the same at every tier; the gap shows only
+    between classes.
+  - Six forms of 44 cells each, uniform mass per cell (a relative
+    comparison only: it gives the slender layout 328e6 kg·m² where the
+    kernel gives 146e6), as length × width, bow-on width, a rough 90° turn
+    on 1 MN couples, hull-edge area and cells with no hull edge: lance
+    110×10 m, 10 m, 5.1 s, 1200 m², 0; slender 70×20, 20, 3.8, 900, 18;
+    wedge 60×30, 30, 3.9, 900, 16; disc 40×35, 35, 3.6, 750, 26; catamaran
+    50×30, 30, 4.1, 1200, 4 (the link between its hulls is a choke point);
+    dumbbell 75×20, 20, 4.8, 1050, 10.
+  - Against one 0.2 m plate of the target's class (`penetrateRound`): an M
+    round at 800 m/s stops at every gap (65 % of the plate's resistance at
+    the same class, 43–48 % one class up, 32 % two up); a railgun slug at
+    2000 m/s passes at the same class (48 % of its momentum left), one class
+    up passes when the cell ratio is 0.75 (T2→T3, T4→T5: 30 % left) and is
+    wrecked at 0.67 (T1→T2, T3→T4, T5→T6), two classes up it stops (96 %).
+    A capital's plated walls are proof against a ship two classes smaller.
+  - Plates are heavy: R1c's 8 plates are 314 t, a third of R1's own 911 t,
+    at every class, so a big ship can plate few walls.
+- **Gates claimed, not measured.** Each faction serves its core law; the
+  underdog path is the point (two classes up, by the paths below); readable
+  (silhouette tells class, faction and law); reuses the kernel's models (no
+  stat per form or faction).
+- **Alternatives weighed in the discussion.** Fewer classes; a capital as a
+  boss only; an underdog gap of one class. The owner chose six classes, a
+  playable capital and two classes.
+- **Risks and what it touches.** Two classes up cannot be a gunfight: the
+  winning paths must be the unplated walls found by scanning, HE on fittings
+  (#96: the corvette's answer to a capital), heat through the manifolds and
+  the heat sink, EMP missiles, the time window and attrition; whether they
+  win needs a measure (E6, in L5e2 by #315), the lead designer's. A playable capital
+  touches the drydock tiers' economy (#72, #87), E8 at T6 (L6) and the
+  battle screen at mixed classes (at 0.72 px/m a corvette is 40 px beside a
+  capital's 238). Escape and surrender exist since L5d; forms that need
+  what is not built: mines (an idea above), jammers, decoys, carriers and a
+  cargo economy (after Mission 0).
+- **The measure that decides.** Proposed: E6 extended to ships two classes
+  larger, the intended underdog answer winning at least 3 of 4 variants as
+  the named-ship rule asks (`DESIGN.md` §2); the faction families and the
+  look by the owner's feel on the phone.
+- **Links.** #29, #33, #56, #59, #61, #62, #64, #72, #77, #87, #96, #104,
+  #118, #119, #122, #161; the thin skin (hull forms, the skin around free
+  layouts).
 
 ## Not yet worked
 

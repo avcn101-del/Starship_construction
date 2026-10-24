@@ -1,219 +1,51 @@
-# STATUS — hand-over between chats (#179)
+# STATUS — hand-over between chats (#179; process v2, #325)
 
-Updated 2026-10-23 by the lead designer chat
-`session_01S8gXf1kch2FCFHYE8nwhrn` at **L5d's merge**, handing over to a new
-lead designer chat by the owner's standing instruction (#247 (2)); **the new
-chat writes its own id here first thing**. Chain:
-`session_01Ld11QmhkPubc8PkfKtd7CT` → `session_014nrUDvPgiLEjm64scJFkyW` →
-`session_01VL5M5dKNeREUVf7y1y3P87` → `session_01DFw3o4EBEtf1adcpyJ5786` →
-`session_01S8gXf1kch2FCFHYE8nwhrn` → **`session_01Bt5RVRLCv85dFpXLq4qB5W`**
-(the current lead designer chat, took over 2026-10-23 at L5d's merge;
-sessions notify it with `persistent_session_id` = this id). Read this first, then `CLAUDE.md`,
-`DESIGN.md` and the newest rows of `DECISIONS.md`.
+Updated 2026-10-24 by the lead designer chat `session_01Bt5RVRLCv85dFpXLq4qB5W`
+at **L5e1's merge**, handing over (#322 (4)). **The new chat writes its own id
+here first thing.** Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
+`session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
+`session_01DFw3o4EBEtf1adcpyJ5786` → `session_01S8gXf1kch2FCFHYE8nwhrn` →
+`session_01Bt5RVRLCv85dFpXLq4qB5W` → the new chat (sessions notify it with
+`persistent_session_id` = its id).
 
-## For the owner (five lines, kept at every block, #246 (5))
+**Reading order (#325)**: this file, `BRIEF.md`, `CLAUDE.md`,
+`.claude/agents/lead-designer.md`, `DESIGN.md` §18 and the plan in force
+(§13n, §13n.8, §17 item 52); `audits/2026-10-24-process.md` §1; everything
+else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
-- **Merged**: prototype v2 (#239), the audits block (#240–#244), the
-  consolidation (#242), physics pass 2 (#243–#251), `tools/mutate` (#257),
-  L4a (PR #58, #253–#258, #260), **L4b (PR #62, #261–#264, #267): L4 is
-  done** (every capture route reaches Disabled; the cascade tree; E8
-  0.15–0.29 ms per step), the audits' answers (#270), **the L4 fix round
-  (PR #64, #272: the two-ship momentum book closes at 5e-15)**, **L5a the kinetic pass (PR #73, #278, #282, #283)**: a passed cell loses by its chord, a magazine detonates when a round enters it at 400 m/s or more, its explosion is a blast (on R1 it wrecks the reactor, which ends the ship), one magazine per weapon type, unmanned rooms, the two-ship energy and angular books. **L5m the turret by its mount (PR #78, #285–#287)**: an M turret weighs 19.9 t (a 7.9 t gun mount), an M round passes it; mission kill is shown on R1d, overheat through R1's bridge. **L5b the senses and the knowledge model (PR #84, #289, #290)**: `js/sensors.js`, the antenna fitting, passive IR/EM at d⁻², zones scanned at d⁴ revealing their own cells, one knowledge model per side as a battle setting; S1–S9 all PASS, every literal reproduced blind. **L5c weapons (PR #88, #295, #296, #298, #299)**: the railgun, missiles with seekers and warheads (EMP by section), point defence with a range, the round types with their prices, the firing window, S footprints; 39.06 USD. **L5d the helm and the enemy (PR #94, #301–#309)**: the symmetric loop, `js/helm.js` (twelve standing orders, presets, range, style, the lead, surrender, escape), `js/enemy.js` (personality, wildcard draw, surrender, disengage), `tools/play.mjs` and `tools/duel.js`; H1–H20; ≥ 47.92 USD.
-- **Running**: nothing. The full mutation run on L5d's merge is done (#314: 269 mutations, 221 KILLED, 12 CHANGED, 36 SURVIVED, 0 STALE, no new survivor). Merged this block: PR #97 (det-math, #311, 5.04 USD) and **PR #96, the prototype page on the L5d loop (#312, 7.45 USD)**; the thin-skin idea's kernel rules wait until after Mission 0 (#313).
-- **Waiting on you**: nothing. The prototype page is republished (artifact version 7, feel-6 on `main` `05de656`, 2026-10-24 ~05:00 Vietnam time, on the owner's "Tiếp tục" after two refusals by the auto-mode classifier). Veto window on #253, #256, #258–#263, #265, #267 (its cost-factor clause is withdrawn by #270), #270–#272, #278, #280–#299, #301–#312.
-- **Money**: L5a 23.54 USD (ratio 1.74 on raw), L5m 15.09 (1.21), L5b 11.62 (0.65), L5c 39.06 (1.18), **L5d ≥ 47.92 (≥ 1.20)**: L5 so far ≥ 137.23. 2026-10-21/23 in all about 304 USD of sessions (the lead designer chats' own cost is not counted, #270 (7)).
-- **Money (before L5)**: 2026-10-21/22 about 150 USD (v2 13.85, audits 25.40,
-  consolidation 4.12, pass 2 42.93, mutate 7.91, L4a ≥ 17.57, L4b 23.98,
-  audits before L5 6.91, L4 fix 6.83, hygiene 15.89), about 166 in all.
-  L4 in all ≥ 64.27 (#191: past 40).
-- **Next**: (1) the full mutation run on L5d's merge and its row; (2) **the prototype page on the L5d kernel** (#301 (5), option A approved: an engineer session `proto/l5d`, a reviewer, the lead designer's republish with the Artifact tool; expected 6–8 USD); (3) **L5e's plan** (ship versus ship, E5–E7, the plume, the Cold Brick #305, the rows #309 moved, §17 items 35, 43, 48–50), under the plan gate with a probe and a frame to you on its cost.
-- **Pace (information, §17 item 49)**: on the L5d loop R1d-A duels end in 23–107 s (25.08 s with Fire's defaults at 900 m, 20 hits of 20), against E7's 3–6 minutes: an L5e question, and what the owner will see first on the prototype page.
-- **Not built yet** (§13m, #275; what the kernel cannot do, so you are not
-  surprised by a prototype): ship versus ship measured (E5–E7, L5e), the
-  plume (L5e), the automatic rules *reactor containment first* and *dark
-  fragments* (moved to L5e by #309), the economy, the campaign, sound and
-  rendering. The helm, the enemy, standing orders, presets, escape and
-  surrender exist in the kernel since L5d. The prototype page is still
-  **version 6 on the L5c kernel** with the fixed script; step (2) above
-  rebuilds it on the L5d kernel with an enemy that decides.
-- **Owner chose** #261 (R1d the pace lever) and #252 (L4: one target per route; EMP and surrender at L5).
-  The owner played v2: the magazine always wins in 7.1 s (#254). Pace
-  study done: a 0.2 m citadel gives broadside 224–289 s, mostly captures.
-  The owner chose armour on walls and Disabled without thrust (#255);
-  plates on walls only, not decks (#256).
+## For the owner (five lines)
 
-## Where we are
-
-- Design settled: `DECISIONS.md` #1–#309, current design in `DESIGN.md`,
-  decisions in force in its §18, open obligations in its §17.
-- **Mission 0 L0–L4 are merged, and L5a, L5m, L5b, L5c and L5d of L5**.
-  `regress` on L5d's merge: 161 VERIFIED + 145 WITHDRAWN + 5 RETIRED; after `m0/det-math` (#311): **161 VERIFIED + 146 WITHDRAWN + 5 RETIRED**.
-- The feel prototype (`proto/`, throwaway, #217) runs on the L5c kernel at
-  https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d (version 6, `main`
-  `c1b2c4a`; the page's own label still says feel-5): R1d by
-  default, the cascade tree on the end panel; the enemy is a fixed script,
-  not an AI (§13j.2), so the player wins by throughput; the owner's phone
-  replays MATCH (#263).
-- **What L5 must build before any ship-versus-ship measure** (#265, #266,
-  #268): `sensors.js` and the knowledge model; missiles, point defence and
-  the railgun as room physics; the enemy of DESIGN §9; the kinetic-damage
-  pass (§17 item 34) and R1d in one pace study; room size S decided (item
-  30).
-- Approval tiers (#180, #191): the owner decides direction; the lead
-  designer decides and records everything technical (*LD* rows); 20 USD
-  of sessions per level is a soft guideline, a level past about 40 USD is
-  mentioned; cost estimates carry the factors of #246 (4) (×2.5, ×4 for
-  a new kind of work; #267's change withdrawn by #270), shown beside the
-  lead designer's own expectation, with the ratio table in `LEDGER.md`.
-- Roles (#167, #247): lead designer, engineer (opus), reviewer and physics
-  checker (sonnet), auditor (sonnet), the owner's design partner.
+- **Done**: L5e1 merged (#324): the position law, the plume with occlusion, containment first, dark fragments, a draw for a simultaneous end, the builds (locked) and the sweep; 174 VERIFIED.
+- **Next**: the pace study on the locked builds (a runner; the battle's shape, #318; verb leverage, #319); a stop point before L5e2.
+- **Waiting on you**: two process items of #325 (the plan checklist; the full mutation run only at a level's exit).
+- **Money**: L5e1 ≥ 20.27 USD (raw 20–30); this chat's block (2026-10-23/24) 34.33 USD of sessions (the page 7.45, det-math 5.04, the audit 1.57, L5e1 20.27) plus this chat's 26.64.
+- **Running**: nothing.
 
 ## Open pull requests
 
-| PR | Branch | State |
-|---|---|---|
-| — | — | none: PR #94 (L5d) merged with the lead designer's documentation pull request from `ld/l5d` |
-
-The audits block (#240–#244 and the consolidation) merged by PR #53 (`f68185a`; PR #52 closes with it); `regress`: 57 VERIFIED + 29 WITHDRAWN + 5 RETIRED.
-
-The prototype v2 block merged by PR #50 (`8116e8d`; PR #51 closes with it); `regress` on the merge: 57 VERIFIED + 29 WITHDRAWN + 5 RETIRED.
-
-The mass pass merged through the lead designer's branch (PR #40 closes with it).
-
-L3 merged through the lead designer's branch (PR #35 closes with it).
-
-The D pass merged by PR #32 (`ea4e96f`).
-
-L2 merged into `main` by PR #22 (merge commit `72de1f2`).
-
-## Decisions taken by the lead designer since the owner last read (for veto)
-
-- #301–#309: L5d's probe and plan amendment, the engineer's three questions (#302, #303, #307–#308), the radiators' correction and the Cold Brick (#304, #305), the answers (#306), the merge (#309, three coverage rows moved to L5e).
-
-- #251: physics pass 2 merged; answers to the re-review.
-- #250: pass 2's fix rounds; every withdrawn record frozen; answers to the
-  reviewer; sessions notify the lead designer when done.
-- #249 is the owner's (beam depth tier-invariant for electronic stopping only).
-- #248: pass 2's first run; S6 withdrawn as the lead designer's error;
-  the engineer's twelve withdrawals accepted; answers.
-- #247 is the owner's (design partner, chat replacement, decision frame).
-- #246: prevention after the audits (lint, mutation tool, the supersedes
-  rule, ×4, this block for the owner). #245 is the owner's.
-- #242: the documents consolidated and merged; the kinetic velocity rule
-  decided (relative to the hull) on the reviewer's blocking finding.
-- #244: answers to the scenario audit (S17–S22 and the conventions added
-  to §13k; #236's 'eight reasons' struck; Q4-1 resolved with the full
-  history).
-- #243: physics pass 2 planned (§13k), the first plan under #241's gate.
-- #241: process after the audits (plan gate, sessions, checker only on
-  kernel physics, documents split). #240 is the owner's.
-- #239: prototype v2 merged; answers to its engineer and reviewer; the
-  lead designer's §13j.3 estimate was wrong by its own facing rule.
-- #238: audits at fixed milestones (the owner's direction; the milestones
-  and the four audits' scope are the lead designer's wording, §13b).
-- #237: prototype v2's plan (§13j): kernel numbers first (R1 850 t, 1.80
-  g; 5 / 11 / 31 m of dodge over the time of flight at 600 / 900 / 1500 m;
-  R1's magazine open from three sides); the helm as standing orders, the
-  facing trade (bow-on beams, broadside dodges) from the spinal bay and the
-  axial engine with no constant; no dispersion; five withdrawn L0
-  scenarios retired when the superseded constants go.
-- #236: the path model merged; answers to its engineer, reviewer and
-  physics checker; findings for the next kernel pass.
-- #204: answers to the L2 heat-v2 engineer (two estimate errors of the
-  lead designer; estimates now switch on every passed level's rules).
-- #205: answers to the L2 physics checker (blast from the whole damaged
-  region; heat-sink venting relative to rest; life support runs in a
-  shut-down powered room; stale estimates corrected; L3 signal: life
-  support loads the coolant loop).
-- #227: the prototype's first build and answers to its engineer.
-- #225: answers to the mass-pass engineer and reviewer; a split room
-  keeps one heat store; the mass pass merged.
-- #224: the feel prototype's plan (§13h).
-- #222: answers to the L3 reviewer (three untested rules get a scenario in
-  the mass pass; control needs a working bridge); L3 merged.
-- #220: answers to the L3 physics checker and Q13 (angular books
-  1e-9 × net + 1e-12 × gross; crew capacity at L4; ship density to settle
-  before the prototype).
-- #219: answers to the L3 engineer (shield generator may carry fittings;
-  seven L3 scenarios withdrawn as specification errors, five of them the
-  engineer's invariant scales, two the lead designer's criteria; v2
-  successors).
-- #218: one documentation pull request per working block; small fix
-  rounds get the reviewer only.
-- #216: answers to the D-pass reviewer (two #207 clauses get L3 cases;
-  blast capacity counts remaining integrity from L4); the D pass merged.
-- #214: answers to the D-pass physics checker (crew round per cell; the
-  shield buffer's E4 stays open until L5; magazine size put to the owner).
-- #212: answers to the D-pass engineer (D5 withdrawn for the lead
-  designer's tolerance error, successor D5b; new `L2.blast.split`; blast
-  kills crew in proportion; a destroyed cell resists no round, built at
-  L3).
-- #208–#211: the L3 plan (cell mass from heat capacity, rigid body,
-  debris and fragments, control, validation, reference ship R1, 8
-  scenarios with estimates; `engine.thrust` re-tuned 8 → 2 MN; new RCS,
-  radiator-mass and specific-heat constants).
-- #207: answers to the L2 reviewer (life support under power routing runs
-  while the room is joined to a reactor able to produce, fixed in the D
-  pass with scenario D5; §16 cleaned up); L2 merged.
-- #206: the D pass specified (6 kg M rounds with every tied quantity
-  scaled so L0–L2 ratios hold; three hits wreck a cell; repair of damaged
-  cells only; the shield buffer now binds at the 6th round).
-
-## Awaiting the owner
-
-- Nothing: the five questions (#273) and #83 (#274) are decided.
-- Veto window on #253, #256, #258–#263, #265, #267, #270–#272, #274 is yours.
+None after this block's documentation pull request.
 
 ## Next steps
 
-1. ~~The full mutation run~~ done (#314).
-2. ~~Republish the prototype page~~ done (artifact version 7). How it was built (#312): build `proto/` with `js/` and `mission0/targets.js` beside it, `../js/` and `../mission0/` rewritten to `./`; read the artifact first. PR #96 is merged. (Done before: **the prototype page on the L5d kernel** (#301 (5), the owner's option A, already approved, expected 6–8 USD): one engineer session (opus, branch `proto/l5d` from `main`) replaces `proto/battle.js`'s own loop by the kernel's symmetric loop: the player's side by the page's three verbs (scan a zone of the silhouette, target a known room, switch preset), the enemy by `enemy.js` at personality 0.5; the page draws the enemy as the player's model knows it (the owner's battle-screen layout C in `IDEAS.md` is the later presentation, not this task); both ships R1d-A; `proto/replay.mjs` through `tools/duel.js`'s inputs; `proto/smoke.mjs` with zero console errors; then a reviewer; then the lead designer republishes the page with the Artifact tool to https://claude.ai/artifact/31syZz4vmCGXFw2bR3TQ9d (copy `js/` beside the proto files, the import prefix `../js/` rewritten to `./js/`, `proto.css` as a file). Tell the owner first that Fire's defaults end a duel in about 25 s (§17 item 49).)
-3. **L5e1** (planned, §13n.8, #316; the owner chose B, #315): waits for the owner's go on the re-cost (L5e1 raw 20–30, ×4 80–120, expected 24–36). Then one engineer (opus, `m0/l5e1` from `main`), the blind checker on J3, J7–J9, the reviewer. After it, the lead designer's pace study on the locked builds (a stop point: the E7 question to the owner if rung 1 fails), then L5e2.
-4. Due when their files are touched: §17 items 35, 39, 43, 44–50.
+1. **Widen `battle.openingRange`'s approved range to 500–3000 m** (#318) in `js/data.js` and re-record what the data hash moves: a runner session (#322), before the pace study's runs beyond 2000 m.
+2. **The pace study** (§17 item 52, #318, #319): a runner session runs the R1d-A mirror and R2 against the locked builds over the openings, ranges and seeds; it reports E7's median, the battle's shape (the first hit on the loser as a share, hits to kill, the end), verb leverage and the decisions per battle, and the rung-1 levers in the order of #318 (quiet phase before toughness); the lead designer reads it and decides within approved ranges, or puts the E7 or mechanism question to the owner before L5e2.
+3. **L5e2** (E5–E8, W9b, `L5.route.throughput`): planned after the study, costed raw × 1.24.
+4. Due when their files are touched: §17 items 47, 50, 51.
 
 ## Scheduled tasks
 
 | Task | Id | Schedule | What |
 |---|---|---|---|
-| Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main` with plain git, runs `node tools/m0.js regress` and `verify`, reports read-only; push notification to the owner |
+| Nightly regression (#136) | `trig_01CYh11Bvh27MsTBUpEWyyWo` | 02:42 Asia/Ho_Chi_Minh, daily | a fresh session clones `main`, runs `node tools/m0.js regress` and `verify`, reports read-only |
 
-**No timed check-ins** (the owner's rule, 2026-10-23): every session the
-lead designer creates notifies it by a one-shot trigger when done; the
-design partner cannot create triggers, so its pushes arrive through the
-owner's message. This chat left no pending check-in.
+No timed check-ins (the owner's rule): sessions notify by a one-shot trigger.
 
-Sessions and costs (the sessions table, the per-level totals and the usage-limit note) are in `LEDGER.md`.
+## When this chat is replaced (#322 (4))
 
-## When this chat is replaced (#247 (2))
-
-At a block boundary (a pass merged, the next not planned) or as soon as
-this chat's context is compressed or it repeats itself. Hand over through
-this file; the new chat re-creates the check-ins (`send_later`), which die
-with the chat that made them. **Handed over at L5d's merge** (2026-10-23, the owner's standing
-instruction below). The previous chat (`session_01S8gXf1kch2FCFHYE8nwhrn`)
-leaves nothing running and no pending check-in. The next natural boundary:
-after the prototype page and L5e's plan, or earlier if the new chat's
-context is compressed.
-
-**The owner's standing instruction (2026-10-23) for this chat
-(`session_01S8gXf1kch2FCFHYE8nwhrn`)**: right after L5d merges, hand over
-to a new lead designer chat, no change before. (1) Write this file for it:
-open PRs, running sessions, scheduled tasks, next steps; the next step is
-**the prototype page session** (#301, option A, already approved). (2) Open
-the new chat on **`claude-opus-5-5`**, the whole task in its first message.
-**Lead designer chats are opened on opus**: fable kept stopping on safety
-grounds in this project (several of this chat's turns on
-`claude-fable-5-1` were withheld by a safety classifier). (3) Delete this
-chat's own pending check-ins; the new chat re-creates its own. (4) The last
-act: tell the owner the new chat's link. Hand over earlier only if the
-context is compressed or the chat repeats itself; then also tell every
-running session where to send its trigger (the new chat's id).
-**The owner is in Vietnam: give times in Vietnam time (UTC+7).**
-**The owner's rule (2026-10-23): sessions notify the lead designer when
-they finish, by their one-shot trigger into its chat; the lead designer
-does not arm timed check-ins (`send_later`).** Every session's first
-message ends with that notification (the chat's id from this header); the
-new chat's first message says so.
+At every block boundary or past about 350k tokens of context, whichever
+comes first; always on opus, no model switch inside a chat; tell running
+sessions the new id; the owner is told the new chat's link. The owner is in
+Vietnam: times in Vietnam time (UTC+7).
 
 ## Lessons for whoever continues
 

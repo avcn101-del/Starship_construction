@@ -56,6 +56,9 @@ export const EVENT_FIELDS = {
   // The helm and the enemy (L5d, 13n.1 (d), #293, #301): two ends of a battle, each in the side's own log.
   surrender: ['since'], // the enemy struck its colours battle.disabledSeconds x resolve after its last weapon (#303; since: s, when it lost it); a capture; room the last weapon, parent the event that took it
   escaped: ['separation'], // the side that ordered disengage is out of reach: the separation (m) beyond battle.cullDistance and growing for battle.disabledSeconds counted beyond it (#293)
+  // L5e1 (13n.1 (e), 13n.8): the plume and a simultaneous end.
+  'fitting-ruined': ['fitting', 'kind', 'energy', 'channel'], // the other ship's engine plume burnt a radiator panel, antenna or point-defence fitting (fitting: its id, kind its type, energy J taken; #297); room its host, cause 'plume' (a root)
+  draw: ['other'], // the battle: both sides met an end condition in the same step (13n.8, #315); in each side's log, other the other side's own end kind; parent this side's own end event
 };
 
 /** An event log; `prefix` starts every event id (a battle gives each ship its own). */
@@ -89,9 +92,9 @@ export function within(log, event, fn) {
 
 /**
  * A root of the cascade tree (13l.1): a shot id, a beam id, 'heat' or 'launch'; a scan id (scan-<n>) or 'sense' (13n.1
- * (a), #289); a slug, a missile or a flak round's id, or 'emp' (L5c, 13n.1 (c)).
+ * (a), #289); a slug, a missile or a flak round's id, or 'emp' (L5c, 13n.1 (c)); 'plume' (L5e1, #297).
  */
-export const isRoot = (cause) => cause === 'heat' || cause === 'launch' || cause === 'sense' || cause === 'emp' || /(^|:)(shot|beam|scan|slug|missile|flak)-\d+$/.test(String(cause));
+export const isRoot = (cause) => cause === 'heat' || cause === 'launch' || cause === 'sense' || cause === 'emp' || cause === 'plume' || /(^|:)(shot|beam|scan|slug|missile|flak)-\d+$/.test(String(cause));
 
 /**
  * The cascade tree of a log (13l.1): roots in order of first use, each with its

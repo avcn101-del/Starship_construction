@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.route.escape",
-  "code": "f7833b3",
+  "code": "7840cb9",
   "criterionHash": "c30f6f8e",
   "lockedHash": "c30f6f8e",
   "runHash": "20fb8276",
-  "dataHash": "fee97350",
-  "rowsHash": "ae19c2e0",
+  "dataHash": "394196fd",
+  "rowsHash": "56c22994",
   "rows": [
     {
       "case": {
@@ -68,18 +68,18 @@
         "rule": true
       },
       "actual": {
-        "passed": 1155,
+        "passed": 1108,
         "end": {
           "kind": "escaped",
           "side": "A",
-          "step": 1755
+          "step": 1708
         },
         "rule": {
-          "passed": 1155,
-          "step": 1755
+          "passed": 1108,
+          "step": 1708
         },
-        "steps": 1755,
-        "peak": 5759.128440564472
+        "steps": 1708,
+        "peak": 5789.320292352878
       },
       "pass": true,
       "note": ""
@@ -92,18 +92,18 @@
         "rule": true
       },
       "actual": {
-        "passed": 1253,
+        "passed": 1103,
         "end": {
           "kind": "escaped",
           "side": "A",
-          "step": 1853
+          "step": 1703
         },
         "rule": {
-          "passed": 1253,
-          "step": 1853
+          "passed": 1103,
+          "step": 1703
         },
-        "steps": 1853,
-        "peak": 5421.082139777586
+        "steps": 1703,
+        "peak": 5852.367216446146
       },
       "pass": true,
       "note": ""

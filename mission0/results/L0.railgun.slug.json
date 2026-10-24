@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.railgun.slug",
-  "code": "f7833b3",
+  "code": "5ee1bbb",
   "criterionHash": "5cfd139c",
   "lockedHash": "5cfd139c",
   "runHash": "d85719b3",
-  "dataHash": "fee97350",
+  "dataHash": "394196fd",
   "rowsHash": "d1705d07",
   "rows": [
     {
