@@ -45,7 +45,7 @@ export default {
   tolerance: 'steps exact; the hand-worked step\'s margins printed (the error against a t180 at n - 1 and n)',
   criterion: '(drift-R1, drift-R1d) the range order engages first at the hand-worked step (the first n with v_n + |w*(x_n)| > a t180, x_n <= helm.rangeBand) with mode range and e within the band, never before; (flip) the side flips at steps 600, 1200 and 1800 exactly; (no-couple) never engaged, the helm\'s throttle 0 and every engine\'s thrust 0 at every step, no NaN',
   tunable: ['helm.rangeBand', 'helm.dodgeMin', 'helm.dodgeMax', 'engine.thrust', 'rcs.force'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'cfe1c234' },
   cases() {
     return [{ name: 'drift-R1', ship: 'R1', throttle: 0.5 }, { name: 'drift-R1d', ship: 'R1d', throttle: 0.25 }, { name: 'flip', ship: 'R1', throttle: 0 }, { name: 'no-couple', ship: 'R1', throttle: 1 }];
   },
