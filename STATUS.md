@@ -14,11 +14,11 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
 ## For the owner (five lines)
 
-- **Done**: #326 (process); `battle.openingRange` 500–3000 m; the pace study (#328); §17 item 53 merged (#327, PR #103, 175 VERIFIED).
-- **Next**: on the owner's E7 answer: B (recommended) = the design partner looks for a rung-2 mechanism in `IDEAS.md`, the lead designer sets the opening at 2500 m; A = rung-1 orders and a stalemate end rule; C = E7 rewritten.
-- **Waiting on you**: the E7 question (A / B / C), put 2026-10-24 ~16:20 VN.
-- **Money**: this chat's sessions 8.20 USD (runners 0.72 + 0.53; item 53: 6.00 + 0.45 + 0.50, within its 4–7 expected).
-- **Running**: nothing.
+- **Done**: #326–#328; the owner's E7 answer (#329: rebuild the reference builds, E7 on two-sided battles; A / B wait); the build criteria (#330).
+- **Next**: engineer `session_01SC9bT7XzCShErTLAScXgUu` rebuilds Lance, Swarm, Furnace (`L4.builds.lethal`); then a reviewer; then one runner re-measures E7 (two-sided), the shape and the verbs on the new builds.
+- **Waiting on you**: nothing.
+- **Money**: this chat's sessions 8.20 USD; the rebuild 6–11 expected.
+- **Running**: the builds engineer (`m0/builds2`, PR to `ld/pace`).
 
 Not built yet: §17 item 54 (the energy book's beam term).
 
