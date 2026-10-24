@@ -34,7 +34,7 @@ export default {
   tolerance: '1e-12 relative (one product); 0 exactly for the starved case',
   criterion: 'after the step a = engine.thrust x 1 x 1 x f / M with f = clamp((d x reactor.power - shield.powerDraw - turret.powerDraw - quarters.powerDraw) / engine.powerDraw, 0, 1) worked by hand (1, 0.575, 0), at 1e-12 relative, and exactly 0 when f = 0; before the step a = engine.thrust / M (f = 1 until the engine is asked to thrust)',
   tunable: ['engine.thrust', 'engine.powerDraw', 'reactor.power', 'shield.powerDraw', 'turret.powerDraw', 'quarters.powerDraw'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'a1bc004a' },
   cases() {
     return CASES.map((c) => ({ ...c }));
   },
