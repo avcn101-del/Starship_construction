@@ -36,7 +36,7 @@ export default {
   tolerance: 'a floor on (1) and a ceiling on (2)',
   criterion: 'in all 8 cells (1) the minimum separation while both can manoeuvre is at least 150 m (helm.rangeClose\'s lowest approved value / 2) and (2) each ship\'s speed at the end is at most 2 x a (sqrt(2 D / a + t180^2) - t180), D = max(range, helm.rangeOpen) + helm.rangeBand, a and t180 hand-worked from the ship at the start; before #335 6 of 8 fail',
   tunable: ['helm.positionPatience', 'helm.positionReset', 'helm.positionLead', 'helm.rangeBand', 'helm.rangeOpen'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '08bd6be0' },
   cases() {
     const out = [];
     for (const range of RANGES) for (const opening of OPENINGS) out.push({ range, opening });
