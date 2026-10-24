@@ -1,0 +1,19 @@
+# E7 pace (R2 v R2, Lance v Lance, Swarm v Swarm, Furnace v Furnace, Lance v Swarm, Lance v Furnace, Swarm v Furnace), ranges 2500, bow,broadside, seeds 1, limit 600 s, overrides {"battle.cullDistance":5000}, orders {}
+R2 v R2      2500 bow       s1: draw      A,T t   68.1 s  win draw hits A/T 21/21 of 42; first hit 27.8 s, on loser -; end draw; cells damaged A/T 31/31
+R2 v R2      2500 broadside s1: destroyed T   t   77.3 s  win A    hits A/T 16/23 of 39; first hit 33.5 s, on loser 0.43 of the battle, 23 hits; end destroyed; cells damaged A/T 19/14
+Lance v Lance   2500 bow       s1: none          t  600.0 s  win null hits A/T 7/7 of 86; first hit 37.1 s, on loser -; end none; cells damaged A/T 23/23
+Lance v Lance   2500 broadside s1: none          t  600.0 s  win null hits A/T 11/10 of 109; first hit 388.3 s, on loser -; end none; cells damaged A/T 31/36
+Swarm v Swarm   2500 bow       s1: draw      A,T t  115.4 s  win draw hits A/T 0/0 of 0; first hit - s, on loser -; end draw; cells damaged A/T 8/8
+Swarm v Swarm   2500 broadside s1: surrender A   t  120.9 s  win T    hits A/T 0/0 of 0; first hit - s, on loser - of the battle, 0 hits; end dry; cells damaged A/T 4/0
+Furnace v Furnace 2500 bow       s1: none          t  600.0 s  win null hits A/T 0/0 of 0; first hit - s, on loser -; end none; cells damaged A/T 0/0
+Furnace v Furnace 2500 broadside s1: none          t  600.0 s  win null hits A/T 0/0 of 0; first hit - s, on loser -; end none; cells damaged A/T 168/176
+Lance v Swarm   2500 bow       s1: destroyed T   t   71.0 s  win A    hits A/T 0/3 of 5; first hit 50.8 s, on loser 0.72 of the battle, 3 hits; end destroyed; cells damaged A/T 20/14
+Lance v Swarm   2500 broadside s1: surrender A   t   71.2 s  win T    hits A/T 0/0 of 4; first hit - s, on loser - of the battle, 0 hits; end no-control; cells damaged A/T 18/0
+Lance v Furnace 2500 bow       s1: destroyed T   t  403.4 s  win A    hits A/T 0/6 of 38; first hit 310.3 s, on loser 0.77 of the battle, 6 hits; end destroyed; cells damaged A/T 9/36
+Lance v Furnace 2500 broadside s1: destroyed T   t  427.3 s  win A    hits A/T 0/8 of 40; first hit 302.9 s, on loser 0.71 of the battle, 8 hits; end destroyed; cells damaged A/T 0/40
+Swarm v Furnace 2500 bow       s1: destroyed T   t   37.2 s  win A    hits A/T 0/0 of 0; first hit - s, on loser - of the battle, 0 hits; end destroyed; cells damaged A/T 0/48
+Swarm v Furnace 2500 broadside s1: destroyed T   t   40.3 s  win A    hits A/T 0/0 of 0; first hit - s, on loser - of the battle, 0 hits; end destroyed; cells damaged A/T 0/52
+kernel errors: 0
+E7: median end 74.2 s over 10 of 14 ended (no end by 600 s counts as 600 s: median 118.2 s); ends {"draw":2,"destroyed":6,"none":4,"surrender":2}
+two-sided: 8 of 14 battles damage both ships; their median end 77.3 s over 5 ended (600 s rule 259.4 s), first hit on the loser 0.72, hits on the loser 6
+shape over 8 decided: first hit on the loser median 0.71 of the battle; hits on the loser median 2 (0-23); hit rate 37 %
