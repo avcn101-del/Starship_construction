@@ -36,7 +36,7 @@ export default {
   tolerance: 'exact',
   criterion: 'each seed\'s four numbers are the first four of mulberry32(seed) in the order aggression, patience, caution, resolve, each in [0, 1); the two builds of a seed give the same four; no two seeds give the same four; the personality is marked wildcard',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '18ce6370' },
   cases() {
     return [1, 2, 3, 4].map((seed) => ({ seed }));
   },
