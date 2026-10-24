@@ -22,6 +22,12 @@
   every passing scenario re-recorded on the new data hash; mutations
   `item55.*`.
 
+## Unreleased — 2026-10-24 — item 55's answers (#339)
+
+- #339: K0 accepted with a grep-only move; stale mutations re-targeted
+  in PR #105; the yield read as P3's code; K6 `L4.helm.yield` added to
+  §13n.9 (179 VERIFIED expected).
+
 ## Unreleased — 2026-10-24 — outcomes counted apart and the clock (#336, #337)
 
 - #336 (the owner): win / loss / escape / stalemate counted apart; E5's
