@@ -330,7 +330,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.log` | f91185ca | PASS, WITHDRAWN (successor `L4.log.v2`, #278) | f3ee00ad | 8af82c8 | none | `node tools/m0.js run L4.log` |
 | `L4.loop.rules` | abb3deaf | PASS | cc74a636 | 7840cb9 | none | `node tools/m0.js run L4.loop.rules` |
 | `L4.loop.symmetric.v2` | e5fb013a | PASS | 17e5ff02 | 7840cb9 | none | `node tools/m0.js run L4.loop.symmetric.v2` |
-| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | 7840cb9 | none | `node tools/m0.js run L4.loop.symmetric` |
+| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | 9fb9dee | none | `node tools/m0.js run L4.loop.symmetric` |
 | `L4.orders.energy` | 0e15c362 | PASS | e9f1b4d6 | 7840cb9 | none | `node tools/m0.js run L4.orders.energy` |
 | `L4.orders.fire` | 0ff94ee2 | PASS | db5c937b | 7840cb9 | none | `node tools/m0.js run L4.orders.fire` |
 | `L4.orders.repair.v2` | 27515b0c | PASS | eb4987f1 | 7840cb9 | none | `node tools/m0.js run L4.orders.repair.v2` |
