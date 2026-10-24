@@ -1,0 +1,34 @@
+diff --git a/js/navigator.js b/js/navigator.js
+index 7c0a0c2..2d6a5e5 100644
+--- a/js/navigator.js
++++ b/js/navigator.js
+@@ -125,13 +125,13 @@ export function navigate(battle, side, goals, { them, vo }) {
+     // order has been let go for helm.positionReset.
+     if (!moving && h.engaged && !h.yielded) {
+       if (!h.posBest || e < h.posBest.e - band) h.posBest = { e, t };
+-      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge)) h.yielded = true;
++      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge) - RES) h.yielded = true;
+     }
+     h.engaged = able && (moving ? styleEngaged(h.engaged, { e, error: errLen, vt: Math.abs(vt), step: a * battle.dt, band }) : rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band }));
+     if (!h.engaged) {
+       h.posBest = null;
+       if (h.freeSince === null) h.freeSince = t;
+-      if (t - h.freeSince >= scaled(p.helm.positionReset, edge)) h.yielded = false;
++      if (t - h.freeSince >= scaled(p.helm.positionReset, edge) - RES) h.yielded = false;
+     } else h.freeSince = null;
+     if (h.engaged) { heading = atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
+     h.range = { R, e, want, rel, vt, error: errLen, threshold: a * t180, band, letGo: band / t180 };
+diff --git a/js/pilot.js b/js/pilot.js
+index 466dc0a..c01e1f2 100644
+--- a/js/pilot.js
++++ b/js/pilot.js
+@@ -66,7 +66,8 @@ export function shipDynamics(battle, side) {
+   // was asked to thrust (1 until then, and without power routing), so a starved engine reports none and the braking
+   // curve and the range order's engagement use the thrust the ship has.
+   for (const r of w.rooms) if (r.type === 'engine' && r.placed && !isDestroyed(r)) {
+-    if (r.engine.throttle > 0 && w.power) r.engine.lastSupply = r.powerFraction ?? 1;
++    // Item 58 probe (b): a starved report expires: when the engine was not asked to thrust, the pilot assumes full supply.
++    if (w.power) r.engine.lastSupply = r.engine.throttle > 0 ? r.powerFraction ?? 1 : undefined;
+     thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r) * (r.engine.lastSupply ?? 1);
+   }
+   const force = scaled(p.rcs.force, battle.edge);
