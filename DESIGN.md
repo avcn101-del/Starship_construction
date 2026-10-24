@@ -2108,3 +2108,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 311 | `m0/det-math` merged (PR #97): `util.js`'s deterministic `atan2`, `cbrt`, `hypot` (with the existing `exp`, `log`, `pow`), `tools/mathcheck.mjs`, `L0.determinism.v2`; the review's findings in §17 item 51 | current |
 | 312 | The prototype page on the L5d loop merged (PR #96, feel-6); `L0.determinism.v2` on the kernel-loop duel; `tools/mutate.js` serialises v2; the mutation run on a pinned worktree | report |
 | 313 | The thin-skin idea's three kernel rules (skin mass, fittings on the skin, the silhouette as its outline): none in L5e; the idea waits until after Mission 0 | current |
+| 314 | The full mutation run on L5d's merge: 269 mutations, 221 KILLED, 12 CHANGED, 36 SURVIVED, 0 STALE; no new survivor; ten catalogue entries re-anchored | report |

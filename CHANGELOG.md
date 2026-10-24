@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — the mutation run on L5d's merge (#314)
+
+- `mission0/mutations/2026-10-24-761e5e4.txt`: 269 mutations, 221 KILLED,
+  12 CHANGED, 36 SURVIVED; `tools/mutations.json`: ten entries re-anchored.
+
 ## Unreleased — 2026-10-24 — the thin-skin idea (#313)
 
 - `IDEAS.md`: "A thin skin over the rooms, with cosmetic paint" (the design
