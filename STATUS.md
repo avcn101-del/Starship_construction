@@ -1,12 +1,12 @@
 # STATUS — hand-over between chats (#179; process v2, #325)
 
-Lead designer chat: **`session_01DJwKiaxa29KDtFqVjBviSe`** (took over 2026-10-24
-from `session_01EAtiqegHjnDwsoHwD7cjur`, which handed over at 370k tokens of
-context inside the builds' rebuild, #322 (4)). Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
+Lead designer chat: **the new chat writes its own id here first thing.** Handed
+over 2026-10-24 ~16:20 UTC by `session_01DJwKiaxa29KDtFqVjBviSe` at about 320k
+tokens of context, while the item 55 engineer works (PR #105). Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
 `session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
 `session_01DFw3o4EBEtf1adcpyJ5786` → `session_01S8gXf1kch2FCFHYE8nwhrn` →
 `session_01Bt5RVRLCv85dFpXLq4qB5W` → `session_01EAtiqegHjnDwsoHwD7cjur` →
-`session_01DJwKiaxa29KDtFqVjBviSe` (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
+`session_01DJwKiaxa29KDtFqVjBviSe` → the new chat (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
 
 **Reading order (#325)**: this file, `BRIEF.md`, `CLAUDE.md`,
 `.claude/agents/lead-designer.md`, `DESIGN.md` §18 and the plan in force
@@ -24,6 +24,8 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 Not built yet: §17 items 54 (beam term in the energy book), 55 (the broadside race), 56 (missile guidance).
 
 ## Open pull requests
+
+- **#105** (draft, `m0/helm55` → `ld/pace`): §17 item 55 (§13n.9, #335), engineer `session_011bat8qrcsUMVXEQ4MPu2Qi` (opus). At hand-over: K0–K4 done by its own account; re-recording L0–L4 (every record's data hash moved with the two new constants; 11 results moved, as P3's probe); then `item55.*` mutations, `regress` (expected 178 VERIFIED + 160 WITHDRAWN + 5 RETIRED), the helm suite's table. Its trigger was set to the old chat's id; the old chat forwards it, and was told to. Then: the blind physics checker (sonnet) on K1–K3 with setup and inputs only, the reviewer (sonnet) with the PR and the documents; merge per #180.
 
 - **#104** (draft, `m0/builds2` → `ld/pace`): the builds' rebuild, stopped at #330's stop rule; its questions 4 and 5 answered in #331 (L beam bay yes; `cell-damaged` in (i)); 1 (S turret) answered by #332; 2 (the race) is item 55, the lead designer's; 3 (narrow (i) to bow) no: it would hide item 55.
 
