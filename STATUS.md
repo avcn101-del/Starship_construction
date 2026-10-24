@@ -19,7 +19,7 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 - **Next**: the item 55 engineer's PR (then the blind checker on K1–K3 and a reviewer); then the builds again (#332); then one runner re-measures E7 (two-sided), the shape and the verbs; then battle phases (#334) before L5e2.
 - **Waiting on you**: nothing (#332 answered the S turret: only after item 55, if still needed, at most one, recorded with and without).
 - **Money**: this chat 7.74 USD at 309k tokens; its runners 1.51 (item 55's probe); the item 55 pass expected 11–17 USD (#335; #246 (4)'s figure 22–35).
-- **Running**: the item 55 engineer `session_011bat8qrcsUMVXEQ4MPu2Qi` (opus, branch `m0/helm55`, PR → `ld/pace`; §13n.9, #335); it notifies this chat. The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104.
+- **Running**: the blind physics checker `session_019miu9xqavcWsHTbJDL89V9` (sonnet, PR #105 K1–K3 at `bfa0588`); the item 55 engineer `session_011bat8qrcsUMVXEQ4MPu2Qi` (on K6 and the stale mutations, #339) (opus, branch `m0/helm55`, PR → `ld/pace`; §13n.9, #335); it notifies this chat. The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104.
 
 Not built yet: §17 items 54 (beam term in the energy book), 55 (the broadside race), 56 (missile guidance).
 
