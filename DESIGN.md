@@ -2224,3 +2224,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 329 | E7: rebuild the reference builds first; E7 counts only two-sided battles; A and B wait; the verb finding re-measured (the owner) | current |
 | 330 | The reference builds' rebuild: each specialist kills its mirror and damages R2 (`L4.builds.lethal`); measures open at 2500 m too | current |
 | 331 | The builds' rebuild stopped: the broadside mirror race (§17 item 55), missiles in pure pursuit (item 56), Furnace against shields; an S secondary turret to the owner; an L beam bay allowed | current |
+| 332 | A secondary S turret: only if a specialist still fails #330 after item 55, at most one, recorded with and without (the owner) | current |

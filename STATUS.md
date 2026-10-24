@@ -17,7 +17,7 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
 - **Done**: #326 (process), `battle.openingRange` 500–3000 m, the pace study (#328), §17 item 53 (#327), the owner's E7 answer (#329), the builds' criteria (#330), the rebuild's stop (#331).
 - **Next**: fix the broadside mirror race (§17 item 55, a helm-law pass, probed first); then the builds again; then one runner re-measures E7 (two-sided), the shape and the verbs.
-- **Waiting on you**: whether a specialist may carry a secondary **S turret** (#331: Lance then meets both criteria 8 / 8; Furnace mirror 5 / 8).
+- **Waiting on you**: nothing (#332 answered the S turret: only after item 55, if still needed, at most one, recorded with and without).
 - **Money**: this chat 13.16 USD; its sessions 14.80 (runners 1.25; item 53 6.95; the builds engineer ≥ 6.60, still open).
 - **Running**: runner `session_0184EvFVAF3uPPJ8u6d9oyhb` (sonnet): `regress` with and without the item 55 probe law L1 (`tools/estimates/pace-race-probe.diff`, `3708c51`); the builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104.
 
@@ -25,12 +25,12 @@ Not built yet: §17 items 54 (beam term in the energy book), 55 (the broadside r
 
 ## Open pull requests
 
-- **#104** (draft, `m0/builds2` → `ld/pace`): the builds' rebuild, stopped at #330's stop rule; its questions 4 and 5 answered in #331 (L beam bay yes; `cell-damaged` in (i)); 1 (S turret) to the owner; 2 (the race) is item 55, the lead designer's; 3 (narrow (i) to bow) no: it would hide item 55.
+- **#104** (draft, `m0/builds2` → `ld/pace`): the builds' rebuild, stopped at #330's stop rule; its questions 4 and 5 answered in #331 (L beam bay yes; `cell-damaged` in (i)); 1 (S turret) answered by #332; 2 (the race) is item 55, the lead designer's; 3 (narrow (i) to bow) no: it would hide item 55.
 
 ## Next steps
 
 1. **§17 item 55, the broadside mirror race.** Probe so far (2026-10-24, this chat): the scratch law L1 (`tools/estimates/pace-race-probe.diff`: the position's lead dropped after 15 s engaged without closing its point by a band, restored after 30 s let go) ends the Lance broadside mirror at 600 / 900 / 1500 m in 197–199 s on PR #104's builds (600 s unended before); a yield reset at let-go does not cure it (PAT 10–20 all cure; reset 30 s = never); R2's broadside mirror lengthens (41–67 s to 66–320 s: it now holds 900 m instead of racing at 480 m). Waiting on the runner's `regress` count. Probe a position law on a scratch copy of `js/helm.js` from the race's own start (Lance mirror, 900 m broadside: `node tools/estimates/pace-e7.mjs --pairs Lance:Lance --ranges 900 --openings broadside`), with every passed rule on, and run `regress` on the scratch tree (a runner). Two laws already failed (#331's row: yield while the other accelerates; give up after 10–20 s without closing). The cause, traced: both ships thrust along +x at 449 m apart, the relative error stays constant, the range order never lets go. Then an engineer pass (opus) with the blind checker (a control law) and a reviewer. Item 56 (proportional navigation for missiles) may go in the same pass, if probed.
-2. **The builds** (#330): after item 55, the builds engineer (or a new one) continues PR #104 with the owner's S-turret answer. `L4.builds.lethal` is not yet written or locked.
+2. **The builds** (#330): after item 55, the builds engineer (or a new one) continues PR #104 under #332 (retry without the S turret first). `L4.builds.lethal` is not yet written or locked.
 3. **One runner** (#329, the owner's process): on the new builds, the mirror and versus-R2 grids with `tools/estimates/pace-e7.mjs` (workers; `--pairs`) at 600 / 900 / 1500 m and 2500 m (`--cull2`), default and strafe + range open (seeds 1–4 where a side strafes or dodges), and `tools/estimates/pace-verbs.mjs --pairs Lance:R2,Swarm:R2,Furnace:R2 --ranges 900,1500 --times 0,10` (the verbs with the player losing). E7 is the two-sided line (#329). Then A / B to the owner.
 4. **L5e2** (E5–E8, W9b, `L5.route.throughput`, §17 item 54) after that.
 5. Due when their files are touched: §17 items 47, 50, 51.

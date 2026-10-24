@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — the owner on the S turret (#332); the hull-fill idea
+
+- #332: a specialist may carry at most one secondary S turret only if it
+  still fails #330's (i) or (ii) after §17 item 55; recorded with and
+  without it.
+- `IDEAS.md`: the design partner's hull-fill rule (a thin skin, holds
+  scaled by area share; after Mission 0, #313), merged from
+  `ideas/hull-fill`.
+
 ## Unreleased — 2026-10-24 — §17 item 53: a beam into a ship with no body
 
 - `js/battle.js` `beamsOut`: a target whose every cell the step destroyed
