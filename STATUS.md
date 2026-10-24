@@ -1,6 +1,7 @@
 # STATUS — hand-over between chats (#179; process v2, #325)
 
-Lead designer chat: **the new chat writes its own id here first thing.** Handed
+Lead designer chat: **`session_01JNPQjwzYdLB7Uz1qfWt5GC`** (opened by the owner from claude.ai,
+lineage depth 0 of 8; took over 2026-10-25 ~06:40 Vietnam time). Handed
 over 2026-10-24 ~23:25 UTC by `session_01VnsqF6AQX456h5ihxqZjh5` at about 280k
 tokens, after item 55's merge, while the item 58 probe runner works. **The new
 chat is opened by the owner from claude.ai** (lineage depth 0): this chat was at
@@ -8,7 +9,7 @@ depth 7 of 8, and its children could not create triggers or sessions. Chain: `se
 `session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
 `session_01DFw3o4EBEtf1adcpyJ5786` → `session_01S8gXf1kch2FCFHYE8nwhrn` →
 `session_01Bt5RVRLCv85dFpXLq4qB5W` → `session_01EAtiqegHjnDwsoHwD7cjur` →
-`session_01DJwKiaxa29KDtFqVjBviSe` → `session_01VnsqF6AQX456h5ihxqZjh5` → the new chat (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
+`session_01DJwKiaxa29KDtFqVjBviSe` → `session_01VnsqF6AQX456h5ihxqZjh5` → `session_01JNPQjwzYdLB7Uz1qfWt5GC` (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
 
 **Reading order (#325)**: this file, `BRIEF.md`, `CLAUDE.md`,
 `.claude/agents/lead-designer.md`, `DESIGN.md` §18 and the plan in force
