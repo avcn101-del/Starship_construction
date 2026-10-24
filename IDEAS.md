@@ -24,7 +24,7 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
 | [A thin skin over the rooms, with cosmetic paint](#a-thin-skin-over-the-rooms-with-cosmetic-paint) | information | yes · – · yes · yes | the owner's feel on the phone; after Mission 0, E5 and E6 on skinned builds | waiting (#313) |
 | [Command level: watch, captain, hands-on](#command-level-watch-captain-hands-on) | not claimed (a way to play, not a law) | – · yes · yes · yes | verb leverage (the share of battles a player verb flips) and the battle's shape (quiet share, hits to kill), then the owner's feel on the phone | waiting |
 | [Ship classes: roles, forms and factions](#ship-classes-roles-forms-and-factions) | dependency, throughput, information (one per faction) | yes · yes · yes · yes | E6 against ships two classes larger (proposed) | waiting |
-| [Battle phases: decision points, attack and defence](#battle-phases-decision-points-attack-and-defence) | information, throughput, dependency (one per phase) | yes · yes · yes · yes | verb leverage and the battle's shape with and without phases on the rebuilt builds, then the owner's feel on the phone | waiting |
+| [Battle phases: decision points, attack and defence](#battle-phases-decision-points-attack-and-defence) | information, throughput, dependency (one per phase) | yes · yes · yes · yes | verb leverage and the battle's shape with and without phases on the rebuilt builds, outcomes counted apart (win, loss, escape, stalemate), then the owner's feel on the phone | waiting |
 | [Room variants: one physical trade per room](#room-variants-one-physical-trade-per-room) | dependency, throughput, information (one family per axis) | yes · yes · yes · yes | no variant dominant in the sweep (E5), each winning some matchup; the phase fill order beating always-full and always-low | waiting |
 | [Blast resistance from mass](#not-yet-worked) | not stated | not checked | not stated | waiting (#232, `DESIGN.md` §13i.1) |
 | [Tumble and sloped armour](#not-yet-worked) | not stated | not checked | not stated | waiting (#230) |
@@ -663,8 +663,106 @@ would replace [Presets by ship archetype](#presets-by-ship-archetype) and
   the loser as a share of the battle, hits to kill, the end), the number of
   distinct strategies each build flies in the sweep's best responses; then
   the owner's feel on the phone. Thresholds are the lead designer's.
+- **Gaps found, and the owner's choices** (the owner's discussion with the
+  design partner, 2026-10-24, later; on `ld/pace` `eebc3fc`, the locked
+  builds of `mission0/builds.js`, not PR #104's). Method for every battle
+  number below: the probe script at the end of this section (`node
+  /tmp/pg.mjs <A> <T> <A's range> <T's range> <A's throttle>`, run from the
+  repository root): both sides fly standing orders only (no `js/enemy.js`),
+  each on the other's bow, bow-on, at rest, 900 m, seed 1, weapons live, to
+  600 s. One seed and one opening: a reading, not a measure.
+  The principle: a phase works only if each side can tell it from its own
+  model, it has a physical attacker and defender, every move costs
+  something, and a one-phase plan is today's behaviour.
+  1. **No pursuit.** Against a pursuer under `close`, a side under
+     `disengage` escapes in 5 of 16 pairs of the four reference builds
+     (Lance mirror 86.3 s; Lance v Furnace 65.8 s; Furnace mirror 99.9 s;
+     Furnace v R2 and v Lance 542.8 s) at 1.044–1.076 g each. `close`
+     approaches R* (600 m) and holds it; it does not chase. Assumed, not
+     traced: the braking curve to R* caps the pursuer's speed, so escape at
+     equal acceleration is the law's, not physics'. The range phase's
+     attacker needs a pursuing navigator (item 57's candidate).
+  2. **Running costs heat** (good): Furnace running from R2, the hottest
+     room's fraction of hot 0.30 at 120 s, 0.99 at 480 s. One pair.
+  3. **No contact phase from a bow-on opening.** Lance ends R2 and Swarm,
+     either way round, at 0.3 s (4 pairs), running or not: the silhouette
+     is free at every range (#23) and only `js/enemy.js` has patience
+     (first shot after floor(6 × patience) zones); the twelve slots have no
+     weapons-tight value. Contact needs that order on both sides and a
+     stated opening.
+  4. **Exit conditions must be read from the model**, which holds no own
+     hits, and a silhouette of standing cells and outline only, no
+     fittings (`js/sensors.js` `silhouette`): "the other's point defence
+     or antenna is gone" is known only when its EM or IR source stops or a
+     re-scan resolves it, at 4 · (d / 900 m)⁴ s a zone (0.8 s at 600 m, 4 s
+     at 900, 31 s at 1500). Each exit condition names the model's fields.
+  5. **The enemy's personality overrides every preset** (`js/enemy.js`
+     `overrides`: the range slot and open fire by aggression): with phases
+     aggression becomes the exit conditions' level (#334), and the
+     one-phase plan keeps the override exactly.
+  6. **Unmeasured risks**: phases flipping at a threshold need a dwell (as
+     `helm.positionPatience`); without loot in Mission 0 the finish's kill
+     or capture differ only in speed; the decision point's contract (pause
+     or not, the time before auto takes it, how many per battle, #319 (e)).
+  7. **No position attacker by build either**: t180 of the four reference
+     builds 7.15–8.16 s (Furnace the fastest, 12 %); Glass 5.24 s, Engine
+     boat 2.115 g. Neither range nor position has an attacker among the
+     four; #330's rebuild asks lethality, not a phase role.
+  8. **A clock** (#30, in force, no §13m row, nothing in the kernel). Four
+     pairs (Lance and Furnace, `hold` against `close`) do not end by 600
+     s: they settle at 357–570 m, beam against shield; their last
+     `cell-damaged` is at 0.3–6.4 s (the Furnace mirror none); the hottest
+     room reaches 0.73 (Lance) to 0.94 (Furnace) of hot by 480 s. Heat
+     (beam ships) and ammunition (kinetic, #92) are the kernel's clocks,
+     longer than E7's 3–6 minutes. **The owner's choice**: (A) now, no new
+     clock, the baseline measures the time to the first hot room per pair;
+     (B) after Mission 0, a scenario clock as #30 names it (reinforcements,
+     a charging weapon), with its tell (#114); (D) **a stalemate**: when no
+     cell of either ship takes new damage for X s, both break off and the
+     battle ends drawn (`battle.js` counts it, as Disabled's and escape's
+     clocks; no side is named the defender). X is the lead designer's,
+     from the baseline: above the longest quiet gap of the battles that do
+     end in a kill (not measured; the slow mode of #317 lasts 307–323 s at
+     17–21 % hits). Under (D) the four pairs above end by 6.4 s + X.
+     Propellant (dropping #140's untracked fuel) only if the baseline shows
+     running or holding drags battles out.
+  9. **The measure scores running as a loss** (`tools/sweep.mjs`: an escape
+     is a loss for the side that escapes, #293; the standard enemy, resolve
+     0.5, never disengages, at resolve < 0.5 only). **The owner's choice**:
+     outcomes counted apart, win / loss / escape / stalemate: E5's win
+     rate unchanged (an escape or a stalemate is no win), and a survival
+     column (wins, escapes and stalemates, with the crew alive) for E6's
+     underdog and for the phases' measure.
+  10. **The sweep's search grows about four times**: today one order set
+     over every preset, 19 single-slot neighbours a round (each varied
+     slot's values − 1 over `ORDERS`); per phase 76, before exit conditions
+     and aggression. Cost linear in neighbours assumed.
+  11. **Repair reverses slowly**: one cell at the full field (cell mass /
+     `repair.massRate` 200 kg/s): turret 25 s, engine 29 s, beam bay 28 s,
+     shield 50 s, bridge 74 s; half at 30 m. The fast mode ends in 23–75 s:
+     a repair reversal only in slow battles. A formula.
+  12. **The automatic captain is not symmetric**: the enemy's dodge
+     intervals draw from the seeded stream; the player's side never draws
+     (#240 (3)) and dodges at the interval's midpoint (`js/helm.js`
+     `dodgeInterval`), so the same captain flies differently by side.
+  Due before the phases plan: the owner's 8 and 9 (answered above); the
+  lead designer's 1, 3, 4, 7. The rest are risks to measure.
+  The probe script (save as `/tmp/pg.mjs`):
+
+  ```js
+  const R = (p) => import(new URL(p, `file://${process.cwd()}/`));
+  const [{ withOverrides }, { createBattle, tick, mainBody }, { heatFraction, shipDynamics }, B] = await Promise.all(['js/data.js', 'js/battle.js', 'js/helm.js', 'mission0/builds.js'].map(R));
+  const [an, tn, ra, rt, tha] = process.argv.slice(2);
+  const b = createBattle({ params: withOverrides({}), attacker: B[an], target: B[tn], bearing: '+x', distance: 900, seed: 1, knowledge: true,
+    orders: { A: { range: ra, throttle: +tha }, T: { range: rt, throttle: 1 } } });
+  const dyn = b.sides.map((s) => shipDynamics(b, s)), d = () => { const [p, q] = b.sides.map((s) => mainBody(s).x); return Math.hypot(p[0] - q[0], p[1] - q[1]); };
+  console.log(b.sides.map((s, i) => `${s.name} ${(dyn[i].a / 9.80665).toFixed(3)} g t180 ${dyn[i].t180.toFixed(2)} s`).join(' | '));
+  while (!b.ended && b.t < 600) { tick(b); if (b.step % 7200 === 0) console.log(`t ${b.t.toFixed(0)} d ${d().toFixed(0)} heat ${b.sides.map((s) => heatFraction(s.world).toFixed(2)).join(' ')}`); }
+  const dmg = b.sides.map((s) => { const e = (s.world.log.events || s.world.log).filter((x) => x.type === 'cell-damaged'); return `${s.name} cell-damaged ${e.length}, last ${e.length ? e[e.length - 1].t.toFixed(1) : '-'} s`; }); console.log(dmg.join(' | '));
+  console.log(b.ended ? `${b.ended.kind} ${b.ended.side} at ${b.ended.t.toFixed(1)} s` : 'no end by 600 s');
+  ```
 - **Links.** #2, #17, #36, #38, #39, #40, #83, #111, #117, #293, #303,
-  #315, #318, #319, #323, #328, #329; §17 items 55, 56; the presets by
+  #315, #318, #319, #323, #328, #329, #30, #92, #114, #140, #240; §17 items 55, 56, 57; the presets by
   archetype and the command level above.
 
 ### Room variants: one physical trade per room
