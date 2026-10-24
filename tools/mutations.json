@@ -1175,9 +1175,9 @@
     "id": "l4f.shield.oneFrame",
     "rule": "#258 (11) generators on different bodies (reviewer N5)",
     "file": "js/rooms.js",
-    "old": "const hull = pointVelocity(b, Q), d = rotate(round.direction, F.theta);",
-    "new": "const f0 = [...groups.keys()][0], hull = pointVelocity(f0, Q), d = rotate(round.direction, F.theta);",
-    "note": "every body's share taken at the first body's hull velocity (the L4a books) (re-anchored at L5e1: the round's world point Q)"
+    "old": "const hull = pointVelocity(b, worldPoint(F, round.position)), d = rotate(round.direction, F.theta);",
+    "new": "const f0 = [...groups.keys()][0], hull = pointVelocity(f0, worldPoint(F, round.position)), d = rotate(round.direction, F.theta);",
+    "note": "every body's share taken at the first body's hull velocity (the L4a books) (re-anchored at L5e1: the round's point in its frame)"
   },
   {
     "id": "l4b.hit.holesHit",
