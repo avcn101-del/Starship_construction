@@ -2115,7 +2115,7 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 243 | Physics pass 2 planned (§13k) | current (being built) |
 | 244 | Answers to the scenario audit; S17–S22 and the conventions | current |
 | 245 | E1 amended again: withdrawal by decision whatever the verdict; the record frozen; retired | current (amends #188, #200, #237 (7)) |
-| 246 | Prevention after the audits: lint, mutation tool, supersedes rule, ×4, the owner's page | current |
+| 246 | Prevention after the audits: lint, mutation tool, supersedes rule, ×4, the owner's page | partly superseded by #322 (the cost factors; the rest current) |
 | 247 | The design partner role; when the lead designer's chat is replaced; the decision frame | current |
 | 248 | Pass 2's first run: S6 withdrawn (the plan's tier law false); the engineer's twelve withdrawals; answers | current |
 | 249 | Beam depth tier-invariant for electronic stopping only (CSDA-exact, drift reported) | current (amends #240 (4)) |
@@ -2191,3 +2191,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 319 | The command-level idea in `IDEAS.md` (waiting); the pace study also measures verb leverage and the decisions available per battle | current |
 | 320 | Ship classes (the owner): six classes, the player can rise to a capital, the underdog beats up to two classes larger, forms by faction and free building; the two-class measure is L6's (mixed classes), put to the owner as an exit criterion when L6 is planned | current |
 | 321 | Process audit opened; process v2 at L5e1's merge; two tracks and slim documents at Mission 0's exit (the owner's direction) | current |
+| 322 | Runner sessions for heavy jobs; one cost range, raw × 1.24 (the measured median), beside the expectation; a short brief; hand-over at each block or 350k tokens, on opus (the owner) | current |
