@@ -1,0 +1,224 @@
+{
+  "id": "L4.helm.race",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.helm.race",
+  "code": "07b70b4",
+  "criterionHash": "08bd6be0",
+  "lockedHash": "08bd6be0",
+  "runHash": "ff0ddf93",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "f52d133b",
+  "rows": [
+    {
+      "case": {
+        "range": 600,
+        "opening": "bow"
+      },
+      "expected": {
+        "floor": 150,
+        "cap": [
+          187.53607780690479,
+          187.53607780690479
+        ]
+      },
+      "actual": {
+        "min": 600,
+        "at": 0.016666666666666666,
+        "speed": [
+          0,
+          0
+        ],
+        "t": 71.9,
+        "end": "draw A,T at 71.90 s"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "range": 600,
+        "opening": "broadside"
+      },
+      "expected": {
+        "floor": 150,
+        "cap": [
+          187.53607780690479,
+          187.53607780690479
+        ]
+      },
+      "actual": {
+        "min": 600,
+        "at": 0.016666666666666666,
+        "speed": [
+          0,
+          25.869900852478004
+        ],
+        "t": 62.06666666666666,
+        "end": "destroyed A at 62.07 s"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "range": 900,
+        "opening": "bow"
+      },
+      "expected": {
+        "floor": 150,
+        "cap": [
+          187.53607780690479,
+          187.53607780690479
+        ]
+      },
+      "actual": {
+        "min": 900,
+        "at": 0.016666666666666666,
+        "speed": [
+          0,
+          0
+        ],
+        "t": 26.883333333333333,
+        "end": "draw A,T at 26.88 s"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "range": 900,
+        "opening": "broadside"
+      },
+      "expected": {
+        "floor": 150,
+        "cap": [
+          187.53607780690479,
+          187.53607780690479
+        ]
+      },
+      "actual": {
+        "min": 715.7721592934117,
+        "at": 13.383333333333333,
+        "speed": [
+          0,
+          44.944798431553885
+        ],
+        "t": 43.5,
+        "end": "destroyed A at 43.50 s"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "range": 1500,
+        "opening": "bow"
+      },
+      "expected": {
+        "floor": 150,
+        "cap": [
+          187.53607780690479,
+          187.53607780690479
+        ]
+      },
+      "actual": {
+        "min": 759.0485681578512,
+        "at": 38,
+        "speed": [
+          0,
+          0
+        ],
+        "t": 64.33333333333333,
+        "end": "draw A,T at 64.33 s"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "range": 1500,
+        "opening": "broadside"
+      },
+      "expected": {
+        "floor": 150,
+        "cap": [
+          187.53607780690479,
+          187.53607780690479
+        ]
+      },
+      "actual": {
+        "min": 759.5596875033137,
+        "at": 33.31666666666666,
+        "speed": [
+          0,
+          7.884343713081462
+        ],
+        "t": 64.31666666666666,
+        "end": "destroyed A at 64.32 s"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "range": 2500,
+        "opening": "bow"
+      },
+      "expected": {
+        "floor": 150,
+        "cap": [
+          255.87422621402627,
+          255.87422621402627
+        ]
+      },
+      "actual": {
+        "min": 709.3568199999036,
+        "at": 42.71666666666667,
+        "speed": [
+          43.703714371931035,
+          43.703636868914835
+        ],
+        "t": 600,
+        "end": "none by 600 s"
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "range": 2500,
+        "opening": "broadside"
+      },
+      "expected": {
+        "floor": 150,
+        "cap": [
+          255.87422621402627,
+          255.87422621402627
+        ]
+      },
+      "actual": {
+        "min": 768.7893002648141,
+        "at": 48.483333333333334,
+        "speed": [
+          0,
+          4.476628130910959
+        ],
+        "t": 85.28333333333333,
+        "end": "destroyed A at 85.28 s"
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

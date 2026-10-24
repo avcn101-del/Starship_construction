@@ -1,0 +1,68 @@
+{
+  "id": "L4.pilot.turn180",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.pilot.turn180",
+  "code": "07b70b4",
+  "criterionHash": "d9e77c88",
+  "lockedHash": "d9e77c88",
+  "runHash": "8982cdf4",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "5d270210",
+  "rows": [
+    {
+      "case": {
+        "parity": "even +"
+      },
+      "expected": {
+        "alpha": 0.19060600769571664,
+        "t180": 8.119637478376012,
+        "by": 9.743564974051214,
+        "within": 1
+      },
+      "actual": {
+        "t": 9.75,
+        "steps": 585,
+        "errorDeg": 0.13450477162871224,
+        "within": 7.583333333333333,
+        "reversed": null,
+        "sense": -1,
+        "omegaMax": 0.775131097962583
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "parity": "even -"
+      },
+      "expected": {
+        "alpha": 0.19060600769571664,
+        "t180": 8.119637478376012,
+        "by": 9.743564974051214,
+        "within": 1
+      },
+      "actual": {
+        "t": 9.75,
+        "steps": 585,
+        "errorDeg": 0.13450477162871224,
+        "within": 7.583333333333333,
+        "reversed": null,
+        "sense": 1,
+        "omegaMax": 0.775131097962583
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "L4.pilot.thrust",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.pilot.thrust",
+  "code": "07b70b4",
+  "criterionHash": "a1bc004a",
+  "lockedHash": "a1bc004a",
+  "runHash": "1408cc36",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "42bd9c83",
+  "rows": [
+    {
+      "case": {
+        "demand": 1
+      },
+      "expected": {
+        "f": 1,
+        "M": 1430724.0573339704,
+        "before": 10.484201983680341,
+        "a": 10.484201983680341
+      },
+      "actual": {
+        "before": 10.484201983680341,
+        "a": 10.484201983680341,
+        "fraction": 1,
+        "steps": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "demand": 0.4
+      },
+      "expected": {
+        "f": 0.575,
+        "M": 1430724.0573339704,
+        "before": 10.484201983680341,
+        "a": 6.028416140616197
+      },
+      "actual": {
+        "before": 10.484201983680341,
+        "a": 6.028416140616197,
+        "fraction": 0.575,
+        "steps": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "demand": 0.1
+      },
+      "expected": {
+        "f": 0,
+        "M": 1430724.0573339704,
+        "before": 10.484201983680341,
+        "a": 0
+      },
+      "actual": {
+        "before": 10.484201983680341,
+        "a": 0,
+        "fraction": 0,
+        "steps": 1
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
