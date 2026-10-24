@@ -80,3 +80,22 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
   owner's feel), Mission 0 documents archived, a slim `CLAUDE.md`.
 - Ideas waiting in `IDEAS.md`: the thin skin (#313), command level (#319),
   ship classes' forms (#320), the battle screen, hull cooling.
+- The owner's order for `IDEAS.md` (2026-10-24, with the design partner;
+  no action before item 55's pass ends; the lead designer may reorder on
+  technical grounds and tells the owner): (a) battle phases (#334) after
+  item 55 and the rebuilt builds, before L5e2; it replaces "Presets by
+  ship archetype" and "Command level"; (b) the hull radiates: measure
+  only, from L5e2's battles (share in which a side reaches plant hot;
+  #304 puts the first hot room near 1059 s); build only if material;
+  (c) ship classes: the two-class measure at L6 (#320), content after
+  Mission 0; (d) after Mission 0, rendering: the battle screen (outside
+  view, knowledge panel) first, then the thin skin (#313); (e) after
+  Mission 0, progression: room variants (one physical trade per room,
+  three families; the reactor's axis is its shield mass, #281), then
+  tracking mines; (f) the eight unworked ideas: the four gates first,
+  then ordered by the underdog paths they open (E6).
+- Room variants bring three new kernel rules: a turret's ready store
+  detonates as a magazine does (today magazines and missile bays, #148),
+  scan range from the antenna, shield buffer vs rate. Whether the
+  ready-store detonation comes earlier, for consistency with #148, is
+  the lead designer's call after item 55 (open).
