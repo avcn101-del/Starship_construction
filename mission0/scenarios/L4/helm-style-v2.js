@@ -39,7 +39,7 @@ export default {
   tolerance: 'steps exact; the bearing\'s change against a dt^2 / R*; orbit\'s tangential speed within v_t + a dt of v_t',
   criterion: 'hold: never engaged, the tangential relative speed under band / t180 throughout; orbit and strafe: engaged at the helm\'s first step (step 0); orbit: the bearing never turns clockwise by more than a dt^2 / R* in a step and has advanced counter-clockwise after 60 s (kernel-read, labelled), and from the first step it reaches v_t every step\'s tangential relative speed is within v_t + a dt of v_t; strafe: its sense flips at 600, 1200, 1800, 2400 and 3000 exactly, and in each of the six intervals the tangential relative speed takes the sign of the sense in force (counter-clockwise positive) at some step',
   tunable: ['helm.rangeBand', 'helm.rangeHold', 'helm.dodgeMin', 'helm.dodgeMax', 'rcs.force'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'b0c9af47' },
   cases() {
     return [{ style: 'hold' }, { style: 'orbit' }, { style: 'strafe' }];
   },
