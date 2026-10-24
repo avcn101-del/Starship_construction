@@ -118,6 +118,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, §17 item 53 and the field's energy frame (#327; PR #103, `ac91efd`; notified by trigger) | session_01CAL2Wwfpzq5LmqxiRWAdDK | opus-5-5 | 6.00 |
 | Physics checker, PR #103 (blind; 0 blocking, 3 non-blocking; notified by trigger) | session_012Y3cHk3UTBGdUTxEqxnWin | sonnet-5-5 | 0.45 |
 | Reviewer, PR #103 (0 blocking, 4 non-blocking; notified by trigger) | session_01AV1zutGsj1uUQQm6rgJuLk | sonnet-5-5 | 0.50 |
+| Engineer, the reference builds' rebuild (#330, #331; draft PR #104, `1d7845e`; stopped at the stop rule; still open, cost so far) | session_01SC9bT7XzCShErTLAScXgUu | opus-5-5 | ≥ 6.60 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -146,7 +147,7 @@ L5d total: ≥ 47.92 USD (engineer 29.39, fix rounds 13.24, physics checkers 1.4
 
 The lead designer chat's own cost (planning, answers, checks, merges) is **not in this ledger** (#270 (7)): only the sessions it creates are costed.
 
-**From process v2 (#325) the lead designer chats are costed here too**, one row per chat (`get_session` `cost_usd`; the chain in `STATUS.md`): `session_01Ld11QmhkPubc8PkfKtd7CT` 43.0, `session_014nrUDvPgiLEjm64scJFkyW` 104.2, `session_01VL5M5dKNeREUVf7y1y3P87` 64.6, `session_01DFw3o4EBEtf1adcpyJ5786` 67.2, `session_01S8gXf1kch2FCFHYE8nwhrn` 91.3 (the figures the owner was given, 2026-10-24, not re-read by this chat), `session_01Bt5RVRLCv85dFpXLq4qB5W` **26.64** at its hand-over (read by itself, 2026-10-24 07:35 UTC).
+**From process v2 (#325) the lead designer chats are costed here too**, one row per chat (`get_session` `cost_usd`; the chain in `STATUS.md`): `session_01Ld11QmhkPubc8PkfKtd7CT` 43.0, `session_014nrUDvPgiLEjm64scJFkyW` 104.2, `session_01VL5M5dKNeREUVf7y1y3P87` 64.6, `session_01DFw3o4EBEtf1adcpyJ5786` 67.2, `session_01S8gXf1kch2FCFHYE8nwhrn` 91.3 (the figures the owner was given, 2026-10-24, not re-read by this chat), `session_01Bt5RVRLCv85dFpXLq4qB5W` **26.64** at its hand-over (read by itself, 2026-10-24 07:35 UTC). `session_01EAtiqegHjnDwsoHwD7cjur` **13.16** at its hand-over (read by itself, 2026-10-24 12:35 UTC; 370k tokens of context).
 
 ## Estimates against actuals (#270 (1))
 

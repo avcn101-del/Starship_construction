@@ -1,11 +1,12 @@
 # STATUS — hand-over between chats (#179; process v2, #325)
 
 Updated 2026-10-24 by the lead designer chat `session_01EAtiqegHjnDwsoHwD7cjur`
-(took over at L5e1's merge, #322 (4); branch `ld/pace`). Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
+at **370k tokens of context**, handing over inside the builds' rebuild (#322 (4)).
+**The new chat writes its own id here first thing.** Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
 `session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
 `session_01DFw3o4EBEtf1adcpyJ5786` → `session_01S8gXf1kch2FCFHYE8nwhrn` →
-`session_01Bt5RVRLCv85dFpXLq4qB5W` → `session_01EAtiqegHjnDwsoHwD7cjur` (sessions
-notify it with `persistent_session_id` = its id).
+`session_01Bt5RVRLCv85dFpXLq4qB5W` → `session_01EAtiqegHjnDwsoHwD7cjur` → the new
+chat (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
 
 **Reading order (#325)**: this file, `BRIEF.md`, `CLAUDE.md`,
 `.claude/agents/lead-designer.md`, `DESIGN.md` §18 and the plan in force
@@ -14,24 +15,25 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
 ## For the owner (five lines)
 
-- **Done**: #326–#328; the owner's E7 answer (#329: rebuild the reference builds, E7 on two-sided battles; A / B wait); the build criteria (#330).
-- **Next**: engineer `session_01SC9bT7XzCShErTLAScXgUu` rebuilds Lance, Swarm, Furnace (`L4.builds.lethal`); then a reviewer; then one runner re-measures E7 (two-sided), the shape and the verbs on the new builds.
-- **Waiting on you**: nothing.
-- **Money**: this chat's sessions 8.20 USD; the rebuild 6–11 expected.
-- **Running**: the builds engineer (`m0/builds2`, PR to `ld/pace`).
+- **Done**: #326 (process), `battle.openingRange` 500–3000 m, the pace study (#328), §17 item 53 (#327), the owner's E7 answer (#329), the builds' criteria (#330), the rebuild's stop (#331).
+- **Next**: fix the broadside mirror race (§17 item 55, a helm-law pass, probed first); then the builds again; then one runner re-measures E7 (two-sided), the shape and the verbs.
+- **Waiting on you**: whether a specialist may carry a secondary **S turret** (#331: Lance then meets both criteria 8 / 8; Furnace mirror 5 / 8).
+- **Money**: this chat 13.16 USD; its sessions 14.80 (runners 1.25; item 53 6.95; the builds engineer ≥ 6.60, still open).
+- **Running**: nothing working; the builds engineer `session_01SC9bT7XzCShErTLAScXgUu` is idle on draft PR #104, waiting for answers.
 
-Not built yet: §17 item 54 (the energy book's beam term).
+Not built yet: §17 items 54 (beam term in the energy book), 55 (the broadside race), 56 (missile guidance).
 
 ## Open pull requests
 
-None; `ld/pace` carries this pass's documents and the openingRange records.
+- **#104** (draft, `m0/builds2` → `ld/pace`): the builds' rebuild, stopped at #330's stop rule; its questions 4 and 5 answered in #331 (L beam bay yes; `cell-damaged` in (i)); 1 (S turret) to the owner; 2 (the race) is item 55, the lead designer's; 3 (narrow (i) to bow) no: it would hide item 55.
 
 ## Next steps
 
-1. **The pace study is measured (#328); E7 waits on the owner.** The runner's grid is `tools/estimates/pace-e7.mjs` and `pace-verbs.mjs` (outputs on `run/pace`). The lead designer's probe (seed 1, `ld/pace`): E7 median 38 s on the locked builds; the levers alone 44–96 s; strafe with range open 217 s (6 of 24 without an end); the seed acts only through the dodge intervals (the design partner's check, verified), so seeds 1–4 only where a side strafes or dodges. Verb leverage on one cell: 5 of 19 verbs flip it, all against the player.
-2. **§17 item 54** (the energy book's beam term): with L5e2.
-3. **L5e2** (E5–E8, W9b, `L5.route.throughput`): planned after the study, costed raw × 1.24.
-4. Due when their files are touched: §17 items 47, 50, 51.
+1. **§17 item 55, the broadside mirror race.** Probe a position law on a scratch copy of `js/helm.js` from the race's own start (Lance mirror, 900 m broadside: `node tools/estimates/pace-e7.mjs --pairs Lance:Lance --ranges 900 --openings broadside`), with every passed rule on, and run `regress` on the scratch tree (a runner). Two laws already failed (#331's row: yield while the other accelerates; give up after 10–20 s without closing). The cause, traced: both ships thrust along +x at 449 m apart, the relative error stays constant, the range order never lets go. Then an engineer pass (opus) with the blind checker (a control law) and a reviewer. Item 56 (proportional navigation for missiles) may go in the same pass, if probed.
+2. **The builds** (#330): after item 55, the builds engineer (or a new one) continues PR #104 with the owner's S-turret answer. `L4.builds.lethal` is not yet written or locked.
+3. **One runner** (#329, the owner's process): on the new builds, the mirror and versus-R2 grids with `tools/estimates/pace-e7.mjs` (workers; `--pairs`) at 600 / 900 / 1500 m and 2500 m (`--cull2`), default and strafe + range open (seeds 1–4 where a side strafes or dodges), and `tools/estimates/pace-verbs.mjs --pairs Lance:R2,Swarm:R2,Furnace:R2 --ranges 900,1500 --times 0,10` (the verbs with the player losing). E7 is the two-sided line (#329). Then A / B to the owner.
+4. **L5e2** (E5–E8, W9b, `L5.route.throughput`, §17 item 54) after that.
+5. Due when their files are touched: §17 items 47, 50, 51.
 
 ## Scheduled tasks
 

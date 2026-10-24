@@ -1873,6 +1873,17 @@ Each line names its decision and when it is due; a closed one is removed.
     work and internal energy, but not a beam's escaped energy, which
     `fireBeam` only returns; a deposit into a missing room would not show.
     Due when `js/battle.js`'s books are next touched (L5e2 at the latest).
+55. **The broadside mirror race** (PR #104, the builds engineer; #331): from a
+    broadside opening both sides fly `position: bow` (#315's law), each
+    chases the point ahead of the other's bow, and they race side by side
+    (Lance mirror at 900 m: 449 m apart, 1354 m/s by 300 s, 0 hits; `node
+    tools/estimates/pace-e7.mjs --pairs Lance:Lance --ranges 900 --openings
+    broadside`). A spinal weapon never bears. The lead designer's two scratch
+    laws (yield the position while the other accelerates; give it up after
+    10–20 s without closing) do not cure it. A helm-law pass, probed first.
+56. **Missiles fly pure pursuit** (PR #104): no lead, so a missile passes
+    about 50 m behind a target accelerating at about 5 m/s² (Swarm mirror,
+    600 m broadside, missile 1, t 8.9 s). A guidance-law question with item 55.
 
 ## 18. Decisions in force
 
@@ -2212,3 +2223,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 328 | The pace study measured: E7 38 s; rung 1 reaches 230 s only by misses (hits to kill 41, a third unended); verbs mostly harm; E7 to the owner | report |
 | 329 | E7: rebuild the reference builds first; E7 counts only two-sided battles; A and B wait; the verb finding re-measured (the owner) | current |
 | 330 | The reference builds' rebuild: each specialist kills its mirror and damages R2 (`L4.builds.lethal`); measures open at 2500 m too | current |
+| 331 | The builds' rebuild stopped: the broadside mirror race (§17 item 55), missiles in pure pursuit (item 56), Furnace against shields; an S secondary turret to the owner; an L beam bay allowed | current |
