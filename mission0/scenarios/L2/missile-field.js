@@ -33,7 +33,7 @@ export default {
   tolerance: 'the field rule 1e-12 relative; the cross-section literal 1e-5; books 1e-9 of the gross',
   criterion: 'shield on: the speed after and the payment are the field rule\'s on a 200 kg steel round of A = 0.0317027 m^2 at the kernel-read speed and the strength at the entry; the buffer falls by the payment; the penetrator enters the hull at that speed within 2 m u / M (the hull\'s own recoil, a bound) and meets no field again; books close; shield off: no field (no payment), the body joins at its speed',
   tunable: ['missile.mass', 'shield.kineticStop', 'shield.radius', 'shield.buffer'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'e78614fb' },
   cases() {
     return [{ warhead: 'he', shield: true }, { warhead: 'penetrator', shield: true }, { warhead: 'he', shield: false }];
   },
