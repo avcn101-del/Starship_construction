@@ -1,0 +1,34 @@
+# Mutation coverage (tools/mutate.js, #246 (1))
+
+head 3cbbdb2, 2026-10-24
+command: node tools/mutate.js --jobs 4 --rule l5e1 --timeout 2400 --out mission0/mutations/2026-10-24-l5e1.txt
+baseline: 173 scenarios VERIFIED by regress, every one PASS with its recorded results in an unmutated copy
+wall time: 32.0 min
+classes: KILLED = some verdict is not PASS (a criterion noticed); CHANGED = every verdict PASS but some output moved from its record (not coverage: no criterion noticed, #257); SURVIVED = every verdict PASS, every output as recorded; STALE = the edit no longer applies; TIMEOUT
+
+id                        rule                                                             class     first killing scenario, or the changed scenarios
+l5e1.position.noLead      13n.8 the position law (#315)                                    KILLED    L4.helm.conflict.v2 (FAIL)
+l5e1.position.halfLead    13n.8 the position law (#315)                                    KILLED    L4.helm.conflict.v2 (FAIL)
+l5e1.plume.off            13n.8 the plume (#297)                                           KILLED    L4.engine.plume (FAIL)
+l5e1.plume.noCone         13n.8 the plume (#297)                                           KILLED    L4.engine.plume (FAIL)
+l5e1.plume.forward        13n.8 the plume (#297)                                           KILLED    L2.sensor.posture (FAIL)
+l5e1.plume.face           13n.8 the plume (#297)                                           KILLED    L4.engine.plume (FAIL)
+l5e1.plume.radiatorWorks  13n.8 the plume (#297)                                           KILLED    L4.engine.plume (FAIL)
+l5e1.plume.antennaWorks   13n.8 the plume (#297)                                           SURVIVED  
+l5e1.attackerFixed        13n.8 J3's case setting (attackerHeading for a static attacker)  KILLED    L4.engine.plume (FAIL)
+l5e1.contain.off          13n.8 reactor containment first (#37)                            KILLED    L2.repair.containment (FAIL)
+l5e1.draw.off             13n.8 a simultaneous end (#315)                                  KILLED    L4.end.simultaneous (FAIL)
+l5e1.missile.noField      §17 item 48 a missile's body and a charged field                 KILLED    L2.missile.field (ERROR: Cannot read properties of null (reading 'after'))
+l5e1.missile.area         §17 item 48 the stated cross-section                             KILLED    L2.missile.field (FAIL)
+l5e1.missile.twice        §17 item 48 (a penetrator meets the field once)                  KILLED    L2.missile.field (FAIL)
+l5e1.field.atEntry        §17 item 35 the field's impulse on the round's line              KILLED    L4.books.field (FAIL)
+l5e1.field.frame          §17 item 35 (one world line for every body's book)               KILLED    L4.books.field (FAIL)
+l5e1.events.noChange      §17 item 51 no event without a change of state                   KILLED    L4.events.change (FAIL)
+l5e1.repair.anyString     §17 item 50 the repair slot's validation                         KILLED    L4.loop.symmetric.v2 (FAIL)
+l5e1.sweep.byArrival      13n.8 tools/sweep.mjs deterministic                              SURVIVED  
+
+total 19: KILLED 17, CHANGED 0, SURVIVED 2, STALE 0, TIMEOUT 0
+
+per DESIGN section:
+  §13n.8  12: KILLED 10, CHANGED 0, SURVIVED 2, STALE 0, TIMEOUT 0
+  §§17     7: KILLED 7, CHANGED 0, SURVIVED 0, STALE 0, TIMEOUT 0
