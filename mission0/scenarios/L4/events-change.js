@@ -26,7 +26,7 @@ export default {
   tolerance: 'exact (IEEE doubles)',
   criterion: 'a loss below float resolution (1e-17 at 1 and at 1 - 2^-53) or of 0 leaves the integrity bit for bit as it was and emits nothing; a loss of 1e-3 at 1 emits exactly one cell-damaged with integrity 0.999 (1 - 1e-3 in doubles)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '5700910b' },
   cases() {
     return [{ from: 1, loss: 1e-17 }, { from: ULP, loss: 1e-17 }, { from: 1, loss: 0 }, { from: 1, loss: 1e-3 }];
   },
