@@ -63,7 +63,7 @@ export default {
   tolerance: 'steps exact, one-sided: ruined at n = ceil(q m / (I A dt)), the window [t, t + dt); a shadowed fitting takes 0 J',
   criterion: 'the hand-worked literals: (panels) the two bow panels at step 21, (antenna) the antenna at step 82, (inside) the (4, 0) -y panel at step 20 and the antenna at step 74; each other fitting of the pursuer inside the cone and not shadowed at its own formula step, none other ruined, every shadowed or outside one at 0 J; (offset) no fitting takes any energy; no shadowing answer changes for the apex moved 1 cm across the axis; (antenna) the antenna a source at the step before its ruin and none at every step from its ruin to the end, its scan ordered again in the step of the ruin and still ordered at the end; no hull cell or plate of either ship changes, the leader loses no fitting, a ruined panel leaves its room\'s count and the sources, a ruined point defence is not able; both hold heading 0 within 1e-5 rad',
   tunable: ['engine.plumeHalfAngle', 'engine.thrust', 'engine.exhaustVelocity', 'matter.burnEnergyPerKg', 'radiator.mass', 'sensor.mass'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'b0efcd14' },
   cases() {
     return Object.keys(CASES).map((name) => ({ name }));
   },
