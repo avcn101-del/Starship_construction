@@ -2047,8 +2047,8 @@
     "id": "l5e1.plume.noCone",
     "rule": "13n.8 the plume (#297)",
     "file": "js/battle.js",
-    "old": "        if (lat > R) continue;\n",
-    "new": "",
+    "old": "        if (lat > R || shadowed(o, apex, worldPoint(fb, f.p))) continue;\n",
+    "new": "        if (shadowed(o, apex, worldPoint(fb, f.p))) continue;\n",
     "note": "L5e1: a fitting outside the cone burns too"
   },
   {
@@ -2170,5 +2170,21 @@
     "old": "else out[m.i] = m.r;",
     "new": "else out[out.filter(Boolean).length] = m.r;",
     "note": "L5e1: results in the order the workers return them"
+  },
+  {
+    "id": "l5e1.plume.noShadow",
+    "rule": "13n.8 the plume's occlusion (PR #101, the lead designer's answer 3)",
+    "file": "js/battle.js",
+    "old": "if (lat > R || shadowed(o, apex, worldPoint(fb, f.p))) continue;",
+    "new": "if (lat > R) continue;",
+    "note": "L5e1 fix round: no occlusion, a fitting behind its own hull burns"
+  },
+  {
+    "id": "l5e1.plume.shadowTouch",
+    "rule": "13n.8 the plume's occlusion (PR #101, the lead designer's answer 3)",
+    "file": "js/battle.js",
+    "old": "const e = side.world.edge, g = GRAZE * e, ends = new Map();",
+    "new": "const e = side.world.edge, g = -GRAZE * e, ends = new Map();",
+    "note": "L5e1 fix round: a segment touching its fitting's own cell counts as crossing it (every fitting shadowed)"
   }
 ]

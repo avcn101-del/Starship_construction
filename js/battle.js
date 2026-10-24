@@ -755,8 +755,9 @@ function cullMunitions(battle) {
  * step x engine.exhaustVelocity / 2 (the throttle in it), at P / (pi (d tan theta)^2) at the distance d along the axis
  * (uniform across the cone's section, so the section carries P). Each radiator panel, antenna and point-defence
  * fitting of the other ship whose edge midpoint lies inside a cone takes that intensity over one hull segment's face,
- * edge^2, for the step (rooms.js burnFitting; mechanism C: never a hull cell). No occlusion: a fitting behind the
- * other ship's own hull burns as one in the open (a stated simplification). Returns nothing.
+ * edge^2, for the step (rooms.js burnFitting; mechanism C: never a hull cell). Occlusion (the lead designer's answer 3
+ * on PR #101): a fitting reaches the plume only if the segment from the apex to its edge midpoint crosses no standing
+ * cell of its own ship (shadowed). Returns nothing.
  */
 function plume(battle) {
   const p = battle.params, edge = battle.edge, theta = (scaled(p.engine.plumeHalfAngle, edge) * Math.PI) / 180;
@@ -773,12 +774,45 @@ function plume(battle) {
         const D = sub(worldPoint(fb, f.p), apex), d = D[0] * axis[0] + D[1] * axis[1];
         if (!(d > 0)) continue;
         const R = d * tan, lat = len([D[0] - d * axis[0], D[1] - d * axis[1]]);
-        if (lat > R) continue;
+        if (lat > R || shadowed(o, apex, worldPoint(fb, f.p))) continue;
         burnFitting(o.world, f, (P / (Math.PI * R * R)) * face * dt, 'plume');
       }
     }
   }
 }
+
+/** A segment ending within this fraction of the edge of a cell's boundary is on it, not inside: float resolution. */
+const GRAZE = 1e-9;
+/**
+ * Whether the world segment from a to q crosses a standing (not destroyed) cell of side's ship: inside the open square
+ * of the cell, shrunk by GRAZE x edge, on the body holding it (Liang-Barsky clipping in that body's grid frame). A segment that
+ * only touches a cell's boundary, as one ending on its fitting's own edge from outside, crosses nothing.
+ */
+function shadowed(side, a, q) {
+  const e = side.world.edge, g = GRAZE * e, ends = new Map();
+  for (const b of side.world.ship.bodies) ends.set(b.id, [gridOf(b, a), gridOf(b, q)]);
+  for (const r of side.world.rooms) {
+    if (!r.placed) continue;
+    const cells = side.world.layout.rooms.get(r.id).cells;
+    for (let k = 0; k < r.cells.length; k++) {
+      const c = r.cells[k], seg = ends.get(c.fragment);
+      if (c.destroyed || !seg) continue;
+      const [p0, p1] = seg, d = [p1[0] - p0[0], p1[1] - p0[1]];
+      let t0 = 0, t1 = 1;
+      for (let i = 0; i < 2 && t0 < t1; i++) {
+        const lo = cells[k][i] * e + g, hi = (cells[k][i] + 1) * e - g;
+        if (d[i] === 0) { if (p0[i] <= lo || p0[i] >= hi) t1 = -1; continue; }
+        let u = (lo - p0[i]) / d[i], w = (hi - p0[i]) / d[i];
+        if (u > w) [u, w] = [w, u];
+        t0 = Math.max(t0, u); t1 = Math.min(t1, w);
+      }
+      if (t0 < t1) return true;
+    }
+  }
+  return false;
+}
+/** The grid point (m) of world point q on body b (worldPoint's inverse). */
+const gridOf = (b, q) => { const r = rotate([q[0] - b.x[0], q[1] - b.x[1]], -b.theta); return [r[0] + b.c[0], r[1] + b.c[1]]; };
 
 // ---------- able to fight, Disabled, destroyed (13l.1, #82, #83, #255) ----------
 /**

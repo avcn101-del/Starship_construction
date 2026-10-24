@@ -19,6 +19,13 @@
   Fortress, Engine boat, Cold Brick), `tools/sweep.mjs`,
   `mission0/probes/l5e1-j5.mjs`; J1–J13 and the successors; `tools/mutations.json`
   (`l5e1.*`, seven entries re-anchored).
+- Fix round (PR #101's review, the physics checker, the lead designer's
+  answer 3): `js/battle.js` the plume's occlusion (a fitting behind its own
+  hull is shadowed); `L4.engine.plume.shadow`; successors
+  `L4.engine.plume.v2`, `L2.missile.field.v2`, `L4.books.field.v2`,
+  `L4.sweep.determinism.v2` (their originals withdrawn, frozen);
+  `tools/mutations.json` `l5e1.plume.noShadow`, `.shadowTouch`, `.noCone`
+  re-anchored.
 
 ## Unreleased — 2026-10-24 — L5e1 planned (#316)
 
