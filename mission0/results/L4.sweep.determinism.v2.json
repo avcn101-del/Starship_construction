@@ -1,0 +1,61 @@
+{
+  "id": "L4.sweep.determinism.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.sweep.determinism.v2",
+  "code": "c9dfe72",
+  "criterionHash": "5e8b7b49",
+  "lockedHash": "5e8b7b49",
+  "runHash": "85ee6c78",
+  "dataHash": "394196fd",
+  "rowsHash": "0a2b9702",
+  "rows": [
+    {
+      "case": {
+        "name": "two ranges, the longer battle first"
+      },
+      "expected": {
+        "pairs": 1,
+        "ranges": [
+          1500,
+          600
+        ]
+      },
+      "actual": {
+        "hashes": [
+          "f7ec10cb",
+          "f7ec10cb",
+          "f7ec10cb",
+          "f7ec10cb"
+        ],
+        "pairs": 1,
+        "ends": [
+          {
+            "range": 1500,
+            "kind": "surrender",
+            "side": "T",
+            "t": 34.916666666666664
+          },
+          {
+            "range": 600,
+            "kind": "destroyed",
+            "side": "A",
+            "t": 2.95
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
