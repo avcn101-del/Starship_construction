@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — the mutation run on L5d's merge (#314)
+
+- `mission0/mutations/2026-10-24-761e5e4.txt`: 269 mutations, 221 KILLED,
+  12 CHANGED, 36 SURVIVED; `tools/mutations.json`: ten entries re-anchored.
+
+## Unreleased — 2026-10-24 — the thin-skin idea (#313)
+
+- `IDEAS.md`: "A thin skin over the rooms, with cosmetic paint" (the design
+  partner, `ideas/hull-skin`). `DECISIONS.md` #313: its three kernel rules
+  wait until after Mission 0; `DESIGN.md` §18.
+
+## Unreleased — 2026-10-23 — the prototype page on the L5d loop merged (#312)
+
+- PR #96 (feel-6): the page on the kernel's symmetric loop; `L0.determinism.v2`
+  re-recorded on its duel (Node = Chromium `5de002fe`). `tools/mutate.js`
+  serialises `L0.determinism.v2`. `DESIGN.md` §13n.1 (d), §18.
+
 ## Unreleased — 2026-10-23 — the feel prototype on the L5d kernel (#301 (5))
 
 - `proto/` rebuilt on the kernel's symmetric loop (`feel-6`): the page
