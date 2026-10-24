@@ -16,10 +16,10 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 ## For the owner (five lines)
 
 - **Done**: #326 (process), `battle.openingRange` 500–3000 m, the pace study (#328), §17 item 53 (#327), the owner's E7 answer (#329), the builds' criteria (#330), the rebuild's stop (#331).
-- **Next**: fix the broadside mirror race (§17 item 55, a helm-law pass, probed first); then the builds again; then one runner re-measures E7 (two-sided), the shape and the verbs.
+- **Next**: the item 55 engineer's PR (then the blind checker on K1–K3 and a reviewer); then the builds again (#332); then one runner re-measures E7 (two-sided), the shape and the verbs; then battle phases (#334) before L5e2.
 - **Waiting on you**: nothing (#332 answered the S turret: only after item 55, if still needed, at most one, recorded with and without).
-- **Money**: this chat 13.16 USD; its sessions 14.80 (runners 1.25; item 53 6.95; the builds engineer ≥ 6.60, still open).
-- **Running**: runner `session_01S9x8RHyzN6aW5YiUmiYCVn` (sonnet): the helm suite and `regress` under P3 (item 55); the builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104. Done: runners `session_0184EvFVAF3uPPJ8u6d9oyhb` (0.29 USD), `session_018CzG2efzqJLEh5utTmS1AX` (0.47), `session_01JEsqkpArJ9unCs6ng4gGCF` (0.39).
+- **Money**: this chat 7.74 USD at 309k tokens; its runners 1.51 (item 55's probe); the item 55 pass expected 11–17 USD (#335; #246 (4)'s figure 22–35).
+- **Running**: the item 55 engineer `session_011bat8qrcsUMVXEQ4MPu2Qi` (opus, branch `m0/helm55`, PR → `ld/pace`; §13n.9, #335); it notifies this chat. The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104.
 
 Not built yet: §17 items 54 (beam term in the energy book), 55 (the broadside race), 56 (missile guidance).
 
