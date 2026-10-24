@@ -22,6 +22,7 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
 | [The battle screen: outside view and knowledge panel](#the-battle-screen-outside-view-and-knowledge-panel) | information (on screen) | – · – · yes · yes | the owner's feel on the phone | waiting |
 | [The hull radiates, fed by cooling manifolds](#the-hull-radiates-fed-by-cooling-manifolds) | throughput, dependency, information | yes · yes · yes · yes | share of L5e battles in which a side reaches plant hot, with and without the heat-sink cascade | waiting |
 | [A thin skin over the rooms, with cosmetic paint](#a-thin-skin-over-the-rooms-with-cosmetic-paint) | information | yes · – · yes · yes | the owner's feel on the phone; the cost of three kernel rules | waiting |
+| [Command level: watch, captain, hands-on](#command-level-watch-captain-hands-on) | not claimed (a way to play, not a law) | – · yes · yes · yes | verb leverage (the share of battles a player verb flips) and the battle's shape (quiet share, hits to kill), then the owner's feel on the phone | waiting |
 | [Blast resistance from mass](#not-yet-worked) | not stated | not checked | not stated | waiting (#232, `DESIGN.md` §13i.1) |
 | [Tumble and sloped armour](#not-yet-worked) | not stated | not checked | not stated | waiting (#230) |
 | [Plasma toroid gun (MARAUDER)](#not-yet-worked) | not stated | not checked | not stated | waiting |
@@ -350,6 +351,94 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
   delegated); the lead designer's estimate of the three kernel rules' cost.
 - **Links.** #15, #23, #45, #46, #48, #141, #256; the battle screen (outside
   view and knowledge panel); the hull radiates (cooling manifolds).
+
+### Command level: watch, captain, hands-on
+
+*From the owner's discussion, 2026-10-24.*
+
+- **Problem it answers.** The owner wants to choose how involved to be:
+  sometimes to watch his own ship fight on its orders, sometimes to command
+  closely; and wants the feel of *The Expanse* and *Firefly*: tension and
+  drama, "not two ships duking it out to the death; sometimes one volley ends
+  it". Both are captains who give orders while a pilot flies, which is #2
+  (the player never steers).
+- **Mechanism.** One setting, three levels, all on the player's own ship.
+  (1) **Watch**: the player's ship fights on its standing orders while an
+  automatic captain switches its presets and scans; that captain is
+  `js/enemy.js` run for the player's side with a personality the player
+  sets (the kernel already runs both sides as enemies: #315's probe); the
+  player may pause, speed up, and take command at any moment by using a
+  verb. (2) **Captain**: today's three verbs (#2). (3) **Hands-on**: a few
+  more orders, each an existing standing-order slot made a live order
+  (flip and burn = the range slot, launch a salvo = the firing slot, hold
+  fire = heat discipline, repair here = the repair slot); this moves a
+  decision's owner in the coverage table (§8, #36). And (4) **rewind and
+  branch** in the dry run (#56) only, never in the campaign: the kernel is
+  deterministic (E2; `tools/duel.js --seed --inputs` replays a battle), so a
+  replay stopped at a moment can be continued with a different verb, the
+  "try it and learn why" the owner enjoys.
+- **Numbers.** `main` `ca57372`, R1d-A against R1d-A in `tools/duel.js`
+  (player Fire, enemy 0.5 unless stated); scratch scripts over
+  `createDuel`, `tick` and `battle.hits` / `battle.ended`, not committed, not
+  re-run by anyone else.
+  - **Verb leverage today** (one verb at t = 0, 26 variants per setup: target
+    each of the 10 rooms, scan each of the 6 zones, scan + target the
+    magazine, preset Evade / Cool, Evade at 10 s): default, 8 of 26 keep the
+    win and 18 lose it; `--personality 0.5,0,0.5,0.5` only 3 of 26 change
+    the result (a scan of zone 2 wins); `--personality 1,0,0.5,0.5` the
+    results spread widely (win or loss, destroyed, surrender or Disabled,
+    25–316 s); `--range 1500` only the presets change it, both to a loss.
+    In 3 of 4 setups the best play is **no verb**, and Evade loses 4 of 4:
+    today Watch would beat Captain.
+  - **The battle's shape** (13 duels: the default; `--personality`
+    1,0,.5,.5 / 0,0,.5,.5 / .5,0,.5,.5 / .5,1,.5,.5 / .5,.5,1,.5 / .5,.5,0,1;
+    `--range` 600 / 1500 / 2500; `--wildcard --seed` 2, 3, 5): today a
+    median of 58 s, the first hit on the losing ship at 1–3 s, 12–52 hits to
+    kill (median 29), 10 of 13 ended by an explosion: a slugfest from the
+    first second with a sudden end. `--set kinetic.hitsToWreck=8`: a median
+    of 155 s but 24–144 hits to kill (median 62): longer by toughness, more
+    of a slugfest. #315's position law (re-implemented in a scratch copy of
+    `js/helm.js`, its five minimum separations reproduced exactly): a
+    median of 41 s; its four long duels (307–323 s at 17–21 % hits) fizzle
+    to a surrender with no hit in their last 10 s. **From 2500 m under
+    #315's law: the first hit at 31 s of 74 s, 23 hits, an explosion**: the
+    shape the owner describes comes from the approach.
+  - Rate of fire is in the kernel already (`js/data.js`: the M turret 0.5 /s,
+    the railgun 0.1 /s, kinetic point defence 2 /s, AP slower by
+    `rounds.apLength`); a real 76 mm naval gun with a shell of about 6 kg
+    fires 80–120 rounds a minute (from memory, not checked), so 30 a minute
+    is slow, and a faster gun would shorten battles.
+- **Gates claimed, not measured.** No law (a way to play). Underdog: a
+  moment where the player's judgement wins (the time-window path) needs
+  verbs with positive leverage. Readable: one setting; Watch needs no new
+  screen. Reuses: `enemy.js` for the player's side, the existing slots, the
+  deterministic replay.
+- **Alternatives weighed in the discussion.** More verbs only (more taps on
+  a phone in landscape, a 3–6 minute battle in real time: Hands-on needs
+  pause or slow motion); watching AI-only battles without the player's ship
+  (the owner: his own ship); rewind in the campaign (cheating: dry run only).
+- **Risks and what it touches.** The levels must not be ranked: if Watch
+  wins (as the numbers above show today), commanding is pointless; if
+  Hands-on wins by far, Watch is a trap; verbs need positive but bounded
+  leverage. Hands-on changes the coverage table (§8, #36) and comes close to
+  #2 (orders, never a stick): the owner's call. E5–E6 assume the player's
+  side plays its standing orders; with Watch the reference player is an
+  automatic captain, which the sweep already is. For the shape: E7 measures
+  only the median length; the owner's taste is tension then a decisive
+  volley, so levers that add toughness (`kinetic.hitsToWreck`) go the wrong
+  way, and levers that lengthen the quiet phase (opening range, relative
+  motion, point defence, scan time) the right one; `battle.cullDistance`
+  (3000 m, also #293's escape threshold) caps the opening range: the lead
+  designer's.
+- **The measure that decides.** In the pace study and L5e2: (a) verb
+  leverage, the share of battles in which a player verb flips the result,
+  and the decisions available per battle; (b) the battle's shape beside
+  E7's median: the first hit on the losing ship as a share of the battle,
+  the hits needed to kill, how it ends; then (c) the owner's feel on the
+  phone in Watch and Captain. Thresholds are the lead designer's.
+- **Links.** #2, #36, #56, #117 (personality), #130 (the feel unverified
+  until after L5), #293, #297, #315, #317 (§17 item 52); the presets by
+  archetype above; E2, E7.
 
 ## Not yet worked
 

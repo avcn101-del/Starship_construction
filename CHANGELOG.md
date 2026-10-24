@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — an idea from the owner's discussion
+
+- `IDEAS.md` (the design partner): command level (watch, captain, hands-on;
+  rewind and branch in the dry run), with verb leverage and the battle's
+  shape measured on `main` `ca57372`; nothing built.
+
 ## Unreleased — 2026-10-24 — L5e1 planned (#316)
 
 - `DESIGN.md` §13n.8 (L5e1: rules, J1–J13, cost, checklist), §13m's rows;
