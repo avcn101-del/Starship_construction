@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `dc2cb45`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `82f81f8`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -135,6 +135,8 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | helm.dodgeMin | 6 | s | 2 | 10 | 0 | true | the shortest interval between dodge flips, drawn on the seeded stream for the enemy, their midpoint with dodgeMax for the player: prototype v2's value, the one the owner played (#263, #301; approved as the plan's, #272 (2)) |
 | helm.dodgeMax | 14 | s | 6 | 30 | 0 | true | the longest interval between dodge flips (helm.dodgeMin's note; #263, #301; approved as the plan's, #272 (2)) |
 | helm.positionLead | 60 | deg | 30 | 90 | 0 | true | the position law (#315): bow, stern and flank want the point on the circle of R* about the other ship moved from the own bearing toward the named one by at most this; a pilot's choice, no hardware (13n.1 (d), 13n.8, #315, #316; approved as the plan's, #272 (2)) |
+| helm.positionPatience | 15 | s | 10 | 20 | 0 | true | the position yields (13n.9, #335): while the range order is engaged under the position law, the distance to its point must fall by helm.rangeBand within this, else the lead is dropped; the probe: 10, 15 and 20 s each cure the broadside race; a pilot's choice, no hardware (approved as the plan's, #272 (2)) |
+| helm.positionReset | 30 | s | 30 | 60 | 0 | true | a yielded position comes back once the range order has been let go for this long (13n.9, #335; the probe: 0 s does not cure the race, 30 s and never give the same cells); a pilot's choice, no hardware (approved as the plan's, #272 (2)) |
 | enemy.decisionInterval | 1 | s | 0.25 | 5 | 0 | true | the enemy decides (which zone to scan, which room to target, which preset) once per this: the same delay the player's taps have (13n.1 (d), #278; approved as the plan's, #272 (2)) |
 | crewRequired.bridge | 4 | crew | 4 | 12 | 2 | true | #183 |
 | crewRequired.reactor | 4 | crew | 4 | 12 | 2 | true | #183 |
