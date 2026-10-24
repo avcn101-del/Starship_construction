@@ -3,7 +3,11 @@
 // elsewhere. The grid: R2, Lance, Swarm and Furnace of mission0/builds.js, each mirror and each against R2, at 600 /
 // 900 / 1500 / 2500 m (battle.cullDistance 5000 m at 2500, as #330), bow and broadside, with the default orders and
 // with style strafe and orbit, both the standard enemy, seed 1. Per battle, four properties:
-//   (1) separation: the main bodies' minimum separation >= 150 m (J1's floor, L4.helm.separation);
+//   (1) separation: the main bodies' minimum separation >= 150 m (J1's floor, L4.helm.separation), counted at the steps
+//       where both ships can manoeuvre (thrust and an RCS couple, js/helm.js shipDynamics) and are ordered a throttle above 0
+//       (the cool preset drifts) and their engines, when asked to thrust, get at least a tenth of their draw (power routing:
+//       a starved engine gives no thrust, js/rooms.js; the helm's shipDynamics does not know it, §17): a hulk, a ship
+//       ordered to drift or a ship without power for its engines is no pilot;
 //   (2) no race: each main body's speed at the end <= 2 x the braking curve's speed from the larger of the opening range
 //       and helm.rangeOpen plus helm.rangeBand (the fastest a range order can want; js/helm.js brakingSpeed, each ship's
 //       acceleration at its preset's throttle and t180 at the start);
@@ -29,6 +33,13 @@ const ranges = list(opt('--ranges', '600,900,1500,2500')).map(Number), openings 
 const styles = list(opt('--styles', 'default,strafe,orbit')), limit = Number(opt('--limit', 600));
 const STD = { aggression: 0.5, patience: 0.5, caution: 0.5, resolve: 0.5 };
 const SEP = 150, BEAR = (2 * Math.PI) / 180, SHARE = 0.1;
+const able = (x, s) => {
+  if (!mainBody(s)) return false;
+  const d = shipDynamics(x, s), o = { ...s.helm.orders, ...(s.helm.override || {}) };
+  const engines = s.world.rooms.filter((r) => r.type === 'engine' && r.placed && r.engine.throttle > 0);
+  const starved = !!s.world.power && engines.length > 0 && engines.every((r) => !(r.powerFraction >= 0.1)); // asked to thrust, given under a tenth of its draw
+  return d.a > 0 && d.t180 < Infinity && o.throttle > 0 && !starved;
+};
 const wrap = (a) => a - 2 * Math.PI * Math.floor((a + Math.PI) / (2 * Math.PI));
 
 /** One battle of the grid and its four properties. */
@@ -41,7 +52,7 @@ function cell({ a, b, range, opening, style }) {
   const band = scaled(params.helm.rangeBand, x.edge), far = Math.max(range, scaled(params.helm.rangeOpen, x.edge)) + band;
   const cap = [x.attacker, x.target].map((s) => { const d = shipDynamics(x, s), o = { ...ordersOf(s.helm.orders), ...(s.helm.override || {}) }; return 2 * brakingSpeed(far, d.a * o.throttle, d.t180); });
   const spinal = [x.attacker, x.target].map((s) => s.world.rooms.some((r) => r.placed && (r.type === 'railgun' || r.type === 'beamBay')));
-  let minSep = Infinity, samples = 0, error = null;
+  let minSep = Infinity, samples = 0, error = null, both = true; // both: whether both ships could manoeuvre at the last whole second
   const bearing = [0, 0], steps = Math.round(limit / x.dt), perSecond = Math.round(1 / x.dt);
   try {
     while (!x.ended && x.step < steps) {
@@ -49,7 +60,8 @@ function cell({ a, b, range, opening, style }) {
       const A = mainBody(x.attacker), T = mainBody(x.target);
       if (!A || !T) continue;
       const d = [T.x[0] - A.x[0], T.x[1] - A.x[1]], r = Math.hypot(d[0], d[1]);
-      minSep = Math.min(minSep, r);
+      if (x.step % perSecond === 0) both = able(x, x.attacker) && able(x, x.target);
+      if (both) minSep = Math.min(minSep, r);
       if (x.step % perSecond === 0) {
         samples++;
         const los = Math.atan2(d[1], d[0]);
