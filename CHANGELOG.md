@@ -6,9 +6,13 @@
   has no body; the beam meets no matter (an empty path), deposits nothing
   and all it passed leaves play as `fireBeam`'s `escaped`. The throw at
   step 9524 of the pace study's R2 v Lance (600 m, bow, target shield) is
-  gone. `L4.beam.nobody` (locked) records it; its energy book fails on a
-  leak at step 8452 outside item 53 (a field on a fragment, in the PR).
-  `tools/mutations.json`: `item53.beam.nobody`.
+  gone. `L4.beam.nobody` (locked) records it.
+- `js/rooms.js` `shieldRound`: a round's speed through a field is relative
+  to the body it hit; its hull velocity came from the paying generator's
+  body, and the energy book leaked when the two were different fragments
+  (9.3 kJ at step 8452 of `L4.beam.nobody`; the lead designer's answer on
+  PR #103). `L0.determinism.v2` re-recorded (the grep's line numbers).
+  `tools/mutations.json`: `item53.beam.nobody`, `item53.field.hullFrame`.
 
 ## Unreleased — 2026-10-24 — process: the plan checklist and the mutation run (#326)
 
