@@ -58,7 +58,7 @@ export default {
   tolerance: 'the heat within 1e-12 relative of the hand-worked value',
   criterion: 'hand-worked: at g = 1 the field removes kineticStop (2/3 of an M round\'s sectional momentum), v1 = 800/3 m/s, the round loses 1/2 x 6 x (800^2 - (800/3)^2) = 1 706 666.67 J and the ship takes J = 6 x (800 - 800/3) = 3200 N s along +y at the round\'s point (20, 5) m; at g = 0.6, v1 = 480 m/s, 1 228 800 J lost, J = 1920 N s at the round\'s point (52.66, 5) m. The ship\'s kinetic-energy gain is J^2 / 2M + (dL)^2 / 2I with dL = (x_p - x_c) J, x_p the round\'s point (R1 at rest: M 911 234.057 kg, centre (23.2357, 15.8040) m, I 9.33146e7 kg m^2, hand-worked from the cell masses in the file\'s comments): 5.6188 + 0.5745 J at g = 1, about 2.0227 + 17.10 J at g = 0.6. Generator heat = lost kinetic energy - the gain within 1e-12 relative (§17 item 25: J^2 / 2M was omitted before L4a, about 4e-6 of the energy). Successor of L3.shield.energy.v2 (13n.8, §17 item 35): the impulse on the round\'s line; every check of L3.shield.energy.v2 kept',
   tunable: ['turret.machineryMass', 'structure.cellMass', 'shield.kineticStop', 'shield.radius', 'kinetic.roundMass', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '0d690450' },
   cases() {
     return Object.keys(POINTS).map((at) => ({ at }));
   },
