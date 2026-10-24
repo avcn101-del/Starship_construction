@@ -1847,6 +1847,13 @@ Each line names its decision and when it is due; a closed one is removed.
     and fails until they are re-recorded. Due: a minimum loss for an event
     (or no event without a change of state) and the dependency declared,
     when `js/rooms.js`'s damage or the scenario is next touched (L5e).
+52. **The pace study's first questions** (#317, the design partner's runs
+    with #315's law): the pace is bimodal (11 of 16 duels end in 23–75 s
+    at 95–100 % hits; 5 last 307–323 s at 17–21 % hits, where the enemy
+    closes and the ships circle at R*): measure which openings and orders
+    give relative motion before asking for a new mechanism; and a close
+    order overshoots R* by about 230 m (362–372 m at 600 m; #306 accepted
+    163–170 m): whether it matters for E7. Due: the pace study after L5e1.
 
 ## 18. Decisions in force
 
@@ -2172,3 +2179,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 314 | The full mutation run on L5d's merge: 269 mutations, 221 KILLED, 12 CHANGED, 36 SURVIVED, 0 STALE; no new survivor; ten catalogue entries re-anchored | report |
 | 315 | L5e split into L5e1 (rules, builds, sweep), a pace study, L5e2 (measures) (the owner's B); the position law on the circle of R* (`helm.positionLead` new, 60°); `L4.helm.separation` | current |
 | 316 | L5e1 planned (§13n.8): containment first and dark fragments from #37, a simultaneous end is a draw, the plume's intercepted area edge², items 35, 48, 50, 51, builds and sweep; J1–J13; L5e 120–176 by the rule, 36–53 expected | current |
+| 317 | L5e1's go (the owner); the pace study measures the bimodal pace first; a close order's overshoot (≈ 230 m) printed by J1, §17 item 52 | current |
