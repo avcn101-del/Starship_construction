@@ -24,6 +24,7 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
 | [A thin skin over the rooms, with cosmetic paint](#a-thin-skin-over-the-rooms-with-cosmetic-paint) | information | yes · – · yes · yes | the owner's feel on the phone; after Mission 0, E5 and E6 on skinned builds | waiting (#313) |
 | [Command level: watch, captain, hands-on](#command-level-watch-captain-hands-on) | not claimed (a way to play, not a law) | – · yes · yes · yes | verb leverage (the share of battles a player verb flips) and the battle's shape (quiet share, hits to kill), then the owner's feel on the phone | waiting |
 | [Ship classes: roles, forms and factions](#ship-classes-roles-forms-and-factions) | dependency, throughput, information (one per faction) | yes · yes · yes · yes | E6 against ships two classes larger (proposed) | waiting |
+| [Battle phases: decision points, attack and defence](#battle-phases-decision-points-attack-and-defence) | information, throughput, dependency (one per phase) | yes · yes · yes · yes | verb leverage and the battle's shape with and without phases on the rebuilt builds, then the owner's feel on the phone | waiting |
 | [Blast resistance from mass](#not-yet-worked) | not stated | not checked | not stated | waiting (#232, `DESIGN.md` §13i.1) |
 | [Tumble and sloped armour](#not-yet-worked) | not stated | not checked | not stated | waiting (#230) |
 | [Plasma toroid gun (MARAUDER)](#not-yet-worked) | not stated | not checked | not stated | waiting |
@@ -546,6 +547,124 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
 - **Links.** #29, #33, #56, #59, #61, #62, #64, #72, #77, #87, #96, #104,
   #118, #119, #122, #161; the thin skin (hull forms, the skin around free
   layouts).
+
+### Battle phases: decision points, attack and defence
+
+*From the owner's discussion, 2026-10-24 (the design partner). Combines and
+would replace [Presets by ship archetype](#presets-by-ship-archetype) and
+[Command level](#command-level-watch-captain-hands-on) if adopted.*
+
+- **Problem it answers.** Today's orders are flat: one set holds for the
+  whole battle, and the enemy changes preset only by reflex (heat above its
+  caution → Cool, buffer below it → Evade, else Fire; `js/enemy.js`). Nothing
+  knows whether a position is won before it fires for the kill. The owner's
+  analogy is a jiu-jitsu match: takedown, then position control, then the
+  submission. Asking for the submission from the wrong position loses: two
+  ships both chasing the other's bow is §17 item 55's race. Verbs have no
+  positive leverage because nothing in the battle is a judgement call: 78 of
+  the 80 one-verb flips in `tools/estimates/out/verbs-every10.txt` go
+  against the player, and only a preset switch ever helped.
+- **Mechanism.** A battle has four phases, judged by each side from **its
+  own knowledge model** (two sides may disagree; the information law):
+  (0) **contact**: who sees whom, what the other is, engage or not; (1)
+  **range**: reach my range, deny the other its own; (2) **position and
+  control**: the aspect my weapons need and the other's do not have (#17's
+  arcs, the plume behind it), then strip what keeps it fighting back
+  (antenna, point defence, radiators, engines); (3) **finish**: a route of
+  §8 (kill, Disabled, decapitate, run dry, surrender), or capture for the
+  prize (#83). **In every phase a side attacks or defends** (who has the
+  edge comes from physics: acceleration decides who chooses the range, turn
+  rate and arcs the position, sensors the contact). The defender's options
+  are physical too: open the range or disengage, go cold, dodge, power to
+  the shield, containment first; a defence that succeeds sends the battle
+  **back** a phase (a reversal), so phases go both ways. **Tapping out**
+  (disengage, #293; strike colours, #303) is open in every phase.
+  A **strategy** is, per phase, one preset (the existing slots of #38, data
+  only, #39) and its exit condition, at an **aggression level** (cautious /
+  balanced / aggressive: how early to commit, how much risk to take). The
+  shipyard proposes the strategies a build can actually fly (its weapons ×
+  its defences: a spinal weapon never flies broadside, dodging needs
+  broadside, #40) and the player may edit them simply; the twelve slots
+  only in an advanced view.
+  **Command depth, chosen moment to moment, not as a setting**: (a) auto:
+  an automatic captain (`js/enemy.js` run for the player's side, its
+  personality set in the shipyard) moves through the phases; (b) the
+  player takes a **decision point**: commit to the next phase now, hold for
+  a better one, or fall back, chosen from a short menu of the options that
+  build can fly in that phase (the preset verb, #2); (c) micro: target a
+  room, scan a zone (the other two verbs). Taking one decision leaves the
+  rest on auto. A decision point is a choice from a menu, not a script (#2,
+  the owner's reading).
+- **Numbers.** On `ld/pace` `a000616`, from `js/data.js` and
+  `node mission0/builds.js`; formulas, not battles, unless stated.
+  - **The favourite range comes from physics, not from the weapon's name.**
+    A missile from rest (`missile.acceleration` 30 m/s² for 20 s, target at
+    rest) spends inside a point-defence mount's `pd.range` (600 m): 4.5 s
+    when launched at 300 m, 6.3 s at 600 m (the worst: the whole flight
+    inside), 3.3 s at 900 m, 2.3 s at 1500 m, 1.7 s at 2500 m; at
+    `pd.fireRate` 2 /s that is about 9, 13, 6.5, 4.5 and 3.3 flak rounds
+    per mount (`node -e` on t = √(d / 15)). Close range helps the defence;
+    the missile boat's best range is a band, capped by pure pursuit's misses on a target that
+    accelerates (§17 item 56: about 50 m behind at 5 m/s²). Where the band
+    lies needs a battle run after item 56.
+  - **Who attacks the range phase.** The four reference builds accelerate at
+    1.044–1.076 g (a 3 % spread), so none can choose the range: the range
+    phase has no attacker by build (item 55's race is between mirrors; that the
+    equal acceleration causes it is not measured).
+    The Engine boat (2.115 g) and Brick or Glass (0.34–0.35 g) are the
+    builds with a clear range role.
+  - **The verbs today** (`tools/estimates/out/`, #328): 45 of 455 one-verb
+    battles at t = 0 flip the result, 43 against the player; the only verb
+    that helped is `preset evade` (2). There are three presets in all
+    (`fire`, `cool`, `evade`, `js/data.js`).
+  - **The shape the owner wants** (#318): phases 0–2 are the quiet, tense
+    part, phase 3 the decisive volley, so E7's length would come from
+    approach and position, not from toughness (`kinetic.hitsToWreck` 8: a
+    median of 74 s at 34 hits to kill, the wrong way).
+- **Gates claimed, not measured.** Law: each phase's edge is a core law
+  (information in contact, throughput in the range and the volley,
+  dependency in control). Underdog: the six paths of §2 become phase plans
+  (mission kill and cascade in control, time window and attrition by
+  defending and reversing, information in contact). Readable: the phase and
+  who holds the edge on screen; one named strategy per decision point.
+  Reuses: presets, the twelve slots, `enemy.js`'s decision clock and
+  when → do table (#111), the knowledge model; no new physics.
+- **Alternatives weighed in the discussion.** More verbs as live slots
+  (Volley, Burn, Go dark, Power, Evade): rejected by the owner as a list
+  without a rationale; Volley (`firing: salvo`) pays only against a
+  defence with a rate cap (point defence, a shield's absorption), so it
+  belongs to a matchup's strategy, not to every ship. A setting of
+  Watch / Captain / Hands-on: replaced by depth chosen moment to moment.
+- **Risks and what it touches.** (1) If the automatic captain moves
+  through the phases too well, a player's decision can only harm, today's
+  finding again: verbs need positive but bounded leverage, and auto,
+  decision points and micro must not be ranked. (2) E5–E7 and the sweep
+  (`tools/sweep.mjs`'s best response over order sets) measure a different
+  strategy space once phases exist: measured before, they are measured
+  again. (3) A one-phase plan must reproduce today's behaviour exactly, so
+  no locked scenario moves (a helm change moved 9–11 under L1 and P2). (4)
+  The navigator of item 55 must take goals (range, aspect) from above, so
+  the phase layer sits on it without rework. (5) Defence that reverses a
+  phase can stall a battle (the 21–28 unended strafe battles of #328):
+  tapping out and the cull distance must still end it.
+- **When** (the design partner's reading for the owner, 2026-10-24): after
+  item 55 and the rebuilt builds, before L5e2 measures E5–E7: the runner's
+  planned re-measure of E7 and the verbs on the new builds is the baseline
+  without phases; the same measures with phases decide. It answers
+  #329's B (a rung-2 mechanism: combinations of the physics and the orders
+  already built). Not inside item 55 (its navigator is still being probed);
+  not after Mission 0 (E5–E7 would be proven on a game without phases).
+  Cost (the design partner's guess, the lead designer's to cost): raw 8–14
+  USD, × 1.24: 10–17; L5d, the helm and the enemy, cost ≥ 47.92.
+- **The measure that decides.** With and without phases on the same builds:
+  verb leverage (the share of battles a decision point flips toward the
+  player, and against), E7's median and the shape (#318: the first hit on
+  the loser as a share of the battle, hits to kill, the end), the number of
+  distinct strategies each build flies in the sweep's best responses; then
+  the owner's feel on the phone. Thresholds are the lead designer's.
+- **Links.** #2, #17, #36, #38, #39, #40, #83, #111, #117, #293, #303,
+  #315, #318, #319, #323, #328, #329; §17 items 55, 56; the presets by
+  archetype and the command level above.
 
 ## Not yet worked
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — the battle-phases idea
+
+- `IDEAS.md`: the design partner's battle-phases idea from the owner's
+  discussion (contact, range, position and control, finish; attack or
+  defence in each; decision points chosen from a menu at a chosen depth),
+  combining the presets-by-archetype and command-level ideas; on
+  `ideas/battle-phases`.
+
 ## Unreleased — 2026-10-24 — the owner on the S turret (#332); the hull-fill idea
 
 - #332: a specialist may carry at most one secondary S turret only if it
