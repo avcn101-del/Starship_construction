@@ -30,7 +30,7 @@ export default {
   tolerance: '1e-9 relative',
   criterion: '(turret first) and (none): the reactor\'s gain R g_r dt / m_r (its whole ask), the turret\'s (R - R g_r) dt / m_t (what is left); (control) the turret\'s whole ask R g_t dt / m_t; R = repair.massRate (kernel-read: the quarters fully powered); no other cell changes',
   tunable: ['repair.massRate', 'repair.radius', 'cellMass.reactor', 'structure.cellMass', 'turret.machineryMass'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '4e598892' },
   cases() {
     return [{ name: 'turret first', order: ['turret'], hurt: ['reactor', 'turret'] }, { name: 'none', order: null, hurt: ['reactor', 'turret'] }, { name: 'control', order: ['turret'], hurt: ['turret'] }];
   },
