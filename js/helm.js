@@ -1,30 +1,13 @@
 // helm.js — the standing orders (DESIGN.md 8, 13n.1 (d), L5d; #36-#40, #293,
-// #301). A side with a helm flies its preset's twelve slots each step from its
-// own knowledge model (js/sensors.js) and its own ship, never the other world:
-// the other ship's pose is its model's silhouette, its velocity and lateral
-// acceleration the differences of the last silhouette poses.
-//   Movement (#40's first): the range order flies the wanted relative velocity
-// w* toward the wanted point P (on the circle of the range R* about the other
-// ship, moved from the own bearing toward the side the position slot names, by
-// its silhouette's heading, by at most helm.positionLead: the position law, #315)
-// on the braking curve
-// |w*| = a (sqrt(2 |e| / a + t180^2) - t180), e the distance to P, a the ship's
-// acceleration at the preset's throttle, t180 its 180-degree turn on the RCS
-// couple (a ship that must turn its engine round to brake brakes that much
-// earlier); it engages when e is beyond helm.rangeBand or the relative
-// velocity's error from w* exceeds a t180 (a dodge's drift), and lets go when e
-// is within the band at a relative speed of at most band / t180, keeping its
-// state between the two (#302); with the ship on the line from the
-// other ship along the position's direction e is the range error and P lies on
-// the line of sight, #301's braking curve with #302's engagement. `disengage` (#293) turns the stern
-// to the other ship and thrusts away along the line of sight; withdrawn, it is
-// cancelled and the side is no runner while it is not ordered (#306 (7)). The engine opens
-// at the preset's throttle x max(0, cos of the heading error) (no tolerance).
-//   Facing (second): bow-on the bow on the line of sight, broadside the nearer
-// beam. Dodging (third; broadside only, bow-on it yields to facing, #40, #237):
-// the other beam with the engine open, the side flipped at intervals drawn on
-// the seeded stream in [helm.dodgeMin, helm.dodgeMax] for the enemy and at their
-// midpoint for the player (#240 (3)).
+// #301), the helm's top layer (13n.9, #333, #335). A side with a helm turns its
+// preset's twelve slots into the navigator's goals each step (js/navigator.js:
+// range or disengage, position, style, facing, dodging, throttle; it returns a
+// wanted heading and throttle the pilot flies, js/pilot.js) and keeps gunnery and
+// systems, from its own knowledge model (js/sensors.js) and its own ship, never
+// the other world: the other ship's pose is its model's silhouette, its velocity
+// and lateral acceleration the differences of the last silhouette poses.
+// `disengage` (#293), withdrawn, is cancelled and the side is no runner while it
+// is not ordered (#306 (7)).
 //   Firepower: the target is the verb's room while the model knows a standing
 // cell of it, else the priority slot's known room (weapons, power, bridge,
 // nearest), else the centre of the zone with the most unknown cells; the turret
@@ -41,37 +24,29 @@
 // engine off, shield off, no scan; normal shield on and the auto-scan slot;
 // full also re-scans the zone resolved longest ago once none is unresolved.
 // Auto-scan: each idle antenna scans the nearest unresolved zone.
-//   Style (#307, superseding #306 (3)): hold wants no tangential relative
-// velocity (#302's tests); orbit wants v_t = helm.rangeBand / t180
-// counter-clockwise about the other ship, strafe the same with its sense flipped
-// on the dodge schedule; with either the position slot is ignored and the order
-// engages when the deviation from (rdot*, v_t) is at least v_t and lets go when it
-// is at most a dt (styleEngaged). Repair priority (#307): 'none' or a room-type
-// list (rooms.js repairGrants). A ship with no RCS couple (t180 infinite) does
-// not engage the range order (#306 (8)).
-// No DOM, no Math.random, no Math.sin or Math.cos (util.js's, #239 Q6): the only draws are the enemy's dodge intervals, on the
-// battle's seeded stream.
+//   Repair priority (#307): 'none' or a room-type list (rooms.js repairGrants).
+// No DOM, no Math.random, no Math.sin or Math.cos (util.js's, #239 Q6); the only draws (the enemy's dodge intervals)
+// are the navigator's.
 import { scaled, PRESETS, FIXED, ROOMS } from './data.js';
-import { sin, cos, atan2, clamp } from './util.js';
 import { worldPoint, rotate, pointVelocity } from './body.js';
 import { setScan, antennas, knownAim, zoneCentre } from './sensors.js';
 import { isDestroyed, roomTemperature, shieldBuffer, survivingFraction, survivingCells, roundOf } from './rooms.js';
+import { flownBody, pilotStep } from './pilot.js';
+import { navigate } from './navigator.js';
+
+export { flownBody, shipDynamics, brakingSpeed } from './pilot.js';
+export { rangeEngaged, styleEngaged } from './navigator.js';
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1];
 const len = (a) => Math.sqrt(a[0] * a[0] + a[1] * a[1]);
-const wrap = (a) => a - 2 * Math.PI * Math.floor((a + Math.PI) / (2 * Math.PI));
+const unit = (a) => { const r = len(a); return r > 0 ? [a[0] / r, a[1] / r] : [1, 0]; };
 const WEAPON_TYPES = { weapons: new Set(['turret', 'beamBay', 'railgun', 'missileBay']), power: new Set(['reactor']), bridge: new Set(['bridge']) };
 const DISCRETE = new Set(['turret', 'railgun', 'missileBay']);
 // Float resolution (#308 (2), §17 item 50): a time compared with a schedule built by sums of dt and drawn intervals
-// counts as reached within this many seconds, so a flip or a ripple due on a step boundary is not a step late.
+// counts as reached within this many seconds, so a ripple due on a step boundary is not a step late.
 const RES = 1e-9;
 
-/** The body a side is flown on: body-0, else the heaviest (as js/battle.js). */
-export function flownBody(world) {
-  const bodies = world.ship.bodies;
-  return bodies.find((b) => b.id === 'body-0') || [...bodies].sort((a, b) => b.M - a.M)[0] || null;
-}
 /** The other ship's main pose as the model's silhouette gives it (#23). */
 export function silhouettePose(model) {
   const s = model.silhouette.bodies;
@@ -103,59 +78,6 @@ export function createHelm(battle, side, orders, { dodge = 'fixed' } = {}) {
     verbTarget: null, target: null, released: false, releaseAt: null, held: true, why: 'start', disengage: false, disengageStep: null,
     patience: 0, autoScan: true, lastHeading: null, throttle: 0, scanCount: 0,
   };
-}
-
-/** The interval to the next dodge flip (s): drawn in [dodgeMin, dodgeMax] on the seeded stream for the enemy, their midpoint for the player (#240 (3), #301). */
-function dodgeInterval(battle, helm) {
-  const lo = scaled(battle.params.helm.dodgeMin, battle.edge), hi = scaled(battle.params.helm.dodgeMax, battle.edge);
-  return helm.dodge === 'seeded' ? lo + (hi - lo) * battle.rng() : (lo + hi) / 2;
-}
-
-/** The ship's acceleration (m/s^2) at throttle 1 from its live engines and its flown body's mass; t180 (s), its 180-degree turn on the RCS couple. */
-export function shipDynamics(battle, side) {
-  const w = side.world, b = flownBody(w), p = battle.params;
-  if (!b) return { a: 0, t180: Infinity };
-  let thrust = 0;
-  for (const r of w.rooms) if (r.type === 'engine' && r.placed && !isDestroyed(r)) thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r);
-  const force = scaled(p.rcs.force, battle.edge);
-  let ccw = 0, cw = 0;
-  for (const f of w.fittings) {
-    if (f.type !== 'rcs') continue;
-    const host = side.room(f.room), cell = host.cells[f.k];
-    if (cell.destroyed || cell.fragment !== b.id) continue;
-    const tau = (f.p[0] - b.c[0]) * (-f.side[1] * force) - (f.p[1] - b.c[1]) * (-f.side[0] * force);
-    if (tau > 0) ccw += tau; else cw -= tau;
-  }
-  const alpha = Math.min(ccw, cw) / b.I;
-  return { a: thrust / b.M, t180: alpha > 0 ? 2 * Math.sqrt(Math.PI / alpha) : Infinity };
-}
-
-/** The braking curve's wanted speed toward a point e away (#301 (2)): a (sqrt(2 e / a + t180^2) - t180). */
-export function brakingSpeed(e, a, t180) {
-  if (!(a > 0) || !(e > 0) || !(t180 < Infinity)) return 0; // no couple: no curve to fly (#306 (8))
-  return a * (Math.sqrt((2 * e) / a + t180 * t180) - t180);
-}
-/**
- * The range order's state (#302, superseding #301 (2)'s engagement): it engages when the distance to its point is beyond
- * helm.rangeBand or the relative velocity's error exceeds a t180 (a dodge's drift); it lets go when the distance is
- * within the band and the relative speed is at most band / t180; between the two it keeps its state (hysteresis).
- */
-export function rangeEngaged(was, { e, error, speed, a, t180, band }) {
-  if (e > band || error > a * t180) return true;
-  if (e <= band && speed <= band / t180) return false;
-  return was;
-}
-
-/**
- * The range order's state under orbit or strafe (#307): it engages when the distance is beyond helm.rangeBand or the
- * relative velocity's deviation from (rdot*, v_t) is at least |v_t| (from rest at its point: at once), and lets go
- * when the distance is within the band and the deviation is at most a dt (one step's change); between the two it
- * keeps its state. The 1e-9 is float resolution: from rest the deviation is |v_t| computed through a unit vector.
- */
-export function styleEngaged(was, { e, error, vt, step, band }) {
-  if (e > band || error >= vt * (1 - 1e-9)) return true;
-  if (e <= band && error <= step) return false;
-  return was;
 }
 
 /** The hottest room's fraction of the way from rest to its own hot threshold (heat discipline). */
@@ -259,7 +181,7 @@ function priorityIds(world, types) {
 /**
  * One step of a side's helm, before the kernel's step: the orders (`side.helm.orders`, the enemy's overrides in
  * `side.helm.override`) executed from its model. Sets the wanted heading (side.heading, held by js/battle.js's RCS
- * rule), every engine's throttle, each weapon's order and aim, the shield, the power priority and the scans; returns
+ * rule), every engine's throttle (through the pilot), each weapon's order and aim, the shield, the power priority and the scans; returns
  * nothing. `battle.dt` the step.
  */
 export function helmStep(battle, side) {
@@ -269,68 +191,16 @@ export function helmStep(battle, side) {
   if (o.heatResponse) o.heat = { ...o.heat, response: o.heatResponse }; // an override of heat discipline's response alone (tools/sweep.mjs), over every preset
   if (!me || !them) return;
   const t = battle.t, edge = battle.edge, p = battle.params;
-  const D = sub(them.x, me.x), r = len(D), u = r > 0 ? [D[0] / r, D[1] / r] : [1, 0], los = atan2(u[1], u[0]);
+  const u = unit(sub(them.x, me.x));
   const { v: vo, a: ao } = observed(battle, side);
-  const { a: a1, t180 } = shipDynamics(battle, side), throttle = o.throttle, a = a1 * throttle;
   const hot = heatFraction(w) >= o.heat.threshold, cold = o.emission === 'cold';
   const engineOff = cold || (hot && o.heat.response === 'engine');
-  // Movement (#40 first): disengage, else the range order to the position's point on the braking curve (#301 (2)).
-  let heading = null, open = 0, mode = null;
-  const opening = (want) => throttle * Math.max(0, cos(wrap(want - me.theta)));
-  if (o.range === 'disengage' || h.disengage) {
-    heading = los + Math.PI; open = opening(heading); mode = 'disengage';
-    if (h.disengageStep === null) h.disengageStep = battle.step; // the first to order it escapes first (#293)
-  } else {
-    h.disengageStep = null; // withdrawn (a preset switch away from it): no longer a runner (#306 (7))
-    const R = scaled(p.helm[{ close: 'rangeClose', hold: 'rangeHold', open: 'rangeOpen' }[o.range]], edge);
-    const tc = cos(them.theta), ts = sin(them.theta);
-    const bow = [tc, ts], left = [-ts, tc], side1 = dot(sub(me.x, them.x), left) >= 0 ? left : [-left[0], -left[1]];
-    // Style (#307): orbit and strafe ignore the position slot (the point rides the line of sight at R*) and want a
-    // tangential relative velocity v_t = band / t180, counter-clockwise about the other ship; strafe flips its sense
-    // on the dodge schedule.
-    const band = scaled(p.helm.rangeBand, edge), moving = o.style === 'orbit' || o.style === 'strafe';
-    // The position law (#315, superseding #306 (2)'s): the point on the circle of R* about the other ship, moved from
-    // the own bearing phi toward the named one phi* by at most helm.positionLead, so the path circles at R* instead of
-    // crossing the other ship (no collision model, #20).
-    let dir = [-u[0], -u[1]];
-    if (!moving) {
-      const named = o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 180;
-      const phi = atan2(-u[1], -u[0]), phiP = phi + clamp(wrap(atan2(named[1], named[0]) - phi), -lead, lead);
-      dir = [cos(phiP), sin(phiP)];
-    }
-    const P = [them.x[0] + R * dir[0], them.x[1] + R * dir[1]], E = sub(P, me.x), e = len(E);
-    const speed = brakingSpeed(e, a, t180), radial = e > 0 ? [(E[0] / e) * speed, (E[1] / e) * speed] : [0, 0];
-    let vt = 0;
-    if (o.style === 'strafe') {
-      if (h.nextStrafe === null) h.nextStrafe = t + dodgeInterval(battle, h);
-      else if (t >= h.nextStrafe - RES) { h.strafeSign = -h.strafeSign; h.nextStrafe = t + dodgeInterval(battle, h); }
-    }
-    if (moving && t180 < Infinity) vt = (o.style === 'strafe' ? h.strafeSign : 1) * (band / t180);
-    const ccw = [u[1], -u[0]], want = [radial[0] + vt * ccw[0], radial[1] + vt * ccw[1]];
-    const rel = sub(me.v, vo), err = sub(want, rel), errLen = len(err);
-    // A ship with no RCS couple (t180 infinite) cannot point its engine: the order does not engage (#306 (8)).
-    const able = throttle > 0 && a > 0 && t180 < Infinity;
-    h.engaged = able && (moving ? styleEngaged(h.engaged, { e, error: errLen, vt: Math.abs(vt), step: a * battle.dt, band }) : rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band }));
-    if (h.engaged) { heading = atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
-    h.range = { R, e, want, rel, vt, error: errLen, threshold: a * t180, band, letGo: band / t180 };
-  }
-  // Facing (second), then dodging (third, broadside only).
-  if (heading === null) {
-    if (o.facing === 'broadside') {
-      if (o.dodging === 'on') {
-        if (h.nextFlip === null) h.nextFlip = t + dodgeInterval(battle, h);
-        else if (t >= h.nextFlip - RES) { h.dodgeSign = -h.dodgeSign; h.nextFlip = t + dodgeInterval(battle, h); }
-        heading = los + (h.dodgeSign * Math.PI) / 2; open = opening(heading); mode = 'dodge';
-      } else {
-        const s = sin(wrap(me.theta - los)) >= 0 ? 1 : -1;
-        heading = los + (s * Math.PI) / 2; mode = 'broadside';
-      }
-    } else { heading = los; mode = 'bow'; }
-  }
-  side.heading = wrap(heading);
-  h.mode = mode;
-  h.throttle = engineOff ? 0 : open;
-  for (const e of w.rooms) if (e.type === 'engine') e.engine.throttle = h.throttle;
+  // Movement, facing, dodging: the orders as the navigator's goals (#40's order, js/navigator.js), flown by the pilot.
+  const range = o.range === 'disengage' || h.disengage ? 'disengage' : scaled(p.helm[{ close: 'rangeClose', hold: 'rangeHold', open: 'rangeOpen' }[o.range]], edge);
+  const nav = navigate(battle, side, { range, position: o.position, style: o.style, facing: o.facing, dodging: o.dodging, throttle: o.throttle }, { them, vo });
+  h.mode = nav.mode;
+  h.throttle = engineOff ? 0 : nav.throttle;
+  pilotStep(side, { heading: nav.heading, throttle: h.throttle });
   // Shield: on, unless running cold or the heat response is the shield.
   const shieldOff = cold || (hot && o.heat.response === 'shield');
   for (const g of w.rooms) if (g.type === 'shieldGenerator') g.shield.on = !shieldOff;
