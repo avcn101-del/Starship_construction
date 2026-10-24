@@ -39,7 +39,7 @@ export default {
   criterion: 'as L2.shield.overlap.round.v2 (strength 1; v1 800 / 3 m/s; payments 6/11 and 5/11 of 1 706 666.67 J, or B nearly empty, or A capped at 1 MJ with B 84 615.38 J and v1 527.70 m/s; no generator past its buffer; the momentum change m (v - v1) along +y; heat shared by payment), with the angular momentum change p x J, p the round\'s point, J = m (v - v1) along +y (1e-12 of the gross |p x J|); no throw',
   setup: 'a T1 ship at rest: two M shield generators 50 m apart (cells (0, 0) and (10, 0)), joined by a bridge and three holds; an M round (kinetic.roundMass, kinetic.muzzleVelocity) at the point where g_A = 0.6 and g_B = 0.5, direction +y, through the kernel\'s shieldRound; buffers both full, B nearly empty (1e3 J), or A at 1e6 J and B at 1e5 J (13l.4 A2)',
   tunable: ['shield.kineticStop', 'shield.radius', 'shield.buffer', 'kinetic.roundMass', 'kinetic.muzzleVelocity'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'c22acc96' },
   cases() {
     return Object.keys(BUFFERS).map((buffers) => ({ buffers }));
   },
