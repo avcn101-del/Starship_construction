@@ -29,7 +29,7 @@ export default {
   tolerance: 'steps exact; books 1e-9 x gross (#220, as L4.books.energy); the beam\'s escaped = passed x dt at 1e-12 relative',
   criterion: '(1) no throw; (2) the end is destroyed for T, by explosion, at step 4364 (kernel-read), its parent T\'s reactor explosion at that step, T with no body; (3) the largest energy residual <= 1e-9 x the largest gross; the beam in the last step passed power, deposited nothing and booked passed x dt as escaped (consistency invariant)',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '95aa7a13' },
   cases() {
     return [{ name: 'r1-600-minus-y-beam-reactor' }];
   },
