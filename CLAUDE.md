@@ -116,12 +116,13 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   Mission 0 level or pass**; the lead designer merges once the reviewer
   (always) and the physics checker (whenever kernel physics changes, #241)
   report no blocking finding (#180). Documentation goes to `main` in **one
-  pull request per working block** from the lead designer's branch (#218).
+  pull request per pass** from the lead designer's branch (#325 (7)).
 - **Plan gate** (#241): a plan commits its estimate script
   (`tools/estimates/<pass>.mjs`, run-time overrides only) and ends with the
-  checklist (every passed rule on, tolerances against the integrator's
-  error and float resolution, hardware sense-checked, numbers recomputed
-  from the kernel, **the `DESIGN.md` §13m rows the pass proves**, #275). A
+  checklist of three items (#326): **the `DESIGN.md` §13m rows the pass
+  proves**, the probe (the planned change run on a scratch tree), and the
+  tolerances against the integrator's error and float resolution; that
+  every §13m row names an existing scenario is lint check 10. A
   level exits only when no §13m row still says "planned" for it. An estimate is never a canonical run: `node tools/m0.js
   run <id>` without `--set` re-records.
 - **Sessions** (#241, #250): created with the model named explicitly, the
@@ -141,7 +142,9 @@ is in `DESIGN.md`; why each decision was made is in `DECISIONS.md`.
   sessions and costs in `LEDGER.md`; `README.md` keeps no copy of the
   constants table. `node tools/lint-docs.mjs` passes before every
   documentation pull request; a decision row that supersedes another
-  names it ("supersedes #n"); `tools/mutate.js` runs once per pass.
+  names it ("supersedes #n"); the full `tools/mutate.js` run only at a
+  level's exit or when a pass's `--rule` run shows STALE or CHANGED, by a
+  runner (#326); `--only` on each pass's rules as before.
 - **`STATUS.md`** is the hand-over: read it first; update it at the end of
   every working block (open PRs, pending approvals, running sessions,
   scheduled tasks, next steps).

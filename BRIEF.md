@@ -32,6 +32,9 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
 - **Heavy jobs go to a runner session** (sonnet; the commands and a summary
   format only): `regress`, mutation runs, sweeps, long probes (#322).
 - **Decision rows** at most about 800 bytes; detail goes to `HISTORY.md`.
+- **Plan checklist** (#326): the §13m rows the pass proves, the probe, the
+  tolerances; lint check 10 ties §13m to existing scenarios. **Full mutation
+  run** only at a level's exit or on STALE/CHANGED, by a runner.
 
 ## Traps (each cost a run or a fix round)
 

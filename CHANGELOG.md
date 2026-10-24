@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — process: the plan checklist and the mutation run (#326)
+
+- The plan checklist is three items (§13m rows, probe, tolerances);
+  `tools/lint-docs.mjs` check 10: every scenario a §13m row names exists,
+  every proven row names one. The full `tools/mutate.js` run only at a
+  level's exit or on STALE/CHANGED, by a runner (`CLAUDE.md`, the agents).
+
 ## Unreleased — 2026-10-24 — an idea from the owner's discussion
 
 - `IDEAS.md` (the design partner): command level (watch, captain, hands-on;

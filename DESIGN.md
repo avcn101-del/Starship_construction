@@ -2111,12 +2111,12 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 238 | Independent audits at fixed milestones | current |
 | 239 | Prototype v2 merged; answers | current |
 | 240 | The audits’ seven questions | current (built as physics pass 2, §13k) |
-| 241 | Process after the audits: plan gate, sessions, documents | current |
+| 241 | Process after the audits: plan gate, sessions, documents | partly superseded by #326 (the checklist's list; the rest current) |
 | 242 | The documents consolidated; the kinetic velocity relative to the hull | current (supersedes #137's clause and #202 F) |
 | 243 | Physics pass 2 planned (§13k) | current (being built) |
 | 244 | Answers to the scenario audit; S17–S22 and the conventions | current |
 | 245 | E1 amended again: withdrawal by decision whatever the verdict; the record frozen; retired | current (amends #188, #200, #237 (7)) |
-| 246 | Prevention after the audits: lint, mutation tool, supersedes rule, ×4, the owner's page | partly superseded by #322 (the cost factors; the rest current) |
+| 246 | Prevention after the audits: lint, mutation tool, supersedes rule, ×4, the owner's page | partly superseded by #322 (the cost factors) and #326 (the full mutation run per merge; the rest current) |
 | 247 | The design partner role; when the lead designer's chat is replaced; the decision frame | current |
 | 248 | Pass 2's first run: S6 withdrawn (the plan's tier law false); the engineer's twelve withdrawals; answers | current |
 | 249 | Beam depth tier-invariant for electronic stopping only (CSDA-exact, drift reported) | current (amends #240 (4)) |
@@ -2140,12 +2140,12 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 267 | L4b merged (PR #62); answers to its engineer, checker and reviewer; the aim point, the feed clause, Disabled's parent | current, except its cost-factor clause (withdrawn by #270; #246 (4) stands) |
 | 268 | Missiles, point defence and the railgun have no level (the owner's finding); the L5 plan builds them before ship versus ship | current |
 | 269 | §13m, the coverage table: every element of the design and the level that proves it (the owner's direction); lint check 8 | current |
-| 270 | Answers to the four light audits before L5: #267's factor change withdrawn, the ledger's ratio table, the plan checklist's three lines, the L4 fix round (B1, `L4.books.two`, `battle.openingRange`), stand-ins stated, §17 items 38–41, five questions to the owner | current |
+| 270 | Answers to the four light audits before L5: #267's factor change withdrawn, the ledger's ratio table, the plan checklist's three lines, the L4 fix round (B1, `L4.books.two`, `battle.openingRange`), stand-ins stated, §17 items 38–41, five questions to the owner | partly superseded by #326 (the checklist lines, the full run per merge; the rest current) |
 | 271 | The scenario-hygiene round (§13l.7): every finding of the L4 scenario audit fixed by successors, under the plan gate; §17 item 42 (the owner: fix every audit finding) | current |
 | 272 | The L4 fix round merged (PR #64): the hit's momentum along the relative velocity at the first entry with matter, `L4.books.two`, `battle.openingRange`; answers to its engineer and reviewer | current |
 | 273 | The owner's five answers: detonation rule (c), passed-cell loss by chord (b), one battle is the same battle in cells (k = 1), the pre-lock rule reworded, surrender once Disabled | current |
 | 274 | A magazine explosion is a blast through its walls, not a destroyer by itself (the owner; amends #83); built at L5's kinetic pass | current |
-| 275 | Prevention after the weapons gap (#268): lint check 9 (every room, fitting, weapon, round type and topic has a §13m row), the plan checklist's §13m line and the level-exit rule, the documents audit's §13m scope, the owner's "not built yet" line | current |
+| 275 | Prevention after the weapons gap (#268): lint check 9 (every room, fitting, weapon, round type and topic has a §13m row), the plan checklist's §13m line and the level-exit rule, the documents audit's §13m scope, the owner's "not built yet" line | partly superseded by #326 (the checklist line; the rest current) |
 | 276 | The scenario-hygiene round merged (PR #67): 20 scenarios, 19 withdrawn; answers to its engineer, blind checker and reviewer; four plan wordings corrected; the residue in §17 item 39 | current |
 | 277 | The owner's answers to the L5 plan (budget by mass, the reference battle, unmanned rooms, the magazine's blast accepted, the go), option A on the reactor's share, two exploit harnesses, the lead designer's role file | current |
 | 278 | The L5 plan (§13n): five passes L5a–L5e, 26 constants, 52 scenarios, the unmanned rule, `magazine.detonationSpeed` (new) as the first pace lever, the lint's §13n skip | current |
@@ -2196,3 +2196,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 323 | Mission 0 through L6 before any playable slice (the owner); a steering mode would need a new helm input and a change to #2 | current |
 | 324 | L5e1 merged: the position law, the plume with occlusion, containment first, dark fragments, a simultaneous end as a draw, items 35/48/50/51, builds (locked) and sweep | report |
 | 325 | Process v2: rows ≤ 800 B, `BRIEF.md`, a slim reading order, a five-line owner block, the lead designer's cost in the ledger, no third regress on a documents-only merge, one documentation PR per pass; two items to the owner (the plan checklist, the full mutation run's frequency) | current |
+| 326 | The plan checklist three items (§13m rows, probe, tolerances) and lint check 10 (§13m to scenarios); the full mutation run only at a level's exit or on STALE/CHANGED, by a runner (the owner) | current |

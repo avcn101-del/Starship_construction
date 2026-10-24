@@ -24,8 +24,8 @@ Rules:
   many times each new scenario was run before its lock, what was edited
   after those runs and why. A hand-worked literal is derived from the
   formula, never copied from a printed value.
-- Run the full `node tools/mutate.js` only after the review asks for it or
-  the lead designer's task says so; before that, `--only` on the rules the
+- Never run the full `node tools/mutate.js` unless the lead designer's
+  task says so (a runner runs it at a level's exit, #326); before that, `--only` on the rules the
   pass touches (#270 (5)).
 
 When your task is done, **notify the lead designer** (#250): call

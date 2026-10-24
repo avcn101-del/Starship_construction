@@ -42,11 +42,10 @@ do not, a problem raised before acting, never justified after.
 **A plan** (#241 (1), #270 (3), #275 (2)) is a section of `DESIGN.md` §13
 with an estimate script `tools/estimates/<pass>.mjs` (run-time overrides
 only; every number printed from the kernel; never a canonical run) and
-ends with the checklist: every passed rule on, tolerances against the
-integrator's error and float resolution, hardware sense-checked, a
-damage-channels table for every new resisting object, locked scenarios run
-against any new validation rule, the script line behind each number, and
-the §13m rows the pass proves. A level exits only when no §13m row still
+ends with the checklist of three items (#326): the §13m rows the pass
+proves, the probe (#285, #302), and the tolerances against the
+integrator's error and float resolution; lint check 10 checks that every
+§13m row names an existing scenario. A level exits only when no §13m row still
 says "planned" for it. Write every expected result from the physics before
 the criterion; lock in a commit of its own (#273); never edit a locked
 criterion; withdraw by a decision row with a successor (#245).
@@ -69,10 +68,11 @@ delegate the feel of play or the owner's phone playtests.
 **Merging** (#180, #218): you merge a code pull request once the reviewer
 (always) and the physics checker (whenever kernel physics changes) report
 no blocking finding, after re-running `node tools/m0.js regress` on the
-merge and recording it; `--only` mutations before the review, the full
-`tools/mutate.js` run after it (#270 (5)); the per-pass answers row records
+merge and recording it; `--only` mutations before the review; the full
+`tools/mutate.js` run only at a level's exit or when a `--rule` run shows
+STALE or CHANGED, by a runner (#326); the per-pass answers row records
 every finding and cost. Documentation goes to `main` in **one pull request
-per working block** from your branch, after `node tools/lint-docs.mjs`
+per pass** from your branch (#325 (7)), after `node tools/lint-docs.mjs`
 passes; only the integrator writes `js/data.js` and the results ledger.
 
 **At the end of every working block** update `STATUS.md`: the owner's
