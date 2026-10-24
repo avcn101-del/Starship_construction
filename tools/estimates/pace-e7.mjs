@@ -32,10 +32,11 @@ export function cell({ a, b, range, opening, seed, inputs = [], setA = orders, s
     bearing: broadside ? '+y' : '+x', ...(broadside ? { attackerHeading: 0 } : {}), enemy: { A: STD, T: STD }, inputs: inputs.map((y) => ({ ...y, side: 'A' })) });
   x.attacker.helm.override = { ...x.attacker.helm.override, ...setA };
   x.target.helm.override = { ...x.target.helm.override, ...setB };
-  return runBattle(x, limit);
+  try { return runBattle(x, limit); } catch (e) { x.error = `step ${x.step}: ${e.message}`; return x; } // a kernel throw is reported, never hidden
 }
 /** The shape of a battle (#318). */
 export function shape(x) {
+  if (x.error) return { kind: 'error', side: null, winner: null, T: x.t, t: x.t, loser: null, shots: x.shots, hitsA: 0, hitsT: 0, loserHits: 0, firstShare: null, firstHit: null, endEvent: x.error };
   const r = resultOf(x), loser = r.winner === 'A' ? 'T' : r.winner === 'T' ? 'A' : null, T = r.t ?? x.t;
   const on = (s) => x.hits.filter((h) => h.side === s);
   const lh = loser ? on(loser) : [];
@@ -54,7 +55,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     all.push(s);
     console.log(`R2 v ${b.padEnd(7)} ${String(range).padStart(4)} ${opening.padEnd(9)} s${seed}: ${s.kind.padEnd(9)} ${String(s.side ?? '').padEnd(3)} t ${f(s.T).padStart(6)} s  win ${String(s.winner).padEnd(4)} hits A/T ${s.hitsA}/${s.hitsT} of ${s.shots}; first hit ${f(s.firstHit)} s, on loser ${s.loser ? `${f(s.firstShare, 2)} of the battle, ${s.loserHits} hits` : '-'}; end ${s.endEvent}`);
   }
-  const ends = all.filter((s) => s.kind !== 'none');
+  const ends = all.filter((s) => s.kind !== 'none' && s.kind !== 'error');
+  console.log(`kernel errors: ${all.filter((s) => s.kind === 'error').length}`);
   const kinds = {}; for (const s of all) kinds[s.kind] = (kinds[s.kind] || 0) + 1;
   console.log(`E7: median end ${f(med(ends.map((s) => s.T)))} s over ${ends.length} of ${all.length} ended (no end by ${limit} s counts as ${limit} s: median ${f(med(all.map((s) => s.T)))} s); ends ${JSON.stringify(kinds)}`);
   const dec = all.filter((s) => s.loser);

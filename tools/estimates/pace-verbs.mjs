@@ -23,6 +23,7 @@ for (let i = 0; i < argv.length; i++) if (argv[i] === '--set') { const [k, v] = 
 if (argv.includes('--cull2')) overrides['battle.cullDistance'] = 2 * Math.max(...ranges);
 for (const [k, v] of Object.entries(overrides)) { const [g, n] = k.split('.'), p = PARAMS[g][n]; if (!(v >= p.min && v <= p.max)) throw new Error(`${k}=${v} outside ${p.min}..${p.max}`); }
 for (const r of ranges) { const p = PARAMS.battle.openingRange; if (!(r >= p.min && r <= p.max)) throw new Error(`range ${r} outside battle.openingRange's ${p.min}..${p.max}`); }
+const errors = [];
 const params = withOverrides(overrides), STD = { aggression: 0.5, patience: 0.5, caution: 0.5, resolve: 0.5 };
 
 function duel(b, range, opening, inputs) {
@@ -30,7 +31,8 @@ function duel(b, range, opening, inputs) {
   const x = createBattle({ params, attacker: BUILDS.R2, target: BUILDS[b], distance: range, seed, knowledge: true,
     bearing: broadside ? '+y' : '+x', ...(broadside ? { attackerHeading: 0 } : {}), orders: { A: 'fire' }, enemy: { T: STD },
     inputs: inputs.map((y) => ({ ...y, side: 'A' })) });
-  return resultOf(runBattle(x, limit));
+  // A kernel throw is reported as a result of its own (#326's pace study found one in beamsOut), never hidden.
+  try { return resultOf(runBattle(x, limit)); } catch (e) { errors.push(`${b} ${range} ${opening} ${JSON.stringify(inputs)}: step ${x.step}: ${e.message}`); return { winner: 'error', kind: 'error', t: x.t }; }
 }
 const verbs = (b) => [...Object.keys(PRESETS).map((p) => ['preset', p]), ...[0, 1, 2, 3, 4, 5].map((z) => ['scan', z]), ...BUILDS[b].rooms.map((r) => ['target', r.id])];
 const tag = (r) => `${r.winner ?? 'none'}${r.t === null ? '' : ` ${r.t.toFixed(1)} s`}`;
@@ -47,6 +49,7 @@ for (const b of builds) for (const range of ranges) for (const opening of openin
     let flips = 0;
     for (const [verb, arg] of verbs(b)) {
       const r = duel(b, range, opening, [{ t, verb, arg }]);
+      if (r.winner === 'error') continue; // counted under kernel errors, not as a flip
       cells++;
       if (r.winner !== base.winner) {
         flips++; flipped++;
@@ -63,3 +66,4 @@ for (const b of builds) for (const range of ranges) for (const opening of openin
 }
 console.log(`verb leverage: ${flipped} of ${cells} single-verb battles flip the result (${((100 * flipped) / cells).toFixed(1)} %): ${helped} toward the player, ${hurt} against; moments with a flip ${live} of ${moments}`);
 console.log(`verbs that turn a result toward the player: ${JSON.stringify(best)}`);
+console.log(`kernel errors: ${errors.length}`); for (const e of errors) console.log(`  ERROR ${e}`);
