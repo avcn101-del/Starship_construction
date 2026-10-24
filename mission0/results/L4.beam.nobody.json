@@ -1,0 +1,62 @@
+{
+  "id": "L4.beam.nobody",
+  "level": "L4",
+  "verdict": "FAIL",
+  "command": "node tools/m0.js run L4.beam.nobody",
+  "code": "9a8559e",
+  "criterionHash": "9873ba09",
+  "lockedHash": "9873ba09",
+  "runHash": "2b45ecd3",
+  "dataHash": "cfcb3fa1",
+  "rowsHash": "bfe7b621",
+  "rows": [
+    {
+      "case": {
+        "name": "lance-600-bow-target-shield"
+      },
+      "expected": {
+        "kind": "destroyed",
+        "side": "T",
+        "by": "explosion",
+        "step": 9524,
+        "tol": 1e-9
+      },
+      "actual": {
+        "error": null,
+        "kind": "destroyed",
+        "side": "T",
+        "by": "explosion",
+        "step": 9524,
+        "t": 158.73333333333332,
+        "parent": {
+          "type": "explosion",
+          "room": "reactor",
+          "step": 9524
+        },
+        "bodies": 0,
+        "beam": {
+          "power": 2600995.796236872,
+          "escaped": 43349.9299372812,
+          "deposited": 0,
+          "entries": 0,
+          "dt": 0.016666666666666666
+        },
+        "worst": 9345.145787864923,
+        "gross": 322652683509.5933,
+        "hits": 71
+      },
+      "pass": false,
+      "note": "(3) energy books close at 1e-9 x gross"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

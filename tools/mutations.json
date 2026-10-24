@@ -2186,5 +2186,13 @@
     "old": "const e = side.world.edge, g = GRAZE * e, ends = new Map();",
     "new": "const e = side.world.edge, g = -GRAZE * e, ends = new Map();",
     "note": "L5e1 fix round: a segment touching its fitting's own cell counts as crossing it (every fitting shadowed)"
+  },
+  {
+    "id": "item53.beam.nobody",
+    "rule": "§17 item 53 a beam into a ship with no body",
+    "file": "js/battle.js",
+    "old": "x.result = fireBeam(T.world, { power: res.passed, energy: x.energy, range: tb ? len(sub(tb.x, x.from)) : Infinity }, tb ? x.hit.path : [], x.id);",
+    "new": "x.result = fireBeam(T.world, { power: res.passed, energy: x.energy, range: len(sub(tb.x, x.from)) }, x.hit.path, x.id);",
+    "note": "item 53: the unguarded read of the target's main body (the throw at step 9524)"
   }
 ]

@@ -287,6 +287,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
+| `L4.beam.nobody` | 9873ba09 | FAIL | 2b45ecd3 | 9a8559e | none | `node tools/m0.js run L4.beam.nobody` |
 | `L4.books.angular.v2` | a9358bf4 | PASS | 850e738e | 52c491c | none | `node tools/m0.js run L4.books.angular.v2` |
 | `L4.books.angular` | 9aa05745 | PASS, WITHDRAWN (successor `L4.books.angular.v2`, #282) | 8ae147e6 | 4e217c0 | none | `node tools/m0.js run L4.books.angular` |
 | `L4.books.energy` | f1740cb6 | PASS | e18a2e6e | 52c491c | none | `node tools/m0.js run L4.books.energy` |

@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — §17 item 53: a beam into a ship with no body
+
+- `js/battle.js` `beamsOut`: a target whose every cell the step destroyed
+  has no body; the beam meets no matter (an empty path), deposits nothing
+  and all it passed leaves play as `fireBeam`'s `escaped`. The throw at
+  step 9524 of the pace study's R2 v Lance (600 m, bow, target shield) is
+  gone. `L4.beam.nobody` (locked) records it; its energy book fails on a
+  leak at step 8452 outside item 53 (a field on a fragment, in the PR).
+  `tools/mutations.json`: `item53.beam.nobody`.
+
 ## Unreleased — 2026-10-24 — process: the plan checklist and the mutation run (#326)
 
 - The plan checklist is three items (§13m rows, probe, tolerances);
