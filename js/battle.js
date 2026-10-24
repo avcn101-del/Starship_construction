@@ -463,7 +463,10 @@ function beamsOut(battle) {
     if (!x || !x.hit) continue;
     const res = T.world.beamResults.find((r) => r.id === x.id);
     if (!res || !(res.passed > 0)) continue;
-    x.result = fireBeam(T.world, { power: res.passed, energy: x.energy, range: len(sub(mainBody(T).x, x.from)) }, x.hit.path, x.id);
+    // A target whose every cell the step destroyed (its reactor's explosion, §17 item 53) has no body: the beam meets
+    // no matter, deposits nothing, and all it passed leaves play as fireBeam's `escaped` (an empty path: exit 1).
+    const tb = mainBody(T);
+    x.result = fireBeam(T.world, { power: res.passed, energy: x.energy, range: tb ? len(sub(tb.x, x.from)) : Infinity }, tb ? x.hit.path : [], x.id);
   }
 }
 

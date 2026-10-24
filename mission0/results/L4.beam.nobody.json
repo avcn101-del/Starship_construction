@@ -1,0 +1,62 @@
+{
+  "id": "L4.beam.nobody",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.beam.nobody",
+  "code": "8dd7445",
+  "criterionHash": "9873ba09",
+  "lockedHash": "9873ba09",
+  "runHash": "2b45ecd3",
+  "dataHash": "cfcb3fa1",
+  "rowsHash": "5134c1e3",
+  "rows": [
+    {
+      "case": {
+        "name": "lance-600-bow-target-shield"
+      },
+      "expected": {
+        "kind": "destroyed",
+        "side": "T",
+        "by": "explosion",
+        "step": 9524,
+        "tol": 1e-9
+      },
+      "actual": {
+        "error": null,
+        "kind": "destroyed",
+        "side": "T",
+        "by": "explosion",
+        "step": 9524,
+        "t": 158.73333333333332,
+        "parent": {
+          "type": "explosion",
+          "room": "reactor",
+          "step": 9524
+        },
+        "bodies": 0,
+        "beam": {
+          "power": 2600995.796236872,
+          "escaped": 43349.9299372812,
+          "deposited": 0,
+          "entries": 0,
+          "dt": 0.016666666666666666
+        },
+        "worst": 0.00021138787269592285,
+        "gross": 322652683509.5933,
+        "hits": 71
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

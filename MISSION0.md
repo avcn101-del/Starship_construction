@@ -35,7 +35,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L0.blast.surface.v3` | 6d566128 | PASS | f46ef095 | 52c491c | none | `node tools/m0.js run L0.blast.surface.v3` |
 | `L0.blast.surface.v4` | a78c2613 | PASS | 7208fdef | 52c491c | none | `node tools/m0.js run L0.blast.surface.v4` |
 | `L0.blast.surface` | f9738b67 | PASS, WITHDRAWN (successor `L0.blast.surface.v3`, #240) | 4450a2b8 | f7bf5c6 | none | `node tools/m0.js run L0.blast.surface` |
-| `L0.determinism.v2` | e328384c | PASS | c03e19d7 | 52c491c | none | `node tools/m0.js run L0.determinism.v2` |
+| `L0.determinism.v2` | e328384c | PASS | c03e19d7 | 8dd7445 | none | `node tools/m0.js run L0.determinism.v2` |
 | `L0.determinism` | 381f764c | PASS, WITHDRAWN (successor `L0.determinism.v2`, #310) | 95f06978 | f7833b3 | none | `node tools/m0.js run L0.determinism` |
 | `L0.kinetic.anchor` | 735e3d84 | PASS | f231b248 | 52c491c | none | `node tools/m0.js run L0.kinetic.anchor` |
 | `L0.kinetic.chord.loss.v2` | 69aa0831 | PASS | defaec69 | 52c491c | none | `node tools/m0.js run L0.kinetic.chord.loss.v2` |
@@ -287,6 +287,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 
 | Scenario | Criterion | Verdict | run() | Code | Depends on unapproved | Reproduce |
 |---|---|---|---|---|---|---|
+| `L4.beam.nobody` | 9873ba09 | PASS | 2b45ecd3 | 8dd7445 | none | `node tools/m0.js run L4.beam.nobody` |
 | `L4.books.angular.v2` | a9358bf4 | PASS | 850e738e | 52c491c | none | `node tools/m0.js run L4.books.angular.v2` |
 | `L4.books.angular` | 9aa05745 | PASS, WITHDRAWN (successor `L4.books.angular.v2`, #282) | 8ae147e6 | 4e217c0 | none | `node tools/m0.js run L4.books.angular` |
 | `L4.books.energy` | f1740cb6 | PASS | e18a2e6e | 52c491c | none | `node tools/m0.js run L4.books.energy` |
@@ -333,8 +334,8 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.log.v2` | cd91410b | PASS | f3ee00ad | 52c491c | none | `node tools/m0.js run L4.log.v2` |
 | `L4.log` | f91185ca | PASS, WITHDRAWN (successor `L4.log.v2`, #278) | f3ee00ad | 8af82c8 | none | `node tools/m0.js run L4.log` |
 | `L4.loop.rules` | abb3deaf | PASS | cc74a636 | 52c491c | none | `node tools/m0.js run L4.loop.rules` |
-| `L4.loop.symmetric.v2` | e5fb013a | PASS | 17e5ff02 | 52c491c | none | `node tools/m0.js run L4.loop.symmetric.v2` |
-| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | 52c491c | none | `node tools/m0.js run L4.loop.symmetric` |
+| `L4.loop.symmetric.v2` | e5fb013a | PASS | 17e5ff02 | 2c2c9e1 | none | `node tools/m0.js run L4.loop.symmetric.v2` |
+| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | 2c2c9e1 | none | `node tools/m0.js run L4.loop.symmetric` |
 | `L4.orders.energy` | 0e15c362 | PASS | e9f1b4d6 | 52c491c | none | `node tools/m0.js run L4.orders.energy` |
 | `L4.orders.fire` | 0ff94ee2 | PASS | db5c937b | 52c491c | none | `node tools/m0.js run L4.orders.fire` |
 | `L4.orders.repair.v2` | 27515b0c | PASS | eb4987f1 | 52c491c | none | `node tools/m0.js run L4.orders.repair.v2` |
