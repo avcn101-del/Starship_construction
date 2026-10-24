@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.symmetric",
-  "code": "9fb9dee",
+  "code": "e3061da",
   "criterionHash": "c8f3248b",
   "lockedHash": "c8f3248b",
   "runHash": "17e5ff02",
   "dataHash": "394196fd",
-  "rowsHash": "56015ad8",
+  "rowsHash": "430cb055",
   "rows": [
     {
       "case": {
@@ -40,13 +40,13 @@
     },
     {
       "case": {
-        "scenario": "L2.missile.field"
+        "scenario": "L2.missile.field.v2"
       },
       "expected": {
-        "rowsHash": "e6f4020d"
+        "rowsHash": "db67979f"
       },
       "actual": {
-        "rowsHash": "e6f4020d",
+        "rowsHash": "db67979f",
         "cases": 3
       },
       "pass": true,
@@ -138,13 +138,13 @@
     },
     {
       "case": {
-        "scenario": "L4.books.field"
+        "scenario": "L4.books.field.v2"
       },
       "expected": {
-        "rowsHash": "e7190803"
+        "rowsHash": "a8afc4b9"
       },
       "actual": {
-        "rowsHash": "e7190803",
+        "rowsHash": "a8afc4b9",
         "cases": 2
       },
       "pass": true,
@@ -264,14 +264,28 @@
     },
     {
       "case": {
-        "scenario": "L4.engine.plume"
+        "scenario": "L4.engine.plume.shadow"
       },
       "expected": {
-        "rowsHash": "a525eb17"
+        "rowsHash": "f8d389bf"
       },
       "actual": {
-        "rowsHash": "a525eb17",
-        "cases": 3
+        "rowsHash": "f8d389bf",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.engine.plume.v2"
+      },
+      "expected": {
+        "rowsHash": "d35ae21a"
+      },
+      "actual": {
+        "rowsHash": "d35ae21a",
+        "cases": 4
       },
       "pass": true,
       "note": ""
@@ -379,11 +393,11 @@
         "scenario": "L4.loop.symmetric.v2"
       },
       "expected": {
-        "rowsHash": "990e8a7a"
+        "rowsHash": "ae05e0f5"
       },
       "actual": {
-        "rowsHash": "990e8a7a",
-        "cases": 41
+        "rowsHash": "ae05e0f5",
+        "cases": 42
       },
       "pass": true,
       "note": ""
@@ -596,7 +610,7 @@
         "targetHelm": null,
         "targetEnemy": null,
         "attackerHelm": null,
-        "replayed": 41
+        "replayed": 42
       },
       "pass": true,
       "note": ""
