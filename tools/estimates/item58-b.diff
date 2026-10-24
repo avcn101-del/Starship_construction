@@ -1,0 +1,12 @@
+--- a/js/pilot.js
++++ b/js/pilot.js
+@@ -66,7 +66,8 @@
+   // was asked to thrust (1 until then, and without power routing), so a starved engine reports none and the braking
+   // curve and the range order's engagement use the thrust the ship has.
+   for (const r of w.rooms) if (r.type === 'engine' && r.placed && !isDestroyed(r)) {
+-    if (r.engine.throttle > 0 && w.power) r.engine.lastSupply = r.powerFraction ?? 1;
++    // Item 58 probe (b): a starved report expires: when the engine was not asked to thrust, the pilot assumes full supply.
++    if (w.power) r.engine.lastSupply = r.engine.throttle > 0 ? r.powerFraction ?? 1 : undefined;
+     thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r) * (r.engine.lastSupply ?? 1);
+   }
+   const force = scaled(p.rcs.force, battle.edge);

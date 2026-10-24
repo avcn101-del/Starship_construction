@@ -108,5 +108,25 @@ const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : '
   }
   report('13m names every room, fitting, weapon, round type and information topic of DESIGN.md 5-7 and data.js', problems);
 }
+// 10. §13m to scenarios (#326, the owner's (a) of #325): every scenario id a 13m row names exists in mission0/scenarios,
+// and every row whose status says proven names at least one scenario id (the check #309's lesson asked for); a
+// trailing `.*` names every scenario under that prefix and needs one.
+{
+  const design = read('DESIGN.md'), start = design.indexOf('## 13m.'), end = start < 0 ? -1 : design.indexOf('\n## ', start + 1);
+  const ids = new Set();
+  const walk = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const f = `${d}/${e.name}`; if (e.isDirectory()) walk(f); else if (f.endsWith('.js')) for (const m of read(f).matchAll(/\bid: '(L[0-9][^']*)'/g)) ids.add(m[1]); } };
+  walk('mission0/scenarios');
+  const problems = [];
+  if (start >= 0 && end >= 0) design.slice(start, end).split('\n').forEach((l, i) => {
+    if (!l.startsWith('| ') || /^\|---/.test(l)) return;
+    const cells = l.split('|').map((c) => c.trim()).filter((c, k, a) => k > 0 && k < a.length - 1);
+    const named = [...l.matchAll(/`(L[0-6]\.[A-Za-z0-9.*]+)`/g)].map((m) => m[1]);
+    const exists = (x) => (x.endsWith('.*') ? [...ids].some((y) => y.startsWith(x.slice(0, -1))) : ids.has(x));
+    for (const x of named) if (!exists(x)) problems.push(`DESIGN.md 13m, line ${i + 1} of the section: \`${x}\` is no scenario in mission0/scenarios`);
+    const status = cells[cells.length - 1] || '';
+    if (/^\**proven/.test(status) && !named.length) problems.push(`DESIGN.md 13m, line ${i + 1}: "${cells[0].slice(0, 50)}" is proven but names no scenario`);
+  });
+  report('13m: every named scenario exists; every proven row names one', problems);
+}
 console.log(failed ? `${failed} check(s) failed` : 'all checks passed');
 process.exit(failed ? 1 : 0);

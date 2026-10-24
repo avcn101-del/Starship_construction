@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.pd.kinetic.v2",
-  "code": "5ee1bbb",
+  "code": "c87d8d3",
   "criterionHash": "53c147fe",
   "lockedHash": "53c147fe",
   "runHash": "dfa0713b",
-  "dataHash": "394196fd",
+  "dataHash": "4b7cd27a",
   "rowsHash": "22fd9862",
   "rows": [
     {

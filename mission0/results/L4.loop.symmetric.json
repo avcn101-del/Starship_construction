@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.symmetric",
-  "code": "e3061da",
+  "code": "119ba57",
   "criterionHash": "c8f3248b",
   "lockedHash": "c8f3248b",
   "runHash": "17e5ff02",
-  "dataHash": "394196fd",
-  "rowsHash": "430cb055",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "5dc4e786",
   "rows": [
     {
       "case": {
@@ -103,6 +103,20 @@
       },
       "actual": {
         "rowsHash": "c6860f75",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.beam.nobody.v2"
+      },
+      "expected": {
+        "rowsHash": "84ffc97a"
+      },
+      "actual": {
+        "rowsHash": "84ffc97a",
         "cases": 1
       },
       "pass": true,
@@ -320,14 +334,42 @@
     },
     {
       "case": {
+        "scenario": "L4.helm.race"
+      },
+      "expected": {
+        "rowsHash": "f52d133b"
+      },
+      "actual": {
+        "rowsHash": "f52d133b",
+        "cases": 8
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
         "scenario": "L4.helm.style.v2"
       },
       "expected": {
-        "rowsHash": "f8b86b97"
+        "rowsHash": "b7da0226"
       },
       "actual": {
-        "rowsHash": "f8b86b97",
+        "rowsHash": "b7da0226",
         "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.helm.yield"
+      },
+      "expected": {
+        "rowsHash": "b2812bad"
+      },
+      "actual": {
+        "rowsHash": "b2812bad",
+        "cases": 2
       },
       "pass": true,
       "note": ""
@@ -393,11 +435,11 @@
         "scenario": "L4.loop.symmetric.v2"
       },
       "expected": {
-        "rowsHash": "ae05e0f5"
+        "rowsHash": "6746c89a"
       },
       "actual": {
-        "rowsHash": "ae05e0f5",
-        "cases": 42
+        "rowsHash": "6746c89a",
+        "cases": 47
       },
       "pass": true,
       "note": ""
@@ -412,6 +454,34 @@
       "actual": {
         "rowsHash": "c8cd0e87",
         "cases": 6
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.pilot.thrust"
+      },
+      "expected": {
+        "rowsHash": "42bd9c83"
+      },
+      "actual": {
+        "rowsHash": "42bd9c83",
+        "cases": 3
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.pilot.turn180"
+      },
+      "expected": {
+        "rowsHash": "5d270210"
+      },
+      "actual": {
+        "rowsHash": "5d270210",
+        "cases": 2
       },
       "pass": true,
       "note": ""
@@ -610,7 +680,7 @@
         "targetHelm": null,
         "targetEnemy": null,
         "attackerHelm": null,
-        "replayed": 42
+        "replayed": 47
       },
       "pass": true,
       "note": ""

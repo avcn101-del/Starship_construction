@@ -1,0 +1,23 @@
+--- a/js/pilot.js
++++ b/js/pilot.js
+@@ -66,7 +66,9 @@
+   // was asked to thrust (1 until then, and without power routing), so a starved engine reports none and the braking
+   // curve and the range order's engagement use the thrust the ship has.
+   for (const r of w.rooms) if (r.type === 'engine' && r.placed && !isDestroyed(r)) {
+-    if (r.engine.throttle > 0 && w.power) r.engine.lastSupply = r.powerFraction ?? 1;
++    // Item 58 probe (a): when the engine is not asked to thrust, the pilot reads the reactors' spare power (capacity minus
++    // routed) against the engine's full draw (walls ignored).
++    if (w.power) r.engine.lastSupply = r.engine.throttle > 0 ? r.powerFraction ?? 1 : Math.min(1, spare(battle, w) / (scaled(p.engine.powerDraw, battle.edge) * r.footprintFactor * survivingFraction(r)));
+     thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r) * (r.engine.lastSupply ?? 1);
+   }
+   const force = scaled(p.rcs.force, battle.edge);
+@@ -87,3 +89,9 @@
+   if (!(a > 0) || !(e > 0) || !(t180 < Infinity)) return 0; // no couple: no curve to fly (#306 (8))
+   return a * (Math.sqrt((2 * e) / a + t180 * t180) - t180);
+ }
++
++function spare(battle, w) {
++  let n = 0;
++  for (const r of w.rooms) if (r.type === 'reactor' && r.placed && r.active) n += r.reactor.demand * scaled(battle.params.reactor.power, battle.edge) - (r.reactor.routed ?? 0);
++  return Math.max(0, n);
++}

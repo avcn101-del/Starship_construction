@@ -6,8 +6,7 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
 ## Where things stand
 
 - Mission 0: L0–L4 merged; L5a, L5m, L5b, L5c, L5d and **L5e1** merged.
-  Next: **the pace study** (the lead designer's, run by a runner session),
-  then **L5e2** (E5–E8), then **L6** (scaling, mixed classes). The owner:
+  Next: §17 **item 58** (a starved engine latches the pilot's thrust at 0; probe running), then **the builds' rebuild** (#329–#331, draft PR #104; item 55 merged, PR #105), then E7 re-measured on two-sided battles, then **L5e2** (E5–E8), then **L6** (scaling, mixed classes). The owner:
   Mission 0 through L6 before any playable slice (#323).
 - The plan in force is `DESIGN.md` §13n (L5); §13n.8 is L5e1's.
 
@@ -32,9 +31,14 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
 - **Heavy jobs go to a runner session** (sonnet; the commands and a summary
   format only): `regress`, mutation runs, sweeps, long probes (#322).
 - **Decision rows** at most about 800 bytes; detail goes to `HISTORY.md`.
+- **Plan checklist** (#326): the §13m rows the pass proves, the probe, the
+  tolerances; lint check 10 ties §13m to existing scenarios. **Full mutation
+  run** only at a level's exit or on STALE/CHANGED, by a runner.
 
 ## Traps (each cost a run or a fix round)
 
+- Session lineage is capped at depth 8: a chat deep in the chain creates sessions that cannot notify or create sessions; the owner opens each new lead designer chat from claude.ai.
+- A checker grepping `DESIGN.md` for a formula can see the scenario table's criteria: point it at named rows, or extract its section for it.
 - The clones are single-branch: fetch with an explicit refspec.
 - `tools/mutate.js` copies the live working tree at each mutation: run it on
   a detached worktree pinned to the commit it measures; nothing else on
@@ -49,6 +53,9 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
   `js/` (`L0.determinism.v2`, #311): use `js/util.js`.
 
 ## Open obligations (`DESIGN.md` §17; due)
+
+- **54** the energy book has no beam term (due with `js/battle.js`'s books).
+- **58** a starved engine latches the pilot's thrust at 0, and the yield clocks lack `RES` (before the builds lock); **56** missiles fly pure pursuit; **57** a leading navigator (if the builds' tables show it).
 
 - **52** the pace study's questions: the bimodal pace, a close order's
   overshoot (about 230 m), the battle's **shape** (first hit on the loser
@@ -75,3 +82,22 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
   owner's feel), Mission 0 documents archived, a slim `CLAUDE.md`.
 - Ideas waiting in `IDEAS.md`: the thin skin (#313), command level (#319),
   ship classes' forms (#320), the battle screen, hull cooling.
+- The owner's order for `IDEAS.md` (2026-10-24, with the design partner;
+  no action before item 55's pass ends; the lead designer may reorder on
+  technical grounds and tells the owner): (a) battle phases (#334) after
+  item 55 and the rebuilt builds, before L5e2; it replaces "Presets by
+  ship archetype" and "Command level"; (b) the hull radiates: measure
+  only, from L5e2's battles (share in which a side reaches plant hot;
+  #304 puts the first hot room near 1059 s); build only if material;
+  (c) ship classes: the two-class measure at L6 (#320), content after
+  Mission 0; (d) after Mission 0, rendering: the battle screen (outside
+  view, knowledge panel) first, then the thin skin (#313); (e) after
+  Mission 0, progression: room variants (one physical trade per room,
+  three families; the reactor's axis is its shield mass, #281), then
+  tracking mines; (f) the eight unworked ideas: the four gates first,
+  then ordered by the underdog paths they open (E6).
+- Room variants bring three new kernel rules: a turret's ready store
+  detonates as a magazine does (today magazines and missile bays, #148),
+  scan range from the antenna, shield buffer vs rate. Whether the
+  ready-store detonation comes earlier, for consistency with #148, is
+  the lead designer's call after item 55 (open).

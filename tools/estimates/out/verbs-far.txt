@@ -1,0 +1,18 @@
+# verb leverage (R2 the player on Fire, against the standard enemy), seed 1, limit 600 s, overrides {"battle.cullDistance":5000}
+R2 v R2      2500 bow      : baseline A 50.5 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 59.1 s
+R2 v R2      2500 broadside: baseline A 52.5 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 61.3 s
+R2 v Lance   2500 bow      : baseline A 57.5 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 44.3 s
+R2 v Lance   2500 broadside: baseline A 59.5 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 97.4 s
+R2 v Swarm   2500 bow      : baseline A 115.9 s; 0 flips over 1 moment(s) x 19 verbs
+R2 v Swarm   2500 broadside: baseline A 7.0 s; 0 flips over 1 moment(s) x 19 verbs
+R2 v Furnace 2500 bow      : baseline A 89.7 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: none
+R2 v Furnace 2500 broadside: baseline A 85.7 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: none
+verb leverage: 6 of 152 single-verb battles flip the result (3.9 %): 0 toward the player, 6 against; moments with a flip 6 of 8
+verbs that turn a result toward the player: {}
+kernel errors: 0

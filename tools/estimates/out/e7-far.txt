@@ -1,0 +1,20 @@
+# E7 pace (R2 against R2, Lance, Swarm, Furnace), ranges 2000,2500, bow,broadside, seeds 1, limit 600 s, overrides {"battle.cullDistance":5000}, orders {}
+R2 v R2      2000 bow       s1: draw      A,T t   69.4 s  win draw hits A/T 23/23 of 46; first hit 25.0 s, on loser -; end draw
+R2 v R2      2000 broadside s1: destroyed T   t   72.5 s  win A    hits A/T 17/23 of 40; first hit 28.7 s, on loser 0.40 of the battle, 23 hits; end destroyed
+R2 v R2      2500 bow       s1: draw      A,T t   68.1 s  win draw hits A/T 21/21 of 42; first hit 27.8 s, on loser -; end draw
+R2 v R2      2500 broadside s1: destroyed T   t   77.3 s  win A    hits A/T 16/23 of 39; first hit 33.5 s, on loser 0.43 of the battle, 23 hits; end destroyed
+R2 v Lance   2000 bow       s1: surrender T   t   45.2 s  win A    hits A/T 0/9 of 12; first hit 26.5 s, on loser 0.59 of the battle, 9 hits; end no-control
+R2 v Lance   2000 broadside s1: surrender T   t   48.3 s  win A    hits A/T 0/9 of 12; first hit 29.6 s, on loser 0.61 of the battle, 9 hits; end no-control
+R2 v Lance   2500 bow       s1: surrender T   t   49.3 s  win A    hits A/T 0/9 of 12; first hit 30.6 s, on loser 0.62 of the battle, 9 hits; end no-control
+R2 v Lance   2500 broadside s1: surrender T   t   52.3 s  win A    hits A/T 0/9 of 12; first hit 33.6 s, on loser 0.64 of the battle, 9 hits; end no-control
+R2 v Swarm   2000 bow       s1: surrender T   t  252.8 s  win A    hits A/T 0/43 of 45; first hit 26.7 s, on loser 0.11 of the battle, 43 hits; end dry
+R2 v Swarm   2000 broadside s1: surrender T   t  200.4 s  win A    hits A/T 0/30 of 44; first hit 28.6 s, on loser 0.14 of the battle, 30 hits; end dry
+R2 v Swarm   2500 bow       s1: surrender T   t  256.9 s  win A    hits A/T 0/42 of 44; first hit 31.4 s, on loser 0.12 of the battle, 42 hits; end dry
+R2 v Swarm   2500 broadside s1: surrender T   t  204.5 s  win A    hits A/T 0/37 of 44; first hit 33.4 s, on loser 0.16 of the battle, 37 hits; end dry
+R2 v Furnace 2000 bow       s1: surrender T   t   53.2 s  win A    hits A/T 0/14 of 14; first hit 26.4 s, on loser 0.50 of the battle, 14 hits; end no-control
+R2 v Furnace 2000 broadside s1: surrender T   t   56.3 s  win A    hits A/T 0/14 of 14; first hit 29.5 s, on loser 0.52 of the battle, 14 hits; end no-control
+R2 v Furnace 2500 bow       s1: surrender T   t   57.2 s  win A    hits A/T 0/14 of 14; first hit 30.5 s, on loser 0.53 of the battle, 14 hits; end no-control
+R2 v Furnace 2500 broadside s1: surrender T   t   60.3 s  win A    hits A/T 0/14 of 14; first hit 33.5 s, on loser 0.56 of the battle, 14 hits; end no-control
+kernel errors: 0
+E7: median end 64.2 s over 16 of 16 ended (no end by 600 s counts as 600 s: median 64.2 s); ends {"draw":2,"destroyed":2,"surrender":12}
+shape over 14 decided: first hit on the loser median 0.51 of the battle; hits on the loser median 14 (9-43); hit rate 92 %

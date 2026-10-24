@@ -83,7 +83,10 @@ cell's mass, heat by the **thermally coupled** mass of the room type
    dry-run headless against a dummy or a known enemy variant, undock.
 2. **Battle**: the ship fights on its orders; the player scans zones,
    targets rooms, switches presets, may pause. 3–6 minutes, with a physical
-   clock (#30).
+   clock (#30): today heat and ammunition; a stalemate when neither ship
+   takes new cell damage for X s (planned, X from the baseline); a scenario
+   clock after Mission 0 (#337). Outcomes are counted apart: win, loss,
+   escape, stalemate (#336); the sweep breaks ties by survival (#338).
 3. **Report**: the KIA list first, the cascade tree, scans and targets on a
    timeline, what the enemy learned of you, heat, salvage, kill-cam (#41).
 4. **Progress**: intact salvage unlocks room types; credits buy rooms,
@@ -119,7 +122,7 @@ Deferred: sloped armour (#6), now with tumble in `IDEAS.md`, after prototype v2 
 | Topic | Decision |
 |---|---|
 | Hits | A shot enters the first cell on its path; over-penetration loses the remaining momentum; debris blocks shots (#9) |
-| Damage channels | **Kinetic** (momentum: each cell takes part by its resistance; `fireRound` receives the round's velocity **relative to the hull** it hits (#242, superseding #137's 'relative velocity not counted' and #202 F's deferral): ships at rest give the muzzle velocity; L4 and L5 pass the relative velocity, as prototype v2 does), **thermal** (absorbed beam energy, which also becomes heat in the target room), **blast**, **EMP** (#137, #138) |
+| Damage channels | **Kinetic** (momentum: each cell takes part by its resistance; `fireRound` receives the round's velocity **relative to the hull** it hits (#242, superseding #137's 'relative velocity not counted' and #202 F's deferral; a charged field slows the round in the same frame, the hit body's, never the generator's, #327): ships at rest give the muzzle velocity; L4 and L5 pass the relative velocity, as prototype v2 does), **thermal** (absorbed beam energy, which also becomes heat in the target room), **blast**, **EMP** (#137, #138) |
 | Shields | An energy screen: an absorption rate plus a small buffer; everything stopped, kinetic included, costs budget and becomes heat (#21, #139) |
 | Fields | One rule: each source has a finite budget spread over its coverage with falloff; overlaps add, each source paying from its own budget (#99) |
 | Explosions | Through shared walls inside a ship; a radial field outside it (#141) |
@@ -410,7 +413,7 @@ carry approved `min`–`max` ranges (#145). The 1e-9 relative slack on both boun
 | E4 | Every schema attribute has a measured effect, or it is cut |
 | E5 | No build wins more than 75% against the reference set; every degenerate build loses ≥ 3 of 4 against the reference ship on the same budget |
 | E6 | Each underdog path: a 60%-budget ship beats a 100% one with the intended tactic and loses without it |
-| E7 | The median reference battle lasts 3–6 minutes |
+| E7 | The median reference battle lasts 3–6 minutes, counting only **two-sided** battles (both ships take damage, #329) |
 | E8 | T1 and T6 1v1 battles cost at most **1 ms per simulation step in Node** (a quarter of a 60 Hz phone frame, allowing for a phone's slower JavaScript; the owner, #213) |
 
 **L0** (#165, #166): seven material scenarios; kinetic penetration by
@@ -1165,7 +1168,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 
 | Element | Today | Proof | Status |
 |---|---|---|---|
-| Beam: no falloff, deposit along the path, heat | built | `L0.beam.*`, `L2.beambay.cause` | proven |
+| Beam: no falloff, deposit along the path, heat | built; a beam into a ship with no body deposits nothing, its passed energy escaped (#327) | `L0.beam.*`, `L2.beambay.cause`, `L4.beam.nobody` | proven |
 | Kinetic: time of flight, momentum along the path, recoil | built | `L0.kinetic.*`, `L4.route.*` | proven |
 | Missile = seeker + warhead (#97): flight, guidance, impact | `js/missile.js`: `missile.acceleration` for `missile.burnTime`, then coasting; flown on the shooter's world; its body's impulse and heat at impact | `L0.missile.flight`, `L2.missile.warheads.v2` | proven L5c |
 | Seekers IR, radar, anti-radiation, designated (#97) | each from the shooter's model only; nothing resolved: the silhouette's centre | `L2.missile.seekers.v2` | proven L5c |
@@ -1194,7 +1197,8 @@ sit in no plan again. Each plan updates this table in the same commit.
 
 | Element | Today | Proof | Status |
 |---|---|---|---|
-| Standing orders, 12 slots (#38): movement (range, position, style, dodging) | `js/helm.js` (#301, #302, #307) | `L4.helm.range`, `L4.helm.conflict`, `L4.helm.dodge`, `L4.helm.style`, `L4.helm.drift` | proven L5d |
+| Standing orders, 12 slots (#38): movement (range, position, style, dodging) | `js/helm.js` (#301, #302, #307) | `L4.helm.range`, `L4.helm.conflict`, `L4.helm.dodge`, `L4.helm.style`, `L4.helm.drift`, `L4.helm.race` (#335) | proven L5d; race L5 (item 55) |
+| The helm's layers: pilot (heading and throttle to RCS and engines; reports the ship's acceleration and turn), navigator (goals to heading and throttle), gunnery and systems (the owner, #333) | `js/pilot.js`, `js/navigator.js`, `js/helm.js` (#335) | `L4.pilot.turn180`, `L4.pilot.thrust`, `L4.helm.race`, `L4.helm.yield` | proven L5 (item 55, PR #105) |
 | Standing orders: firepower (facing, firing style, open fire, target priority) | `js/helm.js` | `L4.helm.dodge`, `L4.orders.fire` | proven L5d |
 | Standing orders: energy (power and repair priority, heat discipline) | `js/helm.js`, `routePower`, `repairGrants` (#307) | `L2.power.flow` (priority), `L4.orders.energy`, `L4.orders.repair` | proven L5d |
 | Standing orders: emission (posture, auto-scan) | `js/helm.js` with `sensors.js` | `L4.enemy.decide`, `L4.orders.fire` | proven L5d |
@@ -1235,7 +1239,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | E3 (every kept law proven) | the rows above marked proven (F, E, G and H by L5b–L5d, #309; the plume, containment first, dark fragments and the wildcard's case by L5e1, #324); **not yet**: the rows planned L5e2 (ship versus ship, E5–E8, the point-defence throughput, magazines lasting the battle) |
 | E4 (every attribute has a measured effect) | judged at L5c for recoil and the shield buffer (§17 items 6, 7); `thermal.coupledArmour` has its consumer since L4a |
 | E5, E6 (builds; underdog paths) | planned L5e: needs E and F above, room size S (D); the budget is mass at undock (#277 O1) |
-| E7 (3–6 minutes median) | planned L5e: the reference battle is §13n.1 (e) (#277 O2); R1d duels 104–306 s under the prototype's script |
+| E7 (3–6 minutes median, two-sided battles, #329) | planned L5e2 on the rebuilt reference builds (#330): the reference battle is §13n.1 (e) (#277 O2); R1d duels 104–306 s under the prototype's script |
 | E8 (1 ms per step) | T1 proven (`L4.e8`, 0.15–0.29 ms); T6 planned L6 |
 
 ## 13n. L5 plan: senses, the kinetic pass, weapons, the enemy, ship versus ship (#277, #278; the owner's answers are §13n.7)
@@ -1340,7 +1344,7 @@ is §13n.6.
 | Escape in E5 (#293) | An escape is a loss for the side that escapes in every count of E5 and E6 |
 | The degenerate four, now six (E5; #297, #305) | **Brick** (plates on every wall, one S turret), **Glass** (a railgun and a reactor, the least quarters and no plates), **Porcupine** (four S turrets, two magazines), **Fortress** (three shield generators, one turret), **Engine boat** (#297: two engines, one turret, the plume its weapon, running and turning its stern to the enemy), **Cold Brick** (#305: R1d's hull and plates with no radiator panel, IR-dark while its engine is off, a heat store for the battle's length; if it does not lose, the levers are `radiator.area` and the coupled heat capacities): each on R2's budget; each must **lose ≥ 3 of 4** against R2 (the 4 are the three ranges plus a broadside opening, under the standard enemy) |
 | The six underdog pairs (E6) | One pair per path, the 60 %-budget ship against R2 with the intended orders and with R2's own: mission kill (the beam bay first), cascade (the reactor's wall: T-neck's lesson), information (a cold ship with an antenna against a scanning one), time window (a heat sink and a long beam against a shield), attrition (a Porcupine of S turrets against a plated R2), mechanism counter (point defence against the Swarm). Each must win with the tactic and lose without it (4 variants as above) |
-| The reference battle (E7; #277 O2) | R2 against each of the four, both on the standard enemy (personality 0.5 each), at the three ranges and both openings: the **median of the 24 ends** is in 3–6 minutes. The pace figures of §13l.3 (R1d 102–306 s under the prototype's script) are the prior |
+| The reference battle (E7; #277 O2) | R2 against each of the four, both on the standard enemy (personality 0.5 each), at the three ranges and both openings: the **median of the two-sided battles' ends** (both ships take cell damage; #329) is in 3–6 minutes. The pace figures of §13l.3 (R1d 102–306 s under the prototype's script) are the prior |
 | Search harness (`tools/sweep.mjs`, #277; L5e, before E1–E3 are locked) | A **deterministic best-response search** (no LLM, no `Math.random`; `worker_threads` for the cores): from the standard orders, each side in turn changes **one slot** of its twelve (the slot's values from `data.js`), keeps the set that wins most against the other's current set over the three ranges, two openings and the seeds, and the other side answers; three rounds; over every pair of the reference and degenerate builds. It reports every build's win rate, **flags any build or order set that wins above 75 %** (E5's number) and **any end under 60 s**, each with the cascade tree of its fastest win and its replay line: the prototype's "aim the magazine, 7 s" is what it must find on its own. E5's `L5.e5.reference` and `L5.e5.degenerate` run on its output; E6 keeps its fixed pairs (a tactic is designed, not searched). Size (8): about 8 builds × 16 single-slot variants × 3 ranges × 2 openings × 4 seeds × 3 rounds ≈ 9000 battles at about 3 s each on the L4 loop's 0.18 ms per step: 8 hours on one core, under an hour on eight. What it cannot see: an order set outside the slot grid and a sequence of preset switches in time (the play harness's hunter does) |
 | Measures as scenarios | `L5.e5.reference`, `L5.e5.degenerate`, `L5.e6.<path>` × 6, `L5.e7.median`, `L5.e8.missiles` (a Swarm battle at T1 under 1 ms per step; (8): the L4 loop runs 0.18 ms), **`L5.route.throughput`** (a measure, #291: R1 and R1d with their panels and heat sinks shot away, cooked by their own reactor and weapons under a real enemy; whether Disabled comes by heat); each prints its table and its PASS/FAIL against the exit criterion's number; `tools/duel.js <build> <build> [--range] [--seed] [--inputs]` replays any cell of the sweep or any played battle |
 
@@ -1570,12 +1574,61 @@ The rule's figure is up from #315's frame (104–152) by the three §17 items (3
 - [ ] Open: J5's clauses (SCRAM in the step of the split, scans end, EM 0) are read from #81 and §13d.1, not run on the kernel: the engineer's first commit runs them and asks if any does not hold; J8's cross-section is a stated stand-in, its source after Mission 0.
 - [x] **L5e1 exits** (#324): J1–J13 with their successors PASS at `7a4fe57`, plus plume occlusion (`L4.engine.plume.shadow`, `.v2`); `regress` 174 VERIFIED + 159 WITHDRAWN + 5 RETIRED; `l5e1.*` 21 of 21 KILLED; §13m's L5e1 rows proven; J5's clauses held on the kernel (no rule built); the builds locked.
 
+### 13n.9 §17 item 55: the helm's layers and the broadside race (#333, #335)
+
+The broadside mirror race (§17 item 55, #331) is greedy pursuit: each ship chases a point fixed to the other's current bow, and a ship under a range order points its bow along its thrust. The helm behaviour suite (`tools/estimates/helm-suite.mjs`, the design partner's proposal) judges a law on the whole duel grid at once: R2, Lance, Swarm, Furnace, each mirror and each against R2, 600 / 900 / 1500 / 2500 m, bow and broadside, default orders, strafe and orbit, seed 1 (168 battles); four properties: (1) separation ≥ 150 m while both ships can manoeuvre (thrust, an RCS couple, a throttle above 0, engines given a tenth of their draw), (2) no race (each main body's speed at the end ≤ 2 × the braking curve's from the larger of the opening range and `helm.rangeOpen`, plus `helm.rangeBand`), (3) spinal bearing ≥ 10 % of the battle within 2°, (4) a battle with cell damage on both ships ends by 600 s. (3) and (4) mostly measure the builds (#330), not the helm.
+
+**The probe** (PR #104's builds `1d7845e`; runners `session_018CzG2efzqJLEh5utTmS1AX`, `session_01JEsqkpArJ9unCs6ng4gGCF`, `session_01S9x8RHyzN6aW5YiUmiYCVn`; scratch diffs in `tools/estimates/`):
+
+| Law | Any property fails | Separation | Race | `regress` (today 175 VERIFIED) |
+|---|---|---|---|---|
+| today | 118 / 168 | 12 | 19 | — |
+| L1 (`pace-race-probe.diff`): the lead dropped after 15 s engaged without closing by a band, restored after 30 s let go | 102 | 7 | 3 | 9 MISMATCH, 3 fail |
+| P2 (`pace-race-p2.diff`): L1 + the lead only at range + the turn sense kept past 90° | 92 | 2 | 1 | 11 MISMATCH, 4 fail |
+| **P3** (`pace-race-p3.diff`): P2 + the pilot's thrust at its engines' delivered power | **86** | **0** | **2** | **12 MISMATCH, 3 fail** |
+
+Under L1 a yield reset at let-go does not cure the race; a patience of 10, 15 or 20 s all cure it; a reset of 30 s gives the same cells as none. P3's two race cells are Furnace v R2 under orbit or strafe after R2 lost most of its mass (the cap is computed at the start). A fourth candidate (P4: the lead also only when settled) fixed Furnace mirror 1500 m bow on the locked builds but broke R2 mirror 2500 m bow (50 m): not taken. What P3 leaves is §17 item 57.
+
+**Rules** (the owner's layers, #333; the laws, #335)
+
+| Rule | Statement |
+|---|---|
+| The layers | `js/pilot.js`: **the pilot** takes a wanted heading and a throttle and drives the RCS (`holdHeading`, moved from `js/battle.js`) and the engines, and reports what the ship can do now (`shipDynamics`: acceleration from the thrust its engines are given, t180 on the RCS couple). `js/navigator.js`: **the navigator** takes goals (the range R* or `disengage`; the aspect: position, style, facing, dodging; the throttle) and returns a wanted heading and throttle (#40's order: movement, facing, dodging). `js/helm.js` turns the orders into the navigator's goals each step and keeps gunnery and systems (aim, open fire, shield, power and repair priority, scans). A later phase layer or a manual mode replaces only the goals or the navigator's output (recorded per step like a verb); nothing manual is built (#323, #2). The split itself moves nothing: its commit runs `regress` with every scenario VERIFIED |
+| The turn sense (pilot) | A turn of more than 90° toward the wanted heading keeps the sense it started in until the error is within 90°: d is taken in that sense (d ± 2π). At an error of exactly 180° the wanted heading's jitter otherwise flips the bang-bang every few steps and the ship never turns (mirrors from a bow opening pass through each other). No constant: 90° is where the shorter turn is unambiguous |
+| The delivered thrust (pilot) | The pilot's acceleration counts each live engine's thrust × its footprint × its surviving fraction × the power fraction it was given at the last step it was asked to thrust (1 until then): a starved engine (the fire preset routes power to engines last) reports none, so the braking curve and the order's engagement use the thrust the ship has |
+| The position at range (navigator) | The position's lead (#315) applies only while \|r − R*\| ≤ `helm.rangeBand`; outside it the point is on the own bearing at R* (the range first, then the position): the other ship's bow is read only once the range is held |
+| The position yields (navigator) | While the range order is engaged with a lead, if the distance to its point has not fallen by `helm.rangeBand` within `helm.positionPatience` (15 s), the position yields (no lead) and stays yielded until the order has been let go for `helm.positionReset` (30 s) |
+
+**Constants**: `helm.positionPatience` (new, 15 s, 10–20 s, k 0; the probe: 10, 15 and 20 s each cure the race) and `helm.positionReset` (new, 30 s, 30–60 s, k 0; 0 s does not cure it; 30 s and never give the same cells); a pilot's choice, no hardware. No other constant moves.
+
+**Scenarios** (each locked in a commit of its own before its first canonical run, #273; the blind physics checker on K1–K3)
+
+| # | Scenario | Setup | Criterion |
+|---|---|---|---|
+| K0 | — | the layers' commit, no rule changed | `regress`: 175 VERIFIED + 159 WITHDRAWN + 5 RETIRED, every record unchanged |
+| K1 | `L4.pilot.turn180` | one ship at rest, the wanted heading its heading + π, jittered ±0.005 rad by step parity (a test input) | within 1° of the wanted heading by 1.2 × t180 (the bang-bang's time for π is t180 = 2√(π/α)), the sense of ω never reversing while the error is past 90°; today: never turns |
+| K2 | `L4.pilot.thrust` | a ship whose power priority puts its engine last, its load giving the engine a fraction f in (0, 1), and a case with f = 0 | the pilot's acceleration = Σ thrust·footprint·surviving·f / M at 1e-12 relative, f from `routePower`'s budget worked by hand; 0 for the starved case |
+| K3 | `L4.helm.race` | R2 mirror (R2 unchanged by #330), the standard enemy, default orders, seed 1, bow and broadside, 600 / 900 / 1500 / 2500 m, to 600 s | the suite's (1) and (2) in all 8 cells; today fails 6 (race at broadside 600–2500, separation at bow 1500 and 2500), P3 0 |
+| K4 | `L4.beam.nobody.v2` | successor of `L4.beam.nobody` (#245, #327; it pins step 9524 of one battle, which any helm change moves): a beam into a target whose last cell an explosion takes in the step, found under the new helm or constructed | #327's criteria at the new step |
+| K5 | re-records | `L0.determinism.v2`, `L4.helm.range`, `L4.helm.separation`, `L4.helm.style.v2`, `L4.loop.rules`, `L4.orders.energy`, `L4.play.replay`, `L4.route.escape`, `L4.sweep.determinism.v2` (still pass, results moved); `L4.loop.symmetric` and `.v2` after K4 (they replay the standing battle scenarios) | criteria unchanged; each listed in the PR with its old and new result |
+| K6 | `L4.helm.yield` (#339) | constructed, the navigator's timing: a range order engaged under the position law whose point does not close by `helm.rangeBand`; then the order let go (test inputs, stated in the setup) | the position yields at engagement + ⌈`helm.positionPatience` / dt⌉ steps (± 1), stays yielded while engaged, and is restored at let-go + ⌈`helm.positionReset` / dt⌉ steps (± 1), not before; `item55.position.yield` and `.reset` each fail it |
+
+`regress` at the PR head: 179 VERIFIED + 160 WITHDRAWN + 5 RETIRED (175 − 1 withdrawn + 5 new, K6 by #339). Mutations `item55.*` (turn sense, delivered thrust, at range, yield, reset), `--only`, all KILLED. The engineer reports the helm suite's table at the PR head on the locked builds and on PR #104's (information, not a criterion).
+
+**Process and cost**: one engineer (opus, branch `m0/helm55`), the blind physics checker (sonnet) on K1–K3, the reviewer (sonnet), a runner for `regress` and the suite. Raw: engineer 6–9, checker 1–1.5, reviewer 1–1.5, a fix round 1–2: 9–14; × 1.24: **11–17 USD**. #246 (4)'s figure (a repeated kind, × 2.5): 22–35, shown beside it (#270 (2)).
+
+**Checklist** (#326)
+
+- [x] **§13m rows**: "The helm's layers" (new, planned item 55) and "Standing orders: movement" (K3 added); the separation row stays `L4.helm.separation` (re-recorded).
+- [x] **The probe**: P3 on PR #104's builds, the whole suite and `regress` (the table above); the regress tally counted as before − withdrawn + new.
+- [x] **Tolerances**: K1's 1.2 × t180 against a discrete bang-bang's few steps (dt 1/60 s against R2's t180 of 8.12 s); K2 at 1e-12 relative (one product); K3's floors with margins on P3's worst (P3 on R2's eight cells: separation ≥ 600 m against 150; end speeds ≤ 45 m/s against caps of 188–256; the 2500 m bow cell fails only (4), not K3's).
+
 ## 14. Architecture
 
 | Layer | Files (planned) |
 |---|---|
 | Foundation | `data.js` (every number, ranges, scaling exponents, text), `util.js` (vectors, seeded RNG with separate simulation and effects streams), `events.js` |
-| Kernel (no DOM) | `layout.js`, `graph.js`, `body.js`, `heat.js`, `rooms.js`, `field.js`, `projectile.js`, `damage.js`, `sensors.js`, `helm.js`, `crew.js`, `enemy.js`, `battle.js` |
+| Kernel (no DOM) | `layout.js`, `graph.js`, `body.js`, `heat.js`, `rooms.js`, `field.js`, `projectile.js`, `damage.js`, `sensors.js`, `pilot.js`, `navigator.js`, `helm.js`, `crew.js`, `enemy.js`, `battle.js` |
 | Meta | `campaign.js`, `run.js` |
 | Presentation (after Mission 0) | `renderer.js`, `effects.js`, `ui.js`, `shipyard.js`, `report.js`, audio; `manifest.json`, `service-worker.js` |
 | Tools | Mission 0 runner (Node, e.g. `node tools/m0.js L1 reactor ...`), `tools/campaign.js` (Node), `tools/smoke.js` (Playwright, after Mission 0) |
@@ -1862,6 +1915,42 @@ Each line names its decision and when it is due; a closed one is removed.
     time) before toughness (`kinetic.hitsToWreck`); and (#319) (d) verb
     leverage, the share of battles one player verb flips, and (e) the
     decisions available per battle. Due: the pace study after L5e1.
+53. **A beam into a ship with no body** (the pace study, 2026-10-24): `js/battle.js`
+    `beamsOut` reads `mainBody(T).x` after a step in which T's reactor
+    explosion destroyed every cell, before the end is judged: a TypeError
+    (`node tools/estimates/pace-verbs.mjs --builds Lance --ranges 600
+    --openings bow`, R2 targeting the shield, step 9524). **Done** (#327,
+    PR #103, `L4.beam.nobody`).
+54. **The energy book has no beam term** (PR #103's blind checker, #327):
+    `battleEnergy` (`js/battle.js`) counts kinetic energy, heat, shots,
+    work and internal energy, but not a beam's escaped energy, which
+    `fireBeam` only returns; a deposit into a missing room would not show.
+    Due when `js/battle.js`'s books are next touched (L5e2 at the latest).
+56. **Missiles fly pure pursuit** (PR #104): no lead, so a missile passes
+    about 50 m behind a target accelerating at about 5 m/s² (Swarm mirror,
+    600 m broadside, missile 1, t 8.9 s). A guidance-law question: not probed, so
+    not in item 55's pass; the same class as item 57.
+57. **Two pilots on one relative variable** (the helm suite under P3, #335): each
+    side flies the relative range and velocity as if the other were passive;
+    when both correct the same error the effort doubles (overshoot, or a race
+    when they disagree). P3 leaves 86 of 168 cells failing a property, most of
+    them the builds' (#330), and two race cells whose cap ignores mass loss.
+    The design partner's candidate: a navigator that leads the other ship's
+    motion (as gunnery's intercept) and caps the relative speed; judged on the
+    suite. Due before L5e2's measures if the builds' tables show it.
+
+58. **A starved engine latches the pilot's thrust at 0** (PR #105, the
+    physics checker's H1 and the reviewer's finding 1; #335's rule as
+    written): the delivered fraction is refreshed only while the engine is
+    asked to thrust; once a starved engine reports 0, the navigator's
+    `able` is false and a range order under bow facing (or broadside
+    without dodging) never asks again, even after power returns. Not seen
+    in four natural battles; reproduced by injected state. Also the yield's
+    and the reset's clocks compare without `RES` (#308 (2)), so a yield can
+    land one step late (`L4.helm.yield` engages at step 60 to stay inside
+    ± 1). A pilot pass, probed first (count the suite's cells where it
+    trips; candidates: the fraction the router would give at full draw, or
+    a starved report that expires), before the builds are locked (#330).
 
 ## 18. Decisions in force
 
@@ -2111,12 +2200,12 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 238 | Independent audits at fixed milestones | current |
 | 239 | Prototype v2 merged; answers | current |
 | 240 | The audits’ seven questions | current (built as physics pass 2, §13k) |
-| 241 | Process after the audits: plan gate, sessions, documents | current |
+| 241 | Process after the audits: plan gate, sessions, documents | partly superseded by #326 (the checklist's list; the rest current) |
 | 242 | The documents consolidated; the kinetic velocity relative to the hull | current (supersedes #137's clause and #202 F) |
 | 243 | Physics pass 2 planned (§13k) | current (being built) |
 | 244 | Answers to the scenario audit; S17–S22 and the conventions | current |
 | 245 | E1 amended again: withdrawal by decision whatever the verdict; the record frozen; retired | current (amends #188, #200, #237 (7)) |
-| 246 | Prevention after the audits: lint, mutation tool, supersedes rule, ×4, the owner's page | partly superseded by #322 (the cost factors; the rest current) |
+| 246 | Prevention after the audits: lint, mutation tool, supersedes rule, ×4, the owner's page | partly superseded by #322 (the cost factors) and #326 (the full mutation run per merge; the rest current) |
 | 247 | The design partner role; when the lead designer's chat is replaced; the decision frame | current |
 | 248 | Pass 2's first run: S6 withdrawn (the plan's tier law false); the engineer's twelve withdrawals; answers | current |
 | 249 | Beam depth tier-invariant for electronic stopping only (CSDA-exact, drift reported) | current (amends #240 (4)) |
@@ -2140,12 +2229,12 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 267 | L4b merged (PR #62); answers to its engineer, checker and reviewer; the aim point, the feed clause, Disabled's parent | current, except its cost-factor clause (withdrawn by #270; #246 (4) stands) |
 | 268 | Missiles, point defence and the railgun have no level (the owner's finding); the L5 plan builds them before ship versus ship | current |
 | 269 | §13m, the coverage table: every element of the design and the level that proves it (the owner's direction); lint check 8 | current |
-| 270 | Answers to the four light audits before L5: #267's factor change withdrawn, the ledger's ratio table, the plan checklist's three lines, the L4 fix round (B1, `L4.books.two`, `battle.openingRange`), stand-ins stated, §17 items 38–41, five questions to the owner | current |
+| 270 | Answers to the four light audits before L5: #267's factor change withdrawn, the ledger's ratio table, the plan checklist's three lines, the L4 fix round (B1, `L4.books.two`, `battle.openingRange`), stand-ins stated, §17 items 38–41, five questions to the owner | partly superseded by #326 (the checklist lines, the full run per merge; the rest current) |
 | 271 | The scenario-hygiene round (§13l.7): every finding of the L4 scenario audit fixed by successors, under the plan gate; §17 item 42 (the owner: fix every audit finding) | current |
 | 272 | The L4 fix round merged (PR #64): the hit's momentum along the relative velocity at the first entry with matter, `L4.books.two`, `battle.openingRange`; answers to its engineer and reviewer | current |
 | 273 | The owner's five answers: detonation rule (c), passed-cell loss by chord (b), one battle is the same battle in cells (k = 1), the pre-lock rule reworded, surrender once Disabled | current |
 | 274 | A magazine explosion is a blast through its walls, not a destroyer by itself (the owner; amends #83); built at L5's kinetic pass | current |
-| 275 | Prevention after the weapons gap (#268): lint check 9 (every room, fitting, weapon, round type and topic has a §13m row), the plan checklist's §13m line and the level-exit rule, the documents audit's §13m scope, the owner's "not built yet" line | current |
+| 275 | Prevention after the weapons gap (#268): lint check 9 (every room, fitting, weapon, round type and topic has a §13m row), the plan checklist's §13m line and the level-exit rule, the documents audit's §13m scope, the owner's "not built yet" line | partly superseded by #326 (the checklist line; the rest current) |
 | 276 | The scenario-hygiene round merged (PR #67): 20 scenarios, 19 withdrawn; answers to its engineer, blind checker and reviewer; four plan wordings corrected; the residue in §17 item 39 | current |
 | 277 | The owner's answers to the L5 plan (budget by mass, the reference battle, unmanned rooms, the magazine's blast accepted, the go), option A on the reactor's share, two exploit harnesses, the lead designer's role file | current |
 | 278 | The L5 plan (§13n): five passes L5a–L5e, 26 constants, 52 scenarios, the unmanned rule, `magazine.detonationSpeed` (new) as the first pace lever, the lint's §13n skip | current |
@@ -2196,3 +2285,17 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 323 | Mission 0 through L6 before any playable slice (the owner); a steering mode would need a new helm input and a change to #2 | current |
 | 324 | L5e1 merged: the position law, the plume with occlusion, containment first, dark fragments, a simultaneous end as a draw, items 35/48/50/51, builds (locked) and sweep | report |
 | 325 | Process v2: rows ≤ 800 B, `BRIEF.md`, a slim reading order, a five-line owner block, the lead designer's cost in the ledger, no third regress on a documents-only merge, one documentation PR per pass; two items to the owner (the plan checklist, the full mutation run's frequency) | current |
+| 326 | The plan checklist three items (§13m rows, probe, tolerances) and lint check 10 (§13m to scenarios); the full mutation run only at a level's exit or on STALE/CHANGED, by a runner (the owner) | current |
+| 327 | §17 item 53 merged: a beam into a ship with no body; the field slows a round in the hit body's frame; `L4.beam.nobody` | current |
+| 328 | The pace study measured: E7 38 s; rung 1 reaches 230 s only by misses (hits to kill 41, a third unended); verbs mostly harm; E7 to the owner | report |
+| 329 | E7: rebuild the reference builds first; E7 counts only two-sided battles; A and B wait; the verb finding re-measured (the owner) | current |
+| 330 | The reference builds' rebuild: each specialist kills its mirror and damages R2 (`L4.builds.lethal`); measures open at 2500 m too | current |
+| 331 | The builds' rebuild stopped: the broadside mirror race (§17 item 55), missiles in pure pursuit (item 56), Furnace against shields; an S secondary turret to the owner; an L beam bay allowed | current |
+| 332 | A secondary S turret: only if a specialist still fails #330 after item 55, at most one, recorded with and without (the owner) | current |
+| 333 | The helm in layers: pilot, navigator (goals set from above), gunnery and systems; a manual mode later replaces only the navigator's output; nothing manual built (the owner) | current |
+| 334 | Battle phases (contact, range, position and control, finish; a strategy is a preset and an exit condition per phase; decision points from a menu): after item 55 and the builds, before L5e2's E5–E7 (the owner; #329's B) | current |
+| 335 | Item 55's pass: the layers; the pilot keeps its turn sense past 90° and reports the thrust its engines are given; the position's lead only at range and yielding after 15 s without closing until 30 s let go (two new helm constants); the helm suite; K0–K5 (§13n.9) | current |
+| 336 | Outcomes counted apart (win / loss / escape / stalemate); E5's win rate unchanged (escape or stalemate no win); a survival column for E6 and the phases (the owner) | current |
+| 337 | The clock: none new now (heat, ammunition; the baseline reports the first hot room); a scenario clock with its tell after Mission 0; a stalemate after X s without new cell damage on either ship, X set by the lead designer from the baseline (the owner) | current |
+| 338 | The sweep ranks order sets by wins, then survival, then crew alive; a stalemate 0 in E5, #315's draw a half (the owner; built with #336) | current |
+| 339 | Item 55's answers: K0 holds with a grep-only move; the fourteen stale mutations re-targeted; the yield read as P3's code; K6 `L4.helm.yield` added (K3 does not see the yield or the reset) | current |

@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.thrust.v6",
-  "code": "5ee1bbb",
+  "code": "c87d8d3",
   "criterionHash": "c1e73c22",
   "lockedHash": "c1e73c22",
   "runHash": "4dc7753b",
-  "dataHash": "394196fd",
+  "dataHash": "4b7cd27a",
   "rowsHash": "9e9fed7a",
   "rows": [
     {

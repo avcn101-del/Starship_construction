@@ -276,7 +276,7 @@ export const PARAMS = {
   // Battle-level rules (#82, #83, #222 (7), #243, #253): the battle loop (js/battle.js, 13l.1).
   battle: {
     cullDistance: P(3000, 1000, 1e4, 1, 'm', true, 'a round or debris farther than this from every body leaves play, its momentum booked as left; twice the engagement band (#54, #222 (7), #243)'),
-    openingRange: P(900, 500, 2000, 1, 'm', true, 'the attacker\'s distance from the target\'s centre of mass when a battle opens (createBattle\'s default); #54\'s band; k = 1 so the dodge in one time of flight is the same number of cells at every tier (T2 of the L4 physics audit, §17 item 35, #270 (9))'),
+    openingRange: P(900, 500, 3000, 1, 'm', true, 'the attacker\'s distance from the target\'s centre of mass when a battle opens (createBattle\'s default); #54\'s band; k = 1 so the dodge in one time of flight is the same number of cells at every tier (T2 of the L4 physics audit, §17 item 35, #270 (9)); range widened to 500–3000 m for the pace study (#318)'),
     disabledSeconds: P(10, 3, 30, 0, 's', true, 'no weapon able to fire for this long, whatever the engine does: Disabled (#82, #243, #255)'),
     wreckFraction: P(0.5, 0.3, 0.8, 0, '', true, 'a ship whose largest fragment holds less than this fraction of its mass at undock has broken into too many pieces: destroyed (#83, #253)'),
   },
@@ -290,6 +290,8 @@ export const PARAMS = {
     dodgeMin: P(6, 2, 10, 0, 's', true, 'the shortest interval between dodge flips, drawn on the seeded stream for the enemy, their midpoint with dodgeMax for the player: prototype v2\'s value, the one the owner played (#263, #301; approved as the plan\'s, #272 (2))'),
     dodgeMax: P(14, 6, 30, 0, 's', true, 'the longest interval between dodge flips (helm.dodgeMin\'s note; #263, #301; approved as the plan\'s, #272 (2))'),
     positionLead: P(60, 30, 90, 0, 'deg', true, 'the position law (#315): bow, stern and flank want the point on the circle of R* about the other ship moved from the own bearing toward the named one by at most this; a pilot\'s choice, no hardware (13n.1 (d), 13n.8, #315, #316; approved as the plan\'s, #272 (2))'),
+    positionPatience: P(15, 10, 20, 0, 's', true, 'the position yields (13n.9, #335): while the range order is engaged under the position law, the distance to its point must fall by helm.rangeBand within this, else the lead is dropped; the probe: 10, 15 and 20 s each cure the broadside race; a pilot\'s choice, no hardware (approved as the plan\'s, #272 (2))'),
+    positionReset: P(30, 30, 60, 0, 's', true, 'a yielded position comes back once the range order has been let go for this long (13n.9, #335; the probe: 0 s does not cure the race, 30 s and never give the same cells); a pilot\'s choice, no hardware (approved as the plan\'s, #272 (2))'),
   },
   enemy: {
     decisionInterval: P(1, 0.25, 5, 0, 's', true, 'the enemy decides (which zone to scan, which room to target, which preset) once per this: the same delay the player\'s taps have (13n.1 (d), #278; approved as the plan\'s, #272 (2))'),

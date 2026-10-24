@@ -1,0 +1,100 @@
+# E7 pace (R2 against R2, Lance, Swarm, Furnace), ranges 600,900,1500, bow,broadside, seeds 1,2,3,4, limit 600 s, overrides {}, orders {"style":"strafe","range":"open"}
+R2 v R2       600 bow       s1: draw      A,T t  313.8 s  win draw hits A/T 129/141 of 308; first hit 3.5 s, on loser -; end draw
+R2 v R2       600 bow       s2: destroyed A   t  102.7 s  win T    hits A/T 48/41 of 92; first hit 3.5 s, on loser 0.03 of the battle, 48 hits; end destroyed
+R2 v R2       600 bow       s3: destroyed A   t  104.6 s  win T    hits A/T 51/42 of 93; first hit 3.5 s, on loser 0.03 of the battle, 51 hits; end destroyed
+R2 v R2       600 bow       s4: destroyed A   t  194.8 s  win T    hits A/T 49/44 of 93; first hit 3.5 s, on loser 0.02 of the battle, 49 hits; end destroyed
+R2 v R2       600 broadside s1: surrender T   t  255.6 s  win A    hits A/T 120/125 of 251; first hit 3.5 s, on loser 0.01 of the battle, 125 hits; end no-control
+R2 v R2       600 broadside s2: destroyed A   t  369.2 s  win T    hits A/T 49/45 of 94; first hit 3.5 s, on loser 0.01 of the battle, 49 hits; end destroyed
+R2 v R2       600 broadside s3: destroyed A   t  285.4 s  win T    hits A/T 47/46 of 95; first hit 3.5 s, on loser 0.01 of the battle, 47 hits; end destroyed
+R2 v R2       600 broadside s4: destroyed A   t  426.0 s  win T    hits A/T 50/46 of 96; first hit 3.5 s, on loser 0.01 of the battle, 50 hits; end destroyed
+R2 v R2       900 bow       s1: none          t  600.0 s  win null hits A/T 48/52 of 101; first hit 19.6 s, on loser -; end none
+R2 v R2       900 bow       s2: none          t  600.0 s  win null hits A/T 50/56 of 165; first hit 21.3 s, on loser -; end none
+R2 v R2       900 bow       s3: destroyed T   t  266.7 s  win A    hits A/T 42/68 of 166; first hit 19.7 s, on loser 0.08 of the battle, 68 hits; end destroyed
+R2 v R2       900 bow       s4: none          t  600.0 s  win null hits A/T 49/53 of 102; first hit 21.4 s, on loser -; end none
+R2 v R2       900 broadside s1: destroyed A   t  405.8 s  win T    hits A/T 46/46 of 95; first hit 31.6 s, on loser 0.09 of the battle, 46 hits; end destroyed
+R2 v R2       900 broadside s2: destroyed A   t  383.9 s  win T    hits A/T 46/47 of 93; first hit 32.4 s, on loser 0.11 of the battle, 46 hits; end destroyed
+R2 v R2       900 broadside s3: surrender A   t  404.0 s  win T    hits A/T 43/64 of 198; first hit 31.6 s, on loser 0.09 of the battle, 43 hits; end dry
+R2 v R2       900 broadside s4: destroyed A   t  405.1 s  win T    hits A/T 48/44 of 93; first hit 31.9 s, on loser 0.10 of the battle, 48 hits; end destroyed
+R2 v R2      1500 bow       s1: destroyed A   t  358.0 s  win T    hits A/T 51/45 of 97; first hit 92.8 s, on loser 0.26 of the battle, 51 hits; end destroyed
+R2 v R2      1500 bow       s2: destroyed A   t  527.6 s  win T    hits A/T 48/48 of 96; first hit 92.9 s, on loser 0.18 of the battle, 48 hits; end destroyed
+R2 v R2      1500 bow       s3: destroyed T   t  196.5 s  win A    hits A/T 42/50 of 93; first hit 96.1 s, on loser 0.49 of the battle, 50 hits; end destroyed
+R2 v R2      1500 bow       s4: destroyed T   t  539.9 s  win A    hits A/T 48/49 of 98; first hit 93.5 s, on loser 0.17 of the battle, 49 hits; end destroyed
+R2 v R2      1500 broadside s1: destroyed A   t  436.3 s  win T    hits A/T 47/44 of 92; first hit 92.9 s, on loser 0.21 of the battle, 47 hits; end destroyed
+R2 v R2      1500 broadside s2: destroyed A   t  404.4 s  win T    hits A/T 46/42 of 91; first hit 92.4 s, on loser 0.24 of the battle, 46 hits; end destroyed
+R2 v R2      1500 broadside s3: destroyed T   t  563.3 s  win A    hits A/T 48/48 of 98; first hit 93.5 s, on loser 0.17 of the battle, 48 hits; end destroyed
+R2 v R2      1500 broadside s4: destroyed A   t  193.1 s  win T    hits A/T 50/43 of 94; first hit 93.1 s, on loser 0.48 of the battle, 50 hits; end destroyed
+R2 v Lance    600 bow       s1: surrender T   t   57.6 s  win A    hits A/T 0/27 of 32; first hit 3.5 s, on loser 0.06 of the battle, 27 hits; end no-control
+R2 v Lance    600 bow       s2: destroyed A   t  589.5 s  win T    hits A/T 3/46 of 90; first hit 3.5 s, on loser 0.09 of the battle, 3 hits; end destroyed
+R2 v Lance    600 bow       s3: surrender T   t   67.6 s  win A    hits A/T 0/32 of 38; first hit 3.5 s, on loser 0.05 of the battle, 32 hits; end no-control
+R2 v Lance    600 bow       s4: destroyed A   t  499.1 s  win T    hits A/T 3/46 of 84; first hit 3.5 s, on loser 0.92 of the battle, 3 hits; end destroyed
+R2 v Lance    600 broadside s1: destroyed A   t  513.6 s  win T    hits A/T 1/46 of 85; first hit 3.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance    600 broadside s2: destroyed A   t  489.6 s  win T    hits A/T 1/46 of 83; first hit 3.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance    600 broadside s3: none          t  600.0 s  win null hits A/T 1/46 of 90; first hit 3.5 s, on loser -; end none
+R2 v Lance    600 broadside s4: destroyed A   t  439.4 s  win T    hits A/T 1/42 of 89; first hit 3.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance    900 bow       s1: destroyed A   t  348.5 s  win T    hits A/T 1/47 of 81; first hit 21.1 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance    900 bow       s2: destroyed A   t  496.5 s  win T    hits A/T 2/47 of 96; first hit 21.8 s, on loser 0.85 of the battle, 2 hits; end destroyed
+R2 v Lance    900 bow       s3: destroyed A   t  370.5 s  win T    hits A/T 1/47 of 84; first hit 21.3 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance    900 bow       s4: destroyed A   t  568.9 s  win T    hits A/T 2/45 of 87; first hit 21.9 s, on loser 0.95 of the battle, 2 hits; end destroyed
+R2 v Lance    900 broadside s1: destroyed A   t  452.5 s  win T    hits A/T 1/45 of 87; first hit 31.0 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance    900 broadside s2: destroyed A   t  459.5 s  win T    hits A/T 2/46 of 90; first hit 30.3 s, on loser 0.89 of the battle, 2 hits; end destroyed
+R2 v Lance    900 broadside s3: destroyed A   t   65.2 s  win T    hits A/T 1/17 of 22; first hit 31.2 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance    900 broadside s4: none          t  600.0 s  win null hits A/T 10/44 of 100; first hit 30.3 s, on loser -; end none
+R2 v Lance   1500 bow       s1: destroyed A   t  481.5 s  win T    hits A/T 1/46 of 85; first hit 95.4 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance   1500 bow       s2: destroyed A   t  433.5 s  win T    hits A/T 2/47 of 82; first hit 92.3 s, on loser 0.35 of the battle, 2 hits; end destroyed
+R2 v Lance   1500 bow       s3: destroyed A   t  468.5 s  win T    hits A/T 1/44 of 82; first hit 95.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance   1500 bow       s4: none          t  600.0 s  win null hits A/T 0/46 of 84; first hit 93.1 s, on loser -; end none
+R2 v Lance   1500 broadside s1: destroyed A   t  101.8 s  win T    hits A/T 1/4 of 7; first hit 94.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance   1500 broadside s2: destroyed A   t  275.3 s  win T    hits A/T 1/42 of 62; first hit 94.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance   1500 broadside s3: destroyed A   t  433.4 s  win T    hits A/T 1/48 of 83; first hit 95.1 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Lance   1500 broadside s4: destroyed A   t  434.5 s  win T    hits A/T 1/46 of 81; first hit 94.7 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Swarm    600 bow       s1: surrender T   t  174.5 s  win A    hits A/T 0/44 of 44; first hit 3.5 s, on loser 0.02 of the battle, 44 hits; end dry
+R2 v Swarm    600 bow       s2: surrender T   t  118.9 s  win A    hits A/T 0/43 of 44; first hit 3.5 s, on loser 0.03 of the battle, 43 hits; end dry
+R2 v Swarm    600 bow       s3: surrender T   t  118.9 s  win A    hits A/T 0/43 of 43; first hit 3.5 s, on loser 0.03 of the battle, 43 hits; end dry
+R2 v Swarm    600 bow       s4: surrender T   t   92.6 s  win A    hits A/T 0/43 of 43; first hit 3.5 s, on loser 0.04 of the battle, 43 hits; end dry
+R2 v Swarm    600 broadside s1: destroyed T   t    3.5 s  win A    hits A/T 0/1 of 1; first hit 3.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Swarm    600 broadside s2: destroyed T   t    3.5 s  win A    hits A/T 0/1 of 1; first hit 3.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Swarm    600 broadside s3: destroyed T   t    3.5 s  win A    hits A/T 0/1 of 1; first hit 3.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Swarm    600 broadside s4: destroyed T   t    3.5 s  win A    hits A/T 0/1 of 1; first hit 3.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Swarm    900 bow       s1: surrender T   t  134.1 s  win A    hits A/T 0/41 of 43; first hit 21.2 s, on loser 0.16 of the battle, 41 hits; end dry
+R2 v Swarm    900 bow       s2: surrender A   t   67.2 s  win T    hits A/T 0/22 of 22; first hit 21.9 s, on loser - of the battle, 0 hits; end dry
+R2 v Swarm    900 bow       s3: surrender T   t  134.2 s  win A    hits A/T 0/42 of 43; first hit 21.4 s, on loser 0.16 of the battle, 42 hits; end dry
+R2 v Swarm    900 bow       s4: surrender T   t  108.0 s  win A    hits A/T 0/41 of 42; first hit 21.9 s, on loser 0.20 of the battle, 41 hits; end dry
+R2 v Swarm    900 broadside s1: destroyed T   t   31.7 s  win A    hits A/T 0/1 of 1; first hit 31.7 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Swarm    900 broadside s2: destroyed T   t   32.5 s  win A    hits A/T 0/1 of 1; first hit 32.5 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Swarm    900 broadside s3: surrender T   t  122.7 s  win A    hits A/T 0/43 of 43; first hit 31.6 s, on loser 0.26 of the battle, 43 hits; end dry
+R2 v Swarm    900 broadside s4: surrender T   t  126.4 s  win A    hits A/T 0/43 of 43; first hit 31.8 s, on loser 0.25 of the battle, 43 hits; end dry
+R2 v Swarm   1500 bow       s1: surrender A   t  113.9 s  win T    hits A/T 0/10 of 10; first hit 92.8 s, on loser - of the battle, 0 hits; end dry
+R2 v Swarm   1500 bow       s2: destroyed T   t   92.9 s  win A    hits A/T 0/1 of 1; first hit 92.9 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Swarm   1500 bow       s3: surrender T   t  204.6 s  win A    hits A/T 0/42 of 43; first hit 95.6 s, on loser 0.47 of the battle, 42 hits; end dry
+R2 v Swarm   1500 bow       s4: surrender T   t  180.0 s  win A    hits A/T 0/40 of 42; first hit 93.9 s, on loser 0.52 of the battle, 40 hits; end dry
+R2 v Swarm   1500 broadside s1: surrender T   t  179.0 s  win A    hits A/T 0/39 of 42; first hit 94.6 s, on loser 0.53 of the battle, 39 hits; end dry
+R2 v Swarm   1500 broadside s2: destroyed T   t   94.2 s  win A    hits A/T 0/2 of 2; first hit 92.2 s, on loser 0.98 of the battle, 2 hits; end destroyed
+R2 v Swarm   1500 broadside s3: surrender A   t  107.0 s  win T    hits A/T 0/6 of 6; first hit 92.7 s, on loser - of the battle, 0 hits; end destroyed
+R2 v Swarm   1500 broadside s4: destroyed T   t   92.6 s  win A    hits A/T 0/1 of 1; first hit 92.6 s, on loser 1.00 of the battle, 1 hits; end destroyed
+R2 v Furnace  600 bow       s1: surrender T   t  135.8 s  win A    hits A/T 0/44 of 44; first hit 3.5 s, on loser 0.03 of the battle, 44 hits; end no-control
+R2 v Furnace  600 bow       s2: none          t  600.0 s  win null hits A/T 0/43 of 44; first hit 3.5 s, on loser -; end none
+R2 v Furnace  600 bow       s3: none          t  600.0 s  win null hits A/T 0/54 of 54; first hit 3.5 s, on loser -; end none
+R2 v Furnace  600 bow       s4: none          t  600.0 s  win null hits A/T 0/45 of 48; first hit 3.5 s, on loser -; end none
+R2 v Furnace  600 broadside s1: none          t  600.0 s  win null hits A/T 0/54 of 54; first hit 3.5 s, on loser -; end none
+R2 v Furnace  600 broadside s2: none          t  600.0 s  win null hits A/T 0/48 of 48; first hit 3.5 s, on loser -; end none
+R2 v Furnace  600 broadside s3: none          t  600.0 s  win null hits A/T 0/53 of 54; first hit 3.5 s, on loser -; end none
+R2 v Furnace  600 broadside s4: none          t  600.0 s  win null hits A/T 0/48 of 49; first hit 3.5 s, on loser -; end none
+R2 v Furnace  900 bow       s1: none          t  600.0 s  win null hits A/T 0/49 of 49; first hit 21.6 s, on loser -; end none
+R2 v Furnace  900 bow       s2: none          t  600.0 s  win null hits A/T 0/46 of 49; first hit 22.9 s, on loser -; end none
+R2 v Furnace  900 bow       s3: none          t  600.0 s  win null hits A/T 0/42 of 48; first hit 22.0 s, on loser -; end none
+R2 v Furnace  900 bow       s4: surrender T   t  104.1 s  win A    hits A/T 0/34 of 42; first hit 23.0 s, on loser 0.22 of the battle, 34 hits; end no-control
+R2 v Furnace  900 broadside s1: none          t  600.0 s  win null hits A/T 0/48 of 48; first hit 30.3 s, on loser -; end none
+R2 v Furnace  900 broadside s2: none          t  600.0 s  win null hits A/T 0/50 of 54; first hit 32.7 s, on loser -; end none
+R2 v Furnace  900 broadside s3: none          t  600.0 s  win null hits A/T 0/45 of 47; first hit 31.0 s, on loser -; end none
+R2 v Furnace  900 broadside s4: none          t  600.0 s  win null hits A/T 0/40 of 44; first hit 33.1 s, on loser -; end none
+R2 v Furnace 1500 bow       s1: none          t  600.0 s  win null hits A/T 0/41 of 48; first hit 94.6 s, on loser -; end none
+R2 v Furnace 1500 bow       s2: none          t  600.0 s  win null hits A/T 0/44 of 45; first hit 97.0 s, on loser -; end none
+R2 v Furnace 1500 bow       s3: none          t  600.0 s  win null hits A/T 0/44 of 48; first hit 94.8 s, on loser -; end none
+R2 v Furnace 1500 bow       s4: none          t  600.0 s  win null hits A/T 0/40 of 47; first hit 92.8 s, on loser -; end none
+R2 v Furnace 1500 broadside s1: none          t  600.0 s  win null hits A/T 0/46 of 52; first hit 91.7 s, on loser -; end none
+R2 v Furnace 1500 broadside s2: none          t  600.0 s  win null hits A/T 0/42 of 48; first hit 93.5 s, on loser -; end none
+R2 v Furnace 1500 broadside s3: none          t  600.0 s  win null hits A/T 0/49 of 52; first hit 93.5 s, on loser -; end none
+R2 v Furnace 1500 broadside s4: none          t  600.0 s  win null hits A/T 0/37 of 43; first hit 93.8 s, on loser -; end none
+kernel errors: 0
+E7: median end 200.6 s over 68 of 96 ended (no end by 600 s counts as 600 s: median 405.5 s); ends {"draw":1,"destroyed":46,"surrender":21,"none":28}
+shape over 67 decided: first hit on the loser median 0.30 of the battle; hits on the loser median 34 (0-125); hit rate 82 %

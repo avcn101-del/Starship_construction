@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.sensor.active",
-  "code": "5ee1bbb",
+  "code": "c87d8d3",
   "criterionHash": "9493b33b",
   "lockedHash": "9493b33b",
   "runHash": "49ceb536",
-  "dataHash": "394196fd",
+  "dataHash": "4b7cd27a",
   "rowsHash": "d93a20ef",
   "rows": [
     {
