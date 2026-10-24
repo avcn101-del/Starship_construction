@@ -102,7 +102,7 @@ export function setScan(world, antenna, zone) {
 /** An antenna can scan this step: given a zone, its cell standing, its host controlled, powered, switched on, not shut down, manned or destroyed (#289). */
 function scanAble(world, f) {
   const host = roomById(world, f.room);
-  return !!f.scan && !host.cells[f.k].destroyed && host.controlled && host.powered && host.active && !host.shutdown && !host.unmanned && !host.outage && !host.exploded && !isDestroyed(host);
+  return !!f.scan && !f.ruined && !host.cells[f.k].destroyed && host.controlled && host.powered && host.active && !host.shutdown && !host.unmanned && !host.outage && !host.exploded && !isDestroyed(host);
 }
 /** The power fraction of an antenna's host this step (#193): under routing what it received of its draw, else 1 (#301, §17 item 45 (b)). */
 const hostFraction = (world, f) => (world.power ? roomById(world, f.room).powerFraction : 1);
@@ -126,7 +126,7 @@ export function sourcesOf(world) {
   for (const f of world.fittings) {
     if (f.type === 'radiator') {
       const room = roomById(world, f.room);
-      if (!cellAlive(room, f.k) || !(room.radiators > 0)) continue;
+      if (f.ruined || !cellAlive(room, f.k) || !(room.radiators > 0)) continue; // a panel the plume ruined shows nothing (#297)
       out.push({ id: `panel:${f.id}`, kind: 'panel', band: 'ir', P: irBrightness(world, room) / room.radiators, position: fittingPoint(world, f), class: temperatureClass(room), cell: [...f.cell], side: [...f.side] });
     } else if (f.type === 'antenna' && scanAble(world, f)) {
       out.push({ id: `antenna:${f.id}`, kind: 'antenna', band: 'em', P: tierScaled(world, world.params.sensor.scanPower) * hostFraction(world, f), position: fittingPoint(world, f), cell: [...f.cell], side: [...f.side] });
@@ -175,7 +175,7 @@ function poseOf(model, cell) {
 
 /** Passive (d^-2): the observer's antennas on standing cells against the other side's sources. */
 function passive(model, world, sources) {
-  const ants = antennas(world).filter((f) => !roomById(world, f.room).cells[f.k].destroyed).map((f) => ({ f, at: fittingPoint(world, f) }));
+  const ants = antennas(world).filter((f) => !f.ruined && !roomById(world, f.room).cells[f.k].destroyed).map((f) => ({ f, at: fittingPoint(world, f) }));
   const A = tierScaled(world, world.params.sensor.area), S = tierScaled(world, world.params.sensor.sensitivity);
   const seen = new Set();
   for (const src of sources) {

@@ -246,8 +246,11 @@ export function damageCell(world, room, index, loss, cause, channel) {
   if (cell.destroyed || room.exploded) return;
   // A float residue of 1e-12 or less counts as 0, so hitsToWreck hits of
   // 1 / hitsToWreck wreck a cell (1 - 3 x (1/3) leaves 5.6e-17 in floats).
-  const left = cell.integrity - loss;
+  const was = cell.integrity, left = cell.integrity - loss;
   cell.integrity = left > 1e-12 ? left : 0;
+  // No event without a change of state (§17 item 51): a loss below float resolution (1 - 1e-17 is 1) leaves the
+  // integrity as it was, so nothing happened and nothing is emitted.
+  if (cell.integrity === was) return;
   if (cell.integrity > 0) {
     const ev = event(world, room, 'cell-damaged', cause, { channel, cell: index, integrity: cell.integrity });
     cell.lastEvent = ev.id;
@@ -378,8 +381,9 @@ const entryFragment = (world, x) => (x.plate ? roomById(world, x.plate.room).cel
  */
 function damagePlate(world, f, loss, cause, channel) {
   if (plateGone(world, f) || !(loss > 0)) return;
-  const room = roomById(world, f.room), left = f.integrity - loss;
+  const room = roomById(world, f.room), was = f.integrity, left = f.integrity - loss;
   f.integrity = left > 1e-12 ? left : 0;
+  if (f.integrity === was) return; // a loss below float resolution changes nothing: no event (§17 item 51)
   if (f.integrity > 0) { event(world, room, 'plate-damaged', cause, { channel, plate: f.id, integrity: f.integrity }); return; }
   f.destroyed = true;
   if (world.beamPaths) world.beamPaths.clear();
@@ -399,6 +403,8 @@ function releasePlate(world, f) {
 const damageEntry = (world, x, loss, cause, channel) => (x.plate ? damagePlate(world, x.plate, loss, cause, channel) : damageCell(world, x.room, x.cell, loss, cause, channel));
 /** Kinetic energy of the ship's bodies (translation and spin). */
 const bodiesEnergy = (world) => world.ship.bodies.reduce((k, b) => k + 0.5 * b.M * (b.v[0] * b.v[0] + b.v[1] * b.v[1]) + 0.5 * b.I * b.omega * b.omega, 0);
+/** The grid point (m, body b's own frame) of world point q: worldPoint's inverse. */
+const gridPoint = (b, q) => { const r = rotate([q[0] - b.x[0], q[1] - b.x[1]], -b.theta); return [r[0] + b.c[0], r[1] + b.c[1]]; };
 /** An impulse J (world, N s) at grid point p of body b, booked as external like thrust (a round or a field from outside the world). */
 function receive(world, b, J, p) {
   const q = worldPoint(b, p), h = cross(q, J);
@@ -1432,8 +1438,12 @@ export function shieldBuffer(world, room) {
  * more against what was paid (no third round). Each generator's payment is
  * heat in its next step. On a ship the momentum the field removes, m (v - v')
  * along the round's direction (unit, grid frame), is applied to the body
- * holding each generator at the generator, in proportion to its payment, and
- * booked as external: the field pushes on its source (#240 (2), F16). The heat
+ * holding each generator, in proportion to its payment, on the round's line of
+ * action where the field takes it (`at`, a grid point on that line, default
+ * `position`; since L5e1, §17 item 35: at the generator before), and booked as
+ * external: the field pushes on its source (#240 (2), F16). `frame` (a body id,
+ * optional) is the body whose grid frame `position`, `at` and `direction` are
+ * in (a battle's hit body); without it each generator's own body's. The heat
  * is one rule with fireRound's (13l.1, §17 item 25): the round's kinetic
  * energy before less after (world frame: the hull's velocity where the round
  * is, plus its speed) less what the bodies gained (J^2 / 2M and the spin, for a
@@ -1465,7 +1475,9 @@ export function shieldRound(world, round) {
     if (impulse > 0 && total > 0) {
       // Each body holding paying generators keeps its own books (#258): its part of the round (mass x its
       // generators' payment / the total) is taken at that body's hull velocity at the round's point, in its frame;
-      // each generator's share of the impulse acts at the generator; the body's heat (the part's lost kinetic
+      // each generator's share of the impulse acts on the round's line of action at the point the field takes it (the
+      // hull entry point, L5e1, §17 item 35; it acted at the generator before), so the two-ship angular book closes
+      // with shields up; the body's heat (the part's lost kinetic
       // energy less what the bodies gained) is shared among its generators by payment.
       const book = world.ship.received ??= { J: [0, 0], heat: 0, field: [0, 0] };
       const groups = new Map();
@@ -1476,12 +1488,16 @@ export function shieldRound(world, round) {
       heat = 0;
       heats = gens.map(() => 0);
       for (const [b, list] of groups) {
+        // The round's frame (round.frame, the body whose grid frame position, direction and `at` are in; default b) gives
+        // its point and direction in the world, so every body books the same world line (L5e1: a generator on another
+        // fragment than the hit body took the direction in its own frame, and the momentum book leaked).
+        const F = (round.frame && world.ship.bodies.find((y) => y.id === round.frame)) || b, Q = worldPoint(F, round.at || round.position);
         const part = list.reduce((x, i) => x + paid[i], 0), m = round.mass * (part / total);
-        const hull = pointVelocity(b, worldPoint(b, round.position)), d = rotate(round.direction, b.theta);
+        const hull = pointVelocity(b, Q), d = rotate(round.direction, F.theta);
         const u0 = [hull[0] + round.velocity * d[0], hull[1] + round.velocity * d[1]], K0 = bodiesEnergy(world), Jsum = [0, 0];
         for (const i of list) {
           const share = impulse * (paid[i] / total), J = [share * d[0], share * d[1]];
-          receive(world, b, J, gens[i].position);
+          receive(world, b, J, gridPoint(b, Q)); // on the round's line of action at the field's surface (round.at, else the hull entry point), as B2's hull hit (§17 item 35)
           book.field[0] += J[0]; book.field[1] += J[1];
           Jsum[0] += J[0]; Jsum[1] += J[1];
         }
@@ -1511,7 +1527,9 @@ export function shieldRound(world, round) {
  * g(r_j); if the asks exceed R, each is scaled by R / sum q_j (with a helm's
  * repair list, world.repairOrder, #307: granted whole-cell in that order until R
  * is spent); a grant of q kg/s
- * restores q / its cell mass of integrity per second. Computed at the start of
+ * restores q / its cell mass of integrity per second. A damaged reactor's cells
+ * are granted first, whole, whatever the order (reactor containment first,
+ * #37, 13n.8). Computed at the start of
  * the step; the budget and the grants paid are in kg/s.
  */
 function repairGrants(world) {
@@ -1529,13 +1547,18 @@ function repairGrants(world) {
       other.cells.forEach((c, i) => { if (!c.destroyed && c.integrity < 1 && rate > 0) q.grants.push({ room: other, cell: i, mass: rate }); });
     }
     const sum = q.grants.reduce((x, g) => x + g.mass, 0);
-    if (sum > base && world.repairOrder) {
+    // Reactor containment first (#37, 13n.8): a damaged reactor's cells take their whole ask before anything else, in
+    // the ship's room order and cell order, whatever the repair order says; the rest of the budget is shared as below.
+    let left = base;
+    const contain = sum > base ? q.grants.filter((g) => g.room.type === 'reactor') : [];
+    for (const g of contain) { g.mass = Math.min(g.mass, left); left -= g.mass; }
+    const rest = contain.length ? q.grants.filter((g) => g.room.type !== 'reactor') : q.grants, asked = rest.reduce((x, g) => x + g.mass, 0);
+    if (asked > left && world.repairOrder) {
       // Repair priority (#307): with a helm's room-type list (world.repairOrder), the rooms listed first in their
       // order, the rest after in the ship's order; each damaged cell takes its whole ask until the budget is spent.
       const rank = (r) => { const i = world.repairOrder.indexOf(r.id); return i < 0 ? world.repairOrder.length + world.rooms.indexOf(r) : i; };
-      let left = base;
-      for (const g of [...q.grants].sort((x, y) => rank(x.room) - rank(y.room) || x.cell - y.cell)) { g.mass = Math.min(g.mass, left); left -= g.mass; }
-    } else if (sum > base) for (const g of q.grants) g.mass *= base / sum;
+      for (const g of [...rest].sort((x, y) => rank(x.room) - rank(y.room) || x.cell - y.cell)) { g.mass = Math.min(g.mass, left); left -= g.mass; }
+    } else if (asked > left) for (const g of rest) g.mass *= left / asked;
     for (const g of q.grants) g.rate = g.mass / cellMassOf(world, g.room); // integrity per second
     q.budget = base;
     q.paid = q.grants.reduce((x, g) => x + g.mass, 0);
@@ -1730,6 +1753,31 @@ export function addFitting(world, type, roomId, cell, side) {
   else if (type === 'pdLaser') room.pdLasers = true;
   return f;
 }
+/**
+ * The plume's burn on a fitting (13n.1 (e), 13n.8, #297): `energy` (J) of another ship's jet taken by fitting f this
+ * step; it is ruined once it has taken matter.burnEnergyPerKg x its mass (the beam's deposit rule, as a cell's), then
+ * it works no more: a panel radiates nothing (its room's count drops), an antenna neither scans nor receives, a point
+ * defence fitting neither aims nor fires. It keeps its mass (a burnt-out fitting stays on its edge). Only radiator
+ * panels, antennas and point defence burn (mechanism C: never a hull cell, an RCS fitting or a plate); the energy is
+ * the jet's, outside the battle's books (no propellant, #140), and heats nothing else. The event 'fitting-ruined' in
+ * the fitting's ship's log, room its host, cause the plume ('plume', a root). Returns whether it was ruined now.
+ */
+export function burnFitting(world, f, energy, cause = 'plume') {
+  if (!PLUME_TYPES.has(f.type) || f.ruined || !(energy > 0)) return false;
+  const host = roomById(world, f.room);
+  if (!cellAlive(host, f.k)) return false;
+  f.burned = (f.burned || 0) + energy;
+  const need = tierScaled(world, world.params.matter.burnEnergyPerKg) * f.mass;
+  if (f.burned < need) return false;
+  f.ruined = true;
+  if (f.type === 'radiator') countRadiators(world);
+  if (f.type === 'antenna') f.scan = null;
+  if (f.type === 'pdLaser') f.target = null;
+  event(world, host, 'fitting-ruined', cause, { fitting: f.id, kind: f.type, energy: f.burned, channel: 'plume' });
+  return true;
+}
+/** The fitting types the plume burns (#297's mechanism C). */
+export const PLUME_TYPES = new Set(['radiator', 'antenna', 'pd', 'pdLaser']);
 /** Each fitting type's mass constant, at its edge's midpoint (13f.1, 13n.1 (a) (c)). */
 const FITTING_MASS = { radiator: 'radiator.mass', rcs: 'rcs.mass', antenna: 'sensor.mass', pd: 'pd.mass', pdLaser: 'pdLaser.mass' };
 /**
@@ -1825,7 +1873,7 @@ const cellAlive = (room, k) => !room.cells[k].destroyed && room.cells[k].fragmen
 /** Radiators that work: on surviving cells in their room's working fragment. */
 function countRadiators(world) {
   for (const room of world.rooms) if (room.placed) room.radiators = 0;
-  for (const f of world.fittings) if (f.type === 'radiator' && cellAlive(roomById(world, f.room), f.k)) roomById(world, f.room).radiators++;
+  for (const f of world.fittings) if (f.type === 'radiator' && !f.ruined && cellAlive(roomById(world, f.room), f.k)) roomById(world, f.room).radiators++; // a panel the plume ruined radiates nothing (#297)
 }
 
 /**
@@ -1969,7 +2017,7 @@ export function fireFlak(world, f, dir, cause) {
  */
 export function pdAble(world, f, aiming = false) {
   const host = roomById(world, f.room);
-  if (!cellAlive(host, f.k) || host.exploded || isDestroyed(host) || !host.controlled || !host.active || down(host)) return false;
+  if (f.ruined || !cellAlive(host, f.k) || host.exploded || isDestroyed(host) || !host.controlled || !host.active || down(host)) return false; // ruined: the plume's (#297)
   return f.type === 'pd' ? f.ammo > 0 : aiming || host.powered;
 }
 /** The power (W) a laser fitting puts on its target this step: pdLaser.power x its host's power fraction, while it holds a target and can (13n.1 (c)). */

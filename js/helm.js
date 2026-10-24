@@ -4,8 +4,10 @@
 // the other ship's pose is its model's silhouette, its velocity and lateral
 // acceleration the differences of the last silhouette poses.
 //   Movement (#40's first): the range order flies the wanted relative velocity
-// w* toward the wanted point P (the range R* from the other ship on the side the
-// position slot names, by its silhouette's heading) on the braking curve
+// w* toward the wanted point P (on the circle of the range R* about the other
+// ship, moved from the own bearing toward the side the position slot names, by
+// its silhouette's heading, by at most helm.positionLead: the position law, #315)
+// on the braking curve
 // |w*| = a (sqrt(2 |e| / a + t180^2) - t180), e the distance to P, a the ship's
 // acceleration at the preset's throttle, t180 its 180-degree turn on the RCS
 // couple (a ship that must turn its engine round to brake brakes that much
@@ -49,8 +51,8 @@
 // not engage the range order (#306 (8)).
 // No DOM, no Math.random, no Math.sin or Math.cos (util.js's, #239 Q6): the only draws are the enemy's dodge intervals, on the
 // battle's seeded stream.
-import { scaled, PRESETS, FIXED } from './data.js';
-import { sin, cos, atan2 } from './util.js';
+import { scaled, PRESETS, FIXED, ROOMS } from './data.js';
+import { sin, cos, atan2, clamp } from './util.js';
 import { worldPoint, rotate, pointVelocity } from './body.js';
 import { setScan, antennas, knownAim, zoneCentre } from './sensors.js';
 import { isDestroyed, roomTemperature, shieldBuffer, survivingFraction, survivingCells, roundOf } from './rooms.js';
@@ -61,6 +63,9 @@ const len = (a) => Math.sqrt(a[0] * a[0] + a[1] * a[1]);
 const wrap = (a) => a - 2 * Math.PI * Math.floor((a + Math.PI) / (2 * Math.PI));
 const WEAPON_TYPES = { weapons: new Set(['turret', 'beamBay', 'railgun', 'missileBay']), power: new Set(['reactor']), bridge: new Set(['bridge']) };
 const DISCRETE = new Set(['turret', 'railgun', 'missileBay']);
+// Float resolution (#308 (2), §17 item 50): a time compared with a schedule built by sums of dt and drawn intervals
+// counts as reached within this many seconds, so a flip or a ripple due on a step boundary is not a step late.
+const RES = 1e-9;
 
 /** The body a side is flown on: body-0, else the heaviest (as js/battle.js). */
 export function flownBody(world) {
@@ -79,7 +84,13 @@ export function ordersOf(x) {
     if (!PRESETS[x]) throw new Error(`unknown preset ${x}`);
     return { ...PRESETS[x], heat: { ...PRESETS[x].heat }, priority: [...PRESETS[x].priority], name: x };
   }
-  return { ...PRESETS.fire, ...x, heat: { ...PRESETS.fire.heat, ...(x.heat || {}) }, priority: [...(x.priority || PRESETS.fire.priority)], name: x.name || 'case' };
+  return { ...PRESETS.fire, ...x, heat: { ...PRESETS.fire.heat, ...(x.heat || {}) }, priority: [...(x.priority || PRESETS.fire.priority)], repair: repairSlot(x.repair ?? PRESETS.fire.repair), name: x.name || 'case' };
+}
+/** The repair slot's value (#307, §17 item 50): 'none' or a list of room types (js/data.js ROOMS); anything else throws. */
+function repairSlot(v) {
+  if (v === 'none') return v;
+  if (Array.isArray(v) && v.every((t) => Object.prototype.hasOwnProperty.call(ROOMS, t))) return [...v];
+  throw new Error(`repair priority ${JSON.stringify(v)}: 'none' or a list of room types (#307)`);
 }
 
 /**
@@ -255,6 +266,7 @@ export function helmStep(battle, side) {
   const w = side.world, h = side.helm, model = side.model, me = flownBody(w), them = silhouettePose(model);
   observe(battle, side);
   const o = { ...h.orders, ...(h.override || {}) };
+  if (o.heatResponse) o.heat = { ...o.heat, response: o.heatResponse }; // an override of heat discipline's response alone (tools/sweep.mjs), over every preset
   if (!me || !them) return;
   const t = battle.t, edge = battle.edge, p = battle.params;
   const D = sub(them.x, me.x), r = len(D), u = r > 0 ? [D[0] / r, D[1] / r] : [1, 0], los = atan2(u[1], u[0]);
@@ -277,13 +289,21 @@ export function helmStep(battle, side) {
     // tangential relative velocity v_t = band / t180, counter-clockwise about the other ship; strafe flips its sense
     // on the dodge schedule.
     const band = scaled(p.helm.rangeBand, edge), moving = o.style === 'orbit' || o.style === 'strafe';
-    const dir = moving ? [-u[0], -u[1]] : o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow;
+    // The position law (#315, superseding #306 (2)'s): the point on the circle of R* about the other ship, moved from
+    // the own bearing phi toward the named one phi* by at most helm.positionLead, so the path circles at R* instead of
+    // crossing the other ship (no collision model, #20).
+    let dir = [-u[0], -u[1]];
+    if (!moving) {
+      const named = o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 180;
+      const phi = atan2(-u[1], -u[0]), phiP = phi + clamp(wrap(atan2(named[1], named[0]) - phi), -lead, lead);
+      dir = [cos(phiP), sin(phiP)];
+    }
     const P = [them.x[0] + R * dir[0], them.x[1] + R * dir[1]], E = sub(P, me.x), e = len(E);
     const speed = brakingSpeed(e, a, t180), radial = e > 0 ? [(E[0] / e) * speed, (E[1] / e) * speed] : [0, 0];
     let vt = 0;
     if (o.style === 'strafe') {
       if (h.nextStrafe === null) h.nextStrafe = t + dodgeInterval(battle, h);
-      else if (t >= h.nextStrafe - 1e-9) { h.strafeSign = -h.strafeSign; h.nextStrafe = t + dodgeInterval(battle, h); }
+      else if (t >= h.nextStrafe - RES) { h.strafeSign = -h.strafeSign; h.nextStrafe = t + dodgeInterval(battle, h); }
     }
     if (moving && t180 < Infinity) vt = (o.style === 'strafe' ? h.strafeSign : 1) * (band / t180);
     const ccw = [u[1], -u[0]], want = [radial[0] + vt * ccw[0], radial[1] + vt * ccw[1]];
@@ -299,7 +319,7 @@ export function helmStep(battle, side) {
     if (o.facing === 'broadside') {
       if (o.dodging === 'on') {
         if (h.nextFlip === null) h.nextFlip = t + dodgeInterval(battle, h);
-        else if (t >= h.nextFlip - 1e-9) { h.dodgeSign = -h.dodgeSign; h.nextFlip = t + dodgeInterval(battle, h); }
+        else if (t >= h.nextFlip - RES) { h.dodgeSign = -h.dodgeSign; h.nextFlip = t + dodgeInterval(battle, h); }
         heading = los + (h.dodgeSign * Math.PI) / 2; open = opening(heading); mode = 'dodge';
       } else {
         const s = sin(wrap(me.theta - los)) >= 0 ? 1 : -1;
@@ -330,7 +350,7 @@ export function helmStep(battle, side) {
   if (held) { h.released = false; h.releaseAt = null; } else if (!h.released) { h.released = true; h.releaseAt = t; }
   const weapons = w.rooms.filter((x) => x.placed && !isDestroyed(x) && DISCRETE.has(x.type));
   weapons.forEach((x, i) => {
-    const go = h.released && (o.firing === 'salvo' || t >= h.releaseAt + (i / weapons.length) * reloadOf(battle, x) - 1e-9);
+    const go = h.released && (o.firing === 'salvo' || t >= h.releaseAt + (i / weapons.length) * reloadOf(battle, x) - RES);
     if (x.type === 'turret') {
       x.turret.hold = !go;
       if (tg.point) {
