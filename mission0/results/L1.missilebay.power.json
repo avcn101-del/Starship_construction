@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.missilebay.power",
-  "code": "5ee1bbb",
+  "code": "52c491c",
   "criterionHash": "1d58a6f5",
   "lockedHash": "1d58a6f5",
   "runHash": "a2d23de3",
-  "dataHash": "394196fd",
+  "dataHash": "cfcb3fa1",
   "rowsHash": "91bc3c11",
   "rows": [
     {

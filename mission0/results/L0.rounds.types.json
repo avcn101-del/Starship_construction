@@ -3,11 +3,11 @@
   "level": "L0",
   "verdict": "PASS",
   "command": "node tools/m0.js run L0.rounds.types",
-  "code": "5ee1bbb",
+  "code": "52c491c",
   "criterionHash": "80207337",
   "lockedHash": "80207337",
   "runHash": "dea921cc",
-  "dataHash": "394196fd",
+  "dataHash": "cfcb3fa1",
   "rowsHash": "fc1f8577",
   "rows": [
     {

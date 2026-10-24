@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.events.change",
-  "code": "5ee1bbb",
+  "code": "52c491c",
   "criterionHash": "5700910b",
   "lockedHash": "5700910b",
   "runHash": "13bd4bf7",
-  "dataHash": "394196fd",
+  "dataHash": "cfcb3fa1",
   "rowsHash": "64a395ce",
   "rows": [
     {
