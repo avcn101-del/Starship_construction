@@ -1,0 +1,74 @@
+# verb leverage (R2 the player on Fire, against the standard enemy), seed 1, limit 600 s, overrides {}
+R2 v R2       600 bow      : baseline A 42.6 s; 4 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 19.8 s
+    t 0 target engine: T 57.8 s
+    t 0 target heatSink: none
+    t 0 target shield: none
+R2 v R2       600 broadside: baseline A 48.6 s; 4 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 21.9 s
+    t 0 target engine: T 49.5 s
+    t 0 target heatSink: none
+    t 0 target shield: none
+R2 v R2       900 bow      : baseline A 25.1 s; 13 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 26.9 s
+    t 0 scan 0: T 26.9 s
+    t 0 scan 1: T 26.9 s
+    t 0 scan 3: T 26.9 s
+    t 0 scan 4: T 26.9 s
+    t 0 target engine: T 26.9 s
+    t 0 target reactor: T 26.9 s
+    t 0 target bridge: T 26.9 s
+    t 0 target heatSink: T 26.9 s
+    t 0 target quarters: T 26.9 s
+    t 0 target turret: T 26.9 s
+    t 0 target shield: T 26.9 s
+    t 0 target hold: T 26.9 s
+R2 v R2       900 broadside: baseline A 56.6 s; 5 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 26.1 s
+    t 0 scan 2: T 316.0 s
+    t 0 target engine: T 59.1 s
+    t 0 target beamBay: T 316.0 s
+    t 0 target heatSink: none
+R2 v R2      1500 bow      : baseline T 64.4 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset evade: A 84.9 s
+R2 v R2      1500 broadside: baseline A 38.6 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 44.8 s
+R2 v Lance    600 bow      : baseline A 21.7 s; 2 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 33.1 s
+    t 0 target engine: none
+R2 v Lance    600 broadside: baseline A 35.6 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 33.2 s
+R2 v Lance    900 bow      : baseline T 12.2 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset evade: A 29.8 s
+R2 v Lance    900 broadside: baseline A 35.6 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 52.0 s
+R2 v Lance   1500 bow      : baseline A 51.5 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 27.8 s
+R2 v Lance   1500 broadside: baseline A 45.6 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: T 70.2 s
+R2 v Swarm    600 bow      : baseline A 0.7 s; 0 flips over 1 moment(s) x 19 verbs
+R2 v Swarm    600 broadside: baseline A 34.6 s; 0 flips over 1 moment(s) x 19 verbs
+R2 v Swarm    900 bow      : baseline A 5.1 s; 0 flips over 1 moment(s) x 19 verbs
+R2 v Swarm    900 broadside: baseline A 36.6 s; 0 flips over 1 moment(s) x 19 verbs
+R2 v Swarm   1500 bow      : baseline A 52.6 s; 0 flips over 1 moment(s) x 19 verbs
+R2 v Swarm   1500 broadside: baseline A 5.8 s; 0 flips over 1 moment(s) x 19 verbs
+R2 v Furnace  600 bow      : baseline A 29.7 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: none
+R2 v Furnace  600 broadside: baseline A 63.7 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: none
+R2 v Furnace  900 bow      : baseline A 33.1 s; 5 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: none
+    t 0 target heatSink: none
+    t 0 target quarters: none
+    t 0 target shield2: none
+    t 0 target quarters2: none
+R2 v Furnace  900 broadside: baseline A 59.7 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: none
+R2 v Furnace 1500 bow      : baseline A 119.7 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: none
+R2 v Furnace 1500 broadside: baseline A 81.7 s; 1 flips over 1 moment(s) x 19 verbs
+    t 0 preset cool: none
+verb leverage: 45 of 455 single-verb battles flip the result (9.9 %): 2 toward the player, 43 against; moments with a flip 18 of 24
+verbs that turn a result toward the player: {"preset evade":2}
+kernel errors: 1
+  ERROR Lance 600 bow [{"t":0,"verb":"target","arg":"shield"}]: step 9524: Cannot read properties of null (reading 'x')
