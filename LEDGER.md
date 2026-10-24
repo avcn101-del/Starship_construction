@@ -106,6 +106,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, deterministic transcendentals (#310, #311; `m0/det-math` `f2318c9`, PR #97; notified by trigger) | session_01Wvk2oq2CyopWPzKgNQJYss | opus-5-5 | 4.22 |
 | Reviewer, PR #97 (0 blocking, 5 non-blocking; notified by trigger) | session_0185K3jWeLwLK3XyEXU5UdcG | sonnet-5-5 | 0.82 |
 | Reviewer, PR #96 (0 blocking, 3 non-blocking; notified by trigger) | session_017U1vtCixpnBCJdGe9ZpXVv | sonnet-5-5 | 0.61 |
+| Auditor, process audit (#321; `audits/2026-10-24-process.md`; notified by trigger) | session_01T8f36eKFqDZPBk5qHurPue | sonnet-5-5 | 1.57 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
