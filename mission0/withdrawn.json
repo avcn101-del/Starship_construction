@@ -1288,5 +1288,37 @@
     "recordHash": "65080988",
     "reason": "Superseded under #316 (DESIGN.md 13n.8 J11, §17 item 50, #309 (3)): its header misstated the step a count not reset by the withdrawal would escape (1501; it is 958 + 600 = 1558); the successor keeps its case and criterion with the header corrected. Recorded PASS (code 31187a9, data fee97350), frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L4.engine.plume",
+    "successor": "L4.engine.plume.v2",
+    "decision": "#316",
+    "recordHash": "60291ac6",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8 J3) by the lead designer's answer 3 on PR #101, to be recorded as an LD row at the merge (the plume's occlusion: a fitting reaches it only if the segment from the apex crosses no standing cell of its own ship): its antenna and third bow panel face away from the jet on -y edges, so its literal 82 and its formula steps no longer hold; the successor keeps the panels and offset cases, moves the antenna case so the antenna faces the jet (its scan held through the ruin, l5e1.plume.antennaWorks), and adds an inside case 480 m off the axis. Recorded PASS (code 7840cb9, data 394196fd), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L2.missile.field",
+    "successor": "L2.missile.field.v2",
+    "decision": "#316",
+    "recordHash": "a0297251",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8 J8; the fix round of PR #101, the physics checker's observation 2): it held the penetrator's entry speed into the hull only within the bound 2 m u / M, M a literal; the successor keeps its cases and checks and derives that speed from the books (the hull's recoil), within 1e-9 x u. Recorded PASS (code 5ee1bbb, data 394196fd), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.books.field",
+    "successor": "L4.books.field.v2",
+    "decision": "#316",
+    "recordHash": "a0f4bab2",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8 J9; the fix round of PR #101, the physics checker's observations 3 and 4): it held an impulse to the line of the nearest round in flight, not the round being struck, and its spin case never met the attacker's field; the successor holds each impulse to the struck round's line and re-aims the spinning target, so both fields slow rounds in both cases. Recorded PASS (code 5ee1bbb, data 394196fd), frozen (#245).",
+    "frozen": true
+  },
+  {
+    "id": "L4.sweep.determinism",
+    "successor": "L4.sweep.determinism.v2",
+    "decision": "#316",
+    "recordHash": "b0a4dfe0",
+    "reason": "Superseded under #316 (DESIGN.md 13n.8 J13; the fix round of PR #101, the review's finding 3): its grid let l5e1.sweep.byArrival survive (its battles returned in the cells' order); the successor's grid puts the longer battle first. Recorded PASS (code 7840cb9, data 394196fd), frozen (#245).",
+    "frozen": true
   }
 ]
