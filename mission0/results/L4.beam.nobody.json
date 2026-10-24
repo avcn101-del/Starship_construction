@@ -1,14 +1,14 @@
 {
   "id": "L4.beam.nobody",
   "level": "L4",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "command": "node tools/m0.js run L4.beam.nobody",
-  "code": "9a8559e",
+  "code": "8dd7445",
   "criterionHash": "9873ba09",
   "lockedHash": "9873ba09",
   "runHash": "2b45ecd3",
   "dataHash": "cfcb3fa1",
-  "rowsHash": "bfe7b621",
+  "rowsHash": "5134c1e3",
   "rows": [
     {
       "case": {
@@ -41,12 +41,12 @@
           "entries": 0,
           "dt": 0.016666666666666666
         },
-        "worst": 9345.145787864923,
+        "worst": 0.00021138787269592285,
         "gross": 322652683509.5933,
         "hits": 71
       },
-      "pass": false,
-      "note": "(3) energy books close at 1e-9 x gross"
+      "pass": true,
+      "note": ""
     }
   ],
   "invariants": [
