@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.symmetric.v2",
-  "code": "52c491c",
+  "code": "2c2c9e1",
   "criterionHash": "e5fb013a",
   "lockedHash": "e5fb013a",
   "runHash": "17e5ff02",
   "dataHash": "cfcb3fa1",
-  "rowsHash": "ae05e0f5",
+  "rowsHash": "18bee736",
   "rows": [
     {
       "case": {
@@ -103,6 +103,20 @@
       },
       "actual": {
         "rowsHash": "c6860f75",
+        "cases": 1
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "scenario": "L4.beam.nobody"
+      },
+      "expected": {
+        "rowsHash": "5134c1e3"
+      },
+      "actual": {
+        "rowsHash": "5134c1e3",
         "cases": 1
       },
       "pass": true,
@@ -596,7 +610,7 @@
         "targetHelm": null,
         "targetEnemy": null,
         "attackerHelm": null,
-        "replayed": 41
+        "replayed": 42
       },
       "pass": true,
       "note": ""
