@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.symmetric",
-  "code": "c87d8d3",
+  "code": "119ba57",
   "criterionHash": "c8f3248b",
   "lockedHash": "c8f3248b",
   "runHash": "17e5ff02",
   "dataHash": "4b7cd27a",
-  "rowsHash": "6c1d9acf",
+  "rowsHash": "5dc4e786",
   "rows": [
     {
       "case": {
@@ -362,6 +362,20 @@
     },
     {
       "case": {
+        "scenario": "L4.helm.yield"
+      },
+      "expected": {
+        "rowsHash": "b2812bad"
+      },
+      "actual": {
+        "rowsHash": "b2812bad",
+        "cases": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
         "scenario": "L4.hit.oblique.v3"
       },
       "expected": {
@@ -421,11 +435,11 @@
         "scenario": "L4.loop.symmetric.v2"
       },
       "expected": {
-        "rowsHash": "2fca625d"
+        "rowsHash": "6746c89a"
       },
       "actual": {
-        "rowsHash": "2fca625d",
-        "cases": 46
+        "rowsHash": "6746c89a",
+        "cases": 47
       },
       "pass": true,
       "note": ""
@@ -666,7 +680,7 @@
         "targetHelm": null,
         "targetEnemy": null,
         "attackerHelm": null,
-        "replayed": 46
+        "replayed": 47
       },
       "pass": true,
       "note": ""
