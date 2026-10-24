@@ -45,7 +45,7 @@ export default {
   tolerance: 'steps exact, one-sided: ruined at n = ceil(q m / (I A dt)), the window [t, t + dt)',
   criterion: '(panels) the three bow panels ruined at step 21, the hand-worked literal; (antenna) the antenna at step 82, the literal; each other fitting of the pursuer inside the cone at its own formula step, none outside; (offset) no fitting ruined; in every case no hull cell or plate of either ship changes, the leader loses no fitting, a ruined panel leaves its room\'s count and the sources, a ruined antenna scans no more',
   tunable: ['engine.plumeHalfAngle', 'engine.thrust', 'engine.exhaustVelocity', 'matter.burnEnergyPerKg', 'radiator.mass', 'sensor.mass'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '129426e4' },
   cases() {
     return Object.keys(CASES).map((name) => ({ name }));
   },
