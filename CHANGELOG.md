@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — L5e1 planned (#316)
+
+- `DESIGN.md` §13n.8 (L5e1: rules, J1–J13, cost, checklist), §13m's rows;
+  `tools/estimates/l5e1.mjs`; `DECISIONS.md` #316, §18.
+
+## Unreleased — 2026-10-24 — L5e split; the position law (#315)
+
+- `DECISIONS.md` #315: the owner's B (L5e1, a pace study, L5e2); the
+  position slot's wanted point rides the circle of R* (`helm.positionLead`,
+  60°), so ships no longer fly through each other; `DESIGN.md` §13n.1 (d), §18.
+
 ## Unreleased — 2026-10-24 — the mutation run on L5d's merge (#314)
 
 - `mission0/mutations/2026-10-24-761e5e4.txt`: 269 mutations, 221 KILLED,
