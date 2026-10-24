@@ -86,7 +86,7 @@ cell's mass, heat by the **thermally coupled** mass of the room type
    clock (#30): today heat and ammunition; a stalemate when neither ship
    takes new cell damage for X s (planned, X from the baseline); a scenario
    clock after Mission 0 (#337). Outcomes are counted apart: win, loss,
-   escape, stalemate (#336).
+   escape, stalemate (#336); the sweep breaks ties by survival (#338).
 3. **Report**: the KIA list first, the cascade tree, scans and targets on a
    timeline, what the enemy learned of you, heat, salvage, kill-cam (#41).
 4. **Progress**: intact salvage unlocks room types; credits buy rooms,
@@ -2291,3 +2291,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 335 | Item 55's pass: the layers; the pilot keeps its turn sense past 90° and reports the thrust its engines are given; the position's lead only at range and yielding after 15 s without closing until 30 s let go (two new helm constants); the helm suite; K0–K5 (§13n.9) | current |
 | 336 | Outcomes counted apart (win / loss / escape / stalemate); E5's win rate unchanged (escape or stalemate no win); a survival column for E6 and the phases (the owner) | current |
 | 337 | The clock: none new now (heat, ammunition; the baseline reports the first hot room); a scenario clock with its tell after Mission 0; a stalemate after X s without new cell damage on either ship, X set by the lead designer from the baseline (the owner) | current |
+| 338 | The sweep ranks order sets by wins, then survival, then crew alive; a stalemate 0 in E5, #315's draw a half (the owner; built with #336) | current |

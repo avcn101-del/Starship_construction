@@ -7,6 +7,8 @@
   now; a scenario clock after Mission 0; a stalemate after X s without
   new cell damage, X the lead designer's from the baseline. `DESIGN.md`
   §3 and §18; `IDEAS.md` merged from `ideas/phase-gaps`.
+- #338 (the owner): the sweep ranks by wins, then survival, then crew
+  alive; a stalemate scores 0 in E5, #315's draw a half.
 
 ## Unreleased — 2026-10-24 — battle phases: gaps and the owner's choices
 
