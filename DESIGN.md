@@ -1853,7 +1853,12 @@ Each line names its decision and when it is due; a closed one is removed.
     closes and the ships circle at R*): measure which openings and orders
     give relative motion before asking for a new mechanism; and a close
     order overshoots R* by about 230 m (362–372 m at 600 m; #306 accepted
-    163–170 m): whether it matters for E7. Due: the pace study after L5e1.
+    163–170 m): whether it matters for E7. **The owner's measure of a lever
+    (#318)**: beside E7's median, (a) the first hit on the losing ship as a
+    share of the battle, (b) the hits needed to kill, (c) how it ends;
+    quiet-phase levers (opening range up to 2500 m with
+    `battle.cullDistance` at twice it, relative motion, point defence, scan
+    time) before toughness (`kinetic.hitsToWreck`). Due: the pace study after L5e1.
 
 ## 18. Decisions in force
 
@@ -2180,3 +2185,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 315 | L5e split into L5e1 (rules, builds, sweep), a pace study, L5e2 (measures) (the owner's B); the position law on the circle of R* (`helm.positionLead` new, 60°); `L4.helm.separation` | current |
 | 316 | L5e1 planned (§13n.8): containment first and dark fragments from #37, a simultaneous end is a draw, the plume's intercepted area edge², items 35, 48, 50, 51, builds and sweep; J1–J13; L5e 120–176 by the rule, 36–53 expected | current |
 | 317 | L5e1's go (the owner); the pace study measures the bimodal pace first; a close order's overshoot (≈ 230 m) printed by J1, §17 item 52 | current |
+| 318 | The pace study judges the battle's shape (first hit on the loser as a share, hits to kill, the end; quiet-phase levers before toughness: the owner); `battle.openingRange` a lever up to 2500 m (range 500–3000), `battle.cullDistance` at twice it | current |
