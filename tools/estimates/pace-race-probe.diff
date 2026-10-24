@@ -1,0 +1,28 @@
+diff --git a/js/helm.js b/js/helm.js
+index da6eb01..baacc59 100644
+--- a/js/helm.js
++++ b/js/helm.js
+@@ -293,7 +293,8 @@ export function helmStep(battle, side) {
+     // the own bearing phi toward the named one phi* by at most helm.positionLead, so the path circles at R* instead of
+     // crossing the other ship (no collision model, #20).
+     let dir = [-u[0], -u[1]];
+-    if (!moving) {
++    const PAT = 15;
++    if (!moving && !h.yielded) {
+       const named = o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 180;
+       const phi = atan2(-u[1], -u[0]), phiP = phi + clamp(wrap(atan2(named[1], named[0]) - phi), -lead, lead);
+       dir = [cos(phiP), sin(phiP)];
+@@ -310,7 +311,13 @@ export function helmStep(battle, side) {
+     const rel = sub(me.v, vo), err = sub(want, rel), errLen = len(err);
+     // A ship with no RCS couple (t180 infinite) cannot point its engine: the order does not engage (#306 (8)).
+     const able = throttle > 0 && a > 0 && t180 < Infinity;
++    // probe L1: the position yields when e has not fallen by a band within PAT s while engaged; reset after 30 s let go (the scratch law L1).
++    if (!moving && h.engaged && !h.yielded) {
++      if (!h.posBest || e < h.posBest.e - band) h.posBest = { e, t };
++      else if (t - h.posBest.t >= PAT) h.yielded = true;
++    }
+     h.engaged = able && (moving ? styleEngaged(h.engaged, { e, error: errLen, vt: Math.abs(vt), step: a * battle.dt, band }) : rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band }));
++    if (!h.engaged) { h.posBest = null; if (h.freeSince == null) h.freeSince = t; if (t - h.freeSince >= 30) h.yielded = false; } else h.freeSince = null;
+     if (h.engaged) { heading = atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
+     h.range = { R, e, want, rel, vt, error: errLen, threshold: a * t180, band, letGo: band / t180 };
+   }
