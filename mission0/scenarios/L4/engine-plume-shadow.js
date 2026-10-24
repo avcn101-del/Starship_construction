@@ -35,7 +35,7 @@ export default {
   tolerance: 'steps exact, one-sided: ruined at n = ceil(q m / (I A dt)); far side exactly 0 J',
   criterion: 'the two near-side bow panels ruined at step 18, the hand-worked literal; the four far-side panels (inside the cone, their unshadowed step 20 within the run) take 0 J and are not ruined; both hold heading 0 within 1e-5 rad',
   tunable: ['engine.plumeHalfAngle', 'engine.thrust', 'engine.exhaustVelocity', 'matter.burnEnergyPerKg', 'radiator.mass'],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'b638899b' },
   cases() {
     return [{ name: 'straight behind at 900 m' }];
   },
