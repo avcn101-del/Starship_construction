@@ -2190,3 +2190,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 318 | The pace study judges the battle's shape (first hit on the loser as a share, hits to kill, the end; quiet-phase levers before toughness: the owner); `battle.openingRange` a lever up to 2500 m (range 500–3000), `battle.cullDistance` at twice it | current |
 | 319 | The command-level idea in `IDEAS.md` (waiting); the pace study also measures verb leverage and the decisions available per battle | current |
 | 320 | Ship classes (the owner): six classes, the player can rise to a capital, the underdog beats up to two classes larger, forms by faction and free building; the two-class measure is L6's (mixed classes), put to the owner as an exit criterion when L6 is planned | current |
+| 321 | Process audit opened; process v2 at L5e1's merge; two tracks and slim documents at Mission 0's exit (the owner's direction) | current |
