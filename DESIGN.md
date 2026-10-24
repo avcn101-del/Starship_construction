@@ -2192,3 +2192,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 320 | Ship classes (the owner): six classes, the player can rise to a capital, the underdog beats up to two classes larger, forms by faction and free building; the two-class measure is L6's (mixed classes), put to the owner as an exit criterion when L6 is planned | current |
 | 321 | Process audit opened; process v2 at L5e1's merge; two tracks and slim documents at Mission 0's exit (the owner's direction) | current |
 | 322 | Runner sessions for heavy jobs; one cost range, raw × 1.24 (the measured median), beside the expectation; a short brief; hand-over at each block or 350k tokens, on opus (the owner) | current |
+| 323 | Mission 0 through L6 before any playable slice (the owner); a steering mode would need a new helm input and a change to #2 | current |
