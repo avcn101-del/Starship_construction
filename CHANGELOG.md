@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — L5e1 planned (#316)
+
+- `DESIGN.md` §13n.8 (L5e1: rules, J1–J13, cost, checklist), §13m's rows;
+  `tools/estimates/l5e1.mjs`; `DECISIONS.md` #316, §18.
+
 ## Unreleased — 2026-10-24 — L5e split; the position law (#315)
 
 - `DECISIONS.md` #315: the owner's B (L5e1, a pace study, L5e2); the
