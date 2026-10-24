@@ -18,7 +18,7 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 - **Next**: the pace study's grid (a runner); then the lead designer decides within approved ranges or asks you about E7 before L5e2.
 - **Waiting on you**: nothing.
 - **Money**: this chat's sessions so far 0.72 USD (the openingRange runner); the pace runner running.
-- **Running**: runner `session_018bqyYRiZUXXkB8Znd3CZek` (the pace grid, `run/pace`).
+- **Running**: runner `session_018bqyYRiZUXXkB8Znd3CZek` (the pace grid, `run/pace`); engineer `session_01CAL2Wwfpzq5LmqxiRWAdDK` (§17 item 53, `m0/item53`, PR to `ld/pace`; raw 3–6, × 1.24: 4–7 USD with checker and reviewer).
 
 Not built yet: a fix for §17 item 53 (a beam into a ship with no body crashes the kernel).
 
@@ -29,7 +29,7 @@ None; `ld/pace` carries this pass's documents and the openingRange records.
 ## Next steps
 
 1. **The pace study** (§17 item 52, #318, #319): the runner's grid is `tools/estimates/pace-e7.mjs` and `pace-verbs.mjs` (outputs on `run/pace`). The lead designer's probe (seed 1, `ld/pace`): E7 median 38 s on the locked builds; the levers alone 44–96 s; strafe with range open 217 s (6 of 24 without an end); the seed acts only through the dodge intervals (the design partner's check, verified), so seeds 1–4 only where a side strafes or dodges. Verb leverage on one cell: 5 of 19 verbs flip it, all against the player.
-2. **§17 item 53**: an engineer (opus) fixes `beamsOut` with a scenario, then a reviewer; before L5e2's sweep.
+2. **§17 item 53**: engineer `session_01CAL2Wwfpzq5LmqxiRWAdDK` fixes `beamsOut` with `L4.beam.nobody`; then the blind physics checker (the beam's energy book) and a reviewer. The task's "destroyed at step 9524" is the lead designer's reading of the end rule, not run: the engineer checks it.
 3. **L5e2** (E5–E8, W9b, `L5.route.throughput`): planned after the study, costed raw × 1.24.
 4. Due when their files are touched: §17 items 47, 50, 51.
 
