@@ -22,6 +22,30 @@
   every passing scenario re-recorded on the new data hash; mutations
   `item55.*`.
 
+## Unreleased — 2026-10-24 — outcomes counted apart and the clock (#336, #337)
+
+- #336 (the owner): win / loss / escape / stalemate counted apart; E5's
+  win rate unchanged; a survival column. #337 (the owner): no new clock
+  now; a scenario clock after Mission 0; a stalemate after X s without
+  new cell damage, X the lead designer's from the baseline. `DESIGN.md`
+  §3 and §18; `IDEAS.md` merged from `ideas/phase-gaps`.
+- #338 (the owner): the sweep ranks by wins, then survival, then crew
+  alive; a stalemate scores 0 in E5, #315's draw a half.
+
+## Unreleased — 2026-10-24 — battle phases: gaps and the owner's choices
+
+- `IDEAS.md` (battle phases): twelve gaps from the design partner's probe
+  and the owner's choices on a clock (no new clock now; a scenario clock
+  after Mission 0; a stalemate after X s without cell damage) and on
+  outcomes counted apart; on `ideas/phase-gaps`.
+
+## Unreleased — 2026-10-24 — the room-variants idea
+
+- `IDEAS.md`: the design partner's room-variants idea from the owner's
+  discussion (one physical trade per room in three families: stored
+  energy, rate, reach; a turret's ready store filled by phase); on
+  `ideas/room-variants`.
+
 ## Unreleased — 2026-10-24 — §17 item 55's plan (#333–#335)
 
 - #333 (the owner): the helm in layers, pilot, navigator, gunnery and
