@@ -25,6 +25,7 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
 | [Command level: watch, captain, hands-on](#command-level-watch-captain-hands-on) | not claimed (a way to play, not a law) | – · yes · yes · yes | verb leverage (the share of battles a player verb flips) and the battle's shape (quiet share, hits to kill), then the owner's feel on the phone | waiting |
 | [Ship classes: roles, forms and factions](#ship-classes-roles-forms-and-factions) | dependency, throughput, information (one per faction) | yes · yes · yes · yes | E6 against ships two classes larger (proposed) | waiting |
 | [Battle phases: decision points, attack and defence](#battle-phases-decision-points-attack-and-defence) | information, throughput, dependency (one per phase) | yes · yes · yes · yes | verb leverage and the battle's shape with and without phases on the rebuilt builds, then the owner's feel on the phone | waiting |
+| [Room variants: one physical trade per room](#room-variants-one-physical-trade-per-room) | dependency, throughput, information (one family per axis) | yes · yes · yes · yes | no variant dominant in the sweep (E5), each winning some matchup; the phase fill order beating always-full and always-low | waiting |
 | [Blast resistance from mass](#not-yet-worked) | not stated | not checked | not stated | waiting (#232, `DESIGN.md` §13i.1) |
 | [Tumble and sloped armour](#not-yet-worked) | not stated | not checked | not stated | waiting (#230) |
 | [Plasma toroid gun (MARAUDER)](#not-yet-worked) | not stated | not checked | not stated | waiting |
@@ -665,6 +666,99 @@ would replace [Presets by ship archetype](#presets-by-ship-archetype) and
 - **Links.** #2, #17, #36, #38, #39, #40, #83, #111, #117, #293, #303,
   #315, #318, #319, #323, #328, #329; §17 items 55, 56; the presets by
   archetype and the command level above.
+
+### Room variants: one physical trade per room
+
+*From the owner's discussion, 2026-10-24 (the design partner).*
+
+- **Problem it answers.** The design has progression (unlocks by intact
+  salvage #33, owned rooms #73, prices by formula #74, drydock tiers #72,
+  #75) but no word on upgrades. A "+ready rounds 4 → 10" upgrade would be a
+  stat table, against #63 (stats from scaling formulas) and #122 (no
+  stat multipliers). The owner's question started from the turret: the OTO
+  Melara 76/62 the turret's mount comes from (#285) fires up to 120 rounds a
+  minute (Leonardo's datasheet) where `turret.fireRate` is 30 (0.5 /s,
+  approved 0.2–2), and the Compact mount holds 80 ready rounds (Wikipedia)
+  where `turret.readyRounds` is 4 (approved 2–10, no cited source).
+- **Mechanism.** A variant of a room trades one physical quantity for
+  another, never strictly better, as #94 asks of a round type (one parameter
+  traded, a best and a worst target, a counter, a core law). A variant is
+  an owned item (#73) priced by the formula (#74). **At most one trade axis
+  per room, two or three marks on it**, the axis taken from one of three
+  families, each a core law: (1) **stored energy ↔ the risk of exploding**
+  (dependency); (2) **rate ↔ heat and power** (throughput); (3) **reach or
+  size ↔ signature and fragility** (information). Size S/M/L (#62) and tier
+  stay as they are; a variant is a second axis. **Phase use (the owner):**
+  a turret's ready store gets a fill order (low / full) in each phase's
+  preset of the battle-phases idea: low while far, full before the commit,
+  so the final phase can dump a long burst; filling takes the feed's time,
+  so the ship carries the charge on the hull while it closes.
+- **Numbers.** On `ld/pace` `35535fb`, `js/data.js`'s values; formulas,
+  not battles (one `node --input-type=module -e` over `PARAMS`).
+  - **Already in the kernel or the design** (not new): size S/M/L; the beam
+    bay's and the railgun's length N (the railgun's slug at v √(N / 2));
+    **the missile bay explodes by the missiles inside (#148)**, 56 MJ each
+    (20 MJ warhead + ½ · 200 kg · (30 m/s² · 20 s)² of fuel): 2 ready 112
+    MJ, 6 ready 336 MJ, the turret's case already built for the bay; point
+    defence kinetic (40 rounds, 20 s at 2 /s) or laser (1 MW); plates
+    (thickness ↔ 39.25 t each); magazine contents, round types, seeker ×
+    warhead.
+  - **Turret** (stored energy; rate): 6 MJ of propellant a round
+    (`kinetic.chargeEnergy`): 4 ready rounds 24 MJ, 80 ready 480 MJ, a full
+    magazine of 150 rounds 900 MJ; 0.3 MJ of heat a shot: 150 kW at 0.5 /s,
+    600 kW at 2 /s; 80 rounds' heat 24 MJ against about 84 MJ to bring an M
+    turret from 295 K to `thermal.crewedHot` 330 K (4 cells × 0.6 MJ/K × 35
+    K, life support ignored). The feed (`ammo.wallFeed` 0.72 kg/(s·m)): a
+    5 m wall 0.6 rounds/s, 80 rounds in 133 s; 10 m 1.2 /s, 67 s; the
+    approved maximum 3.6 on 5 m 3 /s, 27 s. A burst of 80 at 2 /s lasts 40 s.
+  - **Engine** (rate): thrust × 1.5 with machinery × 1.5 adds 8.1 t to R2
+    and takes it from 1.069 g to 1.595 g, drawing 15 MW of the reactor's 20:
+    while it burns, the weapons starve (the range phase's lever).
+  - **Antenna** (reach): `sensor.scanRange` 900 → 1800 m takes a zone at
+    1500 m from 30.9 s to 1.9 s (the contact phase's lever). The kernel does
+    not tie the scan range to the antenna's size: a rule to add.
+  - **Shield** (rate): `shield.buffer` 10 MJ against `shield.budget`
+    10 MW, split differently for one mass: a large buffer holds a volley, a
+    fast rate holds a beam; the counter of a fire-rate variant.
+  - **Radiator** (size): 25 m² for 250 kg, IR ∝ area. **RCS** (rate): force
+    ↔ power and mass, the turn rate (the position phase's lever).
+    **Reactor**: the shield mass against crew distance, the reactor-shield
+    idea above (#281). **Beam bay**: `beambay.efficiency` 0.4 (60 % of its
+    power to heat) ↔ machinery mass.
+  - **No axis worth building**: the bridge and the hold.
+- **Gates claimed, not measured.** Law: each axis is one family's law.
+  Underdog: a cheaper hull buys the one trade that beats a richer ship's
+  build (an antenna that out-scans it, an engine that chooses the range).
+  Readable: the readout shows the trade (mass, acceleration, power, the
+  charge on the hull). Reuses: every quantity is a constant already in
+  `js/data.js`; the trade moves it along its approved range with its cost.
+- **Alternatives weighed in the discussion.** "+N" stat upgrades (rejected:
+  #63, #122); a real 80-round ready store as the default (a 40 s burst with
+  no wait: the magazine wall stops mattering and the battle turns into a
+  slugfest, against #318); refilling only when close (not possible: 133 s
+  for 80 rounds on today's wall).
+- **Risks and what it touches.** (1) Three rules are new to the kernel: a
+  turret's ready store detonates as a magazine does (`js/rooms.js`
+  `detonate` covers magazines and missile bays only), the scan range from
+  the antenna, the shield's buffer and rate split. (2) Each variant
+  multiplies the build space: E5's sweep is measured again. (3) The fill
+  order is a decision only if four things hold: the store can explode, it
+  is large, the feed is slow, and the enemy can see and target the turret
+  (information law). If "always full" still wins every matchup in the
+  sweep, it is an automatic rule (#36), not an order. (4) Historical
+  precedent (from memory, not checked): at Jutland, 1916, British
+  battlecruisers kept charges outside their magazines to fire faster, and
+  three blew up.
+- **When** (the design partner's reading): after Mission 0, with
+  progression; the turret's ready-store detonation could come earlier for
+  consistency with the missile bay (#148), the lead designer's call; no
+  exit criterion needs it.
+- **The measure that decides.** In the sweep on builds with variants: no
+  variant dominant (E5's 75 %), each variant winning some matchup; for the
+  fill order, "late fill by phase" beating both "always full" and "always
+  low" in some matchups; then the owner's feel in the shipyard.
+- **Links.** #18, #33, #36, #62, #63, #71, #72, #73, #74, #75, #94, #122,
+  #148, #193, #281, #285, #318, #334; battle phases; the reactor shield mass.
 
 ## Not yet worked
 
