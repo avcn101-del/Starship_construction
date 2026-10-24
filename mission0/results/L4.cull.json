@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.cull",
-  "code": "5ee1bbb",
+  "code": "52c491c",
   "criterionHash": "a196a230",
   "lockedHash": "a196a230",
   "runHash": "815bac9f",
-  "dataHash": "394196fd",
+  "dataHash": "cfcb3fa1",
   "rowsHash": "cacd4db9",
   "rows": [
     {

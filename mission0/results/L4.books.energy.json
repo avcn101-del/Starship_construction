@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.books.energy",
-  "code": "5ee1bbb",
+  "code": "52c491c",
   "criterionHash": "f1740cb6",
   "lockedHash": "f1740cb6",
   "runHash": "e18a2e6e",
-  "dataHash": "394196fd",
+  "dataHash": "cfcb3fa1",
   "rowsHash": "226dc018",
   "rows": [
     {

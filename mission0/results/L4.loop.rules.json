@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.rules",
-  "code": "7840cb9",
+  "code": "52c491c",
   "criterionHash": "abb3deaf",
   "lockedHash": "abb3deaf",
   "runHash": "cc74a636",
-  "dataHash": "394196fd",
+  "dataHash": "cfcb3fa1",
   "rowsHash": "46ff34ee",
   "rows": [
     {

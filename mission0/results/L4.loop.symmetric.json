@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.loop.symmetric",
-  "code": "e3061da",
+  "code": "52c491c",
   "criterionHash": "c8f3248b",
   "lockedHash": "c8f3248b",
   "runHash": "17e5ff02",
-  "dataHash": "394196fd",
+  "dataHash": "cfcb3fa1",
   "rowsHash": "430cb055",
   "rows": [
     {

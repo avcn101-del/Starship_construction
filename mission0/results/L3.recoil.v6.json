@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.recoil.v6",
-  "code": "5ee1bbb",
+  "code": "52c491c",
   "criterionHash": "92e43932",
   "lockedHash": "92e43932",
   "runHash": "2ff8c992",
-  "dataHash": "394196fd",
+  "dataHash": "cfcb3fa1",
   "rowsHash": "5d8bd442",
   "rows": [
     {

@@ -1,6 +1,6 @@
 # Constants
 
-Generated from `js/data.js` (commit `6a06d6d`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
+Generated from `js/data.js` (commit `dc2cb45`) by `node tools/constants.mjs $(git log -1 --format=%h -- js/data.js) > CONSTANTS.md`. Do not edit by hand: change `js/data.js` (the integrator does) and regenerate. This is the only table of values and ranges (`DESIGN.md` §5.1); the history of each value is in `DECISIONS.md` and `HISTORY.md`.
 
 A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^k. `approved` is the flag in `data.js`.
 
@@ -125,7 +125,7 @@ A tunable constant is `value` at the T1 cell edge (5 m), scaled by (edge / 5 m)^
 | power.wallCapacity | 2000000 | W/m | 500000 | 5000000 | 1 | true | power a live shared wall carries per metre: 10 m carries 20 MW, a whole M reactor (#12, #193, #195) |
 | ammo.wallFeed | 0.72 | kg/(s*m) | 0.24 | 3.6 | 1 | true | rounds a live wall between a magazine and a room it feeds carries per second per metre: 5 m feeds 3.6 kg/s, 0.6 M rounds/s (#18, #193, #195, #206) |
 | battle.cullDistance | 3000 | m | 1000 | 10000 | 1 | true | a round or debris farther than this from every body leaves play, its momentum booked as left; twice the engagement band (#54, #222 (7), #243) |
-| battle.openingRange | 900 | m | 500 | 2000 | 1 | true | the attacker's distance from the target's centre of mass when a battle opens (createBattle's default); #54's band; k = 1 so the dodge in one time of flight is the same number of cells at every tier (T2 of the L4 physics audit, §17 item 35, #270 (9)) |
+| battle.openingRange | 900 | m | 500 | 3000 | 1 | true | the attacker's distance from the target's centre of mass when a battle opens (createBattle's default); #54's band; k = 1 so the dodge in one time of flight is the same number of cells at every tier (T2 of the L4 physics audit, §17 item 35, #270 (9)); range widened to 500–3000 m for the pace study (#318) |
 | battle.disabledSeconds | 10 | s | 3 | 30 | 0 | true | no weapon able to fire for this long, whatever the engine does: Disabled (#82, #243, #255) |
 | battle.wreckFraction | 0.5 |  | 0.3 | 0.8 | 0 | true | a ship whose largest fragment holds less than this fraction of its mass at undock has broken into too many pieces: destroyed (#83, #253) |
 | helm.rangeClose | 600 | m | 300 | 800 | 1 | true | the range order's close value: #54's band, prototype v2's (13n.1 (d), #278; approved as the plan's, #272 (2)) |

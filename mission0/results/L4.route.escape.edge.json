@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.route.escape.edge",
-  "code": "7840cb9",
+  "code": "52c491c",
   "criterionHash": "e5746503",
   "lockedHash": "e5746503",
   "runHash": "802c211a",
-  "dataHash": "394196fd",
+  "dataHash": "cfcb3fa1",
   "rowsHash": "e1b65522",
   "rows": [
     {
