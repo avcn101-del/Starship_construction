@@ -21,7 +21,7 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
 | [Presets by ship archetype](#presets-by-ship-archetype) | not claimed | – · yes · yes · yes | not stated | waiting |
 | [The battle screen: outside view and knowledge panel](#the-battle-screen-outside-view-and-knowledge-panel) | information (on screen) | – · – · yes · yes | the owner's feel on the phone | waiting |
 | [The hull radiates, fed by cooling manifolds](#the-hull-radiates-fed-by-cooling-manifolds) | throughput, dependency, information | yes · yes · yes · yes | share of L5e battles in which a side reaches plant hot, with and without the heat-sink cascade | waiting |
-| [A thin skin over the rooms, with cosmetic paint](#a-thin-skin-over-the-rooms-with-cosmetic-paint) | information | yes · – · yes · yes | the owner's feel on the phone; the cost of three kernel rules | waiting |
+| [A thin skin over the rooms, with cosmetic paint](#a-thin-skin-over-the-rooms-with-cosmetic-paint) | information | yes · – · yes · yes | the owner's feel on the phone; after Mission 0, E5 and E6 on skinned builds | waiting (#313) |
 | [Command level: watch, captain, hands-on](#command-level-watch-captain-hands-on) | not claimed (a way to play, not a law) | – · yes · yes · yes | verb leverage (the share of battles a player verb flips) and the battle's shape (quiet share, hits to kill), then the owner's feel on the phone | waiting |
 | [Ship classes: roles, forms and factions](#ship-classes-roles-forms-and-factions) | dependency, throughput, information (one per faction) | yes · yes · yes · yes | E6 against ships two classes larger (proposed) | waiting |
 | [Blast resistance from mass](#not-yet-worked) | not stated | not checked | not stated | waiting (#232, `DESIGN.md` §13i.1) |
@@ -268,73 +268,79 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
 
 ### A thin skin over the rooms, with cosmetic paint
 
-*From the owner's discussion, 2026-10-23.*
+*From the owner's discussion, 2026-10-23; revised 2026-10-24 into one rule
+(the earlier variants are listed under the alternatives).*
 
 - **Problem it answers.** A ship drawn by its cells is asymmetric and reads
   as a jumble; the owner, looking at the outside-view mockups
   (https://claude.ai/artifact/9gMtu29eGWWFvee9F7pNvs): no spaceship looks
   like that. The rooms stay blocks inside; the outside should have a ship's
   shape.
-- **Mechanism.** Three parts. (C3) A **thin skin**: a smooth, symmetric
-  outline around every cell, a real 1 mm sheet that stops nothing, so the
-  physics stays the rooms' own thin walls. (C4) **Cosmetic paint** on that
-  skin only: liveries, decals, salvaged patchwork, duct-tape patches; never
-  a change of shape, as an FPS skin leaves the hitbox alone. (Cutaway) Your
-  own ship is drawn with its rooms under the skin, because you know them;
-  the enemy's rooms appear only in the zones you have scanned (an
-  information layer like #48's overlays, not light). With the cooling
-  manifolds of the previous section, the skin radiates and the panels go.
-- **Numbers.** Kernel: `buildShip` and `readout` on `ld/l5d`; skin areas,
-  masses and balances by scratch scripts, not committed, not re-run.
-  - R1 is 911.2 t, 1.68 g on 15 MN. A smooth skin around its 44 cells, at
-    least 0.60 m clear of every cell: 3938 m², 773 m² of it the edges. In
-    1 mm titanium 17.7 t (1.68 → 1.65 g); aluminium would be 10.6 t but
-    melts at 933 K, below the manifold balances; steel 30.9 t.
-  - It stops nothing: 1 mm of titanium is 4.5 kg/m² on a path, against a
-    0.2 m plate's 1570 kg/m².
-  - A slender layout of R1's same ten rooms (two decks, the engine and the
-    beam bay on the axis) passes `validateShip`: 70 × 20 m, 910.2 t, 1.68 g,
-    13 radiators; I 146e6 against R1's 93e6 kg·m² (a 90° turn in about
-    2.6 s against 2.3 s, a rough constant-torque estimate). Bow-on it shows
-    20 m instead of 30, broadside 70 instead of 55; every room touches the
-    hull (R1's reactor and magazine have no open edge, here 3 and 4), so a
-    broadside reaches them. Its skin: 3622 m², 0.66 m clear, 16.3 t in
-    titanium.
-  - The skin as a radiator (ε 0.9, about 25 MW made, the whole area at one
-    temperature, an upper bound): the balance is 1036 K with the 17 panels
-    (425 m², 2.8 MW at 600 K, as #305), 847 K on R1's open edges (950 m²),
-    892 K on the skin's edges (773 m²), 594 K if its top and bottom faces
-    radiate too (3938 m²). Only the skin over plant rooms runs hot (22 of
-    the 44 cells), so the ship's real balance lies above these.
-- **Gates claimed, not measured.** Information (the free silhouette becomes
-  the skin's outline, so the layout stays hidden until scanned; passive IR
-  still sees the hot sections); readable (a ship's shape; your rooms in the
-  cutaway, the enemy's only where scanned); reuses the path model (a sheet
-  of known areal mass), the knowledge model and the heat model. No underdog
-  path is claimed.
-- **Alternatives weighed in the discussion.** (A) A skin drawn with no
-  physics and a shape other than the cells': a round would cross a drawn
-  hull without effect (#46) and the drawn silhouette would differ from the
-  one the enemy knows (#23); the owner chose C3 + C4 instead. (B) A thick
-  separate shell with mass: by the rules as written (#141), an HE round
-  would burst on it, outside the rooms, where an outside blast does nothing
-  (spaced armour), so HE would become nearly useless; not run. (C2) The gaps
-  of a symmetric grid form filled with wall cells of the room beside them,
-  3 t each: R1 plus 10 wall cells is 54 cells, +30 t, 1.62 g, all 17
-  radiators kept if 9 move onto a wall's outer face; still stepped at 5 m.
-  (C1) The gaps filled with S holds, no kernel change: 9 of R1's 21
-  fittings lose their open edge (`fittingProblem`), the engine all four of
-  its radiators.
-- **Risks and what it touches.** Three kernel rules, the lead designer's:
-  count the skin's mass; mount a fitting on the skin over its room
-  (radiators or manifolds, RCS, the turret, the sensor antenna) instead of
-  on the room's own edge, which moves IR sources and fitting hits by up to
-  about 10 m; and make the free silhouette (`L1.sensor.active`) the skin's
-  outline instead of the cells', or the enemy knows a cell shape the player
-  cannot see. The outline must enclose every cell and come from the layout,
-  or be chosen as a hull form in the shipyard (presentation, after Mission
-  0). A destroyed cell tears the skin above it. With manifolds, which faces
-  radiate decides whether plant hot is ever reached.
+- **Mechanism.** (1) A **form**: a smooth, symmetric outline around every
+  room, covered by a **thin skin**, a real 1 mm sheet that stops nothing.
+  (2) **The fill rule**: the rooms first; every other 5 m square inside the
+  skin with a share f of its area inside it becomes a **hold scaled by f**
+  (mass, heat capacity, blast and kinetic resistance all × f, since
+  everything that resists follows the cell's mass, #240 (1)) when f is at
+  least a threshold (about 0.25, the lead designer's constant); a smaller
+  sliver stays **empty space under the skin**. (3) **Cosmetic paint** on the
+  skin only (liveries, decals, salvaged patchwork, duct-tape patches), never
+  a change of shape, as an FPS skin leaves the hitbox alone. (4) **Cutaway**:
+  your own ship drawn with its rooms under the skin, the enemy's rooms only
+  in zones you have scanned (an information layer like #48's overlays, not
+  light). (5) A skin is **optional** in a blueprint: without one, a ship is
+  exactly today's kernel. The skin carrying the manifolds is the previous
+  section's idea, kept apart.
+- **Numbers.** Kernel: `buildShip`, `readout`, `validateShip` and
+  `penetrateRound` on `ld/l5d`; skin areas, the fill and balances by scratch
+  scripts, not committed, not re-run.
+  - R1 is 911.2 t, 1.68 g on 15 MN. Its skin, at least 0.60 m clear of every
+    cell: 3938 m², 773 m² of it the edges; 17.7 t in 1 mm titanium
+    (aluminium melts at 933 K, below the manifold balances; steel 30.9 t).
+    The fill: 8 full holds and 38 partial (f 0.01–0.95), 57.7 t; with the
+    threshold 0.25, 18 slivers (5.6 t) stay empty: 52.1 t kept, 1.68 →
+    1.56 g with the skin.
+  - A slender layout of R1's same ten rooms (two decks, engine and beam bay
+    on the axis) passes `validateShip`: 70 × 20 m, 910.2 t, 1.68 g, I 146e6
+    against R1's 93e6 kg·m²; bow-on 20 m instead of 30, broadside 70 instead
+    of 55; every room touches the hull, so a broadside reaches its reactor
+    and magazine. Its skin 3622 m², 16.3 t; its fill 2 full and 40 partial
+    holds, 34.6 t, 21.1 t kept at 0.25: 1.68 → 1.61 g.
+  - The skin's planform costs about 120 kg per m² of fill (5 m deep at the
+    hold's 24 kg/m³): a skin hugging the rooms is light, a bulging one heavy,
+    a price read on the shipyard's readout, no stat (#122).
+  - It stops nothing (1 mm titanium is 4.5 kg/m² on a path, a 0.2 m plate
+    1570); an M round crossing one full hold keeps 88 % of its momentum.
+- **Gates claimed, not measured.** Information (the free silhouette is the
+  form, so the layout stays hidden until scanned; passive IR still sees hot
+  sections); readable (a ship's shape; your rooms in the cutaway); reuses
+  the cell model (a hold with a mass share), the path model and the
+  knowledge model. No underdog path is claimed.
+- **Alternatives weighed in the discussion.** A skin drawn with no physics
+  and its own shape (a round crossing a drawn hull without effect, #46; a
+  silhouette other than the one the enemy knows, #23). A thick shell with
+  mass (an HE round would burst on it, outside the rooms, #141; not run).
+  The gaps of a stepped grid form filled with whole S holds (no kernel
+  change; R1 939.0 t, but 9 of 21 fittings lose their open edge) or with
+  wall cells of the room beside them (+30 t, all radiators kept on the
+  walls). The fill cells cut to the skin as polygons (exact, but polygon
+  geometry in the path model). A 1 m or finer sub-grid (two resolutions,
+  more cells for E8; under 1 px at the battle view's 0.72 px/m). Slivers
+  merged into the nearest hold (the same cells; dropping them is simpler).
+  The fill rule above keeps the grid and adds one number per cell.
+- **Risks and what it touches.** After Mission 0 with #313's rules: count
+  the skin's mass; mount fittings on the skin over their room (the fill
+  covers rooms' open edges; the smooth outline is shorter, R1's 155 m
+  against 190 m of open cell edges, so fewer mounting places); #313's third
+  rule (the silhouette as the skin) is mostly met by the fill, the empty
+  slivers aside. Kernel: a cell's mass share f (1 by default), the fill
+  rule and threshold in `validateShip`. Because the skin is optional,
+  today's scenarios stay as they are (about 160 of the 338 scenario files on
+  `ld/l5e1` at `e6cf62e` use R1, R1c or R1d); new ones cover skinned ships.
+  Balance, measured by E5 and E6 with `tools/sweep.mjs`: HE may weaken (it
+  bursts in the fill); a skinned build must not dominate. A hit on a
+  partial hold outside the drawn curve is drawn at the nearest skin point
+  (a few metres at most, at corners).
 - **Consequences found after.** Found while drawing the look in the same
   mockup. (1) Black-body glow is nearly invisible at the game's
   temperatures: about 6e-7 cd/m² at 600 K, 0.0075 at 800 K, 2.6 at 1000 K,
@@ -349,9 +355,11 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
   not follow room borders, or it draws the layout. (4) Real radiators are
   white: little sunlight absorbed, high IR emissivity.
 - **The measure that decides.** The owner's feel on the phone (never
-  delegated); the lead designer's estimate of the three kernel rules' cost.
-- **Links.** #15, #23, #45, #46, #48, #141, #256; the battle screen (outside
-  view and knowledge panel); the hull radiates (cooling manifolds).
+  delegated); after Mission 0 (#313), the lead designer's cost of the
+  kernel changes and E5 and E6 on skinned builds.
+- **Links.** #15, #23, #45, #46, #48, #122, #141, #240, #256, #313; the
+  battle screen (outside view and knowledge panel); the hull radiates
+  (cooling manifolds); ship classes (forms and factions).
 
 ### Command level: watch, captain, hands-on
 
