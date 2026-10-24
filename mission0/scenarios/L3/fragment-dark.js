@@ -40,7 +40,7 @@ export default {
   tolerance: 'exact (states and events; the aft body\'s velocity and spin unchanged to the bit)',
   criterion: 'before: working; at the split: two bodies, every aft room on the body without the bridge and uncontrolled, the reactor SCRAMmed with its scram event at the split\'s time; after, every step: the reactor SCRAMmed, delivering 0, no restart step, no reactor-restart or control-restored event; no shot from the aft turret; thrust 0 and no exhaust source; the aft body\'s velocity and spin unchanged; the antenna not a source; no EM source of the ship',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-24', hash: '79888f81' },
   cases() {
     return [{ name: 'split' }];
   },
