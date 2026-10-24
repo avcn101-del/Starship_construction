@@ -113,6 +113,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, L5e1 fix round (plume occlusion, the two survivors, weak checks; `7a4fe57`; notified by trigger) | session_01JusqyribLxSy75GET9Ye7e | opus-5-5 | 10.43 |
 | Physics checker, L5e1 fix round (plume occlusion; 0 blocking; not fully blind, disclosed; notified by trigger) | session_01EayNPAnem7QdoxibT8h6Ga | sonnet-5-5 | 0.98 |
 | Reviewer, L5e1 fix round (light; no finding; notified by trigger) | session_01FE4deyhxBY2ggmvGVdHCx5 | sonnet-5-5 | 0.73 |
+| Runner, `battle.openingRange` 500–3000 m and the re-records (#318; `run/opening-range` `2cec56a`; 174 VERIFIED; notified by trigger; a first copy archived empty at once, the prompt not expanded) | session_01U2gpT1cMDWBKhTe3kBhwye | sonnet-5-5 | 0.72 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

@@ -14,20 +14,22 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
 ## For the owner (five lines)
 
-- **Done**: L5e1 merged (#324): the position law, the plume with occlusion, containment first, dark fragments, a draw for a simultaneous end, the builds (locked) and the sweep; 174 VERIFIED.
-- **Next**: the pace study on the locked builds (a runner; the battle's shape, #318; verb leverage, #319); a stop point before L5e2.
-- **Waiting on you**: two process items of #325 (the plan checklist; the full mutation run only at a level's exit).
-- **Money**: L5e1 ≥ 20.27 USD (raw 20–30); this chat's block (2026-10-23/24) 34.33 USD of sessions (the page 7.45, det-math 5.04, the audit 1.57, L5e1 20.27) plus this chat's 26.64.
-- **Running**: nothing.
+- **Done**: #326 (the plan checklist three items, lint check 10; the full mutation run only at a level's exit); `battle.openingRange` 500–3000 m, 174 VERIFIED.
+- **Next**: the pace study's grid (a runner); then the lead designer decides within approved ranges or asks you about E7 before L5e2.
+- **Waiting on you**: nothing.
+- **Money**: this chat's sessions so far 0.72 USD (the openingRange runner); the pace runner running.
+- **Running**: runner `session_018bqyYRiZUXXkB8Znd3CZek` (the pace grid, `run/pace`).
+
+Not built yet: a fix for §17 item 53 (a beam into a ship with no body crashes the kernel).
 
 ## Open pull requests
 
-None after this block's documentation pull request.
+None; `ld/pace` carries this pass's documents and the openingRange records.
 
 ## Next steps
 
-1. **Widen `battle.openingRange`'s approved range to 500–3000 m** (#318) in `js/data.js` and re-record what the data hash moves: a runner session (#322), before the pace study's runs beyond 2000 m.
-2. **The pace study** (§17 item 52, #318, #319): a runner session runs the R1d-A mirror and R2 against the locked builds over the openings, ranges and seeds; it reports E7's median, the battle's shape (the first hit on the loser as a share, hits to kill, the end), verb leverage and the decisions per battle, and the rung-1 levers in the order of #318 (quiet phase before toughness); the lead designer reads it and decides within approved ranges, or puts the E7 or mechanism question to the owner before L5e2.
+1. **The pace study** (§17 item 52, #318, #319): the runner's grid is `tools/estimates/pace-e7.mjs` and `pace-verbs.mjs` (outputs on `run/pace`). The lead designer's probe (seed 1, `ld/pace`): E7 median 38 s on the locked builds; the levers alone 44–96 s; strafe with range open 217 s (6 of 24 without an end); the seed acts only through the dodge intervals (the design partner's check, verified), so seeds 1–4 only where a side strafes or dodges. Verb leverage on one cell: 5 of 19 verbs flip it, all against the player.
+2. **§17 item 53**: an engineer (opus) fixes `beamsOut` with a scenario, then a reviewer; before L5e2's sweep.
 3. **L5e2** (E5–E8, W9b, `L5.route.throughput`): planned after the study, costed raw × 1.24.
 4. Due when their files are touched: §17 items 47, 50, 51.
 

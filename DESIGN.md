@@ -1862,6 +1862,13 @@ Each line names its decision and when it is due; a closed one is removed.
     time) before toughness (`kinetic.hitsToWreck`); and (#319) (d) verb
     leverage, the share of battles one player verb flips, and (e) the
     decisions available per battle. Due: the pace study after L5e1.
+53. **A beam into a ship with no body** (the pace study, 2026-10-24): `js/battle.js`
+    `beamsOut` reads `mainBody(T).x` after a step in which T's reactor
+    explosion destroyed every cell, before the end is judged: a TypeError
+    (`node tools/estimates/pace-verbs.mjs --builds Lance --ranges 600
+    --openings bow`, R2 targeting the shield, step 9524). An engineer's fix
+    with a scenario (where the passed beam energy is booked); due before
+    L5e2's sweep.
 
 ## 18. Decisions in force
 
