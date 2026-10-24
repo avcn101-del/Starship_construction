@@ -29,7 +29,7 @@ export default {
   tolerance: 'books 1e-9 x gross + 1e-12 (#220); the impulse point on the line 1e-9 x the cell edge',
   criterion: 'the largest angular and momentum residuals <= 1e-9 x the largest gross + 1e-12 with both shields up; at least one round slowed by a field on each ship (on the target in the spin case, where the target\'s fixed aim turns with it), and some field-slowed round spent or embedded (battle.spent or an embedded round); every impulse point within 1e-9 x the cell edge of the struck round\'s line of action; battle.ids maps each side\'s shot cause to a distinct shot-n, as many as the shots, and every damage event\'s shot cause in each log is one of them',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-24', hash: 'fb92a8af' },
   cases() {
     return [{ name: 'still', omega: 0, v: [0, 0] }, { name: 'spin', omega: 0.05, v: [20, 0] }];
   },
