@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-24 — battle phases: gaps and the owner's choices
+
+- `IDEAS.md` (battle phases): twelve gaps from the design partner's probe
+  and the owner's choices on a clock (no new clock now; a scenario clock
+  after Mission 0; a stalemate after X s without cell damage) and on
+  outcomes counted apart; on `ideas/phase-gaps`.
+
 ## Unreleased — 2026-10-24 — the room-variants idea
 
 - `IDEAS.md`: the design partner's room-variants idea from the owner's
