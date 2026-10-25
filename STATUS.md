@@ -1,39 +1,39 @@
 # STATUS — hand-over between chats (#179; process v2, #325)
 
-Lead designer chat: **`session_01JNPQjwzYdLB7Uz1qfWt5GC`** (opened by the owner from claude.ai,
-lineage depth 0 of 8; took over 2026-10-25 ~06:40 Vietnam time). Handed
-over 2026-10-24 ~23:25 UTC by `session_01VnsqF6AQX456h5ihxqZjh5` at about 280k
-tokens, after item 55's merge, while the item 58 probe runner works. **The new
-chat is opened by the owner from claude.ai** (lineage depth 0): this chat was at
-depth 7 of 8, and its children could not create triggers or sessions. Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
+Lead designer chat: **the new chat writes its own id here first thing.** Handed
+over 2026-10-25 ~04:45 UTC (11:45 Vietnam time) by `session_01JNPQjwzYdLB7Uz1qfWt5GC`
+at about 315k tokens (the owner's suggestion, #322), while PR #107's reviewer
+runs its mutations. The new chat is created by `session_01JNPQjwzYdLB7Uz1qfWt5GC`
+(lineage depth 1 of 8: its children can still notify). Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
 `session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
 `session_01DFw3o4EBEtf1adcpyJ5786` → `session_01S8gXf1kch2FCFHYE8nwhrn` →
 `session_01Bt5RVRLCv85dFpXLq4qB5W` → `session_01EAtiqegHjnDwsoHwD7cjur` →
-`session_01DJwKiaxa29KDtFqVjBviSe` → `session_01VnsqF6AQX456h5ihxqZjh5` → `session_01JNPQjwzYdLB7Uz1qfWt5GC` (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
+`session_01DJwKiaxa29KDtFqVjBviSe` → `session_01VnsqF6AQX456h5ihxqZjh5` → `session_01JNPQjwzYdLB7Uz1qfWt5GC` → the new chat (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
 
 **Reading order (#325)**: this file, `BRIEF.md`, `CLAUDE.md`,
 `.claude/agents/lead-designer.md`, `DESIGN.md` §18 and the plan in force
-(§13n, §13n.9, §13n.10, §17 items 57–58); `audits/2026-10-24-process.md` §1; everything
+(§13n, §13n.9, §13n.10, §17 items 56–58, rows #340–#345); `audits/2026-10-24-process.md` §1; everything
 else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
 ## For the owner (five lines)
 
-- **Done**: §17 item 55 merged (PR #105) and its documentation on `main` (PR #106, `3cff5ec`); item 58 probed and planned (#340, §13n.10: the thrust report expires after `helm.thrustRetry` 1 s not asked; `RES` on the yield clocks; candidates (a) and (b) rejected on the probe).
-- **Next**: item 58's PR #107 (checker on K7 and reviewer running), a runner's `regress` on the merge; then the builds (PR #104, #330, #332) **and, in parallel, the phases plan's gaps 1, 3, 4** (#341); then the baseline re-measure (with #336/#337's columns) and the phases' measures on the locked builds. The owner also asked (not mid-pass) for a cost and time range for L6 and for Mission 0's exit to a first playable slice.
-- **Waiting on you**: nothing.
-- **Money**: item 55's pass 16.39 USD; item 58 expected 6–11 USD (#246 (4)'s figure 13–22); its probe runners about 0.7 USD so far.
-- **Running**: engineer `session_01S5dPfegKGzV6HkAeRZNbaS` (opus, `m0/pilot58`, task in `DESIGN.md` §13n.10; it notifies this chat). Runner `session_013SMcvDv16xZa1GsyUQnZQ9` ((b) + `RES` `regress`; informational only, (b) was rejected). The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104 (told the new id). No check-in is scheduled.
+- **Done**: item 55's documentation on `main` (PR #106); item 58 probed, planned (#340, §13n.10) and built (PR #107: 181 VERIFIED, 3 mutations KILLED, the blind checker 0 blocking); the owner's #341 (phases planned in parallel); #342 (builds resume; item 56 waits; baseline columns first); #343–#345 (Furnace's mirror stall recorded; `L4.builds.valid.v2`; #343's mechanism corrected: two M shields absorb the beam whole); the design partner's phase probe re-run and merged.
+- **Next**: PR #107's review, then merge (answers row) and a runner's `regress`; tell the builds engineer; the builds' lock (PR #104); **the phases plan's gaps 1, 3, 4 now** (#341); the tools pass for the baseline's columns (#342 (3)); the baseline; the owner's cost and time ranges (L6; Mission 0's exit to a first playable slice).
+- **Waiting on you**: nothing (#343 is open to your veto: Furnace's mirror is not required to end).
+- **Money**: item 58 so far 7.0 USD (engineer 5.97, checker 0.49, reviewer ≥ 0.57 running; expected 6–11); its probe runners 1.17; this chat 11.58 USD at 312k tokens.
+- **Running**: reviewer `session_01LSSsnA46r9a6VyDNVASt7p` (PR #107; `regress` matched, five mutations started 03:28 UTC: **if no notice by 05:28 UTC, the 2-hour limit #314 may have killed them: read it with `list_events`**); engineer `session_01S5dPfegKGzV6HkAeRZNbaS` (PR #107, idle, two open questions); builds engineer `session_01SC9bT7XzCShErTLAScXgUu` (PR #104, writing `L4.builds.valid.v2`, waits for PR #107's merge to lock). All three told the new chat's id. No check-in is scheduled.
 
-Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidance), 57 (a leading navigator), 58 (the starved-thrust latch).
+Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidance; waits, #342), 57 (a leading navigator); 58 in PR #107.
 
 ## Open pull requests
 
-- **#104** (draft, `m0/builds2` → `ld/pace`): the builds' rebuild, stopped at #330's stop rule; its questions answered (#331, #332; the race was item 55, now merged). Continues after item 58 under #330 and #332 (retry without the S turret first), merging `ld/pace` first; re-run `tools/estimates/helm-suite.mjs` on the builds that get locked.
+- **#107** (`m0/pilot58` → `ld/pace`, head `9959e4e`): §17 item 58. Engineer done; regress 181 VERIFIED + 160 WITHDRAWN + 5 RETIRED; K7 locked `b5fa909`, K8 `6043ed0` (901 / 1800, the plan corrected before the lock); the blind checker (0 blocking; notes: K7's (ii) bound 660 where the cadence gives 610, (i)'s 59 where the rule gives 60, (iii) only weakly independent of `shipDynamics` when f = 1: the plan's looseness, the lead designer's, for a successor when `js/pilot.js` is next touched); the reviewer running. **At the merge**: an answers row (the checker's notes; the engineer's Q2: add `item58.res.reset`, K8 kills it, 40 of 120; Q3: `L4.helm.separation`'s 2500 m duel now ends disabled A at 209 s instead of destroyed T at 95 s, min 730 m, passes: chaotic sensitivity, nothing to do); the K8 correction; costs; the §13m row; then a runner `regress` on the merge; then tell the builds engineer.
+- **#104** (draft, `m0/builds2` → `ld/pace`): the builds. Lance and Swarm meet #330 (i) / (ii) with one S turret each (8/8 8/8; 8/8 7/8); Furnace 0/8 measured (#343, #345), 6/8 (ii); `L4.builds.lethal` written unlocked; `L4.builds.valid` → `.v2` (#344). Locks after PR #107's merge, with (i), (ii) and the helm suite re-checked on the merged code.
 
 ## Next steps
 
 0. **Documentation to `main`** (#325 (7)): item 55's pass merged to `main` (PR #106); the next one after item 58's merge.
-1. **§17 item 58** (#340, §13n.10): the engineer builds K7–K9 (`m0/pilot58`); then the blind physics checker (sonnet) on K7 only (setup and inputs, extracted with node), the reviewer (sonnet) on the PR, a runner `regress` on the merge (expect 181 VERIFIED + 160 WITHDRAWN + 5 RETIRED). Probe: `tools/estimates/item58*.mjs`, `item58-{a,b,c}.diff`.
+1. **§17 item 58** (#340, §13n.10): PR #107, see above. After it, the documentation PR `ld/pace` → `main`.
 2. **The builds** (#330, #332, #342): the builds engineer `session_01SC9bT7XzCShErTLAScXgUu` resumes PR #104 now (retry without the S turret first; the Swarm may aim at saturating point defence, `tools/estimates/swarm-pd.mjs`); before `L4.builds.lethal` locks it merges `ld/pace` with item 58 and re-checks #330's (i), (ii) and the helm suite. `L4.builds.lethal` is not yet written or locked.
 2b. **The baseline's columns** (#342 (3)): a small tools pass (engineer) puts #336's outcomes counted apart (win / loss / escape / none by the limit; stalemate once #337's X is set), the survival column, #338's ranking (wins, survival, crew alive) and #337's columns (time to the first hot room; the longest gap without `cell-damaged` in battles ending in a kill) into `tools/sweep.mjs`, `tools/estimates/pace-e7.mjs` and `pace-verbs.mjs`, before the baseline runner; planned after item 58's merge.
 3. **The owner's battle-phases direction** (2026-10-24, `IDEAS.md` from `ideas/battle-phases` `d0bffd5`; the owner's answer to #329's B): phases contact / range / position and control / finish, one side attacking and one defending, a defence sends the battle back a phase, tapping out open in every phase, each side judging its phase from its own model; a strategy is per phase a preset plus an exit condition at an aggression level; the player takes decision points from a short menu (auto by default). **When**: after item 55 and the rebuilt builds, before L5e2's E5–E7; the runner's re-measure below is the baseline without phases, the same measures with phases decide. Item 55 keeps the navigator's inputs as goals (range, aspect) set from above; a one-phase plan must reproduce the behaviour exactly. Record as an owner row when the phases pass is planned.
@@ -58,6 +58,11 @@ sessions the new id; the owner is told the new chat's link. The owner is in
 Vietnam: times in Vietnam time (UTC+7).
 
 ## Lessons for whoever continues
+
+- **Re-run a trace before writing it into a row** (#345): #343 carried the engineer's "the rest burns front cells" mechanism; no Furnace mirror cell shows it (two M shields absorb the beam whole). The owner and the design partner caught it in minutes with one script.
+- **Probe a fix on the case's own extreme state, not only on the suite** (#340): candidate (b) cured the latch on all 168 suite battles but chattered every second step under sustained starvation (K7's setup, 300 asks in 10 s); only the constructed case showed it.
+- **A clock's hand count includes its start step** (K8, PR #107): the patience clock starts at E + 1, so the yield lands at E + 901, not E + 900; the engineer caught the plan's literal before the lock.
+- A chat created by the lead designer at depth 0 is at depth 1: its children notify normally.
 
 - **Session lineage is capped at depth 8** (seen 2026-10-24): `get_session` on this chat shows `lineage: depth 7, limit 8`. Sessions it creates run but cannot create triggers or sessions, so they cannot notify; read them with `list_events` and use `send_later` check-ins. The next lead designer chat must be opened by the owner from claude.ai (depth 0), not created by this one.
 - **A background command dies at 2 hours** (#314): split a full mutation run with `--only` into parts under that limit from the start; the tool writes its report only at the end.
