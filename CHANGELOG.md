@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — the reference builds rebuilt (#330, #332, #343, #344, PR #104)
+
+- `mission0/builds.js`: Lance, Swarm and Furnace rebuilt (R2 and the
+  degenerate six unchanged). Lance: the N = 4 railgun, its bow RCS moved off
+  the railgun's bow cells, one secondary S turret on an S magazine of S
+  rounds (#332). Swarm: no point defence, penetrator warheads, one secondary
+  S turret (#332). Furnace: an L beam bay N = 6, two M shield generators, no
+  turret. Masses 1435.5 / 1407.2 / 1458.7 t (101.0 / 99.0 / 102.6 % of R1d).
+- `L4.builds.lethal` (new, locked `f0b30149`): (i) Lance's and Swarm's
+  mirrors end with damage on the loser in 8 of 8 cells; Furnace's mirror is
+  measured, 0 of 8 (#343, #345); (ii) R2 damaged in 8 / 7 / 6 of 8; (iii)
+  valid and on R1d's budget.
+- `L4.builds.valid` withdrawn (#344); successor `L4.builds.valid.v2`
+  (locked `54ed18cc`): the specialists' shapes as #344 restates them, every
+  other check kept. `L4.sweep.determinism.v2`, `L4.loop.symmetric.v2` and
+  `L4.loop.symmetric` re-recorded. Mutation `builds2.lanceTurret`.
+
 ## Unreleased — 2026-10-25 — §17 item 58: the thrust report expires; RES on the yield clocks (#340, PR #107, merged; answers #350)
 
 - `js/data.js`: `helm.thrustRetry` (new, 1 s, 0.5–2 s, k 0). `js/pilot.js`:
