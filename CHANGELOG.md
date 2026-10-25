@@ -9,6 +9,10 @@
   `tools/estimates/phase-gaps-pursuit.mjs` (+ `.diff`),
   `phase-gaps-contact.mjs`, `out/phase-gaps-*.jsonl`; detail in
   `HISTORY.md` §16.
+- #347 (the owner): the phases plan includes a designed preset menu per
+  build and per phase; the baseline's verb column is labelled as measured
+  on the prototype's three presets. #348: the menu from the sweep's
+  distinct best responses per build, after the builds' lock.
 
 ## Unreleased — 2026-10-25 — §17 item 58 planned (#340)
 
