@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — X provisional (#360)
+
+- #360: #337's X is re-checked against the phased measures (read with the
+  stalemate off) before E7 is judged.
+
 ## Unreleased — 2026-10-25 — the order after the builds' lock (#358)
 
 - #358 (the owner): gap 7 and §13n.12 in parallel; the candidate slots
