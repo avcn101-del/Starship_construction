@@ -1198,7 +1198,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Element | Today | Proof | Status |
 |---|---|---|---|
 | Standing orders, 12 slots (#38): movement (range, position, style, dodging) | `js/helm.js` (#301, #302, #307) | `L4.helm.range`, `L4.helm.conflict`, `L4.helm.dodge`, `L4.helm.style`, `L4.helm.drift`, `L4.helm.race` (#335) | proven L5d; race L5 (item 55) |
-| The helm's layers: pilot (heading and throttle to RCS and engines; reports the ship's acceleration and turn), navigator (goals to heading and throttle), gunnery and systems (the owner, #333) | `js/pilot.js`, `js/navigator.js`, `js/helm.js` (#335) | `L4.pilot.turn180`, `L4.pilot.thrust`, `L4.helm.race`, `L4.helm.yield` | proven L5 (item 55, PR #105) |
+| The helm's layers: pilot (heading and throttle to RCS and engines; reports the ship's acceleration and turn), navigator (goals to heading and throttle), gunnery and systems (the owner, #333) | `js/pilot.js`, `js/navigator.js`, `js/helm.js` (#335) | `L4.pilot.turn180`, `L4.pilot.thrust`, `L4.helm.race`, `L4.helm.yield`, `L4.pilot.retry`, `L4.helm.yield.exact` | proven L5 (item 55, PR #105; item 58, PR #107) |
 | Standing orders: firepower (facing, firing style, open fire, target priority) | `js/helm.js` | `L4.helm.dodge`, `L4.orders.fire` | proven L5d |
 | Standing orders: energy (power and repair priority, heat discipline) | `js/helm.js`, `routePower`, `repairGrants` (#307) | `L2.power.flow` (priority), `L4.orders.energy`, `L4.orders.repair` | proven L5d |
 | Standing orders: emission (posture, auto-scan) | `js/helm.js` with `sensors.js` | `L4.enemy.decide`, `L4.orders.fire` | proven L5d |
@@ -1986,22 +1986,6 @@ Each line names its decision and when it is due; a closed one is removed.
     Not the phases' pursuit (#346): at equal acceleration a pursuing law only
     delays an escape.
 
-58. **A starved engine latches the pilot's thrust at 0** (PR #105, the
-    physics checker's H1 and the reviewer's finding 1; #335's rule as
-    written): the delivered fraction is refreshed only while the engine is
-    asked to thrust; once a starved engine reports 0, the navigator's
-    `able` is false and a range order under bow facing (or broadside
-    without dodging) never asks again, even after power returns. Not seen
-    in four natural battles; reproduced by injected state. Also the yield's
-    and the reset's clocks compare without `RES` (#308 (2)), so a yield can
-    land one step late (`L4.helm.yield` engages at step 60 to stay inside
-    ± 1). A pilot pass, probed first (count the suite's cells where it
-    trips; candidates: the fraction the router would give at full draw, or
-    a starved report that expires), before the builds are locked (#330)
-    **Planned** (#340, §13n.10): a report expires after `helm.thrustRetry`
-    (1 s) not asked; `RES` on both clocks; K7 `L4.pilot.retry`, K8
-    `L4.helm.yield.exact`.
-
 ## 18. Decisions in force
 
 One row per decision of `DECISIONS.md`, #1 to the last row, with its status today (#241 (5)). **current**: stands as written; **superseded by #n**: replaced; **partly superseded by #n (what remains)**; **report**: the row records a result or a process step, not a rule; **owner question open**: waits for the owner; **current (unchecked)**: not checked against the current text. The log itself is append-only and unchanged, so a row there may still read as if it stood. Compiled from the documents audit (B1, H), the decisions' own "supersedes" words and the current text of this file; the lead designer reviews it.
@@ -2349,7 +2333,7 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 337 | The clock: none new now (heat, ammunition; the baseline reports the first hot room); a scenario clock with its tell after Mission 0; a stalemate after X s without new cell damage on either ship, X set by the lead designer from the baseline (the owner) | current |
 | 338 | The sweep ranks order sets by wins, then survival, then crew alive; a stalemate 0 in E5, #315's draw a half (the owner; built with #336) | current |
 | 339 | Item 55's answers: K0 holds with a grep-only move; the fourteen stale mutations re-targeted; the yield read as P3's code; K6 `L4.helm.yield` added (K3 does not see the yield or the reset) | current |
-| 340 | Item 58's pass: a delivered-thrust report expires after `helm.thrustRetry` (new, 1 s) not asked, so a starved engine is asked again once a second; `RES` on the yield's and reset's clocks; K7 `L4.pilot.retry`, K8 `L4.helm.yield.exact`, K9 re-records (§13n.10; supersedes #335's "1 until then" clause only) | current |
+| 340 | Item 58's pass: a delivered-thrust report expires after `helm.thrustRetry` (new, 1 s) not asked, so a starved engine is asked again once a second; `RES` on the yield's and reset's clocks; K7 `L4.pilot.retry`, K8 `L4.helm.yield.exact`, K9 re-records (§13n.10; supersedes #335's "1 until then" clause only) | current (K8's literal amended by #350) |
 | 341 | Battle phases planned now, in parallel with the builds: gaps 1, 3, 4 first; gap 7 and every phases measure after the builds lock (the owner; #334's timing) | current |
 | 342 | The builds resume before item 58's merge (merged and re-checked before their lock); item 56 waits (point defence, not pursuit, limits the Swarm: 79 of 104 killed); a tools pass for the baseline's columns before the baseline (#336–#338) | current |
 | 343 | Furnace's mirror does not end (two M shields absorb its beam whole in 7 of 8 cells, #345): recorded as a measured count in `L4.builds.lethal`'s (i), not a criterion; (i) for Lance and Swarm, (ii) for all three; no M turret, no beam change before the baseline | current |
@@ -2359,3 +2343,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 347 | The phases plan includes a designed preset menu per build and per phase, with the contact preset; the baseline's verb-leverage column is labelled as measured on the prototype's three presets, not compared like for like (the owner) | current |
 | 348 | The menu: per build, the contact preset plus at most three of the sweep's distinct best-response order sets against the reference builds, phase-tagged by range, recorded as `MENUS` in `js/data.js`; `PRESETS` unchanged; `pace-verbs.mjs --menu`; derived after the builds' lock with gap 7 | current |
 | 349 | Verb leverage is reported as a save rate (player-losing cells turned to a win, escape or stalemate) and an error rate (player-winning cells turned to a loss), per pair and in total, with cell and trial counts; built in the tools pass (the owner; the lead designer) | current |
+| 350 | Answers at PR #107's merge: K8's 901 / 1800; `item58.res.reset` in the tools pass; K7's loose bounds for a successor when `js/pilot.js` is next touched; §17 item 58 closed | current |

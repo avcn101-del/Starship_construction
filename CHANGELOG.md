@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — §17 item 58: the thrust report expires; RES on the yield clocks (#340, PR #107, merged; answers #350)
+
+- `js/data.js`: `helm.thrustRetry` (new, 1 s, 0.5–2 s, k 0). `js/pilot.js`:
+  a delivered-thrust report expires once its engine has not been asked to
+  thrust for `helm.thrustRetry`, so a starved engine is asked once a second
+  (no latch at 0, no chatter). `js/navigator.js`: the yield's and the
+  reset's clocks compare with `RES`.
+- K7 `L4.pilot.retry` and K8 `L4.helm.yield.exact` (K8's criterion as the
+  lead designer answered on PR #107: Y − E = 901, B − L = 1800 exactly).
+  K9: every record re-recorded; six results moved (`L0.determinism.v2`,
+  `L4.helm.race`, `L4.helm.separation`, `L4.sweep.determinism.v2`,
+  `L4.loop.symmetric`, `.v2`). Mutations `item58.latch`, `.chatter`, `.res`
+  KILLED; `item55.position.yield` and `.reset` re-targeted, KILLED.
+  `DESIGN.md` §13m: "The helm's layers" gains K7 and K8. `CONSTANTS.md`
+  regenerated.
+
 ## Unreleased — 2026-10-25 — the phases plan's gaps 1, 3, 4 probed (#346)
 
 - #346: an escape at equal acceleration is physics (no pursuing

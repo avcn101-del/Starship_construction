@@ -9,6 +9,8 @@
 import { scaled } from './data.js';
 import { setRcs, isDestroyed, survivingFraction } from './rooms.js';
 
+// Float resolution (#308 (2)): a time compared with one built by sums of dt counts as reached within this many seconds.
+const RES = 1e-9;
 const wrap = (a) => a - 2 * Math.PI * Math.floor((a + Math.PI) / (2 * Math.PI));
 
 /** The body a side is flown on: body-0 (the heaviest piece of a split keeps it, 13f.1), else the heaviest. */
@@ -62,11 +64,15 @@ export function shipDynamics(battle, side) {
   const w = side.world, b = flownBody(w), p = battle.params;
   if (!b) return { a: 0, t180: Infinity };
   let thrust = 0;
-  // The delivered thrust (13n.9, #335): each live engine counts at the power fraction it was given at the last step it
-  // was asked to thrust (1 until then, and without power routing), so a starved engine reports none and the braking
-  // curve and the range order's engagement use the thrust the ship has.
+  // The delivered thrust (13n.9, #335; 13n.10, #340): each live engine counts at the power fraction it was given at the
+  // last step it was asked to thrust (1 before its first ask, and without power routing), so a starved engine reports
+  // none and the braking curve and the range order's engagement use the thrust the ship has. Once it has not been
+  // asked for helm.thrustRetry the report expires and it counts at 1 again, so a starved engine is asked once per
+  // retry and returning power is read afresh (no latch at 0, no chatter).
+  const retry = scaled(p.helm.thrustRetry, battle.edge);
   for (const r of w.rooms) if (r.type === 'engine' && r.placed && !isDestroyed(r)) {
-    if (r.engine.throttle > 0 && w.power) r.engine.lastSupply = r.powerFraction ?? 1;
+    if (w.power && r.engine.throttle > 0) { r.engine.lastSupply = r.powerFraction ?? 1; r.engine.askedAt = battle.t; }
+    else if (w.power && r.engine.askedAt !== undefined && battle.t - r.engine.askedAt >= retry - RES) r.engine.lastSupply = undefined;
     thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r) * (r.engine.lastSupply ?? 1);
   }
   const force = scaled(p.rcs.force, battle.edge);

@@ -1179,6 +1179,14 @@ steel's c alone), and the crew of a long beam bay (its crew scales with its
 cells under the size rule).
 
 
+### §17 item 58 merged (PR #107, #350, 2026-10-25)
+
+K9's moved results: `L4.helm.separation`'s 2500 m duel ends disabled A at
+209.13 s (was destroyed T at 94.93 s), min separation 730.05 m at 98.1 s
+(criterion ≥ 150 m, passes); the winner flips after the first retry ask,
+not traced. `L4.e8.v2` and `L4.e8.weapons` changed their wall-clock notes
+(0.1652 → 0.1594, 0.4774 → 0.3497 ms per step), not results.
+
 ### Battle phases' gaps 1, 3 and 4: the probe (#346, 2026-10-25)
 
 On `ld/pace` `7ef9ff3` (the locked builds, not PR #104's), by the lead

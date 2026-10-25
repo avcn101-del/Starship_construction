@@ -2231,16 +2231,40 @@
     "id": "item55.position.yield",
     "rule": "13n.9 the helm's layers (#335)",
     "file": "js/navigator.js",
-    "old": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge)) h.yielded = true;",
-    "new": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge)) h.yielded = false;",
+    "old": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge) - RES) h.yielded = true;",
+    "new": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge) - RES) h.yielded = false;",
     "note": "item 55: the position never yields"
   },
   {
     "id": "item55.position.reset",
     "rule": "13n.9 the helm's layers (#335)",
     "file": "js/navigator.js",
-    "old": "      if (t - h.freeSince >= scaled(p.helm.positionReset, edge)) h.yielded = false;",
+    "old": "      if (t - h.freeSince >= scaled(p.helm.positionReset, edge) - RES) h.yielded = false;",
     "new": "      h.yielded = false;",
     "note": "item 55: a yielded position comes back at once when the order lets go (the probe: a reset of 0 s does not cure the race)"
+  },
+  {
+    "id": "item58.latch",
+    "rule": "13n.10 the delivered thrust's report expires (#340)",
+    "file": "js/pilot.js",
+    "old": "    else if (w.power && r.engine.askedAt !== undefined && battle.t - r.engine.askedAt >= retry - RES) r.engine.lastSupply = undefined;",
+    "new": "    else if (false) r.engine.lastSupply = undefined;",
+    "note": "item 58: the report never expires: a starved engine latches the pilot's thrust at 0 (#335 as built)"
+  },
+  {
+    "id": "item58.chatter",
+    "rule": "13n.10 the delivered thrust's report expires (#340)",
+    "file": "js/pilot.js",
+    "old": "    else if (w.power && r.engine.askedAt !== undefined && battle.t - r.engine.askedAt >= retry - RES) r.engine.lastSupply = undefined;",
+    "new": "    else if (w.power && r.engine.askedAt !== undefined && battle.t - r.engine.askedAt >= battle.dt - RES) r.engine.lastSupply = undefined;",
+    "note": "item 58: the report expires after one step not asked (the probe's (b)): a starved engine is asked every second step"
+  },
+  {
+    "id": "item58.res",
+    "rule": "13n.10 the yield clocks take RES (#340)",
+    "file": "js/navigator.js",
+    "old": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge) - RES) h.yielded = true;",
+    "new": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge)) h.yielded = true;",
+    "note": "item 58: the yield's clock without RES: at some engagement steps the yield lands one step late"
   }
 ]

@@ -1,0 +1,76 @@
+{
+  "id": "L4.pilot.retry",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.pilot.retry",
+  "code": "5140cc9",
+  "criterionHash": "29906229",
+  "lockedHash": "29906229",
+  "runHash": "bb39e4a6",
+  "dataHash": "df15610d",
+  "rowsHash": "fc07fd65",
+  "rows": [
+    {
+      "case": {
+        "name": "starved, then fed"
+      },
+      "expected": {
+        "N": 60,
+        "minGap": 59,
+        "window": 61,
+        "by": 660
+      },
+      "actual": {
+        "asks": [
+          0,
+          61,
+          122,
+          183,
+          244,
+          305,
+          366,
+          427,
+          488,
+          549
+        ],
+        "gaps": [
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60
+        ],
+        "tail": 50,
+        "starvedFractions": [
+          0
+        ],
+        "after": {
+          "n": 610,
+          "a": 10.484201983680341,
+          "f": 1,
+          "M": 1430724.0573339704,
+          "footprint": 1,
+          "surviving": 1,
+          "hand": 10.484201983680341
+        },
+        "ended": null
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

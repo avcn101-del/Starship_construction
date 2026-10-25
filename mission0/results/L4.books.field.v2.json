@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.books.field.v2",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "210f8ebd",
   "lockedHash": "210f8ebd",
   "runHash": "4123e127",
-  "dataHash": "4b7cd27a",
+  "dataHash": "df15610d",
   "rowsHash": "a8afc4b9",
   "rows": [
     {
