@@ -17,7 +17,8 @@
 // to Fire's with the entry's slots over them (the assignment the kernel's 'preset' verb makes), done by this tool
 // between ticks at the verb's step, so it is not in battle.verbs. #349's rates, per pair and in total: the save rate
 // (over the cells whose baseline is a player loss, the trials the player survives: win, escape, let go, stalemate,
-// no end) and the error rate (over the cells whose baseline is a player win, the trials that end in a player loss).
+// no end) and the error rate (over the cells whose baseline is a player win, the trials that end in a player loss);
+// the totals over all cells, the mirror cells and the rest (#356 (1)).
 import { PARAMS, withOverrides, PRESETS } from '../../js/data.js';
 import * as DATA from '../../js/data.js'; // DATA.MENUS once #348 adds it
 import { createBattle, tick, battleHash } from '../../js/battle.js';
@@ -169,6 +170,9 @@ else {
     return `save rate ${x.save[0]} of ${x.save[1]} trials (${x.save[2]} cells); error rate ${x.error[0]} of ${x.error[1]} trials (${x.error[2]} cells); baseline neither a win nor a loss: ${x.other[0]} trials (${x.other[1]} cells)`;
   };
   for (const [a, b] of pairs) console.log(`rates ${a} v ${b}: ${rates((k) => k.a === a && k.b === b)}`);
-  console.log(`rates in total: ${rates(() => true)}`);
+  // #356 (1): over all cells, over the mirror cells (player build = enemy build: an exact mirror always ends against A) and over the rest.
+  console.log(`rates in total, all cells: ${rates(() => true)}`);
+  console.log(`rates in total, mirror cells: ${rates((k) => k.a === k.b)}`);
+  console.log(`rates in total, non-mirror cells: ${rates((k) => k.a !== k.b)}`);
   console.log(`kernel errors: ${errors.length}`); for (const e of errors) console.log(`  ERROR ${e}`);
 }

@@ -13,7 +13,12 @@
   longest quiet gap from t = 0 and from the first damage; the summary's
   outcomes, survival and per-pair hot and quiet-gap columns (#337).
 - `pace-verbs.mjs`: `--menu prototype|designed`, `--menu-file`, #347's
-  label; #349's save and error rates per pair and in total.
+  label; #349's save and error rates per pair and in total, the totals
+  over all, mirror and non-mirror cells (#356 (1)).
+- `tools/lint-docs.mjs` (#356 (2)): check 11, §8's decision table names
+  every `ORDERS` slot, every `PRESETS.fire` key and every verb of
+  `js/battle.js`'s `verb()`; check 12, every checklist of a plan from
+  §13n.12 on carries a **Player decisions** item (#355).
 - Scenario `L4.sweep.scoring` (U1, locked before its first run);
   `L4.sweep.determinism.v2` re-recorded (U2): its table hash, and its pair's T set (`range` close → open, the crew tie-break) and ends (destroyed A 220.6 / 142.9 s → 505.3 / 123.3 s); criterion passes. Mutations
   `item58.res.reset`, `tools.sweep.escapeWin`, `tools.sweep.noTie`.
