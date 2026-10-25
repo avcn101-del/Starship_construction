@@ -32,7 +32,7 @@ export default {
   id: 'L4.builds.lethal',
   level: 'L4',
   laws: ['the reference specialists are lethal (#330, #332, #343): Lance and Swarm kill their own mirror in every cell; each of the three damages R2 in at least half the cells; each valid and on R1d\'s budget'],
-  dependsOn: ['L4.builds.valid', 'L4.helm.race'],
+  dependsOn: ['L4.builds.valid.v2', 'L4.helm.race'],
   setup: 'T1: createBattle as tools/estimates/pace-e7.mjs\'s cell (knowledge on, both the standard enemy with personality 0.5, default orders, seed 1, bearing +x for bow, +y with attackerHeading 0 for broadside, limit 600 s) at 600 / 900 / 1500 / 2500 m, bow and broadside, battle.cullDistance = max(3000, 2 x range); (i) Lance, Swarm, Furnace each against itself; (ii) R2 as the attacker against each; (iii) validateShip and the readout\'s mass',
   measure: 'per battle: its end (kind, side, time) and the cell-damaged events in each side\'s log; per build: validateShip\'s verdict and the mass at undock',
   tolerance: 'counts of battles (exact); the mass within 5 % of R1d\'s',
