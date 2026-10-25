@@ -68,7 +68,7 @@ export default {
   tolerance: 'the mass within 5 % of the budget (13n.1 (e)); the rest exact',
   criterion: 'every build valid (no reason); |mass / budget - 1| <= 0.05 (R1d\'s for R2, Lance, Swarm, Furnace; R2\'s for the degenerate six); each build what 13n.1 (e) names, the specialists as #344 restates them (see the file); every build carries an antenna',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-25', hash: '54ed18cc' },
   cases() {
     return Object.keys(BUILDS).map((name) => ({ name }));
   },
