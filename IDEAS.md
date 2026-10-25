@@ -26,6 +26,7 @@ adopted (#n). "Claimed" gates are the idea's own claim, never a measure.
 | [Ship classes: roles, forms and factions](#ship-classes-roles-forms-and-factions) | dependency, throughput, information (one per faction) | yes · yes · yes · yes | E6 against ships two classes larger (proposed) | waiting |
 | [Battle phases: decision points, attack and defence](#battle-phases-decision-points-attack-and-defence) | information, throughput, dependency (one per phase) | yes · yes · yes · yes | verb leverage and the battle's shape with and without phases on the rebuilt builds, outcomes counted apart (win, loss, escape, stalemate), then the owner's feel on the phone | waiting |
 | [Room variants: one physical trade per room](#room-variants-one-physical-trade-per-room) | dependency, throughput, information (one family per axis) | yes · yes · yes · yes | no variant dominant in the sweep (E5), each winning some matchup; the phase fill order beating always-full and always-low | waiting |
+| [Postures from scarce resources: the decisions a fighting ship needs](#postures-from-scarce-resources-the-decisions-a-fighting-ship-needs) | throughput, information, dependency (one resource each) | yes · yes · yes · yes | the sweep's best responses land in the admissible postures; save and error rates (#349) with a posture menu against the prototype menu | waiting |
 | [Blast resistance from mass](#not-yet-worked) | not stated | not checked | not stated | waiting (#232, `DESIGN.md` §13i.1) |
 | [Tumble and sloped armour](#not-yet-worked) | not stated | not checked | not stated | waiting (#230) |
 | [Plasma toroid gun (MARAUDER)](#not-yet-worked) | not stated | not checked | not stated | waiting |
@@ -917,6 +918,346 @@ would replace [Presets by ship archetype](#presets-by-ship-archetype) and
   low" in some matchups; then the owner's feel in the shipyard.
 - **Links.** #18, #33, #36, #62, #63, #71, #72, #73, #74, #75, #94, #122,
   #148, #193, #281, #285, #318, #334; battle phases; the reactor shield mass.
+
+### Postures from scarce resources: the decisions a fighting ship needs
+
+*From the owner's discussion, 2026-10-25 (the design partner). The input of
+the battle phases' designed menu (#347, #348): to be read before that menu is
+derived. A model, not a battle: no number below comes from the kernel's
+battles except where a reading says so.*
+
+- **Problem it answers.** Nobody designed the presets (#347: Fire, Cool and
+  Evade are prototype v2's) or the twelve slots' values (#38's groups, L5d's
+  minimal values), and #348 would derive the menu from `tools/sweep.mjs`,
+  which varies eleven of those slots (`tools/sweep.mjs` line 36–40: not the
+  throttle, the heat threshold, the power or the repair lists). So the menu
+  could only recombine what exists. **The owner's method**: start from what a
+  ship needs to fight and move, whatever the phases and whatever the build;
+  list the decisions; cross-reference them with what the kernel has; then
+  eliminate the combinations that make no sense, physics first, as far as
+  can be shown without a battle.
+- **Step 1: the 22 decisions a fighting ship needs.** Owner by #36's rule
+  (auto: one right answer; order: the answer depends on the opponent, known
+  by contact; verb: it depends on information that arrives in battle).
+  "Today" is read from `ld/pace` `01b9332` (`js/` unchanged to `5d2b4da`).
+
+  | # | Function · decision | Physical cause · cost | Owner (proposed) | Today | Gap |
+  |---|---|---|---|---|---|
+  | 1 | Sense · which zone to look at | d⁴ scan, one zone at a time · time, the scanner EM-bright (#24) | verb (auto default: the most unknown zone) | the scan verb; `autoScan` (`js/helm.js` 213) | none |
+  | 2 | Sense · active or passive | an active scan reveals the scanner · information for exposure | order | `autoScan`, `emission: full` | none |
+  | 3 | Move · which range | reach, point defence's time, d⁴, time of flight · thrust, heat | order | `range` | none |
+  | 4 | Move · which face to the enemy | arcs (#17), plates, the plume (#297), the face shown | order (a spinal build: auto bow) | `facing` (bow / broadside), `position` | no stern facing; for a spinal build `facing` is no decision |
+  | 5 | Move · how much thrust | power to the engine starves weapons (#340), the exhaust IR-bright (#140) | order | the throttle, inside a preset only; not a slot; the sweep never varies it | missing (the range phase's attacker is an acceleration margin, #346) |
+  | 6 | Fire · fire or hold | a release opens one's own shield window (#100), heats, spends, reveals | order and verb | `openFire`; `tight` coming (#346) | being closed |
+  | 7 | Fire · which room | the dependency law | order (a class) + verb (a room) | `target`: weapons / power (the reactor) / bridge / nearest (`js/helm.js` 44); the target verb | no class "defences" (shield generator, point defence, antenna) and none for the engine |
+  | 8 | Fire · when | the stock, the hit chance | order | `openFire` inRange / sureHit | none |
+  | 9 | Fire · salvo or ripple | saturate point defence or a buffer, or sustain | order | `firing` (the beam not concerned) | none |
+  | 10 | Fire · which weapons fire | the beam draws much power and heat and holds its window open (#100) | order | none: every weapon is released together; the beam fires whenever released | missing |
+  | 11 | Fire · round type, seeker | #95, #97 | auto (rounds), shipyard (seekers) | built | none |
+  | 12 | Protect · the shield's budget | it stops beams and rounds · power, heat, EM while absorbing (#103) | order (by the other's weapons) | only indirect: `emission: cold` or heat response `shield` (`js/helm.js` 205) | no direct order |
+  | 13 | Protect · evasion | time of flight, the lead | order | `dodging` (broadside only, #40), `style` | sits in movement |
+  | 14 | Protect · signature | IR and EM; seekers | order | `emission: cold` (also engine off, shield off, no scan, `js/helm.js` 196–213) | three decisions in one value; engine off and no active scan are physics, shield off is the kernel's choice (#103: EM only while absorbing) |
+  | 15 | Protect · point defence | nearest missile; a finite stock | auto | built | none |
+  | 16 | Protect · containment, dark fragments | one right answer | auto | built (#324) | none |
+  | 17 | Sustain · power split | one reactor | order (a verb when wounded?) | `priority` (a list; the sweep does not vary it) | not searched |
+  | 18 | Sustain · heat | radiators, T⁴ | order | `heat`: threshold, response (`js/helm.js` 196, 218) | its responses switch other functions' systems |
+  | 19 | Sustain · repair order | the field, the cell's mass | order | `repair` | none |
+  | 20 | Command · commit, hold, fall back | one's own model against the other | verb (auto default) | none for the player; the enemy by personality | missing: the phases' job, needed with one phase too |
+  | 21 | Command · break off | #293 | verb | the `range` value `disengage` | in the wrong group |
+  | 22 | Command · strike colours | permanent crew death (#50) · the ship | verb | the enemy only (`js/battle.js` 867) | missing for the player: the owner's question (#2) |
+
+- **Step 2–3: the cross-reference.** Six functions (Sense, Move, Fire,
+  Protect, Sustain, Command; the frame is the design partner's, from the
+  joint functions of military doctrine, from memory, not checked) against
+  #38's four groups: **Protect** and **Command** have no group (their
+  decisions sit in movement, emission and heat, and in one value of
+  `range`). Missing: the throttle (5), a target class for defences (7),
+  which weapons fire (10), the shield's budget directly (12), Command for
+  the player (20, 22). Conflated: `emission: cold` (14), the heat
+  responses (18), evasion inside movement (13). The verbs follow from the
+  owner column: the decisions that depend on information arriving in battle
+  are 1, 7, 20, 21, 22 (perhaps 12 and 17): **#2's three verbs are logical
+  as Command (switch posture), scan and target; their content is what was
+  never designed**.
+- **The scarce resources.** The decisions are not independent: each spends
+  something the ship has one stock of. Four are **spent** by choice:
+  **Power** (throughput), **Ammunition** (throughput, #89), **Geometry**
+  (range and aspect: arcs, plates, the plume, scan time, hit chance) and
+  **Time** (tempo: press or wait). Three are **thresholds** on consequences:
+  **Heat** (from power drawn and energy absorbed), **Signature** (from
+  thrust, heat, scans, an absorbing shield, firing; information) and
+  **Integrity** (cells and crew; dependency). A **posture** is one choice on
+  each: how the ship spends its resources.
+- **From 22 decisions to nine posture axes.** 3, 4 → Range, Aspect; 5, 17 →
+  Power (Move / Protect / Fire: where the spare power goes); 6, 8, 9 →
+  Ammunition (spend: in range, salvo / conserve: sure hit, ripple / hold);
+  10 → Weapons (the subset of the build's weapons released); 12 → the shield
+  always on where there is one, Protect its spare power; 13 → evasion =
+  thrust broadside; 2, 14 → Signature (loud / quiet); 18 → Heat (spend /
+  conserve); Time (press / wait) and Integrity (expose / preserve) are the
+  attitude, #334's aggression. Not posture axes: 1 and 7 are **pointers**
+  (where to look, what to hit; gated by the posture: no scan when quiet, no
+  target when holding); 11, 15, 16 are auto; 19 is an order that constrains
+  nothing; 20–22 are **Command**, the moves between postures.
+- **The quantities a posture produces** (each rule below is written on
+  these, so a conflict of any order between axes is caught, not only pairs):
+  the weapons firing (released and bearing: a spinal weapon only bow on, a
+  turret bow and broadside (ASSUMED, arcs not checked), a missile any aspect);
+  the beam firing; a power-heavy weapon firing (beam, railgun); an
+  ammunition weapon firing; a loud release (beam, railgun: ASSUMED EM-bright;
+  missile: a torch, #140; turret: ASSUMED loud, switch `--turret-quiet`);
+  thrust; the range rate (thrust bow on closes, stern on opens, broadside
+  goes sideways); evasion (thrust broadside, #40); heat seen (heat spent on a
+  build with radiator panels, #102, #143); heat that matters (the beam, #343;
+  an absorbing shield; kinetic heat does not bind within a battle, #304); a
+  working shield face (a shield, and not the beam firing through the bow,
+  #100); a small face (bow on and not firing: a release opens the window it
+  crosses, #100).
+- **Build classes, not builds.** Every combination of the traits that change
+  what a posture can do: the weapon set (15 non-empty subsets of turret,
+  railgun, beam, missile), a shield generator or not, radiator panels or not,
+  the acceleration against the opponent (more / equal / less; the reference
+  builds are within 3 %, #346): **180 classes**. Raw postures per class
+  13 392 (Power 3 × the ammunition and weapon choices 31, hold or one of 15 weapon subsets
+  at spend or conserve, × Range 3 × Aspect 3 × Time, Heat, Signature, Integrity 2 each).
+- **The layers** (`node postures.mjs`; counts are the distinct postures per
+  class after merging those that act the same: no weapon released makes the
+  weapon choice and ammunition moot; the beam alone makes spend and conserve
+  moot; heat is merged where it does not matter):
+
+  | Layer | Rule (each a condition on the quantities) | Source |
+  |---|---|---|
+  | **A, physically impossible** | A1 a weapon not on the build; A2 Protect without a shield generator; A3 quiet with thrust; A4 quiet with heat spent where panels show it; A5 quiet while a loud weapon fires; A6 thrust bow on with range far (it closes); A7 thrust stern on with range near (it opens) | #140, #102, #143, kinematics |
+  | **B, a choice that buys nothing** (every axis, not only the attitude) | B1 weapons released, none bears at this aspect; B2 Power Fire with no power-heavy weapon firing; B3 stern on without thrust and nothing bearing aft; B4 press with no means (not closing, nothing fired); B5 wait with no means (near, loud, not opening); B6 expose with no return (nothing fired); B7 preserve with no means (no working shield face: Protect adds budget, it does not close the window the beam holds open, #100; not far, not quiet, no small face, no evasion); B8 heat spent on nothing | the owner's "a goal needs a means, a spend needs a purpose" |
+  | **C, a contradiction** | C1 against its own goal: expose and pay the shield to block it; C2 time-inconsistent: wait while spending a finite stock (#89, #92). Self-interference (the beam's window) is inside B7. Information conflicts reduce to A5 and the pointers' gating. Opponent-dependent conflicts (press at far against an equal ship, #346; long heat) are left to measurement | |
+  | **D, phase and role** (#334; the conditions the owner approved on 2026-10-25) | contact/attack: hold, not near, loud (to scan); contact/defend: hold, and quiet or (far and wait); range/attack: thrust along the line, press, **acceleration more** (#346); range/defend: thrust along the line, wait, acceleration not less; position/attack: range rate 0, firing; position/defend: preserve with evasion or Protect; finish/attack: firing, press, expose, not far, not opening, not evading; finish/defend: preserve, and opening, Protect or quiet | |
+
+  | Per class (180) | min | median | max |
+  |---|---|---|---|
+  | after A | 208 | 792 | 3008 |
+  | after B | 26 | 195 | 1217 |
+  | after C | 22 | 141 | 687 |
+  | after D (fit at least one phase-role) | 20 | 128 | 687 |
+  | quiet postures | 0 | 6 | 12 |
+
+  Per phase-role, per class: contact/attack 5–14 (median 14), contact/defend
+  2–18 (12), range/attack 0–126 (0: **empty in the 120 classes without an
+  acceleration margin**), range/defend 0–37 (6: empty in the 60 classes
+  with less acceleration), position/attack 11–502 (92), position/defend
+  2–268 (26), finish/attack 4–164 (28), finish/defend 1–250 (20).
+
+  Classes like the reference builds (a shield, radiators, equal
+  acceleration): Lance-like (railgun) 13 392 → 436 → 93 → 63 → 58;
+  Furnace-like (beam) → 412 → 55 → 45 → 44; Swarm-like (missiles) → 480 →
+  189 → 107 → 98; R2-like (turret and beam) → 860 → 235 → 141 → 136 (its
+  position/attack 94, finish/attack 28).
+- **Findings.** (1) **Most of the elimination is physics and purpose, not
+  taste**: A and B remove 91–99.8 % of the raw space, by class. (2) **The
+  menu's size is set by the weapon set**: in the reference-like classes one
+  weapon gives 44–98 postures over all phase-roles, two 136; four weapons up to 687; position/attack is the
+  large cell (the choice of which weapons fire and at what is there), so a
+  multi-weapon build needs the weapon choice grouped or automatic. (3) **The
+  range phase exists only with an acceleration margin** (#346): for the 120
+  classes without one, range/attack is empty and the phase is played as
+  defence or skipped. (4) **A beam fired bow on forces exposure at near and
+  mid** (B7: its window stays open whatever the shield's budget): to fire
+  and preserve, a beam ship stands far or evades; a turret is the weapon
+  that fights while preserving. A candidate mechanism for the earlier
+  reading (d) (R2 without its beam did better against Lance and its
+  mirror; one seed, untraced). (5) **Going dark is one role**: quiet
+  postures hold fire, do not thrust and wait (median 6 per class); with
+  `--turret-quiet` up to 48 (a quiet sniper exists only if a turret's shot
+  does not reveal the shooter). (6) **The default posture is the stand-off**:
+  in every reference-like class the postures fitting the most phase-roles
+  (four, never an attack role) are the same three: run (Move, hold, far,
+  stern on, wait, preserve), stand off bow on with Protect, stand off
+  broadside with Protect. Proposed: the posture a ship starts in and returns
+  to after a reversal; leaving it is the Command decision. Not an automatic
+  rule (#36: which of the three depends on the opponent), and alone it
+  leads to the stalemate (#337).
+- **The onion** (the order a menu is peeled in, outermost fixed first):
+  phase and role → the build's traits → number sense (heat merged where it
+  does not bind) → strategic (range; the weapons for a multi-weapon build;
+  set at contact against the matchup: an order) → attitude (Time ×
+  Integrity: the Command verb) → focus (power and ammunition: auto, or a
+  verb when wounded). For a one-weapon build each step offers 2–4 choices.
+- **Readings that led here** (on `ld/pace` `01b9332`, the locked builds,
+  seed 1, 600 s; not measures). (a) **One-slot verbs where the player loses**
+  (R2 on Fire against the standard enemy and the reverse pairs, 900 / 1500
+  m, bow / broadside: 12 losing cells of 28; one verb at 0, 10, 20 or 30 s):
+  a range change saves 12 of 12 cells (`disengage` 12 wins, 20 escapes, 10
+  unended, 4 losses of 46; `open` 15 wins, 20 unended, 11 losses), Evade,
+  orbit or strafe 8 of 12, a target 2 of 460 trials, a scan 0 of 276; every
+  prototype preset holds range `hold`, so the menu never offered the one
+  lever that worked; most saves are survival, not wins (#336). (b) **Event
+  stops** (The Last Federation's WeGo, the owner's question; on `0bbfdcb`,
+  before item 58's merge): stops taken
+  from one's own ship and model (scan results, own damage) give 0–7 per
+  battle in 12 of 16 cells, none before the first hit against Lance in 3
+  of 4 (the first hit is the kill); a stop is presentation (verbs are
+  recorded per step, `js/battle.js` 934) and cannot lengthen a battle
+  decided before its first event; after Mission 0.
+- **Red team.** (1) The counts follow from coarse values (two or three per
+  axis) and booleans; the structure (the layers, the couplings) is the
+  result, the numbers illustrate it. (2) Three assumptions carry weight:
+  turret arcs; whether a turret's shot reveals (quiet 6 → up to 48); beam
+  and railgun EM-bright when firing (not a source in `js/sensors.js` today).
+  (3) A4 depends on the build: without panels heat is hidden (#102; the Cold
+  Brick, #305). (4) No opponent: a posture good against one build may be bad
+  against another; the strategic layer must be set per matchup. (5) Nothing
+  here is checked against a battle (the owner deferred step 4). (6) If the
+  lower layers are automatic and good, the player's decisions can again only
+  harm (the phases' risk 1); the save and error rates (#349) decide. (7)
+  Player Command verbs beyond the preset (break off, strike colours) touch
+  #2: the owner's.
+- **Gates claimed, not measured.** Law: every axis is a core law's resource
+  (throughput: power, heat, ammunition; information: signature;
+  dependency: integrity and the pointers). Underdog: a posture denies the
+  stronger ship the resource its weapons need (range against the outranged,
+  quiet against the scanner, preserve against a beam ship's heat). Readable:
+  a posture is a named way of spending; the readout can show what it spends.
+  Reuses: no new physics; four slots or values to add (throttle as a slot,
+  which weapons fire, a defences target class, the shield's budget directly).
+- **When.** Now, as the input of the phases plan and of #348's menu, before
+  the menu's derivation runs; any kernel change through the plan gate after
+  a probe (#241).
+- **The measure that decides.** (1) The sweep's best responses (#348) land
+  in the admissible postures of their class: a best response outside them
+  means the model is wrong. (2) Save and error rates (#349) with a menu of
+  postures per phase-role against the prototype menu, on the locked builds.
+  (3) The beam's window: damage taken by an R2-like ship firing its beam bow
+  on against turret only, at near, mid and far. (4) The stand-off default
+  with Command against the stalemate (#337).
+- **The script** (save as `postures.mjs`; `node postures.mjs
+  [--turret-quiet] [--detail]`; no import, about 8 s):
+
+  ```js
+// postures.mjs — the posture model (IDEAS.md, "Postures from scarce resources"). No kernel import: a model, not a battle.
+// node postures.mjs [--turret-quiet] [--detail]
+// A posture is one value on each of nine axes; a build class is a set of traits. For every build class it counts the
+// postures left after layers A (physically impossible), B (a choice that buys nothing), C (a contradiction), and how
+// many fit each phase-role (layer D, #334's phases, the conditions the owner approved on 2026-10-25).
+const turretQuiet = process.argv.includes('--turret-quiet'); // ASSUMPTION switch: a kinetic turret's shot does not reveal the shooter
+const detail = process.argv.includes('--detail');
+const AX = {
+  Power: ['Move', 'Protect', 'Fire'], Ammunition: ['spend', 'conserve', 'hold'], Weapons: null, Range: ['near', 'mid', 'far'],
+  Aspect: ['bow', 'broadside', 'stern'], Time: ['press', 'wait'], Heat: ['spend', 'conserve'], Signature: ['loud', 'quiet'],
+  Integrity: ['expose', 'preserve'],
+};
+const WEAPONS = ['turret', 'railgun', 'beam', 'missile'];
+const SPINAL = new Set(['railgun', 'beam']); // along the axis, bow face open (DESIGN.md 5.2)
+const AMMO = new Set(['turret', 'railgun', 'missile']); // finite stocks (#89); the beam has none
+const subsets = (xs) => xs.reduce((a, x) => a.concat(a.map((s) => [...s, x])), [[]]).filter((s) => s.length);
+const bears = (w, aspect) => (SPINAL.has(w) ? aspect === 'bow' : w === 'turret' ? aspect !== 'stern' : true); // ASSUMED: a turret bears bow and broadside; a missile any aspect
+// Build classes: the traits that change what a posture can do.
+const CLASSES = [];
+for (const weapons of subsets(WEAPONS)) for (const shield of [true, false]) for (const radiators of [true, false]) for (const accel of ['more', 'equal', 'less'])
+  CLASSES.push({ weapons, shield, radiators, accel });
+/** The physical quantities a posture produces on a build class. */
+function Q(b, p) {
+  const sel = p.Weapons === '-' ? [] : p.Weapons.split('+');
+  const firingW = p.Ammunition === 'hold' ? [] : sel.filter((w) => bears(w, p.Aspect));
+  const firing = firingW.length > 0, beam = firingW.includes('beam'), rail = firingW.includes('railgun');
+  const thrust = p.Power === 'Move';
+  return {
+    sel, firingW, firing, beam,
+    powerHeavy: beam || rail, // the beam bay and the railgun draw much power (5.2); a turret little
+    ammoFiring: firingW.some((w) => AMMO.has(w)),
+    loudFire: beam || rail || firingW.includes('missile') || (!turretQuiet && firingW.includes('turret')), // a missile is a torch (#140); beam and railgun: ASSUMED EM-bright
+    thrust,
+    rangeRate: thrust && p.Aspect === 'bow' ? -1 : thrust && p.Aspect === 'stern' ? 1 : 0, // thrust is along the axis
+    evasion: thrust && p.Aspect === 'broadside', // dodging only broadside (#40)
+    heatSeen: p.Heat === 'spend' && b.radiators, // IR is seen at the surface only (#102): panels at T^4 (#143)
+    heatMatters: beam || p.Power === 'Protect', // number sense: kinetic heat does not bind in a battle (#304); beam and absorbing do (#343)
+    shieldMeans: b.shield && !(beam && p.Aspect === 'bow'), // the beam holds the window open on the face it fires through (#100)
+    smallFace: p.Aspect === 'bow' && !firing, // a round fired through the bow opens its window too (#100)
+  };
+}
+const A = [
+  ['A1 a weapon not on the build', (b, p, q) => q.sel.some((w) => !b.weapons.includes(w))],
+  ['A2 Protect without a shield generator', (b, p, q) => p.Power === 'Protect' && !b.shield],
+  ['A3 quiet with thrust: a torch is IR-bright (#140)', (b, p, q) => p.Signature === 'quiet' && q.thrust],
+  ['A4 quiet with heat spent where panels show it (#102, #143)', (b, p, q) => p.Signature === 'quiet' && q.heatSeen],
+  ['A5 quiet while firing a loud weapon', (b, p, q) => p.Signature === 'quiet' && q.loudFire],
+  ['A6 thrust bow on closes: far cannot be held', (b, p, q) => q.rangeRate < 0 && p.Range === 'far'],
+  ['A7 thrust stern on opens: near cannot be held', (b, p, q) => q.rangeRate > 0 && p.Range === 'near'],
+];
+const B = [
+  ['B1 weapons chosen, none bears at this aspect', (b, p, q) => p.Ammunition !== 'hold' && !q.firing],
+  ['B2 Power Fire with no power-heavy weapon firing', (b, p, q) => p.Power === 'Fire' && !q.powerHeavy],
+  ['B3 stern on without thrust and no weapon bearing aft', (b, p, q) => p.Aspect === 'stern' && !q.thrust && !q.firing],
+  ['B4 press with no means: not closing, dealing nothing', (b, p, q) => p.Time === 'press' && !(q.rangeRate < 0 || q.firing)],
+  ['B5 wait with no means: near, loud, not opening', (b, p, q) => p.Time === 'wait' && p.Range === 'near' && p.Signature === 'loud' && q.rangeRate <= 0],
+  ['B6 expose with no return: dealing nothing', (b, p, q) => p.Integrity === 'expose' && !q.firing],
+  ['B7 preserve with no means: no working shield face (Protect adds budget, not a closed window, #100), not far, not quiet, no small face, no evasion', (b, p, q) => p.Integrity === 'preserve' && !(q.shieldMeans || p.Range === 'far' || p.Signature === 'quiet' || q.smallFace || q.evasion)],
+  ['B8 heat spent on nothing (no thrust, no firing, no Protect)', (b, p, q) => p.Heat === 'spend' && !(q.thrust || q.firing || p.Power === 'Protect')],
+];
+const C = [
+  ['C1 expose and pay the shield to block it', (b, p, q) => p.Integrity === 'expose' && p.Power === 'Protect'],
+  ['C2 wait while spending a finite stock (#89, #92)', (b, p, q) => p.Time === 'wait' && p.Ammunition === 'spend' && q.ammoFiring],
+];
+const D = {
+  'contact/attack': (b, p, q) => p.Ammunition === 'hold' && p.Range !== 'near' && p.Signature === 'loud',
+  'contact/defend': (b, p, q) => p.Ammunition === 'hold' && (p.Signature === 'quiet' || (p.Range === 'far' && p.Time === 'wait')),
+  'range/attack': (b, p, q) => q.rangeRate !== 0 && p.Time === 'press' && b.accel === 'more', // the range phase's attacker is an acceleration margin (#346)
+  'range/defend': (b, p, q) => q.rangeRate !== 0 && p.Time === 'wait' && b.accel !== 'less', // at equal acceleration an escape is physics (#346)
+  'position/attack': (b, p, q) => q.rangeRate === 0 && q.firing,
+  'position/defend': (b, p, q) => p.Integrity === 'preserve' && (q.evasion || p.Power === 'Protect'),
+  'finish/attack': (b, p, q) => q.firing && p.Time === 'press' && p.Integrity === 'expose' && p.Range !== 'far' && q.rangeRate <= 0 && !q.evasion,
+  'finish/defend': (b, p, q) => p.Integrity === 'preserve' && (q.rangeRate > 0 || p.Power === 'Protect' || p.Signature === 'quiet'),
+};
+/** "No difference" merges, so two postures that act the same count once. */
+function canon(b, p) {
+  const q = Q(b, p), x = { ...p };
+  if (x.Ammunition === 'hold') x.Weapons = '-';
+  else x.Weapons = q.firingW.join('+') || x.Weapons; // a chosen weapon that cannot bear acts as not chosen
+  if (x.Ammunition !== 'hold' && !q.ammoFiring) x.Ammunition = 'fire'; // the beam alone: spend and conserve do not differ
+  if (!q.heatMatters) x.Heat = '-';
+  return JSON.stringify(x);
+}
+const all = (b) => {
+  const out = [], ws = ['-', ...subsets(WEAPONS).map((s) => s.join('+'))];
+  const keys = Object.keys(AX), vals = keys.map((k) => (k === 'Weapons' ? ws : AX[k]));
+  const rec = (i, p) => { if (i === keys.length) { if ((p.Ammunition === 'hold') === (p.Weapons === '-')) out.push({ ...p }); return; } for (const v of vals[i]) { p[keys[i]] = v; rec(i + 1, p); } };
+  rec(0, {}); return out;
+};
+const stats = (xs) => { const s = [...xs].sort((a, b) => a - b); return `min ${s[0]}, median ${s[Math.floor(s.length / 2)]}, max ${s[s.length - 1]}`; };
+const per = [], cuts = { A: {}, B: {}, C: {} };
+for (const b of CLASSES) {
+  let cur = all(b); const n0 = cur.length, row = { b, raw: n0 };
+  for (const [L, rules] of [['A', A], ['B', B], ['C', C]]) {
+    for (const [lab, f] of rules) cuts[L][lab] = (cuts[L][lab] || 0) + cur.filter((p) => f(b, p, Q(b, p))).length;
+    cur = cur.filter((p) => !rules.some(([, f]) => f(b, p, Q(b, p))));
+    row[L] = new Set(cur.map((p) => canon(b, p))).size;
+  }
+  const uniq = [...new Map(cur.map((p) => [canon(b, p), p])).values()];
+  row.D = Object.fromEntries(Object.entries(D).map(([k, f]) => [k, uniq.filter((p) => f(b, p, Q(b, p))).length]));
+  row.afterD = uniq.filter((p) => Object.values(D).some((f) => f(b, p, Q(b, p)))).length;
+  row.most = Math.max(...uniq.map((p) => Object.values(D).filter((f) => f(b, p, Q(b, p))).length));
+  row.mostEx = uniq.filter((p) => Object.values(D).filter((f) => f(b, p, Q(b, p))).length === row.most).map((p) => `${p.Power} ${p.Ammunition} ${p.Range} ${p.Aspect} ${p.Time} ${p.Signature} ${p.Integrity}`);
+  row.none = uniq.filter((p) => !Object.values(D).some((f) => f(b, p, Q(b, p)))).length;
+  row.quiet = uniq.filter((p) => p.Signature === 'quiet').length;
+  per.push(row);
+}
+console.log(`build classes ${CLASSES.length} (weapon sets 15 x shield 2 x radiators 2 x acceleration 3)${turretQuiet ? ' | ASSUMPTION: turret fire is quiet' : ''}`);
+for (const L of ['A', 'B', 'C']) {
+  console.log(`layer ${L}: distinct postures per build ${stats(per.map((r) => r[L]))}`);
+  for (const [lab, n] of Object.entries(cuts[L])) console.log(`   ${lab}: ${n} cuts over all classes`);
+}
+for (const k of Object.keys(D)) console.log(`D ${k.padEnd(16)}: per build ${stats(per.map((r) => r.D[k]))}; empty in ${per.filter((r) => r.D[k] === 0).length} classes`);
+console.log(`layer D: postures fitting at least one phase-role per build ${stats(per.map((r) => r.afterD))}`);
+console.log(`postures fitting no phase-role: ${per.reduce((a, r) => a + r.none, 0)} | quiet postures per build: ${stats(per.map((r) => r.quiet))}`);
+const tag = (b) => `${b.weapons.join('+')}${b.shield ? ' S' : ''}${b.radiators ? ' R' : ''} a:${b.accel}`;
+const empty = per.filter((r) => Object.values(r.D).some((v) => v === 0));
+const why = collections(empty.map((r) => Object.entries(r.D).filter(([, v]) => v === 0).map(([k]) => k).join(', ')));
+console.log('classes with an empty phase-role, by the cells empty:'); for (const [k, v] of why) console.log(`   ${v}: ${k}`);
+for (const [n, w] of [['Lance-like', 'railgun'], ['Furnace-like', 'beam'], ['Swarm-like', 'missile'], ['R2-like', 'turret+beam']]) { const r = per.find((x) => x.b.weapons.join('+') === w && x.b.shield && x.b.radiators && x.b.accel === 'equal'); console.log(`${n} (${tag(r.b)}): raw ${r.raw}, A ${r.A}, B ${r.B}, C ${r.C}, D ${r.afterD}; per cell ${JSON.stringify(r.D)}; most phase-roles fitted ${r.most}: ${[...new Set(r.mostEx)].join(' | ')}`); }
+if (detail) for (const r of per) console.log(tag(r.b).padEnd(36), r.raw, r.A, r.B, r.C, JSON.stringify(r.D));
+function collections(xs) { const m = new Map(); for (const x of xs) m.set(x, (m.get(x) || 0) + 1); return [...m.entries()].sort((a, b) => b[1] - a[1]); }
+  ```
+- **Links.** #2, #17, #24, #36, #38, #39, #40, #50, #89, #92, #100, #102,
+  #103, #140, #143, #293, #297, #304, #305, #324, #334, #336, #337, #340,
+  #343, #346, #347, #348, #349; battle phases; room variants.
 
 ## Not yet worked
 

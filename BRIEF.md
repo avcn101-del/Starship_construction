@@ -35,6 +35,8 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
   tolerances; lint check 10 ties §13m to existing scenarios. **Full mutation
   run** only at a level's exit or on STALE/CHANGED, by a runner.
 
+- **The decision layer was never designed for play** (#347, #355, #356): the three presets are prototype v2's, the player's side has no auto captain, and no gate checked that a decision changes an outcome until #349 and #355. Every pace number before the baseline is stale (E7 default 56.6 s today, #328's 38.1 s).
+
 ## Traps (each cost a run or a fix round)
 
 - Session lineage is capped at depth 8: a chat deep in the chain creates sessions that cannot notify or create sessions; the owner opens each new lead designer chat from claude.ai.

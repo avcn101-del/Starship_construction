@@ -17,6 +17,37 @@
 - Scenario `L4.sweep.scoring` (U1, locked before its first run);
   `L4.sweep.determinism.v2` re-recorded (U2): its table hash, and its pair's T set (`range` close → open, the crew tie-break) and ends (destroyed A 220.6 / 142.9 s → 505.3 / 123.3 s); criterion passes. Mutations
   `item58.res.reset`, `tools.sweep.escapeWin`, `tools.sweep.noTie`.
+## Unreleased — 2026-10-25 — the player decisions in every plan; the audit's points (#355, #356)
+
+- #355 (the owner, amends #326): a fourth checklist item, the player
+  decisions a pass changes or measures, with #349's rates on the designed
+  menu, or "none".
+- #356: `DESIGN.md` §8 corrected (the position slot is built) and its table
+  named by slot and verb; §13n.11 amended (#349's rates apart for mirror
+  cells; lint checks 11 and 12); E7's default re-run on today's kernel
+  56.6 s (was 38.1 s): the pace numbers stale until the baseline.
+
+## Unreleased — 2026-10-25 — the player's Command verbs; the stand-off default (#353, #354)
+
+- #353 (the owner): break off is a designed-menu entry always added outside
+  #348's derivation; strike colours for the player after Mission 0.
+- #354 (the owner): the stand-off is the phased captain's default posture;
+  measured against the stalemate in the phases measures.
+
+## Unreleased — 2026-10-25 — postures as the frame of the designed menu (#352)
+
+- #352 (the owner): `IDEAS.md`'s postures frame the phases plan's designed
+  menu (#347) before #348's derivation; a best response outside its class's
+  admissible postures is reported to the owner. Its four gaps (the throttle
+  as a slot, which weapons fire, a defences target class, the shield's
+  budget) are candidates for the plan, decided after a probe.
+
+## Unreleased — 2026-10-25 — `IDEAS.md`: postures from scarce resources (the design partner)
+
+- `IDEAS.md`: "Postures from scarce resources", from the owner's discussion:
+  the 22 decisions a fighting ship needs, cross-referenced with the slots;
+  postures as spending of seven scarce resources; layers A–D over 180 build
+  classes with `postures.mjs`; the input of #348's menu.
 
 ## Unreleased — 2026-10-25 — the tools pass planned (#351, §13n.11)
 
