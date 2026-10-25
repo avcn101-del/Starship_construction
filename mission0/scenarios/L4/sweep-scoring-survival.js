@@ -41,7 +41,7 @@ export default {
   tolerance: 'exact',
   criterion: 'the tallies 1.5 / 3 / 8, 1.5 / 2 / 14, 1.5 / 3 / 9 and the ranking picks the third try (index 2); the list\'s tally for A is wins 1, survival 3, crew 15 (win, loss, escape, stalemate 1 each) and for T wins 1, survival 3, crew 17 (win, loss, let go, stalemate 1 each); the swapped list\'s tally for T equals the list\'s for A, and for A the list\'s for T',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-25', hash: 'ec178589' },
   cases() {
     return [{ name: 'survival before crew' }, { name: 'side T mirrored' }];
   },
