@@ -303,13 +303,13 @@ range / sure hit, default target priority); *energy* (power and repair
 priority, heat discipline threshold and response); *emission* (posture
 cold / normal / full, auto-scan). Shields follow the posture. **Presets**
 bundle orders; the verb switches presets, never single slots (#39). Helm
-conflicts resolve as position, then facing, then dodging (#40). Prototype v2's "range" (§13j.2) is #38's engagement-range slot and its "facing bow-on / broadside" is #38's facing; #38's position slot (which side of the enemy: bow / flank / stern) is not built.
+conflicts resolve as position, then facing, then dodging (#40). Prototype v2's "range" (§13j.2) is #38's engagement-range slot and its "facing bow-on / broadside" is #38's facing; #38's position slot (which side of the enemy: bow / flank / stern) is built (`ORDERS.movement.position`, L5d; corrected by #356). None of the three presets was designed for play (#347): the designed menu comes with the phases plan (#352–#354).
 
 | Decision in battle | Owner |
 |---|---|
-| Distance, side of the enemy, movement style, dodging, facing, firing style, when to open fire, default target, power and repair priority, heat response, emission, auto-scan | standing order |
+| Distance (`range`), side of the enemy (`position`), movement style (`style`), dodging (`dodging`), facing (`facing`), firing style (`firing`), when to open fire (`openFire`), default target (`target`), power and repair priority (`priority`, `repair`), heat threshold and response (`heat`), emission (`emission`), auto-scan (`autoScan`), the engine's throttle (`throttle`, inside a preset only) | standing order |
 | RCS recoil compensation, point defence target, repair order, reactor containment first, dark fragments, each shot's ammunition type | automatic |
-| Which zone to scan, which room to target, which preset | player verb |
+| Which zone to scan (`scan`), which room to target (`target`), which preset (`preset`) | player verb |
 
 **Disabled** (#82, #255): no weapon able to fire for ~10 s, whatever the engine does (`battle.disabledSeconds`; 'able' is defined in §13l.1), or the
 enemy strikes its colours. The battle ends and the ship is captured. Routes:
@@ -1677,6 +1677,8 @@ No kernel change: `js/` is not touched, so no physics checker (#241). The baseli
 
 **`tools/estimates/pace-verbs.mjs`**: (a) `--menu prototype|designed` (default `prototype`): `prototype` tries `PRESETS` (Fire, Cool, Evade) as today and prints the label "verb leverage on the prototype's three presets, not a designed menu (#347); not comparable like for like with a designed menu"; `designed` replaces the three preset verbs by the player build's menu entries, `MENUS[build]` from `js/data.js` (#348), or from `--menu-file <json>` (the same shape: `{ <build>: [{ name, phase, slots }] }`, for the gap-7 derivation before `MENUS` exists); with neither it stops with that message. A menu verb sets the side's orders to Fire's with the entry's slots over them, the assignment the kernel's `preset` verb makes, done by the tool between `tick`s at the verb's step (no kernel change; the tool prints that a menu verb is not in `battle.verbs`). (b) **#349's rates** per pair and in total: the **save rate**, over the cells whose baseline is a player loss, the trials that end in a player win, escape, let go, stalemate or no end (survival); the **error rate**, over the cells whose baseline is a player win, the trials that end in a player loss; each printed as `k of n trials (c cells)`; cells whose baseline is neither are counted apart. The old flip counts stay.
 
+**Amendment (#356, after an audit; the engineer merges `ld/pace`)**: (1) `pace-verbs.mjs` prints #349's rates three times: over all cells, over the mirror cells (player build = enemy build) and over the rest, since an exact mirror always ends against A (53 of #328's 80 flips are in the R2 mirror, `tools/estimates/out/verbs-every10.txt`). (2) `tools/lint-docs.mjs` gains check 11: every slot of `js/data.js` `ORDERS` and every key of `PRESETS.fire` is named in backticks in §8's decision table, and every verb `js/battle.js`'s `verb()` accepts is named in its player-verb row; and check 12: every **Checklist** of a plan from §13n.12 on carries a "**Player decisions**" item (#355). The engineer may write `tools/lint-docs.mjs`.
+
 **`tools/mutations.json`**: `item58.res.reset` (#350): the reset's clock in `js/navigator.js` without `RES`; K8 kills it (40 of 120). `tools.sweep.escapeWin` (an escape counted as the other side's win, #293's scoring) and `tools.sweep.noTie` (the ranking by wins alone): `L4.sweep.scoring` kills both. `l5e1.sweep.byArrival` keeps a valid target (re-targeted if its line moves).
 
 **Scenarios** (locked in a commit of its own before its first canonical run, #273)
@@ -1690,7 +1692,7 @@ No kernel change: `js/` is not touched, so no physics checker (#241). The baseli
 
 **Information** (no criterion): the engineer prints, at the PR head, `pace-e7.mjs --pairs Lance:R2 --ranges 900 --openings bow,broadside` and `pace-verbs.mjs --pairs Lance:R2 --ranges 900 --times 0,10` (both menus, `designed` with a two-entry `--menu-file` fixture), so the reviewer can re-run them.
 
-**Process and cost**: one engineer (opus, branch `m0/tools` from `ld/pace`; may write `tools/sweep.mjs`, `tools/estimates/pace-e7.mjs`, `pace-verbs.mjs`, `tools/mutations.json`, the new scenario, the re-recorded records, `CHANGELOG.md`; not `js/`, not `DESIGN.md` or `DECISIONS.md`), the reviewer (sonnet), a runner for `regress` on the merge. Raw: engineer 2.5–4, reviewer 0.8–1.2, a fix round 0–1, runner 0.3–0.5: 3.6–6.7; × 1.24: **4.5–8.5 USD**. #246 (4)'s figure (a repeated kind, × 2.5): 9–17, shown beside it (#270 (2)); the lead designer expects about 6.
+**Process and cost**: one engineer (opus, branch `m0/tools` from `ld/pace`; may write `tools/sweep.mjs`, `tools/estimates/pace-e7.mjs`, `pace-verbs.mjs`, `tools/mutations.json`, the new scenario, the re-recorded records, `CHANGELOG.md`; not `js/`, not `DESIGN.md` or `DECISIONS.md`), the reviewer (sonnet), a runner for `regress` on the merge. Raw: engineer 2.5–4, reviewer 0.8–1.2, a fix round 0–1, runner 0.3–0.5: 3.6–6.7; × 1.24: **4.5–8.5 USD** (the amendment of #356 adds about 0.5–1). #246 (4)'s figure (a repeated kind, × 2.5): 9–17, shown beside it (#270 (2)); the lead designer expects about 6.
 
 **Checklist** (#326)
 
@@ -2381,3 +2383,5 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 352 | Postures (`IDEAS.md`) frame the designed menu; a best response outside its class's admissible postures goes to the owner; four gaps (throttle slot, which weapons fire, defences target, shield budget) probed for the phases plan; the player's Command verbs and the stand-off default open (the owner) | current (its (3) decided: #353, #354) |
 | 353 | The player's Command verbs: break off is a menu entry always added outside #348's derivation (range `disengage`), valued by #349's save rate; strike colours after Mission 0 (the owner; amends #348) | current |
 | 354 | The stand-off is the phased captain's default posture (start and return; leaving it is the Command decision); which of the three is an order from the menu; #346's contact preset its first instance; measured against the stalemate (the owner) | current |
+| 355 | From L5e2 on (the lead designer: from §13n.12 on), every plan's checklist has a fourth item: the player decisions the pass changes or measures, their owner in §8 (#36), and #349's save and error rates on the designed menu, or "none" stated (the owner; amends #326) | current |
+| 356 | The audit's points: #349's rates also reported apart for mirror and non-mirror cells; §8 corrected (position is built) and its table named by slot for lint checks 11 and 12 (tools pass); the pace numbers stale until the baseline; the work on the current decision layer re-measured with the designed menu | current |

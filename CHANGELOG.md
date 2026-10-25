@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — the player decisions in every plan; the audit's points (#355, #356)
+
+- #355 (the owner, amends #326): a fourth checklist item, the player
+  decisions a pass changes or measures, with #349's rates on the designed
+  menu, or "none".
+- #356: `DESIGN.md` §8 corrected (the position slot is built) and its table
+  named by slot and verb; §13n.11 amended (#349's rates apart for mirror
+  cells; lint checks 11 and 12); E7's default re-run on today's kernel
+  56.6 s (was 38.1 s): the pace numbers stale until the baseline.
+
 ## Unreleased — 2026-10-25 — the player's Command verbs; the stand-off default (#353, #354)
 
 - #353 (the owner): break off is a designed-menu entry always added outside
