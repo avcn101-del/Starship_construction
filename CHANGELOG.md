@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — the order after the builds' lock (#358)
+
+- #358 (the owner): gap 7 and §13n.12 in parallel; the candidate slots
+  built before #348's derivation, which runs once; then the one-phase and
+  with-phases measures on the designed menu.
+
 ## Unreleased — 2026-10-25 — a reduced baseline (#357)
 
 - #357 (the owner): the baseline keeps #337's X, the first hot room,
