@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — DTN frozen (#369)
+
+- #369 (the owner): DTN is frozen after PR #109 and PR #110; the kernel,
+  the physics scenarios and `proto/` move to `avcn101-del/DTN-bridge-sim`;
+  `STATUS.md` holds the hand-over.
+
 ## Unreleased — 2026-10-25 — play first: the phases feel prototype planned (#365, #366)
 
 - #365 (the owner): play the decision layer before proving it; #366 and
