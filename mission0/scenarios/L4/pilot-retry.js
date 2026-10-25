@@ -34,7 +34,7 @@ export default {
   tolerance: 'integer step counts; (iii) 1e-12 relative (one product)',
   criterion: '(i) between two asks in steps 0-599 at least ceil(helm.thrustRetry / dt) - 1 = 59 steps not asked (no chatter), and from the first ask an ask in each ceil(helm.thrustRetry / dt) + 1 = 61 consecutive steps within 0-599 (no latch); (ii) an ask at or after step 600 by step 600 + ceil(helm.thrustRetry / dt) = 660; (iii) at the end of that step a = engine.thrust x footprint x surviving x f / M, f the fraction the router gave, at 1e-12 relative; before #340 (i) and (ii) fail (asked once, never again), item58-b.diff fails (i)',
   tunable: ['helm.thrustRetry'],
-  locked: null,
+  locked: { date: '2026-10-25', hash: '29906229' },
   cases() {
     return [{ name: 'starved, then fed' }];
   },
