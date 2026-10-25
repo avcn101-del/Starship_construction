@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — a phase names what is contested (#364)
+
+- #364 (the owner): phases are passed through when nobody contests them;
+  the range phase at equal acceleration is a trade; both cases measured in
+  §13n.12.
+
 ## Unreleased — 2026-10-25 — gap 7 read (#363)
 
 - #363: the locked builds' accelerations and t180
