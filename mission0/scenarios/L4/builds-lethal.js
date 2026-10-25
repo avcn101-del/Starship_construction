@@ -38,7 +38,7 @@ export default {
   tolerance: 'counts of battles (exact); the mass within 5 % of R1d\'s',
   criterion: '(i) Lance and Swarm: in 8 of 8 mirror cells the battle ends by 600 s with cell damage on the loser (on both ships in a draw; a dry surrender with no damage is no kill); Furnace\'s mirror count is recorded, not a criterion (#343); (ii) for each of the three, R2 takes cell damage (any cell-damaged event in its log) in at least 4 of 8 cells; (iii) each of the three passes validateShip and |mass / mass(R1d) - 1| <= 0.05',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-25', hash: 'f0b30149' },
   cases() {
     return [
       ...SPECIALISTS.map((b) => ({ part: 'i', a: b, b })),
