@@ -2337,7 +2337,7 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 327 | §17 item 53 merged: a beam into a ship with no body; the field slows a round in the hit body's frame; `L4.beam.nobody` | current |
 | 328 | The pace study measured: E7 38 s; rung 1 reaches 230 s only by misses (hits to kill 41, a third unended); verbs mostly harm; E7 to the owner | report |
 | 329 | E7: rebuild the reference builds first; E7 counts only two-sided battles; A and B wait; the verb finding re-measured (the owner) | current |
-| 330 | The reference builds' rebuild: each specialist kills its mirror and damages R2 (`L4.builds.lethal`); measures open at 2500 m too | current |
+| 330 | The reference builds' rebuild: each specialist kills its mirror and damages R2 (`L4.builds.lethal`); measures open at 2500 m too | partly superseded by #343 (Furnace's (i) a measured count) |
 | 331 | The builds' rebuild stopped: the broadside mirror race (§17 item 55), missiles in pure pursuit (item 56), Furnace against shields; an S secondary turret to the owner; an L beam bay allowed | current |
 | 332 | A secondary S turret: only if a specialist still fails #330 after item 55, at most one, recorded with and without (the owner) | current |
 | 333 | The helm in layers: pilot, navigator (goals set from above), gunnery and systems; a manual mode later replaces only the navigator's output; nothing manual built (the owner) | current |
@@ -2350,3 +2350,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 340 | Item 58's pass: a delivered-thrust report expires after `helm.thrustRetry` (new, 1 s) not asked, so a starved engine is asked again once a second; `RES` on the yield's and reset's clocks; K7 `L4.pilot.retry`, K8 `L4.helm.yield.exact`, K9 re-records (§13n.10; supersedes #335's "1 until then" clause only) | current |
 | 341 | Battle phases planned now, in parallel with the builds: gaps 1, 3, 4 first; gap 7 and every phases measure after the builds lock (the owner; #334's timing) | current |
 | 342 | The builds resume before item 58's merge (merged and re-checked before their lock); item 56 waits (point defence, not pursuit, limits the Swarm: 79 of 104 killed); a tools pass for the baseline's columns before the baseline (#336–#338) | current |
+| 343 | Furnace's mirror does not end (beam against two M shields, then the heat clock): recorded as a measured count in `L4.builds.lethal`'s (i), not a criterion; (i) for Lance and Swarm, (ii) for all three; no M turret, no beam change before the baseline | current |
