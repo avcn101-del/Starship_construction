@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — a reduced baseline (#357)
+
+- #357 (the owner): the baseline keeps #337's X, the first hot room,
+  outcomes counted apart and the builds ship versus ship; the reference
+  without phases is the one-phase plan on the designed menu.
+
 ## Unreleased — 2026-10-25 — the player decisions in every plan; the audit's points (#355, #356)
 
 - #355 (the owner, amends #326): a fourth checklist item, the player
