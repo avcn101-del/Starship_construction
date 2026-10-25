@@ -7,6 +7,8 @@
   once a second instead of never; `RES` on the yield's and reset's clocks.
   K7 `L4.pilot.retry`, K8 `L4.helm.yield.exact`, K9 re-records. The probe's
   scripts and diffs: `tools/estimates/item58*.mjs`, `item58-{a,b,c,plan}.diff`.
+- #341 (the owner): battle phases are planned now, in parallel with the
+  builds; gap 7 and the phases' measures wait for the builds' lock.
 - PR #106 merged the pace block's documentation into `main`.
 
 ## Unreleased — 2026-10-24 — §17 item 55 merged (PR #105)
