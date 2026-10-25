@@ -3,7 +3,7 @@
 //   node tools/lint-docs.mjs
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { PARAMS, FIXED, ROOMS, TIERS } from '../js/data.js';
+import { PARAMS, FIXED, ROOMS, TIERS, ORDERS, PRESETS } from '../js/data.js';
 
 const read = (f) => fs.readFileSync(f, 'utf8');
 const decisions = read('DECISIONS.md');
@@ -127,6 +127,54 @@ const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : '
     if (/^\**proven/.test(status) && !named.length) problems.push(`DESIGN.md 13m, line ${i + 1}: "${cells[0].slice(0, 50)}" is proven but names no scenario`);
   });
   report('13m: every named scenario exists; every proven row names one', problems);
+}
+// 11. §8's decision table against the code (#356 (2)): every slot of js/data.js ORDERS (each group's keys) and every
+// key of PRESETS.fire is named in backticks in the table, and every verb js/battle.js's verb() accepts is named in
+// backticks in its player-verb row.
+{
+  const design = read('DESIGN.md'), start = design.indexOf('## 8. '), end = start < 0 ? -1 : design.indexOf('\n## ', start + 1);
+  const lines = start < 0 ? [] : design.slice(start, end).split('\n'), problems = [];
+  const head = lines.findIndex((l) => /^\| Decision in battle \|/.test(l));
+  const table = [];
+  if (head < 0) problems.push('DESIGN.md 8 has no "| Decision in battle |" table');
+  else for (let k = head + 2; k < lines.length && lines[k].startsWith('|'); k++) table.push(lines[k]);
+  const named = (rows) => new Set(rows.flatMap((l) => [...l.matchAll(/`([^`]+)`/g)].map((m) => m[1])));
+  const all = named(table), verbRow = table.filter((l) => /\|\s*player verb\s*\|\s*$/.test(l));
+  const slots = new Set([...Object.values(ORDERS).flatMap((g) => Object.keys(g)), ...Object.keys(PRESETS.fire)]);
+  for (const x of slots) if (!all.has(x)) problems.push(`DESIGN.md 8's decision table does not name \`${x}\` (an ORDERS slot or a PRESETS.fire key)`);
+  const battle = read('js/battle.js'), at = battle.indexOf('\nfunction verb('), body = at < 0 ? '' : battle.slice(at, battle.indexOf('\n}', at));
+  const verbs = [...new Set([...body.matchAll(/x\.verb === '([a-zA-Z]+)'/g)].map((m) => m[1]))];
+  if (!verbs.length) problems.push('js/battle.js: no verb() accepting a verb found');
+  if (!verbRow.length) problems.push('DESIGN.md 8\'s decision table has no row owned by "player verb"');
+  const vn = named(verbRow);
+  for (const v of verbs) if (!vn.has(v)) problems.push(`DESIGN.md 8's player-verb row does not name \`${v}\` (a verb js/battle.js's verb() accepts)`);
+  report(`8's decision table names every ORDERS slot and PRESETS.fire key (${slots.size}) and every verb of verb() (${verbs.join(', ')})`, problems);
+}
+// 12. The player decisions (#355, #356 (2)): every **Checklist** of a plan from 13n.12 on (DESIGN.md, up to 14) carries
+// a "**Player decisions**" item; the checklist is its line and the list items and blank lines that follow it. A plan
+// section (a `### 13...` heading from 13n.12 on, to the next heading) with no checklist this check can match fails
+// (#361 (2)): a misspelt checklist is not passed silently.
+{
+  const design = read('DESIGN.md'), m = design.match(/^#{2,3} 13(n\.(1[2-9]|[2-9]\d)|[o-z])\b.*$/m);
+  const problems = [];
+  if (!m) console.log('info  no plan from 13n.12 on yet (check 12 has nothing to read)');
+  else {
+    const start = m.index, end = design.indexOf('\n## 14.', start), lines = design.slice(start, end < 0 ? undefined : end).split('\n');
+    let n = 0, section = null;
+    const lineOf = (i) => design.slice(0, start).split('\n').length + i;
+    const close = () => { if (section && !section.n) problems.push(`DESIGN.md: the plan section "${section.title.slice(0, 60)}" (line ${section.line}) has no checklist this check can match ("**Checklist**" at a line's start)`); };
+    lines.forEach((l, i) => {
+      if (/^### 13/.test(l)) { close(); section = { title: l, line: lineOf(i), n: 0 }; if (!/Checklist/.test(l)) return; }
+      if (!/^\*\*Checklist\*\*/.test(l) && !/^#{2,4} .*Checklist/.test(l)) return;
+      n++; if (section) section.n++;
+      let ok = false;
+      for (let k = i + 1; k < lines.length && (lines[k].trim() === '' || /^\s*[-*] /.test(lines[k]) || /^\s{2,}\S/.test(lines[k])); k++) if (lines[k].includes('**Player decisions**')) ok = true;
+      if (!ok) problems.push(`DESIGN.md: the checklist "${l.slice(0, 60)}" (line ${lineOf(i)}) has no **Player decisions** item`);
+    });
+    close();
+    console.log(`info  ${n} checklist(s) from ${m[0].slice(0, 40)} on`);
+  }
+  report('every checklist of a plan from 13n.12 on carries a **Player decisions** item (#355)', problems);
 }
 console.log(failed ? `${failed} check(s) failed` : 'all checks passed');
 process.exit(failed ? 1 : 0);

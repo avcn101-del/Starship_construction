@@ -1336,5 +1336,13 @@
     "recordHash": "5f1ca25a",
     "reason": "Superseded under #344 (PR #104; #330, #332): its locked shape() named the old Lance (no turret) and Swarm (two point-defence fittings, no turret), which #330 (the Swarm's point defence is the engineer's) and #332 (at most one secondary S turret) allow to change; the successor keeps every other check. Recorded PASS (code 5140cc9, data df15610d), frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L4.sweep.determinism.v2",
+    "successor": "L4.sweep.determinism.v3",
+    "decision": "#362",
+    "recordHash": "9ae86e20",
+    "reason": "Superseded under #362 (DESIGN.md 13n.11 U4, Q2's answer; PR #109): on the merged code of PR #104's builds and the tools pass's #336 escape rule both sides of its grid choose range disengage and A escapes at 1500 m before 600 m, so its ordering clause fails and l5e1.sweep.byArrival could no longer be killed by it; the successor varies openFire in place of range. Recorded PASS (code de5ba9c, data df15610d), frozen (#245).",
+    "frozen": true
   }
 ]

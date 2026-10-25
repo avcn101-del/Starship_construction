@@ -2268,11 +2268,51 @@
     "note": "item 58: the yield's clock without RES: at some engagement steps the yield lands one step late"
   },
   {
+    "id": "item58.res.reset",
+    "rule": "13n.10 the yield clocks take RES (#340, #350)",
+    "file": "js/navigator.js",
+    "old": "      if (t - h.freeSince >= scaled(p.helm.positionReset, edge) - RES) h.yielded = false;",
+    "new": "      if (t - h.freeSince >= scaled(p.helm.positionReset, edge)) h.yielded = false;",
+    "note": "tools pass (#350): the reset's clock without RES: at some let-go steps the reset lands one step late (K8, 40 of 120)"
+  },
+  {
+    "id": "tools.sweep.escapeWin",
+    "rule": "13n.11 the outcomes counted apart (#336, #351)",
+    "file": "tools/sweep.mjs",
+    "old": "  if (ended.kind === 'escaped') return ended.side === side ? 'escape' : 'letGo';",
+    "new": "  if (ended.kind === 'escaped') return ended.side === side ? 'loss' : 'win';",
+    "note": "tools pass: an escape counted as the other side's win (#293's scoring)"
+  },
+  {
+    "id": "tools.sweep.noTie",
+    "rule": "13n.11 the best response's ranking (#338, #351)",
+    "file": "tools/sweep.mjs",
+    "old": "    if (x.wins > y.wins || (x.wins === y.wins && (x.survival > y.survival || (x.survival === y.survival && x.crew > y.crew)))) best = k;",
+    "new": "    if (x.wins > y.wins) best = k;",
+    "note": "tools pass: the ranking by wins alone"
+  },
+  {
     "id": "builds2.lanceTurret",
     "rule": "13n.1 (e) Lance's secondary S turret (#330 (i), #332)",
     "file": "mission0/builds.js",
     "old": "{ id: 'turret', type: 'turret', cell: [8, 5], size: 'S' }",
     "new": "{ id: 'turret', type: 'hold', cell: [8, 5], size: 'S' }",
     "note": "#332: without its S turret Lance's mirror ends in 6 of #330's 8 cells (PR #104): L4.builds.lethal's (i) fails"
+  },
+  {
+    "id": "tools.sweep.noSurvivalKey",
+    "rule": "13n.11 the best response's ranking (#338, #351, #361)",
+    "file": "tools/sweep.mjs",
+    "old": "    if (x.wins > y.wins || (x.wins === y.wins && (x.survival > y.survival || (x.survival === y.survival && x.crew > y.crew)))) best = k;",
+    "new": "    if (x.wins > y.wins || (x.wins === y.wins && x.crew > y.crew)) best = k;",
+    "note": "tools pass fix round (#361): the ranking by wins then crew, no survival key"
+  },
+  {
+    "id": "tools.sweep.tallySideA",
+    "rule": "13n.11 a side's tally (#351, #361)",
+    "file": "tools/sweep.mjs",
+    "old": "  for (const r of results) { const o = r.outcome[side]; outcomes[o]++; wins += scoreOf(o); if (survives(o)) survival++; crew += r.crew[side]; }",
+    "new": "  for (const r of results) { const o = r.outcome.A; outcomes[o]++; wins += scoreOf(o); if (survives(o)) survival++; crew += r.crew.A; }",
+    "note": "tools pass fix round (#361): tally reads side A whatever its argument"
   }
 ]
