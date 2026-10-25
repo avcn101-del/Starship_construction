@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — postures as the frame of the designed menu (#352)
+
+- #352 (the owner): `IDEAS.md`'s postures frame the phases plan's designed
+  menu (#347) before #348's derivation; a best response outside its class's
+  admissible postures is reported to the owner. Its four gaps (the throttle
+  as a slot, which weapons fire, a defences target class, the shield's
+  budget) are candidates for the plan, decided after a probe.
+
+## Unreleased — 2026-10-25 — `IDEAS.md`: postures from scarce resources (the design partner)
+
+- `IDEAS.md`: "Postures from scarce resources", from the owner's discussion:
+  the 22 decisions a fighting ship needs, cross-referenced with the slots;
+  postures as spending of seven scarce resources; layers A–D over 180 build
+  classes with `postures.mjs`; the input of #348's menu.
+
 ## Unreleased — 2026-10-25 — the tools pass planned (#351, §13n.11)
 
 - #351: the baseline's columns (#336–#338, #347, #349) in `tools/sweep.mjs`,
