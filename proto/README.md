@@ -89,6 +89,11 @@ entries, in the order of §13n.12's table:
 - **Swarm**: Missile screen, Close in.
 - **Furnace**: Beam line, Close in, Evade.
 
+and last on every build **Charge** (#368): range close, open fire in range,
+salvo, power to the build's weapons first, then the engine, then the
+shields. It can be chosen from the start and ends contact at once (patience
+0). The automatic captain never picks it.
+
 Each entry carries one line of text, shown under the readout and on the
 decision panel.
 

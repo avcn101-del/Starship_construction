@@ -119,7 +119,7 @@ try {
   const setup = await page.evaluate(() => ({ ...window.__proto.battle.phases.setup, tag: document.getElementById('lo-tag').textContent, menu: [...document.querySelectorAll('#menu button')].map((b) => b.textContent) }));
   if (setup.seed !== SEED || setup.player !== 'R2' || setup.enemy !== 'Swarm' || setup.opening !== 'rangeOpen' || setup.aspect !== 'bow' || setup.pause !== true) errors.push(`battle 1 setup did not take: ${JSON.stringify(setup)}`);
   if (!setup.tag.includes(`seed ${SEED}`)) errors.push(`the battle view does not show the seed: ${setup.tag}`);
-  if (setup.menu.join('|') !== 'Stand off|Break off|Turret line|Close in') errors.push(`R2's menu is ${setup.menu.join('|')}`);
+  if (setup.menu.join('|') !== 'Stand off|Break off|Turret line|Close in|Charge') errors.push(`R2's menu is ${setup.menu.join('|')}`);
   if (await small()) errors.push(`${await small()} visible buttons under 44 px in battle`);
   await frames();
   await page.locator('#scan').tap();

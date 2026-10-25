@@ -4,8 +4,8 @@
 
 - `proto/` `phases-1`: the locked builds (R2, Lance, Swarm, Furnace) in
   pairs, both sides flown by `js/enemy.js` at the standard personality;
-  `MENUS` in `js/data.js` (the first menu, outside every record's data
-  hash); contact on Stand off held by the captain's patience until its
+  `MENUS` in `js/data.js` (the first menu with #368's Charge, outside
+  every record's data hash); contact on Stand off held by the captain's patience until its
   exit; decision points 1 and 2 with their auto choices and a pause
   setting; no preset buttons (#367); menu choices recorded with their step
   and replayed by `proto/replay.mjs`; `proto/play.mjs` plays one battle
