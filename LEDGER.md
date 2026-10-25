@@ -134,6 +134,7 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, §17 item 58 (#340, §13n.10; PR #107, merged; K7, K8, K9) | session_01S5dPfegKGzV6HkAeRZNbaS | opus-5-5 | 7.77 |
 | Physics checker, PR #107 K7 (blind; 0 blocking, 3 notes) | session_014oR3cWjSXZ1SmVSfjTN2ws | sonnet-5-5 | 0.49 |
 | Reviewer, PR #107 (0 blocking, 6 non-blocking; a container restart killed two mutations, re-run) | session_01LSSsnA46r9a6VyDNVASt7p | sonnet-5-5 | 1.32 |
+| Runner, `regress` on PR #107's merge (`01b9332`: 181 + 160 + 5) | session_01KiJGgyop4Zg1PSS7wBGg1J | sonnet-5-5 | 0.23 |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).

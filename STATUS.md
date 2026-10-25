@@ -19,22 +19,22 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 ## For the owner (five lines)
 
 - **Done**: **PR #107 merged** (§17 item 58; answers #350; 9.58 USD, expected 6–11); #346 (phases gaps 1, 3, 4 probed: no pursuing navigator, contact weapons tight at range open, exit on zones / no antenna / own damage); the owner's #347 (a designed preset menu in the phases plan; #348 how) and #349 (verb leverage as save and error rates); the owner's cost ranges given in chat (rough).
-- **Next**: a runner's `regress` on the merge (expect 181 + 160 + 5); tell the builds engineer to merge and lock (PR #104); the documentation PR `ld/pace` → `main`; the tools pass (#342 (3), with #348's `--menu`, #349's rates, `item58.res.reset`); the baseline; gap 7 and the menu after the builds' lock; then the phases plan §13n.11.
+- **Next**: the builds' lock (PR #104; the builds engineer told); the documentation PR `ld/pace` → `main`; the tools pass (#342 (3), with #348's `--menu`, #349's rates, `item58.res.reset`); the baseline; gap 7 and the menu after the builds' lock; then the phases plan §13n.11.
 - **Waiting on you**: nothing (#343 open to your veto).
 - **Money**: item 58 9.58 USD (probe runners 0.92 more); the previous chat 12.42 final; this chat about 5.3 USD at 245k tokens.
-- **Running**: builds engineer `session_01SC9bT7XzCShErTLAScXgUu` (PR #104, waits for the merge's `regress`). Reviewer and item 58 engineer done (idle).
+- **Running**: builds engineer `session_01SC9bT7XzCShErTLAScXgUu` (PR #104, told at 06:50 UTC to merge `ld/pace` and lock). Reviewer and item 58 engineer done (idle).
 
 Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidance; waits, #342), 57 (two pilots on one relative variable; not the phases' pursuit, #346).
 
 ## Open pull requests
 
-- **#107** merged into `ld/pace` (merge of `9959e4e`; answers #350). `regress` on the merge by a runner: pending.
+- **#107** merged into `ld/pace` (`01b9332`; answers #350); `regress` there by runner `session_01KiJGgyop4Zg1PSS7wBGg1J`: 181 VERIFIED + 160 WITHDRAWN + 5 RETIRED, 0 FAIL / MISMATCH / BLOCKED.
 - **#104** (draft, `m0/builds2` → `ld/pace`): the builds. Lance and Swarm meet #330 (i) / (ii) with one S turret each (8/8 8/8; 8/8 7/8); Furnace 0/8 measured (#343, #345), 6/8 (ii); `L4.builds.lethal` written unlocked; `L4.builds.valid` → `.v2` (#344). Locks after PR #107's merge, with (i), (ii) and the helm suite re-checked on the merged code.
 
 ## Next steps
 
 0. **Documentation to `main`** (#325 (7)): item 55's pass merged (PR #106); item 58's pass next, once the merge's `regress` is in.
-1. **§17 item 58**: merged (#350); the runner's `regress` on the merge, then tell the builds engineer.
+1. **§17 item 58**: merged (#350), `regress` matched; the builds engineer told to merge and lock (2026-10-25 06:50 UTC).
 2. **The builds** (#330, #332, #342): the builds engineer `session_01SC9bT7XzCShErTLAScXgUu` resumes PR #104 now (retry without the S turret first; the Swarm may aim at saturating point defence, `tools/estimates/swarm-pd.mjs`); before `L4.builds.lethal` locks it merges `ld/pace` with item 58 and re-checks #330's (i), (ii) and the helm suite. `L4.builds.lethal` is not yet written or locked.
 2b. **The baseline's columns** (#342 (3)): a small tools pass (engineer) puts #336's outcomes counted apart (win / loss / escape / none by the limit; stalemate once #337's X is set), the survival column, #338's ranking (wins, survival, crew alive) and #337's columns (time to the first hot room; the longest gap without `cell-damaged` in battles ending in a kill) into `tools/sweep.mjs`, `tools/estimates/pace-e7.mjs` and `pace-verbs.mjs`, before the baseline runner; planned after item 58's merge. Also (#348): `pace-verbs.mjs --menu prototype|designed` and the verb column's label "on the prototype's three presets, not a designed menu" (#347). And (#349) verb leverage as a save rate and an error rate, per pair and in total, with cell and trial counts.
 3. **The owner's battle-phases direction** (2026-10-24, `IDEAS.md` from `ideas/battle-phases` `d0bffd5`; the owner's answer to #329's B): phases contact / range / position and control / finish, one side attacking and one defending, a defence sends the battle back a phase, tapping out open in every phase, each side judging its phase from its own model; a strategy is per phase a preset plus an exit condition at an aggression level; the player takes decision points from a short menu (auto by default). **When**: after item 55 and the rebuilt builds, before L5e2's E5–E7; the runner's re-measure below is the baseline without phases, the same measures with phases decide. Item 55 keeps the navigator's inputs as goals (range, aspect) set from above; a one-phase plan must reproduce the behaviour exactly. Record as an owner row when the phases pass is planned.
