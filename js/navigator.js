@@ -122,16 +122,17 @@ export function navigate(battle, side, goals, { them, vo }) {
     const able = throttle > 0 && a > 0 && t180 < Infinity;
     // The position yields (13n.9, #335): while the order is engaged under the position law, the distance to its point
     // must fall by a band within helm.positionPatience, else the position yields (no lead) and stays yielded until the
-    // order has been let go for helm.positionReset.
+    // order has been let go for helm.positionReset. Both clocks compare with RES (13n.10, #340), as the strafe's and the
+    // dodge's do.
     if (!moving && h.engaged && !h.yielded) {
       if (!h.posBest || e < h.posBest.e - band) h.posBest = { e, t };
-      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge)) h.yielded = true;
+      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge) - RES) h.yielded = true;
     }
     h.engaged = able && (moving ? styleEngaged(h.engaged, { e, error: errLen, vt: Math.abs(vt), step: a * battle.dt, band }) : rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band }));
     if (!h.engaged) {
       h.posBest = null;
       if (h.freeSince === null) h.freeSince = t;
-      if (t - h.freeSince >= scaled(p.helm.positionReset, edge)) h.yielded = false;
+      if (t - h.freeSince >= scaled(p.helm.positionReset, edge) - RES) h.yielded = false;
     } else h.freeSince = null;
     if (h.engaged) { heading = atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
     h.range = { R, e, want, rel, vt, error: errLen, threshold: a * t180, band, letGo: band / t180 };

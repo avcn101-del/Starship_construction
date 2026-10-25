@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.play.replay",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "9c10bc11",
   "lockedHash": "9c10bc11",
   "runHash": "78837ad5",
-  "dataHash": "4b7cd27a",
+  "dataHash": "df15610d",
   "rowsHash": "ca701d87",
   "rows": [
     {

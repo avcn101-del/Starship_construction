@@ -1,0 +1,55 @@
+diff --git a/js/helm.js b/js/helm.js
+index 91c5350..f028779 100644
+--- a/js/helm.js
++++ b/js/helm.js
+@@ -197,7 +197,7 @@ export function helmStep(battle, side) {
+   const engineOff = cold || (hot && o.heat.response === 'engine');
+   // Movement, facing, dodging: the orders as the navigator's goals (#40's order, js/navigator.js), flown by the pilot.
+   const range = o.range === 'disengage' || h.disengage ? 'disengage' : scaled(p.helm[{ close: 'rangeClose', hold: 'rangeHold', open: 'rangeOpen' }[o.range]], edge);
+-  const nav = navigate(battle, side, { range, position: o.position, style: o.style, facing: o.facing, dodging: o.dodging, throttle: o.throttle }, { them, vo });
++  const nav = navigate(battle, side, { range, position: o.position, style: o.style, facing: o.facing, dodging: o.dodging, throttle: o.throttle }, { them, vo, ao });
+   h.mode = nav.mode;
+   h.throttle = engineOff ? 0 : nav.throttle;
+   pilotStep(side, { heading: nav.heading, throttle: h.throttle });
+diff --git a/js/navigator.js b/js/navigator.js
+index 7c0a0c2..7a04f7f 100644
+--- a/js/navigator.js
++++ b/js/navigator.js
+@@ -77,7 +77,7 @@ export function styleEngaged(was, { e, error, vt, step, band }) {
+  * { heading, throttle, mode }: the wanted heading (rad) and the engine's opening before the systems' heat and
+  * emission rules.
+  */
+-export function navigate(battle, side, goals, { them, vo }) {
++export function navigate(battle, side, goals, { them, vo, ao }) {
+   const w = side.world, h = side.helm, me = flownBody(w);
+   const t = battle.t, edge = battle.edge, p = battle.params;
+   const D = sub(them.x, me.x), r = len(D), u = r > 0 ? [D[0] / r, D[1] / r] : [1, 0], los = atan2(u[1], u[0]);
+@@ -109,7 +109,9 @@ export function navigate(battle, side, goals, { them, vo }) {
+       dir = [cos(phiP), sin(phiP)];
+     }
+     const P = [them.x[0] + R * dir[0], them.x[1] + R * dir[1]], E = sub(P, me.x), e = len(E);
+-    const speed = brakingSpeed(e, a, t180), radial = e > 0 ? [(E[0] / e) * speed, (E[1] / e) * speed] : [0, 0];
++    const L = globalThis.__LEAD || 0, ax = ao && L ? Math.max(0, dot(ao, u)) : 0; // PROBE: the other's acceleration away from me
++    const away = cos(wrap(them.theta - los)) > 0; // PROBE: the other's bow points away from me (its engine can open the range)
++    const speed = L === 3 && away ? 1e4 : L === 4 && away ? brakingSpeed(e, 2 * a, t180) : brakingSpeed(e, a + ax, t180), radial = e > 0 ? [(E[0] / e) * speed, (E[1] / e) * speed] : [0, 0];
+     let vt = 0;
+     if (goals.style === 'strafe') {
+       if (h.nextStrafe === null) h.nextStrafe = t + dodgeInterval(battle, h);
+@@ -117,6 +119,7 @@ export function navigate(battle, side, goals, { them, vo }) {
+     }
+     if (moving && t180 < Infinity) vt = (goals.style === 'strafe' ? h.strafeSign : 1) * (band / t180);
+     const ccw = [u[1], -u[0]], want = [radial[0] + vt * ccw[0], radial[1] + vt * ccw[1]];
++    if (L >= 2 && ao) { want[0] += ao[0] * t180; want[1] += ao[1] * t180; } // PROBE: lead the other's acceleration by a t180
+     const rel = sub(me.v, vo), err = sub(want, rel), errLen = len(err);
+     // A ship with no RCS couple (t180 infinite) cannot point its engine: the order does not engage (#306 (8)).
+     const able = throttle > 0 && a > 0 && t180 < Infinity;
+@@ -134,6 +137,9 @@ export function navigate(battle, side, goals, { them, vo }) {
+       if (t - h.freeSince >= scaled(p.helm.positionReset, edge)) h.yielded = false;
+     } else h.freeSince = null;
+     if (h.engaged) { heading = atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
++    // PROBE L5: against a ship accelerating away (observed, along the line of sight), the cheap brake is the engine
++    // off, bow kept on: never turn the engine round while the other's own acceleration opens the range.
++    if (L === 5 && h.engaged && ao && dot(ao, u) > 0.05 * a1 && dot(err, u) < 0) { heading = los; open = 0; mode = 'coast'; }
+     h.range = { R, e, want, rel, vt, error: errLen, threshold: a * t180, band, letGo: band / t180 };
+   }
+   // Facing (second), then dodging (third, broadside only).

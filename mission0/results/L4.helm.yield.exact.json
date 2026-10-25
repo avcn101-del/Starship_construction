@@ -1,0 +1,2304 @@
+{
+  "id": "L4.helm.yield.exact",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.helm.yield.exact",
+  "code": "6043ed0",
+  "criterionHash": "f20d14da",
+  "lockedHash": "f20d14da",
+  "runHash": "1fa49a7c",
+  "dataHash": "df15610d",
+  "rowsHash": "6f3b4c53",
+  "rows": [
+    {
+      "case": {
+        "E": 60,
+        "L": 1800
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 60,
+        "Y": 961,
+        "L": 1800,
+        "B": 3600,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 61,
+        "L": 1801
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 61,
+        "Y": 962,
+        "L": 1801,
+        "B": 3601,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 62,
+        "L": 1802
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 62,
+        "Y": 963,
+        "L": 1802,
+        "B": 3602,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 63,
+        "L": 1803
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 63,
+        "Y": 964,
+        "L": 1803,
+        "B": 3603,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 64,
+        "L": 1804
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 64,
+        "Y": 965,
+        "L": 1804,
+        "B": 3604,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 65,
+        "L": 1805
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 65,
+        "Y": 966,
+        "L": 1805,
+        "B": 3605,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 66,
+        "L": 1806
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 66,
+        "Y": 967,
+        "L": 1806,
+        "B": 3606,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 67,
+        "L": 1807
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 67,
+        "Y": 968,
+        "L": 1807,
+        "B": 3607,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 68,
+        "L": 1808
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 68,
+        "Y": 969,
+        "L": 1808,
+        "B": 3608,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 69,
+        "L": 1809
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 69,
+        "Y": 970,
+        "L": 1809,
+        "B": 3609,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 70,
+        "L": 1810
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 70,
+        "Y": 971,
+        "L": 1810,
+        "B": 3610,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 71,
+        "L": 1811
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 71,
+        "Y": 972,
+        "L": 1811,
+        "B": 3611,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 72,
+        "L": 1812
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 72,
+        "Y": 973,
+        "L": 1812,
+        "B": 3612,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 73,
+        "L": 1813
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 73,
+        "Y": 974,
+        "L": 1813,
+        "B": 3613,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 74,
+        "L": 1814
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 74,
+        "Y": 975,
+        "L": 1814,
+        "B": 3614,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 75,
+        "L": 1815
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 75,
+        "Y": 976,
+        "L": 1815,
+        "B": 3615,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 76,
+        "L": 1816
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 76,
+        "Y": 977,
+        "L": 1816,
+        "B": 3616,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 77,
+        "L": 1817
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 77,
+        "Y": 978,
+        "L": 1817,
+        "B": 3617,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 78,
+        "L": 1818
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 78,
+        "Y": 979,
+        "L": 1818,
+        "B": 3618,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 79,
+        "L": 1819
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 79,
+        "Y": 980,
+        "L": 1819,
+        "B": 3619,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 80,
+        "L": 1820
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 80,
+        "Y": 981,
+        "L": 1820,
+        "B": 3620,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 81,
+        "L": 1821
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 81,
+        "Y": 982,
+        "L": 1821,
+        "B": 3621,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 82,
+        "L": 1822
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 82,
+        "Y": 983,
+        "L": 1822,
+        "B": 3622,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 83,
+        "L": 1823
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 83,
+        "Y": 984,
+        "L": 1823,
+        "B": 3623,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 84,
+        "L": 1824
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 84,
+        "Y": 985,
+        "L": 1824,
+        "B": 3624,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 85,
+        "L": 1825
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 85,
+        "Y": 986,
+        "L": 1825,
+        "B": 3625,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 86,
+        "L": 1826
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 86,
+        "Y": 987,
+        "L": 1826,
+        "B": 3626,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 87,
+        "L": 1827
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 87,
+        "Y": 988,
+        "L": 1827,
+        "B": 3627,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 88,
+        "L": 1828
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 88,
+        "Y": 989,
+        "L": 1828,
+        "B": 3628,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 89,
+        "L": 1829
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 89,
+        "Y": 990,
+        "L": 1829,
+        "B": 3629,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 90,
+        "L": 1830
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 90,
+        "Y": 991,
+        "L": 1830,
+        "B": 3630,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 91,
+        "L": 1831
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 91,
+        "Y": 992,
+        "L": 1831,
+        "B": 3631,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 92,
+        "L": 1832
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 92,
+        "Y": 993,
+        "L": 1832,
+        "B": 3632,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 93,
+        "L": 1833
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 93,
+        "Y": 994,
+        "L": 1833,
+        "B": 3633,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 94,
+        "L": 1834
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 94,
+        "Y": 995,
+        "L": 1834,
+        "B": 3634,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 95,
+        "L": 1835
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 95,
+        "Y": 996,
+        "L": 1835,
+        "B": 3635,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 96,
+        "L": 1836
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 96,
+        "Y": 997,
+        "L": 1836,
+        "B": 3636,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 97,
+        "L": 1837
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 97,
+        "Y": 998,
+        "L": 1837,
+        "B": 3637,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 98,
+        "L": 1838
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 98,
+        "Y": 999,
+        "L": 1838,
+        "B": 3638,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 99,
+        "L": 1839
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 99,
+        "Y": 1000,
+        "L": 1839,
+        "B": 3639,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 100,
+        "L": 1840
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 100,
+        "Y": 1001,
+        "L": 1840,
+        "B": 3640,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 101,
+        "L": 1841
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 101,
+        "Y": 1002,
+        "L": 1841,
+        "B": 3641,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 102,
+        "L": 1842
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 102,
+        "Y": 1003,
+        "L": 1842,
+        "B": 3642,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 103,
+        "L": 1843
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 103,
+        "Y": 1004,
+        "L": 1843,
+        "B": 3643,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 104,
+        "L": 1844
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 104,
+        "Y": 1005,
+        "L": 1844,
+        "B": 3644,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 105,
+        "L": 1845
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 105,
+        "Y": 1006,
+        "L": 1845,
+        "B": 3645,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 106,
+        "L": 1846
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 106,
+        "Y": 1007,
+        "L": 1846,
+        "B": 3646,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 107,
+        "L": 1847
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 107,
+        "Y": 1008,
+        "L": 1847,
+        "B": 3647,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 108,
+        "L": 1848
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 108,
+        "Y": 1009,
+        "L": 1848,
+        "B": 3648,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 109,
+        "L": 1849
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 109,
+        "Y": 1010,
+        "L": 1849,
+        "B": 3649,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 110,
+        "L": 1850
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 110,
+        "Y": 1011,
+        "L": 1850,
+        "B": 3650,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 111,
+        "L": 1851
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 111,
+        "Y": 1012,
+        "L": 1851,
+        "B": 3651,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 112,
+        "L": 1852
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 112,
+        "Y": 1013,
+        "L": 1852,
+        "B": 3652,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 113,
+        "L": 1853
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 113,
+        "Y": 1014,
+        "L": 1853,
+        "B": 3653,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 114,
+        "L": 1854
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 114,
+        "Y": 1015,
+        "L": 1854,
+        "B": 3654,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 115,
+        "L": 1855
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 115,
+        "Y": 1016,
+        "L": 1855,
+        "B": 3655,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 116,
+        "L": 1856
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 116,
+        "Y": 1017,
+        "L": 1856,
+        "B": 3656,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 117,
+        "L": 1857
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 117,
+        "Y": 1018,
+        "L": 1857,
+        "B": 3657,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 118,
+        "L": 1858
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 118,
+        "Y": 1019,
+        "L": 1858,
+        "B": 3658,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 119,
+        "L": 1859
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 119,
+        "Y": 1020,
+        "L": 1859,
+        "B": 3659,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 120,
+        "L": 1860
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 120,
+        "Y": 1021,
+        "L": 1860,
+        "B": 3660,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 121,
+        "L": 1861
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 121,
+        "Y": 1022,
+        "L": 1861,
+        "B": 3661,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 122,
+        "L": 1862
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 122,
+        "Y": 1023,
+        "L": 1862,
+        "B": 3662,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 123,
+        "L": 1863
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 123,
+        "Y": 1024,
+        "L": 1863,
+        "B": 3663,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 124,
+        "L": 1864
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 124,
+        "Y": 1025,
+        "L": 1864,
+        "B": 3664,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 125,
+        "L": 1865
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 125,
+        "Y": 1026,
+        "L": 1865,
+        "B": 3665,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 126,
+        "L": 1866
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 126,
+        "Y": 1027,
+        "L": 1866,
+        "B": 3666,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 127,
+        "L": 1867
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 127,
+        "Y": 1028,
+        "L": 1867,
+        "B": 3667,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 128,
+        "L": 1868
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 128,
+        "Y": 1029,
+        "L": 1868,
+        "B": 3668,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 129,
+        "L": 1869
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 129,
+        "Y": 1030,
+        "L": 1869,
+        "B": 3669,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 130,
+        "L": 1870
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 130,
+        "Y": 1031,
+        "L": 1870,
+        "B": 3670,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 131,
+        "L": 1871
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 131,
+        "Y": 1032,
+        "L": 1871,
+        "B": 3671,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 132,
+        "L": 1872
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 132,
+        "Y": 1033,
+        "L": 1872,
+        "B": 3672,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 133,
+        "L": 1873
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 133,
+        "Y": 1034,
+        "L": 1873,
+        "B": 3673,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 134,
+        "L": 1874
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 134,
+        "Y": 1035,
+        "L": 1874,
+        "B": 3674,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 135,
+        "L": 1875
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 135,
+        "Y": 1036,
+        "L": 1875,
+        "B": 3675,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 136,
+        "L": 1876
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 136,
+        "Y": 1037,
+        "L": 1876,
+        "B": 3676,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 137,
+        "L": 1877
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 137,
+        "Y": 1038,
+        "L": 1877,
+        "B": 3677,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 138,
+        "L": 1878
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 138,
+        "Y": 1039,
+        "L": 1878,
+        "B": 3678,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 139,
+        "L": 1879
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 139,
+        "Y": 1040,
+        "L": 1879,
+        "B": 3679,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 140,
+        "L": 1880
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 140,
+        "Y": 1041,
+        "L": 1880,
+        "B": 3680,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 141,
+        "L": 1881
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 141,
+        "Y": 1042,
+        "L": 1881,
+        "B": 3681,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 142,
+        "L": 1882
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 142,
+        "Y": 1043,
+        "L": 1882,
+        "B": 3682,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 143,
+        "L": 1883
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 143,
+        "Y": 1044,
+        "L": 1883,
+        "B": 3683,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 144,
+        "L": 1884
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 144,
+        "Y": 1045,
+        "L": 1884,
+        "B": 3684,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 145,
+        "L": 1885
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 145,
+        "Y": 1046,
+        "L": 1885,
+        "B": 3685,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 146,
+        "L": 1886
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 146,
+        "Y": 1047,
+        "L": 1886,
+        "B": 3686,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 147,
+        "L": 1887
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 147,
+        "Y": 1048,
+        "L": 1887,
+        "B": 3687,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 148,
+        "L": 1888
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 148,
+        "Y": 1049,
+        "L": 1888,
+        "B": 3688,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 149,
+        "L": 1889
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 149,
+        "Y": 1050,
+        "L": 1889,
+        "B": 3689,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 150,
+        "L": 1890
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 150,
+        "Y": 1051,
+        "L": 1890,
+        "B": 3690,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 151,
+        "L": 1891
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 151,
+        "Y": 1052,
+        "L": 1891,
+        "B": 3691,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 152,
+        "L": 1892
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 152,
+        "Y": 1053,
+        "L": 1892,
+        "B": 3692,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 153,
+        "L": 1893
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 153,
+        "Y": 1054,
+        "L": 1893,
+        "B": 3693,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 154,
+        "L": 1894
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 154,
+        "Y": 1055,
+        "L": 1894,
+        "B": 3694,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 155,
+        "L": 1895
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 155,
+        "Y": 1056,
+        "L": 1895,
+        "B": 3695,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 156,
+        "L": 1896
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 156,
+        "Y": 1057,
+        "L": 1896,
+        "B": 3696,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 157,
+        "L": 1897
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 157,
+        "Y": 1058,
+        "L": 1897,
+        "B": 3697,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 158,
+        "L": 1898
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 158,
+        "Y": 1059,
+        "L": 1898,
+        "B": 3698,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 159,
+        "L": 1899
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 159,
+        "Y": 1060,
+        "L": 1899,
+        "B": 3699,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 160,
+        "L": 1900
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 160,
+        "Y": 1061,
+        "L": 1900,
+        "B": 3700,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 161,
+        "L": 1901
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 161,
+        "Y": 1062,
+        "L": 1901,
+        "B": 3701,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 162,
+        "L": 1902
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 162,
+        "Y": 1063,
+        "L": 1902,
+        "B": 3702,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 163,
+        "L": 1903
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 163,
+        "Y": 1064,
+        "L": 1903,
+        "B": 3703,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 164,
+        "L": 1904
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 164,
+        "Y": 1065,
+        "L": 1904,
+        "B": 3704,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 165,
+        "L": 1905
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 165,
+        "Y": 1066,
+        "L": 1905,
+        "B": 3705,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 166,
+        "L": 1906
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 166,
+        "Y": 1067,
+        "L": 1906,
+        "B": 3706,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 167,
+        "L": 1907
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 167,
+        "Y": 1068,
+        "L": 1907,
+        "B": 3707,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 168,
+        "L": 1908
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 168,
+        "Y": 1069,
+        "L": 1908,
+        "B": 3708,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 169,
+        "L": 1909
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 169,
+        "Y": 1070,
+        "L": 1909,
+        "B": 3709,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 170,
+        "L": 1910
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 170,
+        "Y": 1071,
+        "L": 1910,
+        "B": 3710,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 171,
+        "L": 1911
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 171,
+        "Y": 1072,
+        "L": 1911,
+        "B": 3711,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 172,
+        "L": 1912
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 172,
+        "Y": 1073,
+        "L": 1912,
+        "B": 3712,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 173,
+        "L": 1913
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 173,
+        "Y": 1074,
+        "L": 1913,
+        "B": 3713,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 174,
+        "L": 1914
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 174,
+        "Y": 1075,
+        "L": 1914,
+        "B": 3714,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 175,
+        "L": 1915
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 175,
+        "Y": 1076,
+        "L": 1915,
+        "B": 3715,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 176,
+        "L": 1916
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 176,
+        "Y": 1077,
+        "L": 1916,
+        "B": 3716,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 177,
+        "L": 1917
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 177,
+        "Y": 1078,
+        "L": 1917,
+        "B": 3717,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 178,
+        "L": 1918
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 178,
+        "Y": 1079,
+        "L": 1918,
+        "B": 3718,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "E": 179,
+        "L": 1919
+      },
+      "expected": {
+        "yieldAfter": 901,
+        "resetAfter": 1800
+      },
+      "actual": {
+        "E": 179,
+        "Y": 1080,
+        "L": 1919,
+        "B": 3719,
+        "yieldedEngaged": true
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

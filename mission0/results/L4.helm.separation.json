@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.helm.separation",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "d48d2ab2",
   "lockedHash": "d48d2ab2",
   "runHash": "c013dbbe",
-  "dataHash": "4b7cd27a",
-  "rowsHash": "c903acbc",
+  "dataHash": "df15610d",
+  "rowsHash": "b3ac21da",
   "rows": [
     {
       "case": {
@@ -36,7 +36,7 @@
         "close": 600
       },
       "actual": {
-        "min": 675.7199868607275,
+        "min": 675.7199868886352,
         "at": 14.033333333333333,
         "steps": 3292,
         "end": "destroyed T at 54.87 s"
@@ -70,10 +70,10 @@
         "close": 600
       },
       "actual": {
-        "min": 763.353910092062,
-        "at": 51.3,
-        "steps": 5696,
-        "end": "destroyed T at 94.93 s"
+        "min": 730.0524698727854,
+        "at": 98.11666666666666,
+        "steps": 12548,
+        "end": "disabled A at 209.13 s"
       },
       "pass": true,
       "note": ""
