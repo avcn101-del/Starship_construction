@@ -13,6 +13,9 @@
   build and per phase; the baseline's verb column is labelled as measured
   on the prototype's three presets. #348: the menu from the sweep's
   distinct best responses per build, after the builds' lock.
+- #349: verb leverage as a save rate and an error rate with cell counts
+  (`out/verbs-every10.txt`: save 2 of 38 trials, 1 cell; error 78 of 532,
+  7 cells), built in the tools pass.
 
 ## Unreleased — 2026-10-25 — §17 item 58 planned (#340)
 
