@@ -151,21 +151,27 @@ const report = (name, problems) => { console.log(`${problems.length ? 'FAIL' : '
   report(`8's decision table names every ORDERS slot and PRESETS.fire key (${slots.size}) and every verb of verb() (${verbs.join(', ')})`, problems);
 }
 // 12. The player decisions (#355, #356 (2)): every **Checklist** of a plan from 13n.12 on (DESIGN.md, up to 14) carries
-// a "**Player decisions**" item; the checklist is its line and the list items and blank lines that follow it.
+// a "**Player decisions**" item; the checklist is its line and the list items and blank lines that follow it. A plan
+// section (a `### 13...` heading from 13n.12 on, to the next heading) with no checklist this check can match fails
+// (#361 (2)): a misspelt checklist is not passed silently.
 {
   const design = read('DESIGN.md'), m = design.match(/^#{2,3} 13(n\.(1[2-9]|[2-9]\d)|[o-z])\b.*$/m);
   const problems = [];
   if (!m) console.log('info  no plan from 13n.12 on yet (check 12 has nothing to read)');
   else {
     const start = m.index, end = design.indexOf('\n## 14.', start), lines = design.slice(start, end < 0 ? undefined : end).split('\n');
-    let n = 0;
+    let n = 0, section = null;
+    const lineOf = (i) => design.slice(0, start).split('\n').length + i;
+    const close = () => { if (section && !section.n) problems.push(`DESIGN.md: the plan section "${section.title.slice(0, 60)}" (line ${section.line}) has no checklist this check can match ("**Checklist**" at a line's start)`); };
     lines.forEach((l, i) => {
+      if (/^### 13/.test(l)) { close(); section = { title: l, line: lineOf(i), n: 0 }; if (!/Checklist/.test(l)) return; }
       if (!/^\*\*Checklist\*\*/.test(l) && !/^#{2,4} .*Checklist/.test(l)) return;
-      n++;
+      n++; if (section) section.n++;
       let ok = false;
       for (let k = i + 1; k < lines.length && (lines[k].trim() === '' || /^\s*[-*] /.test(lines[k]) || /^\s{2,}\S/.test(lines[k])); k++) if (lines[k].includes('**Player decisions**')) ok = true;
-      if (!ok) problems.push(`DESIGN.md: the checklist "${l.slice(0, 60)}" (line ${design.slice(0, start).split('\n').length + i}) has no **Player decisions** item`);
+      if (!ok) problems.push(`DESIGN.md: the checklist "${l.slice(0, 60)}" (line ${lineOf(i)}) has no **Player decisions** item`);
     });
+    close();
     console.log(`info  ${n} checklist(s) from ${m[0].slice(0, 40)} on`);
   }
   report('every checklist of a plan from 13n.12 on carries a **Player decisions** item (#355)', problems);
