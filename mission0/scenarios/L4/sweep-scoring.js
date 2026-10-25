@@ -50,7 +50,7 @@ export default {
   tolerance: 'exact',
   criterion: 'each side\'s outcome as the rule (destroyed, disabled, surrender: loss for the side, win for the other; escaped: escape and let go; draw, stalemate, no end for both); score win 1, draw 1/2, else 0; survival false only for loss and draw; the ranking picks the third try (index 2) with crew 10 / 8 / 12 and the second (index 1) with crew 10 / 12 / 12',
   tunable: [],
-  locked: null,
+  locked: { date: '2026-10-25', hash: '6cb41a83' },
   cases() {
     return [{ name: 'ends' }, { name: 'ranking' }, { name: 'crew equal' }];
   },
