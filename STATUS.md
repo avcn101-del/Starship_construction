@@ -13,16 +13,16 @@ depth 7 of 8, and its children could not create triggers or sessions. Chain: `se
 
 **Reading order (#325)**: this file, `BRIEF.md`, `CLAUDE.md`,
 `.claude/agents/lead-designer.md`, `DESIGN.md` §18 and the plan in force
-(§13n, §13n.9, §17 items 57–58); `audits/2026-10-24-process.md` §1; everything
+(§13n, §13n.9, §13n.10, §17 items 57–58); `audits/2026-10-24-process.md` §1; everything
 else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
 ## For the owner (five lines)
 
-- **Done**: §17 item 55 merged (PR #105, `da029d3`: the helm's layers, the broadside race cured, K1–K6; `regress` 179 VERIFIED + 160 WITHDRAWN + 5 RETIRED); the owner's rows #336–#338 (outcomes counted apart, the clock and the stalemate, the sweep's tie-break); #339 (item 55's answers, K6); ideas merged: room variants, the phases' gaps.
-- **Next**: §17 item 58 (a starved engine latches the pilot's thrust at 0; the yield clocks' `RES`): probe, then a small pass, before the builds are locked; then the builds (PR #104, #330, #332); then the runner's baseline re-measure (with #336/#337's columns); then battle phases.
-- **Waiting on you**: **the next lead designer chat must be opened by the owner from claude.ai**, not by this chat: this chat is at lineage depth 7 of 8; sessions it creates (depth 8) cannot create triggers or sessions (the checker's and the reviewer's notifications were refused), and a chat it created could not create engineers.
-- **Money**: item 55's pass 16.39 USD (expected 11–17); this chat 8.65 USD at 278k tokens.
-- **Running**: the item 58 probe runner `session_01YWf1ajvoEXsTuTsQYyJLuJ` (sonnet; latch counts, helm suites and `regress` under `tools/estimates/item58-a.diff` and `-b.diff`; it cannot notify: read its last assistant message with `list_events`, and tell it nothing unless it stalls). No check-in is scheduled. The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104 (it continues after item 58).
+- **Done**: §17 item 55 merged (PR #105) and its documentation on `main` (PR #106, `3cff5ec`); item 58 probed and planned (#340, §13n.10: the thrust report expires after `helm.thrustRetry` 1 s not asked; `RES` on the yield clocks; candidates (a) and (b) rejected on the probe).
+- **Next**: item 58's PR (engineer), then the blind checker on K7 and the reviewer, a runner's `regress` on the merge; then the builds (PR #104, #330, #332); then the baseline re-measure (with #336/#337's columns); then battle phases.
+- **Waiting on you**: nothing.
+- **Money**: item 55's pass 16.39 USD; item 58 expected 6–11 USD (#246 (4)'s figure 13–22); its probe runners about 0.7 USD so far.
+- **Running**: engineer `session_01S5dPfegKGzV6HkAeRZNbaS` (opus, `m0/pilot58`, task in `DESIGN.md` §13n.10; it notifies this chat). Runner `session_013SMcvDv16xZa1GsyUQnZQ9` ((b) + `RES` `regress`; informational only, (b) was rejected). The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104 (told the new id). No check-in is scheduled.
 
 Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidance), 57 (a leading navigator), 58 (the starved-thrust latch).
 
@@ -32,8 +32,8 @@ Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidanc
 
 ## Next steps
 
-0. **Documentation to `main`** (#325 (7)): item 55's pass is done; one pull request `ld/pace` → `main` after `node tools/lint-docs.mjs` (not yet opened).
-1. **§17 item 58** (`DESIGN.md` §17; PR #105's checker H1 and reviewer finding 1): a starved engine latches the pilot's reported thrust at 0 (refreshed only while asked to thrust; the navigator then never asks); and the yield's and reset's clocks compare without `RES` (`js/navigator.js` ~128, ~134). Probe first on a scratch tree (a runner): count the helm-suite cells where `lastSupply` stays 0 while the router could feed the engine, under (a) the fraction the router would give at full draw and (b) a starved report that expires after one step not asked; `regress` under the chosen one. Then a small engineer pass (opus) with a scenario that kills the latch (K2 is locked: a new one), the blind checker if the thrust rule changes, a reviewer. Item 55's probe and history: `HISTORY.md` and §13n.9.
+0. **Documentation to `main`** (#325 (7)): item 55's pass merged to `main` (PR #106); the next one after item 58's merge.
+1. **§17 item 58** (#340, §13n.10): the engineer builds K7–K9 (`m0/pilot58`); then the blind physics checker (sonnet) on K7 only (setup and inputs, extracted with node), the reviewer (sonnet) on the PR, a runner `regress` on the merge (expect 181 VERIFIED + 160 WITHDRAWN + 5 RETIRED). Probe: `tools/estimates/item58*.mjs`, `item58-{a,b,c}.diff`.
 2. **The builds** (#330): after item 58, the builds engineer (or a new one) continues PR #104 under #332 (retry without the S turret first). `L4.builds.lethal` is not yet written or locked.
 3. **The owner's battle-phases direction** (2026-10-24, `IDEAS.md` from `ideas/battle-phases` `d0bffd5`; the owner's answer to #329's B): phases contact / range / position and control / finish, one side attacking and one defending, a defence sends the battle back a phase, tapping out open in every phase, each side judging its phase from its own model; a strategy is per phase a preset plus an exit condition at an aggression level; the player takes decision points from a short menu (auto by default). **When**: after item 55 and the rebuilt builds, before L5e2's E5–E7; the runner's re-measure below is the baseline without phases, the same measures with phases decide. Item 55 keeps the navigator's inputs as goals (range, aspect) set from above; a one-phase plan must reproduce the behaviour exactly. Record as an owner row when the phases pass is planned.
 4. **One runner** (#329, the owner's process): on the new builds, the mirror and versus-R2 grids with `tools/estimates/pace-e7.mjs` (workers; `--pairs`) at 600 / 900 / 1500 m and 2500 m (`--cull2`), default and strafe + range open (seeds 1–4 where a side strafes or dodges), and `tools/estimates/pace-verbs.mjs --pairs Lance:R2,Swarm:R2,Furnace:R2 --ranges 900,1500 --times 0,10` (the verbs with the player losing). E7 is the two-sided line (#329). Then A / B to the owner. **Also report (the owner, #336, #337)**: outcomes counted apart (win / loss / escape / stalemate) with a survival column; the time to the first hot room per pair; in each battle that ends in a kill, the longest gap without a `cell-damaged` event (sets the stalemate's X, the lead designer's).
