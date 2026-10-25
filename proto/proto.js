@@ -1,22 +1,23 @@
-// proto/proto.js — the feel prototype's page (DESIGN.md 13j, 13n.1 (d); #217,
-// #237, #301 (5)): drives the kernel's battle (proto/battle.js: js/battle.js's
-// createBattle / tick on the duel of proto/duel.js) and draws it on a 2D canvas
+// proto/proto.js — the feel prototype's page (DESIGN.md 13j, 13n.1 (d), 13n.12;
+// #217, #237, #301 (5), #366, #367): drives the kernel's battle with its phases
+// (proto/battle.js, proto/phases.js) and draws it on a 2D canvas
 // (a world strip above two head-up grids). The player's own ship is drawn from
 // its own world; the enemy only as the player's knowledge model knows it
 // (js/sensors.js: the silhouette, the zones resolved, the rooms they revealed
 // with their state at the scan, the IR class of their panels), never its true
-// layout or orders (CLAUDE.md: knowledge, not truth). The player's three verbs
-// (scan a zone, target a known room, switch preset) enter as the kernel's
-// inputs. A throwaway: it never counts as a Mission 0 result. No Math.random:
+// layout, orders or phase (CLAUDE.md: knowledge, not truth). The player's verbs
+// (scan a zone, target a known room) enter as the kernel's inputs; a menu entry
+// is a recorded choice (proto/phases.js). A throwaway: it never counts as a Mission 0 result. No Math.random:
 // the page draws no random effect.
 import { startBattle, playVerb, tick, mainBody, shotStats, losses, endTree } from './battle.js';
 import { exportText } from './export.js';
+import { menuOf, entryOf, choose, waiting, phaseOf } from './phases.js';
 import { weaponStates, toGrid } from '../js/battle.js';
 import { isDestroyed, roomTemperature, survivingFraction } from '../js/rooms.js';
 import { worldPoint } from '../js/body.js';
 import { antennas } from '../js/sensors.js';
 import { heatFraction, bufferFraction, observed, silhouettePose } from '../js/helm.js';
-import { PRESET_ORDER, PRESET_LABELS, SPEEDS, MAX_STEPS_PER_FRAME, LOG_LINES, COLOURS, LABELS, STAND_INS, LOADOUT, LOADOUT_ORDER, defaultLoadout, overridesOf, SEED, PROTO_VERSION } from './config.js';
+import { PRESET_LABELS, SPEEDS, MAX_STEPS_PER_FRAME, LOG_LINES, COLOURS, LABELS, STAND_INS, LOADOUT, LOADOUT_ORDER, defaultLoadout, optionLabel, SEED, PROTO_VERSION, DECISION_NOTE_SECONDS, PHASE_LABELS, EXIT_LABELS } from './config.js';
 
 const $ = (id) => document.getElementById(id);
 const canvas = $('view'), ctx = canvas.getContext('2d');
@@ -27,15 +28,10 @@ let loadout = defaultLoadout(), seed = SEED;
 // box: each grid's cell box { x0, y0, W, H }: the player's from its own layout, the enemy's from the model's zones.
 let box = null, logIndex = 0, hitIndex = 0, lastExport = null, pausedBeforeExport = false;
 const me = () => battle.attacker, model = () => battle.attacker.model;
+const roomLabel = (r) => LABELS[r.id] || LABELS[r.type] || r.id;
 
 // ---------- controls ----------
 function buttons() {
-  $('presets').replaceChildren(...PRESET_ORDER.map((k) => {
-    const b = document.createElement('button');
-    b.type = 'button'; b.textContent = PRESET_LABELS[k]; b.dataset.preset = k;
-    b.addEventListener('click', () => { if (!battle || choosing) return; verb('preset', k); });
-    return b;
-  }));
   $('scan').addEventListener('click', () => { scanMode = !scanMode; refreshButtons(); });
   $('speeds').replaceChildren(...SPEEDS.map((s) => {
     const b = document.createElement('button');
@@ -66,7 +62,7 @@ function buttons() {
   $('standin-list').replaceChildren(...STAND_INS.map((text) => { const li = document.createElement('li'); li.textContent = text; return li; }));
 }
 function refreshButtons() {
-  for (const b of $('presets').children) b.classList.toggle('on', !!battle && b.dataset.preset === me().helm.orders.name);
+  for (const b of $('menu').children) b.classList.toggle('on', !!battle && b.dataset.entry === battle.phases.A.entry);
   for (const b of $('speeds').children) b.classList.toggle('on', Number(b.dataset.speed) === speed);
   $('scan').classList.toggle('on', scanMode);
   $('pause').textContent = paused ? 'Run' : 'Pause';
@@ -75,14 +71,66 @@ function refreshButtons() {
 function refreshLoadout() {
   for (const b of $('loadout-groups').querySelectorAll('button')) b.classList.toggle('on', LOADOUT[b.dataset.lever].options[b.dataset.option].value === loadout[b.dataset.lever]);
 }
-const optionLabel = (k, lo) => LOADOUT[k].options.find((o) => o.value === lo[k]).label;
 
 /** A verb of the player's through the kernel's inputs (proto/battle.js playVerb); logged on the page. */
 function verb(name, arg) {
   const x = playVerb(battle, name, arg);
   if (!x) return;
-  logLine(`${x.t.toFixed(1)} P you: ${name} ${name === 'preset' ? PRESET_LABELS[arg] : name === 'scan' ? `zone ${arg}` : arg}`, 'P big');
-  if (name === 'preset') refreshButtons();
+  logLine(`${x.t.toFixed(1)} P you: ${name} ${name === 'scan' ? `zone ${arg}` : arg}`, 'P big');
+}
+
+// ---------- the menu and the decision points (proto/phases.js) ----------
+/** The menu of the player's build in the side panel: one button per entry (js/data.js MENUS: its name and its line). */
+function menuButtons() {
+  $('menu').replaceChildren(...menuOf(battle.phases.A.build).map((e) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = e.name; b.dataset.entry = e.id; b.title = e.text;
+    b.addEventListener('click', () => { if (!battle || choosing || battle.ended || waiting(battle)) return; pick(e.id); });
+    return b;
+  }));
+}
+/** A menu choice of the player's: recorded with its step and applied before the next tick. */
+function pick(id) {
+  const p = battle.phases.A, dp = p.pending ? p.pending.dp : 0, x = choose(battle, id);
+  if (!x) return;
+  const e = entryOf(p.build, p.entry);
+  logLine(`${battle.t.toFixed(1)} P you${dp ? ` (decision ${dp})` : ''}: ${id === 'stay' ? `stay on ${e.name}` : e.name}`, 'P big');
+  $('decision').hidden = true;
+  refreshButtons();
+}
+/** The decision panel (the pause setting): the options with their lines, the automatic choice marked; the battle waits. */
+function showDecision() {
+  const p = battle.phases.A, d = p.pending, el = $('decision'), cur = entryOf(p.build, p.entry);
+  const head = d.dp === 1 ? `Decision 1: contact is over (${EXIT_LABELS[p.exit.why]})` : `Decision 2: you are hit on ${cur.name}`;
+  const opts = d.options.map((id) => (id === 'stay' ? { id, name: `Stay on ${cur.name}`, text: cur.text } : entryOf(p.build, id)));
+  const h = document.createElement('h2'); h.textContent = head;
+  const row = document.createElement('div'); row.className = 'options';
+  row.replaceChildren(...opts.map((e) => {
+    const b = document.createElement('button'), n = document.createElement('b'), t = document.createElement('span');
+    b.type = 'button'; b.dataset.entry = e.id; n.textContent = `${e.name}${e.id === d.auto ? ' (auto)' : ''}`; t.textContent = e.text;
+    b.append(n, t); b.addEventListener('click', () => pick(e.id));
+    return b;
+  }));
+  const note = document.createElement('div'); note.className = 'note'; note.textContent = 'The battle waits for your choice.';
+  el.replaceChildren(h, row, note);
+  el.hidden = false;
+}
+/** The phase readout: your phase and entry (your own state); the enemy only as your model and own log can read it. */
+function phaseReadout() {
+  const p = battle.phases.A, e = entryOf(p.build, p.entry), h = me().helm, ph = phaseOf(battle, 'A');
+  const you = `YOU: ${PHASE_LABELS[ph] || ph} · ${e.name}${h.hold ? ' · weapons held' : ''}`;
+  const pb = mainBody(me()), eb = silhouettePose(model());
+  let range = '';
+  if (pb && eb) {
+    const d = [eb.x[0] - pb.x[0], eb.x[1] - pb.x[1]], R = Math.hypot(d[0], d[1]), ve = observed(battle, me()).v;
+    const vr = ((ve[0] - pb.v[0]) * d[0] + (ve[1] - pb.v[1]) * d[1]) / R;
+    range = ` · ${vr >= 0 ? 'opening' : 'closing'} ${Math.abs(vr).toFixed(0)} m/s`;
+  }
+  const fired = battle.hits.some((x) => x.side === 'A') || me().world.log.events.some((x) => x.type === 'cell-damaged');
+  const enemy = `ENEMY: ${fired ? 'has hit you' : 'has not hit you'}${range}`;
+  const note = p.lastAuto && battle.t - p.lastAuto.t < DECISION_NOTE_SECONDS ? `Decision ${p.lastAuto.dp}: auto ${p.lastAuto.entry === 'stay' ? `stayed on ${e.name}` : entryOf(p.build, p.lastAuto.entry).name}; change it from the menu` : e.text;
+  const rows = [[you, 'you'], [enemy, 'enemy'], [note, p.lastAuto && battle.t - p.lastAuto.t < DECISION_NOTE_SECONDS ? 'auto' : 'line']];
+  $('phase').replaceChildren(...rows.map(([t, c]) => { const d = document.createElement('div'); d.className = c; d.textContent = t; return d; }));
 }
 
 /** The loadout panel: shown before the first battle and from Restart (the seed moves on by 1); the battle behind it stops. */
@@ -98,7 +146,7 @@ function chooseLoadout() {
 function start() {
   const v = Math.floor(Number($('seed').value));
   if (Number.isFinite(v) && v >= 0) seed = v;
-  battle = startBattle({ seed, overrides: overridesOf(loadout) });
+  battle = startBattle({ ...loadout, seed });
   const own = [...me().world.layout.occupied.keys()].map((k) => k.split(',').map(Number)), zs = model().zones;
   const bx = (x0, x1, y0, y1) => ({ x0, y0, W: x1 - x0, H: y1 - y0 });
   box = {
@@ -107,7 +155,9 @@ function start() {
   };
   choosing = false; acc = 0; last = null; paused = false; scanMode = false; logIndex = 0; hitIndex = 0;
   $('loadout').hidden = true;
-  $('lo-tag').replaceChildren(...[`seed ${battle.seed}`, `${optionLabel('shieldBudget', loadout)} · hits ${optionLabel('hitsToWreck', loadout)}`].map((t) => { const d = document.createElement('div'); d.textContent = t; return d; }));
+  $('lo-tag').replaceChildren(...[`${loadout.player} v ${loadout.enemy} · seed ${battle.seed}`, `${optionLabel('opening', loadout)} ${optionLabel('aspect', loadout)} · ${loadout.pause ? 'pause' : 'auto'}`].map((t) => { const d = document.createElement('div'); d.textContent = t; return d; }));
+  menuButtons();
+  $('decision').hidden = true;
   $('log').replaceChildren();
   $('end').hidden = true;
   $('hint').hidden = false;
@@ -191,16 +241,16 @@ function drawOwn() {
     });
     const [rx, ry, rw, rh] = cellsRect('player', cells);
     ctx.strokeStyle = room.controlled ? COLOURS.text : COLOURS.dim; ctx.lineWidth = 2; ctx.strokeRect(rx + 1, ry + 1, rw - 2, rh - 2);
-    if (!isDestroyed(room)) label(rx, ry, rw, rh, room.shutdown ? `${LABELS[room.id] || room.id}!` : LABELS[room.id] || room.id, `${Math.round(roomTemperature(room))}K`, room.shutdown ? COLOURS.cross : COLOURS.text);
+    if (!isDestroyed(room)) label(rx, ry, rw, rh, room.shutdown ? `${roomLabel(room)}!` : roomLabel(room), `${Math.round(roomTemperature(room))}K`, room.shutdown ? COLOURS.cross : COLOURS.text);
   }
   // Above: preset, the helm's mode and throttle, the target the helm holds (from the model).
   const h = s.helm, tg = h.target && h.target.room ? `${LABELS[model().rooms.get(h.target.room)?.type] || h.target.room}` : h.target && h.target.point ? 'zone centre' : '—';
   ctx.textAlign = 'left'; ctx.font = FONT(13, true); ctx.fillStyle = COLOURS.player;
-  ctx.fillText(`YOU  ${PRESET_LABELS[h.orders.name] || h.orders.name}${h.held ? ' (holding fire)' : ''}`, o, geo.strip + line);
+  ctx.fillText(`YOU  ${entryOf(battle.phases.A.build, battle.phases.A.entry).name} · captain ${PRESET_LABELS[h.orders.name] || h.orders.name}${h.held ? ' (holding fire)' : ''}`, o, geo.strip + line);
   ctx.font = FONT(12); ctx.fillStyle = COLOURS.text;
   ctx.fillText(`target: ${tg} · ${h.mode || '-'}${h.throttle > 0 ? ` · engine ${Math.round(h.throttle * 100)}%` : ''}`, o, geo.strip + 2 * line);
   // Below: weapons able, crew, heat and buffer (js/helm.js), shield.
-  const by = geo.oy + geo.GH * cs + line, able = weaponStates(w).map((x) => `${LABELS[x.room.id] || x.room.id} ${x.able ? 'ok' : x.why}`).join(' ');
+  const by = geo.oy + geo.GH * cs + line, able = weaponStates(w).map((x) => `${roomLabel(x.room)} ${x.able ? 'ok' : x.why}`).join(' ');
   const L = losses(battle, 'A');
   ctx.fillText(able, o, by);
   ctx.fillText(`crew ${L.crewTotal - L.crewLost}/${L.crewTotal}  heat ${heatFraction(w).toFixed(2)}  buffer ${bufferFraction(battle, w).toFixed(2)}`, o, by + line);
@@ -268,7 +318,7 @@ function drawKnown() {
   ctx.textAlign = 'left'; ctx.font = FONT(13, true); ctx.fillStyle = COLOURS.enemy;
   ctx.fillText('ENEMY (as you know it)', o, geo.strip + line);
   ctx.font = FONT(12); ctx.fillStyle = COLOURS.text;
-  ctx.fillText(`zones ${m.resolved.size}/6 · rooms known ${m.rooms.size}`, o, geo.strip + 2 * line);
+  ctx.fillText(`zones ${m.resolved.size}/${m.zones.length} · rooms known ${m.rooms.size}`, o, geo.strip + 2 * line);
   const by = geo.oy + geo.GH * cs + line;
   ctx.fillText(`silhouette: ${m.silhouette.cells.length} cells, ${m.silhouette.bodies.length} bod${m.silhouette.bodies.length === 1 ? 'y' : 'ies'}`, o, by);
   ctx.fillText(`sources now: ${now.length ? [...new Set(now.map((x) => x.kind))].map((k) => `${k} ${now.filter((x) => x.kind === k).length}`).join(', ') : 'none'}`, o, by + line);
@@ -460,15 +510,18 @@ function frame(now) {
   if (last === null) last = now;
   const real = Math.min(0.1, (now - last) / 1000);
   last = now;
-  if (battle && !choosing && !paused && !battle.ended) {
+  if (battle && !choosing && !paused && !battle.ended && !waiting(battle)) {
     acc += real * speed;
     let n = Math.min(MAX_STEPS_PER_FRAME * speed, Math.floor(acc / battle.dt + 1e-9));
     acc -= n * battle.dt;
-    while (n-- > 0 && !battle.ended) tick(battle);
+    while (n-- > 0 && !battle.ended && !waiting(battle)) tick(battle);
     if (acc > 4 * battle.dt * speed) acc = 0; // a slow phone drops time rather than spiral
     logEvents();
-    if (battle.ended) { refreshButtons(); showEnd(); }
+    if (waiting(battle)) { acc = 0; showDecision(); }
+    refreshButtons();
+    if (battle.ended) { $('decision').hidden = true; showEnd(); }
   }
+  if (battle && !choosing) phaseReadout();
   draw();
   requestAnimationFrame(frame);
 }

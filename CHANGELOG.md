@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — the phases feel prototype built (§13n.12; #366, #367)
+
+- `proto/` `phases-1`: the locked builds (R2, Lance, Swarm, Furnace) in
+  pairs, both sides flown by `js/enemy.js` at the standard personality;
+  `MENUS` in `js/data.js` (the first menu, outside every record's data
+  hash); contact on Stand off held by the captain's patience until its
+  exit; decision points 1 and 2 with their auto choices and a pause
+  setting; no preset buttons (#367); menu choices recorded with their step
+  and replayed by `proto/replay.mjs`; `proto/play.mjs` plays one battle
+  headless; `proto/captain-probe.mjs` is the probe behind #367.
+
 ## Unreleased — 2026-10-25 — play first: the phases feel prototype planned (#365, #366)
 
 - #365 (the owner): play the decision layer before proving it; #366 and

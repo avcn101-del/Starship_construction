@@ -377,6 +377,34 @@ export const PRESETS = {
   evade: { range: 'hold', position: 'bow', style: 'hold', dodging: 'on', facing: 'broadside', firing: 'ripple', openFire: 'sureHit', target: 'weapons', priority: ['shieldGenerator', 'engine', 'turret', 'railgun', 'missileBay', 'beamBay'], repair: 'none', heat: { threshold: 1, response: 'weapons' }, emission: 'normal', autoScan: 'on', throttle: 1 },
 };
 
+// The first menu (DESIGN.md 13n.12, #365, #366): hand-designed entries per locked build (mission0/builds.js), each a
+// set of existing slots written over the captain's preset (js/helm.js helm.override); `role` the phase it serves
+// (position or finish; the common entries none). Every build has the common entries; Stand off is the default (#354)
+// and holds the weapons until contact's exit, Break off is #353's. Not part of any record's data hash; PRESETS unchanged.
+export const MENUS = {
+  common: [
+    { id: 'standOff', name: 'Stand off', text: 'Keep your distance and look before you shoot.', slots: { range: 'open' }, role: null },
+    { id: 'breakOff', name: 'Break off', text: 'Turn tail and run for it.', slots: { range: 'disengage' }, role: null },
+  ],
+  R2: [
+    { id: 'turretLine', name: 'Turret line', text: 'Hold the range broadside and dodge; the turret does the talking.', slots: { range: 'hold', facing: 'broadside', dodging: 'on' }, role: 'position' },
+    { id: 'closeIn', name: 'Close in', text: 'Go in bow first so the beam and the turret both bear.', slots: { range: 'close', facing: 'bow', openFire: 'inRange' }, role: 'finish' },
+  ],
+  Lance: [
+    { id: 'railLine', name: 'Rail line', text: 'Hold the range bow on and fire the rail in salvos when the shot is sure.', slots: { range: 'hold', facing: 'bow', openFire: 'sureHit', firing: 'salvo' }, role: 'position' },
+    { id: 'closeIn', name: 'Close in', text: 'Go in bow first and fire whenever in range.', slots: { range: 'close', facing: 'bow', openFire: 'inRange' }, role: 'finish' },
+  ],
+  Swarm: [
+    { id: 'missileScreen', name: 'Missile screen', text: 'Stay far, broadside and dodging, and launch in salvos.', slots: { range: 'open', facing: 'broadside', dodging: 'on', firing: 'salvo' }, role: 'position' },
+    { id: 'closeIn', name: 'Close in', text: 'Hold the range and launch every salvo you can.', slots: { range: 'hold', openFire: 'inRange', firing: 'salvo' }, role: 'finish' },
+  ],
+  Furnace: [
+    { id: 'beamLine', name: 'Beam line', text: 'Hold the range bow on and burn them whenever in range.', slots: { range: 'hold', facing: 'bow', openFire: 'inRange' }, role: 'position' },
+    { id: 'closeIn', name: 'Close in', text: 'Go in bow first for the kill.', slots: { range: 'close', facing: 'bow' }, role: 'finish' },
+    { id: 'evade', name: 'Evade', text: 'Stay far, broadside and dodging; let the shields take it.', slots: { range: 'open', facing: 'broadside', dodging: 'on' }, role: 'position' },
+  ],
+};
+
 // Rooms (DESIGN.md 5.2, 13c). Footprints in cells per size (rate-like
 // constants of an L room are sizeLinear.L^2 = 9/4 of M, #183; of an S room its
 // cell count over M's, 13n.1 (c): one cell of a 2 x 2 room is 1/4); placement;
