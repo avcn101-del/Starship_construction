@@ -30,6 +30,30 @@
 - Scenario `L4.sweep.scoring` (U1, locked before its first run);
   `L4.sweep.determinism.v2` re-recorded (U2): its table hash, and its pair's T set (`range` close → open, the crew tie-break) and ends (destroyed A 220.6 / 142.9 s → 505.3 / 123.3 s); criterion passes. Mutations
   `item58.res.reset`, `tools.sweep.escapeWin`, `tools.sweep.noTie`.
+## Unreleased — 2026-10-25 — DTN frozen (#369)
+
+- #369 (the owner): DTN is frozen after PR #109 and PR #110; the kernel,
+  the physics scenarios and `proto/` move to `avcn101-del/DTN-bridge-sim`;
+  `STATUS.md` holds the hand-over.
+
+## Unreleased — 2026-10-25 — play first: the phases feel prototype planned (#365, #366)
+
+- #365 (the owner): play the decision layer before proving it; #366 and
+  `DESIGN.md` §13n.12: the first menu per build and the phases emulated in
+  `proto/`; the phases plan moves to §13n.13.
+
+## Unreleased — 2026-10-25 — a phase names what is contested (#364)
+
+- #364 (the owner): phases are passed through when nobody contests them;
+  the range phase at equal acceleration is a trade; both cases measured in
+  §13n.12.
+
+## Unreleased — 2026-10-25 — gap 7 read (#363)
+
+- #363: the locked builds' accelerations and t180
+  (`tools/estimates/gap7-dynamics.mjs`): no range attacker among the
+  reference four; a position attacker by turn margin to be measured.
+
 ## Unreleased — 2026-10-25 — X provisional (#360)
 
 - #360: #337's X is re-checked against the phased measures (read with the
