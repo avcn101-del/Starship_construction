@@ -1972,6 +1972,9 @@ Each line names its decision and when it is due; a closed one is removed.
     about 50 m behind a target accelerating at about 5 m/s² (Swarm mirror,
     600 m broadside, missile 1, t 8.9 s). A guidance-law question: not probed, so
     not in item 55's pass; the same class as item 57.
+    **Waits** (#342): on the locked builds point defence kills 79 of 104
+    missiles; saturation, not pursuit, limits the Swarm now.
+
 57. **Two pilots on one relative variable** (the helm suite under P3, #335): each
     side flies the relative range and velocity as if the other were passive;
     when both correct the same error the effort doubles (overshoot, or a race
@@ -2346,3 +2349,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 339 | Item 55's answers: K0 holds with a grep-only move; the fourteen stale mutations re-targeted; the yield read as P3's code; K6 `L4.helm.yield` added (K3 does not see the yield or the reset) | current |
 | 340 | Item 58's pass: a delivered-thrust report expires after `helm.thrustRetry` (new, 1 s) not asked, so a starved engine is asked again once a second; `RES` on the yield's and reset's clocks; K7 `L4.pilot.retry`, K8 `L4.helm.yield.exact`, K9 re-records (§13n.10; supersedes #335's "1 until then" clause only) | current |
 | 341 | Battle phases planned now, in parallel with the builds: gaps 1, 3, 4 first; gap 7 and every phases measure after the builds lock (the owner; #334's timing) | current |
+| 342 | The builds resume before item 58's merge (merged and re-checked before their lock); item 56 waits (point defence, not pursuit, limits the Swarm: 79 of 104 killed); a tools pass for the baseline's columns before the baseline (#336–#338) | current |
