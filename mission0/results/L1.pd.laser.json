@@ -3,11 +3,11 @@
   "level": "L1",
   "verdict": "PASS",
   "command": "node tools/m0.js run L1.pd.laser",
-  "code": "c87d8d3",
+  "code": "8965d11",
   "criterionHash": "d02972ee",
   "lockedHash": "d02972ee",
   "runHash": "a0c8a3ba",
-  "dataHash": "4b7cd27a",
+  "dataHash": "df15610d",
   "rowsHash": "de41e8dc",
   "rows": [
     {

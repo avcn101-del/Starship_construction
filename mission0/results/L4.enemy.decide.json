@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.enemy.decide",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "7fda882b",
   "lockedHash": "7fda882b",
   "runHash": "0f20d9e2",
-  "dataHash": "4b7cd27a",
+  "dataHash": "df15610d",
   "rowsHash": "f690cd00",
   "rows": [
     {

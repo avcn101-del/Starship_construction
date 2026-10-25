@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.engine.plume.shadow",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "b638899b",
   "lockedHash": "b638899b",
   "runHash": "ea9c6ba1",
-  "dataHash": "4b7cd27a",
+  "dataHash": "df15610d",
   "rowsHash": "f8d389bf",
   "rows": [
     {
