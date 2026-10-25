@@ -1,0 +1,657 @@
+{
+  "id": "L4.builds.lethal",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.builds.lethal",
+  "code": "1498ebd",
+  "criterionHash": "f0b30149",
+  "lockedHash": "f0b30149",
+  "runHash": "a6a6aa15",
+  "dataHash": "df15610d",
+  "rowsHash": "3a90786d",
+  "rows": [
+    {
+      "case": {
+        "part": "i",
+        "a": "Lance",
+        "b": "Lance"
+      },
+      "expected": {
+        "kills": 8,
+        "of": 8
+      },
+      "actual": {
+        "battles": [
+          {
+            "range": 600,
+            "opening": "bow",
+            "kind": "draw",
+            "side": "A,T",
+            "t": 25.1,
+            "dA": 37,
+            "dT": 37,
+            "end": "draw A,T at 25.10 s"
+          },
+          {
+            "range": 600,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "T",
+            "t": 113.03333333333333,
+            "dA": 53,
+            "dT": 85,
+            "end": "destroyed T (explosion) at 113.03 s"
+          },
+          {
+            "range": 900,
+            "opening": "bow",
+            "kind": "draw",
+            "side": "A,T",
+            "t": 106.18333333333334,
+            "dA": 87,
+            "dT": 87,
+            "end": "draw A,T at 106.18 s"
+          },
+          {
+            "range": 900,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "T",
+            "t": 29.116666666666667,
+            "dA": 28,
+            "dT": 26,
+            "end": "destroyed T (explosion) at 29.12 s"
+          },
+          {
+            "range": 1500,
+            "opening": "bow",
+            "kind": "draw",
+            "side": "A,T",
+            "t": 107.55,
+            "dA": 95,
+            "dT": 95,
+            "end": "draw A,T at 107.55 s"
+          },
+          {
+            "range": 1500,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 38.583333333333336,
+            "dA": 14,
+            "dT": 10,
+            "end": "destroyed A (explosion) at 38.58 s"
+          },
+          {
+            "range": 2500,
+            "opening": "bow",
+            "kind": "draw",
+            "side": "A,T",
+            "t": 45.266666666666666,
+            "dA": 3,
+            "dT": 3,
+            "end": "draw A,T at 45.27 s"
+          },
+          {
+            "range": 2500,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "T",
+            "t": 66.9,
+            "dA": 19,
+            "dT": 29,
+            "end": "destroyed T (explosion) at 66.90 s"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "i",
+        "a": "Swarm",
+        "b": "Swarm"
+      },
+      "expected": {
+        "kills": 8,
+        "of": 8
+      },
+      "actual": {
+        "battles": [
+          {
+            "range": 600,
+            "opening": "bow",
+            "kind": "draw",
+            "side": "A,T",
+            "t": 161.3,
+            "dA": 114,
+            "dT": 114,
+            "end": "draw A,T at 161.30 s"
+          },
+          {
+            "range": 600,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "T",
+            "t": 3.5,
+            "dA": 0,
+            "dT": 4,
+            "end": "destroyed T (pieces) at 3.50 s"
+          },
+          {
+            "range": 900,
+            "opening": "bow",
+            "kind": "draw",
+            "side": "A,T",
+            "t": 12.9,
+            "dA": 4,
+            "dT": 4,
+            "end": "draw A,T at 12.90 s"
+          },
+          {
+            "range": 900,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "T",
+            "t": 11.5,
+            "dA": 3,
+            "dT": 4,
+            "end": "destroyed T (pieces) at 11.50 s"
+          },
+          {
+            "range": 1500,
+            "opening": "bow",
+            "kind": "draw",
+            "side": "A,T",
+            "t": 157.06666666666666,
+            "dA": 105,
+            "dT": 105,
+            "end": "draw A,T at 157.07 s"
+          },
+          {
+            "range": 1500,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 53.583333333333336,
+            "dA": 48,
+            "dT": 47,
+            "end": "destroyed A (explosion) at 53.58 s"
+          },
+          {
+            "range": 2500,
+            "opening": "bow",
+            "kind": "draw",
+            "side": "A,T",
+            "t": 88.51666666666667,
+            "dA": 84,
+            "dT": 84,
+            "end": "draw A,T at 88.52 s"
+          },
+          {
+            "range": 2500,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 74.06666666666666,
+            "dA": 48,
+            "dT": 26,
+            "end": "destroyed A (explosion) at 74.07 s"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "i",
+        "a": "Furnace",
+        "b": "Furnace"
+      },
+      "expected": {
+        "kills": null,
+        "of": 8
+      },
+      "actual": {
+        "battles": [
+          {
+            "range": 600,
+            "opening": "bow",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 0,
+            "dT": 0,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 600,
+            "opening": "broadside",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 8126,
+            "dT": 8026,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 900,
+            "opening": "bow",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 0,
+            "dT": 0,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 900,
+            "opening": "broadside",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 10196,
+            "dT": 9214,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 1500,
+            "opening": "bow",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 0,
+            "dT": 0,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 1500,
+            "opening": "broadside",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 9037,
+            "dT": 9620,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 2500,
+            "opening": "bow",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 0,
+            "dT": 0,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 2500,
+            "opening": "broadside",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 9867,
+            "dT": 11078,
+            "end": "none by 600 s"
+          }
+        ]
+      },
+      "pass": true,
+      "note": "measured (#343): 0 of 8"
+    },
+    {
+      "case": {
+        "part": "ii",
+        "a": "R2",
+        "b": "Lance"
+      },
+      "expected": {
+        "hurt": 4,
+        "of": 8
+      },
+      "actual": {
+        "battles": [
+          {
+            "range": 600,
+            "opening": "bow",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 23.066666666666666,
+            "dA": 21,
+            "dT": 26,
+            "end": "destroyed A (explosion) at 23.07 s"
+          },
+          {
+            "range": 600,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "T",
+            "t": 23.866666666666667,
+            "dA": 23,
+            "dT": 24,
+            "end": "destroyed T (explosion) at 23.87 s"
+          },
+          {
+            "range": 900,
+            "opening": "bow",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 12.15,
+            "dA": 2,
+            "dT": 24,
+            "end": "destroyed A (explosion) at 12.15 s"
+          },
+          {
+            "range": 900,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 40.81666666666666,
+            "dA": 43,
+            "dT": 34,
+            "end": "destroyed A (explosion) at 40.82 s"
+          },
+          {
+            "range": 1500,
+            "opening": "bow",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 48.61666666666667,
+            "dA": 23,
+            "dT": 19,
+            "end": "destroyed A (explosion) at 48.62 s"
+          },
+          {
+            "range": 1500,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 69.05,
+            "dA": 28,
+            "dT": 42,
+            "end": "destroyed A (explosion) at 69.05 s"
+          },
+          {
+            "range": 2500,
+            "opening": "bow",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 72.28333333333333,
+            "dA": 41,
+            "dT": 96,
+            "end": "destroyed A (explosion) at 72.28 s"
+          },
+          {
+            "range": 2500,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 75.58333333333333,
+            "dA": 34,
+            "dT": 0,
+            "end": "destroyed A (explosion) at 75.58 s"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "ii",
+        "a": "R2",
+        "b": "Swarm"
+      },
+      "expected": {
+        "hurt": 4,
+        "of": 8
+      },
+      "actual": {
+        "battles": [
+          {
+            "range": 600,
+            "opening": "bow",
+            "kind": "surrender",
+            "side": "T",
+            "t": 84.96666666666667,
+            "dA": 46,
+            "dT": 70,
+            "end": "surrender T (dry) at 84.97 s"
+          },
+          {
+            "range": 600,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "T",
+            "t": 3.5,
+            "dA": 0,
+            "dT": 4,
+            "end": "destroyed T (pieces) at 3.50 s"
+          },
+          {
+            "range": 900,
+            "opening": "bow",
+            "kind": "destroyed",
+            "side": "T",
+            "t": 12.883333333333333,
+            "dA": 2,
+            "dT": 68,
+            "end": "destroyed T (pieces) at 12.88 s"
+          },
+          {
+            "range": 900,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 36.766666666666666,
+            "dA": 36,
+            "dT": 42,
+            "end": "destroyed A (explosion) at 36.77 s"
+          },
+          {
+            "range": 1500,
+            "opening": "bow",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 58.18333333333333,
+            "dA": 40,
+            "dT": 96,
+            "end": "destroyed A (explosion) at 58.18 s"
+          },
+          {
+            "range": 1500,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "T",
+            "t": 28.466666666666665,
+            "dA": 2,
+            "dT": 4,
+            "end": "destroyed T (pieces) at 28.47 s"
+          },
+          {
+            "range": 2500,
+            "opening": "bow",
+            "kind": "surrender",
+            "side": "A",
+            "t": 129.38333333333333,
+            "dA": 87,
+            "dT": 74,
+            "end": "surrender A (dry) at 129.38 s"
+          },
+          {
+            "range": 2500,
+            "opening": "broadside",
+            "kind": "destroyed",
+            "side": "A",
+            "t": 74.65,
+            "dA": 39,
+            "dT": 35,
+            "end": "destroyed A (explosion) at 74.65 s"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "ii",
+        "a": "R2",
+        "b": "Furnace"
+      },
+      "expected": {
+        "hurt": 4,
+        "of": 8
+      },
+      "actual": {
+        "battles": [
+          {
+            "range": 600,
+            "opening": "bow",
+            "kind": "surrender",
+            "side": "T",
+            "t": 92.76666666666667,
+            "dA": 37,
+            "dT": 79,
+            "end": "surrender T (no-control) at 92.77 s"
+          },
+          {
+            "range": 600,
+            "opening": "broadside",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 1483,
+            "dT": 111,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 900,
+            "opening": "bow",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 8913,
+            "dT": 1898,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 900,
+            "opening": "broadside",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 5531,
+            "dT": 87,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 1500,
+            "opening": "bow",
+            "kind": "surrender",
+            "side": "T",
+            "t": 107.28333333333333,
+            "dA": 27,
+            "dT": 81,
+            "end": "surrender T (no-control) at 107.28 s"
+          },
+          {
+            "range": 1500,
+            "opening": "broadside",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 99,
+            "dT": 261,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 2500,
+            "opening": "bow",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 0,
+            "dT": 72,
+            "end": "none by 600 s"
+          },
+          {
+            "range": 2500,
+            "opening": "broadside",
+            "kind": "none",
+            "side": null,
+            "t": null,
+            "dA": 0,
+            "dT": 61,
+            "end": "none by 600 s"
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "iii",
+        "b": "Lance"
+      },
+      "expected": {
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1435516.1684450815,
+        "budget": 1421484.0573339704
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "iii",
+        "b": "Swarm"
+      },
+      "expected": {
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1407216.1684450815,
+        "budget": 1421484.0573339704
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "part": "iii",
+        "b": "Furnace"
+      },
+      "expected": {
+        "tolerance": 0.05
+      },
+      "actual": {
+        "valid": true,
+        "reasons": [],
+        "mass": 1458660.0573339704,
+        "budget": 1421484.0573339704
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
