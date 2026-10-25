@@ -34,7 +34,7 @@ export default {
   tolerance: 'exact (integer steps)',
   criterion: 'at every E = 60...179: the order engages at E and lets go at L = E + 1740; Y - E = ceil(helm.positionPatience / dt) + 1 = 901 exactly (the clock starts at E + 1, the first step that reads the order engaged); yielded at every engaged step from Y; B - L = ceil(helm.positionReset / dt) = 1800 exactly; before #340 32 and 40 of 120 land one step late; item58.res fails it',
   tunable: ['helm.positionPatience', 'helm.positionReset', 'helm.rangeBand'],
-  locked: null,
+  locked: { date: '2026-10-25', hash: 'f20d14da' },
   cases() {
     const out = [];
     for (let E = FIRST; E <= LAST; E++) out.push({ E, L: E + PRE });
