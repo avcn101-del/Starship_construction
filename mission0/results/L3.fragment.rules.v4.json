@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.fragment.rules.v4",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "0af9a0f4",
   "lockedHash": "0af9a0f4",
   "runHash": "31fc5af6",
-  "dataHash": "cfcb3fa1",
+  "dataHash": "4b7cd27a",
   "rowsHash": "0ac9903e",
   "rows": [
     {

@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.helm.separation",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "d48d2ab2",
   "lockedHash": "d48d2ab2",
   "runHash": "c013dbbe",
-  "dataHash": "cfcb3fa1",
-  "rowsHash": "796b3597",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "c903acbc",
   "rows": [
     {
       "case": {
@@ -36,10 +36,10 @@
         "close": 600
       },
       "actual": {
-        "min": 367.6180400191932,
-        "at": 82.53333333333333,
-        "steps": 18000,
-        "end": "none by 300 s"
+        "min": 675.7199868607275,
+        "at": 14.033333333333333,
+        "steps": 3292,
+        "end": "destroyed T at 54.87 s"
       },
       "pass": true,
       "note": ""
@@ -53,10 +53,10 @@
         "close": 600
       },
       "actual": {
-        "min": 597.8265272445118,
-        "at": 38.733333333333334,
-        "steps": 2325,
-        "end": "destroyed T at 38.75 s"
+        "min": 870.9432543161508,
+        "at": 7.75,
+        "steps": 1895,
+        "end": "destroyed A at 31.58 s"
       },
       "pass": true,
       "note": ""
@@ -70,10 +70,10 @@
         "close": 600
       },
       "actual": {
-        "min": 439.8743778750987,
-        "at": 50.2,
-        "steps": 4455,
-        "end": "destroyed A at 74.25 s"
+        "min": 763.353910092062,
+        "at": 51.3,
+        "steps": 5696,
+        "end": "destroyed T at 94.93 s"
       },
       "pass": true,
       "note": ""
@@ -87,10 +87,10 @@
         "close": 600
       },
       "actual": {
-        "min": 481.1829320802155,
-        "at": 42.583333333333336,
-        "steps": 2556,
-        "end": "destroyed T at 42.60 s"
+        "min": 600.0001182405916,
+        "at": 0.016666666666666666,
+        "steps": 3712,
+        "end": "destroyed A at 61.87 s"
       },
       "pass": true,
       "note": ""

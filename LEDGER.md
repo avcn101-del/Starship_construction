@@ -118,6 +118,17 @@ Sessions and costs; moved from `STATUS.md` on 2026-10-22, #241 (5). The text bel
 | Engineer, §17 item 53 and the field's energy frame (#327; PR #103, `ac91efd`; notified by trigger) | session_01CAL2Wwfpzq5LmqxiRWAdDK | opus-5-5 | 6.00 |
 | Physics checker, PR #103 (blind; 0 blocking, 3 non-blocking; notified by trigger) | session_012Y3cHk3UTBGdUTxEqxnWin | sonnet-5-5 | 0.45 |
 | Reviewer, PR #103 (0 blocking, 4 non-blocking; notified by trigger) | session_01AV1zutGsj1uUQQm6rgJuLk | sonnet-5-5 | 0.50 |
+| Engineer, the reference builds' rebuild (#330, #331; draft PR #104, `1d7845e`; stopped at the stop rule; still open, cost so far) | session_01SC9bT7XzCShErTLAScXgUu | opus-5-5 | ≥ 6.60 |
+| Runner, item 55: `regress` under L1 | session_0184EvFVAF3uPPJ8u6d9oyhb | sonnet-5-5 | 0.29 |
+| Runner, item 55: the helm suite, today and L1 | session_018CzG2efzqJLEh5utTmS1AX | sonnet-5-5 | 0.47 |
+| Runner, item 55: the helm suite base / L1 / P2, `regress` under P2 | session_01JEsqkpArJ9unCs6ng4gGCF | sonnet-5-5 | 0.39 |
+| Runner, item 55: the helm suite and `regress` under P3 | session_01S9x8RHyzN6aW5YiUmiYCVn | sonnet-5-5 | 0.36 |
+| Engineer, §17 item 55 (#335, #339, §13n.9; PR #105, merged `da029d3`; two rounds) | session_011bat8qrcsUMVXEQ4MPu2Qi | opus-5-5 | 14.05 |
+| Physics checker, PR #105 K1–K3 (blind, partly: saw two criterion fragments by grep, disclosed; 0 blocking; its trigger refused at lineage depth 8) | session_019miu9xqavcWsHTbJDL89V9 | sonnet-5-5 | 0.88 |
+| Reviewer, PR #105 (0 blocking, 2 non-blocking; its trigger refused at lineage depth 8) | session_01BT4vDUMpSEphfNWJsVoywM | sonnet-5-5 | 0.92 |
+| Runner, `regress` on PR #105's merge (179 + 160 + 5) | session_01LZ6Y5jV6Y3KTdTs6BLBmVP | sonnet-5-5 | 0.54 |
+| Lead designer chat (2026-10-24, item 55's review and merge, item 58's probe; handed over at 278k tokens) | session_01VnsqF6AQX456h5ihxqZjh5 | opus-5-5 | 8.65 |
+| Runner, item 58's probe (running at hand-over) | session_01YWf1ajvoEXsTuTsQYyJLuJ | sonnet-5-5 | — |
 
 L1 total: 17.21 USD (engineer 14.27, physics checker 1.22, reviews 1.72).
 L2 total: 23.89 USD (engineers 19.73, physics checker 2.82, reviewer 1.34).
@@ -146,7 +157,7 @@ L5d total: ≥ 47.92 USD (engineer 29.39, fix rounds 13.24, physics checkers 1.4
 
 The lead designer chat's own cost (planning, answers, checks, merges) is **not in this ledger** (#270 (7)): only the sessions it creates are costed.
 
-**From process v2 (#325) the lead designer chats are costed here too**, one row per chat (`get_session` `cost_usd`; the chain in `STATUS.md`): `session_01Ld11QmhkPubc8PkfKtd7CT` 43.0, `session_014nrUDvPgiLEjm64scJFkyW` 104.2, `session_01VL5M5dKNeREUVf7y1y3P87` 64.6, `session_01DFw3o4EBEtf1adcpyJ5786` 67.2, `session_01S8gXf1kch2FCFHYE8nwhrn` 91.3 (the figures the owner was given, 2026-10-24, not re-read by this chat), `session_01Bt5RVRLCv85dFpXLq4qB5W` **26.64** at its hand-over (read by itself, 2026-10-24 07:35 UTC).
+**From process v2 (#325) the lead designer chats are costed here too**, one row per chat (`get_session` `cost_usd`; the chain in `STATUS.md`): `session_01Ld11QmhkPubc8PkfKtd7CT` 43.0, `session_014nrUDvPgiLEjm64scJFkyW` 104.2, `session_01VL5M5dKNeREUVf7y1y3P87` 64.6, `session_01DFw3o4EBEtf1adcpyJ5786` 67.2, `session_01S8gXf1kch2FCFHYE8nwhrn` 91.3 (the figures the owner was given, 2026-10-24, not re-read by this chat), `session_01Bt5RVRLCv85dFpXLq4qB5W` **26.64** at its hand-over (read by itself, 2026-10-24 07:35 UTC). `session_01EAtiqegHjnDwsoHwD7cjur` **13.16** at its hand-over (read by itself, 2026-10-24 12:35 UTC; 370k tokens of context). `session_01DJwKiaxa29KDtFqVjBviSe` **7.74** so far (read by itself, 2026-10-24 15:23 UTC; 309k tokens of context).
 
 ## Estimates against actuals (#270 (1))
 
@@ -166,5 +177,6 @@ One row per pass under the plan gate (#241): the raw range the plan stated, wher
 | L5c (weapons, with two fix rounds) | 27–39 | #295, §13n.5 | 39.06 | 1.18 |
 | L5d (the helm and the enemy, with three fix rounds) | 33–47 (26–36 in #278, re-costed by the probe of #301) | #301, §13n.5 | ≥ 47.92 | ≥ 1.20 |
 | L5e1 (rules, builds, sweep, with one fix round) | 20–30 | #316, §13n.8 | ≥ 20.27 | ≥ 0.81 |
+| §17 item 55 (with K6, #339) | 11–17 (raw 9–14 × 1.24) | #335, §13n.9 | 16.39 (engineer 14.05, checker 0.88, reviewer 0.92, runner 0.54; the probe's runners 1.51 not counted) | 1.17 of the × 1.24 midpoint |
 
 Three consecutive passes within 1.5× are **not** shown (L4a is a lower bound already at 1.46): #267's factor change is withdrawn (#270 (1)).

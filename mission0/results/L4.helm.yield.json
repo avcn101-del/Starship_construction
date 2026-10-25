@@ -1,0 +1,66 @@
+{
+  "id": "L4.helm.yield",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.helm.yield",
+  "code": "119ba57",
+  "criterionHash": "4332b959",
+  "lockedHash": "4332b959",
+  "runHash": "39b084a4",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "b2812bad",
+  "rows": [
+    {
+      "case": {
+        "name": "at range"
+      },
+      "expected": {
+        "patience": 900,
+        "reset": 1800,
+        "slack": 1
+      },
+      "actual": {
+        "E": 60,
+        "Y": 961,
+        "L": 962,
+        "B": 2762,
+        "yieldedEngaged": true,
+        "before": -0.5235987755982989,
+        "after": -1.5707963267948966
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "beyond range"
+      },
+      "expected": {
+        "patience": 900,
+        "reset": 1800,
+        "slack": 1
+      },
+      "actual": {
+        "E": 60,
+        "Y": 961,
+        "L": 1800,
+        "B": 3600,
+        "yieldedEngaged": true,
+        "before": -1.5707963267948966,
+        "after": -1.5707963267948966
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

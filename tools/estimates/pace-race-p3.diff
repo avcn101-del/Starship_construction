@@ -1,0 +1,62 @@
+diff --git a/js/battle.js b/js/battle.js
+index a23cb4f..a1dbc5f 100644
+--- a/js/battle.js
++++ b/js/battle.js
+@@ -341,7 +341,13 @@ function holdHeading(battle, side) {
+     const tau = (f.p[0] - b.c[0]) * (-f.side[1] * force) - (f.p[1] - b.c[1]) * (-f.side[0] * force);
+     if (tau > 0) { ccw.push(f.id); tp += tau; } else if (tau < 0) { cw.push(f.id); tm -= tau; }
+   }
+-  const ap = tp / b.I, am = tm / b.I, d = wrap(side.heading - b.theta), dt = battle.dt;
++  const ap = tp / b.I, am = tm / b.I, dt = battle.dt;
++  // probe H: a turn of more than 90 degrees keeps the sense it started in until within 90 degrees (no chatter at 180).
++  let d = wrap(side.heading - b.theta);
++  if (Math.abs(d) > Math.PI / 2) {
++    if (!side.turnSense) side.turnSense = d >= 0 ? 1 : -1;
++    if (d * side.turnSense < 0) d += side.turnSense * 2 * Math.PI;
++  } else side.turnSense = 0;
+   const target = d > 0 ? Math.sqrt(2 * am * d) : d < 0 ? -Math.sqrt(2 * ap * -d) : 0;
+   if (ccw.length && b.omega < target - (ap * dt) / 2) setRcs(w, ccw, true);
+   else if (cw.length && b.omega > target + (am * dt) / 2) setRcs(w, cw, true);
+diff --git a/js/helm.js b/js/helm.js
+index da6eb01..7b72786 100644
+--- a/js/helm.js
++++ b/js/helm.js
+@@ -116,7 +116,12 @@ export function shipDynamics(battle, side) {
+   const w = side.world, b = flownBody(w), p = battle.params;
+   if (!b) return { a: 0, t180: Infinity };
+   let thrust = 0;
+-  for (const r of w.rooms) if (r.type === 'engine' && r.placed && !isDestroyed(r)) thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r);
++  // probe P3: the pilot's thrust is what its engines were last given (the power fraction at the last step they were asked
++  // to thrust; 1 until then), so a starved engine reports no thrust.
++  for (const r of w.rooms) if (r.type === 'engine' && r.placed && !isDestroyed(r)) {
++    if (r.engine.throttle > 0 && w.power) r.engine.lastSupply = r.powerFraction ?? 1;
++    thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r) * (r.engine.lastSupply ?? 1);
++  }
+   const force = scaled(p.rcs.force, battle.edge);
+   let ccw = 0, cw = 0;
+   for (const f of w.fittings) {
+@@ -293,7 +298,9 @@ export function helmStep(battle, side) {
+     // the own bearing phi toward the named one phi* by at most helm.positionLead, so the path circles at R* instead of
+     // crossing the other ship (no collision model, #20).
+     let dir = [-u[0], -u[1]];
+-    if (!moving) {
++    // probe P2: the lead only at range (|r - R*| <= band), dropped after 15 s engaged without closing (L1).
++    const PAT = 15, atRange = Math.abs(r - R) <= band;
++    if (!moving && !h.yielded && atRange) {
+       const named = o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 180;
+       const phi = atan2(-u[1], -u[0]), phiP = phi + clamp(wrap(atan2(named[1], named[0]) - phi), -lead, lead);
+       dir = [cos(phiP), sin(phiP)];
+@@ -310,7 +317,13 @@ export function helmStep(battle, side) {
+     const rel = sub(me.v, vo), err = sub(want, rel), errLen = len(err);
+     // A ship with no RCS couple (t180 infinite) cannot point its engine: the order does not engage (#306 (8)).
+     const able = throttle > 0 && a > 0 && t180 < Infinity;
++    // probe L1: the position yields when e has not fallen by a band within PAT s while engaged; reset at let-go.
++    if (!moving && h.engaged && !h.yielded) {
++      if (!h.posBest || e < h.posBest.e - band) h.posBest = { e, t };
++      else if (t - h.posBest.t >= PAT) h.yielded = true;
++    }
+     h.engaged = able && (moving ? styleEngaged(h.engaged, { e, error: errLen, vt: Math.abs(vt), step: a * battle.dt, band }) : rangeEngaged(h.engaged, { e, error: errLen, speed: len(rel), a, t180, band }));
++    if (!h.engaged) { h.posBest = null; if (h.freeSince == null) h.freeSince = t; if (t - h.freeSince >= 30) h.yielded = false; } else h.freeSince = null;
+     if (h.engaged) { heading = atan2(err[1], err[0]); open = opening(heading); mode = 'range'; }
+     h.range = { R, e, want, rel, vt, error: errLen, threshold: a * t180, band, letGo: band / t180 };
+   }

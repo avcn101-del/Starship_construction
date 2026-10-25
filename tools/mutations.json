@@ -1766,34 +1766,34 @@
   {
     "id": "l5d.range.threshold",
     "rule": "13n.1 (d) the range order (#302)",
-    "file": "js/helm.js",
+    "file": "js/navigator.js",
     "old": "  if (e <= band && speed <= band / t180) return false;",
     "new": "  if (e <= band) return false;",
-    "note": "L5d (#301)"
+    "note": "L5d (#301); re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.range.braking",
     "rule": "13n.1 (d) the range order",
-    "file": "js/helm.js",
+    "file": "js/pilot.js",
     "old": "return a * (Math.sqrt((2 * e) / a + t180 * t180) - t180);",
     "new": "return a * Math.sqrt((2 * e) / a);",
-    "note": "L5d (#301)"
+    "note": "L5d (#301); re-targeted to js/pilot.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.dodge.broadsideOnly",
     "rule": "13n.1 (d) dodging",
-    "file": "js/helm.js",
-    "old": "    if (o.facing === 'broadside') {\n      if (o.dodging === 'on') {",
-    "new": "    if (o.facing === 'broadside' || o.dodging === 'on') {\n      if (o.dodging === 'on') {",
-    "note": "L5d (#301)"
+    "file": "js/navigator.js",
+    "old": "    if (goals.facing === 'broadside') {\n      if (goals.dodging === 'on') {",
+    "new": "    if (goals.facing === 'broadside' || goals.dodging === 'on') {\n      if (goals.dodging === 'on') {",
+    "note": "L5d (#301); re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.conflict.order",
     "rule": "13n.1 (d) conflicts (#40)",
-    "file": "js/helm.js",
+    "file": "js/navigator.js",
     "old": "    if (h.engaged) { heading = atan2(err[1], err[0]);",
     "new": "    if (h.engaged && o.facing !== 'bow') { heading = atan2(err[1], err[0]);",
-    "note": "L5d (#301)"
+    "note": "L5d (#301); re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.lead.noLead",
@@ -1846,10 +1846,10 @@
   {
     "id": "l5d.dodge.midpoint",
     "rule": "13n.1 (d) dodging (#240 (3))",
-    "file": "js/helm.js",
+    "file": "js/navigator.js",
     "old": "return helm.dodge === 'seeded' ? lo + (hi - lo) * battle.rng() : (lo + hi) / 2;",
     "new": "return helm.dodge === 'seeded' ? lo + (hi - lo) * battle.rng() : lo;",
-    "note": "L5d (#301)"
+    "note": "L5d (#301); re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.enemy.patience",
@@ -1950,58 +1950,58 @@
   {
     "id": "l5d.range.drift",
     "rule": "13n.1 (d) the range order (#302)",
-    "file": "js/helm.js",
+    "file": "js/navigator.js",
     "old": "  if (e > band || error > a * t180) return true;",
     "new": "  if (e > band) return true;",
-    "note": "L5d (#301, #302)"
+    "note": "L5d (#301, #302); re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.disengage.withdrawn",
     "rule": "13n.1 (d) a withdrawn disengage (#306 (7))",
-    "file": "js/helm.js",
+    "file": "js/navigator.js",
     "old": "    h.disengageStep = null; // withdrawn (a preset switch away from it): no longer a runner (#306 (7))\n",
     "new": "",
-    "note": "L5d fix round (#306)"
+    "note": "L5d fix round (#306); re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.range.couple",
     "rule": "13n.1 (d) no couple, no range order (#306 (8))",
-    "file": "js/helm.js",
+    "file": "js/navigator.js",
     "old": "const able = throttle > 0 && a > 0 && t180 < Infinity;",
     "new": "const able = throttle > 0 && a > 0;",
-    "note": "L5d fix round (#306)"
+    "note": "L5d fix round (#306); re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.braking.couple",
     "rule": "13n.1 (d) no couple, no NaN (#306 (8))",
-    "file": "js/helm.js",
+    "file": "js/pilot.js",
     "old": "  if (!(a > 0) || !(e > 0) || !(t180 < Infinity)) return 0;",
     "new": "  if (!(a > 0) || !(e > 0)) return 0;",
-    "note": "L5d fix round (#306)"
+    "note": "L5d fix round (#306); re-targeted to js/pilot.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.style.sense",
     "rule": "13n.1 (d) the style slot (#307)",
-    "file": "js/helm.js",
+    "file": "js/navigator.js",
     "old": "const ccw = [u[1], -u[0]], want =",
     "new": "const ccw = [-u[1], u[0]], want =",
-    "note": "L5d fix round (#307)"
+    "note": "L5d fix round (#307); re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.style.engage",
     "rule": "13n.1 (d) the style slot (#307)",
-    "file": "js/helm.js",
+    "file": "js/navigator.js",
     "old": "  if (e > band || error >= vt * (1 - 1e-9)) return true;",
     "new": "  if (e > band || error > vt * (1 + 1e-9)) return true;",
-    "note": "L5d fix round (#307)"
+    "note": "L5d fix round (#307); re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.style.position",
     "rule": "13n.1 (d) the style slot (#307)",
-    "file": "js/helm.js",
-    "old": "let dir = [-u[0], -u[1]];\n    if (!moving) {",
-    "new": "let dir = [-u[0], -u[1]];\n    if (true) {",
-    "note": "L5d fix round (#307); re-anchored at L5e1 (the position law's block): orbit and strafe no longer ignore the position slot"
+    "file": "js/navigator.js",
+    "old": "let dir = [-u[0], -u[1]];\n    if (!moving && !h.yielded && Math.abs(r - R) <= band) {",
+    "new": "let dir = [-u[0], -u[1]];\n    if (!h.yielded && Math.abs(r - R) <= band) {",
+    "note": "L5d fix round (#307); re-anchored at L5e1 (the position law's block): orbit and strafe no longer ignore the position slot; re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5d.repair.order",
@@ -2022,18 +2022,18 @@
   {
     "id": "l5e1.position.noLead",
     "rule": "13n.8 the position law (#315)",
-    "file": "js/helm.js",
+    "file": "js/navigator.js",
     "old": "const phi = atan2(-u[1], -u[0]), phiP = phi + clamp(wrap(atan2(named[1], named[0]) - phi), -lead, lead);",
     "new": "const phi = atan2(-u[1], -u[0]), phiP = atan2(named[1], named[0]);",
-    "note": "L5e1: the old law: the point jumps to the named bearing"
+    "note": "L5e1: the old law: the point jumps to the named bearing; re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5e1.position.halfLead",
     "rule": "13n.8 the position law (#315)",
-    "file": "js/helm.js",
-    "old": "const named = o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 180;",
-    "new": "const named = o.position === 'stern' ? [-tc, -ts] : o.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 360;",
-    "note": "L5e1: the lead read in half-degrees"
+    "file": "js/navigator.js",
+    "old": "const named = goals.position === 'stern' ? [-tc, -ts] : goals.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 180;",
+    "new": "const named = goals.position === 'stern' ? [-tc, -ts] : goals.position === 'flank' ? side1 : bow, lead = (scaled(p.helm.positionLead, edge) * Math.PI) / 360;",
+    "note": "L5e1: the lead read in half-degrees; re-targeted to js/navigator.js by item 55's move (#339 (2))"
   },
   {
     "id": "l5e1.plume.off",
@@ -2202,5 +2202,45 @@
     "old": "const hull = pointVelocity(F, worldPoint(F, round.position)), d = rotate(round.direction, F.theta);",
     "new": "const hull = pointVelocity(b, worldPoint(F, round.position)), d = rotate(round.direction, F.theta);",
     "note": "item 53: the hull velocity of the generator's body, not the hit body's (the 9.3 kJ leak at step 8452 of L4.beam.nobody)"
+  },
+  {
+    "id": "item55.turnSense.off",
+    "rule": "13n.9 the helm's layers (#335)",
+    "file": "js/pilot.js",
+    "old": "    if (d * side.turnSense < 0) d += side.turnSense * 2 * Math.PI;",
+    "new": "    if (d * side.turnSense < 0 && false) d += side.turnSense * 2 * Math.PI;",
+    "note": "item 55: the turn sense not kept: the bang-bang chatters at 180 degrees"
+  },
+  {
+    "id": "item55.thrust.delivered",
+    "rule": "13n.9 the helm's layers (#335)",
+    "file": "js/pilot.js",
+    "old": "    thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r) * (r.engine.lastSupply ?? 1);",
+    "new": "    thrust += scaled(p.engine.thrust, battle.edge) * r.footprintFactor * survivingFraction(r);",
+    "note": "item 55: the pilot counts the engines' full thrust whatever power they were given"
+  },
+  {
+    "id": "item55.position.atRange",
+    "rule": "13n.9 the helm's layers (#335)",
+    "file": "js/navigator.js",
+    "old": "    if (!moving && !h.yielded && Math.abs(r - R) <= band) {",
+    "new": "    if (!moving && !h.yielded) {",
+    "note": "item 55: the lead applied at every range"
+  },
+  {
+    "id": "item55.position.yield",
+    "rule": "13n.9 the helm's layers (#335)",
+    "file": "js/navigator.js",
+    "old": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge)) h.yielded = true;",
+    "new": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge)) h.yielded = false;",
+    "note": "item 55: the position never yields"
+  },
+  {
+    "id": "item55.position.reset",
+    "rule": "13n.9 the helm's layers (#335)",
+    "file": "js/navigator.js",
+    "old": "      if (t - h.freeSince >= scaled(p.helm.positionReset, edge)) h.yielded = false;",
+    "new": "      h.yielded = false;",
+    "note": "item 55: a yielded position comes back at once when the order lets go (the probe: a reset of 0 s does not cure the race)"
   }
 ]

@@ -1,5 +1,105 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — §17 item 58 planned (#340)
+
+- `DESIGN.md` §13n.10: a delivered-thrust report expires after the new
+  `helm.thrustRetry` (1 s) not asked, so a starved engine is asked again
+  once a second instead of never; `RES` on the yield's and reset's clocks.
+  K7 `L4.pilot.retry`, K8 `L4.helm.yield.exact`, K9 re-records. The probe's
+  scripts and diffs: `tools/estimates/item58*.mjs`, `item58-{a,b,c,plan}.diff`.
+- #341 (the owner): battle phases are planned now, in parallel with the
+  builds; gap 7 and the phases' measures wait for the builds' lock.
+- PR #106 merged the pace block's documentation into `main`.
+- `IDEAS.md` battle phases: the design partner's probe of a contact phase
+  held at range (a reading on the locked builds, `ideas/phase-probe`).
+
+## Unreleased — 2026-10-24 — §17 item 55 merged (PR #105)
+
+- PR #105 merged into `ld/pace` (`da029d3`): the helm's layers
+  (`js/pilot.js`, `js/navigator.js`), K1–K4 and **K6 `L4.helm.yield`**
+  (#339), fourteen re-targeted mutations, the loop's re-records; `regress`
+  on the merge 179 VERIFIED + 160 WITHDRAWN + 5 RETIRED. §13m: "The helm's
+  layers" proven; §17 item 55 closed; item 58 (a starved engine latches
+  the pilot's thrust; the yield clocks without `RES`) opened.
+
+## Unreleased — 2026-10-24 — §17 item 55: the helm's layers and the broadside race (#333, #335)
+
+- `js/pilot.js` (new): the pilot takes a wanted heading and a throttle and
+  drives the RCS (`holdHeading`, moved from `js/battle.js`) and the
+  engines; it reports `shipDynamics` and `brakingSpeed`. A turn past 90°
+  keeps its sense until within 90° (no chatter at 180°); the reported
+  acceleration counts each engine at the power fraction it was last given
+  while asked to thrust (a starved engine reports none).
+- `js/navigator.js` (new): goals (range or `disengage`, position, style,
+  facing, dodging, throttle) to heading and throttle in #40's order. The
+  position's lead applies only within `helm.rangeBand` of R*; a lead that
+  does not close its point by a band within `helm.positionPatience`
+  (new, 15 s, 10–20, k 0) yields until the order has been let go for
+  `helm.positionReset` (new, 30 s, 30–60, k 0).
+- `js/helm.js` turns the orders into goals and keeps gunnery and systems;
+  it re-exports the moved names.
+- New scenarios `L4.pilot.turn180`, `L4.pilot.thrust`, `L4.helm.race`,
+  `L4.beam.nobody.v2` (successor of `L4.beam.nobody`, withdrawn: it pinned
+  a step of a helm battle; the successor is constructed with no helm);
+  every passing scenario re-recorded on the new data hash; mutations
+  `item55.*`.
+
+## Unreleased — 2026-10-24 — item 55's answers (#339)
+
+- #339: K0 accepted with a grep-only move; stale mutations re-targeted
+  in PR #105; the yield read as P3's code; K6 `L4.helm.yield` added to
+  §13n.9 (179 VERIFIED expected).
+
+## Unreleased — 2026-10-24 — outcomes counted apart and the clock (#336, #337)
+
+- #336 (the owner): win / loss / escape / stalemate counted apart; E5's
+  win rate unchanged; a survival column. #337 (the owner): no new clock
+  now; a scenario clock after Mission 0; a stalemate after X s without
+  new cell damage, X the lead designer's from the baseline. `DESIGN.md`
+  §3 and §18; `IDEAS.md` merged from `ideas/phase-gaps`.
+- #338 (the owner): the sweep ranks by wins, then survival, then crew
+  alive; a stalemate scores 0 in E5, #315's draw a half.
+
+## Unreleased — 2026-10-24 — battle phases: gaps and the owner's choices
+
+- `IDEAS.md` (battle phases): twelve gaps from the design partner's probe
+  and the owner's choices on a clock (no new clock now; a scenario clock
+  after Mission 0; a stalemate after X s without cell damage) and on
+  outcomes counted apart; on `ideas/phase-gaps`.
+
+## Unreleased — 2026-10-24 — the room-variants idea
+
+- `IDEAS.md`: the design partner's room-variants idea from the owner's
+  discussion (one physical trade per room in three families: stored
+  energy, rate, reach; a turret's ready store filled by phase); on
+  `ideas/room-variants`.
+
+## Unreleased — 2026-10-24 — §17 item 55's plan (#333–#335)
+
+- #333 (the owner): the helm in layers, pilot, navigator, gunnery and
+  systems. #334 (the owner): battle phases, after item 55 and the builds,
+  before L5e2's E5–E7; `IDEAS.md` merged from `ideas/battle-phases`.
+- #335: item 55's pass, `DESIGN.md` §13n.9 (the probe P3 on the helm
+  suite, `tools/estimates/helm-suite.mjs`; K0–K5); §17 items 56 and 57;
+  §13m row "The helm's layers"; §14 adds `pilot.js` and `navigator.js`.
+
+## Unreleased — 2026-10-24 — the battle-phases idea
+
+- `IDEAS.md`: the design partner's battle-phases idea from the owner's
+  discussion (contact, range, position and control, finish; attack or
+  defence in each; decision points chosen from a menu at a chosen depth),
+  combining the presets-by-archetype and command-level ideas; on
+  `ideas/battle-phases`.
+
+## Unreleased — 2026-10-24 — the owner on the S turret (#332); the hull-fill idea
+
+- #332: a specialist may carry at most one secondary S turret only if it
+  still fails #330's (i) or (ii) after §17 item 55; recorded with and
+  without it.
+- `IDEAS.md`: the design partner's hull-fill rule (a thin skin, holds
+  scaled by area share; after Mission 0, #313), merged from
+  `ideas/hull-fill`.
+
 ## Unreleased — 2026-10-24 — §17 item 53: a beam into a ship with no body
 
 - `js/battle.js` `beamsOut`: a target whose every cell the step destroyed

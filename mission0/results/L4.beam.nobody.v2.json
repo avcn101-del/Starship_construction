@@ -1,0 +1,62 @@
+{
+  "id": "L4.beam.nobody.v2",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.beam.nobody.v2",
+  "code": "c87d8d3",
+  "criterionHash": "95aa7a13",
+  "lockedHash": "95aa7a13",
+  "runHash": "a06a10c3",
+  "dataHash": "4b7cd27a",
+  "rowsHash": "84ffc97a",
+  "rows": [
+    {
+      "case": {
+        "name": "r1-600-minus-y-beam-reactor"
+      },
+      "expected": {
+        "kind": "destroyed",
+        "side": "T",
+        "by": "explosion",
+        "step": 4364,
+        "tol": 1e-9
+      },
+      "actual": {
+        "error": null,
+        "kind": "destroyed",
+        "side": "T",
+        "by": "explosion",
+        "step": 4364,
+        "t": 72.73333333333333,
+        "parent": {
+          "type": "explosion",
+          "room": "reactor",
+          "step": 4364
+        },
+        "bodies": 0,
+        "beam": {
+          "power": 5000000,
+          "escaped": 83333.33333333333,
+          "deposited": 0,
+          "entries": 0,
+          "dt": 0.016666666666666666
+        },
+        "worst": 2.9895764086518284e-8,
+        "gross": 142087597.2473472,
+        "hits": 36
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}

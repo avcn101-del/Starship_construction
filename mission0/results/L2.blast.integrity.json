@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.blast.integrity",
-  "code": "52c491c",
+  "code": "c87d8d3",
   "criterionHash": "377ce996",
   "lockedHash": "377ce996",
   "runHash": "e1beebd1",
-  "dataHash": "cfcb3fa1",
+  "dataHash": "4b7cd27a",
   "rowsHash": "79aed0a6",
   "rows": [
     {
