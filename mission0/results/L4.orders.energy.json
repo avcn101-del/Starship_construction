@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.orders.energy",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "0e15c362",
   "lockedHash": "0e15c362",
   "runHash": "e9f1b4d6",
-  "dataHash": "4b7cd27a",
+  "dataHash": "df15610d",
   "rowsHash": "d6899c05",
   "rows": [
     {

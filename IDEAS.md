@@ -761,6 +761,66 @@ would replace [Presets by ship archetype](#presets-by-ship-archetype) and
   const dmg = b.sides.map((s) => { const e = (s.world.log.events || s.world.log).filter((x) => x.type === 'cell-damaged'); return `${s.name} cell-damaged ${e.length}, last ${e.length ? e[e.length - 1].t.toFixed(1) : '-'} s`; }); console.log(dmg.join(' | '));
   console.log(b.ended ? `${b.ended.kind} ${b.ended.side} at ${b.ended.t.toFixed(1)} s` : 'no end by 600 s');
   ```
+- **Probe: a contact phase held at range** (the owner's question "go
+  straight to phases, would it fix the pace?", with the design partner,
+  2026-10-25; on `ld/pace` `bad2c9f`, valid on `d80cf84`: documents only
+  between them; the locked builds, not PR #104's). Method: E7's cell as
+  `tools/estimates/pace-e7.mjs` (both sides the standard enemy, `STD`),
+  checked against it on R2 v Lance 900 m bow (12.2 s, cells 2/24, both
+  tools); 7 pairs (R2 against R2, Lance, Swarm, Furnace; the Lance, Swarm
+  and Furnace mirrors) × 900 / 1500 / 2500 m × bow / broadside, seed 1,
+  `battle.cullDistance` 5000 m, to 600 s; phases emulated in the probe
+  script below, nothing in `js/`. One seed, emulated phases, old builds: a
+  reading, not a measure.
+  1. **Weapons tight alone does not move the pace.** Patience 1.0 on both
+     sides (the first shot after all 6 zones, against 3 at 0.5): the first
+     release only 8–13 s later (both still close to `helm.rangeHold` 900 m,
+     where a zone takes 4 s); the fight after the first cell damage 31 → 34
+     s (median); two-sided battles **27 → 18 of 42** (the side that sees
+     everything first wins with one volley).
+  2. **A contact phase held at range gives 3–6 minutes.** Two phases:
+     `range: open` (1500 m) with patience 1.0 until 6 zones resolve, then
+     `range: close`. In 22 of 42 both sides finish contact, after 111–190
+     s (the formula: 6 × 4 · (1500 / 900)⁴ = 185 s with one antenna); 16 of
+     those 22 end, at **169–324 s (median 227 s)**; the finish after the
+     later commit 0–2 s in 5 (one volley), 37–142 s in 11. By opening: 13
+     of 14 at 1500 m finish contact, 8 of 14 at 2500 m, 1 of 14 at 900 m.
+     The quiet time comes from the d⁴ scan law, a physical cause.
+  3. **An exit condition must survive the loss of a sensor** (gap 4).
+     Opening from 900 m, both ships turn stern-on and the other's plume
+     ruins the antenna (#297; traced in one case, R2 mirror 900 m bow: the
+     antenna `ruined` at 65.9 s near 1500 m, no cell damaged; the other 19
+     cells where a side never finishes contact are not traced): "6 zones
+     resolved" then never holds and neither side fires by 600 s. Running
+     stern-on also blinds the pursuer: a defender's move with a cost.
+  4. **The builds still stall** (#330's job): the Lance and Furnace
+     mirrors finish contact and do not end by 600 s (beam against shield).
+  The probe script (save as `/tmp/pp.mjs`; `node /tmp/pp.mjs <A> <T>
+  <range> <bow|broadside> <seed> <patience> <cull> [phase]` from the
+  repository root; one JSON line a battle):
+
+  ```js
+  // Run from the repository root: node /tmp/pp.mjs <A> <T> <range m> <bow|broadside> <seed> <patience> <cull m> [phase]
+  const R = (p) => import(new URL(p, `file://${process.cwd()}/`));
+  const [{ withOverrides }, { createBattle, tick }, { BUILDS }] = await Promise.all(['js/data.js', 'js/battle.js', 'mission0/builds.js'].map(R));
+  const [a, b, range, opening, seed, pat, cull, mode] = process.argv.slice(2), bs = opening === 'broadside';
+  const P = { aggression: 0.5, patience: +pat, caution: 0.5, resolve: 0.5 }; // the standard enemy on both sides (pace-e7.mjs), patience varied
+  const x = createBattle({ params: withOverrides({ 'battle.cullDistance': +cull }), attacker: BUILDS[a], target: BUILDS[b], distance: +range, seed: +seed,
+    knowledge: true, bearing: bs ? '+y' : '+x', ...(bs ? { attackerHeading: 0 } : {}), enemy: { A: P, T: P } });
+  const sides = [['A', x.attacker], ['T', x.target]], ph = { A: 0, T: 0 }, rel = { A: null, T: null };
+  if (mode === 'phase') for (const [, s] of sides) s.helm.override = { ...s.helm.override, range: 'open' }; // contact: hold at helm.rangeOpen
+  while (!x.ended && x.t < 600) {
+    tick(x);
+    for (const [k, s] of sides) {
+      if (mode === 'phase' && !ph[k] && s.model.resolved.size >= 6) { ph[k] = x.t; s.helm.override = { ...s.helm.override, range: 'close' }; } // commit
+      if (rel[k] === null && s.helm.released) rel[k] = x.t;
+    }
+  }
+  const dmg = (s) => { const L = s.world.log; return (L.events ?? L).filter((e) => e.type === 'cell-damaged'); };
+  const [dA, dT] = sides.map(([, s]) => dmg(s)), first = [...dA, ...dT].map((e) => e.t).sort((p, q) => p - q)[0] ?? null;
+  console.log(JSON.stringify({ a, b, range: +range, opening, pat: +pat, mode: mode || '', kind: x.ended ? x.ended.kind : 'none', T: +x.t.toFixed(2),
+    commit: [ph.A, ph.T].map((v) => +v.toFixed(1)), release: [rel.A, rel.T], zones: sides.map(([, s]) => s.model.resolved.size), dmg: [dA.length, dT.length], first }));
+  ```
 - **Links.** #2, #17, #36, #38, #39, #40, #83, #111, #117, #293, #303,
   #315, #318, #319, #323, #328, #329, #30, #92, #114, #140, #240; §17 items 55, 56, 57; the presets by
   archetype and the command level above.

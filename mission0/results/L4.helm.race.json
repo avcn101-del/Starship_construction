@@ -3,12 +3,12 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.helm.race",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "08bd6be0",
   "lockedHash": "08bd6be0",
   "runHash": "ff0ddf93",
-  "dataHash": "4b7cd27a",
-  "rowsHash": "f52d133b",
+  "dataHash": "df15610d",
+  "rowsHash": "f641cb7d",
   "rows": [
     {
       "case": {
@@ -52,7 +52,7 @@
         "at": 0.016666666666666666,
         "speed": [
           0,
-          25.869900852478004
+          25.869907922828617
         ],
         "t": 62.06666666666666,
         "end": "destroyed A at 62.07 s"

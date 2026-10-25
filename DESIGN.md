@@ -1198,7 +1198,7 @@ sit in no plan again. Each plan updates this table in the same commit.
 | Element | Today | Proof | Status |
 |---|---|---|---|
 | Standing orders, 12 slots (#38): movement (range, position, style, dodging) | `js/helm.js` (#301, #302, #307) | `L4.helm.range`, `L4.helm.conflict`, `L4.helm.dodge`, `L4.helm.style`, `L4.helm.drift`, `L4.helm.race` (#335) | proven L5d; race L5 (item 55) |
-| The helm's layers: pilot (heading and throttle to RCS and engines; reports the ship's acceleration and turn), navigator (goals to heading and throttle), gunnery and systems (the owner, #333) | `js/pilot.js`, `js/navigator.js`, `js/helm.js` (#335) | `L4.pilot.turn180`, `L4.pilot.thrust`, `L4.helm.race`, `L4.helm.yield` | proven L5 (item 55, PR #105) |
+| The helm's layers: pilot (heading and throttle to RCS and engines; reports the ship's acceleration and turn), navigator (goals to heading and throttle), gunnery and systems (the owner, #333) | `js/pilot.js`, `js/navigator.js`, `js/helm.js` (#335) | `L4.pilot.turn180`, `L4.pilot.thrust`, `L4.helm.race`, `L4.helm.yield`, `L4.pilot.retry`, `L4.helm.yield.exact` | proven L5 (item 55, PR #105; item 58, PR #107) |
 | Standing orders: firepower (facing, firing style, open fire, target priority) | `js/helm.js` | `L4.helm.dodge`, `L4.orders.fire` | proven L5d |
 | Standing orders: energy (power and repair priority, heat discipline) | `js/helm.js`, `routePower`, `repairGrants` (#307) | `L2.power.flow` (priority), `L4.orders.energy`, `L4.orders.repair` | proven L5d |
 | Standing orders: emission (posture, auto-scan) | `js/helm.js` with `sensors.js` | `L4.enemy.decide`, `L4.orders.fire` | proven L5d |
@@ -1595,7 +1595,7 @@ Under L1 a yield reset at let-go does not cure the race; a patience of 10, 15 or
 |---|---|
 | The layers | `js/pilot.js`: **the pilot** takes a wanted heading and a throttle and drives the RCS (`holdHeading`, moved from `js/battle.js`) and the engines, and reports what the ship can do now (`shipDynamics`: acceleration from the thrust its engines are given, t180 on the RCS couple). `js/navigator.js`: **the navigator** takes goals (the range R* or `disengage`; the aspect: position, style, facing, dodging; the throttle) and returns a wanted heading and throttle (#40's order: movement, facing, dodging). `js/helm.js` turns the orders into the navigator's goals each step and keeps gunnery and systems (aim, open fire, shield, power and repair priority, scans). A later phase layer or a manual mode replaces only the goals or the navigator's output (recorded per step like a verb); nothing manual is built (#323, #2). The split itself moves nothing: its commit runs `regress` with every scenario VERIFIED |
 | The turn sense (pilot) | A turn of more than 90° toward the wanted heading keeps the sense it started in until the error is within 90°: d is taken in that sense (d ± 2π). At an error of exactly 180° the wanted heading's jitter otherwise flips the bang-bang every few steps and the ship never turns (mirrors from a bow opening pass through each other). No constant: 90° is where the shorter turn is unambiguous |
-| The delivered thrust (pilot) | The pilot's acceleration counts each live engine's thrust × its footprint × its surviving fraction × the power fraction it was given at the last step it was asked to thrust (1 until then): a starved engine (the fire preset routes power to engines last) reports none, so the braking curve and the order's engagement use the thrust the ship has |
+| The delivered thrust (pilot) | The pilot's acceleration counts each live engine's thrust × its footprint × its surviving fraction × the power fraction it was given at the last step it was asked to thrust (1 until then): a starved engine (the fire preset routes power to engines last) reports none, so the braking curve and the order's engagement use the thrust the ship has (the report expires after `helm.thrustRetry` not asked: #340, §13n.10) |
 | The position at range (navigator) | The position's lead (#315) applies only while \|r − R*\| ≤ `helm.rangeBand`; outside it the point is on the own bearing at R* (the range first, then the position): the other ship's bow is read only once the range is held |
 | The position yields (navigator) | While the range order is engaged with a lead, if the distance to its point has not fallen by `helm.rangeBand` within `helm.positionPatience` (15 s), the position yields (no lead) and stays yielded until the order has been let go for `helm.positionReset` (30 s) |
 
@@ -1622,6 +1622,48 @@ Under L1 a yield reset at let-go does not cure the race; a patience of 10, 15 or
 - [x] **§13m rows**: "The helm's layers" (new, planned item 55) and "Standing orders: movement" (K3 added); the separation row stays `L4.helm.separation` (re-recorded).
 - [x] **The probe**: P3 on PR #104's builds, the whole suite and `regress` (the table above); the regress tally counted as before − withdrawn + new.
 - [x] **Tolerances**: K1's 1.2 × t180 against a discrete bang-bang's few steps (dt 1/60 s against R2's t180 of 8.12 s); K2 at 1e-12 relative (one product); K3's floors with margins on P3's worst (P3 on R2's eight cells: separation ≥ 600 m against 150; end speeds ≤ 45 m/s against caps of 188–256; the 2500 m bow cell fails only (4), not K3's).
+
+### 13n.10 §17 item 58: the starved-thrust latch and the yield clocks' `RES` (#340)
+
+Under #335's delivered thrust a starved engine reports 0 until it is next asked to thrust, and a navigator that reads 0 never asks: the report latches (PR #105's checker H1, reviewer finding 1). The yield's and the reset's clocks compare without `RES` (#308 (2)), so a yield or a reset can land one step late.
+
+**The probe** (`ld/pace` `69c1dda`; runners `session_01YWf1ajvoEXsTuTsQYyJLuJ` ((a), (b)) and `session_01Ha7xt16iTrMgjaV6B8Txbh` ((c)); the lead designer's `tools/estimates/item58-flip.mjs` and `item58-k7.mjs`; diffs in `tools/estimates/`):
+
+| Candidate | Latched battles (of 168) | Starved asks (suite, steps) | Engagement flips (suite) | K7's starvation, 600 steps: asks; first ask after power returns | `regress` (today 179 VERIFIED) |
+|---|---|---|---|---|---|
+| today | 1 (Swarm mirror 2500 m bow strafe, 5 s) | 1 | 7315 | 1; never | — |
+| (a) `item58-a.diff`: when not asked, the reactors' spare power against full draw | 0 | — | — | — | 9 MISMATCH; K2 and K3 fail (locked) |
+| (b) `item58-b.diff`: a starved report expires after one step not asked | 0 | 2 | 7178 | 300 (every second step); step 600 | 7 MISMATCH (b alone), every locked criterion passes but the two replays' |
+| **(c)** `item58-c.diff`: a report expires after `helm.thrustRetry` (1 s) not asked; `RES` on the two clocks | **0** | **1** | **7241** | **10; step 610** | **6 results moved** (`L0.determinism.v2`, `L4.helm.race`, `L4.helm.separation`, `L4.sweep.determinism.v2`, `L4.loop.symmetric`, `.v2`), every locked criterion passes but the two replays' (rows hashes); the new constant moves every record's data (179) |
+
+(a) is out: it breaks two locked scenarios and ignores priority and walls. (b) cures the latch, but under sustained starvation the navigator engages and lets go at alternate steps and the heading chatters between the range order's and the facing's (300 asks in 10 s on K7's setup): absurd behaviour, though rare in the suite. (c) asks a starved engine once a second and finds returning power within a second.
+
+**Rules**
+
+| Rule | Statement |
+|---|---|
+| The delivered thrust (pilot; supersedes #335's "the last step it was asked to thrust (1 until then)") | Each live engine counts at the power fraction it was given at the last step it was asked to thrust; once it has not been asked for `helm.thrustRetry`, the report expires and the engine counts at 1 (as before its first ask). A starved engine therefore reports 0 for at most `helm.thrustRetry`, then the navigator may ask again and the router's answer is read afresh |
+| The yield clocks (navigator) | The yield's and the reset's comparisons take `RES` (1e-9 s, float resolution, #308 (2)), as the strafe's and the dodge's do: with t = n dt at dt 1/60 s, 32 of 120 engagement steps (60–179) land the yield one step late today, 40 of 120 the reset (L = E + 1740); none with `RES` |
+
+**Constant**: `helm.thrustRetry` (new, 1 s, 0.5–2 s, k 0): how long a pilot trusts a starved report before trying the throttle again; a pilot's choice, no hardware. Below 0.5 s the retry is a chatter at the RCS's time scale (R2's t180 8.1 s); above 2 s a ship sits out a power return for longer than a dodge interval. No other constant moves.
+
+**Scenarios** (each locked in a commit of its own before its first canonical run, #273; the blind physics checker on K7)
+
+| # | Scenario | Setup | Criterion |
+|---|---|---|---|
+| K7 | `L4.pilot.retry` | T1, R2 v R2 at 2500 m on bearing +x, knowledge on, the standard enemy both sides, seed 1 (`item58-k7.mjs`); the target's reactor demand 0.1 for steps 0–599 (2 MW: the fire preset's shield takes it all, the engine gets 0), then 1 (test inputs) | (i) while starved, between two steps at which the engine is asked there are at least ⌈`helm.thrustRetry` / dt⌉ − 1 steps not asked (no chatter), and it is asked at least once in each ⌈`helm.thrustRetry` / dt⌉ + 1 steps after its first ask (no latch); (ii) after the demand returns at step 600, the engine is asked by step 600 + ⌈`helm.thrustRetry` / dt⌉; (iii) at the end of that step the pilot's acceleration = Σ thrust · footprint · surviving · f / M with f the fraction the router gave, worked by hand, at 1e-12 relative. Today fails (i) and (ii) (asked once, never again); (b) fails (i) |
+| K8 | `L4.helm.yield.exact` | K6's construction (the navigator alone, battle.t = n dt) at each engagement step E = 60…179 and each let-go step L = E + 1740 (test inputs) | Y − E = ⌈`helm.positionPatience` / dt⌉ + 1 = 901 (the clock starts at E + 1, the first step that reads the order as engaged, as K6's hand-working) and B − L = ⌈`helm.positionReset` / dt⌉ = 1800, **exactly** at every E (K6's ± 1 tightened by `RES`); today 32 and 40 of 120 land one step late (corrected before the lock: the plan said 900 and 20, PR #107) |
+| K9 | re-records | every record (the new constant changes `js/data.js`); the six whose results move, each listed in the PR with its old and new result: `L0.determinism.v2`, `L4.helm.race`, `L4.helm.separation`, `L4.sweep.determinism.v2`, then `L4.loop.symmetric` and `.v2` last (they replay the others' rows hashes) | criteria unchanged; any other moved result is a stop and a question |
+
+`regress` at the PR head: **181 VERIFIED + 160 WITHDRAWN + 5 RETIRED** (179 − 0 withdrawn + 2 new). Mutations `item58.latch` (the report never expires), `item58.chatter` (it expires after one step) and `item58.res` (either clock without `RES`), `--only`, each KILLED (K7 kills the first two, K8 the third). The engineer reports the helm suite's failing-cells line and `item58.mjs`'s last line at the PR head (information).
+
+**Process and cost**: one engineer (opus, branch `m0/pilot58` from `ld/pace`), the blind physics checker (sonnet) on K7 (setup and inputs only), the reviewer (sonnet), a runner for `regress` on the merge. Raw: engineer 3–5, checker 0.5–1, reviewer 1–1.5, a fix round 0–1, runner 0.3–0.5: 5–9; × 1.24: **6–11 USD**. #246 (4)'s figure (a repeated kind, × 2.5): 13–22, shown beside it (#270 (2)).
+
+**Checklist** (#326)
+
+- [x] **§13m rows**: "The helm's layers" gains K7 and K8 at the merge (proven L5, item 58); no row is planned for it now, so lint check 10 holds before the scenarios exist.
+- [x] **The probe**: (a), (b), (c) on the suite and on K7's setup; `regress` under (a), (b) and (c); the helm suite under (c): any property fails in 87 of 168 cells (today 85; separation 1, race 0, as today); the tally counted as before − withdrawn + new.
+- [x] **Tolerances**: K7's step counts are integers from ⌈`helm.thrustRetry` / dt⌉ = 60, with (i)'s − 1 and + 1 for the ask's own step; (iii) at 1e-12 relative (one product, as K2); K8 exact because `RES` (1e-9 s) is five orders above t's float error at 600 s (about 1e-13 s) and seven below dt.
 
 ## 14. Architecture
 
@@ -1930,6 +1972,9 @@ Each line names its decision and when it is due; a closed one is removed.
     about 50 m behind a target accelerating at about 5 m/s² (Swarm mirror,
     600 m broadside, missile 1, t 8.9 s). A guidance-law question: not probed, so
     not in item 55's pass; the same class as item 57.
+    **Waits** (#342): on the locked builds point defence kills 79 of 104
+    missiles; saturation, not pursuit, limits the Swarm now.
+
 57. **Two pilots on one relative variable** (the helm suite under P3, #335): each
     side flies the relative range and velocity as if the other were passive;
     when both correct the same error the effort doubles (overshoot, or a race
@@ -1938,19 +1983,8 @@ Each line names its decision and when it is due; a closed one is removed.
     The design partner's candidate: a navigator that leads the other ship's
     motion (as gunnery's intercept) and caps the relative speed; judged on the
     suite. Due before L5e2's measures if the builds' tables show it.
-
-58. **A starved engine latches the pilot's thrust at 0** (PR #105, the
-    physics checker's H1 and the reviewer's finding 1; #335's rule as
-    written): the delivered fraction is refreshed only while the engine is
-    asked to thrust; once a starved engine reports 0, the navigator's
-    `able` is false and a range order under bow facing (or broadside
-    without dodging) never asks again, even after power returns. Not seen
-    in four natural battles; reproduced by injected state. Also the yield's
-    and the reset's clocks compare without `RES` (#308 (2)), so a yield can
-    land one step late (`L4.helm.yield` engages at step 60 to stay inside
-    ± 1). A pilot pass, probed first (count the suite's cells where it
-    trips; candidates: the fraction the router would give at full draw, or
-    a starved report that expires), before the builds are locked (#330).
+    Not the phases' pursuit (#346): at equal acceleration a pursuing law only
+    delays an escape.
 
 ## 18. Decisions in force
 
@@ -2289,13 +2323,24 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 327 | §17 item 53 merged: a beam into a ship with no body; the field slows a round in the hit body's frame; `L4.beam.nobody` | current |
 | 328 | The pace study measured: E7 38 s; rung 1 reaches 230 s only by misses (hits to kill 41, a third unended); verbs mostly harm; E7 to the owner | report |
 | 329 | E7: rebuild the reference builds first; E7 counts only two-sided battles; A and B wait; the verb finding re-measured (the owner) | current |
-| 330 | The reference builds' rebuild: each specialist kills its mirror and damages R2 (`L4.builds.lethal`); measures open at 2500 m too | current |
+| 330 | The reference builds' rebuild: each specialist kills its mirror and damages R2 (`L4.builds.lethal`); measures open at 2500 m too | partly superseded by #343 (Furnace's (i) a measured count) |
 | 331 | The builds' rebuild stopped: the broadside mirror race (§17 item 55), missiles in pure pursuit (item 56), Furnace against shields; an S secondary turret to the owner; an L beam bay allowed | current |
 | 332 | A secondary S turret: only if a specialist still fails #330 after item 55, at most one, recorded with and without (the owner) | current |
 | 333 | The helm in layers: pilot, navigator (goals set from above), gunnery and systems; a manual mode later replaces only the navigator's output; nothing manual built (the owner) | current |
-| 334 | Battle phases (contact, range, position and control, finish; a strategy is a preset and an exit condition per phase; decision points from a menu): after item 55 and the builds, before L5e2's E5–E7 (the owner; #329's B) | current |
-| 335 | Item 55's pass: the layers; the pilot keeps its turn sense past 90° and reports the thrust its engines are given; the position's lead only at range and yielding after 15 s without closing until 30 s let go (two new helm constants); the helm suite; K0–K5 (§13n.9) | current |
+| 334 | Battle phases (contact, range, position and control, finish; a strategy is a preset and an exit condition per phase; decision points from a menu): after item 55 and the builds, before L5e2's E5–E7 (the owner; #329's B) | current (its timing: #341) |
+| 335 | Item 55's pass: the layers; the pilot keeps its turn sense past 90° and reports the thrust its engines are given (the report's expiry: #340); the position's lead only at range and yielding after 15 s without closing until 30 s let go (two new helm constants); the helm suite; K0–K5 (§13n.9) | partly superseded by #340 (all stands but the report's "1 until then": it now expires) |
 | 336 | Outcomes counted apart (win / loss / escape / stalemate); E5's win rate unchanged (escape or stalemate no win); a survival column for E6 and the phases (the owner) | current |
 | 337 | The clock: none new now (heat, ammunition; the baseline reports the first hot room); a scenario clock with its tell after Mission 0; a stalemate after X s without new cell damage on either ship, X set by the lead designer from the baseline (the owner) | current |
 | 338 | The sweep ranks order sets by wins, then survival, then crew alive; a stalemate 0 in E5, #315's draw a half (the owner; built with #336) | current |
 | 339 | Item 55's answers: K0 holds with a grep-only move; the fourteen stale mutations re-targeted; the yield read as P3's code; K6 `L4.helm.yield` added (K3 does not see the yield or the reset) | current |
+| 340 | Item 58's pass: a delivered-thrust report expires after `helm.thrustRetry` (new, 1 s) not asked, so a starved engine is asked again once a second; `RES` on the yield's and reset's clocks; K7 `L4.pilot.retry`, K8 `L4.helm.yield.exact`, K9 re-records (§13n.10; supersedes #335's "1 until then" clause only) | current (K8's literal amended by #350) |
+| 341 | Battle phases planned now, in parallel with the builds: gaps 1, 3, 4 first; gap 7 and every phases measure after the builds lock (the owner; #334's timing) | current |
+| 342 | The builds resume before item 58's merge (merged and re-checked before their lock); item 56 waits (point defence, not pursuit, limits the Swarm: 79 of 104 killed); a tools pass for the baseline's columns before the baseline (#336–#338) | current |
+| 343 | Furnace's mirror does not end (two M shields absorb its beam whole in 7 of 8 cells, #345): recorded as a measured count in `L4.builds.lethal`'s (i), not a criterion; (i) for Lance and Swarm, (ii) for all three; no M turret, no beam change before the baseline | current |
+| 344 | `L4.builds.valid` withdrawn for `L4.builds.valid.v2`: the builds' shapes as #330, #332 and #343 allow (one S turret at most on Lance and Swarm; the Swarm's point defence free; Furnace's bay of any size) | current |
+| 345 | #343's mechanism corrected: in 7 of 8 Furnace mirror cells the two M shields let none of the beam through (no cell damage by 600 s); only 600 m broadside passes about 9 % | current |
+| 346 | Phases gaps 1, 3, 4 probed: an escape at equal acceleration is physics (no pursuing navigator; the range attacker is an acceleration margin); contact is weapons tight (`openFire: tight`) at range open from a 1500 or 2500 m opening; its exit is zones resolved, or no antenna left, or own ship damaged | current |
+| 347 | The phases plan includes a designed preset menu per build and per phase, with the contact preset; the baseline's verb-leverage column is labelled as measured on the prototype's three presets, not compared like for like (the owner) | current |
+| 348 | The menu: per build, the contact preset plus at most three of the sweep's distinct best-response order sets against the reference builds, phase-tagged by range, recorded as `MENUS` in `js/data.js`; `PRESETS` unchanged; `pace-verbs.mjs --menu`; derived after the builds' lock with gap 7 | current |
+| 349 | Verb leverage is reported as a save rate (player-losing cells turned to a win, escape or stalemate) and an error rate (player-winning cells turned to a loss), per pair and in total, with cell and trial counts; built in the tools pass (the owner; the lead designer) | current |
+| 350 | Answers at PR #107's merge: K8's 901 / 1800; `item58.res.reset` in the tools pass; K7's loose bounds for a successor when `js/pilot.js` is next touched; §17 item 58 closed | current |

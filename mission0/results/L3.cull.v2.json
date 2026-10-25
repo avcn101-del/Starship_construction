@@ -3,11 +3,11 @@
   "level": "L3",
   "verdict": "PASS",
   "command": "node tools/m0.js run L3.cull.v2",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "0b505ebf",
   "lockedHash": "0b505ebf",
   "runHash": "e29d3170",
-  "dataHash": "4b7cd27a",
+  "dataHash": "df15610d",
   "rowsHash": "1e850dc7",
   "rows": [
     {

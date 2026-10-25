@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.disabled.rule.v2",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "ea57e516",
   "lockedHash": "ea57e516",
   "runHash": "7f43dd02",
-  "dataHash": "4b7cd27a",
+  "dataHash": "df15610d",
   "rowsHash": "fcc78c50",
   "rows": [
     {

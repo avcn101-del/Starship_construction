@@ -3,11 +3,11 @@
   "level": "L2",
   "verdict": "PASS",
   "command": "node tools/m0.js run L2.repair.containment",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "4e598892",
   "lockedHash": "4e598892",
   "runHash": "4e582997",
-  "dataHash": "4b7cd27a",
+  "dataHash": "df15610d",
   "rowsHash": "81796804",
   "rows": [
     {

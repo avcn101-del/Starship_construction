@@ -1,43 +1,46 @@
 # STATUS — hand-over between chats (#179; process v2, #325)
 
-Lead designer chat: **`session_01JNPQjwzYdLB7Uz1qfWt5GC`** (opened by the owner from claude.ai,
-lineage depth 0 of 8; took over 2026-10-25 ~06:40 Vietnam time). Handed
-over 2026-10-24 ~23:25 UTC by `session_01VnsqF6AQX456h5ihxqZjh5` at about 280k
-tokens, after item 55's merge, while the item 58 probe runner works. **The new
-chat is opened by the owner from claude.ai** (lineage depth 0): this chat was at
-depth 7 of 8, and its children could not create triggers or sessions. Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
+Lead designer chat: **`session_01TVhwYJYiLwnTj5Z2D53m5s`** (from 2026-10-25 04:40 UTC, 11:40 Vietnam time;
+lineage depth 1 of 8). Handed
+over 2026-10-25 ~04:45 UTC (11:45 Vietnam time) by `session_01JNPQjwzYdLB7Uz1qfWt5GC`
+at about 315k tokens (the owner's suggestion, #322), while PR #107's reviewer
+runs its mutations. The new chat is created by `session_01JNPQjwzYdLB7Uz1qfWt5GC`
+(lineage depth 1 of 8: its children can still notify). Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
 `session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
 `session_01DFw3o4EBEtf1adcpyJ5786` → `session_01S8gXf1kch2FCFHYE8nwhrn` →
 `session_01Bt5RVRLCv85dFpXLq4qB5W` → `session_01EAtiqegHjnDwsoHwD7cjur` →
-`session_01DJwKiaxa29KDtFqVjBviSe` → `session_01VnsqF6AQX456h5ihxqZjh5` → `session_01JNPQjwzYdLB7Uz1qfWt5GC` (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
+`session_01DJwKiaxa29KDtFqVjBviSe` → `session_01VnsqF6AQX456h5ihxqZjh5` → `session_01JNPQjwzYdLB7Uz1qfWt5GC` → `session_01TVhwYJYiLwnTj5Z2D53m5s` (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
 
 **Reading order (#325)**: this file, `BRIEF.md`, `CLAUDE.md`,
 `.claude/agents/lead-designer.md`, `DESIGN.md` §18 and the plan in force
-(§13n, §13n.9, §17 items 57–58); `audits/2026-10-24-process.md` §1; everything
+(§13n, §13n.9, §13n.10, §17 items 56–58, rows #340–#345); `audits/2026-10-24-process.md` §1; everything
 else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 
 ## For the owner (five lines)
 
-- **Done**: §17 item 55 merged (PR #105, `da029d3`: the helm's layers, the broadside race cured, K1–K6; `regress` 179 VERIFIED + 160 WITHDRAWN + 5 RETIRED); the owner's rows #336–#338 (outcomes counted apart, the clock and the stalemate, the sweep's tie-break); #339 (item 55's answers, K6); ideas merged: room variants, the phases' gaps.
-- **Next**: §17 item 58 (a starved engine latches the pilot's thrust at 0; the yield clocks' `RES`): probe, then a small pass, before the builds are locked; then the builds (PR #104, #330, #332); then the runner's baseline re-measure (with #336/#337's columns); then battle phases.
-- **Waiting on you**: **the next lead designer chat must be opened by the owner from claude.ai**, not by this chat: this chat is at lineage depth 7 of 8; sessions it creates (depth 8) cannot create triggers or sessions (the checker's and the reviewer's notifications were refused), and a chat it created could not create engineers.
-- **Money**: item 55's pass 16.39 USD (expected 11–17); this chat 8.65 USD at 278k tokens.
-- **Running**: the item 58 probe runner `session_01YWf1ajvoEXsTuTsQYyJLuJ` (sonnet; latch counts, helm suites and `regress` under `tools/estimates/item58-a.diff` and `-b.diff`; it cannot notify: read its last assistant message with `list_events`, and tell it nothing unless it stalls). No check-in is scheduled. The builds engineer `session_01SC9bT7XzCShErTLAScXgUu` stands by on draft PR #104 (it continues after item 58).
+- **Done**: **PR #107 merged** (§17 item 58; answers #350; 9.58 USD, expected 6–11); #346 (phases gaps 1, 3, 4 probed: no pursuing navigator, contact weapons tight at range open, exit on zones / no antenna / own damage); the owner's #347 (a designed preset menu in the phases plan; #348 how) and #349 (verb leverage as save and error rates); the owner's cost ranges given in chat (rough).
+- **Next**: the builds' lock (PR #104; the builds engineer told); the documentation PR `ld/pace` → `main`; the tools pass (#342 (3), with #348's `--menu`, #349's rates, `item58.res.reset`); the baseline; gap 7 and the menu after the builds' lock; then the phases plan §13n.11.
+- **Waiting on you**: nothing (#343 open to your veto).
+- **Money**: item 58 9.58 USD (probe runners 0.92 more); the previous chat 12.42 final; this chat about 5.3 USD at 245k tokens.
+- **Running**: builds engineer `session_01SC9bT7XzCShErTLAScXgUu` (PR #104, told at 06:50 UTC to merge `ld/pace` and lock). Reviewer and item 58 engineer done (idle).
 
-Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidance), 57 (a leading navigator), 58 (the starved-thrust latch).
+Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidance; waits, #342), 57 (two pilots on one relative variable; not the phases' pursuit, #346).
 
 ## Open pull requests
 
-- **#104** (draft, `m0/builds2` → `ld/pace`): the builds' rebuild, stopped at #330's stop rule; its questions answered (#331, #332; the race was item 55, now merged). Continues after item 58 under #330 and #332 (retry without the S turret first), merging `ld/pace` first; re-run `tools/estimates/helm-suite.mjs` on the builds that get locked.
+- **#107** merged into `ld/pace` (`01b9332`; answers #350); `regress` there by runner `session_01KiJGgyop4Zg1PSS7wBGg1J`: 181 VERIFIED + 160 WITHDRAWN + 5 RETIRED, 0 FAIL / MISMATCH / BLOCKED.
+- **#104** (draft, `m0/builds2` → `ld/pace`): the builds. Lance and Swarm meet #330 (i) / (ii) with one S turret each (8/8 8/8; 8/8 7/8); Furnace 0/8 measured (#343, #345), 6/8 (ii); `L4.builds.lethal` written unlocked; `L4.builds.valid` → `.v2` (#344). Locks after PR #107's merge, with (i), (ii) and the helm suite re-checked on the merged code.
 
 ## Next steps
 
-0. **Documentation to `main`** (#325 (7)): item 55's pass is done; one pull request `ld/pace` → `main` after `node tools/lint-docs.mjs` (not yet opened).
-1. **§17 item 58** (`DESIGN.md` §17; PR #105's checker H1 and reviewer finding 1): a starved engine latches the pilot's reported thrust at 0 (refreshed only while asked to thrust; the navigator then never asks); and the yield's and reset's clocks compare without `RES` (`js/navigator.js` ~128, ~134). Probe first on a scratch tree (a runner): count the helm-suite cells where `lastSupply` stays 0 while the router could feed the engine, under (a) the fraction the router would give at full draw and (b) a starved report that expires after one step not asked; `regress` under the chosen one. Then a small engineer pass (opus) with a scenario that kills the latch (K2 is locked: a new one), the blind checker if the thrust rule changes, a reviewer. Item 55's probe and history: `HISTORY.md` and §13n.9.
-2. **The builds** (#330): after item 58, the builds engineer (or a new one) continues PR #104 under #332 (retry without the S turret first). `L4.builds.lethal` is not yet written or locked.
+0. **Documentation to `main`** (#325 (7)): item 55's pass merged (PR #106); item 58's pass next, once the merge's `regress` is in.
+1. **§17 item 58**: merged (#350), `regress` matched; the builds engineer told to merge and lock (2026-10-25 06:50 UTC).
+2. **The builds** (#330, #332, #342): the builds engineer `session_01SC9bT7XzCShErTLAScXgUu` resumes PR #104 now (retry without the S turret first; the Swarm may aim at saturating point defence, `tools/estimates/swarm-pd.mjs`); before `L4.builds.lethal` locks it merges `ld/pace` with item 58 and re-checks #330's (i), (ii) and the helm suite. `L4.builds.lethal` is not yet written or locked.
+2b. **The baseline's columns** (#342 (3)): a small tools pass (engineer) puts #336's outcomes counted apart (win / loss / escape / none by the limit; stalemate once #337's X is set), the survival column, #338's ranking (wins, survival, crew alive) and #337's columns (time to the first hot room; the longest gap without `cell-damaged` in battles ending in a kill) into `tools/sweep.mjs`, `tools/estimates/pace-e7.mjs` and `pace-verbs.mjs`, before the baseline runner; planned after item 58's merge. Also (#348): `pace-verbs.mjs --menu prototype|designed` and the verb column's label "on the prototype's three presets, not a designed menu" (#347). And (#349) verb leverage as a save rate and an error rate, per pair and in total, with cell and trial counts.
 3. **The owner's battle-phases direction** (2026-10-24, `IDEAS.md` from `ideas/battle-phases` `d0bffd5`; the owner's answer to #329's B): phases contact / range / position and control / finish, one side attacking and one defending, a defence sends the battle back a phase, tapping out open in every phase, each side judging its phase from its own model; a strategy is per phase a preset plus an exit condition at an aggression level; the player takes decision points from a short menu (auto by default). **When**: after item 55 and the rebuilt builds, before L5e2's E5–E7; the runner's re-measure below is the baseline without phases, the same measures with phases decide. Item 55 keeps the navigator's inputs as goals (range, aspect) set from above; a one-phase plan must reproduce the behaviour exactly. Record as an owner row when the phases pass is planned.
 4. **One runner** (#329, the owner's process): on the new builds, the mirror and versus-R2 grids with `tools/estimates/pace-e7.mjs` (workers; `--pairs`) at 600 / 900 / 1500 m and 2500 m (`--cull2`), default and strafe + range open (seeds 1–4 where a side strafes or dodges), and `tools/estimates/pace-verbs.mjs --pairs Lance:R2,Swarm:R2,Furnace:R2 --ranges 900,1500 --times 0,10` (the verbs with the player losing). E7 is the two-sided line (#329). Then A / B to the owner. **Also report (the owner, #336, #337)**: outcomes counted apart (win / loss / escape / stalemate) with a survival column; the time to the first hot room per pair; in each battle that ends in a kill, the longest gap without a `cell-damaged` event (sets the stalemate's X, the lead designer's).
-4b. **Before the phases plan** (the lead designer's, from `IDEAS.md` battle phases' gaps, `ideas/phase-gaps` `3973641`): gap 1 (a pursuing navigator: item 57's candidate), gap 3 (weapons tight on both sides; a stated opening), gap 4 (each exit condition named by model fields), gap 7 (phase roles for the builds against #330's lethality). The other gaps are risks to measure. The stalemate (#337) and outcomes counted apart (#336) are built in or before the phases pass, with the sweep's tie-break by survival (#338) in the same change to `tools/sweep.mjs`.
+4b. **Gaps 1, 3, 4 probed and decided (#346)**: no pursuing navigator (an escape at equal acceleration is physics); contact = weapons tight (`openFire: tight`) at range open from 1500 or 2500 m; exit = zones, or no antenna left, or own ship damaged. Next for the phases plan: gap 7 and the designed preset menu (#347, #348: a runner's sweep per locked build) after the builds' lock, then §13n.11 with its estimate script.
+   **The phases plan, now** (#341, the owner 2026-10-25: in parallel with the builds; gap 7 and every phases measure after the builds lock). The design partner's probe (`IDEAS.md`, "Probe: a contact phase held at range", merged fast-forward `908ea20`) was re-run by the lead designer on `d80cf84`, the 126 battles: counts match (two-sided 27 → 18; both commit 22, 16 end at 169–324 s, median 227 s; by opening 1 / 13 / 8 of 14; both antennas ruined at 65.9 s in the R2 mirror 900 m bow); small differences: the first release 5.5–13.4 s later (it says 8–13), the later commit 116–190 s (it says 111–190). A reading on old builds, one seed: input to gaps 3 and 4, not a measure. **Before the phases plan** (the lead designer's, from `IDEAS.md` battle phases' gaps, `ideas/phase-gaps` `3973641`): gap 1 (a pursuing navigator: item 57's candidate), gap 3 (weapons tight on both sides; a stated opening), gap 4 (each exit condition named by model fields), gap 7 (phase roles for the builds against #330's lethality). The other gaps are risks to measure. The stalemate (#337) and outcomes counted apart (#336) are built in or before the phases pass, with the sweep's tie-break by survival (#338) in the same change to `tools/sweep.mjs`.
 5. **L5e2** (E5–E8, W9b, `L5.route.throughput`, §17 item 54) after that.
 6. Due when their files are touched: §17 items 47, 50, 51.
 
@@ -57,6 +60,11 @@ sessions the new id; the owner is told the new chat's link. The owner is in
 Vietnam: times in Vietnam time (UTC+7).
 
 ## Lessons for whoever continues
+
+- **Re-run a trace before writing it into a row** (#345): #343 carried the engineer's "the rest burns front cells" mechanism; no Furnace mirror cell shows it (two M shields absorb the beam whole). The owner and the design partner caught it in minutes with one script.
+- **Probe a fix on the case's own extreme state, not only on the suite** (#340): candidate (b) cured the latch on all 168 suite battles but chattered every second step under sustained starvation (K7's setup, 300 asks in 10 s); only the constructed case showed it.
+- **A clock's hand count includes its start step** (K8, PR #107): the patience clock starts at E + 1, so the yield lands at E + 901, not E + 900; the engineer caught the plan's literal before the lock.
+- A chat created by the lead designer at depth 0 is at depth 1: its children notify normally.
 
 - **Session lineage is capped at depth 8** (seen 2026-10-24): `get_session` on this chat shows `lineage: depth 7, limit 8`. Sessions it creates run but cannot create triggers or sessions, so they cannot notify; read them with `list_events` and use `send_later` check-ins. The next lead designer chat must be opened by the owner from claude.ai (depth 0), not created by this one.
 - **A background command dies at 2 hours** (#314): split a full mutation run with `--only` into parts under that limit from the start; the tool writes its report only at the end.

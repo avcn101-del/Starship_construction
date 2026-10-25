@@ -6,7 +6,7 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
 ## Where things stand
 
 - Mission 0: L0–L4 merged; L5a, L5m, L5b, L5c, L5d and **L5e1** merged.
-  Next: §17 **item 58** (a starved engine latches the pilot's thrust at 0; probe running), then **the builds' rebuild** (#329–#331, draft PR #104; item 55 merged, PR #105), then E7 re-measured on two-sided battles, then **L5e2** (E5–E8), then **L6** (scaling, mixed classes). The owner:
+  Next: §17 **item 58** in review (PR #107; #340), **the builds' lock** (draft PR #104; #342–#345) and, in parallel, **the battle-phases plan** (gaps 1, 3, 4 now; #341), the tools pass for the baseline's columns (#342 (3)), the baseline, then **L5e2** (E5–E8), then **L6** (scaling, mixed classes). The owner:
   Mission 0 through L6 before any playable slice (#323).
 - The plan in force is `DESIGN.md` §13n (L5); §13n.8 is L5e1's.
 
@@ -55,7 +55,7 @@ reading order for a new lead designer chat is in `STATUS.md`'s header.
 ## Open obligations (`DESIGN.md` §17; due)
 
 - **54** the energy book has no beam term (due with `js/battle.js`'s books).
-- **58** a starved engine latches the pilot's thrust at 0, and the yield clocks lack `RES` (before the builds lock); **56** missiles fly pure pursuit; **57** a leading navigator (if the builds' tables show it).
+- **58** in PR #107 (the report expires after `helm.thrustRetry`; `RES` on the yield clocks); **56** missiles fly pure pursuit (waits: point defence, not pursuit, limits the Swarm, #342); **57** a leading navigator (the phases' gap 1).
 
 - **52** the pace study's questions: the bimodal pace, a close order's
   overshoot (about 230 m), the battle's **shape** (first hit on the loser

@@ -1,5 +1,51 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — §17 item 58: the thrust report expires; RES on the yield clocks (#340, PR #107, merged; answers #350)
+
+- `js/data.js`: `helm.thrustRetry` (new, 1 s, 0.5–2 s, k 0). `js/pilot.js`:
+  a delivered-thrust report expires once its engine has not been asked to
+  thrust for `helm.thrustRetry`, so a starved engine is asked once a second
+  (no latch at 0, no chatter). `js/navigator.js`: the yield's and the
+  reset's clocks compare with `RES`.
+- K7 `L4.pilot.retry` and K8 `L4.helm.yield.exact` (K8's criterion as the
+  lead designer answered on PR #107: Y − E = 901, B − L = 1800 exactly).
+  K9: every record re-recorded; six results moved (`L0.determinism.v2`,
+  `L4.helm.race`, `L4.helm.separation`, `L4.sweep.determinism.v2`,
+  `L4.loop.symmetric`, `.v2`). Mutations `item58.latch`, `.chatter`, `.res`
+  KILLED; `item55.position.yield` and `.reset` re-targeted, KILLED.
+  `DESIGN.md` §13m: "The helm's layers" gains K7 and K8. `CONSTANTS.md`
+  regenerated.
+
+## Unreleased — 2026-10-25 — the phases plan's gaps 1, 3, 4 probed (#346)
+
+- #346: an escape at equal acceleration is physics (no pursuing
+  navigator); contact is weapons tight (`openFire: tight`, planned) at
+  range open from a 1500 or 2500 m opening; contact's exit is zones
+  resolved, or no own antenna left, or own ship damaged.
+  `tools/estimates/phase-gaps-pursuit.mjs` (+ `.diff`),
+  `phase-gaps-contact.mjs`, `out/phase-gaps-*.jsonl`; detail in
+  `HISTORY.md` §16.
+- #347 (the owner): the phases plan includes a designed preset menu per
+  build and per phase; the baseline's verb column is labelled as measured
+  on the prototype's three presets. #348: the menu from the sweep's
+  distinct best responses per build, after the builds' lock.
+- #349: verb leverage as a save rate and an error rate with cell counts
+  (`out/verbs-every10.txt`: save 2 of 38 trials, 1 cell; error 78 of 532,
+  7 cells), built in the tools pass.
+
+## Unreleased — 2026-10-25 — §17 item 58 planned (#340)
+
+- `DESIGN.md` §13n.10: a delivered-thrust report expires after the new
+  `helm.thrustRetry` (1 s) not asked, so a starved engine is asked again
+  once a second instead of never; `RES` on the yield's and reset's clocks.
+  K7 `L4.pilot.retry`, K8 `L4.helm.yield.exact`, K9 re-records. The probe's
+  scripts and diffs: `tools/estimates/item58*.mjs`, `item58-{a,b,c,plan}.diff`.
+- #341 (the owner): battle phases are planned now, in parallel with the
+  builds; gap 7 and the phases' measures wait for the builds' lock.
+- PR #106 merged the pace block's documentation into `main`.
+- `IDEAS.md` battle phases: the design partner's probe of a contact phase
+  held at range (a reading on the locked builds, `ideas/phase-probe`).
+
 ## Unreleased — 2026-10-24 — §17 item 55 merged (PR #105)
 
 - PR #105 merged into `ld/pace` (`da029d3`): the helm's layers

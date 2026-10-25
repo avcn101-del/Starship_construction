@@ -3,11 +3,11 @@
   "level": "L4",
   "verdict": "PASS",
   "command": "node tools/m0.js run L4.pilot.thrust",
-  "code": "c87d8d3",
+  "code": "5140cc9",
   "criterionHash": "a1bc004a",
   "lockedHash": "a1bc004a",
   "runHash": "1408cc36",
-  "dataHash": "4b7cd27a",
+  "dataHash": "df15610d",
   "rowsHash": "42bd9c83",
   "rows": [
     {
