@@ -20,7 +20,7 @@ else on demand. The previous `STATUS.md` is the last section of `HISTORY.md`.
 - **Next**: the builds' lock (PR #104; the builds engineer told); the tools pass (#342 (3), with #348's `--menu`, #349's rates, `item58.res.reset`); the baseline; gap 7 and the menu after the builds' lock; then the phases plan §13n.12.
 - **Waiting on you**: nothing (#343 open to your veto).
 - **Money**: item 58 9.58 USD (probe runners 0.92 more); the previous chat 12.42 final; this chat 7.11 USD at 297k tokens.
-- **Running**: tools pass engineer `session_01TzbKXyt9GyhDDQBpTZF7oJ` (opus, `m0/tools`, §13n.11, from 08:49 UTC); builds engineer `session_01SC9bT7XzCShErTLAScXgUu` (PR #104, told at 06:50 UTC to merge `ld/pace` and lock). Reviewer and item 58 engineer done (idle).
+- **Running**: tools pass engineer `session_01TzbKXyt9GyhDDQBpTZF7oJ` (opus, `m0/tools`, §13n.11, from 08:49 UTC); builds engineer `session_01SC9bT7XzCShErTLAScXgUu` done: PR #104 locked and ready (head `119f4b1`; `L4.builds.lethal`, `.valid.v2` PASS; regress 182 + 161 + 5, 0 FAIL); its reviewer `session_014S4FXk73yUxDhDuhFssNAW` (sonnet, from 10:26 UTC). Reviewer and item 58 engineer done (idle).
 
 **PR #108** (`ld/pace` → `main`) merged `f9da7aa`.
 
