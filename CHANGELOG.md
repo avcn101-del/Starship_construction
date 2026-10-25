@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — the tools pass planned (#351, §13n.11)
+
+- #351: the baseline's columns (#336–#338, #347, #349) in `tools/sweep.mjs`,
+  `pace-e7.mjs`, `pace-verbs.mjs`; scenario `L4.sweep.scoring`; mutations
+  `item58.res.reset`, `tools.sweep.escapeWin`, `tools.sweep.noTie`. The
+  phases plan moves to §13n.12. Planned, not built.
+
 ## Unreleased — 2026-10-25 — §17 item 58: the thrust report expires; RES on the yield clocks (#340, PR #107, merged; answers #350)
 
 - `js/data.js`: `helm.thrustRetry` (new, 1 s, 0.5–2 s, k 0). `js/pilot.js`:

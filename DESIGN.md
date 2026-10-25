@@ -1665,6 +1665,39 @@ Under #335's delivered thrust a starved engine reports 0 until it is next asked 
 - [x] **The probe**: (a), (b), (c) on the suite and on K7's setup; `regress` under (a), (b) and (c); the helm suite under (c): any property fails in 87 of 168 cells (today 85; separation 1, race 0, as today); the tally counted as before − withdrawn + new.
 - [x] **Tolerances**: K7's step counts are integers from ⌈`helm.thrustRetry` / dt⌉ = 60, with (i)'s − 1 and + 1 for the ask's own step; (iii) at 1e-12 relative (one product, as K2); K8 exact because `RES` (1e-9 s) is five orders above t's float error at 600 s (about 1e-13 s) and seven below dt.
 
+### 13n.11 The tools pass: the baseline's columns (#342 (3), #351)
+
+No kernel change: `js/` is not touched, so no physics checker (#241). The baseline runner (`STATUS.md`) runs once, after this pass merges, with every column the owner asked for (#336–#338, #347, #349).
+
+**Outcomes, one function** (`tools/sweep.mjs` exports it; `pace-e7.mjs` and `pace-verbs.mjs` copy it beside `resultOf`, as today, since importing `sweep.mjs` in a worker starts its worker loop). For each side, a battle's outcome is one of: **win** (the other side ends destroyed, Disabled or surrendered), **loss** (this side does), **escape** (this side escaped), **let go** (the other escaped), **draw** (#315: both end in one step), **stalemate** (`ended.kind === 'stalemate'`, #337 (D); not in the kernel yet, counted when it comes), **no end** (none by `--limit`). E5's score is unchanged by #336: a win 1, a draw ½, everything else 0, so an escape is no longer the other side's win (#293's scoring, superseded by #336). **Survival** = every outcome but a loss and a draw (#336: wins, escapes, stalemates; let go and no end added by #351 (1), each also printed apart). **Crew alive** = Σ `room.crew` over the side's rooms at the battle's end, as the `draw` event counts it.
+
+**`tools/sweep.mjs`**: (a) the best response ranks a side's tries by wins, then survival, then crew alive (#338); a full tie keeps the current set, then the first in slot order, as today; (b) every pair's line and the `--json` table carry each side's counts of the seven outcomes, survival and crew alive; each build's line its survival rate beside its win rate; (c) the flags (above 75 %, an end under 60 s) unchanged.
+
+**`tools/estimates/pace-e7.mjs`**: (a) per battle the outcome for each side, the time of the first `hot` event on each side (`-` if none) and, when the battle ends in a win or loss, the longest quiet gap: the longest interval with no `cell-damaged` event on either ship, reported twice, from t = 0 (the approach included) and from the first `cell-damaged` (between damages and to the end); (b) the summary: the seven outcomes counted apart, survival per side, and **per pair** the median and the minimum of the first hot room's time over the battles where one occurred (with the count), and the maximum and the median of both quiet gaps over the battles ending in a kill (#337 (A), (D): X is set from that maximum).
+
+**`tools/estimates/pace-verbs.mjs`**: (a) `--menu prototype|designed` (default `prototype`): `prototype` tries `PRESETS` (Fire, Cool, Evade) as today and prints the label "verb leverage on the prototype's three presets, not a designed menu (#347); not comparable like for like with a designed menu"; `designed` replaces the three preset verbs by the player build's menu entries, `MENUS[build]` from `js/data.js` (#348), or from `--menu-file <json>` (the same shape: `{ <build>: [{ name, phase, slots }] }`, for the gap-7 derivation before `MENUS` exists); with neither it stops with that message. A menu verb sets the side's orders to Fire's with the entry's slots over them, the assignment the kernel's `preset` verb makes, done by the tool between `tick`s at the verb's step (no kernel change; the tool prints that a menu verb is not in `battle.verbs`). (b) **#349's rates** per pair and in total: the **save rate**, over the cells whose baseline is a player loss, the trials that end in a player win, escape, let go, stalemate or no end (survival); the **error rate**, over the cells whose baseline is a player win, the trials that end in a player loss; each printed as `k of n trials (c cells)`; cells whose baseline is neither are counted apart. The old flip counts stay.
+
+**`tools/mutations.json`**: `item58.res.reset` (#350): the reset's clock in `js/navigator.js` without `RES`; K8 kills it (40 of 120). `tools.sweep.escapeWin` (an escape counted as the other side's win, #293's scoring) and `tools.sweep.noTie` (the ranking by wins alone): `L4.sweep.scoring` kills both. `l5e1.sweep.byArrival` keeps a valid target (re-targeted if its line moves).
+
+**Scenarios** (locked in a commit of its own before its first canonical run, #273)
+
+| # | Scenario | Setup | Criterion |
+|---|---|---|---|
+| U1 | `L4.sweep.scoring` | the exported outcome and ranking functions on constructed results (test inputs, no battle): one result of each end kind for each side, and three tries tied on wins (survival 2 / 3 / 3, crew 10 / 8 / 12) | each side's outcome as the table above; E5's score 1 / ½ / 0 as above; the ranking picks the third try (wins tie, survival tie, crew 12) and, with crew equal, the first of the two by slot order |
+| U2 | re-records | `L4.sweep.determinism.v2` (the probe: the ranking moves nothing on its grid; the table's new fields change its hash), and whatever replays its row (`L4.loop.symmetric`, `.v2` if they do), each listed in the PR with old and new | criteria unchanged; any other moved result is a stop and a question |
+
+`regress` at the PR head: **182 VERIFIED + 160 WITHDRAWN + 5 RETIRED** (181 − 0 withdrawn + 1 new), after the builds' PR #104 adds its own (the engineer recounts on the merged `ld/pace`). Mutations `--only item58.res.reset,tools.sweep.escapeWin,tools.sweep.noTie,l5e1.sweep.byArrival`, each KILLED.
+
+**Information** (no criterion): the engineer prints, at the PR head, `pace-e7.mjs --pairs Lance:R2 --ranges 900 --openings bow,broadside` and `pace-verbs.mjs --pairs Lance:R2 --ranges 900 --times 0,10` (both menus, `designed` with a two-entry `--menu-file` fixture), so the reviewer can re-run them.
+
+**Process and cost**: one engineer (opus, branch `m0/tools` from `ld/pace`; may write `tools/sweep.mjs`, `tools/estimates/pace-e7.mjs`, `pace-verbs.mjs`, `tools/mutations.json`, the new scenario, the re-recorded records, `CHANGELOG.md`; not `js/`, not `DESIGN.md` or `DECISIONS.md`), the reviewer (sonnet), a runner for `regress` on the merge. Raw: engineer 2.5–4, reviewer 0.8–1.2, a fix round 0–1, runner 0.3–0.5: 3.6–6.7; × 1.24: **4.5–8.5 USD**. #246 (4)'s figure (a repeated kind, × 2.5): 9–17, shown beside it (#270 (2)); the lead designer expects about 6.
+
+**Checklist** (#326)
+
+- [x] **§13m rows**: none moves; "Ship versus ship (E5, E6)" and "The reference battle (E7)" stay planned L5e (this pass builds the instruments, not the measure); lint check 10 is unaffected.
+- [x] **The probe**: #338's ranking and #336's escape rule applied to `tools/sweep.mjs` on a scratch tree (`ld/pace` `5d2b4da`), `node tools/m0.js verify L4.sweep.determinism.v2`: VERIFIED (same results, same data): the ranking and the escape rule alone move nothing on its grid; the table's new outcome fields change its table hash, so U2 expects its re-record.
+- [x] **Tolerances**: none in floats; every count is an integer and T1 compares exactly; the quiet gaps and hot times are event times (multiples of dt), printed to 0.1 s.
+
 ## 14. Architecture
 
 | Layer | Files (planned) |
@@ -2344,3 +2377,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 348 | The menu: per build, the contact preset plus at most three of the sweep's distinct best-response order sets against the reference builds, phase-tagged by range, recorded as `MENUS` in `js/data.js`; `PRESETS` unchanged; `pace-verbs.mjs --menu`; derived after the builds' lock with gap 7 | current |
 | 349 | Verb leverage is reported as a save rate (player-losing cells turned to a win, escape or stalemate) and an error rate (player-winning cells turned to a loss), per pair and in total, with cell and trial counts; built in the tools pass (the owner; the lead designer) | current |
 | 350 | Answers at PR #107's merge: K8's 901 / 1800; `item58.res.reset` in the tools pass; K7's loose bounds for a successor when `js/pilot.js` is next touched; §17 item 58 closed | current |
+| 351 | The tools pass (§13n.11): one outcome function (seven outcomes per side; survival = all but a loss or a draw, let go and no end included and printed apart); #337's two columns in `pace-e7.mjs`; `pace-verbs.mjs --menu prototype|designed` with `--menu-file`, #349's rates; `L4.sweep.scoring`; `item58.res.reset`; the phases plan moves to §13n.12 | current |
