@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — §17 item 58 planned (#340)
+
+- `DESIGN.md` §13n.10: a delivered-thrust report expires after the new
+  `helm.thrustRetry` (1 s) not asked, so a starved engine is asked again
+  once a second instead of never; `RES` on the yield's and reset's clocks.
+  K7 `L4.pilot.retry`, K8 `L4.helm.yield.exact`, K9 re-records. The probe's
+  scripts and diffs: `tools/estimates/item58*.mjs`, `item58-{a,b,c,plan}.diff`.
+- PR #106 merged the pace block's documentation into `main`.
+
 ## Unreleased — 2026-10-24 — §17 item 55 merged (PR #105)
 
 - PR #105 merged into `ld/pace` (`da029d3`): the helm's layers
