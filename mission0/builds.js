@@ -4,9 +4,9 @@
 // validated by the kernel's validateShip when js/battle.js buildShip undocks it.
 //
 // The reference four on R1d's budget +- 5 % (price ∝ mass at undock, #279): R2 (R1d with an antenna and one point
-// defence fitting: the gunboat), Lance (an N = 4 spinal railgun for the beam bay and turret, a slug magazine), Swarm
-// (two missile bays, a missile magazine, two point-defence fittings, no turret), Furnace (an N = 6 beam bay, two
-// shield generators, no turret). The degenerate six on R2's budget +- 5 %: Brick (plates on every wall, one S
+// defence fitting: the gunboat), Lance (an N = 4 spinal railgun, a slug magazine, one secondary S turret), Swarm (two
+// missile bays, a missile magazine, no point defence, one secondary S turret), Furnace (an L beam bay N = 6, two
+// shield generators, no turret), rebuilt under #330, #332 and #343 (L4.builds.lethal). The degenerate six on R2's budget +- 5 %: Brick (plates on every wall, one S
 // turret), Glass (a railgun and a reactor, the least quarters, no plates), Porcupine (four S turrets, two magazines),
 // Fortress (three shield generators, one turret), Engine boat (two engines, one turret: the plume its weapon), Cold
 // Brick (R1d's hull and plates with no radiator panel). Every build carries an antenna (HOLD_ANTENNA's edge where its
