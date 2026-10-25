@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — the tools pass: the baseline's columns (#351, §13n.11, branch `m0/tools`)
+
+- `tools/sweep.mjs` exports one outcome function per side (win, loss,
+  escape, let go, draw, stalemate, no end), E5's score (win 1, draw ½,
+  else 0: an escape is no longer the other side's win, #336), survival,
+  a tally and #338's ranking (wins, then survival, then crew alive); each
+  pair's line and `--json` table carry each side's seven counts, survival
+  and crew alive, each build's line its survival rate. `pace-e7.mjs` and
+  `pace-verbs.mjs` copy the function.
+- `pace-e7.mjs`: each side's outcome, first `hot` time and, for a kill, the
+  longest quiet gap from t = 0 and from the first damage; the summary's
+  outcomes, survival and per-pair hot and quiet-gap columns (#337).
+- `pace-verbs.mjs`: `--menu prototype|designed`, `--menu-file`, #347's
+  label; #349's save and error rates per pair and in total.
+- Scenario `L4.sweep.scoring` (U1, locked before its first run);
+  `L4.sweep.determinism.v2` re-recorded (U2): its table hash, and its pair's T set (`range` close → open, the crew tie-break) and ends (destroyed A 220.6 / 142.9 s → 505.3 / 123.3 s); criterion passes. Mutations
+  `item58.res.reset`, `tools.sweep.escapeWin`, `tools.sweep.noTie`.
+
 ## Unreleased — 2026-10-25 — the tools pass planned (#351, §13n.11)
 
 - #351: the baseline's columns (#336–#338, #347, #349) in `tools/sweep.mjs`,

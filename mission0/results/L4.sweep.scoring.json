@@ -1,0 +1,360 @@
+{
+  "id": "L4.sweep.scoring",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.sweep.scoring",
+  "code": "b1ee244",
+  "criterionHash": "6cb41a83",
+  "lockedHash": "6cb41a83",
+  "runHash": "75a95731",
+  "dataHash": "df15610d",
+  "rowsHash": "595b5a35",
+  "rows": [
+    {
+      "case": {
+        "name": "ends"
+      },
+      "expected": {
+        "outcomes": {
+          "destroyed by A": [
+            "loss",
+            "win"
+          ],
+          "disabled by A": [
+            "loss",
+            "win"
+          ],
+          "surrender by A": [
+            "loss",
+            "win"
+          ],
+          "escaped by A": [
+            "escape",
+            "letGo"
+          ],
+          "destroyed by T": [
+            "win",
+            "loss"
+          ],
+          "disabled by T": [
+            "win",
+            "loss"
+          ],
+          "surrender by T": [
+            "win",
+            "loss"
+          ],
+          "escaped by T": [
+            "letGo",
+            "escape"
+          ],
+          "draw": [
+            "draw",
+            "draw"
+          ],
+          "stalemate": [
+            "stalemate",
+            "stalemate"
+          ],
+          "no end": [
+            "noEnd",
+            "noEnd"
+          ]
+        },
+        "score": {
+          "win": 1,
+          "loss": 0,
+          "escape": 0,
+          "letGo": 0,
+          "draw": 0.5,
+          "stalemate": 0,
+          "noEnd": 0
+        },
+        "survives": {
+          "win": true,
+          "loss": false,
+          "escape": true,
+          "letGo": true,
+          "draw": false,
+          "stalemate": true,
+          "noEnd": true
+        }
+      },
+      "actual": {
+        "rows": [
+          {
+            "name": "destroyed by A",
+            "outcomes": [
+              "loss",
+              "win"
+            ],
+            "score": [
+              0,
+              1
+            ],
+            "survives": [
+              false,
+              true
+            ]
+          },
+          {
+            "name": "disabled by A",
+            "outcomes": [
+              "loss",
+              "win"
+            ],
+            "score": [
+              0,
+              1
+            ],
+            "survives": [
+              false,
+              true
+            ]
+          },
+          {
+            "name": "surrender by A",
+            "outcomes": [
+              "loss",
+              "win"
+            ],
+            "score": [
+              0,
+              1
+            ],
+            "survives": [
+              false,
+              true
+            ]
+          },
+          {
+            "name": "escaped by A",
+            "outcomes": [
+              "escape",
+              "letGo"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "survives": [
+              true,
+              true
+            ]
+          },
+          {
+            "name": "destroyed by T",
+            "outcomes": [
+              "win",
+              "loss"
+            ],
+            "score": [
+              1,
+              0
+            ],
+            "survives": [
+              true,
+              false
+            ]
+          },
+          {
+            "name": "disabled by T",
+            "outcomes": [
+              "win",
+              "loss"
+            ],
+            "score": [
+              1,
+              0
+            ],
+            "survives": [
+              true,
+              false
+            ]
+          },
+          {
+            "name": "surrender by T",
+            "outcomes": [
+              "win",
+              "loss"
+            ],
+            "score": [
+              1,
+              0
+            ],
+            "survives": [
+              true,
+              false
+            ]
+          },
+          {
+            "name": "escaped by T",
+            "outcomes": [
+              "letGo",
+              "escape"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "survives": [
+              true,
+              true
+            ]
+          },
+          {
+            "name": "draw",
+            "outcomes": [
+              "draw",
+              "draw"
+            ],
+            "score": [
+              0.5,
+              0.5
+            ],
+            "survives": [
+              false,
+              false
+            ]
+          },
+          {
+            "name": "stalemate",
+            "outcomes": [
+              "stalemate",
+              "stalemate"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "survives": [
+              true,
+              true
+            ]
+          },
+          {
+            "name": "no end",
+            "outcomes": [
+              "noEnd",
+              "noEnd"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "survives": [
+              true,
+              true
+            ]
+          }
+        ]
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "ranking"
+      },
+      "expected": {
+        "tallies": [
+          {
+            "wins": 1.5,
+            "survival": 2,
+            "crew": 10
+          },
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 8
+          },
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 12
+          }
+        ],
+        "best": 2
+      },
+      "actual": {
+        "tallies": [
+          {
+            "wins": 1.5,
+            "survival": 2,
+            "crew": 10
+          },
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 8
+          },
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 12
+          }
+        ],
+        "best": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "crew equal"
+      },
+      "expected": {
+        "tallies": [
+          {
+            "wins": 1.5,
+            "survival": 2,
+            "crew": 10
+          },
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 12
+          },
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 12
+          }
+        ],
+        "best": 1
+      },
+      "actual": {
+        "tallies": [
+          {
+            "wins": 1.5,
+            "survival": 2,
+            "crew": 10
+          },
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 12
+          },
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 12
+          }
+        ],
+        "best": 1
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
