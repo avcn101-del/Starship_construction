@@ -1550,7 +1550,7 @@ L5e is split (the owner's B, #315): **L5e1** builds what E5–E7 need and fixes 
 | J9 | `L4.books.field` | two ships, a charged field stopping rounds | the angular book closes at 1e-9 × gross (+ 1e-12) with shields up |
 | J10 | `L4.events.change` | a cell grazed below float resolution | no `cell-damaged` without a change of integrity |
 | J11 | §17 item 50's successors | as item 50 | as item 50 |
-| J12 | `L4.builds.valid` | every build of `mission0/builds.js` | `validateShip` passes; the masses within the budgets above |
+| J12 | `L4.builds.valid` (withdrawn by #344; successor `L4.builds.valid.v2`) | every build of `mission0/builds.js` | `validateShip` passes; the masses within the budgets above |
 | J13 | `L4.sweep.determinism` | `tools/sweep.mjs` on a small grid (2 builds, 2 slots, 1 range, 1 seed) | two runs and 1 against 4 workers give the same table hash |
 
 **Process and cost** (#246 (4); the ratio table in `LEDGER.md`: L5c 1.18, L5d ≥ 1.20 on raw)
@@ -1678,6 +1678,8 @@ No kernel change: `js/` is not touched, so no physics checker (#241). The baseli
 **`tools/estimates/pace-verbs.mjs`**: (a) `--menu prototype|designed` (default `prototype`): `prototype` tries `PRESETS` (Fire, Cool, Evade) as today and prints the label "verb leverage on the prototype's three presets, not a designed menu (#347); not comparable like for like with a designed menu"; `designed` replaces the three preset verbs by the player build's menu entries, `MENUS[build]` from `js/data.js` (#348), or from `--menu-file <json>` (the same shape: `{ <build>: [{ name, phase, slots }] }`, for the gap-7 derivation before `MENUS` exists); with neither it stops with that message. A menu verb sets the side's orders to Fire's with the entry's slots over them, the assignment the kernel's `preset` verb makes, done by the tool between `tick`s at the verb's step (no kernel change; the tool prints that a menu verb is not in `battle.verbs`). (b) **#349's rates** per pair and in total: the **save rate**, over the cells whose baseline is a player loss, the trials that end in a player win, escape, let go, stalemate or no end (survival); the **error rate**, over the cells whose baseline is a player win, the trials that end in a player loss; each printed as `k of n trials (c cells)`; cells whose baseline is neither are counted apart. The old flip counts stay.
 
 **Amendment (#356, after an audit; the engineer merges `ld/pace`)**: (1) `pace-verbs.mjs` prints #349's rates three times: over all cells, over the mirror cells (player build = enemy build) and over the rest, since an exact mirror always ends against A (53 of #328's 80 flips are in the R2 mirror, `tools/estimates/out/verbs-every10.txt`). (2) `tools/lint-docs.mjs` gains check 11: every slot of `js/data.js` `ORDERS` and every key of `PRESETS.fire` is named in backticks in §8's decision table, and every verb `js/battle.js`'s `verb()` accepts is named in its player-verb row; and check 12: every **Checklist** of a plan from §13n.12 on carries a "**Player decisions**" item (#355). The engineer may write `tools/lint-docs.mjs`.
+
+**Fix round (#361, after PR #109's review: 0 blocking, 4 non-blocking)**: (1) **U3** `L4.sweep.scoring.survival` (new; U1 stands, but its tries cannot tell the survival key, the lead designer's design error): three tries tied on wins with survival 3 / 2 / 3 and crew 8 / 14 / 9, so the ranking picks the third (survival beats crew 14; crew 9 beats 8); and `tally` on mirrored inputs (each result with A and T swapped) gives side T the counts side A had. Locked in a commit of its own before its first canonical run. Mutations `tools.sweep.noSurvivalKey` (the ranking by wins then crew) and `tools.sweep.tallySideA` (`tally` reads side A whatever its argument), each KILLED by U3. (2) Lint check 12 fails a plan section from §13n.12 on that has no checklist it can match. (3) An information run that prints a first-hot time (any pair, `--limit` up to 1500 s; #304 puts the first hot room near 1059 s, so 600 s may show none), or the statement that none occurs by 1500 s. (4) Merge `ld/pace` (PR #104 merged, `ec26788`); re-record `L4.sweep.determinism.v2` (both PRs moved it) and the records that replay it if they move, each listed. `regress` expected 184 VERIFIED + 161 WITHDRAWN + 5 RETIRED (182 on the merged `ld/pace`, + U1, + U3). Mutations `--only` the two new ones plus the four of the first round.
 
 **`tools/mutations.json`**: `item58.res.reset` (#350): the reset's clock in `js/navigator.js` without `RES`; K8 kills it (40 of 120). `tools.sweep.escapeWin` (an escape counted as the other side's win, #293's scoring) and `tools.sweep.noTie` (the ranking by wins alone): `L4.sweep.scoring` kills both. `l5e1.sweep.byArrival` keeps a valid target (re-targeted if its line moves).
 
@@ -2020,6 +2022,13 @@ Each line names its decision and when it is due; a closed one is removed.
     suite. Due before L5e2's measures if the builds' tables show it.
     Not the phases' pursuit (#346): at equal acceleration a pursuing law only
     delays an escape.
+59. **The builds' choices without a mutation** (PR #104's reviewer, #359):
+    `builds2.swarmTurret` (the Swarm's S turret held: (ii) 3 / 8 without it),
+    `builds2.furnaceBay` (L bay to M: R2 hurt 2 / 8) and the Lance RCS
+    relocation have no entry in `tools/mutations.json`; the Swarm's
+    penetrator warhead is deliberately unpinned (an HE variant gives the same
+    counts under (i) and (ii)). Due: added and run `--only` by the next pass
+    that touches `mission0/builds.js`, or at L5's exit run, whichever first.
 
 ## 18. Decisions in force
 
@@ -2375,7 +2384,7 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 344 | `L4.builds.valid` withdrawn for `L4.builds.valid.v2`: the builds' shapes as #330, #332 and #343 allow (one S turret at most on Lance and Swarm; the Swarm's point defence free; Furnace's bay of any size) | current |
 | 345 | #343's mechanism corrected: in 7 of 8 Furnace mirror cells the two M shields let none of the beam through (no cell damage by 600 s); only 600 m broadside passes about 9 % | current |
 | 346 | Phases gaps 1, 3, 4 probed: an escape at equal acceleration is physics (no pursuing navigator; the range attacker is an acceleration margin); contact is weapons tight (`openFire: tight`) at range open from a 1500 or 2500 m opening; its exit is zones resolved, or no antenna left, or own ship damaged | current |
-| 347 | The phases plan includes a designed preset menu per build and per phase, with the contact preset; the baseline's verb-leverage column is labelled as measured on the prototype's three presets, not compared like for like (the owner) | current |
+| 347 | The phases plan includes a designed preset menu per build and per phase, with the contact preset; the baseline's verb-leverage column is labelled as measured on the prototype's three presets, not compared like for like (the owner) | current (the baseline's verb column dropped: #357) |
 | 348 | The menu: per build, the contact preset plus at most three of the sweep's distinct best-response order sets against the reference builds, phase-tagged by range, recorded as `MENUS` in `js/data.js`; `PRESETS` unchanged; `pace-verbs.mjs --menu`; derived after the builds' lock with gap 7 | current (a break-off entry always added: #353) |
 | 349 | Verb leverage is reported as a save rate (player-losing cells turned to a win, escape or stalemate) and an error rate (player-winning cells turned to a loss), per pair and in total, with cell and trial counts; built in the tools pass (the owner; the lead designer) | current |
 | 350 | Answers at PR #107's merge: K8's 901 / 1800; `item58.res.reset` in the tools pass; K7's loose bounds for a successor when `js/pilot.js` is next touched; §17 item 58 closed | current |
@@ -2385,3 +2394,8 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 354 | The stand-off is the phased captain's default posture (start and return; leaving it is the Command decision); which of the three is an order from the menu; #346's contact preset its first instance; measured against the stalemate (the owner) | current |
 | 355 | From L5e2 on (the lead designer: from §13n.12 on), every plan's checklist has a fourth item: the player decisions the pass changes or measures, their owner in §8 (#36), and #349's save and error rates on the designed menu, or "none" stated (the owner; amends #326) | current |
 | 356 | The audit's points: #349's rates also reported apart for mirror and non-mirror cells; §8 corrected (position is built) and its table named by slot for lint checks 11 and 12 (tools pass); the pace numbers stale until the baseline; the work on the current decision layer re-measured with the designed menu | current |
+| 357 | The baseline reduced to X, the first hot room, outcomes counted apart and the builds ship versus ship (no verb column, no like-for-like role); the reference without phases is the one-phase plan on the designed menu (the owner) | current |
+| 358 | After the builds' lock: gap 7 and §13n.12 in parallel; the candidate slots decided and built before #348's derivation, which runs once on the final slot set; then the one-phase and with-phases measures on the designed menu (the owner) | current |
+| 359 | Answers at PR #104's merge: 0 blocking, 5 non-blocking; the three moved records explained; the builds' missing mutations as §17 item 59 (the Swarm's warhead deliberately unpinned); J12 marked withdrawn | current |
+| 360 | #337's X provisional: re-checked against the one-phase and with-phases measures' longest quiet gap, read with the stalemate off, before E7 is judged; X's range must exceed the battle limit | current |
+| 361 | PR #109's fix round: U3 `L4.sweep.scoring.survival` (survival against crew; T's tally) with two mutations; lint check 12 fails an unmatched checklist; a first-hot information run; merge `ld/pace` and re-record | current |

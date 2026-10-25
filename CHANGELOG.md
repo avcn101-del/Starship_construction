@@ -22,6 +22,23 @@
 - Scenario `L4.sweep.scoring` (U1, locked before its first run);
   `L4.sweep.determinism.v2` re-recorded (U2): its table hash, and its pair's T set (`range` close → open, the crew tie-break) and ends (destroyed A 220.6 / 142.9 s → 505.3 / 123.3 s); criterion passes. Mutations
   `item58.res.reset`, `tools.sweep.escapeWin`, `tools.sweep.noTie`.
+## Unreleased — 2026-10-25 — X provisional (#360)
+
+- #360: #337's X is re-checked against the phased measures (read with the
+  stalemate off) before E7 is judged.
+
+## Unreleased — 2026-10-25 — the order after the builds' lock (#358)
+
+- #358 (the owner): gap 7 and §13n.12 in parallel; the candidate slots
+  built before #348's derivation, which runs once; then the one-phase and
+  with-phases measures on the designed menu.
+
+## Unreleased — 2026-10-25 — a reduced baseline (#357)
+
+- #357 (the owner): the baseline keeps #337's X, the first hot room,
+  outcomes counted apart and the builds ship versus ship; the reference
+  without phases is the one-phase plan on the designed menu.
+
 ## Unreleased — 2026-10-25 — the player decisions in every plan; the audit's points (#355, #356)
 
 - #355 (the owner, amends #326): a fourth checklist item, the player
@@ -60,6 +77,22 @@
   `pace-e7.mjs`, `pace-verbs.mjs`; scenario `L4.sweep.scoring`; mutations
   `item58.res.reset`, `tools.sweep.escapeWin`, `tools.sweep.noTie`. The
   phases plan moves to §13n.12. Planned, not built.
+## Unreleased — 2026-10-25 — the reference builds rebuilt (#330, #332, #343, #344, PR #104)
+
+- `mission0/builds.js`: Lance, Swarm and Furnace rebuilt (R2 and the
+  degenerate six unchanged). Lance: the N = 4 railgun, its bow RCS moved off
+  the railgun's bow cells, one secondary S turret on an S magazine of S
+  rounds (#332). Swarm: no point defence, penetrator warheads, one secondary
+  S turret (#332). Furnace: an L beam bay N = 6, two M shield generators, no
+  turret. Masses 1435.5 / 1407.2 / 1458.7 t (101.0 / 99.0 / 102.6 % of R1d).
+- `L4.builds.lethal` (new, locked `f0b30149`): (i) Lance's and Swarm's
+  mirrors end with damage on the loser in 8 of 8 cells; Furnace's mirror is
+  measured, 0 of 8 (#343, #345); (ii) R2 damaged in 8 / 7 / 6 of 8; (iii)
+  valid and on R1d's budget.
+- `L4.builds.valid` withdrawn (#344); successor `L4.builds.valid.v2`
+  (locked `54ed18cc`): the specialists' shapes as #344 restates them, every
+  other check kept. `L4.sweep.determinism.v2`, `L4.loop.symmetric.v2` and
+  `L4.loop.symmetric` re-recorded. Mutation `builds2.lanceTurret`.
 
 ## Unreleased — 2026-10-25 — §17 item 58: the thrust report expires; RES on the yield clocks (#340, PR #107, merged; answers #350)
 

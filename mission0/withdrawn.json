@@ -1328,5 +1328,13 @@
     "recordHash": "9e434038",
     "reason": "Superseded under #335 (DESIGN.md 13n.9 K4, §17 item 55; #245, #327): it pinned step 9524 of one battle between two helms (R2 against the Lance, 600 m bow), which any helm change moves (under #335 the attacker is destroyed at step 4388); the successor keeps its criteria on a battle constructed with no helm. Recorded PASS (code 8dd7445, data cfcb3fa1), frozen (#245).",
     "frozen": true
+  },
+  {
+    "id": "L4.builds.valid",
+    "successor": "L4.builds.valid.v2",
+    "decision": "#344",
+    "recordHash": "5f1ca25a",
+    "reason": "Superseded under #344 (PR #104; #330, #332): its locked shape() named the old Lance (no turret) and Swarm (two point-defence fittings, no turret), which #330 (the Swarm's point defence is the engineer's) and #332 (at most one secondary S turret) allow to change; the successor keeps every other check. Recorded PASS (code 5140cc9, data df15610d), frozen (#245).",
+    "frozen": true
   }
 ]

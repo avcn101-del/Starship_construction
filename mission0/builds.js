@@ -4,9 +4,9 @@
 // validated by the kernel's validateShip when js/battle.js buildShip undocks it.
 //
 // The reference four on R1d's budget +- 5 % (price ∝ mass at undock, #279): R2 (R1d with an antenna and one point
-// defence fitting: the gunboat), Lance (an N = 4 spinal railgun for the beam bay and turret, a slug magazine), Swarm
-// (two missile bays, a missile magazine, two point-defence fittings, no turret), Furnace (an N = 6 beam bay, two
-// shield generators, no turret). The degenerate six on R2's budget +- 5 %: Brick (plates on every wall, one S
+// defence fitting: the gunboat), Lance (an N = 4 spinal railgun, a slug magazine, one secondary S turret), Swarm (two
+// missile bays, a missile magazine, no point defence, one secondary S turret), Furnace (an L beam bay N = 6, two
+// shield generators, no turret), rebuilt under #330, #332 and #343 (L4.builds.lethal). The degenerate six on R2's budget +- 5 %: Brick (plates on every wall, one S
 // turret), Glass (a railgun and a reactor, the least quarters, no plates), Porcupine (four S turrets, two magazines),
 // Fortress (three shield generators, one turret), Engine boat (two engines, one turret: the plume its weapon), Cold
 // Brick (R1d's hull and plates with no radiator panel). Every build carries an antenna (HOLD_ANTENNA's edge where its
@@ -37,34 +37,46 @@ const PD_HOLD = ['pd', 'hold', [8, 1], [1, 0]]; // the hold's bow edge of cell (
 // R2: R1d-A (R1d with the hold's antenna) and one kinetic point-defence fitting on the hold's bow edge.
 export const R2 = { rooms: R1_ROOMS, fittings: [...R1_FITTINGS, ...R1C_PLATES, ...R1D_PLATES, HOLD_ANTENNA, PD_HOLD] };
 
-// Lance: an N = 4 railgun ([9, 13) x [2, 4)) in the beam bay's place, a hold (aftHold) in the turret's (it keeps the
-// magazine inside), no turret; the magazine full of slugs (it shares the railgun's wall); R1c's eight magazine plates
-// and four on the railgun's long hull edges for R1d's turret plates.
+// Lance (#330, #332): an N = 4 railgun ([9, 13) x [2, 4)) in the beam bay's place; the magazine full of slugs (it shares
+// the railgun's wall); in the turret's place one secondary S turret (#332: without it the mirror ends in 6 of #330's 8
+// cells) at (8, 5) fed by an S magazine of S rounds (tmag, (8, 4)) and two S holds ((9, 4), (9, 5)); R1c's eight
+// magazine plates and four on the railgun's long hull edges. The two bow RCS sit off the line of fire (the hold's
+// (7, 0) -y, hold3's (9, 5) +y): on the railgun's bow cells the first hits took one and the unbalanced couple drifted
+// the ship.
 export const LANCE = {
-  rooms: [...swap(without(R1_ROOMS, 'beamBay'), 'turret', { id: 'aftHold', type: 'hold', cell: [8, 4] }).map((r) => (r.id === 'magazine' ? { ...r, load: { type: 'railgun' } } : r)), { id: 'railgun', type: 'railgun', cell: [9, 2], length: 4 }],
-  fittings: [...AFT, ...bowFittings('railgun', 12), ...ENGINE_RCS, ...R1C_PLATES, HOLD_ANTENNA,
+  rooms: [...without(R1_ROOMS, 'beamBay', 'turret').map((r) => (r.id === 'magazine' ? { ...r, load: { type: 'railgun' } } : r)), { id: 'railgun', type: 'railgun', cell: [9, 2], length: 4 },
+    { id: 'tmag', type: 'magazine', cell: [8, 4], size: 'S', load: { size: 'S' } }, { id: 'turret', type: 'turret', cell: [8, 5], size: 'S' },
+    { id: 'hold2', type: 'hold', cell: [9, 4], size: 'S' }, { id: 'hold3', type: 'hold', cell: [9, 5], size: 'S' }],
+  fittings: [...AFT, ['radiator', 'railgun', [12, 2], [1, 0]], ['radiator', 'railgun', [12, 3], [1, 0]], ['radiator', 'railgun', [9, 2], [0, -1]], ...ENGINE_RCS,
+    ['rcs', 'hold', [7, 0], [0, -1]], ['rcs', 'hold3', [9, 5], [0, 1]], ...R1C_PLATES, HOLD_ANTENNA,
     plate('railgun', [10, 2], [0, -1]), plate('railgun', [11, 2], [0, -1]), plate('railgun', [10, 3], [0, 1]), plate('railgun', [11, 3], [0, 1])],
 };
 
-// Swarm: two missile bays (bayT in the turret's place, rotated 90 degrees: [8, 10) x [4, 7), as R1-M's; bayB in the
-// beam bay's place, [9, 12) x [2, 4), as R1-M3's), the magazine full of missiles on both bays' walls, two kinetic
-// point-defence fittings on the hold's bow edges, no turret, no beam bay; plates: R1c's and four on bayT's hull edges
-// (not its launch face (9, 4) +x).
-const SWARM_LOAD = { seeker: 'designated', warhead: 'he' };
+// Swarm (#330, #332): two missile bays (bayT in the turret's place, rotated 90 degrees: [8, 10) x [4, 7), as R1-M's; bayB
+// in the beam bay's place, [9, 12) x [2, 4), as R1-M3's), the magazine full of missiles on both bays' walls, no point
+// defence (two fittings shot down every missile of its mirror), penetrator warheads, no beam bay; in the hold's place
+// one secondary S turret (#332: without it R2 takes damage in 3 of #330's 8 cells) at (8, 1) fed by an S magazine of S
+// rounds (tmag, (7, 1)) and two S holds ((7, 0) with the antenna's neighbour, (8, 0) with the antenna); plates: R1c's and
+// four on bayT's hull edges (not its launch face (9, 4) +x).
+const SWARM_LOAD = { seeker: 'designated', warhead: 'penetrator' };
 export const SWARM = {
-  rooms: [...without(R1_ROOMS, 'turret', 'beamBay').map((r) => (r.id === 'magazine' ? { ...r, load: { type: 'missile', ...SWARM_LOAD } } : r)),
-    { id: 'bayT', type: 'missileBay', cell: [8, 4], rotation: 90, load: SWARM_LOAD }, { id: 'bayB', type: 'missileBay', cell: [9, 2], load: SWARM_LOAD }],
-  fittings: [...AFT, ...bowFittings('bayB', 11, 10), ...ENGINE_RCS, ...R1C_PLATES, HOLD_ANTENNA, PD_HOLD, ['pd', 'hold', [8, 0], [1, 0]],
+  rooms: [...without(R1_ROOMS, 'turret', 'beamBay', 'hold').map((r) => (r.id === 'magazine' ? { ...r, load: { type: 'missile', ...SWARM_LOAD } } : r)),
+    { id: 'bayT', type: 'missileBay', cell: [8, 4], rotation: 90, load: SWARM_LOAD }, { id: 'bayB', type: 'missileBay', cell: [9, 2], load: SWARM_LOAD },
+    { id: 'tmag', type: 'magazine', cell: [7, 1], size: 'S', load: { size: 'S' } }, { id: 'turret', type: 'turret', cell: [8, 1], size: 'S' },
+    { id: 'holdA', type: 'hold', cell: [7, 0], size: 'S' }, { id: 'holdB', type: 'hold', cell: [8, 0], size: 'S' }],
+  fittings: [...AFT, ...bowFittings('bayB', 11, 10), ...ENGINE_RCS, ...R1C_PLATES, ['antenna', 'holdB', [8, 0], [0, -1]],
     plate('bayT', [8, 6], [0, 1]), plate('bayT', [9, 6], [0, 1]), plate('bayT', [9, 5], [1, 0]), plate('bayT', [9, 6], [1, 0])],
 };
 
-// Furnace: an N = 6 beam bay ([9, 15) x [2, 4)), a second shield generator (shield2) in the hold's place carrying the
-// antenna, an S quarters (quarters2, [8, 10) x [4, 5)) in the turret's for the second generator's crew, no turret;
-// plates: R1c's and four on shield2's hull edges.
+// Furnace (#330): an L beam bay N = 6 ([9, 15) x [1, 4): an M bay's 5 MW never passes R2's shield, whose budget x
+// strength is at least 5.2 MW on every hull point of R2), a second shield generator (shield2) in the hold's place
+// carrying the antenna, an S quarters (quarters2, [8, 10) x [4, 5)) in the turret's for the second generator's crew,
+// no turret; plates: R1c's and three on shield2's hull edges.
 export const FURNACE = {
-  rooms: [...swap(without(R1_ROOMS, 'turret', 'beamBay'), 'hold', { id: 'shield2', type: 'shieldGenerator', cell: [7, 0] }), { id: 'beamBay', type: 'beamBay', cell: [9, 2], length: 6 }, { id: 'quarters2', type: 'quarters', cell: [8, 4], size: 'S' }],
-  fittings: [...AFT, ...bowFittings('beamBay', 14), ...ENGINE_RCS, ...R1C_PLATES, ['antenna', 'shield2', [8, 0], [0, -1]],
-    plate('shield2', [7, 0], [0, -1]), plate('shield2', [7, 0], [-1, 0]), plate('shield2', [8, 0], [1, 0]), plate('shield2', [8, 1], [1, 0])],
+  rooms: [...swap(without(R1_ROOMS, 'turret', 'beamBay'), 'hold', { id: 'shield2', type: 'shieldGenerator', cell: [7, 0] }), { id: 'beamBay', type: 'beamBay', cell: [9, 1], size: 'L', length: 6 }, { id: 'quarters2', type: 'quarters', cell: [8, 4], size: 'S' }],
+  fittings: [...AFT, ['radiator', 'beamBay', [14, 2], [1, 0]], ['radiator', 'beamBay', [14, 3], [1, 0]], ['radiator', 'beamBay', [9, 1], [0, -1]], ['rcs', 'beamBay', [14, 3], [0, 1]], ['rcs', 'beamBay', [14, 1], [0, -1]],
+    ...ENGINE_RCS, ...R1C_PLATES, ['antenna', 'shield2', [8, 0], [0, -1]],
+    plate('shield2', [7, 0], [0, -1]), plate('shield2', [7, 0], [-1, 0]), plate('shield2', [8, 0], [1, 0])],
 };
 
 // ---------- the degenerate six (R2's budget) ----------
