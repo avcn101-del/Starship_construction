@@ -380,6 +380,8 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.shield.window` | 963d673a | PASS | 1843643f | 5140cc9 | none | `node tools/m0.js run L4.shield.window` |
 | `L4.sweep.determinism.v2` | 5e8b7b49 | PASS | 85ee6c78 | de5ba9c | none | `node tools/m0.js run L4.sweep.determinism.v2` |
 | `L4.sweep.determinism` | 790917e5 | PASS, WITHDRAWN (successor `L4.sweep.determinism.v2`, #316) | 0281e332 | 7840cb9 | none | `node tools/m0.js run L4.sweep.determinism` |
+| `L4.sweep.scoring.survival` | ec178589 | PASS | b353c2be | cba2b82 | none | `node tools/m0.js run L4.sweep.scoring.survival` |
+| `L4.sweep.scoring` | 6cb41a83 | PASS | 75a95731 | b1ee244 | none | `node tools/m0.js run L4.sweep.scoring` |
 | `L4.target.known` | 0e1bdad2 | PASS | 6634b6cf | 5140cc9 | none | `node tools/m0.js run L4.target.known` |
 | `L4.target.plates` | 30c3732c | PASS | 796e1f62 | 5140cc9 | none | `node tools/m0.js run L4.target.plates` |
 

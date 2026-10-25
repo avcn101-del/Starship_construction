@@ -1,0 +1,166 @@
+{
+  "id": "L4.sweep.scoring.survival",
+  "level": "L4",
+  "verdict": "PASS",
+  "command": "node tools/m0.js run L4.sweep.scoring.survival",
+  "code": "cba2b82",
+  "criterionHash": "ec178589",
+  "lockedHash": "ec178589",
+  "runHash": "b353c2be",
+  "dataHash": "df15610d",
+  "rowsHash": "18f74c61",
+  "rows": [
+    {
+      "case": {
+        "name": "survival before crew"
+      },
+      "expected": {
+        "tallies": [
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 8
+          },
+          {
+            "wins": 1.5,
+            "survival": 2,
+            "crew": 14
+          },
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 9
+          }
+        ],
+        "best": 2
+      },
+      "actual": {
+        "tallies": [
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 8
+          },
+          {
+            "wins": 1.5,
+            "survival": 2,
+            "crew": 14
+          },
+          {
+            "wins": 1.5,
+            "survival": 3,
+            "crew": 9
+          }
+        ],
+        "best": 2
+      },
+      "pass": true,
+      "note": ""
+    },
+    {
+      "case": {
+        "name": "side T mirrored"
+      },
+      "expected": {
+        "A": {
+          "wins": 1,
+          "survival": 3,
+          "crew": 15,
+          "outcomes": {
+            "win": 1,
+            "loss": 1,
+            "escape": 1,
+            "letGo": 0,
+            "draw": 0,
+            "stalemate": 1,
+            "noEnd": 0
+          }
+        },
+        "T": {
+          "wins": 1,
+          "survival": 3,
+          "crew": 17,
+          "outcomes": {
+            "win": 1,
+            "loss": 1,
+            "escape": 0,
+            "letGo": 1,
+            "draw": 0,
+            "stalemate": 1,
+            "noEnd": 0
+          }
+        }
+      },
+      "actual": {
+        "A": {
+          "wins": 1,
+          "survival": 3,
+          "crew": 15,
+          "outcomes": {
+            "win": 1,
+            "loss": 1,
+            "escape": 1,
+            "letGo": 0,
+            "draw": 0,
+            "stalemate": 1,
+            "noEnd": 0
+          }
+        },
+        "T": {
+          "wins": 1,
+          "survival": 3,
+          "crew": 17,
+          "outcomes": {
+            "win": 1,
+            "loss": 1,
+            "escape": 0,
+            "letGo": 1,
+            "draw": 0,
+            "stalemate": 1,
+            "noEnd": 0
+          }
+        },
+        "swappedA": {
+          "wins": 1,
+          "survival": 3,
+          "crew": 17,
+          "outcomes": {
+            "win": 1,
+            "loss": 1,
+            "escape": 0,
+            "letGo": 1,
+            "draw": 0,
+            "stalemate": 1,
+            "noEnd": 0
+          }
+        },
+        "swappedT": {
+          "wins": 1,
+          "survival": 3,
+          "crew": 15,
+          "outcomes": {
+            "win": 1,
+            "loss": 1,
+            "escape": 1,
+            "letGo": 0,
+            "draw": 0,
+            "stalemate": 1,
+            "noEnd": 0
+          }
+        }
+      },
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "invariants": [
+    {
+      "name": "no NaN or infinity",
+      "ok": true
+    },
+    {
+      "name": "deterministic (two runs, same hash)",
+      "ok": true
+    }
+  ]
+}
