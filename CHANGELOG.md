@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — play first: the phases feel prototype planned (#365, #366)
+
+- #365 (the owner): play the decision layer before proving it; #366 and
+  `DESIGN.md` §13n.12: the first menu per build and the phases emulated in
+  `proto/`; the phases plan moves to §13n.13.
+
 ## Unreleased — 2026-10-25 — a phase names what is contested (#364)
 
 - #364 (the owner): phases are passed through when nobody contests them;

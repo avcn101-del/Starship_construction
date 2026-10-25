@@ -1704,6 +1704,49 @@ No kernel change: `js/` is not touched, so no physics checker (#241). The baseli
 - [x] **The probe**: #338's ranking and #336's escape rule applied to `tools/sweep.mjs` on a scratch tree (`ld/pace` `5d2b4da`), `node tools/m0.js verify L4.sweep.determinism.v2`: VERIFIED (same results, same data): the ranking and the escape rule alone move nothing on its grid; the table's new outcome fields change its table hash, so U2 expects its re-record.
 - [x] **Tolerances**: none in floats; every count is an integer and T1 compares exactly; the quiet gaps and hot times are event times (multiples of dt), printed to 0.1 s.
 
+### 13n.12 Play first: the phases feel prototype (#365, #366)
+
+The owner's order (#365, amends #358): the decision layer is played before it is proven. This is a **throwaway feel prototype** under #217: it lives in `proto/`, only drives the kernel through its inputs and state, adds no number outside `js/data.js`, and never counts as a Mission 0 result. No kernel change, no lock, no mutation run. The phases plan with its slots, kernel build and measures becomes §13n.13, written after the owner plays.
+
+**The auto captain on both sides** (*LD*): the player's side is flown by `js/enemy.js` at the standard personality, as the enemy is (#111, #333), instead of Fire with no inputs; the player's decisions are menu entries and the three verbs over it. Each menu entry is a set of slot values written into the side's `helm.override` (over whatever preset the captain flies), so it holds through the captain's preset switches (`js/enemy.js` `enemyStep`).
+
+**The first menu** (hand-designed from each class's admissible postures, #352; existing slots only; recorded as `MENUS` in `js/data.js` with each entry's name and one line of player-facing text; `PRESETS` unchanged; not part of any record's data hash). Every build has the two common entries; each tag names the phase-roles it serves.
+
+| Build | Entry | Slots (over the captain's preset) | Phase-role (#334) · posture (`IDEAS.md`) |
+|---|---|---|---|
+| all | **Stand off** (default, #354) | `range: open`; weapons held (`helm.hold`) until contact's exit | contact; the stand-off's first instance (#346) |
+| all | **Break off** (#353) | `range: disengage` | range / finish defend; run |
+| R2 | Turret line | `range: hold`, `facing: broadside`, `dodging: on` | position attack and defend: the turret fights while the beam's window stays shut (finding 4) |
+| R2 | Close in | `range: close`, `facing: bow`, `openFire: inRange` | finish attack: beam and turret bear |
+| Lance | Rail line | `range: hold`, `facing: bow`, `openFire: sureHit`, `firing: salvo` | position attack: the spinal railgun bears bow on only |
+| Lance | Close in | `range: close`, `facing: bow`, `openFire: inRange` | finish attack |
+| Swarm | Missile screen | `range: open`, `facing: broadside`, `dodging: on`, `firing: salvo` | position attack with evasion: missiles bear at any aspect; a salvo saturates point defence |
+| Swarm | Close in | `range: hold`, `openFire: inRange`, `firing: salvo` | finish attack (hold, not close: the missiles need their flight) |
+| Furnace | Beam line | `range: hold`, `facing: bow`, `openFire: inRange` | position attack |
+| Furnace | Close in | `range: close`, `facing: bow` | finish attack |
+| Furnace | Evade | `range: open`, `facing: broadside`, `dodging: on` | position defend: the beam does not bear, the shields face the other |
+
+**The phases, emulated between `tick`s** (as the contact probe did, `IDEAS.md` battle phases; every threshold from the kernel or `js/data.js`, no literal):
+
+| Phase | Entered by | Ends when (each side from its own model and log, #346) | Then |
+|---|---|---|---|
+| Contact | the battle's start, on Stand off | its model resolves every zone of the other (the kernel's zone count), or it has no antenna standing, or its own ship takes a `cell-damaged` event | **decision point 1**: an attack entry, Stand off with weapons free, or Break off; auto: the build's first position entry |
+| Position / finish | the choice | the player moves between entries at any time (Close in is the finish) | — |
+| Reversal (#334, #354) | its own ship takes a `cell-damaged` event while on an attack entry | — | **decision point 2**: stay, Stand off (weapons free), or Break off; auto: stay |
+
+The enemy runs the same phases and auto choices. A setting chooses whether a decision point **pauses** the battle (it waits for the choice) or not (the auto choice applies at once and the player may change it from the menu at any time); no timer. Each menu choice is recorded with its step beside the verbs, so a played battle replays from its seed and inputs (`proto/replay.mjs`).
+
+**Pairs**: the player picks its build and the enemy's among R2, Lance, Swarm and Furnace (locked builds, `mission0/builds.js`), and the opening distance among values already in `js/data.js` (`helm.rangeHold`, `helm.rangeOpen`); bow or broadside; the seed as today. `battle.cullDistance` at twice the opening when that is above its default (a run-time override, #318). The battle screen shows the phase each side is in (the player's own, and the enemy's as the player's model can read it: nothing the model does not know, #112).
+
+**Process and cost**: one engineer (opus, branch `proto/phases` from `ld/pace`; may write `proto/`, `js/data.js` (`MENUS` and its text only), `CHANGELOG.md`); a light reviewer (sonnet: diff only `proto/` and `MENUS`; `regress` unchanged; replay MATCH; `proto/smoke.mjs` on a phone viewport with 0 console errors); the lead designer publishes the page privately (#226) and hands it to the owner. Raw: engineer 4–7, reviewer 0.8–1.2, a fix round 0–1: 4.8–9.2; × 1.24: **6–11 USD**. #246 (4)'s figure (a new kind of work, × 4): 19–37, shown beside it (#270 (2)); the lead designer expects about 8.
+
+**Checklist** (#326, #355)
+
+- [x] **§13m rows**: none moves (a prototype proves nothing, #217).
+- [x] **The probe**: the contact probe's emulation (`IDEAS.md`, 126 battles re-run on `d80cf84`) and `helm.hold`'s use by `js/enemy.js` show orders and holds switch between `tick`s without a kernel change; `MENUS` is outside `tools/m0.js`'s data hash (params, fixed, rooms, tiers, base edge), so no record moves.
+- [x] **Tolerances**: none (no criterion).
+- [x] **Player decisions**: the menu entry at contact's exit and at a reversal (decision points 1 and 2, owner: player verb with an auto default, §8 to gain the menu as the preset verb's content after play), the three verbs (scan, target, preset) unchanged; save and error rates (#349): none measured here (a feel prototype); measured in §13n.13 on the menu the owner keeps.
+
 ## 14. Architecture
 
 | Layer | Files (planned) |
@@ -2402,5 +2445,7 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 360 | #337's X provisional: re-checked against the one-phase and with-phases measures' longest quiet gap, read with the stalemate off, before E7 is judged; X's range must exceed the battle limit | current |
 | 361 | PR #109's fix round: U3 `L4.sweep.scoring.survival` (survival against crew; T's tally) with two mutations; lint check 12 fails an unmatched checklist; a first-hot information run; merge `ld/pace` and re-record | current |
 | 362 | `L4.sweep.determinism.v2` withdrawn for `.v3` (slot `openFire` in place of `range`): after PR #104 and #336 both sides disengage and the shorter battle ends first, so byArrival was no longer killable | current |
-| 363 | Gap 7: no range attacker among the reference four (accelerations within 3.6 %); a position attacker by turn margin against Lance (t180 10.69 s against 7.43–8.12) is measured in §13n.12, no role assigned before; no build changed | current |
-| 364 | A phase names what is contested: passed through by its exit conditions when nobody contests it; at equal acceleration the range phase is a trade (held stern on only); §13n.12 measures pass-through and a margin's range attack (Engine boat, an estimate-only variant) (the owner) | current |
+| 363 | Gap 7: no range attacker among the reference four (accelerations within 3.6 %); a position attacker by turn margin against Lance (t180 10.69 s against 7.43–8.12) is measured in the phases plan (§13n.13, #365), no role assigned before; no build changed | current |
+| 364 | A phase names what is contested: passed through by its exit conditions when nobody contests it; at equal acceleration the range phase is a trade (held stern on only); the phases plan (§13n.13, #365) measures pass-through and a margin's range attack (Engine boat, an estimate-only variant) (the owner) | current |
+| 365 | Play first (amends #358's order): the tools pass finishes; the reduced baseline runs in the background; a hand-designed first menu per build (existing slots, break off, the stand-off default) and the phases emulated in `proto/` with decision points and a pause setting; the owner plays; then the phases plan (§13n.13), the slots, the kernel build and the measures on what the owner kept; #348's sweep checks and ranks the menu (the owner) | current |
+| 366 | The phases feel prototype (§13n.12): both sides flown by `js/enemy.js`; menu entries as slot sets over the helm's override (`MENUS` in `js/data.js`); contact held with the helm's hold until zones, no antenna or own damage; decision points at contact's exit and at a reversal; choices recorded for replay | current |
