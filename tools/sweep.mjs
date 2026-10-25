@@ -8,11 +8,16 @@
 // turn tries every single-slot change of its current set (each slot's values from js/data.js ORDERS; the energy
 // slot's lists `priority` and `repair` have no value list there and are not varied), keeps the set that wins most
 // against the other's current set over the grid (the ranges x the openings x the seeds; a tie keeps the current
-// set, then the first in slot order), and the other side answers; `--rounds` rounds (3). A battle's result: a side
-// wins when the other ends (destroyed, Disabled, surrender, or escaped: an escape is a loss for the side that
-// escapes, #293); a draw (both end in one step, #315) counts half a win for each; no end by --limit counts nothing.
-// It reports every build's win rate over its pairs' final sets and flags any build or order set winning above 75 %
-// (E5's number) and any end under 60 s, each with its replay line and the cascade tree of its fastest win.
+// set, then the first in slot order), and the other side answers; `--rounds` rounds (3). A battle's outcome for each
+// side (13n.11, #336, #351 (1)): win (the other ends destroyed, Disabled or surrendered), loss (this side does),
+// escape (this side escaped), let go (the other escaped), draw (both end in one step, #315), stalemate (ended.kind
+// 'stalemate', #337 (D), counted once the kernel has it), no end (none by --limit). E5's score: a win 1, a draw 1/2,
+// everything else 0 (an escape is no win for the other side, #336, superseding #293's scoring). Survival: every
+// outcome but a loss and a draw. Crew alive: the side's rooms' crew summed at the battle's end. The best response
+// ranks tries by wins, then survival, then crew alive (#338), so "wins most" above reads "ranks first".
+// It reports each pair's outcomes, survival and crew alive per side, every build's win and survival rates over its
+// pairs' final sets, and flags any build or order set winning above 75 % (E5's number) and any end under 60 s, each
+// with its replay line and the cascade tree of its fastest win.
 // The table's hash (util.js hash of its stable JSON) does not depend on --jobs: every battle is its own seeded run.
 //
 //   node tools/sweep.mjs [--builds a,b,...] [--slots s,...] [--ranges m,...] [--openings bow,broadside]
@@ -53,11 +58,43 @@ export function cellBattle(cell) {
   b.target.helm.override = { ...b.target.helm.override, ...cell.setB };
   return runBattle(b, cell.limit);
 }
-/** A battle's result for the sweep: the winner ('A', 'T', 'draw' or null), the end kind, time and step, the battle hash. */
+/** The seven outcomes of a battle for a side (13n.11), in the order they are counted and printed. */
+export const OUTCOMES = ['win', 'loss', 'escape', 'letGo', 'draw', 'stalemate', 'noEnd'];
+export const OUTCOME_LABEL = { win: 'win', loss: 'loss', escape: 'escape', letGo: 'let go', draw: 'draw', stalemate: 'stalemate', noEnd: 'no end' };
+/** A side's outcome ('A' or 'T') from a battle's end (battle.ended, or null for no end by the limit). */
+export function outcomeOf(ended, side) {
+  if (!ended) return 'noEnd';
+  if (ended.kind === 'draw') return 'draw';
+  if (ended.kind === 'stalemate') return 'stalemate';
+  if (ended.kind === 'escaped') return ended.side === side ? 'escape' : 'letGo';
+  return ended.side === side ? 'loss' : 'win'; // destroyed, disabled, surrender
+}
+/** E5's score of an outcome (#336): a win 1, a draw 1/2, everything else 0. */
+export const scoreOf = (outcome) => (outcome === 'win' ? 1 : outcome === 'draw' ? 0.5 : 0);
+/** Survival (#336, #351 (1)): every outcome but a loss and a draw. */
+export const survives = (outcome) => outcome !== 'loss' && outcome !== 'draw';
+/** A battle's result for the sweep: the winner ('A', 'T', 'draw' or null), each side's outcome and crew alive, the end kind, time and step, the battle hash. */
 export function resultOf(b) {
-  const e = b.ended;
-  const winner = !e ? null : e.kind === 'draw' ? 'draw' : e.kind === 'escaped' ? (e.side === 'A' ? 'T' : 'A') : e.side === 'A' ? 'T' : 'A';
-  return { winner, kind: e ? e.kind : 'none', side: e ? e.side : null, t: e ? e.t : null, step: e ? e.step : b.step, hash: battleHash(b) };
+  const e = b.ended, outcome = { A: outcomeOf(e, 'A'), T: outcomeOf(e, 'T') };
+  const winner = outcome.A === 'win' ? 'A' : outcome.T === 'win' ? 'T' : outcome.A === 'draw' ? 'draw' : null;
+  const crew = Object.fromEntries(b.sides.map((s) => [s.name, s.world.rooms.reduce((n, r) => n + r.crew, 0)])); // as the 'draw' event counts it
+  return { winner, outcome, crew, kind: e ? e.kind : 'none', side: e ? e.side : null, t: e ? e.t : null, step: e ? e.step : b.step, hash: battleHash(b) };
+}
+/** A side's tally over a list of results: { wins (E5's score), survival, crew (alive, summed), outcomes (each counted) }. */
+export function tally(results, side) {
+  const outcomes = Object.fromEntries(OUTCOMES.map((k) => [k, 0]));
+  let wins = 0, survival = 0, crew = 0;
+  for (const r of results) { const o = r.outcome[side]; outcomes[o]++; wins += scoreOf(o); if (survives(o)) survival++; crew += r.crew[side]; }
+  return { wins, survival, crew, outcomes };
+}
+/** The best response's ranking (#338): the index of the try with the most wins, then survival, then crew alive; a full tie keeps the first (the current set, then slot order). */
+export function bestTry(tallies) {
+  let best = 0;
+  for (let k = 1; k < tallies.length; k++) {
+    const x = tallies[k], y = tallies[best];
+    if (x.wins > y.wins || (x.wins === y.wins && (x.survival > y.survival || (x.survival === y.survival && x.crew > y.crew)))) best = k;
+  }
+  return best;
 }
 
 // ---------- the worker ----------
@@ -89,7 +126,6 @@ function variants(set, slots) {
 function standardOf(s) {
   return { range: 'hold', position: 'bow', style: 'hold', dodging: 'off', facing: 'bow', firing: 'salvo', openFire: 'inRange', target: 'weapons', heatResponse: 'weapons', emission: 'normal', autoScan: 'on' }[s];
 }
-const score = (results, side) => results.reduce((x, r) => x + (r.winner === side ? 1 : r.winner === 'draw' ? 0.5 : 0), 0);
 
 /** The sweep: options as the command line's; returns the table (no timing in it, so its hash is the run's). */
 export async function sweep(o) {
@@ -105,25 +141,25 @@ export async function sweep(o) {
         const tries = variants(sets[side], o.slots);
         const cells = tries.flatMap((set) => grid.map((g) => ({ a, b, setA: side === 'A' ? set : sets.A, setB: side === 'T' ? set : sets.T, ...g, limit: o.limit })));
         const res = await runCells(cells, o.jobs);
-        let best = 0, bestScore = -1;
-        tries.forEach((set, k) => { const sc = score(res.slice(k * grid.length, (k + 1) * grid.length), side); if (sc > bestScore) { best = k; bestScore = sc; } });
+        const tallies = tries.map((set, k) => tally(res.slice(k * grid.length, (k + 1) * grid.length), side)), best = bestTry(tallies);
         sets[side] = tries[best];
-        const rate = bestScore / grid.length;
-        turns.push({ round, side, set: sets[side], wins: bestScore, of: grid.length, rate });
+        const { wins, survival, crew } = tallies[best], rate = wins / grid.length;
+        turns.push({ round, side, set: sets[side], wins, survival, crew, of: grid.length, rate });
         if (rate > 0.75) table.flags.push({ flag: 'order set above 75 %', pair: [a, b], side, build: side === 'A' ? a : b, set: sets[side], rate });
       }
     }
     const cells = grid.map((g) => ({ a, b, setA: sets.A, setB: sets.T, ...g, limit: o.limit }));
     const res = await runCells(cells, o.jobs);
     const ends = res.map((r, k) => ({ ...grid[k], ...r }));
-    table.pairs.push({ a, b, sets, turns, ends, wins: { A: score(res, 'A'), T: score(res, 'T') }, of: grid.length });
+    const t = { A: tally(res, 'A'), T: tally(res, 'T') };
+    table.pairs.push({ a, b, sets, turns, ends, wins: { A: t.A.wins, T: t.T.wins }, outcomes: { A: t.A.outcomes, T: t.T.outcomes }, survival: { A: t.A.survival, T: t.T.survival }, crew: { A: t.A.crew, T: t.T.crew }, of: grid.length });
     for (const [k, r] of res.entries()) if (r.t !== null && r.t < 60) table.flags.push({ flag: 'end under 60 s', pair: [a, b], cell: cells[k], end: `${r.kind} ${r.side} at ${r.t.toFixed(2)} s` });
   }
-  // Each build's win rate over its pairs' final sets.
+  // Each build's win and survival rates over its pairs' final sets.
   table.builds = Object.fromEntries(o.builds.map((n) => {
-    let w = 0, of = 0;
-    for (const p of table.pairs) { if (p.a === n) { w += p.wins.A; of += p.of; } if (p.b === n) { w += p.wins.T; of += p.of; } }
-    return [n, { wins: w, of, rate: of ? w / of : 0 }];
+    let w = 0, sv = 0, of = 0;
+    for (const p of table.pairs) for (const side of ['A', 'T']) if ((side === 'A' ? p.a : p.b) === n) { w += p.wins[side]; sv += p.survival[side]; of += p.of; }
+    return [n, { wins: w, survival: sv, of, rate: of ? w / of : 0, survivalRate: of ? sv / of : 0 }];
   }));
   for (const [n, x] of Object.entries(table.builds)) if (x.rate > 0.75) table.flags.push({ flag: 'build above 75 %', build: n, rate: x.rate });
   table.hash = hash(stableStringify({ options: table.options, pairs: table.pairs, builds: table.builds, flags: table.flags }));
@@ -176,15 +212,16 @@ if (isMainThread && import.meta.url === `file://${process.argv[1]}`) {
   const o = parseArgs(process.argv.slice(2));
   if (o.replay) {
     const b = cellBattle(o.replay), r = resultOf(b);
-    console.log(`${o.replay.a} (A) against ${o.replay.b} (T), ${o.replay.range} m, ${o.replay.opening}, seed ${o.replay.seed}: ${r.kind} ${r.side ?? ''} at ${r.t === null ? '-' : r.t.toFixed(4)} s (step ${r.step}), winner ${r.winner ?? 'none'}; battle hash ${r.hash}`);
+    console.log(`${o.replay.a} (A) against ${o.replay.b} (T), ${o.replay.range} m, ${o.replay.opening}, seed ${o.replay.seed}: ${r.kind} ${r.side ?? ''} at ${r.t === null ? '-' : r.t.toFixed(4)} s (step ${r.step}), winner ${r.winner ?? 'none'}; outcomes A ${OUTCOME_LABEL[r.outcome.A]}, T ${OUTCOME_LABEL[r.outcome.T]}; crew alive A ${r.crew.A}, T ${r.crew.T}; battle hash ${r.hash}`);
     for (const t of battleTree(b)) { console.log(`cascade tree, ${t.side}:`); for (const l of t.lines) console.log(`  ${l}`); }
   } else {
     const table = await sweep(o);
     if (o.json) console.log(JSON.stringify(table, null, 2));
     else {
       console.log(`sweep: ${o.builds.length} builds, ${table.pairs.length} pairs, slots ${o.slots.join(', ')}; grid ${o.ranges.join('/')} m x ${o.openings.join('/')} x seeds ${o.seeds.join(',')}; ${o.rounds} rounds; limit ${o.limit} s`);
-      for (const p of table.pairs) console.log(`  ${p.a} (A) ${p.wins.A} - ${p.wins.T} ${p.b} (T) of ${p.of}; sets A ${JSON.stringify(p.sets.A)}, T ${JSON.stringify(p.sets.T)}; ends ${p.ends.map((e) => `${e.kind}${e.side ? ' ' + e.side : ''}${e.t !== null ? ' ' + e.t.toFixed(1) : ''}`).join(', ')}`);
-      for (const [n, x] of Object.entries(table.builds)) console.log(`  build ${n.padEnd(11)} ${x.wins} of ${x.of} (${(x.rate * 100).toFixed(1)} %)`);
+      const side = (p, s) => `${OUTCOMES.map((k) => `${OUTCOME_LABEL[k]} ${p.outcomes[s][k]}`).join(', ')}; survival ${p.survival[s]}; crew alive ${p.crew[s]}`;
+      for (const p of table.pairs) console.log(`  ${p.a} (A) ${p.wins.A} - ${p.wins.T} ${p.b} (T) of ${p.of}; A: ${side(p, 'A')}; T: ${side(p, 'T')}; sets A ${JSON.stringify(p.sets.A)}, T ${JSON.stringify(p.sets.T)}; ends ${p.ends.map((e) => `${e.kind}${e.side ? ' ' + e.side : ''}${e.t !== null ? ' ' + e.t.toFixed(1) : ''}`).join(', ')}`);
+      for (const [n, x] of Object.entries(table.builds)) console.log(`  build ${n.padEnd(11)} ${x.wins} of ${x.of} (${(x.rate * 100).toFixed(1)} %); survival ${x.survival} of ${x.of} (${(x.survivalRate * 100).toFixed(1)} %)`);
       for (const f of table.flags) {
         console.log(`  FLAG ${f.flag}: ${f.build ?? ''} ${f.pair ? f.pair.join(' v ') : ''} ${f.rate !== undefined ? (f.rate * 100).toFixed(1) + ' %' : ''} ${f.set ? JSON.stringify(f.set) : ''} ${f.end ?? ''}`);
         const w = f.cell ? { cell: f.cell } : fastestWin(table, f);

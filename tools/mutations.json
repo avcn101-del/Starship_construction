@@ -2266,5 +2266,29 @@
     "old": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge) - RES) h.yielded = true;",
     "new": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge)) h.yielded = true;",
     "note": "item 58: the yield's clock without RES: at some engagement steps the yield lands one step late"
+  },
+  {
+    "id": "item58.res.reset",
+    "rule": "13n.10 the yield clocks take RES (#340, #350)",
+    "file": "js/navigator.js",
+    "old": "      if (t - h.freeSince >= scaled(p.helm.positionReset, edge) - RES) h.yielded = false;",
+    "new": "      if (t - h.freeSince >= scaled(p.helm.positionReset, edge)) h.yielded = false;",
+    "note": "tools pass (#350): the reset's clock without RES: at some let-go steps the reset lands one step late (K8, 40 of 120)"
+  },
+  {
+    "id": "tools.sweep.escapeWin",
+    "rule": "13n.11 the outcomes counted apart (#336, #351)",
+    "file": "tools/sweep.mjs",
+    "old": "  if (ended.kind === 'escaped') return ended.side === side ? 'escape' : 'letGo';",
+    "new": "  if (ended.kind === 'escaped') return ended.side === side ? 'loss' : 'win';",
+    "note": "tools pass: an escape counted as the other side's win (#293's scoring)"
+  },
+  {
+    "id": "tools.sweep.noTie",
+    "rule": "13n.11 the best response's ranking (#338, #351)",
+    "file": "tools/sweep.mjs",
+    "old": "    if (x.wins > y.wins || (x.wins === y.wins && (x.survival > y.survival || (x.survival === y.survival && x.crew > y.crew)))) best = k;",
+    "new": "    if (x.wins > y.wins) best = k;",
+    "note": "tools pass: the ranking by wins alone"
   }
 ]
