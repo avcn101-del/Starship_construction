@@ -1,0 +1,132 @@
+{"a":"R2","b":"R2","range":900,"opening":"bow","exit":"E0","kind":"none","T":600,"commit":[0,0],"why":["",""],"blind":[65.9,65.9],"zones":[4,4]}
+{"a":"R2","b":"R2","range":900,"opening":"bow","exit":"E1","kind":"none","T":600,"commit":[65.9,65.9],"why":["blind","blind"],"blind":[65.9,65.9],"zones":[4,4]}
+{"a":"R2","b":"R2","range":900,"opening":"bow","exit":"E3","kind":"none","T":600,"commit":[65.9,65.9],"why":["blind","blind"],"blind":[65.9,65.9],"zones":[4,4]}
+{"a":"R2","b":"R2","range":900,"opening":"bow","exit":"E2","kind":"none","T":600,"commit":[65.9,65.9],"why":["blind","blind"],"blind":[65.9,65.9],"zones":[4,4]}
+{"a":"R2","b":"R2","range":900,"opening":"broadside","exit":"E3","kind":"destroyed A","T":153.9,"commit":[105,103.3],"why":["hit","blind"],"blind":[120.1,103.3],"zones":[6,5]}
+{"a":"R2","b":"R2","range":900,"opening":"broadside","exit":"E2","kind":"destroyed A","T":153.9,"commit":[105,103.3],"why":["hit","blind"],"blind":[120.1,103.3],"zones":[6,5]}
+{"a":"R2","b":"R2","range":900,"opening":"broadside","exit":"E1","kind":"surrender A","T":420.2,"commit":[109.2,103.3],"why":["zones","blind"],"blind":[135.2,103.3],"zones":[6,5]}
+{"a":"R2","b":"R2","range":900,"opening":"broadside","exit":"E0","kind":"none","T":600,"commit":[109.3,0],"why":["zones",""],"blind":[132.9,103.3],"zones":[6,5]}
+{"a":"R2","b":"R2","range":1500,"opening":"bow","exit":"E1","kind":"draw A,T","T":324.1,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[216.2,216.2],"zones":[6,6]}
+{"a":"R2","b":"R2","range":1500,"opening":"bow","exit":"E0","kind":"draw A,T","T":324.1,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[216.2,216.2],"zones":[6,6]}
+{"a":"R2","b":"R2","range":1500,"opening":"bow","exit":"E2","kind":"draw A,T","T":324.1,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[216.2,216.2],"zones":[6,6]}
+{"a":"R2","b":"R2","range":1500,"opening":"broadside","exit":"E0","kind":"destroyed A","T":207.7,"commit":[167.8,171.1],"why":["zones","zones"],"blind":[189.9,189.8],"zones":[6,6]}
+{"a":"R2","b":"R2","range":1500,"opening":"broadside","exit":"E1","kind":"destroyed A","T":207.7,"commit":[167.8,171.1],"why":["zones","zones"],"blind":[189.9,189.8],"zones":[6,6]}
+{"a":"R2","b":"R2","range":1500,"opening":"bow","exit":"E3","kind":"draw A,T","T":324.1,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[216.2,216.2],"zones":[6,6]}
+{"a":"R2","b":"R2","range":1500,"opening":"broadside","exit":"E2","kind":"destroyed A","T":207.7,"commit":[167.8,171.1],"why":["zones","zones"],"blind":[189.9,189.8],"zones":[6,6]}
+{"a":"R2","b":"R2","range":1500,"opening":"broadside","exit":"E3","kind":"destroyed A","T":207.7,"commit":[167.8,171.1],"why":["zones","zones"],"blind":[189.9,189.8],"zones":[6,6]}
+{"a":"R2","b":"R2","range":2500,"opening":"bow","exit":"E0","kind":"draw A,T","T":222,"commit":[185.4,185.4],"why":["zones","zones"],"blind":[207.5,207.5],"zones":[6,6]}
+{"a":"R2","b":"R2","range":2500,"opening":"bow","exit":"E1","kind":"draw A,T","T":222,"commit":[185.4,185.4],"why":["zones","zones"],"blind":[207.5,207.5],"zones":[6,6]}
+{"a":"R2","b":"R2","range":2500,"opening":"bow","exit":"E2","kind":"draw A,T","T":222,"commit":[185.4,185.4],"why":["zones","zones"],"blind":[207.5,207.5],"zones":[6,6]}
+{"a":"R2","b":"R2","range":2500,"opening":"bow","exit":"E3","kind":"draw A,T","T":222,"commit":[185.4,185.4],"why":["zones","zones"],"blind":[207.5,207.5],"zones":[6,6]}
+{"a":"R2","b":"R2","range":2500,"opening":"broadside","exit":"E0","kind":"destroyed A","T":245.3,"commit":[185.5,186.6],"why":["zones","zones"],"blind":[215.8,206.6],"zones":[6,6]}
+{"a":"R2","b":"R2","range":2500,"opening":"broadside","exit":"E1","kind":"destroyed A","T":245.3,"commit":[185.5,186.6],"why":["zones","zones"],"blind":[215.8,206.6],"zones":[6,6]}
+{"a":"R2","b":"R2","range":2500,"opening":"broadside","exit":"E2","kind":"destroyed A","T":245.3,"commit":[185.5,186.6],"why":["zones","zones"],"blind":[215.8,206.6],"zones":[6,6]}
+{"a":"R2","b":"R2","range":2500,"opening":"broadside","exit":"E3","kind":"destroyed A","T":245.3,"commit":[185.5,186.6],"why":["zones","zones"],"blind":[215.8,206.6],"zones":[6,6]}
+{"a":"R2","b":"Lance","range":900,"opening":"bow","exit":"E2","kind":"surrender T","T":106.7,"commit":[49.1,38.6],"why":["hit","blind"],"blind":[61.3,38.6],"zones":[4,3]}
+{"a":"R2","b":"Lance","range":900,"opening":"bow","exit":"E3","kind":"surrender T","T":106.7,"commit":[49.1,38.6],"why":["hit","blind"],"blind":[61.3,38.6],"zones":[4,3]}
+{"a":"R2","b":"Lance","range":900,"opening":"broadside","exit":"E1","kind":"destroyed A","T":141.5,"commit":[109.5,101.3],"why":["zones","blind"],"blind":[141.5,101.3],"zones":[6,5]}
+{"a":"R2","b":"Lance","range":900,"opening":"bow","exit":"E1","kind":"surrender T","T":143.7,"commit":[68,38.6],"why":["zones","blind"],"blind":[73.7,38.6],"zones":[6,3]}
+{"a":"R2","b":"Lance","range":900,"opening":"broadside","exit":"E3","kind":"destroyed A","T":141.5,"commit":[109.5,101.3],"why":["zones","blind"],"blind":[141.5,101.3],"zones":[6,5]}
+{"a":"R2","b":"Lance","range":900,"opening":"broadside","exit":"E2","kind":"destroyed A","T":141.5,"commit":[109.5,101.3],"why":["zones","blind"],"blind":[141.5,101.3],"zones":[6,5]}
+{"a":"R2","b":"Lance","range":1500,"opening":"bow","exit":"E1","kind":"destroyed A","T":184.2,"commit":[181.5,183.7],"why":["zones","zones"],"blind":[184.2,null],"zones":[6,6]}
+{"a":"R2","b":"Lance","range":1500,"opening":"bow","exit":"E2","kind":"destroyed A","T":182,"commit":[181.5,181.5],"why":["zones","hit"],"blind":[182,null],"zones":[6,5]}
+{"a":"R2","b":"Lance","range":1500,"opening":"bow","exit":"E3","kind":"destroyed A","T":182,"commit":[181.5,181.5],"why":["zones","hit"],"blind":[182,null],"zones":[6,5]}
+{"a":"R2","b":"Lance","range":1500,"opening":"broadside","exit":"E2","kind":"destroyed A","T":168.3,"commit":[167.8,167.8],"why":["zones","hit"],"blind":[168.3,null],"zones":[6,5]}
+{"a":"R2","b":"Lance","range":1500,"opening":"broadside","exit":"E1","kind":"destroyed A","T":168.7,"commit":[167.8,168.2],"why":["zones","zones"],"blind":[168.7,null],"zones":[6,6]}
+{"a":"R2","b":"Lance","range":1500,"opening":"broadside","exit":"E3","kind":"destroyed A","T":168.3,"commit":[167.8,167.8],"why":["zones","hit"],"blind":[168.3,null],"zones":[6,5]}
+{"a":"R2","b":"Lance","range":2500,"opening":"broadside","exit":"E1","kind":"destroyed A","T":190.6,"commit":[188.7,190.1],"why":["zones","zones"],"blind":[190.6,null],"zones":[6,6]}
+{"a":"R2","b":"Lance","range":2500,"opening":"bow","exit":"E1","kind":"destroyed A","T":209.5,"commit":[184.2,169.3],"why":["zones","blind"],"blind":[209.5,169.3],"zones":[6,5]}
+{"a":"R2","b":"Lance","range":2500,"opening":"bow","exit":"E2","kind":"destroyed A","T":209.5,"commit":[184.2,169.3],"why":["zones","blind"],"blind":[209.5,169.3],"zones":[6,5]}
+{"a":"R2","b":"Lance","range":2500,"opening":"bow","exit":"E3","kind":"destroyed A","T":209.5,"commit":[184.2,169.3],"why":["zones","blind"],"blind":[209.5,169.3],"zones":[6,5]}
+{"a":"R2","b":"Swarm","range":900,"opening":"bow","exit":"E1","kind":"destroyed T","T":49.1,"commit":[39.4,49.1],"why":["blind","blind"],"blind":[39.4,49.1],"zones":[3,4]}
+{"a":"R2","b":"Swarm","range":900,"opening":"bow","exit":"E2","kind":"surrender T","T":85,"commit":[39.4,41.1],"why":["blind","hit"],"blind":[39.4,58.2],"zones":[3,5]}
+{"a":"R2","b":"Lance","range":2500,"opening":"broadside","exit":"E2","kind":"destroyed A","T":189.2,"commit":[188.7,188.7],"why":["zones","hit"],"blind":[189.2,null],"zones":[6,5]}
+{"a":"R2","b":"Lance","range":2500,"opening":"broadside","exit":"E3","kind":"destroyed A","T":189.2,"commit":[188.7,188.7],"why":["zones","hit"],"blind":[189.2,null],"zones":[6,5]}
+{"a":"R2","b":"Swarm","range":900,"opening":"bow","exit":"E3","kind":"surrender T","T":85,"commit":[39.4,41.1],"why":["blind","hit"],"blind":[39.4,58.2],"zones":[3,5]}
+{"a":"R2","b":"Swarm","range":900,"opening":"broadside","exit":"E1","kind":"destroyed T","T":113.9,"commit":[110,113.9],"why":["zones","blind"],"blind":[null,113.9],"zones":[6,5]}
+{"a":"R2","b":"Swarm","range":900,"opening":"broadside","exit":"E2","kind":"destroyed T","T":113.9,"commit":[110,113.9],"why":["zones","blind"],"blind":[null,113.9],"zones":[6,5]}
+{"a":"R2","b":"Swarm","range":900,"opening":"broadside","exit":"E3","kind":"destroyed T","T":113.9,"commit":[110,113.9],"why":["zones","blind"],"blind":[null,113.9],"zones":[6,5]}
+{"a":"R2","b":"Swarm","range":1500,"opening":"bow","exit":"E1","kind":"destroyed T","T":183.4,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[null,183.4],"zones":[6,6]}
+{"a":"R2","b":"Swarm","range":1500,"opening":"bow","exit":"E2","kind":"destroyed T","T":183.4,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[null,183.4],"zones":[6,6]}
+{"a":"R2","b":"Swarm","range":1500,"opening":"bow","exit":"E3","kind":"destroyed T","T":183.4,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[null,183.4],"zones":[6,6]}
+{"a":"R2","b":"Swarm","range":1500,"opening":"broadside","exit":"E1","kind":"destroyed T","T":170.8,"commit":[169.1,169.2],"why":["zones","zones"],"blind":[null,170.8],"zones":[6,6]}
+{"a":"R2","b":"Swarm","range":1500,"opening":"broadside","exit":"E2","kind":"destroyed T","T":170.8,"commit":[169.1,169.1],"why":["zones","hit"],"blind":[null,170.8],"zones":[6,6]}
+{"a":"R2","b":"Swarm","range":1500,"opening":"broadside","exit":"E3","kind":"destroyed T","T":170.8,"commit":[169.1,169.1],"why":["zones","hit"],"blind":[null,170.8],"zones":[6,6]}
+{"a":"R2","b":"Swarm","range":2500,"opening":"bow","exit":"E1","kind":"destroyed T","T":186.4,"commit":[184.4,186.4],"why":["zones","blind"],"blind":[null,186.4],"zones":[6,5]}
+{"a":"R2","b":"Swarm","range":2500,"opening":"bow","exit":"E2","kind":"destroyed T","T":186.4,"commit":[184.4,184.5],"why":["zones","hit"],"blind":[null,186.4],"zones":[6,5]}
+{"a":"R2","b":"Swarm","range":2500,"opening":"bow","exit":"E3","kind":"destroyed T","T":186.4,"commit":[184.4,184.5],"why":["zones","hit"],"blind":[null,186.4],"zones":[6,5]}
+{"a":"R2","b":"Swarm","range":2500,"opening":"broadside","exit":"E1","kind":"surrender T","T":246.9,"commit":[161.3,134],"why":["zones","blind"],"blind":[198.9,134],"zones":[6,4]}
+{"a":"R2","b":"Furnace","range":900,"opening":"bow","exit":"E1","kind":"destroyed T","T":123.8,"commit":[61.1,9],"why":["zones","blind"],"blind":[102.2,9],"zones":[6,2]}
+{"a":"R2","b":"Swarm","range":2500,"opening":"broadside","exit":"E2","kind":"surrender T","T":246.9,"commit":[161.3,134],"why":["zones","blind"],"blind":[198.9,134],"zones":[6,4]}
+{"a":"R2","b":"Swarm","range":2500,"opening":"broadside","exit":"E3","kind":"surrender T","T":246.9,"commit":[161.3,134],"why":["zones","blind"],"blind":[198.9,134],"zones":[6,4]}
+{"a":"R2","b":"Furnace","range":900,"opening":"bow","exit":"E2","kind":"destroyed T","T":123.8,"commit":[61.1,9],"why":["zones","blind"],"blind":[102.2,9],"zones":[6,2]}
+{"a":"R2","b":"Furnace","range":900,"opening":"broadside","exit":"E1","kind":"destroyed T","T":107.3,"commit":[36.6,69.1],"why":["blind","zones"],"blind":[36.6,107.3],"zones":[3,6]}
+{"a":"R2","b":"Furnace","range":900,"opening":"broadside","exit":"E2","kind":"destroyed T","T":111.3,"commit":[36.6,38.4],"why":["blind","hit"],"blind":[36.6,57.9],"zones":[3,4]}
+{"a":"R2","b":"Furnace","range":900,"opening":"bow","exit":"E3","kind":"destroyed T","T":123.8,"commit":[61.1,9],"why":["zones","blind"],"blind":[102.2,9],"zones":[6,2]}
+{"a":"R2","b":"Furnace","range":900,"opening":"broadside","exit":"E3","kind":"destroyed T","T":111.3,"commit":[36.6,38.4],"why":["blind","hit"],"blind":[36.6,57.9],"zones":[3,4]}
+{"a":"R2","b":"Furnace","range":1500,"opening":"bow","exit":"E2","kind":"destroyed T","T":250.2,"commit":[179.4,181.2],"why":["zones","hit"],"blind":[218.3,216.5],"zones":[6,6]}
+{"a":"R2","b":"Furnace","range":1500,"opening":"bow","exit":"E3","kind":"destroyed T","T":250.2,"commit":[179.4,181.2],"why":["zones","hit"],"blind":[218.3,216.5],"zones":[6,6]}
+{"a":"R2","b":"Furnace","range":1500,"opening":"bow","exit":"E1","kind":"surrender T","T":265,"commit":[179.4,181.6],"why":["zones","zones"],"blind":[null,200.3],"zones":[6,6]}
+{"a":"R2","b":"Furnace","range":1500,"opening":"broadside","exit":"E1","kind":"surrender T","T":232.8,"commit":[169.2,175.2],"why":["zones","zones"],"blind":[219.7,193.8],"zones":[6,6]}
+{"a":"R2","b":"Furnace","range":2500,"opening":"bow","exit":"E1","kind":"surrender T","T":151.1,"commit":[89.5,41.4],"why":["zones","blind"],"blind":[119.6,41.4],"zones":[6,1]}
+{"a":"R2","b":"Furnace","range":1500,"opening":"broadside","exit":"E2","kind":"destroyed T","T":242,"commit":[169.2,171.1],"why":["zones","hit"],"blind":[188.8,182.3],"zones":[6,6]}
+{"a":"R2","b":"Furnace","range":1500,"opening":"broadside","exit":"E3","kind":"destroyed T","T":242,"commit":[169.2,171.1],"why":["zones","hit"],"blind":[188.8,182.3],"zones":[6,6]}
+{"a":"R2","b":"Furnace","range":2500,"opening":"bow","exit":"E2","kind":"surrender T","T":151.1,"commit":[89.5,41.4],"why":["zones","blind"],"blind":[119.6,41.4],"zones":[6,1]}
+{"a":"R2","b":"Furnace","range":2500,"opening":"bow","exit":"E3","kind":"surrender T","T":151.1,"commit":[89.5,41.4],"why":["zones","blind"],"blind":[119.6,41.4],"zones":[6,1]}
+{"a":"R2","b":"Furnace","range":2500,"opening":"broadside","exit":"E1","kind":"destroyed T","T":171.9,"commit":[129.3,91.9],"why":["zones","blind"],"blind":[149.6,91.9],"zones":[6,2]}
+{"a":"R2","b":"Furnace","range":2500,"opening":"broadside","exit":"E2","kind":"destroyed T","T":171.9,"commit":[129.3,91.9],"why":["zones","blind"],"blind":[149.6,91.9],"zones":[6,2]}
+{"a":"R2","b":"Furnace","range":2500,"opening":"broadside","exit":"E3","kind":"destroyed T","T":171.9,"commit":[129.3,91.9],"why":["zones","blind"],"blind":[149.6,91.9],"zones":[6,2]}
+{"a":"Lance","b":"Lance","range":900,"opening":"broadside","exit":"E1","kind":"surrender T","T":396.8,"commit":[111.5,118.3],"why":["blind","zones"],"blind":[111.5,132.1],"zones":[5,6]}
+{"a":"Lance","b":"Lance","range":900,"opening":"bow","exit":"E2","kind":"none","T":600,"commit":[75.3,75.3],"why":["blind","blind"],"blind":[75.3,75.3],"zones":[5,5]}
+{"a":"Lance","b":"Lance","range":900,"opening":"bow","exit":"E1","kind":"none","T":600,"commit":[75.3,75.3],"why":["blind","blind"],"blind":[75.3,75.3],"zones":[5,5]}
+{"a":"Lance","b":"Lance","range":900,"opening":"bow","exit":"E3","kind":"none","T":600,"commit":[75.3,75.3],"why":["blind","blind"],"blind":[75.3,75.3],"zones":[5,5]}
+{"a":"Lance","b":"Lance","range":900,"opening":"broadside","exit":"E2","kind":"surrender T","T":396.8,"commit":[111.5,118.3],"why":["blind","zones"],"blind":[111.5,132.1],"zones":[5,6]}
+{"a":"Lance","b":"Lance","range":900,"opening":"broadside","exit":"E3","kind":"surrender T","T":396.8,"commit":[111.5,118.3],"why":["blind","zones"],"blind":[111.5,132.1],"zones":[5,6]}
+{"a":"Lance","b":"Lance","range":1500,"opening":"bow","exit":"E2","kind":"none","T":600,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[214.6,214.6],"zones":[6,6]}
+{"a":"Lance","b":"Lance","range":1500,"opening":"bow","exit":"E1","kind":"none","T":600,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[214.6,214.6],"zones":[6,6]}
+{"a":"Lance","b":"Lance","range":1500,"opening":"bow","exit":"E3","kind":"none","T":600,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[214.6,214.6],"zones":[6,6]}
+{"a":"Lance","b":"Lance","range":1500,"opening":"broadside","exit":"E1","kind":"none","T":600,"commit":[162,162],"why":["zones","zones"],"blind":[177.1,190.4],"zones":[6,6]}
+{"a":"Lance","b":"Lance","range":1500,"opening":"broadside","exit":"E2","kind":"none","T":600,"commit":[162,162],"why":["zones","zones"],"blind":[177.1,190.4],"zones":[6,6]}
+{"a":"Lance","b":"Lance","range":1500,"opening":"broadside","exit":"E3","kind":"none","T":600,"commit":[162,162],"why":["zones","zones"],"blind":[177.1,190.4],"zones":[6,6]}
+{"a":"Lance","b":"Lance","range":2500,"opening":"bow","exit":"E1","kind":"none","T":600,"commit":[179.1,179.1],"why":["zones","zones"],"blind":[193.5,193.5],"zones":[6,6]}
+{"a":"Lance","b":"Lance","range":2500,"opening":"bow","exit":"E2","kind":"none","T":600,"commit":[179.1,179.1],"why":["zones","zones"],"blind":[193.5,193.5],"zones":[6,6]}
+{"a":"Lance","b":"Lance","range":2500,"opening":"bow","exit":"E3","kind":"none","T":600,"commit":[179.1,179.1],"why":["zones","zones"],"blind":[193.5,193.5],"zones":[6,6]}
+{"a":"Lance","b":"Lance","range":2500,"opening":"broadside","exit":"E1","kind":"none","T":600,"commit":[185.3,185.3],"why":["zones","zones"],"blind":[208.4,208.4],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":900,"opening":"bow","exit":"E1","kind":"draw A,T","T":152.4,"commit":[64.1,64.1],"why":["blind","blind"],"blind":[64.1,64.1],"zones":[4,4]}
+{"a":"Swarm","b":"Swarm","range":900,"opening":"bow","exit":"E2","kind":"draw A,T","T":152.4,"commit":[64.1,64.1],"why":["blind","blind"],"blind":[64.1,64.1],"zones":[4,4]}
+{"a":"Lance","b":"Lance","range":2500,"opening":"broadside","exit":"E2","kind":"none","T":600,"commit":[185.3,185.3],"why":["zones","zones"],"blind":[208.4,208.4],"zones":[6,6]}
+{"a":"Lance","b":"Lance","range":2500,"opening":"broadside","exit":"E3","kind":"none","T":600,"commit":[185.3,185.3],"why":["zones","zones"],"blind":[208.4,208.4],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":900,"opening":"bow","exit":"E3","kind":"draw A,T","T":152.4,"commit":[64.1,64.1],"why":["blind","blind"],"blind":[64.1,64.1],"zones":[4,4]}
+{"a":"Swarm","b":"Swarm","range":900,"opening":"broadside","exit":"E1","kind":"destroyed A","T":178.3,"commit":[111,116.3],"why":["zones","zones"],"blind":[127,126.5],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":900,"opening":"broadside","exit":"E2","kind":"destroyed A","T":178.3,"commit":[111,116.3],"why":["zones","zones"],"blind":[127,126.5],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":900,"opening":"broadside","exit":"E3","kind":"destroyed A","T":178.3,"commit":[111,116.3],"why":["zones","zones"],"blind":[127,126.5],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":1500,"opening":"bow","exit":"E1","kind":"draw A,T","T":269.9,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[216.5,216.5],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":1500,"opening":"bow","exit":"E2","kind":"draw A,T","T":269.9,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[216.5,216.5],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":1500,"opening":"broadside","exit":"E1","kind":"surrender A","T":236.8,"commit":[168.4,169.9],"why":["zones","zones"],"blind":[183.1,null],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":1500,"opening":"bow","exit":"E3","kind":"draw A,T","T":269.9,"commit":[181.6,181.6],"why":["zones","zones"],"blind":[216.5,216.5],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":1500,"opening":"broadside","exit":"E2","kind":"surrender A","T":236.8,"commit":[168.4,169.9],"why":["zones","zones"],"blind":[183.1,null],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":1500,"opening":"broadside","exit":"E3","kind":"surrender A","T":236.8,"commit":[168.4,169.9],"why":["zones","zones"],"blind":[183.1,null],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":2500,"opening":"bow","exit":"E1","kind":"draw A,T","T":274.8,"commit":[186.4,186.4],"why":["zones","zones"],"blind":[null,null],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":2500,"opening":"bow","exit":"E2","kind":"draw A,T","T":274.8,"commit":[186.4,186.4],"why":["zones","zones"],"blind":[null,null],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":2500,"opening":"bow","exit":"E3","kind":"draw A,T","T":274.8,"commit":[186.4,186.4],"why":["zones","zones"],"blind":[null,null],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":2500,"opening":"broadside","exit":"E1","kind":"surrender A","T":273.1,"commit":[184.8,186.1],"why":["zones","zones"],"blind":[201.3,232.3],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":2500,"opening":"broadside","exit":"E2","kind":"surrender A","T":273.1,"commit":[184.8,186.1],"why":["zones","zones"],"blind":[201.3,232.3],"zones":[6,6]}
+{"a":"Swarm","b":"Swarm","range":2500,"opening":"broadside","exit":"E3","kind":"surrender A","T":273.1,"commit":[184.8,186.1],"why":["zones","zones"],"blind":[201.3,232.3],"zones":[6,6]}
+{"a":"Furnace","b":"Furnace","range":900,"opening":"bow","exit":"E1","kind":"none","T":600,"commit":[8.9,8.9],"why":["blind","blind"],"blind":[8.9,8.9],"zones":[2,2]}
+{"a":"Furnace","b":"Furnace","range":900,"opening":"bow","exit":"E2","kind":"none","T":600,"commit":[8.9,8.9],"why":["blind","blind"],"blind":[8.9,8.9],"zones":[2,2]}
+{"a":"Furnace","b":"Furnace","range":900,"opening":"bow","exit":"E3","kind":"none","T":600,"commit":[8.9,8.9],"why":["blind","blind"],"blind":[8.9,8.9],"zones":[2,2]}
+{"a":"Furnace","b":"Furnace","range":900,"opening":"broadside","exit":"E1","kind":"none","T":600,"commit":[101.3,118],"why":["blind","zones"],"blind":[101.3,127.6],"zones":[5,6]}
+{"a":"Furnace","b":"Furnace","range":900,"opening":"broadside","exit":"E2","kind":"none","T":600,"commit":[101.3,118],"why":["blind","zones"],"blind":[101.3,127.6],"zones":[5,6]}
+{"a":"Furnace","b":"Furnace","range":900,"opening":"broadside","exit":"E3","kind":"none","T":600,"commit":[101.3,118],"why":["blind","zones"],"blind":[101.3,127.6],"zones":[5,6]}
+{"a":"Furnace","b":"Furnace","range":1500,"opening":"bow","exit":"E1","kind":"none","T":600,"commit":[179.4,179.4],"why":["zones","zones"],"blind":[220.2,220.2],"zones":[6,6]}
+{"a":"Furnace","b":"Furnace","range":1500,"opening":"bow","exit":"E2","kind":"none","T":600,"commit":[179.4,179.4],"why":["zones","zones"],"blind":[220.2,220.2],"zones":[6,6]}
+{"a":"Furnace","b":"Furnace","range":1500,"opening":"broadside","exit":"E1","kind":"none","T":600,"commit":[159.4,147.6],"why":["zones","blind"],"blind":[169.2,147.6],"zones":[6,5]}
+{"a":"Furnace","b":"Furnace","range":1500,"opening":"bow","exit":"E3","kind":"none","T":600,"commit":[179.4,179.4],"why":["zones","zones"],"blind":[220.2,220.2],"zones":[6,6]}
+{"a":"Furnace","b":"Furnace","range":1500,"opening":"broadside","exit":"E2","kind":"none","T":600,"commit":[159.4,147.6],"why":["zones","blind"],"blind":[169.2,147.6],"zones":[6,5]}
+{"a":"Furnace","b":"Furnace","range":1500,"opening":"broadside","exit":"E3","kind":"none","T":600,"commit":[159.4,147.6],"why":["zones","blind"],"blind":[169.2,147.6],"zones":[6,5]}
+{"a":"Furnace","b":"Furnace","range":2500,"opening":"bow","exit":"E1","kind":"none","T":600,"commit":[176.1,176.1],"why":["blind","blind"],"blind":[176.1,176.1],"zones":[5,5]}
+{"a":"Furnace","b":"Furnace","range":2500,"opening":"bow","exit":"E2","kind":"none","T":600,"commit":[176.1,176.1],"why":["blind","blind"],"blind":[176.1,176.1],"zones":[5,5]}
+{"a":"Furnace","b":"Furnace","range":2500,"opening":"bow","exit":"E3","kind":"none","T":600,"commit":[176.1,176.1],"why":["blind","blind"],"blind":[176.1,176.1],"zones":[5,5]}
+{"a":"Furnace","b":"Furnace","range":2500,"opening":"broadside","exit":"E1","kind":"none","T":600,"commit":[182.4,180.7],"why":["zones","zones"],"blind":[206.5,206.4],"zones":[6,6]}
+{"a":"Furnace","b":"Furnace","range":2500,"opening":"broadside","exit":"E2","kind":"none","T":600,"commit":[182.4,180.7],"why":["zones","zones"],"blind":[206.5,206.4],"zones":[6,6]}
+{"a":"Furnace","b":"Furnace","range":2500,"opening":"broadside","exit":"E3","kind":"none","T":600,"commit":[182.4,180.7],"why":["zones","zones"],"blind":[206.5,206.4],"zones":[6,6]}

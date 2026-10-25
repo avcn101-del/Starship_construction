@@ -1179,6 +1179,50 @@ steel's c alone), and the crew of a long beam bay (its crew scales with its
 cells under the size rule).
 
 
+### Battle phases' gaps 1, 3 and 4: the probe (#346, 2026-10-25)
+
+On `ld/pace` `7ef9ff3` (the locked builds, not PR #104's), by the lead
+designer; one seed, a reading for the phases plan, not a measure.
+
+**Gap 1, pursuit** (`tools/estimates/phase-gaps-pursuit.mjs`; candidates in
+`phase-gaps-pursuit.diff`; `out/phase-gaps-pursuit.jsonl`). A under `close`,
+T under `disengage`, standing orders, 900 m bow-on, 16 pairs of R2, Lance,
+Swarm, Furnace. Weapons live: 4 escapes (Furnace v Lance 82 s, Furnace
+mirror 132 s, R2 v Furnace 554 s), 2 unended, the rest end by kill in
+0.3–37 s. Weapons tight on both sides: **16 of 16 escape**, 72–101 s
+(median 81). The trace (R2 mirror): at 2.7 s, closing at 28 m/s with 254 m
+to its point, A's braking curve turns its engine round (engine off 3–10 s)
+just as T finishes its own turn and opens its engine (5–7 s); A turns back
+and from 14 s both run at full thrust with the range opening at 36.9 m/s,
+constant to the cull distance. Equal acceleration cannot take the gain back;
+catching it needs Δa ≥ v₀² / 2(D − r₀) = 37² / 2(3000 − 800) ≈ 0.31 m/s²
+(3 % of 10.5). Candidates on a scratch copy: L1 the braking curve at
+a + the other's observed acceleration away (16 of 16, median 81 s); L2 also
+leading it by a t180 (16, median 97 s, 59–292); L5 also coasting bow-on
+instead of turning while the other accelerates away (16, median 161 s,
+63–480). An escape at equal acceleration is the physics of who must turn,
+not the navigator's law.
+
+**Gaps 3 and 4, contact** (`tools/estimates/phase-gaps-contact.mjs`,
+`out/phase-gaps-contact.jsonl`). As the design partner's probe (`IDEAS.md`,
+"a contact phase held at range"): both sides the standard enemy with
+patience 1 (weapons tight), range `open` until the exit, then `close` and
+free; 7 pairs × 900 / 1500 / 2500 m × bow / broadside, seed 1, cull 5000 m.
+Exit E0 zones (6 resolved) alone: 22 of 42 both commit, 16 end, median
+227 s (the design partner's, re-run by the previous chat). E1 zones or no
+own antenna standing unruined (own fittings: `ruined`, cell destroyed):
+42 of 42 commit (26 sides by blindness), 30 end, median 188.5 s (49–420).
+E2 also own ship damaged (a `cell-damaged` in its own log): 42, 30 end,
+median 184.9 s (85–397); E3 also a 240 s cap: identical to E2 (the cap
+never decided). By opening (E2): first commit median 70.6 s from 900 m,
+174.3 s from 1500, 182.6 s from 2500 (the d⁴ scan law); ends median 133,
+222, 216 s. Unended (12): the Lance mirror (5) and the Furnace mirror (6),
+#330's stall, and the R2 mirror 900 m bow (both commit blind at 65.9 s and
+fire, then both are in Cool by 180 s: no cell damaged). By 600 s 74
+of 84 sides have no antenna standing unruined (plume and cell loss not
+separated): a sensor rarely outlives the battle, a measure for the
+baseline.
+
 ## STATUS.md as it stood at L5e1's merge (2026-10-24), moved here by process v2 (#325)
 
 ### STATUS — hand-over between chats (#179)

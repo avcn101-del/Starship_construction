@@ -1983,6 +1983,8 @@ Each line names its decision and when it is due; a closed one is removed.
     The design partner's candidate: a navigator that leads the other ship's
     motion (as gunnery's intercept) and caps the relative speed; judged on the
     suite. Due before L5e2's measures if the builds' tables show it.
+    Not the phases' pursuit (#346): at equal acceleration a pursuing law only
+    delays an escape.
 
 58. **A starved engine latches the pilot's thrust at 0** (PR #105, the
     physics checker's H1 and the reviewer's finding 1; #335's rule as
@@ -2353,3 +2355,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 343 | Furnace's mirror does not end (two M shields absorb its beam whole in 7 of 8 cells, #345): recorded as a measured count in `L4.builds.lethal`'s (i), not a criterion; (i) for Lance and Swarm, (ii) for all three; no M turret, no beam change before the baseline | current |
 | 344 | `L4.builds.valid` withdrawn for `L4.builds.valid.v2`: the builds' shapes as #330, #332 and #343 allow (one S turret at most on Lance and Swarm; the Swarm's point defence free; Furnace's bay of any size) | current |
 | 345 | #343's mechanism corrected: in 7 of 8 Furnace mirror cells the two M shields let none of the beam through (no cell damage by 600 s); only 600 m broadside passes about 9 % | current |
+| 346 | Phases gaps 1, 3, 4 probed: an escape at equal acceleration is physics (no pursuing navigator; the range attacker is an acceleration margin); contact is weapons tight (`openFire: tight`) at range open from a 1500 or 2500 m opening; its exit is zones resolved, or no antenna left, or own ship damaged | current |

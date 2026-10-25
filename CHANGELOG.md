@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — the phases plan's gaps 1, 3, 4 probed (#346)
+
+- #346: an escape at equal acceleration is physics (no pursuing
+  navigator); contact is weapons tight (`openFire: tight`, planned) at
+  range open from a 1500 or 2500 m opening; contact's exit is zones
+  resolved, or no own antenna left, or own ship damaged.
+  `tools/estimates/phase-gaps-pursuit.mjs` (+ `.diff`),
+  `phase-gaps-contact.mjs`, `out/phase-gaps-*.jsonl`; detail in
+  `HISTORY.md` §16.
+
 ## Unreleased — 2026-10-25 — §17 item 58 planned (#340)
 
 - `DESIGN.md` §13n.10: a delivered-thrust report expires after the new
