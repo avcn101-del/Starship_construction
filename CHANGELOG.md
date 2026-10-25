@@ -5,6 +5,16 @@
 - #369 (the owner): DTN is frozen after PR #109 and PR #110; the kernel,
   the physics scenarios and `proto/` move to `avcn101-del/DTN-bridge-sim`;
   `STATUS.md` holds the hand-over.
+## Unreleased — 2026-10-25 — the phases feel prototype built (§13n.12; #366, #367)
+
+- `proto/` `phases-1`: the locked builds (R2, Lance, Swarm, Furnace) in
+  pairs, both sides flown by `js/enemy.js` at the standard personality;
+  `MENUS` in `js/data.js` (the first menu with #368's Charge, outside
+  every record's data hash); contact on Stand off held by the captain's patience until its
+  exit; decision points 1 and 2 with their auto choices and a pause
+  setting; no preset buttons (#367); menu choices recorded with their step
+  and replayed by `proto/replay.mjs`; `proto/play.mjs` plays one battle
+  headless; `proto/captain-probe.mjs` is the probe behind #367.
 
 ## Unreleased — 2026-10-25 — play first: the phases feel prototype planned (#365, #366)
 

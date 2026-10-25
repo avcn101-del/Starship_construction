@@ -2455,3 +2455,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 367 | PR #110's answers: contact's hold via the side's enemy patience at the zone count (0 at a non-zone exit); the page's verbs are scan, target and a menu entry (no preset buttons: the captain re-picks its preset) | current |
 | 368 | A Charge entry on every build's first menu: skip contact, close and fire at once (`range: close`, `openFire: inRange`, `firing: salvo`, weapons first in power), selectable from the start (the owner) | current |
 | 369 | DTN frozen after PR #109 and PR #110; nothing new starts; one documentation pull request to `main`; a hand-over for `avcn101-del/DTN-bridge-sim` in `STATUS.md`; the nightly regression disabled after it (the owner) | current |
+| 370 | Answers at PR #110's merge: 0 blocking, 1 non-blocking (re-choosing an entry does not re-arm decision point 2: stays); `CONSTANTS.md` regenerated | current |

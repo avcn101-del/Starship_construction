@@ -56,3 +56,19 @@ button:active { background: #fff; color: #000; }
 #end .tree-root { font-weight: bold; }
 #end .tree-cause { color: #ff8080; }
 #version { font-size: 10px; color: #a8a8a8; white-space: nowrap; }
+#side { width: 230px; }
+#menu { flex: none; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 4px; border-bottom: 2px solid #fff; }
+#menu button { min-width: 0; padding: 0 4px; font-size: 12px; line-height: 1.1; white-space: normal; }
+#phase { flex: none; padding: 4px 6px; border-bottom: 2px solid #fff; font-size: 11px; line-height: 1.3; }
+#phase .you { color: #38e8ff; font-weight: bold; }
+#phase .enemy { color: #ff8a70; }
+#phase .auto { color: #ffff00; font-weight: bold; }
+#phase .line { color: #a8a8a8; }
+#decision { position: absolute; left: 8px; right: 8px; top: 8px; max-height: 92%; overflow: auto; background: rgba(0, 0, 0, 0.94); border: 3px solid #ffff00; padding: 8px; z-index: 5; }
+#decision h2 { margin: 0 0 6px; font-size: 16px; color: #ffff00; }
+#decision .options { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; }
+#decision button { display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 6px 8px; font-weight: normal; }
+#decision button b { font-size: 15px; }
+#decision button span { font-size: 11px; color: #c8c8c8; margin-top: 2px; }
+#decision .note { margin-top: 6px; font-size: 11px; color: #a8a8a8; }
+#decision[hidden], #end[hidden] { display: none; }

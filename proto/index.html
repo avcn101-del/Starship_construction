@@ -8,11 +8,10 @@
 <link rel="stylesheet" href="proto.css">
 </head>
 <body>
-<!-- Throwaway feel prototype on the L5d kernel loop (DESIGN.md 13j, 13n.1 (d), #217, #301 (5)). Never a Mission 0 result. -->
+<!-- Throwaway feel prototype: the phases on the kernel loop (DESIGN.md 13j, 13n.1 (d), 13n.12, #217, #301 (5), #366). Never a Mission 0 result. -->
 <div id="rotate">Turn the phone sideways: the battle is landscape.</div>
 <div id="app">
   <header id="bar">
-    <div class="group" id="presets" role="group" aria-label="Preset"></div>
     <div class="group"><button id="scan" type="button">Scan</button></div>
     <div class="group" id="speeds" role="group" aria-label="Time"></div>
     <div class="group">
@@ -28,11 +27,14 @@
     <div id="stage">
       <canvas id="view"></canvas>
       <div id="hint">Tap a known enemy room to target it; tap elsewhere on its grid (or Scan, then a zone) to scan.</div>
+      <div id="decision" hidden></div>
       <div id="end" hidden></div>
     </div>
     <aside id="side">
+      <div id="menu" role="group" aria-label="Menu"></div>
+      <div id="phase" aria-live="polite"></div>
       <div id="log" aria-live="off"></div>
-      <details id="standins" open>
+      <details id="standins">
         <summary>STAND-INS</summary>
         <ul id="standin-list"></ul>
       </details>
@@ -42,14 +44,14 @@
 <div id="loadout" hidden>
   <div id="loadout-box">
     <div id="loadout-head">
-      <h2>Loadout <span>R1d-A vs R1d-A · the standard enemy</span></h2>
+      <h2>Battle <span>the phases · both captains the standard enemy</span></h2>
       <label id="seed-label" for="seed">Seed</label>
       <input id="seed" type="number" min="0" step="1" inputmode="numeric" aria-label="Seed">
       <button id="loadout-default" type="button">Defaults</button>
       <button id="loadout-start" type="button">Start</button>
     </div>
     <div id="loadout-groups"></div>
-    <div id="loadout-note">Both ships are R1d-A on the kernel's loop (js/battle.js): you start on Fire, the enemy is js/enemy.js at personality 0.5 each. Shield budget and hits to wreck are run-time overrides of js/data.js within their approved ranges, for both ships. Your verbs: scan a zone, target a known room, switch preset. The seed draws the enemy's dodge intervals; Restart adds 1.</div>
+    <div id="loadout-note">Both ships are flown by the same automatic captain (js/enemy.js, standard personality), which picks Fire, Cool or Evade itself. You start on Stand off: weapons held until contact is over. Then you choose from your build's menu (right panel) at any time; a decision point asks you at contact's end and when you are hit while attacking. Pause: the battle waits for your choice; Auto: the automatic choice applies and you may change it. Your verbs: scan a zone, target a known room. The seed draws the dodge intervals; Restart adds 1.</div>
   </div>
 </div>
 <div id="export-panel" hidden>
@@ -59,9 +61,11 @@
     <button id="export-copy" type="button">Copy</button>
     <button id="export-close" type="button">Close</button>
   </div>
-  <div id="export-note">Send this text to the lead designer: proto/replay.mjs replays it through tools/duel.js (its replay line is inside). The battle is paused.</div>
+  <div id="export-note">Send this text to the lead designer: node proto/replay.mjs replays it from its setup, menu choices and verbs. The battle is paused.</div>
   <textarea id="export-text" readonly spellcheck="false" aria-label="Export text"></textarea>
 </div>
+<!-- mission0/builds.js (the locked builds) ends with a Node-only "run as a script" check that reads process.argv: a stub so it loads in the browser. -->
+<script>window.process = window.process || { argv: [] };</script>
 <script type="module" src="proto.js"></script>
 </body>
 </html>

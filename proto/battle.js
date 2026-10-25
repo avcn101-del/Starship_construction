@@ -1,37 +1,39 @@
-// proto/battle.js — the page's battle (DESIGN.md 13n.1 (d), L5d; #217, #301
-// (5)), no DOM: the kernel's own loop (js/battle.js createBattle / tick) on the
-// duel of proto/duel.js (both ships R1d-A, the player A on Fire, the enemy T by
-// js/enemy.js at 0.5 each). The player's three verbs enter only as the kernel's
-// inputs { t, verb, arg } (side A), applied before the next step, so a played
-// battle replays from its seed and inputs (tools/duel.js). This file adds no
-// loop, no autopilot and no script of its own; it reads the kernel's state for
-// the page (the player's own world, its knowledge model of the enemy, the
-// battle's shot books) and adds no game number.
-import { tick, battleTree, mainBody } from '../js/battle.js';
+// proto/battle.js — the page's battle (DESIGN.md 13n.12, 13n.1 (d); #217, #301
+// (5), #366), no DOM: the kernel's own loop (js/battle.js createBattle / tick)
+// with the phases of proto/phases.js (both sides flown by js/enemy.js at the
+// standard personality, the player's menu choices over it). The player's two
+// verbs (scan, target) enter only as the kernel's inputs { t, verb, arg } (side
+// A), applied before the next step; the menu choices are recorded with their
+// step (proto/phases.js), so a played battle replays from its setup, choices
+// and inputs (proto/replay.mjs). This file adds no loop, no autopilot and no
+// script of its own; it reads the kernel's state for the page (the player's
+// own world, its knowledge model of the enemy, the battle's shot books) and
+// adds no game number.
+import { battleTree, mainBody } from '../js/battle.js';
 import { isDestroyed } from '../js/rooms.js';
-import { createDuel } from './duel.js';
+import { createPhases, stepPhases } from './phases.js';
 
-export { tick, mainBody };
+export { mainBody };
+export const tick = stepPhases;
 
-/** A new battle for the page: the seed and the run-time overrides (checked by the page against their approved range). */
-export function startBattle({ seed, overrides = {} }) {
-  const b = createDuel({ seed, overrides });
-  b.played = []; // the player's verbs as played: [{ t, verb, arg }] (the export's inputs)
-  b.overrides = { ...overrides };
+/** A new battle for the page: the phases setup (proto/phases.js createPhases). */
+export function startBattle(setup) {
+  const b = createPhases(setup);
+  b.played = []; // the player's verbs as played: [{ t, step, verb, arg }] (the export's inputs)
   b.crewTotal = Object.fromEntries(b.sides.map((s) => [s.name, s.world.rooms.reduce((x, r) => x + r.crew, 0)]));
   return b;
 }
 
 /**
- * A verb of the player's (13n.1 (d)): 'scan' a zone (0-5), 'target' a room id, 'preset' fire / cool / evade. It is
+ * A verb of the player's (13n.1 (d), #367 (2)): 'scan' a zone (0-5), 'target' a room id (no preset verb: the captain re-picks its preset). It is
  * pushed to the kernel's inputs at this step, as tools/play.mjs does, so it applies before the next step and its t
  * (battle.t = step x dt) gives the same step on replay.
  */
 export function playVerb(b, verb, arg) {
   if (b.ended) return null;
-  const x = { t: b.t, verb, arg };
+  const x = { t: b.t, step: b.step, verb, arg };
   b.played.push(x);
-  b.inputs.push({ ...x, side: 'A', step: b.step, done: false });
+  b.inputs.push({ ...x, side: 'A', done: false });
   return x;
 }
 
