@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — gap 7 read (#363)
+
+- #363: the locked builds' accelerations and t180
+  (`tools/estimates/gap7-dynamics.mjs`): no range attacker among the
+  reference four; a position attacker by turn margin to be measured.
+
 ## Unreleased — 2026-10-25 — X provisional (#360)
 
 - #360: #337's X is re-checked against the phased measures (read with the
