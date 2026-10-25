@@ -296,7 +296,9 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.books.field` | fb92a8af | PASS, WITHDRAWN (successor `L4.books.field.v2`, #316) | 2546ae90 | 5ee1bbb | none | `node tools/m0.js run L4.books.field` |
 | `L4.books.two.v2` | 8640465c | PASS | d4490342 | 5140cc9 | none | `node tools/m0.js run L4.books.two.v2` |
 | `L4.books.two` | e9fe5591 | PASS, WITHDRAWN (successor `L4.books.two.v2`, #278) | d4490342 | 8af82c8 | none | `node tools/m0.js run L4.books.two` |
-| `L4.builds.valid` | 98a0843e | PASS | e527170c | 5140cc9 | none | `node tools/m0.js run L4.builds.valid` |
+| `L4.builds.lethal` | f0b30149 | PASS | a6a6aa15 | 1498ebd | none | `node tools/m0.js run L4.builds.lethal` |
+| `L4.builds.valid.v2` | 54ed18cc | PASS | e527170c | 1498ebd | none | `node tools/m0.js run L4.builds.valid.v2` |
+| `L4.builds.valid` | 98a0843e | PASS, WITHDRAWN (successor `L4.builds.valid.v2`, #344) | e527170c | 5140cc9 | none | `node tools/m0.js run L4.builds.valid` |
 | `L4.cascade.v2` | 620484ee | PASS, WITHDRAWN (successor `L4.cascade.v3`, #278) | d878c2b5 | c998ff2 | none | `node tools/m0.js run L4.cascade.v2` |
 | `L4.cascade.v3` | 9bc98750 | PASS, WITHDRAWN (successor `L4.cascade.v4`, #286) | 0aad4ffc | 4e217c0 | none | `node tools/m0.js run L4.cascade.v3` |
 | `L4.cascade.v4` | 178c8132 | PASS | 416aade2 | 5140cc9 | none | `node tools/m0.js run L4.cascade.v4` |
@@ -338,8 +340,8 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.log.v2` | cd91410b | PASS | f3ee00ad | 5140cc9 | none | `node tools/m0.js run L4.log.v2` |
 | `L4.log` | f91185ca | PASS, WITHDRAWN (successor `L4.log.v2`, #278) | f3ee00ad | 8af82c8 | none | `node tools/m0.js run L4.log` |
 | `L4.loop.rules` | abb3deaf | PASS | cc74a636 | 5140cc9 | none | `node tools/m0.js run L4.loop.rules` |
-| `L4.loop.symmetric.v2` | e5fb013a | PASS | 17e5ff02 | 6043ed0 | none | `node tools/m0.js run L4.loop.symmetric.v2` |
-| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | 6043ed0 | none | `node tools/m0.js run L4.loop.symmetric` |
+| `L4.loop.symmetric.v2` | e5fb013a | PASS | 17e5ff02 | de5ba9c | none | `node tools/m0.js run L4.loop.symmetric.v2` |
+| `L4.loop.symmetric` | c8f3248b | PASS | 17e5ff02 | de5ba9c | none | `node tools/m0.js run L4.loop.symmetric` |
 | `L4.orders.energy` | 0e15c362 | PASS | e9f1b4d6 | 5140cc9 | none | `node tools/m0.js run L4.orders.energy` |
 | `L4.orders.fire` | 0ff94ee2 | PASS | db5c937b | 5140cc9 | none | `node tools/m0.js run L4.orders.fire` |
 | `L4.orders.repair.v2` | 27515b0c | PASS | eb4987f1 | 5140cc9 | none | `node tools/m0.js run L4.orders.repair.v2` |
@@ -376,7 +378,7 @@ A RETIRED scenario reads a constant `data.js` no longer holds: listed, not run (
 | `L4.route.surrender.v2` | 8840bd1c | PASS | e54f07d9 | 5140cc9 | none | `node tools/m0.js run L4.route.surrender.v2` |
 | `L4.route.surrender` | 32de0f22 | PASS, WITHDRAWN (successor `L4.route.surrender.v2`, #303) | e54f07d9 | f7833b3 | none | `node tools/m0.js run L4.route.surrender` |
 | `L4.shield.window` | 963d673a | PASS | 1843643f | 5140cc9 | none | `node tools/m0.js run L4.shield.window` |
-| `L4.sweep.determinism.v2` | 5e8b7b49 | PASS | 85ee6c78 | 5140cc9 | none | `node tools/m0.js run L4.sweep.determinism.v2` |
+| `L4.sweep.determinism.v2` | 5e8b7b49 | PASS | 85ee6c78 | de5ba9c | none | `node tools/m0.js run L4.sweep.determinism.v2` |
 | `L4.sweep.determinism` | 790917e5 | PASS, WITHDRAWN (successor `L4.sweep.determinism.v2`, #316) | 0281e332 | 7840cb9 | none | `node tools/m0.js run L4.sweep.determinism` |
 | `L4.target.known` | 0e1bdad2 | PASS | 6634b6cf | 5140cc9 | none | `node tools/m0.js run L4.target.known` |
 | `L4.target.plates` | 30c3732c | PASS | 796e1f62 | 5140cc9 | none | `node tools/m0.js run L4.target.plates` |

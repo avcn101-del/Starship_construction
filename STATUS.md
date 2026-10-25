@@ -29,7 +29,8 @@ Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidanc
 ## Open pull requests
 
 - **#107** merged into `ld/pace` (`01b9332`; answers #350); `regress` there by runner `session_01KiJGgyop4Zg1PSS7wBGg1J`: 181 VERIFIED + 160 WITHDRAWN + 5 RETIRED, 0 FAIL / MISMATCH / BLOCKED.
-- **#104** (draft, `m0/builds2` → `ld/pace`): the builds. Lance and Swarm meet #330 (i) / (ii) with one S turret each (8/8 8/8; 8/8 7/8); Furnace 0/8 measured (#343, #345), 6/8 (ii); `L4.builds.lethal` written unlocked; `L4.builds.valid` → `.v2` (#344). Locks after PR #107's merge, with (i), (ii) and the helm suite re-checked on the merged code.
+- **#104** merged into `ld/pace` (answers #359; reviewer 0 blocking, 5 non-blocking); a runner's `regress` on the merge pending.
+- **#109** (`m0/tools` → `ld/pace`): the tools pass, head `586e72c`, under review; after #104's merge it must merge `ld/pace` and re-record `L4.sweep.determinism.v2` (both PRs moved it) and whatever replays it.
 
 ## Next steps
 

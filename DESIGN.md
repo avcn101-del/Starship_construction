@@ -1550,7 +1550,7 @@ L5e is split (the owner's B, #315): **L5e1** builds what E5–E7 need and fixes 
 | J9 | `L4.books.field` | two ships, a charged field stopping rounds | the angular book closes at 1e-9 × gross (+ 1e-12) with shields up |
 | J10 | `L4.events.change` | a cell grazed below float resolution | no `cell-damaged` without a change of integrity |
 | J11 | §17 item 50's successors | as item 50 | as item 50 |
-| J12 | `L4.builds.valid` | every build of `mission0/builds.js` | `validateShip` passes; the masses within the budgets above |
+| J12 | `L4.builds.valid` (withdrawn by #344; successor `L4.builds.valid.v2`) | every build of `mission0/builds.js` | `validateShip` passes; the masses within the budgets above |
 | J13 | `L4.sweep.determinism` | `tools/sweep.mjs` on a small grid (2 builds, 2 slots, 1 range, 1 seed) | two runs and 1 against 4 workers give the same table hash |
 
 **Process and cost** (#246 (4); the ratio table in `LEDGER.md`: L5c 1.18, L5d ≥ 1.20 on raw)
@@ -2020,6 +2020,13 @@ Each line names its decision and when it is due; a closed one is removed.
     suite. Due before L5e2's measures if the builds' tables show it.
     Not the phases' pursuit (#346): at equal acceleration a pursuing law only
     delays an escape.
+59. **The builds' choices without a mutation** (PR #104's reviewer, #359):
+    `builds2.swarmTurret` (the Swarm's S turret held: (ii) 3 / 8 without it),
+    `builds2.furnaceBay` (L bay to M: R2 hurt 2 / 8) and the Lance RCS
+    relocation have no entry in `tools/mutations.json`; the Swarm's
+    penetrator warhead is deliberately unpinned (an HE variant gives the same
+    counts under (i) and (ii)). Due: added and run `--only` by the next pass
+    that touches `mission0/builds.js`, or at L5's exit run, whichever first.
 
 ## 18. Decisions in force
 
@@ -2387,3 +2394,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 356 | The audit's points: #349's rates also reported apart for mirror and non-mirror cells; §8 corrected (position is built) and its table named by slot for lint checks 11 and 12 (tools pass); the pace numbers stale until the baseline; the work on the current decision layer re-measured with the designed menu | current |
 | 357 | The baseline reduced to X, the first hot room, outcomes counted apart and the builds ship versus ship (no verb column, no like-for-like role); the reference without phases is the one-phase plan on the designed menu (the owner) | current |
 | 358 | After the builds' lock: gap 7 and §13n.12 in parallel; the candidate slots decided and built before #348's derivation, which runs once on the final slot set; then the one-phase and with-phases measures on the designed menu (the owner) | current |
+| 359 | Answers at PR #104's merge: 0 blocking, 5 non-blocking; the three moved records explained; the builds' missing mutations as §17 item 59 (the Swarm's warhead deliberately unpinned); J12 marked withdrawn | current |

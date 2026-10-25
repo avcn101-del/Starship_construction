@@ -2266,5 +2266,13 @@
     "old": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge) - RES) h.yielded = true;",
     "new": "      else if (t - h.posBest.t >= scaled(p.helm.positionPatience, edge)) h.yielded = true;",
     "note": "item 58: the yield's clock without RES: at some engagement steps the yield lands one step late"
+  },
+  {
+    "id": "builds2.lanceTurret",
+    "rule": "13n.1 (e) Lance's secondary S turret (#330 (i), #332)",
+    "file": "mission0/builds.js",
+    "old": "{ id: 'turret', type: 'turret', cell: [8, 5], size: 'S' }",
+    "new": "{ id: 'turret', type: 'hold', cell: [8, 5], size: 'S' }",
+    "note": "#332: without its S turret Lance's mirror ends in 6 of #330's 8 cells (PR #104): L4.builds.lethal's (i) fails"
   }
 ]
