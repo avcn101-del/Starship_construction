@@ -23,6 +23,10 @@
   before crew; side T's tally on mirrored inputs), mutations
   `tools.sweep.noSurvivalKey` and `tools.sweep.tallySideA`; check 12 fails
   a plan section from §13n.12 on with no checklist it can match.
+- Q2's answer (#362): `L4.sweep.determinism.v2` withdrawn (frozen; on the
+  merged code both sides choose range `disengage` and its ordering clause
+  fails) for `L4.sweep.determinism.v3` (U4: the slot `openFire` in place of
+  `range`), against which `l5e1.sweep.byArrival` runs.
 - Scenario `L4.sweep.scoring` (U1, locked before its first run);
   `L4.sweep.determinism.v2` re-recorded (U2): its table hash, and its pair's T set (`range` close → open, the crew tie-break) and ends (destroyed A 220.6 / 142.9 s → 505.3 / 123.3 s); criterion passes. Mutations
   `item58.res.reset`, `tools.sweep.escapeWin`, `tools.sweep.noTie`.
