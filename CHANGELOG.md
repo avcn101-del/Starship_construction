@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-25 — the player's Command verbs; the stand-off default (#353, #354)
+
+- #353 (the owner): break off is a designed-menu entry always added outside
+  #348's derivation; strike colours for the player after Mission 0.
+- #354 (the owner): the stand-off is the phased captain's default posture;
+  measured against the stalemate in the phases measures.
+
 ## Unreleased — 2026-10-25 — postures as the frame of the designed menu (#352)
 
 - #352 (the owner): `IDEAS.md`'s postures frame the phases plan's designed
