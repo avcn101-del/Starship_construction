@@ -1716,6 +1716,7 @@ The owner's order (#365, amends #358): the decision layer is played before it is
 |---|---|---|---|
 | all | **Stand off** (default, #354) | `range: open`; weapons held (`helm.hold`) until contact's exit | contact; the stand-off's first instance (#346) |
 | all | **Break off** (#353) | `range: disengage` | range / finish defend; run |
+| all | **Charge** (#368, the owner) | `range: close`, `openFire: inRange`, `firing: salvo`, `priority`: the build's weapons first, then the engine, then the shields | skips contact: a gamble on closing unscanned (the target falls back to the zone with the most unknown cells; at 600 m a zone scans in 0.8 s against 31 s at 1500 m, d⁴); selectable from the start or at any time, it ends the side's contact at once (patience 0) |
 | R2 | Turret line | `range: hold`, `facing: broadside`, `dodging: on` | position attack and defend: the turret fights while the beam's window stays shut (finding 4) |
 | R2 | Close in | `range: close`, `facing: bow`, `openFire: inRange` | finish attack: beam and turret bear |
 | Lance | Rail line | `range: hold`, `facing: bow`, `openFire: sureHit`, `firing: salvo` | position attack: the spinal railgun bears bow on only |
@@ -2452,3 +2453,4 @@ One row per decision of `DECISIONS.md`, #1 to the last row, with its status toda
 | 365 | Play first (amends #358's order): the tools pass finishes; the reduced baseline runs in the background; a hand-designed first menu per build (existing slots, break off, the stand-off default) and the phases emulated in `proto/` with decision points and a pause setting; the owner plays; then the phases plan (§13n.13), the slots, the kernel build and the measures on what the owner kept; #348's sweep checks and ranks the menu (the owner) | current |
 | 366 | The phases feel prototype (§13n.12): both sides flown by `js/enemy.js`; menu entries as slot sets over the helm's override (`MENUS` in `js/data.js`); contact held with the helm's hold until zones, no antenna or own damage; decision points at contact's exit and at a reversal; choices recorded for replay | current |
 | 367 | PR #110's answers: contact's hold via the side's enemy patience at the zone count (0 at a non-zone exit); the page's verbs are scan, target and a menu entry (no preset buttons: the captain re-picks its preset) | current |
+| 368 | A Charge entry on every build's first menu: skip contact, close and fire at once (`range: close`, `openFire: inRange`, `firing: salvo`, weapons first in power), selectable from the start (the owner) | current |
