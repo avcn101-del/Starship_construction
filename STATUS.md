@@ -29,7 +29,7 @@ Not built yet: §17 items 54 (beam term in the energy book), 56 (missile guidanc
 ## Open pull requests
 
 - **#107** merged into `ld/pace` (`01b9332`; answers #350); `regress` there by runner `session_01KiJGgyop4Zg1PSS7wBGg1J`: 181 VERIFIED + 160 WITHDRAWN + 5 RETIRED, 0 FAIL / MISMATCH / BLOCKED.
-- **#104** merged into `ld/pace` (answers #359; reviewer 0 blocking, 5 non-blocking); a runner's `regress` on the merge pending.
+- **#104** merged into `ld/pace` (`ec26788`; answers #359; reviewer 0 blocking, 5 non-blocking); `regress` on the merge by runner `session_018oPP5pmnkb2TYVPGq2fuG5`: 182 VERIFIED + 161 WITHDRAWN + 5 RETIRED, 0 FAIL; lint passes.
 - **#109** (`m0/tools` → `ld/pace`): the tools pass, head `586e72c`, under review; after #104's merge it must merge `ld/pace` and re-record `L4.sweep.determinism.v2` (both PRs moved it) and whatever replays it.
 
 ## Next steps
