@@ -1,15 +1,13 @@
 # STATUS — hand-over between chats (#179; process v2, #325)
 
-Lead designer chat: **`session_01TVhwYJYiLwnTj5Z2D53m5s`** (from 2026-10-25 04:40 UTC, 11:40 Vietnam time;
-lineage depth 1 of 8). Handed
-over 2026-10-25 ~04:45 UTC (11:45 Vietnam time) by `session_01JNPQjwzYdLB7Uz1qfWt5GC`
-at about 315k tokens (the owner's suggestion, #322), while PR #107's reviewer
-runs its mutations. The new chat is created by `session_01JNPQjwzYdLB7Uz1qfWt5GC`
-(lineage depth 1 of 8: its children can still notify). Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
+Lead designer chat: **`session_01Gv71ygXtVy9Maao1eGSMvh`** (from 2026-10-25 08:37 UTC, 15:37 Vietnam time;
+lineage depth 2 of 8). Handed over 2026-10-25 ~08:35 UTC by
+`session_01TVhwYJYiLwnTj5Z2D53m5s` at about 300k tokens at a block boundary (the owner's choice).
+Chain: `session_01Ld11QmhkPubc8PkfKtd7CT` →
 `session_014nrUDvPgiLEjm64scJFkyW` → `session_01VL5M5dKNeREUVf7y1y3P87` →
 `session_01DFw3o4EBEtf1adcpyJ5786` → `session_01S8gXf1kch2FCFHYE8nwhrn` →
 `session_01Bt5RVRLCv85dFpXLq4qB5W` → `session_01EAtiqegHjnDwsoHwD7cjur` →
-`session_01DJwKiaxa29KDtFqVjBviSe` → `session_01VnsqF6AQX456h5ihxqZjh5` → `session_01JNPQjwzYdLB7Uz1qfWt5GC` → `session_01TVhwYJYiLwnTj5Z2D53m5s` (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
+`session_01DJwKiaxa29KDtFqVjBviSe` → `session_01VnsqF6AQX456h5ihxqZjh5` → `session_01JNPQjwzYdLB7Uz1qfWt5GC` → `session_01TVhwYJYiLwnTj5Z2D53m5s` → `session_01Gv71ygXtVy9Maao1eGSMvh` (sessions notify it with `persistent_session_id` = its id). Work branch: `ld/pace`.
 
 **Reading order (#325)**: this file, `BRIEF.md`, `CLAUDE.md`,
 `.claude/agents/lead-designer.md`, `DESIGN.md` §18 and the plan in force
